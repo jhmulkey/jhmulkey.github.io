@@ -112,6 +112,10 @@ a {
     .handbook {
         grid-area: 2 / 5 / span 1 / span 1;
     }
+    
+    .contact h1 {
+    display: block;
+    }
 }
 
 @media screen and (max-width: 700px) {
@@ -142,6 +146,7 @@ a {
     .contact {
     grid-area: 5 / 1 / span 1 / span 1;
     }
+    
 }
 
 @media screen and (max-width: 768px) {
