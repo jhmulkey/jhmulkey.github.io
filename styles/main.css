@@ -1,0 +1,159 @@
+html {
+    background: url("../images/home-background-1.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.title {
+    font-family: stencil, "Arial Black";
+    font-size: 100px;
+    text-align: center;
+    color: #333;
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 50px;
+    padding-top: 18px;
+}
+
+.nav {
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(5, 1fr);
+    justify-items: center;
+    grid-column-gap: 20px;
+}
+
+.nav div {
+    background-color: black;
+    text-align: center;
+    width: 300px;
+    border: 3px solid silver;
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+}
+
+.nav div:hover {
+    border: 3px solid white;
+    opacity: 0.9;
+    bottom: 2.5px;
+}
+
+.nav a:active div {
+    top: 2.5px;
+}
+
+.nav h1 {
+    color: white;
+}
+
+.nav img {
+    display: block;
+}
+
+.missions {
+    grid-area: 2 / 1 / span 1 / span 1;
+}
+
+.calendar {
+    grid-area: 2 / 2 / span 1 / span 1;
+}
+
+.ranks {
+    grid-area: 2 / 4 / span 1 / span 1;
+}
+
+.handbook {
+    grid-area: 2 / 5 / span 1 / span 1;
+}
+
+.contact {
+    grid-area: 3 / 5 / span 1 / span 1;
+    align-self: center;
+}
+
+.contact h1 {
+    display: none;
+}
+
+.contact:hover h1 {
+    display: block;
+}
+
+@media screen and (max-width: 1330px) {
+    .nav {
+        display: grid;
+        grid-template: repeat(2, 1fr) / repeat(6, 1fr);
+        justify-items: center;
+        grid-row-gap: 20px;
+        margin-top: 50px;
+    }
+    
+    .missions {
+        grid-area: 1 / 2 / span 1 / span 1;
+    }
+
+    .calendar {
+        grid-area: 2 / 2 / span 1 / span 1;
+    }
+
+    .ranks {
+        grid-area: 1 / 5 / span 1 / span 1;
+    }
+
+    .handbook {
+        grid-area: 2 / 5 / span 1 / span 1;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .nav {
+        display: grid;
+        grid-template: repeat(4, 1fr) / 1fr;
+        justify-items: center;
+        grid-row-gap: 20px;
+        margin-top: 50px;
+    }
+    
+    .missions {
+        grid-area: 1 / 1 / span 1 / span 1;
+    }
+
+    .calendar {
+        grid-area: 2 / 1 / span 1 / span 1;
+    }
+
+    .ranks {
+        grid-area: 3 / 1 / span 1 / span 1;
+    }
+
+    .handbook {
+        grid-area: 4 / 1 / span 1 / span 1;
+    }
+    
+    .contact {
+    grid-area: 5 / 1 / span 1 / span 1;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 50px;
+        padding-top: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .title {
+        font-size: 30px;
+        padding-top: 8px;
+    }
+}
