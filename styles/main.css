@@ -3,11 +3,6 @@
     src: url(../fonts/army.ttf);
 }
 
-@font-face {
-    font-family: army2;
-    src: url(../fonts/army2.ttf);
-}
-
 html {
     background: url("../images/home-background-1b.jpg") no-repeat center center fixed; 
     -webkit-background-size: cover;
@@ -26,7 +21,7 @@ a {
 }
 
 .title {
-    font-family: army, army2, Impact;
+    font-family: army, "Arial Black";
     font-size: 100px;
     text-align: center;
     color: #333;
@@ -36,9 +31,13 @@ a {
 }
 
 /* for browsers that do not support grid */
+.nav {
+    margin: 0 auto;
+}
+
 .nav div {
     display: inline-block;
-    margin-left: 20px;
+    margin: 20px;
 }
 
 /* for browsers that support grid */
