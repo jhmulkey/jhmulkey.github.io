@@ -52,7 +52,7 @@ a {
     grid-template: repeat(1, 1fr) / repeat(5, 1fr);
     justify-items: center;
     grid-column-gap: 20px;
-    margin-top: 300px;
+    margin-top: 200px;
 }
 
 .nav div {
