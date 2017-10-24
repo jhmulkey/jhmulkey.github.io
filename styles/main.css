@@ -35,6 +35,18 @@ a {
     padding: 10px 20px;
 }
 
+/* for browsers NOT supporting grid */
+.nav {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav div {
+    margin: 20px;
+}
+
+/* for browsers supporting grid */
 .nav {
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(5, 1fr);
