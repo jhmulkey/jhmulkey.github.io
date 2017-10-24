@@ -17,6 +17,7 @@ body {
 
 a {
     text-decoration: none;
+    outline: none;
 }
 
 .title {
@@ -29,6 +30,13 @@ a {
     padding: 10px 20px;
 }
 
+/* for browsers that do not support grid */
+.nav div {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+/* for browsers that support grid */
 .nav {
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(5, 1fr);
@@ -152,6 +160,19 @@ a {
     grid-area: 5 / 1 / span 1 / span 1;
     }
     
+    .nav div {
+        width: 200px;
+    }
+    
+    .missions img, .calendar img, .ranks img, .handbook img {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .contact img {
+        width: 200px;
+        height: 100px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -165,19 +186,5 @@ a {
     .title {
         font-size: 30px;
         padding: 10px 20px;
-    }
-    
-    .nav div {
-        width: 200px;
-    }
-    
-    .missions img, .calendar img, .ranks img, .handbook img {
-        width: 200px;
-        height: 200px;
-    }
-    
-    .contact img {
-        width: 200px;
-        height: 100px;
     }
 }
