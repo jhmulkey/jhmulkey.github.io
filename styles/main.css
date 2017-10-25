@@ -241,7 +241,7 @@ a:hover .non-index-header {
     }
 }
     
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 736px) {
     .mt {
         display: none;
     }
