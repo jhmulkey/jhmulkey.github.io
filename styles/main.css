@@ -8,6 +8,10 @@
     src: url(../fonts/army2.ttf);
 }
 
+* {
+    box-sizing: border-box;
+}
+
 html {
     background: url("../images/home-background-1b.jpg") no-repeat center center fixed; 
     -webkit-background-size: cover;
@@ -18,6 +22,7 @@ html {
 
 body {
     font-family: "Open Sans", sans-serif;
+    text-align: center;
 }
 
 a {
@@ -124,29 +129,52 @@ a:hover .non-index-header {
     margin-top: 20px;
 }
 
-#table-note {
-    padding: 5px;
-    font-weight: 400;
+.mt-mobile {
+    display: none;
 }
 
-.mt {
+#table-note {
+    padding: 5px;
+}
+
+.mt, .mt-mobile, .mt-full-size {
     text-align: center;
     background-color: rgba(255,255,255,0.8);
     border: 2px solid black;
     border-collapse: collapse;
     margin: 0 auto;
-    font-family: Arial, sans-serif;
-    font-weight: 600;
 }
 
-.mt th, .mt tr, .mt td {
+.mt-mobile {
+    text-align: center;
+    background-color: rgba(255,255,255,0.8);
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+.mt-mobile td {
+    width: 200px;
+}
+
+.mt th, .mt tr, .mt td, .mt-mobile th, .mt-mobile tr, .mt-mobile td, .mt-full-size th, .mt-full-size tr, .mt-full-size td {
     border: 2px solid black;
     padding: 20px;
 }
 
-.mt th {
+.mt th, .mt-mobile th, .mt-full-size th {
     background-color: rgba(51,51,51,0.7);
     color: white;
+    font-size: 20px;
+}
+
+.col-1, .col-6 {
+    font-family: Arial, sans-serif;
+    font-weight: 600;
+}
+
+.col-2, .col-3, .col-4, .col-5 {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
 }
 
 .download {
@@ -176,6 +204,15 @@ a:hover .non-index-header {
 
 .mt a:active {
     top: 1px;
+}
+
+#mt-mobile-mssg {
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px black;
 }
 
 .links2-3, .links2-4, .links2-5, .links2-6, .links2-7, .links2-8, .links3-1, .links3-2, .links3-3, .links3-4, .links3-5, .links3-6, .links3-7, .links3-8, .links4-1, .links4-2, .links4-3, .links4-4, .links4-5, .links4-6, .links4-7, .links4-8 {
@@ -232,6 +269,32 @@ a:hover .non-index-header {
     }
 }
 
+@media screen and (max-width: 1024px) {
+    .nav div {
+        width: 200px;
+    }
+    
+    .missions img, .calendar img, .ranks img, .handbook img {
+        width: 200px;
+        height: 200px;
+    }
+}
+    
+    
+@media screen and (max-width: 768px) {
+    header {
+        font-size: 50px;
+    }
+    
+    .mt {
+        display: none;
+    }
+    
+    .mt-mobile {
+        display: inline-block;
+    }
+}
+
 @media screen and (max-width: 700px) {
     .nav {
         display: grid;
@@ -255,33 +318,11 @@ a:hover .non-index-header {
 
     .handbook {
         grid-area: 4 / 1 / span 1 / span 1;
-    }
-    
-    .nav div {
-        width: 200px;
-    }
-    
-    .missions img, .calendar img, .ranks img, .handbook img {
-        width: 200px;
-        height: 200px;
-    }
-    
-    .contact img {
-        width: 200px;
-        height: 100px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .title {
-        font-size: 50px;
-        padding: 10px 20px;
-    }
+    }    
 }
 
 @media screen and (max-width: 480px) {
-    .title {
+    header {
         font-size: 30px;
-        padding: 10px 20px;
     }
 }
