@@ -133,6 +133,10 @@ a:hover .non-index-header {
     display: none;
 }
 
+.mt-mobile-pre {
+    display: none;
+}
+
 #table-note {
     padding: 5px;
 }
@@ -292,6 +296,10 @@ a:hover .non-index-header {
     
     .mt-mobile {
         display: inline-block;
+    }
+    
+    .mt-mobile-pre {
+    display: block;
     }
 }
 
