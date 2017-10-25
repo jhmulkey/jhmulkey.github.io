@@ -8,10 +8,6 @@
     src: url(../fonts/army2.ttf);
 }
 
-* {
-    box-sizing: border-box;
-}
-
 html {
     background: url("../images/home-background-1b.jpg") no-repeat center center fixed; 
     -webkit-background-size: cover;
@@ -60,30 +56,16 @@ a:hover .non-index-header {
     overflow: hidden;
     position: relative;
     margin: 20px;
-}
-
-.contact-container {
-    width: 200px;
-    height: 100px;
-    border: 3px solid silver;
-    border-radius: 25px;
-    overflow: hidden;
-    display: none;
+    opacity: 0.9;
 }
 
 .nav div:hover {
     border: 3px solid white;
-    opacity: 0.9;
     bottom: 2.5px;
 }
 
-.contact-container:hover {
-    border: 3px solid white;
-    opacity: 0.9;
-}
-
 .nav a:active div {
-    top: 2.5px;
+    top: 1px;
 }
 
 .nav h1 {
@@ -94,6 +76,28 @@ a:hover .non-index-header {
     display: block;
 }
 
+.contact {
+    display: inline-block;
+    margin-top: 60px;
+    background-color: black;
+    text-align: center;
+    width: 100px;
+    height: 50px;
+    border: 2px solid silver;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    opacity: 0.9;
+}
+
+.contact:hover {
+    border: 3px solid white;
+    bottom: 2.5px;
+}
+
+a:active .contact {
+    top: 1px;
+}
 
 /* missions.html styles */
 
