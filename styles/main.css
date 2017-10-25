@@ -209,6 +209,7 @@ a:active .contact {
 
 .doc-div {
     margin: 0;
+    display: inline-block;
 }
 
 .doc-div img {
