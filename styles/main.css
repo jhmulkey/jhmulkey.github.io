@@ -203,16 +203,17 @@ a:hover .non-index-header {
 
 /* calendar.html, ranks.html, and handbook.html styles */
 
-.svg-div {
+.doc-div {
     margin: 0;
 }
 
-.svg-div img {
+.doc-div img {
     display: block;
     margin: 0 auto;
+    max-width: 100%;
 }
 
-.svg-download {
+.doc-download {
     text-align: center;
     margin: 20px;
 }
