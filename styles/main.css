@@ -46,9 +46,9 @@ a:hover .non-index-header {
 
 /* for browsers NOT supporting grid */
 .nav {
-    display: inline-flex;
+    display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .nav div {
