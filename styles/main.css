@@ -129,7 +129,7 @@ a:hover .non-index-header {
     margin-top: 20px;
 }
 
-.mt-mobile {
+.mt-mobile, .mt-mobile-wrapper br {
     display: none;
 }
 
@@ -299,7 +299,11 @@ a:hover .non-index-header {
     }
     
     .mt-mobile-pre {
-    display: block;
+        display: block;
+    }
+    
+    .mt-mobile-wrapper br {
+        display: inline-block;
     }
 }
 
