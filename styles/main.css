@@ -262,6 +262,10 @@ a:active .contact {
     .mt-mobile-wrapper br {
         display: inline-block;
     }
+    
+    html {
+        background: #b3733d;
+    }
 }
 
 @media screen and (max-width: 700px) {
