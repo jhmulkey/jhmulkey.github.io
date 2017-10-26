@@ -249,11 +249,6 @@ a:active .contact {
 @media screen and (max-width: 736px) {  
     html {
         background-color: black;
-        background-image: url("../images/home-background-1c.jpg")
-        -webkit-background-size: auto;
-        -moz-background-size: auto;
-        -o-background-size: auto;
-        background-size: auto;
     }
     
 @media screen and (max-width: 735px) {
