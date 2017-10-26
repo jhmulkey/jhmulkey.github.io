@@ -246,15 +246,7 @@ a:active .contact {
     }
 }
 
-@media screen and (max-width: 736px) {
-    //html {
-        background: #bd7f44; /* Old browsers */
-        background: -moz-linear-gradient(top, #bd7f44 27%, #ffbb39 100%); /* FF3.6-15 */
-        background: -webkit-linear-gradient(top, #bd7f44 27%,#ffbb39 100%); /* Chrome10-25,Safari5.1-6 */
-        background: linear-gradient(to bottom, #bd7f44 27%,#ffbb39 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd7f44', endColorstr='#ffbb39',GradientType=0 ); /* IE6-9 */
-    }
-    
+@media screen and (max-width: 736px) {  
     html {
         background-color: black;
         background-image: url("../images/home-background-1c.jpg")
