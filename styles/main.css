@@ -244,6 +244,14 @@ a:active .contact {
         width: 200px;
         height: 200px;
     }
+    
+    html {
+    background: url("../images/home-background-1c.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    }
 }
     
 @media screen and (max-width: 735px) {
