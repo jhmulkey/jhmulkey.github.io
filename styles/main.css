@@ -253,6 +253,11 @@ a:active .contact {
     background-size: cover;
     }
 }
+
+@media screen and (max-width: 736px) {  
+    html {
+        background-color: black;
+    }
     
 @media screen and (max-width: 735px) {
     .mt {
