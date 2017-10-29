@@ -167,6 +167,15 @@ a:active .contact {
     position: relative;
 }
 
+.download:hover {
+    border: 2px solid #333;
+    bottom: 1px;
+}
+
+.download:active {
+    top: 1px;
+}
+
 .watch {
     background-color: #FE021C;
     color: white;
