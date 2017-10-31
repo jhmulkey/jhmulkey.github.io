@@ -234,6 +234,18 @@ a:active .contact {
 
 /* media queries */
 
+@media screen and (max-width: 1875px) {
+    header {
+        font-size: 75px;
+    }
+}
+
+@media screen and (max-width: 1419px) {
+    header {
+        font-size: 50px;
+    }
+}
+
 @media screen and (max-width: 1330px) {
     .nav {
         margin-top: 50px;
