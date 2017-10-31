@@ -41,8 +41,11 @@ a:hover .non-index-header {
 }
 
 .nav {
+    -webkit-display: flex;
     display: flex;
+    -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-justify-content: space-around;
     justify-content: space-around;
     margin-top: 200px;
 }
