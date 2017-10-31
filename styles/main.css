@@ -186,12 +186,12 @@ a:active .contact {
     position: relative;
 }
 
-.mt a:hover {
+.watch:hover {
     border: 2px solid #333;
     bottom: 1px;
 }
 
-.mt a:active {
+.watch:active {
     top: 1px;
 }
 
