@@ -108,12 +108,13 @@ a:active .contact {
     margin-top: 20px;
 }
 
-.mt-mobile, .mt-mobile-wrapper br {
+.mt-mobile, {
     display: none;
 }
 
 .mt-mobile-pre {
     display: none;
+    margin-top: 20px;
 }
 
 #table-note {
@@ -125,7 +126,7 @@ a:active .contact {
     background-color: rgba(255,255,255,0.8);
     border: 2px solid black;
     border-collapse: collapse;
-    margin: 0 auto;
+    margin: 20px auto 0;
 }
 
 .mt-mobile {
