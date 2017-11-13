@@ -14,11 +14,12 @@ body {
 
 div {
     text-align: center;
+    //border: 1px solid red;
 }
 
 .header-div {
     background-color: rgba(255,255,255,0.5);
-    margin-bottom: 100px;
+    //margin-bottom: 100px;
 }
 
 header {
@@ -29,6 +30,7 @@ header {
 }
 
 .winner-button {
+    display: inline-block;
     font-size: 40px;
     padding: 15px;
     border-radius: 20px;
@@ -37,6 +39,7 @@ header {
     color: white;
     position: relative;
     box-shadow: 3px 3px 4px black;
+    margin-top: 50px;
 }
 
 .winner-button:hover {
@@ -50,9 +53,14 @@ header {
 }
 
 .winner-div {
-    margin-top: 125px;
-    color: black;
-    font-size: 75px;
+    margin-top: 100px;
+    padding: 0;
+}
+
+.winner-div p {
+    font-size: 150px;
+    padding: 0;
+    margin: 0;
 }
 
 .white {
@@ -98,22 +106,40 @@ header {
     header {
         font-size: 50px;
     } 
+}
     
 @media screen and (max-width: 800px) {
-    .winner-div {
+    .winner-div p {
         font-size: 50px;
     }
-    
+}
+
 @media screen and (max-width: 581px) {
     header {
         font-size: 30px;
-    } 
+    }
+}
     
 @media screen and (max-width: 500px) {
-    .winner-div {
+    .winner-div p {
         font-size: 30px;
-    } 
+    }
+}
     
 @media screen and (max-width: 348px) {
-    /* button splits in half! */    
-    }
+    .winner-button {
+        font-size: 20px;
+    }   
+}
+
+@media screen and (max-width: 230px) {
+    .winner-div p {
+        font-size: 15px;
+    } 
+}
+
+@media screen and (max-width: 167px) {
+    .winner-button {
+        font-size: 15px;
+    }   
+}
