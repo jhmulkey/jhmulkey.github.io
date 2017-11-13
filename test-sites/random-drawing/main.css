@@ -25,6 +25,7 @@ header {
     font-size: 100px;
     font-family: theminion;
     padding: 10px 0 20px;
+    width: 100%;
 }
 
 .winner-button {
@@ -92,3 +93,27 @@ header {
 #reset-button:active {
     top: 1px;
 }
+
+@media screen and (max-width: 1163px) {
+    header {
+        font-size: 50px;
+    } 
+    
+@media screen and (max-width: 800px) {
+    .winner-div {
+        font-size: 50px;
+    }
+    
+@media screen and (max-width: 581px) {
+    header {
+        font-size: 30px;
+    } 
+    
+@media screen and (max-width: 500px) {
+    .winner-div {
+        font-size: 30px;
+    } 
+    
+@media screen and (max-width: 348px) {
+    /* button splits in half! */    
+    }
