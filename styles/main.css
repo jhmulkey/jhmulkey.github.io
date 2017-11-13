@@ -129,10 +129,6 @@ a:active .contact {
     border-collapse: collapse;
 }
 
-.mt-mobile-br {
-    display: none;
-}
-
 .mt-mobile td {
     width: 200px;
 }
