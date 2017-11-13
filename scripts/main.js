@@ -1,5 +1,7 @@
-const graphic = document.getElementById("graphic");
+const graphic = document.getElementsByClassName("graphic");
 
-graphic.onclick = function() {
-    alert("WARNING: GRAPHIC CONTENT!");
+for (i = 0; i < graphic.length; i++) {
+    graphic[i].onclick = function() {
+        alert("WARNING: GRAPHIC CONTENT!");
+    }
 }
