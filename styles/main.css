@@ -104,8 +104,8 @@ a:active .contact {
 
 /* missions.html styles */
 
-.mt-mobile-pre {
-    display: none;
+
+.mt-mobile-mssg {
     margin-top: 20px;
 }
 
@@ -196,25 +196,6 @@ a:active .contact {
     top: 1px;
 }
 
-#mt-mobile-mssg {
-    background-color: #333;
-    color: white;
-    padding: 5px;
-    border: 2px solid white;
-    border-radius: 10px;
-    box-shadow: 1px 1px 4px black;
-    position: relative
-}
-
-#mt-mobile-mssg:hover {
-    border: 2px solid black;
-    bottom: 1px;
-}
-
-#mt-mobile-mssg:active {
-    top: 1px;
-}
-
 .links2-5, .links2-6, .links2-7, .links2-8, .links3-1, .links3-2, .links3-3, .links3-4, .links3-5, .links3-6, .links3-7, .links3-8, .links4-1, .links4-2, .links4-3, .links4-4, .links4-5, .links4-6, .links4-7, .links4-8 {
     display: none;
 }
@@ -290,7 +271,7 @@ a:active .contact {
         display: inline-block;
     }
     
-    .mt-mobile-pre, .mt-mobile-br {
+    .mt-mobile-mssg, .mt-mobile-br {
         display: block;
     }
 }
