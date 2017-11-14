@@ -26,7 +26,7 @@ function chooseWinner() {
     let winner = students[i];
     if (winner === undefined) {
         document.getElementById("winner").classList.add("white");
-        document.getElementById("winner").innerHTML = "NO MORE NAMES!";
+        document.getElementById("winner").innerHTML = "No More Names!";
     } else {
         document.getElementById("winner").innerHTML = winner;
         students.splice(i, 1);

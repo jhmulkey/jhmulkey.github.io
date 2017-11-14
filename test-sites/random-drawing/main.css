@@ -65,6 +65,7 @@ header {
 
 .white {
     color: white;
+    font-size: 100px !important;
 }
 
 .picked-div {
