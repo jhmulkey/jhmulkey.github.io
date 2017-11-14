@@ -120,22 +120,10 @@ header {
     }
 }
     
-@media screen and (max-width: 500px) {
-    .winner-div p {
-        font-size: 30px;
-    }
-}
-    
 @media screen and (max-width: 348px) {
     .winner-button {
         font-size: 20px;
     }   
-}
-
-@media screen and (max-width: 230px) {
-    .winner-div p {
-        font-size: 15px;
-    } 
 }
 
 @media screen and (max-width: 167px) {
