@@ -27,7 +27,7 @@ header {
     width: 100%;
 }
 
-.winner-button {
+#winner-button {
     display: inline-block;
     font-size: 40px;
     font-weight: bold;
@@ -41,13 +41,37 @@ header {
     margin-top: 50px;
 }
 
-.winner-button:hover {
+#reset-button:hover {
     bottom: 1px;
     cursor: pointer;
     border: 2px solid white;
 }
 
-.winner-button:active {
+#reset-button:active {
+    top: 1px;
+}
+
+#reset-button {
+    display: inline-block;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 20px;
+    border: 2px solid white;
+    background-color: darkslateblue;
+    color: white;
+    position: relative;
+    box-shadow: 3px 3px 4px black;
+    margin-top: 50px;
+}
+
+#winner-button:hover {
+    bottom: 1px;
+    cursor: pointer;
+    border: 2px solid black;
+}
+
+#winner-button:active {
     top: 1px;
 }
 
@@ -65,11 +89,10 @@ header {
 
 .white {
     color: white;
-    font-size: 100px !important;
 }
 
 .picked-div {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .picked-div p {
@@ -77,30 +100,7 @@ header {
 }
 
 .hide {
-    display: none;
-}
-
-.reset-button-div {
-    margin-top: 25px;
-}
-
-#reset-button {
-    border: 1px solid white;
-    border-radius: 10px;
-    color: white;
-    background-color: darkslateblue;
-    padding: 5px;
-    position: relative;
-}
-
-#reset-button:hover {
-    border: 1px solid black;
-    cursor: pointer;
-    bottom: 1px;
-}
-
-#reset-button:active {
-    top: 1px;
+    display: none !important;
 }
 
 @media screen and (max-width: 1163px) {
@@ -122,20 +122,20 @@ header {
 }
     
 @media screen and (max-width: 348px) {
-    .winner-button {
+    #winner-button, #reset-button {
         font-size: 20px;
     }   
 }
 
 @media screen and (max-width: 167px) {
-    .winner-button {
+    #winner-button, #reset-button {
         font-size: 15px;
     }   
 }
 
 @media screen and (max-height: 414px) {
     .winner-div {
-        margin-top: 25px;
+        margin-top: 50px;
         padding: 0;
     } 
 }
