@@ -9,7 +9,8 @@
 }
 
 html {
-    background: url("../images/home-background-1b.jpg") no-repeat center center fixed; 
+    background: url("../images/home-background-1b.jpg") no-repeat center center fixed;
+    background-color: black;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -30,14 +31,14 @@ header {
     font-family: army2, army, Impact;
     font-size: 100px;
     text-align: center;
-    color: #333;
-    background-color: rgba(255,255,255,0.5);
-    border-radius: 30px;
-    padding: 10px 20px;
+    color: #fff;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 100px;
+    padding: 10px;
 }
 
 a:hover .non-index-header {
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(0,0,0,0.9);
 }
 
 .nav {
@@ -50,8 +51,8 @@ a:hover .non-index-header {
     margin-top: 200px;
 }
 
-.nav div {
-    background-color: black;
+.nav-icon-wrapper {
+    background-color: rgba(50,50,50,0.7);
     text-align: center;
     width: 300px;
     border: 3px solid silver;
@@ -59,20 +60,31 @@ a:hover .non-index-header {
     overflow: hidden;
     position: relative;
     margin: 20px;
-    opacity: 0.9;
 }
 
-.nav div:hover {
+.nav-icon-img-wrapper {
+    //background-color: rgba(50,50,50,0.7);
+}
+
+.nav-icon-h1-wrapper {
+    background-color: rgba(0,0,0,0.9);
+    color: white;
+    font-size: 30px;
+    padding: 20px 0;
+}
+
+.nav-icon-wrapper:hover {
     border: 3px solid white;
-    bottom: 2.5px;
+    background-color: rgba(0,0,0,0.9);
 }
 
 .nav a:active div {
-    top: 1px;
+    top: 2px;
 }
 
 .nav h1 {
     color: white;
+    background-color: rgba(0,0,0,0);
 }
 
 .nav img {
@@ -81,8 +93,8 @@ a:hover .non-index-header {
 
 .contact {
     display: inline-block;
-    margin-top: 60px;
-    background-color: black;
+    margin-top: 30px;
+    background-color: rgba(50,50,50,0.7);
     text-align: center;
     width: 100px;
     height: 50px;
@@ -90,16 +102,15 @@ a:hover .non-index-header {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-    opacity: 0.9;
 }
 
 .contact:hover {
     border: 3px solid white;
-    bottom: 2.5px;
+    background-color: rgba(0,0,0,0.9);
 }
 
 a:active .contact {
-    top: 1px;
+    top: 2px;
 }
 
 /* missions.html styles */
@@ -255,17 +266,23 @@ a:active .contact {
     }  
     
     header {
-        font-size: 75px;
+        font-size: 80px;
     }
 }
 
-@media screen and (max-width: 1419px) {
+@media screen and (max-width: 1510px) {
+    header {
+        font-size: 60px;
+    }
+}
+
+@media screen and (max-width: 1147px) {
     header {
         font-size: 50px;
     }
 }
 
-@media screen and (max-width: 1024px) {
+//@media screen and (max-width: 1399px) {
     .nav div {
         width: 200px;
     }
@@ -280,11 +297,18 @@ a:active .contact {
     }
 }
 
-@media screen and (max-width: 736px) {  
-    html {
-        background-color: black;
+@media screen and (max-width: 999px) {
+    .nav {
+        margin-top: 25px;
+    }  
+}
+
+@media screen and (max-width: 965px) {
+    header {
+        font-size: 45px;
     }
-    
+}
+
 @media screen and (max-width: 735px) {
     .mt {
         display: none;
@@ -298,7 +322,7 @@ a:active .contact {
         display: block;
     }
 }
-
+    
 @media screen and (max-width: 480px) {
     header {
         font-size: 30px;
