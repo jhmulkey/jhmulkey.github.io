@@ -133,7 +133,7 @@ header {
     }   
 }
 
-@media screen and (max-height: 414px) {
+@media screen and (max-height: 736px) {
     .winner-div {
         margin-top: 50px;
         padding: 0;
