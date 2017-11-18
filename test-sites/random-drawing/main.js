@@ -21,6 +21,7 @@ let students = [
 
 let pickedStudents = [];
 
+/*
 function chooseWinner() {
     let i = Math.floor(Math.random() * (students.length - 1));
     let winner = students[i];
@@ -33,6 +34,27 @@ function chooseWinner() {
         pickedStudents.push(winner);
         document.getElementById("picked-students").innerHTML = "Picked: " + pickedStudents.join(", ");
         document.getElementById("reset-button").classList.remove("hide");
+    };
+}
+*/
+
+function chooseWinner() {
+    let i = Math.floor(Math.random() * (students.length - 1));
+    let winner = students[i];
+    if (winner === undefined) {
+        document.getElementById("winner").classList.add("white");
+        document.getElementById("winner").innerHTML = "No More Names!";
+    } else if (pickedStudents.length > 0) {
+        document.getElementById("picked-students").classList.remove("hide");
+        document.getElementById("winner").innerHTML = winner;
+        students.splice(i, 1);
+        pickedStudents.push(winner);
+        document.getElementById("picked-students").innerHTML = "Picked: " + pickedStudents.join(", ");
+    } else {
+        document.getElementById("winner").innerHTML = winner;
+        students.splice(i, 1);
+        pickedStudents.push(winner);
+        document.getElementById("picked-students").innerHTML = "Picked: " + pickedStudents.join(", ");
     };
 }
 
