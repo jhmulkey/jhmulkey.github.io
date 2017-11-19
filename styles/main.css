@@ -63,7 +63,33 @@ a:hover .non-index-header {
 }
 
 .nav-icon-img-wrapper {
-    //background-color: rgba(50,50,50,0.7);
+    width: 300px;
+    height: 300px;
+}
+
+.missions-icon {
+    background-image: url("../images/nav-missions-squared-fancy.png");
+    background-size: 300px 300px;
+}
+
+.calendar-icon {
+    background-image: url("../images/nav-calendar-squared-fancy.png");
+    background-size: 300px 300px;
+}
+
+.ranks-icon {
+    background-image: url("../images/nav-ranks-squared-fancy.png");
+    background-size: 300px 300px;
+}
+
+.handbook-icon {
+    background-image: url("../images/nav-handbook-squared-fancy.png");
+    background-size: 300px 300px;
+}
+
+.contact-icon {
+    background-image: url("../images/nav-contact-rect-fancy.png");
+    background-size: 100px 50px;
 }
 
 .nav-icon-h1-wrapper {
@@ -75,7 +101,7 @@ a:hover .non-index-header {
 
 .nav-icon-wrapper:hover {
     border: 3px solid white;
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0,0,0,0.7);
 }
 
 .nav a:active div {
@@ -91,7 +117,7 @@ a:hover .non-index-header {
     display: block;
 }
 
-.contact {
+.contact-icon-wrapper {
     display: inline-block;
     margin-top: 30px;
     background-color: rgba(50,50,50,0.7);
@@ -104,12 +130,12 @@ a:hover .non-index-header {
     position: relative;
 }
 
-.contact:hover {
+.contact-icon-wrapper:hover {
     border: 3px solid white;
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0,0,0,0.7);
 }
 
-a:active .contact {
+a:active .contact-icon-wrapper {
     top: 2px;
 }
 
