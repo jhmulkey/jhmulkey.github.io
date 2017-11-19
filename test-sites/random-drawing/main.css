@@ -3,6 +3,11 @@
     src: url(theminion.otf);
 }
 
+@font-face {
+    font-family: "Comic Sans MS Bold";
+    src: url(comic-sans-ms-bold.ttf);
+}
+
 html {
     background-color: dodgerblue;
     font-family: Tahoma, sans-serif;
