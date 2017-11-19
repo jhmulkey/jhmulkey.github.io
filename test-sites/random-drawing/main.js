@@ -29,7 +29,7 @@ function chooseWinner() {
         students.splice(i, 1);
         pickedStudents.push(winner);
         document.getElementById("picked-students").classList.remove("hide");
-        document.getElementById("picked-students").innerHTML = '<span style="background-color: rgba(255,255,255,0.35)">Picked (' + pickedStudents.length + " of " + (pickedStudents.length + students.length) + ")</span><br/>" + pickedStudents.join("<br/>");
+        document.getElementById("picked-students").innerHTML = '<span style="font-family:Comic Sans MS; font-weight:bold">Picked (' + pickedStudents.length + " of " + (pickedStudents.length + students.length) + ")</span><br/>" + pickedStudents.join("<br/>");
     } else {
         document.getElementById("winner").classList.add("white");
         document.getElementById("winner").innerHTML = "No More Names!";
