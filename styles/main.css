@@ -203,11 +203,10 @@ a:active .contact-icon-wrapper {
 
 .download:hover {
     border: 2px solid #333;
-    bottom: 1px;
 }
 
 .download:active {
-    top: 1px;
+    top: 2px;
 }
 
 .watch {
@@ -222,11 +221,10 @@ a:active .contact-icon-wrapper {
 
 .watch:hover {
     border: 2px solid #333;
-    bottom: 1px;
 }
 
 .watch:active {
-    top: 1px;
+    top: 2px;
 }
 
 .links2-5, .links2-6, .links2-7, .links2-8, .links3-1, .links3-2, .links3-3, .links3-4, .links3-5, .links3-6, .links3-7, .links3-8, .links4-1, .links4-2, .links4-3, .links4-4, .links4-5, .links4-6, .links4-7, .links4-8 {
