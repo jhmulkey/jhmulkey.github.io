@@ -32,7 +32,7 @@ function chooseWinner() {
         document.getElementById("picked-students").innerHTML = '<span style="font-family:Comic Sans MS Bold">Picked (' + pickedStudents.length + " of " + (pickedStudents.length + students.length) + ")</span><br/>" + pickedStudents.join("<br/>");
     } else {
         document.getElementById("winner").classList.add("white");
-        document.getElementById("winner").innerHTML = "No More Names!";
+        document.getElementById("winner").innerHTML = "no more names!";
         document.getElementById("winner-button").classList.add("hide");
         document.getElementById("reset-button").classList.remove("hide");
     };
