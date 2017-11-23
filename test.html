@@ -12,5 +12,18 @@
         <a href="test-sites/random-drawing/index.html">Random Drawing</a>
     </div>
         
+    <div class="test-div test-js-div">
+        <h2 id="js-page-load-test"></h2>
+
+        <button onclick=buttonTest()>Test JavaScript Function</button>
+        <h2 id="js-button-function-test"></h2>
+    </div>
+        
+    <script>
+        document.getElementById("js-page-load-test").innerHTML="JavaScript is working";
+        function buttonTest() {
+            document.getElementById("js-button-function-test").innerHTML="JavaScript Functions are working";
+        }
+    </script>
 </body>
 </html>
