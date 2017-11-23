@@ -1,4 +1,4 @@
-let students = [
+var students = [
     "Aeralind Aldrich",
     "Bronwyn Aldrich",
     "Evan Brown",
@@ -19,11 +19,11 @@ let students = [
     "Olivia Waters",
 ];
 
-let pickedStudents = [];
+var pickedStudents = [];
 
 function chooseWinner() {
-    let i = Math.floor(Math.random() * (students.length - 1));
-    let winner = students[i];
+    var i = Math.floor(Math.random() * (students.length - 1));
+    var winner = students[i];
     if (students.length > 0) {
         document.getElementById("winner").innerHTML = winner;
         students.splice(i, 1);
