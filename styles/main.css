@@ -1,9 +1,4 @@
 @font-face {
-    font-family: army;
-    src: url(../fonts/army.ttf);
-}
-
-@font-face {
     font-family: army2;
     src: url(../fonts/army2.ttf);
 }
@@ -33,7 +28,7 @@ a {
 }
 
 header {
-    font-family: army2, army, Impact;
+    font-family: army2, "Open Sans", Arial, sans-serif;
     font-size: 100px;
     text-align: center;
     color: #fff;
