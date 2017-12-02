@@ -145,6 +145,7 @@ a:active .contact-icon-wrapper {
 
 /* missions.html styles */
 .mt-mobile-mssg {
+    display: none;
     margin-top: 20px;
 }
 
