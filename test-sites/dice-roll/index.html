@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Start Game</title>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+</head>
+<body>
+     
+    <div id="roll-white-dice-div">
+        <p>1. Roll White Dice</p><br/>
+        <a onclick="rollWhiteDice()">
+            <img id="roll-button" src="images/roll-button.png"/>
+        </a>
+    </div>
+    
+    <div id="white-dice-div">
+        <div id="roll-1-div"></div>
+    </div>
+    
+    <div id="choose-color-div">
+        <p>2. Choose Dice Color</p><br/>
+        <div id="black-and-red-div">
+            <a href="black-dice-roll.html">
+                <img src="images/black-dice-1.png" height="100px" width="100px"/>
+            </a><br/><br/>
+            <a href="red-dice-roll.html">
+                <img src="images/red-dice-1.png" height="100px" width="100px"/>
+            </a>
+        </div>
+        <div id="green-and-blue-div">
+            <a href="green-dice-roll.html">
+                <img src="images/green-dice-1.png" height="100px" width="100px"/>
+            </a><br/><br/>
+            <a href="blue-dice-roll.html">
+                <img src="images/blue-dice-1.png" height="100px" width="100px"/>
+            </a>
+        </div>
+    </div>
+    
+    <div id="setup-div">
+        <a href="setup.html" target="_blank">
+            <p>* Setup Reference *</p>
+        </a>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

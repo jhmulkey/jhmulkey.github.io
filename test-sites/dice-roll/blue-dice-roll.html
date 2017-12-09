@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Blue Dice</title>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+</head>
+<body>
+     
+    <div class="dice-roll-header-div">
+        <div class="dice-roll-header-div">
+        <p>Roll Blue Dice</p><br/>
+        <a onclick="rollBlueDice()">
+            <img id="roll-button" src="images/roll-button.png"/>
+        </a>
+    </div>
+    </div>
+    
+    <div id="dice-div">
+        <div onclick="hide1()">
+            <div id="roll-1-div" style="visibility: visible"></div>
+        </div>
+        <div onclick="hide2()">
+            <div id="roll-2-div" style="visibility: visible"></div>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>
