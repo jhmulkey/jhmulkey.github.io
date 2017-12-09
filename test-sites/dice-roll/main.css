@@ -74,12 +74,16 @@ p {
     margin-right: auto;
 }
 
+#setup-reference-div {
+    text-align: center;
+}
+
 #setup-div {
     margin: 0 15px;
 }
 
 #setup-div li {
-    font-size: 20px;
+    font-size: 25px;
 }
 
 @media screen and (max-width: 432px) {

@@ -1,9 +1,6 @@
 var diceRoll = new Audio();
 diceRoll.src = "dice-roll.mp3";
 
-var click = new Audio();
-click.src = "click.mp3";
-
 whiteArray = [
     "url(images/white-dice-1.png)",
     "url(images/white-dice-2.png)",
@@ -97,7 +94,6 @@ function rollBlueDice() {
 
 function hide1() {
     if (document.getElementById("roll-1-div").style.visibility == "visible") {
-        click.play();
         document.getElementById("roll-1-div").style.visibility = "hidden";
     } else {
         document.getElementById("roll-1-div").style.visibility = "visible";
@@ -106,7 +102,6 @@ function hide1() {
 
 function hide2() {
     if (document.getElementById("roll-2-div").style.visibility == "visible") {
-        click.play();
         document.getElementById("roll-2-div").style.visibility = "hidden";
     } else {
         document.getElementById("roll-2-div").style.visibility = "visible";
