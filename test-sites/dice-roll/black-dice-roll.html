@@ -8,11 +8,22 @@
 </head>
 <body>
      
-    <div class="dice-roll-header-div">
+    <div class="dice-roll-title-div">
         <p>Roll Black Dice</p><br/>
-        <a onclick="rollBlackDice()">
+    </div>
+    <div class="dice-roll-button-div">
+        <div class="checkbox-div">
+            <p class="check-here-p">Check here if<br/>first player</p>
+            <input type="checkbox" onclick="whiteDiceVisible()"/>
+        </div>
+        <div class="button-div">
+            <a onclick="rollBlackDice()">
             <img id="roll-button" src="images/roll-button.png"/>
-        </a>
+            </a>    
+        </div>
+        <div class="white-dice-div">
+            <div id="roll-3-div" style="visibility: hidden"></div>
+        </div>
     </div>
     
     <div id="dice-div">
