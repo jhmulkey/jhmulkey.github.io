@@ -32,6 +32,10 @@ p {
     margin: 0
 }
 
+h2 {
+    color: darkred;
+}
+
 .check-here-p {
     font-family: Arial, sans-serif;
     font-size: 15px;
@@ -77,6 +81,13 @@ input[type="checkbox"] {
     justify-content: space-around;
 }
 
+#knowledge-tile-img-div {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
 .checkbox-div, .button-div, .white-dice-div {
     width: 300px;
 }
@@ -106,7 +117,11 @@ input[type="checkbox"] {
     height: 70px;
 }
 
-#setup-reference-div {
+#setup-link-div {
+    text-align: center;
+}
+
+#reference-link-div {
     text-align: center;
 }
 
