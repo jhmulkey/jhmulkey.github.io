@@ -149,7 +149,7 @@ function tile6() {
 }
 
 function tile7() {
-    alert("if you place an animal tile when knowledge tile #7 is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type ");
+    alert("if you place an animal tile when knowledge tile #7 is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type on the same pasture");
 }
 
 function tile8() {
