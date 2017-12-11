@@ -32,8 +32,23 @@ p {
     margin: 0
 }
 
-h2 {
+h1, h2 {
     color: darkred;
+}
+
+table, tr, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 25px;
+}
+
+th, td {
+    padding: 5px;
+}
+
+table { 
+    margin: 0 auto;
 }
 
 .check-here-p {
@@ -131,6 +146,23 @@ input[type="checkbox"] {
 
 #setup-div li {
     font-size: 25px;
+}
+
+#points-div {
+    margin: 0 15px;
+    text-align: center;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.shade-1 {
+    background-color: rgba(138,0,0,0.5);
+}
+
+.shade-2 {
+    background-color: rgba(255,255,255,0.3)
 }
 
 @media screen and (max-width: 432px) {
