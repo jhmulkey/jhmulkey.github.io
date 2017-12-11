@@ -1,3 +1,15 @@
+/* DEVELOPMENT */
+
+div {
+    //border: 1px solid black;
+}
+
+h1, h2 {
+    //border: 1px solid black;
+}
+
+/* GLOBAL */
+
 @font-face {
     font-family: black-chancery;
     src: url(black-chancery.ttf);
@@ -7,21 +19,10 @@ html {
     background: url(images/background.jpg)
 }
 
-/*html {
-    background: url(images/background.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}*/
-
 body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px 0;
-}
-
-div {
-    //border: 1px solid black;
 }
 
 a {
@@ -31,59 +32,52 @@ a {
 }
 
 p {
-    font-family: black-chancery;
-    font-size: 50px;
     margin: 0
 }
 
 h1, h2 {
     color: darkred;
+    margin: 0;
+}
+
+.black-chancery-h1 {
+    color: black;
+    font-family: black-chancery;
+    margin: 0;
 }
 
 table, tr, th, td {
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
-    font-size: 25px;
-    font-family: Arial, sans-serif;
+    font-size: 20px;
 }
 
 th, td {
     padding: 5px;
 }
 
+th {
+    color: white;
+}
+
 table { 
-    margin: 0 auto;
+    margin: 20px auto 0;
 }
 
-.selling-goods th, .selling-goods td {
-    padding-left: 25px;
-    padding-right: 25px;
+/* START-GAME-TOP */
+
+#roll-white-dice-div {
+    padding: 0;
 }
 
-.complete-region th, .complete-region td {
-    padding-left: 15px;
-    padding-right: 15px;
+#roll-button {
+    margin: 0;
 }
 
-.complete-same-regions th, complete-same-regions td {
-    padding-left: 40px;
-    padding-right: 40px;
-}
-
-.check-here-p {
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-    margin-bottom: 5px;
-}
-
-input[type="checkbox"] {
-    width:20px;
-    height:20px;
-}
-
-#roll-white-dice-div, .dice-roll-title-div, .dice-roll-button-div, #choose-color-div {
-    text-align: center;
+#white-dice-div {
+    height: 150px;
+    margin: 25px 0;
 }
 
 #choose-color-div {
@@ -100,20 +94,67 @@ input[type="checkbox"] {
     margin-left: 20px;
 }
 
+/* START-GAME-BOTTOM */
+
+/* DICE-ROLL-TOP */
+
+.check-here-p {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+input[type="checkbox"] {
+    width:20px;
+    height:20px;
+}
+
+/* DICE-ROLL-BOTTOM */
+
+.selling-goods th, .selling-goods td {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.complete-region th, .complete-region td {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.complete-same-regions th, complete-same-regions td {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.shade-1 {
+    background-color: darkred;
+}
+
+.shade-2 {
+    background-color: rgba(255,255,255,0.3);
+    font-weight: bold;
+}
+
+/* SHARED */
+
+#roll-white-dice-div, .dice-roll-title-div, .dice-roll-button-div, #choose-color-div {
+    text-align: center;
+}
+
 #roll-1-div, #roll-2-div {
     height: 150px;
     width: 150px;
-}
-
-#white-dice-div {
-    height: 150px;
-    margin: 25px 0;
 }
 
 .dice-roll-button-div {
     text-align: center;
     display: flex;
     justify-content: space-around;
+    margin-bottom: 50px;
+}
+
+.checkbox-div, .button-div, .white-dice-div {
+    width: 300px;
+    height: 70px;
 }
 
 #knowledge-tile-img-div {
@@ -123,20 +164,20 @@ input[type="checkbox"] {
     flex-wrap: wrap;
 }
 
-.checkbox-div, .button-div, .white-dice-div {
-    width: 300px;
+#dice-div {
+    margin-bottom: 75px;
+    margin-top: 75px;
 }
 
-#dice-div {
-    height: 350px;
-    margin: 25px 0;
+.click-to-hide-div {
+    height: 175px;
+    margin: 15px 0;
 }
 
 #roll-1-div {
     background-size: contain;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 50px;
 }
 
 #roll-2-div {
@@ -165,25 +206,20 @@ input[type="checkbox"] {
 }
 
 #setup-div li {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 #points-div {
-    margin: 0 15px;
-    text-align: center;
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 .align-left {
     text-align: left;
 }
 
-.shade-1 {
-    background-color: rgba(138,0,0,0.5);
-}
 
-.shade-2 {
-    background-color: rgba(255,255,255,0.3)
-}
 
 @media screen and (max-width: 432px) {
     p {
