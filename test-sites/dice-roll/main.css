@@ -51,6 +51,21 @@ table {
     margin: 0 auto;
 }
 
+.selling-goods th, .selling-goods td {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.complete-region th, .complete-region td {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.complete-same-regions th, complete-same-regions td {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
 .check-here-p {
     font-family: Arial, sans-serif;
     font-size: 15px;
