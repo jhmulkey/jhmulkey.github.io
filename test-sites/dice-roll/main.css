@@ -65,6 +65,10 @@ table {
     margin: 20px auto 0;
 }
 
+.align-left {
+    text-align: left;
+}
+
 /* START-GAME-TOP */
 
 #roll-white-dice-div {
@@ -95,6 +99,14 @@ table {
 }
 
 /* START-GAME-BOTTOM */
+
+#setup-div {
+    margin: 0 15px;
+}
+
+#setup-div li {
+    font-size: 20px;
+}
 
 /* DICE-ROLL-TOP */
 
@@ -174,16 +186,9 @@ input[type="checkbox"] {
     margin: 15px 0;
 }
 
-#roll-1-div {
+#roll-1-div, #roll-2-div {
     background-size: contain;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#roll-2-div {
-    background-size: contain;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 0;
 }
 
 #roll-3-div {
@@ -193,33 +198,15 @@ input[type="checkbox"] {
     height: 70px;
 }
 
-.setup-link-div {
+.centered-text-div {
     text-align: center;
-}
-
-#reference-link-div {
-    text-align: center;
-}
-
-#setup-div {
-    margin: 0 15px;
-}
-
-#setup-div li {
-    font-size: 20px;
 }
 
 #points-div {
-    margin-top: 20px;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin: 20px 15px 0;
 }
 
-.align-left {
-    text-align: left;
-}
-
-
+/* MEDIA QUERIES */
 
 @media screen and (max-width: 432px) {
     p {
