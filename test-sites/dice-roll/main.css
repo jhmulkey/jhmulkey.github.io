@@ -1,22 +1,14 @@
-/* DEVELOPMENT */
-
-div {
-    //outline: 1px solid black;
-}
-
-h1, h2 {
-    //outline: 1px solid red;
-}
-
-/* GLOBAL */
+/* FONTS */
 
 @font-face {
     font-family: black-chancery;
     src: url(black-chancery.ttf);
 }
 
+/* GLOBAL */
+
 html {
-    background: url(images/background.jpg)
+    background: url(images/background.jpg);
 }
 
 body {
@@ -31,16 +23,11 @@ a {
     outline: none;
 }
 
-p {
-    margin: 0
-}
-
-h1, h2 {
+h2 {
     color: darkred;
 }
 
 .black-chancery-h1 {
-    color: black;
     font-family: black-chancery;
     margin: 0;
     text-align: center;
@@ -76,21 +63,27 @@ table {
     margin-bottom: 25px;
 }
 
-.roll-button {
+.roll-white-dice-div img {
     margin: 20px auto 0 auto;
 }
 
-
-
 .choose-color-div {
-    text-align: center;
     margin: 25px 0;
+}
+
+.choose-color-flex-div {
+    width: 250px;
+    height: 250px;
+    margin: 20px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 /* START-GAME-BOTTOM */
 
 .setup-div {
-    margin: 0 15px;
+    margin: 200px 15px 0 15px;
 }
 
 #setup-div li {
@@ -99,17 +92,51 @@ table {
 
 /* DICE-ROLL-TOP */
 
+.dice-roll-button-div {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    margin: 20px auto 50px;
+}
+
+.checkbox-div, .button-div, .white-dice-div {
+    width: 300px;
+    height: 70px;
+}
+
 .check-here-p {
     font-size: 15px;
-    margin-bottom: 5px;
+    margin: 5px 0 5px 0;
 }
 
 input[type="checkbox"] {
-    width:20px;
-    height:20px;
+    width: 20px;
+    height: 20px;
+}
+
+#roll-3-div {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 70px;
+}
+
+.click-to-hide-div {
+    margin-bottom: 50px;
+}
+
+#roll-1-div, #roll-2-div {
+    height: 150px;
+    width: 150px;
+    margin: 0 auto;
+    background-size: contain;
 }
 
 /* DICE-ROLL-BOTTOM */
+
+#points-div {
+    margin: 200px 15px 50px 15px;
+}
 
 .selling-goods th, .selling-goods td {
     padding-left: 25px;
@@ -135,74 +162,10 @@ input[type="checkbox"] {
     font-weight: bold;
 }
 
-/* SHARED */
-
-#roll-button {
-    
-}
-
-#roll-white-dice-div, .dice-roll-title-div, .dice-roll-button-div, #choose-color-div {
-    text-align: center;
-}
-
-#roll-1-div, #roll-2-div {
-    height: 150px;
-    width: 150px;
-    margin: 0 auto;
-    background-size: contain;
-}
-
-.dice-roll-button-div {
-    text-align: center;
-    display: flex;
-    justify-content: space-around;
-    margin: 20px auto 50px;
-}
-
-.checkbox-div, .button-div, .white-dice-div {
-    width: 300px;
-    height: 70px;
-}
-
 #knowledge-tile-img-div {
     text-align: center;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     margin-top: 20px;
-}
-
-#roll-3-div {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 70px;
-}
-
-.centered-text-div {
-    text-align: center;
-}
-
-#points-div {
-    margin: 200px 15px 50px 15px;
-}
-
-/* MEDIA QUERIES */
-
-@media screen and (max-width: 432px) {
-    p {
-        font-size: 38px;
-    }
-}
-.choose-color-flex-div {
-    width: 250px;
-    height: 250px;
-    margin: 20px auto 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.click-to-hide-div {
-    margin-bottom: 50px;
 }
