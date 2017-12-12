@@ -86,8 +86,8 @@ table {
     margin: 200px 15px 0 15px;
 }
 
-#setup-div li {
-    font-size: 20px;
+.setup-div li {
+    font-size: 22px;
 }
 
 /* DICE-ROLL-TOP */
