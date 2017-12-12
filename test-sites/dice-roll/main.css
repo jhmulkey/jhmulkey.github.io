@@ -25,6 +25,7 @@ a {
 
 h2 {
     color: darkred;
+    text-align: center;
 }
 
 .black-chancery-h1 {
@@ -134,7 +135,7 @@ input[type="checkbox"] {
 
 /* DICE-ROLL-BOTTOM */
 
-#points-div {
+.points-div {
     margin: 200px 15px 50px 15px;
 }
 
@@ -162,7 +163,7 @@ input[type="checkbox"] {
     font-weight: bold;
 }
 
-#knowledge-tile-img-div {
+.knowledge-tile-img-div {
     text-align: center;
     display: flex;
     justify-content: space-around;
