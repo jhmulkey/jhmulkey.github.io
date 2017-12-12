@@ -1,11 +1,11 @@
 /* DEVELOPMENT */
 
 div {
-    //border: 1px solid black;
+    //outline: 1px solid black;
 }
 
 h1, h2 {
-    //border: 1px solid black;
+    //outline: 1px solid red;
 }
 
 /* GLOBAL */
@@ -37,13 +37,13 @@ p {
 
 h1, h2 {
     color: darkred;
-    margin: 0;
 }
 
 .black-chancery-h1 {
     color: black;
     font-family: black-chancery;
     margin: 0;
+    text-align: center;
 }
 
 table, tr, th, td {
@@ -71,36 +71,24 @@ table {
 
 /* START-GAME-TOP */
 
-#roll-white-dice-div {
-    padding: 0;
+.roll-white-dice-div {
+    text-align: center;
 }
 
-#roll-button {
-    margin: 0;
+.roll-button {
+    margin: 20px auto 0 auto;
 }
 
-#white-dice-div {
-    height: 150px;
+
+
+.choose-color-div {
+    text-align: center;
     margin: 25px 0;
-}
-
-#choose-color-div {
-    margin: 25px 0;
-}
-
-#black-and-red-div {
-    display: inline-block;
-    margin-right: 20px;
-}
-
-#green-and-blue-div {
-    display: inline-block;
-    margin-left: 20px;
 }
 
 /* START-GAME-BOTTOM */
 
-#setup-div {
+.setup-div {
     margin: 0 15px;
 }
 
@@ -148,6 +136,10 @@ input[type="checkbox"] {
 
 /* SHARED */
 
+#roll-button {
+    
+}
+
 #roll-white-dice-div, .dice-roll-title-div, .dice-roll-button-div, #choose-color-div {
     text-align: center;
 }
@@ -155,13 +147,15 @@ input[type="checkbox"] {
 #roll-1-div, #roll-2-div {
     height: 150px;
     width: 150px;
+    margin: 0 auto;
+    background-size: contain;
 }
 
 .dice-roll-button-div {
     text-align: center;
     display: flex;
     justify-content: space-around;
-    margin-bottom: 50px;
+    margin: 20px auto 50px;
 }
 
 .checkbox-div, .button-div, .white-dice-div {
@@ -174,21 +168,7 @@ input[type="checkbox"] {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-}
-
-#dice-div {
-    margin-bottom: 100px;
-    margin-top: 50px;
-}
-
-.click-to-hide-div {
-    height: 175px;
-    margin: 15px 0;
-}
-
-#roll-1-div, #roll-2-div {
-    background-size: contain;
-    margin: 0 auto 0;
+    margin-top: 20px;
 }
 
 #roll-3-div {
@@ -203,7 +183,7 @@ input[type="checkbox"] {
 }
 
 #points-div {
-    margin: 20px 15px 0;
+    margin: 200px 15px 50px 15px;
 }
 
 /* MEDIA QUERIES */
@@ -212,4 +192,16 @@ input[type="checkbox"] {
     p {
         font-size: 38px;
     }
+}
+.choose-color-flex-div {
+    width: 250px;
+    height: 250px;
+    margin: 20px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.click-to-hide-div {
+    margin-bottom: 50px;
 }

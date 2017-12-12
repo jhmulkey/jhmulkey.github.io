@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Green Dice</title>
+    <title>Black Dice</title>
     <link rel="stylesheet" type="text/css" href="main.css"/>
 </head>
 <body>
      
     <div class="dice-roll-title-div">
-        <h1 class="black-chancery-h1">Roll Green Dice</h1><br/>
+        <h1 class="black-chancery-h1">Roll Green Dice</h1>
     </div>
     <div class="dice-roll-button-div">
         <div class="checkbox-div">
@@ -18,7 +18,7 @@
         </div>
         <div class="button-div">
             <a onclick="rollGreenDice()">
-            <img id="roll-button" src="images/roll-button.png"/>
+            <img src="images/roll-button.png"/>
             </a>    
         </div>
         <div class="white-dice-div">
@@ -26,19 +26,15 @@
         </div>
     </div>
     
-    <div id="dice-div">
-        <div class="click-to-hide-div" onclick="hide1()">
-            <div id="roll-1-div" style="visibility: visible"></div>
-        </div>
-        <div class="click-to-hide-div" onclick="hide2()">
-            <div id="roll-2-div" style="visibility: visible"></div>
-        </div>
+    <div class="click-to-hide-div" onclick="hide1()">
+        <div id="roll-1-div" style="visibility: visible"></div>
+    </div>
+    <div class="click-to-hide-div" onclick="hide2()">
+        <div id="roll-2-div" style="visibility: visible"></div>
     </div>
     
-    <div class="centered-text-div">
-        <h1 class="black-chancery-h1">Points</h1>
-    </div>
     <div id="points-div">
+        <h1 class="black-chancery-h1">Points</h1>
         <h2>DURING GAME</h2>
         <table class="selling-goods">
             <tr>
@@ -111,8 +107,6 @@
                 <td>40</td>
             </tr>
         </table>
-        
-        <br/>
         
         <table class="complete-region">
             <tr>
@@ -191,9 +185,7 @@
                 <td>38</td>
             </tr>
         </table>
-        
-        <br/>
-        
+                
         <table class="complete-same-regions">
             <tr>
                 <th colspan="4" class="shade-1">Complete All Regions<br/>of Same Type</th>
@@ -217,9 +209,7 @@
                 <td>4</td>
             </tr>
         </table>
-        
-        <br/>
-        
+                
         <table>
             <tr>
                 <th class="shade-1">Other</th>
@@ -237,9 +227,7 @@
                 <td class="align-left">1 point per each animal on tile placed on estate + 1 point per each animal on tiles of the same animal type previously placed <b>on the same pasture</b>.  If <b>knowledge tile #7</b> is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type <b>on the same pasture</b></td>
             </tr>
         </table>
-        
-        <br/>
-        
+                
         <h2>AFTER GAME</h2>
         
         <table>
@@ -270,15 +258,9 @@
         </table>
         
     </div>
-    
-    <br/>
-    
-    <div class="centered-text-div">
-        <h1 class="black-chancery-h1">Knowledge Tiles</h1>
-    </div>
-    
-    <br/>
-    
+        
+    <h1 class="black-chancery-h1">Knowledge Tiles</h1>
+        
     <div id="knowledge-tile-img-div">
         <img src="images/knowledge-tiles-1.png" height="200px" onclick="tile1()"/>
         
