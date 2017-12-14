@@ -9,11 +9,15 @@
 <body>
      
     <div class="roll-white-dice-div">
-        <h1 class="black-chancery-h1">1. Roll White Dice</h1>
+        <h1 class="black-chancery-h1">1. Roll White Dice &<br/>Player Board</h1>
         <img src="images/roll-button.png" onclick="rollWhiteDice()"/>
     </div>
     
-    <div id="roll-1-div"></div>
+    <div id="roll-1-div" onclick="reRoll()"></div>
+    
+    <div id="board-div" onclick="reChoose()">
+        <p>Use Player Board <span id="board-num"></span></p>
+    </div>
     
     <div class="choose-color-div">
         <h1 class="black-chancery-h1">2. Choose Dice Color</h1>
