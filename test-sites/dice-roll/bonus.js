@@ -14,7 +14,8 @@ bonusArray = [
     "Earn 2 silverlings for every mine on estate at end of each phase",
     "You earn 5 victory points",
     "Each animal tile you place is worth double victory points but only at time of placement",
-    "Place any stored six-sided tile onto estate even if not adjacent to a previously placed tile"
+    "Place any stored six-sided tile onto estate even if not adjacent to a previously placed tile",
+    "One silverling can be traded for 2 worker tiles"
 ];
 
 function chooseBonus() {
