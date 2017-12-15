@@ -60,13 +60,13 @@ function rollBlackDice() {
     x = blackArray[(Math.floor(Math.random() * 6))];
     y = blackArray[(Math.floor(Math.random() * 6))];
     z = whiteArray[(Math.floor(Math.random() * 6))];
-    b = Math.floor(Math.random() * 26);
+    b = Math.floor(Math.random() * 13);
     document.getElementById("roll-1-div").style.visibility = "visible";
     document.getElementById("roll-2-div").style.visibility = "visible";
     document.getElementById("roll-1-div").style.backgroundImage = x;
     document.getElementById("roll-2-div").style.backgroundImage = y;
     document.getElementById("roll-3-div").style.backgroundImage = z;
-    if (b == 12) {
+    if (b == 6) {
         document.getElementById("bonus").style.visibility="visible";
         bonusSound.play()
     };
@@ -77,13 +77,13 @@ function rollRedDice() {
     x = redArray[(Math.floor(Math.random() * 6))];
     y = redArray[(Math.floor(Math.random() * 6))];
     z = whiteArray[(Math.floor(Math.random() * 6))];
-    b = Math.floor(Math.random() * 26);
+    b = Math.floor(Math.random() * 13);
     document.getElementById("roll-1-div").style.visibility = "visible";
     document.getElementById("roll-2-div").style.visibility = "visible";
     document.getElementById("roll-1-div").style.backgroundImage = x;
     document.getElementById("roll-2-div").style.backgroundImage = y;
     document.getElementById("roll-3-div").style.backgroundImage = z;
-    if (b == 12) {
+    if (b == 6) {
         document.getElementById("bonus").style.visibility="visible";
         bonusSound.play()
     };
@@ -94,13 +94,13 @@ function rollGreenDice() {
     x = greenArray[(Math.floor(Math.random() * 6))];
     y = greenArray[(Math.floor(Math.random() * 6))];
     z = whiteArray[(Math.floor(Math.random() * 6))];
-    b = Math.floor(Math.random() * 26);
+    b = Math.floor(Math.random() * 13);
     document.getElementById("roll-1-div").style.visibility = "visible";
     document.getElementById("roll-2-div").style.visibility = "visible";
     document.getElementById("roll-1-div").style.backgroundImage = x;
     document.getElementById("roll-2-div").style.backgroundImage = y;
     document.getElementById("roll-3-div").style.backgroundImage = z;
-    if (b == 12) {
+    if (b == 6) {
         document.getElementById("bonus").style.visibility="visible";
         bonusSound.play()
     };
@@ -111,13 +111,13 @@ function rollBlueDice() {
     x = blueArray[(Math.floor(Math.random() * 6))];
     y = blueArray[(Math.floor(Math.random() * 6))];
     z = whiteArray[(Math.floor(Math.random() * 6))];
-    b = Math.floor(Math.random() * 26);
+    b = Math.floor(Math.random() * 13);
     document.getElementById("roll-1-div").style.visibility = "visible";
     document.getElementById("roll-2-div").style.visibility = "visible";
     document.getElementById("roll-1-div").style.backgroundImage = x;
     document.getElementById("roll-2-div").style.backgroundImage = y;
     document.getElementById("roll-3-div").style.backgroundImage = z;
-    if (b == 12) {
+    if (b == 6) {
         document.getElementById("bonus").style.visibility="visible";
         bonusSound.play()
     };
