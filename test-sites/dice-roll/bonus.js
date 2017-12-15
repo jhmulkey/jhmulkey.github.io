@@ -12,7 +12,7 @@ bonusArray = [
     "Take two silverlings",
     "Take two worker tiles",
     "Earn 2 silverlings for every mine on estate at end of each phase",
-    "You get 5 points",
+    "You earn 5 victory points",
     "Each animal tile you place is worth double (but not previously placed tiles of same type on same pasture)"
 ];
 
