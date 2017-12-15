@@ -9,10 +9,15 @@
 
 *, *:before, *:after {
     box-sizing: border-box;
+    //outline: 1px solid black;
 }
 
 html {
     background: url(images/background.jpg);
+}
+
+.bonus-html {
+    background: url(images/background2.jpg) !important;
 }
 
 body {
@@ -117,7 +122,7 @@ table {
     text-align: center;
     display: flex;
     justify-content: space-around;
-    margin: 20px auto 50px;
+    margin: 20px auto 25px;
 }
 
 .checkbox-div, .button-div, .white-dice-div {
@@ -142,8 +147,12 @@ input[type="checkbox"] {
     height: 70px;
 }
 
-.click-to-hide-div {
-    margin-bottom: 50px;
+.click-to-hide-div-1 {
+    margin-bottom: 25px;
+}
+
+.click-to-hide-div-2 {
+    margin-bottom: 25px;
 }
 
 #roll-1-div, #roll-2-div {
@@ -151,6 +160,15 @@ input[type="checkbox"] {
     width: 150px;
     margin: 0 auto;
     background-size: contain;
+}
+
+#bonus {
+    text-align: center;
+    visibility: hidden;
+}
+
+//#bonus img {
+    margin: 0 auto;
 }
 
 /* DICE-ROLL-BOTTOM */
@@ -189,4 +207,27 @@ input[type="checkbox"] {
     justify-content: space-around;
     flex-wrap: wrap;
     margin-top: 20px;
+}
+
+/* BONUS */
+
+.bonus-h1 {
+    color: gold;
+    font-family: black-chancery;
+    text-align: center;
+    font-size: 75px;
+    margin: 20px 0;
+    text-shadow: 3px 3px 5px black;
+}
+
+.bonus-description-div {
+    text-align: center;
+    max-width: 300px;
+    margin: 0 auto;
+    font-size: 30px;
+}
+
+#bonus-description {
+    background-color: rgba(255,255,255,0.7);
+    padding: 5px;
 }

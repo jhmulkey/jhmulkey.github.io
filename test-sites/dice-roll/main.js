@@ -1,6 +1,9 @@
 var diceRoll = new Audio();
 diceRoll.src = "dice-roll.mp3";
 
+var bonusSound = new Audio();
+bonusSound.src = "bonus-sound.mp3";
+
 whiteArray = [
     "url(images/white-dice-1.png)",
     "url(images/white-dice-2.png)",
@@ -57,11 +60,16 @@ function rollBlackDice() {
     x = blackArray[(Math.floor(Math.random() * 6))];
     y = blackArray[(Math.floor(Math.random() * 6))];
     z = whiteArray[(Math.floor(Math.random() * 6))];
+    b = Math.floor(Math.random() * 26);
     document.getElementById("roll-1-div").style.visibility = "visible";
     document.getElementById("roll-2-div").style.visibility = "visible";
     document.getElementById("roll-1-div").style.backgroundImage = x;
     document.getElementById("roll-2-div").style.backgroundImage = y;
     document.getElementById("roll-3-div").style.backgroundImage = z;
+    if (b == 12) {
+        document.getElementById("bonus").style.visibility="visible";
+        bonusSound.play()
+    };
 };
 
 function rollRedDice() {
@@ -122,6 +130,17 @@ function whiteDiceVisible() {
     } else {
         document.getElementById("roll-3-div").style.visibility = "hidden";
     }
+}
+
+function bonusButtonAppear() {
+    x = Math.floor(Math.random() * 101);
+    if (x == 50) {
+        document.getElementById("bonus").style.visibility="visible";
+    }
+}
+
+function bonusButtonDisappear() {
+    document.getElementById("bonus").style.visibility="hidden";
 }
 
 function tile1() {
