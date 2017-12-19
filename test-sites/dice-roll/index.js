@@ -10,16 +10,41 @@ whiteArray = [
     "url(images/white-dice-6.png)"
 ];
 
-function rollWhiteDice() {
-    diceRoll.play();
-    x = whiteArray[(Math.floor(Math.random() * 6))];
-    document.getElementById("roll-1-div").style.backgroundImage = x;
-    document.getElementById("board-div").style.visibility = "visible";
-    document.getElementById("board-num").innerHTML = y;
+boards10a_h = [
+    "10a",
+    "10b",
+    "10c",
+    "10d",
+    "10e",
+    "10f",
+    "10g",
+    "10h",
+]
+
+boards13a_h = [
+    "13a",
+    "13b",
+    "13c",
+    "13d",
+    "13e",
+    "13f",
+    "13g",
+    "13h",
+]
+
+function chooseBoard() {
+    document.getElementById("board-select-div").style.backgroundImage = "none";
+    if (document.getElementById("B2-9").checked) {
+        document.getElementById("board-select-p").innerHTML = Math.floor(Math.random() * 8 + 2);
+    } else if (document.getElementById("B10a-h").checked) {
+        document.getElementById("board-select-p").innerHTML = boards10a_h[Math.floor(Math.random() * 8)]
+    } else
+        document.getElementById("board-select-p").innerHTML = boards13a_h[Math.floor(Math.random() * 8)]
 };
 
-function reRoll() {
+function rollWhiteDice() {
     diceRoll.play();
+    document.getElementById("starting-player-roll-div").style.outline = "none";
     x = whiteArray[(Math.floor(Math.random() * 6))];
-    document.getElementById("roll-1-div").style.backgroundImage = x;
+    document.getElementById("starting-player-roll-div").style.backgroundImage = x;
 };

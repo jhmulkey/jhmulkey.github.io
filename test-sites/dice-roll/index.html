@@ -8,34 +8,50 @@
 </head>
 <body>
      
-    <div class="roll-white-dice-div">
-        <h1 class="black-chancery-h1">1. Roll White Dice</h1>
-        <img src="images/roll-button.png" onclick="rollWhiteDice()"/>
+    <div class="board-wrapper-div">
+        <h1 class="black-chancery-h1">1. Board</h1>
+        <div class="board-checkbox-flex-div">
+            <div>
+                <p class="board-p">Boards 2-9<br/>(standard)</p>
+                <input id="B2-9" type="radio" name="select-boards" checked="checked"/>
+            </div>
+            <div>
+                <p class="board-p">Boards 10a-h<br/>(expanded)</p>
+                <input id="B10a-h" type="radio" name="select-boards"/>
+            </div>
+            <div>
+                <p class="board-p">Boards 13a-h<br/>(monastary)</p>
+                <input id="B13a-h" type="radio" name="select-boards"/>
+            </div>
+        </div>
+        <div id="board-select-div" onclick="chooseBoard()">
+            <p id=board-select-p></p>
+        </div>
     </div>
     
-    <div id="roll-1-div"></div>
-    
-    <!--<div id="board-div" onclick="reChoose()">
-        <p>Use Player Board <span id="board-num"></span></p>
-    </div>-->
+    <div class="starting-player-wrapper-div">
+        <h1 class="black-chancery-h1">2. Starting Player</h1>
+        <div id="starting-player-roll-div" onclick="rollWhiteDice()">
+        </div>
+    </div>
     
     <div class="choose-color-div">
-        <h1 class="black-chancery-h1">2. Choose Dice Color</h1>
+        <h1 class="black-chancery-h1">3. Dice Color</h1>
         <div class="choose-color-flex-div">
             <a href="black-dice-roll.html">
-                <img src="images/black-dice-1.png" height="100px" width="100px"/>
+                <img src="images/black-dice-1.png" height="60px" width="60px"/>
             </a>
             
             <a href="red-dice-roll.html">
-                <img src="images/red-dice-1.png" height="100px" width="100px"/>
+                <img src="images/red-dice-1.png" height="60px" width="60px"/>
             </a>
 
             <a href="green-dice-roll.html">
-                <img src="images/green-dice-1.png" height="100px" width="100px"/>
+                <img src="images/green-dice-1.png" height="60px" width="60px"/>
             </a>
             
             <a href="blue-dice-roll.html">
-                <img src="images/blue-dice-1.png" height="100px" width="100px"/>
+                <img src="images/blue-dice-1.png" height="60px" width="60px"/>
             </a>
         </div>
     </div>
