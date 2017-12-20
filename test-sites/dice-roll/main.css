@@ -77,13 +77,13 @@ input[type="radio"] {
     height: 20px;
 }
 
-/* START-GAME-TOP */
+/* 1. BOARD */
 
 .board-wrapper-div {
     text-align: center;
 }
 
-.board-checkbox-flex-div {
+.board-radio-flex-div {
     margin: 0 auto;
     max-width: 400px;
     text-align: center;
@@ -105,6 +105,15 @@ input[type="radio"] {
     background-size: contain;
 }
 
+#board-select-p {
+    font-size: 50px;
+    font-weight: bold;
+    padding: 0;
+    margin-top: 17px;
+}
+
+/* 2. STARTING PLAYER */
+
 #starting-player-roll-div {
     width: 100px;
     height: 100px;
@@ -112,13 +121,6 @@ input[type="radio"] {
     margin: 20px auto;
     background-image: url(images/tap-to-roll.png);
     background-size: contain;
-}
-
-#board-select-p {
-    font-size: 50px;
-    font-weight: bold;
-    padding: 0;
-    margin-top: 17px;
 }
 
 .roll-white-dice-div {
@@ -130,33 +132,21 @@ input[type="radio"] {
     margin: 20px auto 0 auto;
 }
 
-#board-div {
-    visibility: hidden
-}
-
-#board-num {
-    font-weight: bold;
-    padding: 0 5px;
-    outline: 1px dashed black;
-}
-
-#board-div p {
-    text-align: center;
-    font-size: 25px;
-}
+/* 3. DICE COLOR */
 
 .choose-color-div {
     margin: 25px 0;
 }
 
 .choose-color-flex-div {
+    max-width: 400px;
     margin: 20px auto 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
-/* START-GAME-BOTTOM */
+/* SETUP */
 
 .setup-div {
     margin: 200px 15px 0 15px;
@@ -166,7 +156,7 @@ input[type="radio"] {
     font-size: 22px;
 }
 
-/* DICE-ROLL-TOP */
+/* ROLL DICE */
 
 .dice-roll-button-div {
     text-align: center;
@@ -206,8 +196,8 @@ input[type="checkbox"] {
 }
 
 #roll-1-div, #roll-2-div {
-    height: 150px;
-    width: 150px;
+    height: 125px;
+    width: 125px;
     margin: 0 auto;
     background-size: contain;
 }
@@ -217,11 +207,7 @@ input[type="checkbox"] {
     visibility: hidden;
 }
 
-//#bonus img {
-    margin: 0 auto;
-}
-
-/* DICE-ROLL-BOTTOM */
+/* POINTS */
 
 .points-div {
     margin: 200px 15px 50px 15px;
