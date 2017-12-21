@@ -152,6 +152,7 @@ input[type="checkbox"] {
 .expansion-rules-link {
     background-color: #8B0000;
     color: white;
+    font-size: 24px;
     padding: 10px;
     border: 2px solid black;
     border-radius: 5px;
