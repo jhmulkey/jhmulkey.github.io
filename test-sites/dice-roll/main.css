@@ -77,9 +77,14 @@ input[type="radio"] {
     height: 20px;
 }
 
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
 /* 1. BOARD */
 
-.board-wrapper-div {
+.board-wrap-div {
     text-align: center;
 }
 
@@ -110,6 +115,7 @@ input[type="radio"] {
     font-weight: bold;
     padding: 0;
     margin-top: 17px;
+    text-align: center;
 }
 
 /* 2. STARTING PLAYER */
@@ -158,11 +164,12 @@ input[type="radio"] {
 
 /* ROLL DICE */
 
-.dice-roll-button-div {
+.roll-button-div {
     text-align: center;
     display: flex;
     justify-content: space-around;
     margin: 20px auto 25px;
+    max-width: 400px;
 }
 
 .checkbox-div, .button-div, .white-dice-div {
@@ -175,31 +182,30 @@ input[type="radio"] {
     margin: 5px 0 5px 0;
 }
 
-input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+.roll-div-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: center;
+    margin: 0 auto 20px auto;
+    max-width: 400px;
+}
+
+.click-to-hide-div-1, .click-to-hide-div-2 {
+    margin: 10px;
+    
+}
+
+#roll-1-div, #roll-2-div, #roll-3-div {
+    height: 125px;
+    width: 125px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 #roll-3-div {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 70px;
-}
-
-.click-to-hide-div-1 {
-    margin-bottom: 25px;
-}
-
-.click-to-hide-div-2 {
-    margin-bottom: 25px;
-}
-
-#roll-1-div, #roll-2-div {
-    height: 125px;
-    width: 125px;
-    margin: 0 auto;
-    background-size: contain;
+    margin: 0 auto 20px auto;
+    visibility: hidden;
 }
 
 #bonus {

@@ -10,24 +10,27 @@
      
     <h1 class="black-chancery-h1">Roll Red Dice</h1>
     
-    <div class="dice-roll-button-div">
+    <div class="roll-button-div">
         <div class="checkbox-div">
-            <p class="check-here-p">Check here if<br/>first player</p>
+            <p class="check-here-p">1st</p>
             <input type="checkbox" onclick="whiteDiceVisible()"/>
         </div>
         <div class="button-div">
             <img src="images/roll-button.png" onclick="rollRedDice()"/>
         </div>
-        <div class="white-dice-div">
-            <div id="roll-3-div" style="visibility: hidden"></div>
+        <div class="checkbox-div">
+            <p class="check-here-p">Bonus</p>
+            <input id="bonus-checkbox" type="checkbox"/>
         </div>
     </div>
     
-    <div class="click-to-hide-div-1" onclick="hide1()">
-        <div id="roll-1-div" style="visibility: visible"></div>
-    </div>
-    <div class="click-to-hide-div-2" onclick="hide2()">
-        <div id="roll-2-div" style="visibility: visible"></div>
+    <div class="roll-div-wrap">
+        <div class="click-to-hide-div-1" onclick="hide1()">
+            <div id="roll-1-div" style="visibility: visible"></div>
+        </div>
+        <div class="click-to-hide-div-2" onclick="hide2()">
+            <div id="roll-2-div"></div>
+        </div>
     </div>
     
     <div id="bonus">
@@ -35,6 +38,8 @@
             <img src="images/bonus-button.png"/>
         </a>
     </div>
+    
+    <div id="roll-3-div" style="visibility: hidden"></div>
     
     <div class="points-div">
         <h1 class="black-chancery-h1">Points</h1>
@@ -265,43 +270,43 @@
     <h1 class="black-chancery-h1">Knowledge Tiles</h1>
         
     <div class="knowledge-tile-img-div">
-        <img src="images/knowledge-tiles-1.png" height="200px" onclick="tile1()"/>
+        <img src="images/knowledge-tiles-1.png" height="200px" onclick="knowledgeTile(1)"/>
         
-        <img src="images/knowledge-tiles-2.png" height="200px" onclick="tile2()"/>
+        <img src="images/knowledge-tiles-2.png" height="200px" onclick="knowledgeTile(2)"/>
 
-        <img src="images/knowledge-tiles-3.png" height="200px" onclick="tile3()"/>
+        <img src="images/knowledge-tiles-3.png" height="200px" onclick="knowledgeTile(3)"/>
 
-        <img src="images/knowledge-tiles-4.png" height="200px" onclick="tile4()"/>
+        <img src="images/knowledge-tiles-4.png" height="200px" onclick="knowledgeTile(4)"/>
 
-        <img src="images/knowledge-tiles-5.png" height="200px" onclick="tile5()"/>
+        <img src="images/knowledge-tiles-5.png" height="200px" onclick="knowledgeTile(5)"/>
 
-        <img src="images/knowledge-tiles-6.png" height="200px" onclick="tile6()"/>
+        <img src="images/knowledge-tiles-6.png" height="200px" onclick="knowledgeTile(6)"/>
 
-        <img src="images/knowledge-tiles-7.png" height="200px" onclick="tile7()"/>
+        <img src="images/knowledge-tiles-7.png" height="200px" onclick="knowledgeTile(7)"/>
 
-        <img src="images/knowledge-tiles-8.png" height="200px" onclick="tile8()"/>
+        <img src="images/knowledge-tiles-8.png" height="200px" onclick="knowledgeTile(8)"/>
 
-        <img src="images/knowledge-tiles-9.png" height="200px" onclick="tile9()"/>
+        <img src="images/knowledge-tiles-9.png" height="200px" onclick="knowledgeTile(9)"/>
 
-        <img src="images/knowledge-tiles-10.png" height="200px" onclick="tile10()"/>
+        <img src="images/knowledge-tiles-10.png" height="200px" onclick="knowledgeTile(10)"/>
 
-        <img src="images/knowledge-tiles-11.png" height="200px" onclick="tile11()"/>
+        <img src="images/knowledge-tiles-11.png" height="200px" onclick="knowledgeTile(11)"/>
 
-        <img src="images/knowledge-tiles-12.png" height="200px" onclick="tile12()"/>
+        <img src="images/knowledge-tiles-12.png" height="200px" onclick="knowledgeTile(12)"/>
 
-        <img src="images/knowledge-tiles-13.png" height="200px" onclick="tile13()"/>
+        <img src="images/knowledge-tiles-13.png" height="200px" onclick="knowledgeTile(13)"/>
 
-        <img src="images/knowledge-tiles-14.png" height="200px" onclick="tile14()"/>
+        <img src="images/knowledge-tiles-14.png" height="200px" onclick="knowledgeTile(14)"/>
 
-        <img src="images/knowledge-tiles-15.png" height="200px" onclick="tile15()"/>
+        <img src="images/knowledge-tiles-15.png" height="200px" onclick="knowledgeTile(15)"/>
 
-        <img src="images/knowledge-tiles-16-23.png" height="200px" onclick="tile16_23()"/>
+        <img src="images/knowledge-tiles-16-23.png" height="200px" onclick="knowledgeTile(16)"/>
 
-        <img src="images/knowledge-tiles-24.png" height="200px" onclick="tile24()"/>
+        <img src="images/knowledge-tiles-24.png" height="200px" onclick="knowledgeTile(24)"/>
 
-        <img src="images/knowledge-tiles-25.png" height="200px" onclick="tile25()"/>
+        <img src="images/knowledge-tiles-25.png" height="200px" onclick="knowledgeTile(25)"/>
 
-        <img src="images/knowledge-tiles-26.png" height="200px" onclick="tile26()"/>
+        <img src="images/knowledge-tiles-26.png" height="200px" onclick="knowledgeTile(26)"/>
     </div>
     
     <script src="main.js"></script>
