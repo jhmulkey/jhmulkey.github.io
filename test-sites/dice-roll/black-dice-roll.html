@@ -10,7 +10,7 @@
      
     <h1 class="black-chancery-h1">Roll Black Dice</h1>
     
-    <div class="roll-button-div">
+    <div class="roll-button-flex-div">
         <div class="checkbox-div">
             <p class="check-here-p">1st</p>
             <input type="checkbox" onclick="whiteDiceVisible()"/>
@@ -24,11 +24,11 @@
         </div>
     </div>
     
-    <div class="roll-div-wrap">
-        <div class="click-to-hide-div-1" onclick="hide1()">
+    <div class="rolled-dice-flex-div">
+        <div class="click-to-hide-div" onclick="hide1()">
             <div id="roll-1-div" style="visibility: visible"></div>
         </div>
-        <div class="click-to-hide-div-2" onclick="hide2()">
+        <div class="click-to-hide-div" onclick="hide2()">
             <div id="roll-2-div"></div>
         </div>
     </div>
@@ -269,7 +269,7 @@
         
     <h1 class="black-chancery-h1">Knowledge Tiles</h1>
         
-    <div class="knowledge-tile-img-div">
+    <div class="knowledge-tile-flex-div">
         <img src="images/knowledge-tiles-1.png" height="200px" onclick="knowledgeTile(1)"/>
         
         <img src="images/knowledge-tiles-2.png" height="200px" onclick="knowledgeTile(2)"/>

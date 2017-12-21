@@ -21,10 +21,6 @@ html {
     background: url(images/background.jpg);
 }
 
-.bonus-html {
-    background: url(images/background2.jpg) !important;
-}
-
 body {
     font-family: Tahoma, serif;
     margin: 0;
@@ -37,14 +33,14 @@ a {
     outline: none;
 }
 
-h2 {
-    color: darkred;
-    text-align: center;
-}
-
 .black-chancery-h1 {
     font-family: black-chancery;
     margin: 0;
+    text-align: center;
+}
+
+h2 {
+    color: darkred;
     text-align: center;
 }
 
@@ -56,6 +52,10 @@ table, tr, th, td {
     max-width: 400px;
 }
 
+table { 
+    margin: 20px auto 0;
+}
+
 th, td {
     padding: 5px;
 }
@@ -64,8 +64,8 @@ th {
     color: white;
 }
 
-table { 
-    margin: 20px auto 0;
+li {
+    margin-bottom: 5px;
 }
 
 .align-left {
@@ -129,19 +129,10 @@ input[type="checkbox"] {
     background-size: contain;
 }
 
-.roll-white-dice-div {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.roll-white-dice-div img {
-    margin: 20px auto 0 auto;
-}
-
 /* 3. DICE COLOR */
 
 .choose-color-div {
-    margin: 25px 0;
+    margin: 25px 0 100px 0;
 }
 
 .choose-color-flex-div {
@@ -152,19 +143,33 @@ input[type="checkbox"] {
     justify-content: space-around;
 }
 
+/* EXPANSION RULES LINK */
+
+.expansion-rules-div {
+    text-align: center;
+}
+
+.expansion-rules-link {
+    background-color: #8B0000;
+    color: white;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
 /* SETUP */
 
 .setup-div {
-    margin: 200px 15px 0 15px;
+    margin: 100px 15px 0 15px;
 }
 
-.setup-div li {
+.setup-div li, .expansion-main-wrap li {
     font-size: 22px;
 }
 
 /* ROLL DICE */
 
-.roll-button-div {
+.roll-button-flex-div {
     text-align: center;
     display: flex;
     justify-content: space-around;
@@ -172,7 +177,7 @@ input[type="checkbox"] {
     max-width: 400px;
 }
 
-.checkbox-div, .button-div, .white-dice-div {
+.checkbox-div, .button-div {
     width: 300px;
     height: 70px;
 }
@@ -182,7 +187,7 @@ input[type="checkbox"] {
     margin: 5px 0 5px 0;
 }
 
-.roll-div-wrap {
+.rolled-dice-flex-div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -191,7 +196,7 @@ input[type="checkbox"] {
     max-width: 400px;
 }
 
-.click-to-hide-div-1, .click-to-hide-div-2 {
+.click-to-hide-div {
     margin: 10px;
 }
 
@@ -242,7 +247,7 @@ input[type="checkbox"] {
     font-weight: bold;
 }
 
-.knowledge-tile-img-div {
+.knowledge-tile-flex-div {
     text-align: center;
     display: flex;
     justify-content: space-around;
@@ -251,6 +256,10 @@ input[type="checkbox"] {
 }
 
 /* BONUS */
+
+.bonus-html {
+    background: url(images/background2.jpg) !important;
+}
 
 .bonus-h1 {
     color: gold;
@@ -275,4 +284,20 @@ input[type="checkbox"] {
     border: 10px ridge gold;
     text-shadow: 1px 1px 5px black;
     border-style: 
+}
+
+/* EXPANSION */
+
+.exp-main-wrap {
+    text-align: center;
+    margin: 0 15px 0;
+}
+
+.exp-main-wrap div {
+    margin-bottom: 50px;
+}
+
+.exp-main-wrap li {
+    font-size: 20px;
+    text-align: left;
 }
