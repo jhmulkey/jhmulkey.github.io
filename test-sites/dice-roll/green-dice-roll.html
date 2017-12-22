@@ -16,7 +16,7 @@
             <input type="checkbox" onclick="whiteDiceVisible()"/>
         </div>
         <div class="button-div">
-            <img src="images/roll-button.png" onclick="rollGreenDice()"/>
+            <img src="images/roll-button.png" onclick="rollDice('green')"/>
         </div>
         <div class="checkbox-div">
             <p class="check-here-p">Bonus</p>
@@ -33,11 +33,44 @@
         </div>
     </div>
     
-    <div id="roll-3-div" style="visibility: hidden"></div>
+    <div class="roll-3-flex-div">
+        <div class="phase-round-div">
+            <p>Phase</p><span id="phase-span">A</span>
+        </div>
+        <div id="roll-3-div" style="visibility: hidden"></div>
+        <div class="phase-round-div">
+            <p>Round</p><span id="round-span">1</span>
+        </div>
+    </div>
+    
+    <div>
+        <table class="region-size-points">
+            <tr>
+                <th class="shade-1">1</th>
+                <th class="shade-1">2</th>
+                <th class="shade-1">3</th>
+                <th class="shade-1">4</th>
+                <th class="shade-1">5</th>
+                <th class="shade-1">6</th>
+                <th class="shade-1">7</th>
+                <th class="shade-1">8</th>
+            </tr>
+            <tr>
+                <td id="regsize1">11</td>
+                <td id="regsize2">13</td>
+                <td id="regsize3">16</td>
+                <td id="regsize4">20</td>
+                <td id="regsize5">25</td>
+                <td id="regsize6">31</td>
+                <td id="regsize7">38</td>
+                <td id="regsize8">46</td>
+            </tr>
+        </table>
+    </div>
     
     <div id="bonus">
         <a href="bonus.html" target="_blank" onclick="bonusButtonDisappear()">
-            <img src="images/bonus-button.png"/>
+            <img id="bonus-button" src="images/bonus-button.png"/>
         </a>
     </div>
     
@@ -302,13 +335,14 @@
 
         <img src="images/knowledge-tiles-16-23.png" height="200px" onclick="knowledgeTile(16)"/>
 
-        <img src="images/knowledge-tiles-24.png" height="200px" onclick="knowledgeTile(24)"/>
+        <img src="images/knowledge-tiles-24.png" height="200px" onclick="knowledgeTile(17)"/>
 
-        <img src="images/knowledge-tiles-25.png" height="200px" onclick="knowledgeTile(25)"/>
+        <img src="images/knowledge-tiles-25.png" height="200px" onclick="knowledgeTile(18)"/>
 
-        <img src="images/knowledge-tiles-26.png" height="200px" onclick="knowledgeTile(26)"/>
+        <img src="images/knowledge-tiles-26.png" height="200px" onclick="knowledgeTile(19)"/>
     </div>
     
-    <script src="main.js"></script>
+    <script src="dice-roll.js"></script>
+    
 </body>
 </html>

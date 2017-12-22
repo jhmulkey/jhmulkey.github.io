@@ -99,6 +99,11 @@ input[type="checkbox"] {
 
 .board-p {
     margin-bottom: 5px;
+    font-size: 20px;
+}
+
+#B1-9, #B10a-h, #B13a-h, #B1-13h {
+    margin: 0 auto;
 }
 
 #board-select-div {
@@ -199,6 +204,7 @@ input[type="checkbox"] {
 
 .click-to-hide-div {
     margin: 10px;
+    outline: 1px dashed gray;
 }
 
 #roll-1-div, #roll-2-div, #roll-3-div {
@@ -209,8 +215,44 @@ input[type="checkbox"] {
 }
 
 #roll-3-div {
-    margin: 0 auto 20px auto;
     visibility: hidden;
+}
+
+.roll-3-flex-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.phase-round-div {
+    text-align: center;
+}
+
+.phase-round-div p {
+    font-family: black-chancery;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+#phase-span, #round-span {
+    font-family: Tahoma, serif;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.region-size-points {
+    width: 350px;
+    table-layout: fixed;
+    margin-bottom: 10px;
+}
+
+.region-size-points th, .region-size-points td {
+    font-size: 25px;
+}
+
+.region-size-points td {
+    font-weight: bold;
 }
 
 #bonus {
@@ -301,4 +343,25 @@ input[type="checkbox"] {
 .exp-main-wrap li {
     font-size: 20px;
     text-align: left;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 374px) {
+    #roll-1-div, #roll-2-div, #roll-3-div {
+        height: 100px;
+        width: 100px;
+    }
+    
+    .region-size-points {
+        width: 300px;
+    }
+    
+    .region-size-points th, .region-size-points td {
+        font-size: 20px;
+    }
+    
+    #bonus-button {
+        height: 50px;
+    }
 }
