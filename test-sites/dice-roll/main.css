@@ -255,11 +255,6 @@ input[type="checkbox"] {
     font-weight: bold;
 }
 
-#bonus {
-    text-align: center;
-    visibility: hidden;
-}
-
 /* POINTS */
 
 .points-div {
@@ -321,7 +316,7 @@ input[type="checkbox"] {
 }
 
 #bonus-description {
-    background-color: rgba(127, 0, 127, 0.9);
+    background-color: rgba(127, 0, 127, 0.5);
     color: gold;
     padding: 20px;
     border: 10px ridge gold;
@@ -359,9 +354,5 @@ input[type="checkbox"] {
     
     .region-size-points th, .region-size-points td {
         font-size: 20px;
-    }
-    
-    #bonus-button {
-        height: 50px;
     }
 }

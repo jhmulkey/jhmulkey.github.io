@@ -115,8 +115,8 @@ function randomDice(color) {
 function randomBonus() {
     b = Math.floor(Math.random() * 20);
     if (b == 9 && document.getElementById("bonus-checkbox").checked) {
-        document.getElementById("bonus").style.visibility="visible";
         bonusSound.play();
+        window.open("bonus.html");
     };
 };
 
