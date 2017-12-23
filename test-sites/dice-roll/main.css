@@ -66,6 +66,7 @@ th {
 
 li {
     margin-bottom: 5px;
+    margin-right: 10px;
 }
 
 .align-left {
@@ -166,7 +167,8 @@ input[type="checkbox"] {
 /* SETUP */
 
 .setup-div {
-    margin: 100px 15px 0 15px;
+    margin: 100px auto 0 auto;
+    max-width: 500px;
 }
 
 .setup-div li, .expansion-main-wrap li {
@@ -222,6 +224,8 @@ input[type="checkbox"] {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .phase-round-div {
@@ -290,7 +294,8 @@ input[type="checkbox"] {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin: 20px auto 0 auto;
+    max-width: 500px;
 }
 
 /* BONUS */
@@ -328,7 +333,9 @@ input[type="checkbox"] {
 
 .exp-main-wrap {
     text-align: center;
-    margin: 0 15px 0;
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 0 15px 0 15px;
 }
 
 .exp-main-wrap div {

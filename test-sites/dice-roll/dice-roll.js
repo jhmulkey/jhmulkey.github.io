@@ -83,10 +83,15 @@ function rollDice(color) {
     diceRoll.play();
     r++;
     randomDice(color);
-    randomBonus();
     setPhase();
     setRound();
     regionPoints();
+    if (document.getElementById("bonus-checkbox").checked) {
+        randomBonus();
+    }
+    if (r == 26) {
+        location.reload();
+    }
 };
 
 function randomDice(color) {
@@ -100,7 +105,7 @@ function randomDice(color) {
     } else if (color == "green") {
         x = greenArray[(Math.floor(Math.random() * 6))];
         y = greenArray[(Math.floor(Math.random() * 6))];
-    } else {
+    } else if (color == "blue") {
         x = blueArray[(Math.floor(Math.random() * 6))];
         y = blueArray[(Math.floor(Math.random() * 6))];
     };
@@ -114,7 +119,7 @@ function randomDice(color) {
 
 function randomBonus() {
     b = Math.floor(Math.random() * 20);
-    if (b == 9 && document.getElementById("bonus-checkbox").checked) {
+    if (b == 9) {
         bonusSound.play();
         window.open("bonus.html");
     };
@@ -208,17 +213,6 @@ function whiteDiceVisible() {
     } else {
         document.getElementById("roll-3-div").style.visibility = "hidden";
     };
-};
-
-function bonusButtonAppear() {
-    x = Math.floor(Math.random() * 101);
-    if (x == 50) {
-        document.getElementById("bonus").style.visibility="visible";
-    };
-};
-
-function bonusButtonDisappear() {
-    document.getElementById("bonus").style.visibility="hidden";
 };
 
 function knowledgeTile(x) {
