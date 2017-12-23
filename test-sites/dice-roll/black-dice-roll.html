@@ -70,7 +70,15 @@
     
     <div class="points-div">
         <h1 class="black-chancery-h1">Points</h1>
+        
+        <p class="total-points-p">Current Victory Points: <span id="total-points">0</span></p>
+        
+        <div class="point-reset-div">
+            <input id="point-reset" type="number"/> <button onclick="setPoints(parseInt(document.getElementById('point-reset').value))">Set Points</button> <button onclick="addPoints(parseInt(document.getElementById('point-reset').value))">Add Points</button>
+        </div>
+        
         <h2>DURING GAME</h2>
+        
         <table class="selling-goods">
             <tr>
                 <th colspan="4" class="shade-1">Selling Goods</th>
@@ -83,63 +91,63 @@
             </tr>
             <tr>
                 <td class="shade-2">1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
+                <td onclick="addPoints(2)">2</td>
+                <td onclick="addPoints(3)">3</td>
+                <td onclick="addPoints(4)">4</td>
             </tr>
             <tr>
                 <td class="shade-2">2</td>
-                <td>4</td>
-                <td>6</td>
-                <td>8</td>
+                <td onclick="addPoints(4)">4</td>
+                <td onclick="addPoints(6)">6</td>
+                <td onclick="addPoints(8)">8</td>
             </tr>
             <tr>
                 <td class="shade-2">3</td>
-                <td>6</td>
-                <td>9</td>
-                <td>12</td>
+                <td onclick="addPoints(6)">6</td>
+                <td onclick="addPoints(9)">9</td>
+                <td onclick="addPoints(12)">12</td>
             </tr>
             <tr>
                 <td class="shade-2">4</td>
-                <td>8</td>
-                <td>12</td>
-                <td>16</td>
+                <td onclick="addPoints(8)">8</td>
+                <td onclick="addPoints(12)">12</td>
+                <td onclick="addPoints(16)">16</td>
             </tr>
             <tr>
                 <td class="shade-2">5</td>
-                <td>10</td>
-                <td>15</td>
-                <td>20</td>
+                <td onclick="addPoints(10)">10</td>
+                <td onclick="addPoints(15)">15</td>
+                <td onclick="addPoints(20)">20</td>
             </tr>
             <tr>
                 <td class="shade-2">6</td>
-                <td>12</td>
-                <td>18</td>
-                <td>24</td>
+                <td onclick="addPoints(12)">12</td>
+                <td onclick="addPoints(18)">18</td>
+                <td onclick="addPoints(24)">24</td>
             </tr>
             <tr>
                 <td class="shade-2">7</td>
-                <td>14</td>
-                <td>21</td>
-                <td>28</td>
+                <td onclick="addPoints(14)">14</td>
+                <td onclick="addPoints(21)">21</td>
+                <td onclick="addPoints(28)">28</td>
             </tr>
             <tr>
                 <td class="shade-2">8</td>
-                <td>16</td>
-                <td>24</td>
-                <td>32</td>
+                <td onclick="addPoints(16)">16</td>
+                <td onclick="addPoints(24)">24</td>
+                <td onclick="addPoints(32)">32</td>
             </tr>
             <tr>
                 <td class="shade-2">9</td>
-                <td>18</td>
-                <td>27</td>
-                <td>36</td>
+                <td onclick="addPoints(18)">18</td>
+                <td onclick="addPoints(27)">27</td>
+                <td onclick="addPoints(36)">36</td>
             </tr>
             <tr>
                 <td class="shade-2">10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>40</td>
+                <td onclick="addPoints(20)">20</td>
+                <td onclick="addPoints(30)">30</td>
+                <td onclick="addPoints(40)">40</td>
             </tr>
         </table>
         
@@ -157,67 +165,67 @@
             </tr>
             <tr>
                 <td class="shade-2">1</td>
-                <td>11</td>
-                <td>9</td>
-                <td>7</td>
-                <td>5</td>
-                <td>3</td>
+                <td onclick="addPoints(11)">11</td>
+                <td onclick="addPoints(9)">9</td>
+                <td onclick="addPoints(7)">7</td>
+                <td onclick="addPoints(5)">5</td>
+                <td onclick="addPoints(3)">3</td>
             </tr>
             <tr>
                 <td class="shade-2">2</td>
-                <td>13</td>
-                <td>11</td>
-                <td>9</td>
-                <td>7</td>
-                <td>5</td>
+                <td onclick="addPoints(13)">13</td>
+                <td onclick="addPoints(11)">11</td>
+                <td onclick="addPoints(9)">9</td>
+                <td onclick="addPoints(7)">7</td>
+                <td onclick="addPoints(5)">5</td>
             </tr>
             <tr>
                 <td class="shade-2">3</td>
-                <td>16</td>
-                <td>14</td>
-                <td>12</td>
-                <td>10</td>
-                <td>8</td>
+                <td onclick="addPoints(16)">16</td>
+                <td onclick="addPoints(14)">14</td>
+                <td onclick="addPoints(12)">12</td>
+                <td onclick="addPoints(10)">10</td>
+                <td onclick="addPoints(8)">8</td>
             </tr>
             <tr>
                 <td class="shade-2">4</td>
-                <td>20</td>
-                <td>18</td>
-                <td>16</td>
-                <td>14</td>
-                <td>12</td>
+                <td onclick="addPoints(20)">20</td>
+                <td onclick="addPoints(18)">18</td>
+                <td onclick="addPoints(16)">16</td>
+                <td onclick="addPoints(14)">14</td>
+                <td onclick="addPoints(12)">12</td>
             </tr>
             <tr>
                 <td class="shade-2">5</td>
-                <td>25</td>
-                <td>23</td>
-                <td>21</td>
-                <td>19</td>
-                <td>17</td>
+                <td onclick="addPoints(25)">25</td>
+                <td onclick="addPoints(23)">23</td>
+                <td onclick="addPoints(21)">21</td>
+                <td onclick="addPoints(19)">19</td>
+                <td onclick="addPoints(17)">17</td>
             </tr>
             <tr>
                 <td class="shade-2">6</td>
-                <td>31</td>
-                <td>29</td>
-                <td>27</td>
-                <td>25</td>
-                <td>23</td>
+                <td onclick="addPoints(31)">31</td>
+                <td onclick="addPoints(29)">29</td>
+                <td onclick="addPoints(27)">27</td>
+                <td onclick="addPoints(25)">25</td>
+                <td onclick="addPoints(23)">23</td>
             </tr>
             <tr>
                 <td class="shade-2">7</td>
-                <td>38</td>
-                <td>36</td>
-                <td>34</td>
-                <td>32</td>
-                <td>30</td>
+                <td onclick="addPoints(38)">38</td>
+                <td onclick="addPoints(36)">36</td>
+                <td onclick="addPoints(34)">34</td>
+                <td onclick="addPoints(32)">32</td>
+                <td onclick="addPoints(30)">30</td>
             </tr>
             <tr>
                 <td class="shade-2">8</td>
-                <td>46</td>
-                <td>44</td>
-                <td>42</td>
-                <td>40</td>
-                <td>38</td>
+                <td onclick="addPoints(46)">46</td>
+                <td onclick="addPoints(44)">44</td>
+                <td onclick="addPoints(42)">42</td>
+                <td onclick="addPoints(40)">40</td>
+                <td onclick="addPoints(38)">38</td>
             </tr>
         </table>
                 
@@ -233,15 +241,15 @@
             </tr>
             <tr>
                 <td class="shade-2">1st</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
+                <td onclick="addPoints(5)">5</td>
+                <td onclick="addPoints(6)">6</td>
+                <td onclick="addPoints(7)">7</td>
             </tr>
             <tr>
                 <td class="shade-2">2nd</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
+                <td onclick="addPoints(2)">2</td>
+                <td onclick="addPoints(3)">3</td>
+                <td onclick="addPoints(4)">4</td>
             </tr>
         </table>
                 

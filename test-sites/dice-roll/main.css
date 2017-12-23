@@ -83,6 +83,21 @@ input[type="checkbox"] {
     height: 20px;
 }
 
+input[type="number"] {
+    width: 100px;
+    height: 40px;
+    font-size: 25px;
+    text-align: center;
+    border: 2px solid black;
+    margin: 0 5px 0;
+}
+
+button {
+    height: 40px;
+    margin: 0 5px 0;
+    border: 2px solid black;
+}
+
 /* 1. BOARD */
 
 .board-wrap-div {
@@ -263,6 +278,7 @@ input[type="checkbox"] {
 
 .points-div {
     margin: 200px 15px 50px 15px;
+    text-align: center;
 }
 
 .selling-goods th, .selling-goods td {
@@ -362,4 +378,23 @@ input[type="checkbox"] {
     .region-size-points th, .region-size-points td {
         font-size: 20px;
     }
+}
+.point-reset-div {
+    max-width: 400px;
+    text-align: center;
+    margin: 10px auto 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+#total-points {
+    color: darkred;
+    font-weight: bold;
+}
+
+.total-points-p {
+    font-size: 22px;
 }

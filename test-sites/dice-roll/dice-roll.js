@@ -4,7 +4,9 @@ diceRoll.src = "dice-roll.mp3";
 var bonusSound = new Audio();
 bonusSound.src = "bonus-sound.mp3";
 
-r = 0
+r = 0;
+
+p = 0;
 
 whiteArray = [
     "url(images/white-dice-1.png)",
@@ -212,6 +214,26 @@ function whiteDiceVisible() {
         document.getElementById("roll-3-div").style.visibility = "visible";
     } else {
         document.getElementById("roll-3-div").style.visibility = "hidden";
+    };
+};
+
+function setPoints(x) {
+    if (isNaN(x)) {
+        alert("Please enter a number");
+    } else {
+        p = x;
+        document.getElementById("total-points").innerHTML = p;
+        alert("Your new point total is " + p);
+    };
+};
+
+function addPoints(x) {
+    if (isNaN(x)) {
+        alert("Please enter a number");
+    } else {
+        p += x;
+        document.getElementById("total-points").innerHTML = p;
+        alert("Your new point total is " + p);
     };
 };
 
