@@ -7,9 +7,7 @@
     <link rel="stylesheet" type="text/css" href="main.css"/>
 </head>
 <body>
-     
-    <h1 class="black-chancery-h1">Roll Red Dice</h1>
-    
+         
     <div class="roll-button-flex-div">
         <div class="checkbox-div">
             <p class="check-here-p">1st</p>
@@ -56,284 +54,89 @@
                 <th class="shade-1">8</th>
             </tr>
             <tr>
-                <td id="regsize1">11</td>
-                <td id="regsize2">13</td>
-                <td id="regsize3">16</td>
-                <td id="regsize4">20</td>
-                <td id="regsize5">25</td>
-                <td id="regsize6">31</td>
-                <td id="regsize7">38</td>
-                <td id="regsize8">46</td>
+                <td class="shade-2" id="regsize1" onclick="tapPoints(parseInt(document.getElementById('regsize1').innerHTML))">11</td>
+                <td class="shade-2" id="regsize2" onclick="tapPoints(parseInt(document.getElementById('regsize2').innerHTML))">13</td>
+                <td class="shade-2" id="regsize3" onclick="tapPoints(parseInt(document.getElementById('regsize3').innerHTML))">16</td>
+                <td class="shade-2" id="regsize4" onclick="tapPoints(parseInt(document.getElementById('regsize4').innerHTML))">20</td>
+                <td class="shade-2" id="regsize5" onclick="tapPoints(parseInt(document.getElementById('regsize5').innerHTML))">25</td>
+                <td class="shade-2" id="regsize6" onclick="tapPoints(parseInt(document.getElementById('regsize6').innerHTML))">31</td>
+                <td class="shade-2" id="regsize7" onclick="tapPoints(parseInt(document.getElementById('regsize7').innerHTML))">38</td>
+                <td class="shade-2" id="regsize8" onclick="tapPoints(parseInt(document.getElementById('regsize8').innerHTML))">46</td>
             </tr>
         </table>
     </div>
-   
-    <div class="points-div">
-        <h1 class="black-chancery-h1">Points</h1>
-        <h2>DURING GAME</h2>
-        <table class="selling-goods">
-            <tr>
-                <th colspan="4" class="shade-1">Selling Goods</th>
-            </tr>
-            <tr>
-                <td class="shade-2"></td>
-                <td class="shade-2">2P</td>
-                <td class="shade-2">3P</td>
-                <td class="shade-2">4P</td>
-            </tr>
-            <tr>
-                <td class="shade-2">1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td class="shade-2">2</td>
-                <td>4</td>
-                <td>6</td>
-                <td>8</td>
-            </tr>
-            <tr>
-                <td class="shade-2">3</td>
-                <td>6</td>
-                <td>9</td>
-                <td>12</td>
-            </tr>
-            <tr>
-                <td class="shade-2">4</td>
-                <td>8</td>
-                <td>12</td>
-                <td>16</td>
-            </tr>
-            <tr>
-                <td class="shade-2">5</td>
-                <td>10</td>
-                <td>15</td>
-                <td>20</td>
-            </tr>
-            <tr>
-                <td class="shade-2">6</td>
-                <td>12</td>
-                <td>18</td>
-                <td>24</td>
-            </tr>
-            <tr>
-                <td class="shade-2">7</td>
-                <td>14</td>
-                <td>21</td>
-                <td>28</td>
-            </tr>
-            <tr>
-                <td class="shade-2">8</td>
-                <td>16</td>
-                <td>24</td>
-                <td>32</td>
-            </tr>
-            <tr>
-                <td class="shade-2">9</td>
-                <td>18</td>
-                <td>27</td>
-                <td>36</td>
-            </tr>
-            <tr>
-                <td class="shade-2">10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>40</td>
-            </tr>
-        </table>
+    
+    <p class="total-points-p">Current Victory Points: <span id="total-points">0</span></p>
+    
+        <div class="point-control-div">
+            <div class="button-1" onclick="setPoints()">Set</div>
+            <div class="button-1" onclick="resetPoints()">Reset</div>
+            <div class="button-1" onclick="adjustPoints()">Adjust</div>
+        </div>
         
-        <table class="complete-region">
-            <tr>
-                <th colspan="6" class="shade-1">Complete Region</th>
-            </tr>
-            <tr>
-                <td class="shade-2"></td>
-                <td class="shade-2">A</td>
-                <td class="shade-2">B</td>
-                <td class="shade-2">C</td>
-                <td class="shade-2">D</td>
-                <td class="shade-2">E</td>
-            </tr>
-            <tr>
-                <td class="shade-2">1</td>
-                <td>11</td>
-                <td>9</td>
-                <td>7</td>
-                <td>5</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td class="shade-2">2</td>
-                <td>13</td>
-                <td>11</td>
-                <td>9</td>
-                <td>7</td>
-                <td>5</td>
-            </tr>
-            <tr>
-                <td class="shade-2">3</td>
-                <td>16</td>
-                <td>14</td>
-                <td>12</td>
-                <td>10</td>
-                <td>8</td>
-            </tr>
-            <tr>
-                <td class="shade-2">4</td>
-                <td>20</td>
-                <td>18</td>
-                <td>16</td>
-                <td>14</td>
-                <td>12</td>
-            </tr>
-            <tr>
-                <td class="shade-2">5</td>
-                <td>25</td>
-                <td>23</td>
-                <td>21</td>
-                <td>19</td>
-                <td>17</td>
-            </tr>
-            <tr>
-                <td class="shade-2">6</td>
-                <td>31</td>
-                <td>29</td>
-                <td>27</td>
-                <td>25</td>
-                <td>23</td>
-            </tr>
-            <tr>
-                <td class="shade-2">7</td>
-                <td>38</td>
-                <td>36</td>
-                <td>34</td>
-                <td>32</td>
-                <td>30</td>
-            </tr>
-            <tr>
-                <td class="shade-2">8</td>
-                <td>46</td>
-                <td>44</td>
-                <td>42</td>
-                <td>40</td>
-                <td>38</td>
-            </tr>
-        </table>
-                
-        <table class="complete-same-regions">
-            <tr>
-                <th colspan="4" class="shade-1">Complete All Regions<br/>of Same Type</th>
-            </tr>
-            <tr>
-                <td class="shade-2"></td>
-                <td class="shade-2">2P</td>
-                <td class="shade-2">3P</td>
-                <td class="shade-2">4P</td>
-            </tr>
-            <tr>
-                <td class="shade-2">1st</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-            </tr>
-            <tr>
-                <td class="shade-2">2nd</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-        </table>
-                
-        <table>
-            <tr>
-                <th class="shade-1">Other</th>
-            </tr>
-            <tr>
-                <td class="shade-2">Watchtower</td>
-            </tr>
-            <tr>
-                <td class="align-left">4 Points for placing watchtower on estate</td>
-            </tr>
-            <tr>
-                <td class="shade-2">Animals</td>
-            </tr>
-            <tr>                
-                <td class="align-left">1 point per each animal on tile placed on estate + 1 point per each animal on tiles of the same animal type previously placed <b>on the same pasture</b>.  If <b>knowledge tile #7</b> is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type <b>on the same pasture</b></td>
-            </tr>
-        </table>
-                
-        <h2>AFTER GAME</h2>
+        <h1 class="black-chancery-h1">During Game</h1>
         
-        <table>
-            <tr>
-                <th class="shade-1">Unsold Goods Tiles</th>
-            </tr>
-            <tr>
-                <td class="align-left">1 point each</td>
-            </tr>
-            <tr>
-                <th class="shade-1">Remaining Silverlings</th>
-            </tr>
-            <tr>
-                <td class="align-left">1 point each</td>
-            </tr>
-            <tr>
-                <th class="shade-1">Remaining Worker Tiles</th>
-            </tr>
-            <tr>
-                <td class="align-left">1 point for every 2 tiles</td>
-            </tr>
-            <tr>
-                <th class="shade-1">Knowledge Tiles</th>
-            </tr>
-            <tr>
-                <td class="align-left"><b>#15</b>: 3 points for every goods type sold<br/><br/><b>#16-23</b>: 4 points for each corresponding building on the estate<br/><br/><b>#24</b>: 4 points for each animal type on estate<br/><br/><b>#25</b>: 1 point for every goods tile sold<br/><br/><b>#26</b>: 2 points for each bonus tile</td>
-            </tr>
-        </table>
+        <div class="point-quickadd-div">
+            <div class="button-2" onclick="sellGoods()">Sell Goods</div>
+            <div class="button-2" onclick="tapPoints(4)">Watchtower</div>
+            <div class="button-2" onclick="addPoints()">Animal</div>
+            <div class="button-2" onclick="bonusTile('L')">Large Bonus</div>
+            <div class="button-2" onclick="bonusTile('S')">Small Bonus</div>
+        </div>
         
-    </div>
+        <h1 class="black-chancery-h1">After Game</h1>
+        
+        <div class="point-quickadd-div">
+            <div class="button-2" onclick="unsoldGoods()">Unsold Goods</div>
+            <div class="button-2" onclick="remSilver()">Remaining Silverlings</div>
+            <div class="button-2" onclick="remWorker()">Remaining Workers</div>
+            <div class="button-2" onclick="know15()">Knowledge #15</div>
+            <div class="button-2" onclick="know1623()">Knowledge #16-23</div>
+            <div class="button-2" onclick="know24()">Knowledge #24</div>
+            <div class="button-2" onclick="know25()">Knowledge #25</div>
+            <div class="button-2" onclick="know26()">Knowledge #26</div>
+        </div>
         
     <h1 class="black-chancery-h1">Knowledge Tiles</h1>
         
     <div class="knowledge-tile-flex-div">
-        <img src="images/knowledge-tiles-1.png" height="200px" onclick="knowledgeTile(1)"/>
+        <img src="images/knowledge-tiles-1.png" height="150px" onclick="knowledgeTile(1)"/>
         
-        <img src="images/knowledge-tiles-2.png" height="200px" onclick="knowledgeTile(2)"/>
+        <img src="images/knowledge-tiles-2.png" height="150px" onclick="knowledgeTile(2)"/>
 
-        <img src="images/knowledge-tiles-3.png" height="200px" onclick="knowledgeTile(3)"/>
+        <img src="images/knowledge-tiles-3.png" height="150px" onclick="knowledgeTile(3)"/>
 
-        <img src="images/knowledge-tiles-4.png" height="200px" onclick="knowledgeTile(4)"/>
+        <img src="images/knowledge-tiles-4.png" height="150px" onclick="knowledgeTile(4)"/>
 
-        <img src="images/knowledge-tiles-5.png" height="200px" onclick="knowledgeTile(5)"/>
+        <img src="images/knowledge-tiles-5.png" height="150px" onclick="knowledgeTile(5)"/>
 
-        <img src="images/knowledge-tiles-6.png" height="200px" onclick="knowledgeTile(6)"/>
+        <img src="images/knowledge-tiles-6.png" height="150px" onclick="knowledgeTile(6)"/>
 
-        <img src="images/knowledge-tiles-7.png" height="200px" onclick="knowledgeTile(7)"/>
+        <img src="images/knowledge-tiles-7.png" height="150px" onclick="knowledgeTile(7)"/>
 
-        <img src="images/knowledge-tiles-8.png" height="200px" onclick="knowledgeTile(8)"/>
+        <img src="images/knowledge-tiles-8.png" height="150px" onclick="knowledgeTile(8)"/>
 
-        <img src="images/knowledge-tiles-9.png" height="200px" onclick="knowledgeTile(9)"/>
+        <img src="images/knowledge-tiles-9.png" height="150px" onclick="knowledgeTile(9)"/>
 
-        <img src="images/knowledge-tiles-10.png" height="200px" onclick="knowledgeTile(10)"/>
+        <img src="images/knowledge-tiles-10.png" height="150px" onclick="knowledgeTile(10)"/>
 
-        <img src="images/knowledge-tiles-11.png" height="200px" onclick="knowledgeTile(11)"/>
+        <img src="images/knowledge-tiles-11.png" height="150px" onclick="knowledgeTile(11)"/>
 
-        <img src="images/knowledge-tiles-12.png" height="200px" onclick="knowledgeTile(12)"/>
+        <img src="images/knowledge-tiles-12.png" height="150px" onclick="knowledgeTile(12)"/>
 
-        <img src="images/knowledge-tiles-13.png" height="200px" onclick="knowledgeTile(13)"/>
+        <img src="images/knowledge-tiles-13.png" height="150px" onclick="knowledgeTile(13)"/>
 
-        <img src="images/knowledge-tiles-14.png" height="200px" onclick="knowledgeTile(14)"/>
+        <img src="images/knowledge-tiles-14.png" height="150px" onclick="knowledgeTile(14)"/>
 
-        <img src="images/knowledge-tiles-15.png" height="200px" onclick="knowledgeTile(15)"/>
+        <img src="images/knowledge-tiles-15.png" height="150px" onclick="knowledgeTile(15)"/>
 
-        <img src="images/knowledge-tiles-16-23.png" height="200px" onclick="knowledgeTile(16)"/>
+        <img src="images/knowledge-tiles-16-23.png" height="150px" onclick="knowledgeTile(16)"/>
 
-        <img src="images/knowledge-tiles-24.png" height="200px" onclick="knowledgeTile(17)"/>
+        <img src="images/knowledge-tiles-24.png" height="150px" onclick="knowledgeTile(17)"/>
 
-        <img src="images/knowledge-tiles-25.png" height="200px" onclick="knowledgeTile(18)"/>
+        <img src="images/knowledge-tiles-25.png" height="150px" onclick="knowledgeTile(18)"/>
 
-        <img src="images/knowledge-tiles-26.png" height="200px" onclick="knowledgeTile(19)"/>
+        <img src="images/knowledge-tiles-26.png" height="150px" onclick="knowledgeTile(19)"/>
     </div>
     
     <script src="dice-roll.js"></script>
