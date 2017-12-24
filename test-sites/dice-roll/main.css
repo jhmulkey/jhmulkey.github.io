@@ -49,7 +49,7 @@ table, tr, th, td {
     border-collapse: collapse;
     text-align: center;
     font-size: 20px;
-    max-width: 400px;
+    vertical-align: middle;
 }
 
 table { 
@@ -57,7 +57,7 @@ table {
 }
 
 th, td {
-    padding: 5px;
+    padding: 10px;
 }
 
 th {
@@ -94,8 +94,24 @@ input[type="number"] {
 
 button {
     height: 40px;
+    width: 75px;
     margin: 0 5px 0;
     border: 2px solid black;
+    font-size: 20px;
+    color: darkred;
+    background-color: rgba(255,255,255,0.3);
+    cursor: pointer;
+}
+
+.button-2 {
+    height: 40px;
+    width: 200px;
+    margin: 0 5px 10px;
+    border: 2px solid black;
+    font-size: 20px;
+    color: darkred;
+    background-color: rgba(255,255,255,0.3);
+    cursor: pointer;
 }
 
 /* 1. BOARD */
@@ -196,7 +212,7 @@ button {
     text-align: center;
     display: flex;
     justify-content: space-around;
-    margin: 20px auto 25px;
+    margin: 0 auto 25px;
     max-width: 400px;
 }
 
@@ -261,7 +277,6 @@ button {
 }
 
 .region-size-points {
-    width: 350px;
     table-layout: fixed;
     margin-bottom: 10px;
 }
@@ -274,10 +289,36 @@ button {
     font-weight: bold;
 }
 
+.point-control-div {
+    max-width: 400px;
+    text-align: center;
+    margin: 10px auto 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+#total-points {
+    color: darkred;
+    font-weight: bold;
+}
+
+.total-points-p {
+    font-size: 22px;
+    text-align: center;
+}
+
+.point-quickadd-div {
+    max-width: 400px;
+    text-align: center;
+    margin: 10px auto 10px auto;
+}
+
 /* POINTS */
 
 .points-div {
-    margin: 200px 15px 50px 15px;
+    margin: 10px 15px 50px 15px;
     text-align: center;
 }
 
@@ -302,7 +343,9 @@ button {
 
 .shade-2 {
     background-color: rgba(255,255,255,0.3);
+    color: darkred;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .knowledge-tile-flex-div {
@@ -371,30 +414,13 @@ button {
         width: 100px;
     }
     
-    .region-size-points {
-        width: 300px;
-    }
-    
     .region-size-points th, .region-size-points td {
         font-size: 20px;
     }
 }
-.point-reset-div {
-    max-width: 400px;
-    text-align: center;
-    margin: 10px auto 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-}
 
-
-#total-points {
-    color: darkred;
-    font-weight: bold;
-}
-
-.total-points-p {
-    font-size: 22px;
+@media screen and (max-width: 500px) {
+    table { 
+        width: 100%;
+    }
 }

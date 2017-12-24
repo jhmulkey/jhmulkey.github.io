@@ -4,6 +4,8 @@ diceRoll.src = "dice-roll.mp3";
 var bonusSound = new Audio();
 bonusSound.src = "bonus-sound.mp3";
 
+players = 0;
+    
 r = 0;
 
 p = 0;
@@ -82,18 +84,33 @@ function rollWhiteDice() {
 };
 
 function rollDice(color) {
-    diceRoll.play();
-    r++;
-    randomDice(color);
-    setPhase();
-    setRound();
-    regionPoints();
-    if (document.getElementById("bonus-checkbox").checked) {
-        randomBonus();
+    if (r < 25) {
+        diceRoll.play();
+        r++;
+        randomDice(color);
+        setPhase();
+        setRound();
+        regionPoints();
+        if (document.getElementById("bonus-checkbox").checked) {
+            randomBonus();
+        }
+    } else if (r >= 25) {
+        if (window.confirm("End of Game. Ok to reset?")) {
+            location.reload();
+        };
     }
-    if (r == 26) {
-        location.reload();
-    }
+};
+
+function setPlayers() {
+    x = prompt("How many players (2-4)?");
+    y = parseInt(x);
+    if (isNaN(y) || y < 2 || y > 4) {
+        alert("Please enter a number between 2 and 4");
+        setPlayers();
+    } else {
+        players = y;
+        alert("Have a great " + y + "-player game!");
+    };
 };
 
 function randomDice(color) {
@@ -217,21 +234,191 @@ function whiteDiceVisible() {
     };
 };
 
-function setPoints(x) {
-    if (isNaN(x)) {
+function setPoints() {
+    x = prompt("Set points to:");
+    y = parseInt(x);
+    if (isNaN(y)) {
         alert("Please enter a number");
     } else {
-        p = x;
+        p = y;
         document.getElementById("total-points").innerHTML = p;
         alert("Your new point total is " + p);
     };
 };
 
-function addPoints(x) {
-    if (isNaN(x)) {
+function resetPoints() {
+    if (window.confirm("Are you sure you want to reset points?")) {
+        p = 0;
+        document.getElementById("total-points").innerHTML = p;
+        alert("Points reset to " + p);
+    };
+};
+
+function adjustPoints() {
+    x = prompt("Adjust points by:");
+    y = parseInt(x);
+    if (isNaN(y)) {
         alert("Please enter a number");
     } else {
-        p += x;
+        p += y;
+        document.getElementById("total-points").innerHTML = p;
+        alert("Your new point total is " + p);
+    };
+};
+
+function addPoints() {
+    x = prompt("Points earned:");
+    y = parseInt(x);
+    if (isNaN(y)) {
+        alert("Please enter a number");
+    } else {
+        p += y;
+        document.getElementById("total-points").innerHTML = p;
+        alert("Your new point total is " + p);
+    };
+};
+
+function tapPoints(x) {
+    p += x;
+    document.getElementById("total-points").innerHTML = p;
+    alert("Your new point total is " + p);
+    //window.scrollTo(0,0);
+};
+
+function sellGoods() {
+    if (players < 2 || players > 4) {
+        setPlayers();
+        sellGoods();
+    } else {
+        x = prompt("How many goods sold?");
+        y = parseInt(x);
+        if (isNaN(y) || y < 0 || y > 10) {
+        alert("Please enter a number between 1 and 10");
+        } else {
+            if (players == 2) {
+                p += y * 2;
+                document.getElementById("total-points").innerHTML = p;
+                alert("Your new point total is " + p);
+            } else if (players == 3) {
+                p += y * 3;
+                document.getElementById("total-points").innerHTML = p;
+                alert("Your new point total is " + p);
+            } else if (players == 4) {
+                p += y * 4;
+                document.getElementById("total-points").innerHTML = p;
+                alert("Your new point total is " + p);
+            };
+        };
+    };
+};
+
+function bonusTile(x) {
+    if (players < 2 || players > 4) {
+        setPlayers();
+    } else {
+        if (x == "L") {
+            p += (players + 3);
+            document.getElementById("total-points").innerHTML = p;
+            alert("Your new point total is " + p);
+        } else if (x == "S") {
+            p += players;
+            document.getElementById("total-points").innerHTML = p;
+            alert("Your new point total is " + p);
+        };
+    };
+};
+
+function unsoldGoods() {
+    x = prompt("How many unsold goods tiles remain?");
+    y = parseInt(x);
+    if (isNaN(y)) {
+        alert("Please enter a number");
+    } else {
+        p += y;
+        document.getElementById("total-points").innerHTML = p;
+        alert("Your new point total is " + p);
+    };
+};
+
+function remSilver() {
+    x = prompt("How many silverlings remain?");
+    y = parseInt(x);
+    if (isNaN(y)) {
+        alert("Please enter a number");
+    } else {
+        p += y;
+        document.getElementById("total-points").innerHTML = p;
+        alert("Your new point total is " + p);
+    };
+};
+
+function remWorker() {
+    x = prompt("How many workers remain?");
+    y = parseInt(x);
+    if (isNaN(y)) {
+        alert("Please enter a number");
+    } else {
+        p += Math.floor(y / 2);
+        document.getElementById("total-points").innerHTML = p;
+        alert("Your new point total is " + p);
+    };
+};
+
+function know15() {
+    x = prompt("How goods types sold?");
+    y = parseInt(x);
+    if (isNaN(y)) {
+        alert("Please enter a number");
+    } else {
+        p += (y * 3);
+        document.getElementById("total-points").innerHTML = p;
+        alert("Your new point total is " + p);
+    };
+};
+
+function know1623() {
+    x = prompt("How many eligible buildings?");
+    y = parseInt(x);
+    if (isNaN(y)) {
+        alert("Please enter a number");
+    } else {
+        p += (y * 4);
+        document.getElementById("total-points").innerHTML = p;
+        alert("Your new point total is " + p);
+    };
+};
+
+function know24() {
+    x = prompt("How many animal types on estate?");
+    y = parseInt(x);
+    if (isNaN(y)) {
+        alert("Please enter a number");
+    } else {
+        p += (y * 4);
+        document.getElementById("total-points").innerHTML = p;
+        alert("Your new point total is " + p);
+    };
+};
+
+function know25() {
+    x = prompt("How many goods tiles sold?");
+    y = parseInt(x);
+    if (isNaN(y)) {
+        alert("Please enter a number");
+    } else {
+        p += y;
+        document.getElementById("total-points").innerHTML = p;
+        alert("Your new point total is " + p);
+    };
+};
+
+function know26() {
+    x = prompt("How many bonus tiles?");
+    y = parseInt(x);
+    if (isNaN(y)) {
+        alert("Please enter a number");
+    } else {
+        p += (y * 2);
         document.getElementById("total-points").innerHTML = p;
         alert("Your new point total is " + p);
     };
@@ -240,3 +427,7 @@ function addPoints(x) {
 function knowledgeTile(x) {
     alert(knowledgeTileArray[x-1]);
 };
+
+console.log(players);
+
+setPlayers();
