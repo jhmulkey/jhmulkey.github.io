@@ -302,12 +302,12 @@ input[type="number"] {
 }
 
 #total-points {
+    font-size: 65px;
     color: darkred;
     font-weight: bold;
 }
 
 .total-points-p {
-    font-size: 22px;
     text-align: center;
 }
 
