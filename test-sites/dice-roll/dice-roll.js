@@ -428,4 +428,4 @@ function knowledgeTile(x) {
     alert(knowledgeTileArray[x-1]);
 };
 
-setTimeout(setPlayers, 1000);
+//setTimeout(setPlayers, 1000);

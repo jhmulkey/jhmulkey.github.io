@@ -14,7 +14,7 @@
 
 *, *:before, *:after {
     box-sizing: border-box;
-    //outline: 1px solid black;
+    outline: 1px solid black;
 }
 
 html {
@@ -105,8 +105,8 @@ input[type="number"] {
 }
 
 .button-2 {
-    height: 50px;
-    width: 200px;
+    height: 125px;
+    width: 125px;
     margin: 0 auto 10px auto;
     padding-top: 10px;
     border: 2px solid black;
@@ -215,7 +215,7 @@ input[type="number"] {
     display: flex;
     justify-content: space-around;
     margin: 0 auto 25px;
-    max-width: 400px;
+    max-width: 414px;
 }
 
 .checkbox-div, .button-div {
@@ -232,9 +232,10 @@ input[type="number"] {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
     text-align: center;
     margin: 0 auto 20px auto;
-    max-width: 400px;
+    max-width: 414px;;
 }
 
 .click-to-hide-div {
@@ -243,8 +244,8 @@ input[type="number"] {
 }
 
 #roll-1-div, #roll-2-div, #roll-3-div {
-    height: 125px;
-    width: 125px;
+    height: 100px;
+    width: 100px;
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -253,11 +254,12 @@ input[type="number"] {
     visibility: hidden;
 }
 
-.roll-3-flex-div {
+.phase-points-round-div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    max-width: 500px;
+    align-items: center;
+    max-width: 414px;
     margin: 0 auto;
 }
 
@@ -292,17 +294,17 @@ input[type="number"] {
 }
 
 .point-control-div {
-    max-width: 400px;
+    max-width: 414px;
     text-align: center;
     margin: 10px auto 20px auto;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
-    
+    justify-content: center;    
 }
 
 #total-points {
-    font-size: 65px;
+    font-size: 85px;
     color: darkred;
     font-weight: bold;
 }
@@ -312,9 +314,17 @@ input[type="number"] {
 }
 
 .point-quickadd-div {
-    max-width: 400px;
+    max-width: 414px;
     text-align: center;
     margin: 10px auto 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow: hidden;
+}
+
+.point-quickadd-div p {
+    font-size: 22px;
 }
 
 /* POINTS */
@@ -356,7 +366,7 @@ input[type="number"] {
     justify-content: space-around;
     flex-wrap: wrap;
     margin: 20px auto 0 auto;
-    max-width: 500px;
+    max-width: 414px;
 }
 
 /* BONUS */
@@ -419,4 +429,42 @@ input[type="number"] {
     .region-size-points th, .region-size-points td {
         font-size: 20px;
     }
+}
+.total-points-div {
+    width: 150px;
+}
+
+#quickadd9 {
+    background-image: url(images/knowledge-tiles-15.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#quickadd10 {
+    background-image: url(images/knowledge-tiles-16-23.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#quickadd11 {
+    background-image: url(images/knowledge-tiles-24.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#quickadd12 {
+    background-image: url(images/knowledge-tiles-25.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#quickadd13 {
+    background-image: url(images/knowledge-tiles-26.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }

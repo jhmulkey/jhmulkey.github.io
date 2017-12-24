@@ -26,16 +26,19 @@
         <div class="click-to-hide-div" onclick="hide1()">
             <div id="roll-1-div" style="visibility: visible"></div>
         </div>
+        <div id="roll-3-div" style="visibility: hidden"></div>
         <div class="click-to-hide-div" onclick="hide2()">
             <div id="roll-2-div"></div>
         </div>
     </div>
     
-    <div class="roll-3-flex-div">
+    <div class="phase-points-round-div">
         <div class="phase-round-div">
             <p>Phase</p><span id="phase-span">A</span>
         </div>
-        <div id="roll-3-div" style="visibility: hidden"></div>
+        <div class="total-points-div">
+            <p class="total-points-p"><span id="total-points">0</span></p>
+        </div>
         <div class="phase-round-div">
             <p>Round</p><span id="round-span">1</span>
         </div>
@@ -66,36 +69,29 @@
         </table>
     </div>
     
-    <p class="total-points-p"><span id="total-points">0</span></p>
-    
-        <div class="point-control-div">
-            <div class="button-1" onclick="setPoints()">Set</div>
-            <div class="button-1" onclick="resetPoints()">Reset</div>
-            <div class="button-1" onclick="adjustPoints()">Adjust</div>
-        </div>
-        
-        <h1 class="black-chancery-h1">During Game</h1>
-        
-        <div class="point-quickadd-div">
-            <div class="button-2" onclick="sellGoods()">Sell Goods</div>
-            <div class="button-2" onclick="tapPoints(4)">Watchtower</div>
-            <div class="button-2" onclick="addPoints()">Animal</div>
-            <div class="button-2" onclick="bonusTile('L')">Large Bonus</div>
-            <div class="button-2" onclick="bonusTile('S')">Small Bonus</div>
-        </div>
-        
-        <h1 class="black-chancery-h1">After Game</h1>
-        
-        <div class="point-quickadd-div">
-            <div class="button-2" onclick="unsoldGoods()">Unsold Goods</div>
-            <div class="button-2" onclick="remSilver()">Remaining Silverlings</div>
-            <div class="button-2" onclick="remWorker()">Remaining Workers</div>
-            <div class="button-2" onclick="know15()">Knowledge #15</div>
-            <div class="button-2" onclick="know1623()">Knowledge #16-23</div>
-            <div class="button-2" onclick="know24()">Knowledge #24</div>
-            <div class="button-2" onclick="know25()">Knowledge #25</div>
-            <div class="button-2" onclick="know26()">Knowledge #26</div>
-        </div>
+    <div class="point-control-div">
+        <div class="button-1" onclick="setPoints()">Set</div>
+        <div class="button-1" onclick="resetPoints()">Reset</div>
+        <div class="button-1" onclick="adjustPoints()">Adjust</div>
+    </div>
+
+    <h1 class="black-chancery-h1">Add Points</h1>
+
+    <div class="point-quickadd-div">
+        <div id="quickadd1" class="button-2" onclick="sellGoods()"><p>Sell<br/>Goods</p></div>
+        <div id="quickadd2" class="button-2" onclick="tapPoints(4)"><p>Watchtower</p></div>
+        <div id="quickadd3" class="button-2" onclick="addPoints()"><p>Animal</p></div>
+        <div id="quickadd4" class="button-2" onclick="bonusTile('L')"><p>Large<br/>Bonus</p></div>
+        <div id="quickadd5" class="button-2" onclick="bonusTile('S')"><p>Small<br/>Bonus</p></div>
+        <div id="quickadd6" class="button-2" onclick="unsoldGoods()"><p>Unsold<br/>Goods</p></div>
+        <div id="quickadd7" class="button-2" onclick="remSilver()"><p>Remaining<br/>Silverlings</p></div>
+        <div id="quickadd8" class="button-2" onclick="remWorker()"><p>Remaining<br/>Workers</p></div>
+        <div id="quickadd9" class="button-2" onclick="know15()"></div>
+        <div id="quickadd10" class="button-2" onclick="know1623()"></div>
+        <div id="quickadd11" class="button-2" onclick="know24()"></div>
+        <div id="quickadd12" class="button-2" onclick="know25()"></div>
+        <div id="quickadd13" class="button-2" onclick="know26()"></div>
+    </div>
         
     <h1 class="black-chancery-h1">Knowledge Tiles</h1>
         
