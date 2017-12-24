@@ -92,10 +92,11 @@ input[type="number"] {
     margin: 0 5px 0;
 }
 
-button {
-    height: 40px;
-    width: 75px;
-    margin: 0 5px 0;
+.button-1 {
+    height: 50px;
+    width: 100px;
+    margin: 0 auto 10px auto;
+    padding-top: 10px;
     border: 2px solid black;
     font-size: 20px;
     color: darkred;
@@ -104,9 +105,10 @@ button {
 }
 
 .button-2 {
-    height: 40px;
+    height: 50px;
     width: 200px;
-    margin: 0 5px 10px;
+    margin: 0 auto 10px auto;
+    padding-top: 10px;
     border: 2px solid black;
     font-size: 20px;
     color: darkred;
@@ -312,7 +314,7 @@ button {
 .point-quickadd-div {
     max-width: 400px;
     text-align: center;
-    margin: 10px auto 10px auto;
+    margin: 10px auto 30px auto;
 }
 
 /* POINTS */
