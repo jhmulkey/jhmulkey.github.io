@@ -2,12 +2,12 @@
 
 @font-face {
     font-family: black-chancery;
-    src: url(black-chancery.ttf);
+    src: url(fonts/black-chancery.ttf);
 }
 
 @font-face {
     font-family: Tahoma;
-    src: url(Tahoma.ttf);
+    src: url(fonts/Tahoma.ttf);
 }
 
 /* GLOBAL ELEMENTS */
@@ -95,6 +95,18 @@ th {
     cursor: pointer;
 }
 
+.button-3 {
+    height: 50px;
+    width: 175px;
+    margin: 0 auto 20px auto;
+    padding-top: 10px;
+    border: 2px solid black;
+    font-size: 20px;
+    color: darkred;
+    background-color: rgba(255,255,255,0.3);
+    cursor: pointer;
+}
+
 /* GLOBAL INPUT */
 
 input[type="radio"] {
@@ -139,7 +151,7 @@ input[type="number"] {
     width: 100px;
     height: 100px;
     border: 1px dashed black;
-    margin: 20px auto;
+    margin: 30px auto;
     background-image: url(images/tap-to-select.png);
     background-size: contain;
 }
@@ -165,13 +177,9 @@ input[type="number"] {
 
 /* INDEX - DICE COLOR */
 
-.choose-color-div {
-    margin: 25px 0 100px 0;
-}
-
 .choose-color-flex-div {
-    max-width: 400px;
-    margin: 20px auto 0;
+    max-width: 414px;
+    margin: 40px auto 40px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -179,19 +187,10 @@ input[type="number"] {
 
 /* INDEX - EXPANSION RULES LINK */
 
-.expansion-rules-link {
-    background-color: #8B0000;
-    color: white;
-    font-size: 24px;
-    padding: 10px;
-    border: 2px solid black;
-    border-radius: 5px;
-}
-
 /* INDEX - SETUP GUIDE */
 
 .setup-div {
-    margin: 100px auto 0 auto;
+    margin: 0 auto
     max-width: 500px;
 }
 
@@ -459,4 +458,7 @@ input[type="number"] {
 .exp-main-wrap li {
     font-size: 20px;
     text-align: left;
+}
+.link-div {
+    margin: 25px;
 }

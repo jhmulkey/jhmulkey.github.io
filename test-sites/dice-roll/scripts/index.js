@@ -1,5 +1,5 @@
 var diceRoll = new Audio();
-diceRoll.src = "dice-roll.mp3";
+diceRoll.src = "./audio/dice-roll.mp3";
 
 whiteArray = [
     "url(images/white-dice-1.png)",
