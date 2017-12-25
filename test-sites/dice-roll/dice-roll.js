@@ -108,7 +108,6 @@ function setPlayers() {
         setPlayers();
     } else {
         players = y;
-        alert("Number of players: " + y);
         document.getElementById("player-span").innerHTML = y;
     };
 };
