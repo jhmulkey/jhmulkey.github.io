@@ -481,6 +481,14 @@ input[type="number"] {
     background-color: #E0D537;
 }
 
+#quickadd14 {
+    background-image: url(images/monastary.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #BEBF8C;
+}
+
 #quickadd1 {
     background-image: url(images/sell-goods.jpg);
     background-size: contain;
