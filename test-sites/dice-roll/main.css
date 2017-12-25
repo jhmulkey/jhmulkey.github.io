@@ -96,6 +96,7 @@ th {
 }
 
 .button-3 {
+    display: inline-block;
     height: 50px;
     width: 175px;
     margin: 0 auto 20px auto;
@@ -458,7 +459,4 @@ input[type="number"] {
 .exp-main-wrap li {
     font-size: 20px;
     text-align: left;
-}
-.link-div {
-    margin: 25px;
 }
