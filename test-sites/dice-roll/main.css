@@ -105,14 +105,14 @@ input[type="number"] {
 }
 
 .button-2 {
-    height: 125px;
-    width: 125px;
+    height: 100px;
+    width: 100px;
     margin: 0 auto 10px auto;
     padding-top: 10px;
     border: 2px solid black;
     font-size: 20px;
     color: darkred;
-    background-color: rgba(255,255,255,0.3);
+    //background-color: rgba(255,255,255,0.3);
     cursor: pointer;
 }
 
@@ -291,6 +291,9 @@ input[type="number"] {
 
 .region-size-points td {
     font-weight: bold;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
 }
 
 .point-control-div {
@@ -321,6 +324,10 @@ input[type="number"] {
     flex-wrap: wrap;
     justify-content: space-around;
     overflow: hidden;
+}
+
+.point-quickadd-div div {
+    margin: 5px;
 }
 
 .point-quickadd-div p {
@@ -439,6 +446,7 @@ input[type="number"] {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: #E0D537;
 }
 
 #quickadd10 {
@@ -446,6 +454,7 @@ input[type="number"] {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: #E0D537;
 }
 
 #quickadd11 {
@@ -453,6 +462,7 @@ input[type="number"] {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: #E0D537;
 }
 
 #quickadd12 {
@@ -460,6 +470,7 @@ input[type="number"] {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: #E0D537;
 }
 
 #quickadd13 {
@@ -467,4 +478,102 @@ input[type="number"] {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: #E0D537;
+}
+
+#quickadd1 {
+    background-image: url(images/sell-goods.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#quickadd2 {
+    background-image: url(images/watchtower.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #D2CC95;
+}
+
+#quickadd3 {
+    background-image: url(images/animals.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #BEE53D;
+}
+
+#quickadd4 {
+    background-image: url(images/large-bonus.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#quickadd5 {
+    background-image: url(images/small-bonus.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #BABDB8;
+}
+
+#quickadd6 {
+    background-image: url(images/unsold-goods.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#quickadd7 {
+    background-image: url(images/silverling.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #C6B4B1;
+}
+
+#quickadd8 {
+    background-image: url(images/worker.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.player-control-div {
+    max-width: 414px;
+    text-align: center;
+    margin: 10px auto 20px auto;
+}
+
+.centered-div {
+    max-width: 414px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.region-point-tap {
+    max-width: 414px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 auto 30px auto;
+}
+
+.region-point-tap div {
+    color: white;
+    background-color: darkred;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    width: 75px;
+    height: 75px;
+    border: 2px solid black;
+    margin: 5px;
+    padding-top: 2px;
+}
+
+.player-p {
+    margin-top: 0;
 }

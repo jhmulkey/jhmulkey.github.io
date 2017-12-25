@@ -56,25 +56,25 @@ blueArray = [
 ];
 
 knowledgeTileArray = [
-    "(#1) more than 1 of each building type allowed per city",
-    "(#2) 1 worker earned for each mine at end of each phase in addition to the silverling",
-    "(#3) 2 silverlings per goods sale, not just 1",
-    "(#4) 1 worker earned per goods sale in addition to the silverling(s)",
-    "(#5) receive goods from 2 neighboring depots (not just 1) when ship placed",
-    "(#6) silverlings may be used to buy tiles from any depot, not just the black depot",
-    "(#7) if you place an animal tile when knowledge tile #7 is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type on the same pasture",
-    "(#8) worker tiles can adjust dice roll by up to +2 or -2",
-    "(#9) any dice result may be adjusted +1 or -1 to place a building",
-    "(#10) any dice result may be adjusted +1 or -1 to place a ship or animal tile",
-    "(#11) any dice result may be adjusted +1 or -1 to place a castle, knowledge tile, or mine",
-    "(#12) any dice result may be adjusted +1 or -1 to acquire any new tile",
-    "(#13) when a dice is traded for worker tiles, a silverling is also earned",
-    "(#14) 4 worker tiles traded for a dice, not just 2",
-    "(#15) at end of game: 3 points for every goods type sold",
-    "(#16-23) at end of game: 4 points for each corresponding building on the estate",
-    "(#24) at end of game: 4 points for each animal type on estate",
-    "(#25) at end of game: 1 point for every goods tile sold",
-    "(#26) at end of game: 2 points for each bonus tile"
+    "more than 1 of each building type allowed per city",
+    "1 worker earned for each mine at end of each phase in addition to the silverling",
+    "2 silverlings per goods sale, not just 1",
+    "1 worker earned per goods sale in addition to the silverling(s)",
+    "receive goods from 2 neighboring depots (not just 1) when ship placed",
+    "silverlings may be used to buy tiles from any depot, not just the black depot",
+    "if you place an animal tile when knowledge tile #7 is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type on the same pasture",
+    "worker tiles can adjust dice roll by up to +2 or -2",
+    "any dice result may be adjusted +1 or -1 to place a building",
+    "any dice result may be adjusted +1 or -1 to place a ship or animal tile",
+    "any dice result may be adjusted +1 or -1 to place a castle, knowledge tile, or mine",
+    "any dice result may be adjusted +1 or -1 to acquire any new tile",
+    "when a dice is traded for worker tiles, a silverling is also earned",
+    "4 worker tiles traded for a dice, not just 2",
+    "at end of game: 3 points for every goods type sold",
+    "at end of game: 4 points for each corresponding building on the estate",
+    "at end of game: 4 points for each animal type on estate",
+    "at end of game: 1 point for every goods tile sold",
+    "at end of game: 2 points for each bonus tile"
 ];
 
 function rollWhiteDice() {
@@ -90,7 +90,6 @@ function rollDice(color) {
         randomDice(color);
         setPhase();
         setRound();
-        regionPoints();
         if (document.getElementById("bonus-checkbox").checked) {
             randomBonus();
         }
@@ -109,7 +108,8 @@ function setPlayers() {
         setPlayers();
     } else {
         players = y;
-        alert("Have a great " + y + "-player game!");
+        alert("Number of players: " + y);
+        document.getElementById("player-span").innerHTML = y;
     };
 };
 
@@ -170,46 +170,6 @@ function setRound() {
     };
 };
 
-function regionPoints() {
-    if (r == 6) {
-        document.getElementById("regsize1").innerHTML = 9;
-        document.getElementById("regsize2").innerHTML = 11;
-        document.getElementById("regsize3").innerHTML = 14;
-        document.getElementById("regsize4").innerHTML = 18;
-        document.getElementById("regsize5").innerHTML = 23;
-        document.getElementById("regsize6").innerHTML = 29;
-        document.getElementById("regsize7").innerHTML = 36;
-        document.getElementById("regsize8").innerHTML = 44;
-    } else if (r == 11) {
-        document.getElementById("regsize1").innerHTML = 7;
-        document.getElementById("regsize2").innerHTML = 9;
-        document.getElementById("regsize3").innerHTML = 12;
-        document.getElementById("regsize4").innerHTML = 16;
-        document.getElementById("regsize5").innerHTML = 21;
-        document.getElementById("regsize6").innerHTML = 27;
-        document.getElementById("regsize7").innerHTML = 34;
-        document.getElementById("regsize8").innerHTML = 42;
-    } else if (r == 16) {
-        document.getElementById("regsize1").innerHTML = 5;
-        document.getElementById("regsize2").innerHTML = 7;
-        document.getElementById("regsize3").innerHTML = 10;
-        document.getElementById("regsize4").innerHTML = 14;
-        document.getElementById("regsize5").innerHTML = 19;
-        document.getElementById("regsize6").innerHTML = 25;
-        document.getElementById("regsize7").innerHTML = 32;
-        document.getElementById("regsize8").innerHTML = 40;
-    } else if (r == 21) {
-        document.getElementById("regsize1").innerHTML = 3;
-        document.getElementById("regsize2").innerHTML = 5;
-        document.getElementById("regsize3").innerHTML = 8;
-        document.getElementById("regsize4").innerHTML = 12;
-        document.getElementById("regsize5").innerHTML = 17;
-        document.getElementById("regsize6").innerHTML = 23;
-        document.getElementById("regsize7").innerHTML = 30;
-        document.getElementById("regsize8").innerHTML = 38;
-    };
-};
-
 function hide1() {
     if (document.getElementById("roll-1-div").style.visibility == "visible") {
         document.getElementById("roll-1-div").style.visibility = "hidden";
@@ -242,7 +202,8 @@ function setPoints() {
     } else {
         p = y;
         document.getElementById("total-points").innerHTML = p;
-        alert("Your new point total is " + p);
+        alert("+" + y + ". " + "Your new point total is " + p);
+        window.scrollTo(0,0);
     };
 };
 
@@ -250,7 +211,7 @@ function resetPoints() {
     if (window.confirm("Are you sure you want to reset points?")) {
         p = 0;
         document.getElementById("total-points").innerHTML = p;
-        alert("Points reset to " + p);
+        window.scrollTo(0,0);
     };
 };
 
@@ -263,6 +224,7 @@ function adjustPoints() {
         p += y;
         document.getElementById("total-points").innerHTML = p;
         alert("Your new point total is " + p);
+        window.scrollTo(0,0);
     };
 };
 
@@ -274,15 +236,49 @@ function addPoints() {
     } else {
         p += y;
         document.getElementById("total-points").innerHTML = p;
-        alert("Your new point total is " + p);
+        alert("+" + y + ". " + "Your new point total is " + p);
+        window.scrollTo(0,0);
     };
 };
 
 function tapPoints(x) {
     p += x;
     document.getElementById("total-points").innerHTML = p;
-    alert("Your new point total is " + p);
-    //window.scrollTo(0,0);
+    alert("+" + x + ". " + "Your new point total is " + p);
+    window.scrollTo(0,0);
+};
+
+function regionPoints(x) {
+    a = 11; b = 13; c = 16; d = 20; e = 25; f = 31; g = 38; h = 46;
+    if (r > 5 && r < 11) {
+        a = 9; b = 11; c = 14; d = 18; e = 23; f = 29; g = 36; h = 44;
+    } else if (r > 10 && r < 16) {
+        a = 7; b = 9; c = 12; d = 16; e = 21; f = 27; g = 34; h = 42;
+    } else if (r > 15 && r < 21) {
+        a = 5; b = 7; c = 10; d = 14; e = 19; f = 25; g = 32; h = 40;
+    } else if (r > 20) {
+        a = 3; b = 5; c = 8; d = 12; e = 17; f = 23; g = 30; h = 38;
+    };
+    if (x == 1) {
+        p += a; added = a; 
+    } else if (x == 2) {
+        p += b; added = b; 
+    } else if (x == 3) {
+        p += c; added = c; 
+    } else if (x == 4) {
+        p += d; added = d; 
+    } else if (x == 5) {
+        p += e; added = e; 
+    } else if (x == 6) {
+        p += f; added = f; 
+    } else if (x == 7) {
+        p += g; added = g; 
+    } else if (x == 8) {
+        p += h; added = h; 
+    };
+    document.getElementById("total-points").innerHTML = p;
+    alert("+" + added + ". " + "Your new point total is " + p);
+    window.scrollTo(0,0);
 };
 
 function sellGoods() {
@@ -298,15 +294,18 @@ function sellGoods() {
             if (players == 2) {
                 p += y * 2;
                 document.getElementById("total-points").innerHTML = p;
-                alert("Your new point total is " + p);
+                alert("+" + y * 2 + ". " + "Your new point total is " + p);
+                window.scrollTo(0,0);
             } else if (players == 3) {
                 p += y * 3;
                 document.getElementById("total-points").innerHTML = p;
-                alert("Your new point total is " + p);
+                alert("+" + y * 3 + ". " + "Your new point total is " + p);
+                window.scrollTo(0,0);
             } else if (players == 4) {
                 p += y * 4;
                 document.getElementById("total-points").innerHTML = p;
-                alert("Your new point total is " + p);
+                alert("+" + y * 4 + ". " + "Your new point total is " + p);
+                window.scrollTo(0,0);
             };
         };
     };
@@ -319,11 +318,13 @@ function bonusTile(x) {
         if (x == "L") {
             p += (players + 3);
             document.getElementById("total-points").innerHTML = p;
-            alert("Your new point total is " + p);
+            alert("+" + (players + 3) + ". " + "Your new point total is " + p);
+            window.scrollTo(0,0);
         } else if (x == "S") {
             p += players;
             document.getElementById("total-points").innerHTML = p;
-            alert("Your new point total is " + p);
+            alert("+" + players + ". " + "Your new point total is " + p);
+            window.scrollTo(0,0);
         };
     };
 };
@@ -336,7 +337,7 @@ function unsoldGoods() {
     } else {
         p += y;
         document.getElementById("total-points").innerHTML = p;
-        alert("Your new point total is " + p);
+        alert("+" + y + ". " + "Your new point total is " + p);
     };
 };
 
@@ -348,7 +349,7 @@ function remSilver() {
     } else {
         p += y;
         document.getElementById("total-points").innerHTML = p;
-        alert("Your new point total is " + p);
+        alert("+" + y + ". " + "Your new point total is " + p);
     };
 };
 
@@ -360,7 +361,7 @@ function remWorker() {
     } else {
         p += Math.floor(y / 2);
         document.getElementById("total-points").innerHTML = p;
-        alert("Your new point total is " + p);
+        alert("+" + Math.floor(y / 2) + ". " + "Your new point total is " + p);
     };
 };
 
@@ -372,7 +373,7 @@ function know15() {
     } else {
         p += (y * 3);
         document.getElementById("total-points").innerHTML = p;
-        alert("Your new point total is " + p);
+        alert("+" + (y * 3) + ". " + "Your new point total is " + p);
     };
 };
 
@@ -384,7 +385,7 @@ function know1623() {
     } else {
         p += (y * 4);
         document.getElementById("total-points").innerHTML = p;
-        alert("Your new point total is " + p);
+        alert("+" + (y * 4) + ". " + "Your new point total is " + p);
     };
 };
 
@@ -396,7 +397,7 @@ function know24() {
     } else {
         p += (y * 4);
         document.getElementById("total-points").innerHTML = p;
-        alert("Your new point total is " + p);
+        alert("+" + (y * 4) + ". " + "Your new point total is " + p);
     };
 };
 
@@ -408,7 +409,7 @@ function know25() {
     } else {
         p += y;
         document.getElementById("total-points").innerHTML = p;
-        alert("Your new point total is " + p);
+        alert("+" + y + ". " + "Your new point total is " + p);
     };
 };
 
@@ -420,7 +421,7 @@ function know26() {
     } else {
         p += (y * 2);
         document.getElementById("total-points").innerHTML = p;
-        alert("Your new point total is " + p);
+        alert("+" + (y * 2) + ". " + "Your new point total is " + p);
     };
 };
 

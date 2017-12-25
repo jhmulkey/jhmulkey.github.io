@@ -44,56 +44,53 @@
         </div>
     </div>
     
-    <div>
-        <table class="region-size-points">
-            <tr>
-                <th class="shade-1">1</th>
-                <th class="shade-1">2</th>
-                <th class="shade-1">3</th>
-                <th class="shade-1">4</th>
-                <th class="shade-1">5</th>
-                <th class="shade-1">6</th>
-                <th class="shade-1">7</th>
-                <th class="shade-1">8</th>
-            </tr>
-            <tr>
-                <td class="shade-2" id="regsize1" onclick="tapPoints(parseInt(document.getElementById('regsize1').innerHTML))">11</td>
-                <td class="shade-2" id="regsize2" onclick="tapPoints(parseInt(document.getElementById('regsize2').innerHTML))">13</td>
-                <td class="shade-2" id="regsize3" onclick="tapPoints(parseInt(document.getElementById('regsize3').innerHTML))">16</td>
-                <td class="shade-2" id="regsize4" onclick="tapPoints(parseInt(document.getElementById('regsize4').innerHTML))">20</td>
-                <td class="shade-2" id="regsize5" onclick="tapPoints(parseInt(document.getElementById('regsize5').innerHTML))">25</td>
-                <td class="shade-2" id="regsize6" onclick="tapPoints(parseInt(document.getElementById('regsize6').innerHTML))">31</td>
-                <td class="shade-2" id="regsize7" onclick="tapPoints(parseInt(document.getElementById('regsize7').innerHTML))">38</td>
-                <td class="shade-2" id="regsize8" onclick="tapPoints(parseInt(document.getElementById('regsize8').innerHTML))">46</td>
-            </tr>
-        </table>
+    <div class="centered-div">
+        <p class="player-p">Number of Players: <span id="player-span"></span></p>
     </div>
     
-    <div class="point-control-div">
-        <div class="button-1" onclick="setPoints()">Set</div>
-        <div class="button-1" onclick="resetPoints()">Reset</div>
-        <div class="button-1" onclick="adjustPoints()">Adjust</div>
+    <div class="region-point-tap">
+        <div onclick="regionPoints(1)">1</div>
+        <div onclick="regionPoints(2)">2</div>
+        <div onclick="regionPoints(3)">3</div>
+        <div onclick="regionPoints(4)">4</div>
+        <div onclick="regionPoints(5)">5</div>
+        <div onclick="regionPoints(6)">6</div>
+        <div onclick="regionPoints(7)">7</div>
+        <div onclick="regionPoints(8)">8</div>
     </div>
 
-    <h1 class="black-chancery-h1">Add Points</h1>
+    <h1 class="black-chancery-h1">During Game</h1>
 
     <div class="point-quickadd-div">
-        <div id="quickadd1" class="button-2" onclick="sellGoods()"><p>Sell<br/>Goods</p></div>
-        <div id="quickadd2" class="button-2" onclick="tapPoints(4)"><p>Watchtower</p></div>
-        <div id="quickadd3" class="button-2" onclick="addPoints()"><p>Animal</p></div>
-        <div id="quickadd4" class="button-2" onclick="bonusTile('L')"><p>Large<br/>Bonus</p></div>
-        <div id="quickadd5" class="button-2" onclick="bonusTile('S')"><p>Small<br/>Bonus</p></div>
-        <div id="quickadd6" class="button-2" onclick="unsoldGoods()"><p>Unsold<br/>Goods</p></div>
-        <div id="quickadd7" class="button-2" onclick="remSilver()"><p>Remaining<br/>Silverlings</p></div>
-        <div id="quickadd8" class="button-2" onclick="remWorker()"><p>Remaining<br/>Workers</p></div>
+        <div id="quickadd1" class="button-2" onclick="sellGoods()"></div>
+        <div id="quickadd2" class="button-2" onclick="tapPoints(4)"></div>
+        <div id="quickadd3" class="button-2" onclick="addPoints()"></div>
+        <div id="quickadd4" class="button-2" onclick="bonusTile('L')"></div>
+        <div id="quickadd5" class="button-2" onclick="bonusTile('S')"></div>
+    </div>
+        
+    <h1 class="black-chancery-h1">After Game</h1>
+    
+    <div class="point-quickadd-div">
+        <div id="quickadd6" class="button-2" onclick="unsoldGoods()"></div>
+        <div id="quickadd7" class="button-2" onclick="remSilver()"></div>
+        <div id="quickadd8" class="button-2" onclick="remWorker()"></div>
         <div id="quickadd9" class="button-2" onclick="know15()"></div>
         <div id="quickadd10" class="button-2" onclick="know1623()"></div>
         <div id="quickadd11" class="button-2" onclick="know24()"></div>
         <div id="quickadd12" class="button-2" onclick="know25()"></div>
         <div id="quickadd13" class="button-2" onclick="know26()"></div>
     </div>
-        
-    <h1 class="black-chancery-h1">Knowledge Tiles</h1>
+    
+    <h1 class="black-chancery-h1">Point Control</h1>
+    
+        <div class="point-control-div">
+            <div class="button-1" onclick="setPoints()">Set</div>
+            <div class="button-1" onclick="resetPoints()">Reset</div>
+            <div class="button-1" onclick="adjustPoints()">Adjust</div>
+        </div>
+    
+    <h1 class="black-chancery-h1">Knowledge Tile Reference</h1>
         
     <div class="knowledge-tile-flex-div">
         <img src="images/knowledge-tiles-1.png" height="150px" onclick="knowledgeTile(1)"/>
