@@ -11,7 +11,7 @@
     <div class="roll-button-flex-div">
         <div class="checkbox-div">
             <p class="check-here-p">1st</p>
-            <input type="checkbox" onclick="whiteDiceVisible()"/>
+            <input type="checkbox" onclick="hide(3)"/>
         </div>
         <div class="button-div">
             <img src="images/roll-button.png" onclick="rollDice('black')"/>
@@ -23,11 +23,11 @@
     </div>
     
     <div class="rolled-dice-flex-div">
-        <div class="click-to-hide-div" onclick="hide1()">
+        <div class="click-to-hide-div" onclick="hide(1)">
             <div id="roll-1-div" style="visibility: visible"></div>
         </div>
         <div id="roll-3-div" style="visibility: hidden"></div>
-        <div class="click-to-hide-div" onclick="hide2()">
+        <div class="click-to-hide-div" onclick="hide(2)">
             <div id="roll-2-div"></div>
         </div>
     </div>
@@ -63,20 +63,20 @@
         <div id="quickadd1" class="button-2" onclick="sellGoods()"></div>
         <div id="quickadd2" class="button-2" onclick="tapPoints(4)"></div>
         <div id="quickadd3" class="button-2" onclick="addPoints()"></div>
-        <div id="quickadd4" class="button-2" onclick="bonusTile(1)"></div>
-        <div id="quickadd5" class="button-2" onclick="bonusTile(2)"></div>
+        <div id="quickadd4" class="button-2" onclick="bonusTile(3)"></div>
+        <div id="quickadd5" class="button-2" onclick="bonusTile(0)"></div>
         <div id="quickadd14" class="button-2" onclick="tapPoints(5)"></div>
     </div>
             
     <div class="point-quickadd-div">
-        <div id="quickadd6" class="button-2" onclick="unsoldGoods()"></div>
-        <div id="quickadd7" class="button-2" onclick="remSilver()"></div>
-        <div id="quickadd8" class="button-2" onclick="remWorker()"></div>
-        <div id="quickadd9" class="button-2" onclick="know15()"></div>
-        <div id="quickadd10" class="button-2" onclick="know1623()"></div>
-        <div id="quickadd11" class="button-2" onclick="know24()"></div>
-        <div id="quickadd12" class="button-2" onclick="know25()"></div>
-        <div id="quickadd13" class="button-2" onclick="know26()"></div>
+        <div id="quickadd6" class="button-2" onclick="endGamePts(0)"></div>
+        <div id="quickadd7" class="button-2" onclick="endGamePts(1)"></div>
+        <div id="quickadd8" class="button-2" onclick="endGamePts(2)"></div>
+        <div id="quickadd9" class="button-2" onclick="endGamePts(3)"></div>
+        <div id="quickadd10" class="button-2" onclick="endGamePts(4)"></div>
+        <div id="quickadd11" class="button-2" onclick="endGamePts(5)"></div>
+        <div id="quickadd12" class="button-2" onclick="endGamePts(6)"></div>
+        <div id="quickadd13" class="button-2" onclick="endGamePts(7)"></div>
     </div>
         
     <div class="point-control-div">

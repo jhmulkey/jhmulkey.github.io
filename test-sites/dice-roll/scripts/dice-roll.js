@@ -18,12 +18,13 @@ function rollDice(color) {
         setRound();
         if (document.getElementById("bonus-checkbox").checked) {
             randomBonus();
-        }
+        };
     } else if (_rd >= 25) {
         if (window.confirm("End of Game. Ok to reset?")) {
+            window.scrollTo(0,0);
             location.reload();
         };
-    }
+    };
 };
 
 function setPlayers() {
@@ -51,14 +52,6 @@ function randomDice(color) {
     document.getElementById("roll-3-div").style.backgroundImage = dice3;
 };
 
-function randomBonus() {
-    b = Math.floor(Math.random() * 20);
-    if (b == 9) {
-        bonusSound.play();
-        window.open("bonus.html");
-    };
-};
-
 function setPhase() {
     if (_rd == 6) {
         document.getElementById("phase-span").innerHTML = "B"; _ph = 1;
@@ -75,27 +68,19 @@ function setRound() {
     document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
 };
 
-function hide1() {
-    if (document.getElementById("roll-1-div").style.visibility == "visible") {
-        document.getElementById("roll-1-div").style.visibility = "hidden";
-    } else {
-        document.getElementById("roll-1-div").style.visibility = "visible";
+function randomBonus() {
+    b = Math.floor(Math.random() * 20);
+    if (b == 9) {
+        bonusSound.play();
+        window.open("bonus.html");
     };
 };
 
-function hide2() {
-    if (document.getElementById("roll-2-div").style.visibility == "visible") {
-        document.getElementById("roll-2-div").style.visibility = "hidden";
+function hide(x) {
+    if (document.getElementById("roll-" + x + "-div").style.visibility == "visible") {
+        document.getElementById("roll-" + x + "-div").style.visibility = "hidden";
     } else {
-        document.getElementById("roll-2-div").style.visibility = "visible";
-    };
-};
-
-function whiteDiceVisible() {
-    if (document.getElementById("roll-3-div").style.visibility == "hidden") {
-        document.getElementById("roll-3-div").style.visibility = "visible";
-    } else {
-        document.getElementById("roll-3-div").style.visibility = "hidden";
+        document.getElementById("roll-" + x + "-div").style.visibility = "visible";
     };
 };
 
@@ -112,10 +97,9 @@ function setPoints() {
 };
 
 function resetPoints() {
-    if (window.confirm("Are you sure you want to reset points?")) {
-        _pts = 0;
-        document.getElementById("total-points").innerHTML = _pts;
+    if (window.confirm("Are you sure you want to reset game?")) {
         window.scrollTo(0,0);
+        location.reload();
     };
 };
 
@@ -183,105 +167,36 @@ function bonusTile(x) {
     if (_pl < 2 || _pl > 4) {
         setPlayers();
     } else {
-        if (x == 1) {
-            _pts += (_pl + 3);
+        _pts += (_pl + x);
+        document.getElementById("total-points").innerHTML = _pts;
+        alert("+" + (_pl + x) + ". " + "Your new point total is " + _pts);
+        window.scrollTo(0,0);
+    };
+};
+
+function endGamePts(x) {
+    if (_rd < 25) {
+        alert("These points can only be added at end of game!");
+    } else {
+        prompts = [
+            "How many unsold goods tiles remain?",
+            "How many silverlings remain?",
+            "How many workers remain?",
+            "How goods types sold?",
+            "How many eligible buildings?",
+            "How many animal types on estate?",
+            "How many goods tiles sold?",
+            "How many bonus tiles?"
+        ];
+        y = parseInt(prompt(prompts[x]));
+        factors = [y, y, Math.floor(y / 2), (y*3), (y * 4), (y * 4), y, (y * 2)];
+        if (isNaN(y)) {
+            alert("Please enter a number");
+        } else {
+            _pts += factors[x];
             document.getElementById("total-points").innerHTML = _pts;
-            alert("+" + (_pl + 3) + ". " + "Your new point total is " + _pts);
-            window.scrollTo(0,0);
-        } else if (x == 2) {
-            _pts += _pl;
-            document.getElementById("total-points").innerHTML = _pts;
-            alert("+" + _pl + ". " + "Your new point total is " + _pts);
-            window.scrollTo(0,0);
-        };
-    };
-};
-
-function unsoldGoods() {
-    x = parseInt(prompt("How many unsold goods tiles remain?"));
-    if (isNaN(x)) {
-        alert("Please enter a number");
-    } else {
-        _pts += x;
-        document.getElementById("total-points").innerHTML = _pts;
-        alert("+" + x + ". " + "Your new point total is " + _pts);
-    };
-};
-
-function remSilver() {
-    x = parseInt(prompt("How many silverlings remain?"));
-    if (isNaN(x)) {
-        alert("Please enter a number");
-    } else {
-        _pts += x;
-        document.getElementById("total-points").innerHTML = _pts;
-        alert("+" + x + ". " + "Your new point total is " + _pts);
-    };
-};
-
-function remWorker() {
-    x = parseInt(prompt("How many workers remain?"));
-    if (isNaN(x)) {
-        alert("Please enter a number");
-    } else {
-        _pts += Math.floor(x / 2);
-        document.getElementById("total-points").innerHTML = _pts;
-        alert("+" + Math.floor(x / 2) + ". " + "Your new point total is " + _pts);
-    };
-};
-
-function know15() {
-    x = parseInt(prompt("How goods types sold?"));
-    if (isNaN(x)) {
-        alert("Please enter a number");
-    } else {
-        _pts += (x * 3);
-        document.getElementById("total-points").innerHTML = _pts;
-        alert("+" + (x * 3) + ". " + "Your new point total is " + _pts);
-    };
-};
-
-function know1623() {
-    x = parseInt(prompt("How many eligible buildings?"));
-    if (isNaN(x)) {
-        alert("Please enter a number");
-    } else {
-        _pts += (x * 4);
-        document.getElementById("total-points").innerHTML = _pts;
-        alert("+" + (x * 4) + ". " + "Your new point total is " + _pts);
-    };
-};
-
-function know24() {
-    x = parseInt(prompt("How many animal types on estate?"));
-    if (isNaN(x)) {
-        alert("Please enter a number");
-    } else {
-        _pts += (x * 4);
-        document.getElementById("total-points").innerHTML = _pts;
-        alert("+" + (x * 4) + ". " + "Your new point total is " + _pts);
-    };
-};
-
-function know25() {
-    x = parseInt(prompt("How many goods tiles sold?"));
-    if (isNaN(x)) {
-        alert("Please enter a number");
-    } else {
-        _pts += x;
-        document.getElementById("total-points").innerHTML = _pts;
-        alert("+" + x + ". " + "Your new point total is " + _pts);
-    };
-};
-
-function know26() {
-    x = parseInt(prompt("How many bonus tiles?"));
-    if (isNaN(x)) {
-        alert("Please enter a number");
-    } else {
-        _pts += (x * 2);
-        document.getElementById("total-points").innerHTML = _pts;
-        alert("+" + (x * 2) + ". " + "Your new point total is " + _pts);
+            alert("+" + factors[x] + ". " + "Your new point total is " + _pts);
+        };    
     };
 };
 
