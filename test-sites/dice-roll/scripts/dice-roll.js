@@ -151,7 +151,7 @@ function sellGoods() {
         setPlayers();
         sellGoods();
     } else {
-        x = parseInt(prompt("How many goods sold?"));
+        x = parseInt(prompt("How many goods sold?")).focus();
         if (isNaN(x) || x < 0 || x > 10) {
         alert("Please enter a number between 1 and 10");
         } else {
