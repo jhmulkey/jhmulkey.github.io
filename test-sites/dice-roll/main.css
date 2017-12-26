@@ -113,27 +113,20 @@ th {
 input[type="radio"] {
     width: 20px;
     height: 20px;
+    cursor: pointer;
 }
 
 input[type="checkbox"] {
     width: 20px;
     height: 20px;
-}
-
-input[type="number"] {
-    width: 100px;
-    height: 40px;
-    font-size: 25px;
-    text-align: center;
-    border: 2px solid black;
-    margin: 0 5px 0;
+    cursor: pointer;
 }
 
 /* INDEX - BOARD */
 
 .board-radio-flex-div {
     margin: 0 auto;
-    max-width: 400px;
+    max-width: 414px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -155,14 +148,13 @@ input[type="number"] {
     margin: 30px auto;
     background-image: url(images/tap-to-select.png);
     background-size: contain;
+    cursor: pointer;
 }
 
 #board-select-p {
     font-size: 50px;
     font-weight: bold;
-    padding: 0;
     margin-top: 17px;
-    text-align: center;
 }
 
 /* INDEX - STARTING PLAYER */
@@ -174,6 +166,7 @@ input[type="number"] {
     margin: 20px auto;
     background-image: url(images/tap-to-roll.png);
     background-size: contain;
+    cursor: pointer;
 }
 
 /* INDEX - DICE COLOR */
@@ -184,19 +177,6 @@ input[type="number"] {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-}
-
-/* INDEX - EXPANSION RULES LINK */
-
-/* INDEX - SETUP GUIDE */
-
-.setup-div {
-    margin: 0 auto
-    max-width: 500px;
-}
-
-.setup-div li, .expansion-main-wrap li {
-    font-size: 22px;
 }
 
 /* DICE - ROLL BUTTON FLEX DIV */
@@ -211,6 +191,10 @@ input[type="number"] {
 .checkbox-div, .button-div {
     width: 300px;
     height: 70px;
+}
+
+.button-div img {
+    cursor: pointer;
 }
 
 .check-here-p {
@@ -232,6 +216,7 @@ input[type="number"] {
 .click-to-hide-div {
     margin: 10px;
     outline: 1px dashed gray;
+    cursor: pointer;
 }
 
 #roll-1-div, #roll-2-div, #roll-3-div {
@@ -317,6 +302,7 @@ input[type="number"] {
     border: 2px solid black;
     margin: 5px;
     padding-top: 2px;
+    cursor: pointer;
 }
 
 .point-quickadd-div {
@@ -444,7 +430,18 @@ input[type="number"] {
     border-style: 
 }
 
-/* EXPANSION */
+/* SETUP GUIDE */
+
+.setup-div {
+    margin: 0 auto;
+    max-width: 414px;
+}
+
+.setup-div li, .expansion-main-wrap li {
+    font-size: 22px;
+}
+
+/* EXPANSION RULES */
 
 .exp-main-wrap {
     margin: 0 auto;
