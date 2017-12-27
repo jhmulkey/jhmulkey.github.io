@@ -248,4 +248,4 @@ function activityLog(x) {
     document.getElementById("activity-log").appendChild(elementNode);
 };
 
-//setTimeout(setPlayers, 1000);
+setTimeout(setPlayers, 1000);
