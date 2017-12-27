@@ -267,7 +267,7 @@ function boldRed() {
 
 function regularBlack() {
     document.getElementById("latest-points-span").style.color = "black";
-    document.getElementById("latest-points-span").style.fontWeight = "regular";
+    document.getElementById("latest-points-span").style.fontWeight = "normal";
 };
 
 setTimeout(setPlayers, 1000);
