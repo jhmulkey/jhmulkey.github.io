@@ -203,8 +203,8 @@ function sellGoods() {
 
 function animals() {
     x = parseInt(prompt("Points earned:"));
-    if (isNaN(x)) {
-        alert("Please enter a number");
+    if (isNaN(x) || x < 1) {
+        alert("Please enter a number > 0");
     } else {
         _pts += x;
         document.getElementById("total-points").innerHTML = _pts;
@@ -276,8 +276,8 @@ function endGamePts(x) {
         ];
         var y = parseInt(prompt(prompts[x]));
         var factors = [y, y, Math.floor(y / 2), (y*3), (y * 4), (y * 4), y, (y * 2)];
-        if (isNaN(y)) {
-            alert("Please enter a number");
+        if (isNaN(y) || y < 1) {
+            alert("Please enter a number > 0");
         } else {
             _pts += factors[x];
             document.getElementById("total-points").innerHTML = _pts;
@@ -306,7 +306,7 @@ function latestPointsColor(color) {
 };
 
 function setColor() {
-    var colorNumber = parseInt(prompt("Select dice color (1 = black; 2 = red; 3 = green; 4 = blue)"));
+    var colorNumber = parseInt(prompt("Select dice color (1 = black | 2 = red | 3 = green | 4 = blue)"));
     if (isNaN(colorNumber) || colorNumber < 1 || colorNumber > 4) {
         alert("Please enter a number between 1-4");
         setColor();
