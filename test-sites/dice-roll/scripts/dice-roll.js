@@ -94,9 +94,10 @@ function setPoints() {
     } else {
         _pts = x;
         document.getElementById("total-points").innerHTML = _pts;
-        var log = "Points set to " + x;
+        var log = "points set to " + x;
+        boldRed();
         document.getElementById("latest-points-span").innerHTML = log;
-        activityLog(log);
+        activityLog(log, true);
         pointSound.play();
         window.scrollTo(0,0);
     };
@@ -116,9 +117,10 @@ function adjustPoints() {
     } else {
         _pts += x;
         document.getElementById("total-points").innerHTML = _pts;
-        var log = "Points adjusted by " + x;
+        var log = "points adjusted by " + x;
+        boldRed();
         document.getElementById("latest-points-span").innerHTML = log;
-        activityLog(log);
+        activityLog(log, true);
         pointSound.play();
         window.scrollTo(0,0);
     };
@@ -129,7 +131,8 @@ function regionPoints(x) {
     var added = points[x] - (_ph * 2); 
     _pts += added;
     document.getElementById("total-points").innerHTML = _pts;
-    var log = added + " points for region size " + (x + 1);
+    var log = added + " points for region size " + (x + 1) + " in Phase " + document.getElementById("phase-span").innerHTML;
+    regularBlack();
     document.getElementById("latest-points-span").innerHTML = log;
     activityLog(log);
     pointSound.play();
@@ -148,6 +151,7 @@ function sellGoods() {
             _pts += x * _pl;
             document.getElementById("total-points").innerHTML = _pts;
             var log = (x * _pl) + " points for sale of " + x + " goods";
+            regularBlack();
             document.getElementById("latest-points-span").innerHTML = log;
             activityLog(log);
             pointSound.play();
@@ -164,6 +168,7 @@ function animals() {
         _pts += x;
         document.getElementById("total-points").innerHTML = _pts;
         var log = x + " points for animals";
+        regularBlack();
         document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log);
         pointSound.play();
@@ -175,6 +180,7 @@ function tapPoints(x, name) {
     _pts += x;
     document.getElementById("total-points").innerHTML = _pts;
     var log = x + " points for " + name;
+    regularBlack();
     document.getElementById("latest-points-span").innerHTML = log;
     activityLog(log);
     pointSound.play();
@@ -195,6 +201,7 @@ function bonusTile(x) {
         };
         document.getElementById("total-points").innerHTML = _pts;
         var log = added + " points for " + x + " bonus tile";
+        regularBlack();
         document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log);
         pointSound.play();
@@ -234,6 +241,7 @@ function endGamePts(x) {
             _pts += factors[x];
             document.getElementById("total-points").innerHTML = _pts;
             var log = factors[x] + " points for " + y + " " + keywords[x];
+            regularBlack();
             document.getElementById("latest-points-span").innerHTML = log;
             activityLog(log);
             pointSound.play();
@@ -241,11 +249,25 @@ function endGamePts(x) {
     };
 };
 
-function activityLog(x) {
+function activityLog(x, y) {
     var elementNode = document.createElement("p");
+    if (y) {
+        elementNode.style.color = "red";
+        elementNode.style.fontWeight = "bold";
+    };
     var textNode = document.createTextNode(x);
     elementNode.appendChild(textNode);
     document.getElementById("activity-log").appendChild(elementNode);
+};
+
+function boldRed() {
+    document.getElementById("latest-points-span").style.color = "red";
+    document.getElementById("latest-points-span").style.fontWeight = "bold";
+};
+
+function regularBlack() {
+    document.getElementById("latest-points-span").style.color = "black";
+    document.getElementById("latest-points-span").style.fontWeight = "regular";
 };
 
 setTimeout(setPlayers, 1000);
