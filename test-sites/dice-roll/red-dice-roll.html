@@ -32,6 +32,10 @@
         </div>
     </div>
     
+    <div class="latest-points-div">
+        <span id="latest-points-span"></span>
+    </div>
+    
     <div class="phase-points-round-flex-div">
         <div class="phase-round-div">
             <p>Phase</p><span id="phase-span">A</span>
@@ -58,25 +62,25 @@
         <div onclick="regionPoints(6)">7</div>
         <div onclick="regionPoints(7)">8</div>
     </div>
-
+   
     <div class="point-quickadd-div">
-        <div id="quickadd1" class="button-2" onclick="sellGoods()"></div>
-        <div id="quickadd2" class="button-2" onclick="tapPoints(4)"></div>
-        <div id="quickadd3" class="button-2" onclick="addPoints()"></div>
-        <div id="quickadd4" class="button-2" onclick="bonusTile(3)"></div>
-        <div id="quickadd5" class="button-2" onclick="bonusTile(0)"></div>
-        <div id="quickadd14" class="button-2" onclick="tapPoints(5)"></div>
+        <div id="sell-goods" class="button-2" onclick="sellGoods()"></div>
+        <div id="animals" class="button-2" onclick="animals()"></div>
+        <div id="watchtower" class="button-2" onclick="tapPoints(4, 'watchtower')"></div>
+        <div id="monastaries" class="button-2" onclick="tapPoints(5, 'monastaries')"></div>
+        <div id="large-bonus" class="button-2" onclick="bonusTile('large')"></div>
+        <div id="small-bonus" class="button-2" onclick="bonusTile('small')"></div>
     </div>
-            
+    
     <div class="point-quickadd-div">
-        <div id="quickadd6" class="button-2" onclick="endGamePts(0)"></div>
-        <div id="quickadd7" class="button-2" onclick="endGamePts(1)"></div>
-        <div id="quickadd8" class="button-2" onclick="endGamePts(2)"></div>
-        <div id="quickadd9" class="button-2" onclick="endGamePts(3)"></div>
-        <div id="quickadd10" class="button-2" onclick="endGamePts(4)"></div>
-        <div id="quickadd11" class="button-2" onclick="endGamePts(5)"></div>
-        <div id="quickadd12" class="button-2" onclick="endGamePts(6)"></div>
-        <div id="quickadd13" class="button-2" onclick="endGamePts(7)"></div>
+        <div id="unsold-goods" class="button-2" onclick="endGamePts(0)"></div>
+        <div id="silverlings" class="button-2" onclick="endGamePts(1)"></div>
+        <div id="workers" class="button-2" onclick="endGamePts(2)"></div>
+        <div id="know15" class="button-2" onclick="endGamePts(3)"></div>
+        <div id="know16-23" class="button-2" onclick="endGamePts(4)"></div>
+        <div id="know24" class="button-2" onclick="endGamePts(5)"></div>
+        <div id="know25" class="button-2" onclick="endGamePts(6)"></div>
+        <div id="know26" class="button-2" onclick="endGamePts(7)"></div>
     </div>
         
     <div class="point-control-div">
@@ -90,6 +94,8 @@
             <div class="button-3">Reference</div>
         </a>
     </div>
+           
+    <div id="activity-log"></div>
             
     <script src="scripts/dice-roll.js"></script>
     

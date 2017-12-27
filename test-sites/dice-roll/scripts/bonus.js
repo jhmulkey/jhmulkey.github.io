@@ -1,4 +1,4 @@
-bonusArray = [
+var bonusArray = [
     "Up to 4 six-sided tiles may be stored on player board",
     "Sell all your goods",
     "Instantly move to first player position on turn order track",
@@ -18,7 +18,7 @@ bonusArray = [
 ];
 
 function chooseBonus() {
-    x = bonusArray[(Math.floor(Math.random() * bonusArray.length))];
+    var x = bonusArray[(Math.floor(Math.random() * bonusArray.length))];
     document.getElementById("bonus-description").innerHTML = x;
 };
 

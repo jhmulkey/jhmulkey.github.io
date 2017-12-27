@@ -1,13 +1,16 @@
 var diceRoll = new Audio();
 diceRoll.src = "./audio/dice-roll.mp3";
 
+var pointSound = new Audio();
+pointSound.src = "./audio/point-sound.mp3";
+
 var bonusSound = new Audio();
 bonusSound.src = "./audio/bonus-sound.mp3";
 
-_pl = 0;
-_rd = 0;
-_ph = 0;
-_pts = 0;
+var _pl = 0;
+var _rd = 0;
+var _ph = 0;
+var _pts = 0;
 
 function rollDice(color) {
     if (_rd < 25) {
@@ -28,7 +31,7 @@ function rollDice(color) {
 };
 
 function setPlayers() {
-    x = parseInt(prompt("How many players (2-4)?"));
+    var x = parseInt(prompt("How many players (2-4)?"));
     if (isNaN(x) || x < 2 || x > 4) {
         alert("Please enter a number between 2 and 4");
         setPlayers();
@@ -39,12 +42,12 @@ function setPlayers() {
 };
 
 function randomDice(color) {
-    x = Math.floor(Math.random() * 6) + 1;
-    y = Math.floor(Math.random() * 6) + 1;
-    z = Math.floor(Math.random() * 6) + 1;
-    dice1 = "url(images/" + color + "-dice-" + x + ".png)";
-    dice2 = "url(images/" + color + "-dice-" + y + ".png)";
-    dice3 = "url(images/white-dice-" + z + ".png)";
+    var x = Math.floor(Math.random() * 6) + 1;
+    var y = Math.floor(Math.random() * 6) + 1;
+    var z = Math.floor(Math.random() * 6) + 1;
+    var dice1 = "url(images/" + color + "-dice-" + x + ".png)";
+    var dice2 = "url(images/" + color + "-dice-" + y + ".png)";
+    var dice3 = "url(images/white-dice-" + z + ".png)";
     document.getElementById("roll-1-div").style.visibility = "visible";
     document.getElementById("roll-2-div").style.visibility = "visible";
     document.getElementById("roll-1-div").style.backgroundImage = dice1;
@@ -69,7 +72,7 @@ function setRound() {
 };
 
 function randomBonus() {
-    b = Math.floor(Math.random() * 20);
+    var b = Math.floor(Math.random() * 20);
     if (b == 9) {
         bonusSound.play();
         window.open("bonus.html");
@@ -85,13 +88,16 @@ function hide(x) {
 };
 
 function setPoints() {
-    x = parseInt(prompt("Set points to:"));
+    var x = parseInt(prompt("Set points to:"));
     if (isNaN(x)) {
         alert("Please enter a number");
     } else {
         _pts = x;
         document.getElementById("total-points").innerHTML = _pts;
-        alert("Points set to " + _pts);
+        var log = "Points set to " + x;
+        document.getElementById("latest-points-span").innerHTML = log;
+        activityLog(log);
+        pointSound.play();
         window.scrollTo(0,0);
     };
 };
@@ -104,45 +110,29 @@ function resetPoints() {
 };
 
 function adjustPoints() {
-    x = parseInt(prompt("Adjust points by:"));
+    var x = parseInt(prompt("Adjust points by:"));
     if (isNaN(x)) {
         alert("Please enter a number");
     } else {
         _pts += x;
         document.getElementById("total-points").innerHTML = _pts;
-        if (x >= 0) {
-            alert("+" + x + ". " + "Your new point total is " + _pts);
-        } else {
-            alert(x + ". " + "Your new point total is " + _pts);
-        };
+        var log = "Points adjusted by " + x;
+        document.getElementById("latest-points-span").innerHTML = log;
+        activityLog(log);
+        pointSound.play();
         window.scrollTo(0,0);
     };
-};
-
-function addPoints() {
-    x = parseInt(prompt("Points earned:"));
-    if (isNaN(x)) {
-        alert("Please enter a number");
-    } else {
-        _pts += x;
-        document.getElementById("total-points").innerHTML = _pts;
-        alert("+" + x + ". " + "Your new point total is " + _pts);
-        window.scrollTo(0,0);
-    };
-};
-
-function tapPoints(x) {
-    _pts += x;
-    document.getElementById("total-points").innerHTML = _pts;
-    alert("+" + x + ". " + "Your new point total is " + _pts);
-    window.scrollTo(0,0);
 };
 
 function regionPoints(x) {
-    points = [11, 13, 16, 20, 25, 31, 38, 46];
-    added = points[x] - (_ph * 2); _pts += added;
+    var points = [11, 13, 16, 20, 25, 31, 38, 46];
+    var added = points[x] - (_ph * 2); 
+    _pts += added;
     document.getElementById("total-points").innerHTML = _pts;
-    alert("+" + added + ". " + "Your new point total is " + _pts);
+    var log = added + " points for region size " + (x + 1);
+    document.getElementById("latest-points-span").innerHTML = log;
+    activityLog(log);
+    pointSound.play();
     window.scrollTo(0,0);
 };
 
@@ -151,25 +141,63 @@ function sellGoods() {
         setPlayers();
         sellGoods();
     } else {
-        x = parseInt(prompt("How many goods sold?"));
+        var x = parseInt(prompt("How many goods sold?"));
         if (isNaN(x) || x < 0 || x > 10) {
         alert("Please enter a number between 1 and 10");
         } else {
             _pts += x * _pl;
             document.getElementById("total-points").innerHTML = _pts;
-            alert("+" + (x * _pl) + ". " + "Your new point total is " + _pts);
+            var log = (x * _pl) + " points for sale of " + x + " goods";
+            document.getElementById("latest-points-span").innerHTML = log;
+            activityLog(log);
+            pointSound.play();
             window.scrollTo(0,0);
         };
     };
 };
 
+function animals() {
+    x = parseInt(prompt("Points earned:"));
+    if (isNaN(x)) {
+        alert("Please enter a number");
+    } else {
+        _pts += x;
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = x + " points for animals";
+        document.getElementById("latest-points-span").innerHTML = log;
+        activityLog(log);
+        pointSound.play();
+        window.scrollTo(0,0);
+    };
+};
+
+function tapPoints(x, name) {
+    _pts += x;
+    document.getElementById("total-points").innerHTML = _pts;
+    var log = x + " points for " + name;
+    document.getElementById("latest-points-span").innerHTML = log;
+    activityLog(log);
+    pointSound.play();
+    window.scrollTo(0,0);
+};
+
 function bonusTile(x) {
     if (_pl < 2 || _pl > 4) {
         setPlayers();
+        bonusTile(x);
     } else {
-        _pts += (_pl + x);
+        if (x == "large") {
+            _pts += _pl + 3;
+            var added = _pl + 3;
+        } else if (x == "small") {
+            _pts += _pl;
+            var added = _pl;
+        };
         document.getElementById("total-points").innerHTML = _pts;
-        alert("+" + (_pl + x) + ". " + "Your new point total is " + _pts);
+        var log = added + " points for " + x + " bonus tile";
+        document.getElementById("latest-points-span").innerHTML = log;
+        activityLog(log);
+        pointSound.play();
         window.scrollTo(0,0);
     };
 };
@@ -178,7 +206,7 @@ function endGamePts(x) {
     if (_rd < 25) {
         alert("These points can only be added at end of game!");
     } else {
-        prompts = [
+        var prompts = [
             "How many unsold goods tiles remain?",
             "How many silverlings remain?",
             "How many workers remain?",
@@ -188,16 +216,36 @@ function endGamePts(x) {
             "How many goods tiles sold?",
             "How many bonus tiles?"
         ];
-        y = parseInt(prompt(prompts[x]));
-        factors = [y, y, Math.floor(y / 2), (y*3), (y * 4), (y * 4), y, (y * 2)];
+        var keywords = [
+            "unsold goods tiles", 
+            "unspent silverlings", 
+            "unused workers", 
+            "sold goods types", 
+            "eligible buildings", 
+            "animal types", 
+            "sold goods tiles",
+            "bonus tiles"
+        ];
+        var y = parseInt(prompt(prompts[x]));
+        var factors = [y, y, Math.floor(y / 2), (y*3), (y * 4), (y * 4), y, (y * 2)];
         if (isNaN(y)) {
             alert("Please enter a number");
         } else {
             _pts += factors[x];
             document.getElementById("total-points").innerHTML = _pts;
-            alert("+" + factors[x] + ". " + "Your new point total is " + _pts);
+            var log = factors[x] + " points for " + y + " " + keywords[x];
+            document.getElementById("latest-points-span").innerHTML = log;
+            activityLog(log);
+            pointSound.play();
         };    
     };
 };
 
-setTimeout(setPlayers, 1000);
+function activityLog(x) {
+    var elementNode = document.createElement("p");
+    var textNode = document.createTextNode(x);
+    elementNode.appendChild(textNode);
+    document.getElementById("activity-log").appendChild(elementNode);
+};
+
+//setTimeout(setPlayers, 1000);

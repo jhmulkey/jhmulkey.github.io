@@ -1,4 +1,4 @@
-knowledgeTileArray = [
+var knowledgeTileArray = [
     "more than 1 of each building type allowed per city",
     "1 worker earned for each mine at end of each phase in addition to the silverling",
     "2 silverlings per goods sale, not just 1",
