@@ -170,16 +170,6 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-/* INDEX - DICE COLOR */
-
-.choose-color-flex-div {
-    max-width: 414px;
-    margin: 40px auto 40px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
 /* DICE - ROLL BUTTON FLEX DIV */
 
 .roll-button-flex-div {
@@ -272,6 +262,7 @@ input[type="checkbox"] {
 
 .player-p {
     margin-top: 0;
+    font-weight: bold;
 }
 
 .point-control-div {
@@ -470,4 +461,9 @@ input[type="checkbox"] {
 .exp-main-wrap li {
     font-size: 20px;
     text-align: left;
+}
+
+
+#play-button-div {
+    margin: 20px;
 }

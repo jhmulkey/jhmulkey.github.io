@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Red Dice</title>
+    <title>Play</title>
     <link rel="stylesheet" type="text/css" href="main.css"/>
 </head>
 <body>
@@ -14,7 +14,7 @@
             <input type="checkbox" onclick="hide(3)"/>
         </div>
         <div class="button-div">
-            <img src="images/roll-button.png" onclick="rollDice('red')"/>
+            <img src="images/roll-button.png" onclick="rollDice(_color)"/>
         </div>
         <div class="checkbox-div">
             <p class="check-here-p">Bonus</p>
@@ -37,13 +37,13 @@
     </div>
     
     <div class="phase-points-round-flex-div">
-        <div class="phase-round-div">
+        <div class="phase-round-div" onclick="adjustPhase()">
             <p>Phase</p><span id="phase-span">A</span>
         </div>
         <div class="total-points-div">
             <p class="total-points-p"><span id="total-points">0</span></p>
         </div>
-        <div class="phase-round-div">
+        <div class="phase-round-div" onclick="adjustPhase()">
             <p>Round</p><span id="round-span">1</span>
         </div>
     </div>

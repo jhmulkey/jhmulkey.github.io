@@ -11,6 +11,7 @@ var _pl = 0;
 var _rd = 0;
 var _ph = 0;
 var _pts = 0;
+var _color;
 
 function rollDice(color) {
     if (_rd < 25) {
@@ -37,6 +38,9 @@ function setPlayers() {
     } else {
         _pl = x;
         document.getElementById("player-span").innerHTML = x;
+    };
+    if (!_color) {
+        setColor();
     };
 };
 
@@ -68,6 +72,44 @@ function setPhase() {
 
 function setRound() {
     document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
+};
+
+function adjustPhase() {
+    var newPhase = prompt("Enter Phase (A-E)");
+    if (!isNaN(newPhase) || newPhase.toUpperCase() > "E" || newPhase.length > 1) {
+        alert("Please enter a letter between A-E");
+    } else {
+        adjustRound(newPhase.toUpperCase());
+    };
+};
+
+function adjustRound(phase) {
+    var newRound = parseInt(prompt("Enter Round (1-5)"));
+    if (isNaN(newRound) || newRound < 1 || newRound > 5) {
+        alert("Please enter a number between 1-5");
+        adjustPhase();
+    } else {
+        if (phase == "A") {
+            _rd = newRound;
+            _ph = 0;
+        } else if (phase == "B") {
+            _rd = newRound + 5;
+            _ph = 1;
+        } else if (phase == "C") {
+            _rd = newRound + 10;
+            _ph = 2;
+        } else if (phase == "D") {
+            _rd = newRound + 15;
+            _ph = 3;
+        } else if (phase == "E") {
+            _rd = newRound + 20;
+            _ph = 4;
+        };
+        document.getElementById("phase-span").innerHTML = phase;
+        document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
+        diceRoll.play();
+        randomDice(_color);
+    };
 };
 
 function randomBonus() {
@@ -261,6 +303,17 @@ function activityLog(x, color) {
 
 function latestPointsColor(color) {
     document.getElementById("latest-points-span").style.color = color;
+};
+
+function setColor() {
+    var colorNumber = parseInt(prompt("Select dice color (1 = black; 2 = red; 3 = green; 4 = blue)"));
+    if (isNaN(colorNumber) || colorNumber < 1 || colorNumber > 4) {
+        alert("Please enter a number between 1-4");
+        setColor();
+    } else {
+        var colors = ["", "black", "red", "green", "blue"];
+        _color = colors[colorNumber];
+    };
 };
 
 setTimeout(setPlayers, 1000);
