@@ -12,6 +12,7 @@ var _rd = 0;
 var _ph = 0;
 var _pts = 0;
 var _color;
+var _endIndex;
 
 function rollDice(color) {
     if (_rd < 25) {
@@ -265,16 +266,6 @@ function endGamePts(x) {
     if (_rd < 25) {
         alert("These points can only be added at end of game!");
     } else {
-        var prompts = [
-            "How many unsold goods tiles remain?",
-            "How many silverlings remain?",
-            "How many workers remain?",
-            "How goods types sold?",
-            "How many eligible buildings?",
-            "How many animal types on estate?",
-            "How many goods tiles sold?",
-            "How many bonus tiles?"
-        ];
         var keywords = [
             "unsold goods tiles", 
             "unspent silverlings", 
@@ -285,19 +276,24 @@ function endGamePts(x) {
             "sold goods tiles",
             "bonus tiles"
         ];
-        var y = parseInt(prompt(prompts[x]));
-        var factors = [y, y, Math.floor(y / 2), (y*3), (y * 4), (y * 4), y, (y * 2)];
-        if (isNaN(y) || y < 1) {
-            alert("Please enter a number > 0");
+        if (_endIndex == 3 && x > 6) {
+            alert("No more than 6 goods types possible!");
+        } else if (_endIndex == 5 && x > 5) {
+            alert("No more than 5 animal types possible!");
+        } else if (_endIndex == 7 && x > 7) {
+            alert("No more than 7 bonus tiles possible!");
         } else {
-            _pts += factors[x];
+            var factors = [x, x, Math.floor(x / 2), (x*3), (x * 4), (x * 4), x, (x * 2)];
+            _pts += factors[_endIndex];
             document.getElementById("total-points").innerHTML = _pts;
-            var log = factors[x] + " points for " + y + " " + keywords[x];
+            var log = factors[_endIndex] + " points for " + x + " " + keywords[_endIndex];
             latestPointsColor("blue");
             document.getElementById("latest-points-span").innerHTML = log;
             activityLog(log, "blue");
             pointSound.play();
-        };    
+            document.getElementById("end-pop").style.display = "none";
+            document.getElementById("unsold-goods").scrollIntoView();
+        };   
     };
 };
 
@@ -348,36 +344,25 @@ function animalsPop() {
     };
 };
 
-function unsoldPop() {
-    
-};
-
-function unspentPop() {
-    
-};
-
-function unusedPop() {
-    
-};
-
-function k15Pop() {
-    
-};
-
-function k1623Pop() {
-    
-};
-
-function k24Pop() {
-    
-};
-
-function k25Pop() {
-    
-};
-
-function k26Pop() {
-    
-};
+function endGamePop(x) {
+    _endIndex = x;
+    if (document.getElementById("end-pop").style.display == "" || document.getElementById("end-pop").style.display == "none") {
+        document.getElementById("end-pop").style.display = "block";
+        var p = [
+            "How many unsold goods tiles remain?",
+            "How many silverlings remain?",
+            "How many workers remain?",
+            "How goods types sold?<br/>(max = 6)",
+            "How many eligible buildings?",
+            "How many animal types on estate?<br/>(max = 5)",
+            "How many goods tiles sold?",
+            "How many bonus tiles?<br/>(max = 7)"
+        ];
+        document.getElementById("end-pop-p").innerHTML = p[x];
+        document.getElementById("end-pop").scrollIntoView();
+    } else {
+        document.getElementById("end-pop").style.display = "";
+    };
+}
 
 playerPop();
