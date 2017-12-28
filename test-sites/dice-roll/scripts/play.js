@@ -331,6 +331,7 @@ function goodsPop() {
         document.getElementById("goods-pop").scrollIntoView();
     } else {
         document.getElementById("goods-pop").style.display = "";
+        window.scrollTo(0,0);
     };
 };
 
@@ -340,6 +341,7 @@ function animalsPop() {
         document.getElementById("animals-pop").scrollIntoView();
     } else {
         document.getElementById("animals-pop").style.display = "";
+        window.scrollTo(0,0);
     };
 };
 
