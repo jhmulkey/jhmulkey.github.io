@@ -1,5 +1,5 @@
-var diceRoll = new Audio();
-diceRoll.src = "./audio/dice-roll.mp3";
+var rollSound = new Audio();
+rollSound.src = "./audio/roll-sound.mp3";
 
 var pointSound = new Audio();
 pointSound.src = "./audio/point-sound.mp3";
@@ -15,7 +15,7 @@ var _color;
 
 function rollDice(color) {
     if (_rd < 25) {
-        diceRoll.play();
+        rollSound.play();
         _rd++;
         randomDice(color);
         setPhase();
@@ -59,14 +59,21 @@ function randomDice(color) {
 };
 
 function setPhase() {
-    if (_rd == 6) {
+    if (_rd == 1) {
+        document.getElementById("phase-span").innerHTML = "A"
+        activityLog("PHASE A", "black", "20px");
+    } else if (_rd == 6) {
         document.getElementById("phase-span").innerHTML = "B"; _ph = 1;
+        activityLog("PHASE B", "black", "20px");
     } else if (_rd == 11) {
         document.getElementById("phase-span").innerHTML = "C"; _ph = 2;
+        activityLog("PHASE C", "black", "20px");
     } else if (_rd == 16) {
         document.getElementById("phase-span").innerHTML = "D"; _ph = 3;
+        activityLog("PHASE D", "black", "20px");
     } else if (_rd == 21) {
         document.getElementById("phase-span").innerHTML = "E"; _ph = 4;
+        activityLog("PHASE E", "black", "20px");
     };
 };
 
@@ -107,7 +114,12 @@ function adjustRound(phase) {
         };
         document.getElementById("phase-span").innerHTML = phase;
         document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
-        diceRoll.play();
+        activityLog("PHASE " + phase, "black", "10px");
+        var log = "round adjusted to Phase " + phase + " Round " + newRound;
+        latestPointsColor("red");
+        document.getElementById("latest-points-span").innerHTML = log;
+        activityLog(log, "red");
+        rollSound.play();
         randomDice(_color);
     };
 };
@@ -128,6 +140,19 @@ function hide(x) {
     };
 };
 
+function setOrAdjust() {
+    var x = parseInt(prompt("Set or adjust? (1 = set | 2 = adjust)"));
+    if (isNaN(x) || x < 1 || x > 2) {
+        alert("Please enter a number between 1-2");
+    } else {
+        if (x == 1) {
+            setPoints();
+        } else if (x == 2) {
+            adjustPoints();
+        };
+    };
+};
+
 function setPoints() {
     var x = parseInt(prompt("Set points to:"));
     if (isNaN(x)) {
@@ -144,13 +169,6 @@ function setPoints() {
     };
 };
 
-function resetPoints() {
-    if (window.confirm("Are you sure you want to reset game?")) {
-        window.scrollTo(0,0);
-        location.reload();
-    };
-};
-
 function adjustPoints() {
     var x = parseInt(prompt("Adjust points by:"));
     if (isNaN(x)) {
@@ -164,6 +182,13 @@ function adjustPoints() {
         activityLog(log, "red");
         pointSound.play();
         window.scrollTo(0,0);
+    };
+};
+
+function resetGame() {
+    if (window.confirm("Are you sure you want to reset game?")) {
+        window.scrollTo(0,0);
+        location.reload();
     };
 };
 
@@ -290,15 +315,18 @@ function endGamePts(x) {
     };
 };
 
-function activityLog(x, color) {
+function activityLog(x, color, margin) {
     var elementNode = document.createElement("p");
     if (color) {
         elementNode.style.color = color;
     };
+    if (margin) {
+        elementNode.style.marginTop = margin;
+    };
     elementNode.style.fontWeight = "bold";
     var textNode = document.createTextNode(x);
     elementNode.appendChild(textNode);
-    document.getElementById("activity-log").appendChild(elementNode);
+    document.getElementById("point-log").appendChild(elementNode);
 };
 
 function latestPointsColor(color) {

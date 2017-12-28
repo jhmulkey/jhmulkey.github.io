@@ -68,7 +68,26 @@ th {
     color: white;
 }
 
+/* GLOBAL INPUT */
+
+input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
 /* GLOBAL CLASS STYLES */
+
+#main-wrapper-div {
+    max-width: 414px;
+    text-align: center;
+}
 
 .black-chancery-h1 {
     font-family: black-chancery;
@@ -109,31 +128,29 @@ th {
     cursor: pointer;
 }
 
-/* GLOBAL INPUT */
-
-input[type="radio"] {
-    width: 20px;
-    height: 20px;
+.button-4 {
+    height: 50px;
+    width: 100px;
+    margin: 0 auto 10px auto;
+    padding-top: 10px;
+    border: 2px solid black;
+    font-size: 20px;
+    color: white;
+    background-color: rgba(255,0,0,0.8);
     cursor: pointer;
-}
-
-input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+    display: inline-block;
 }
 
 /* INDEX - BOARD */
 
 .board-radio-flex-div {
-    margin: 0 auto;
-    max-width: 414px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
 .board-p {
+    margin-top: 0;
     margin-bottom: 5px;
     font-size: 20px;
 }
@@ -142,14 +159,17 @@ input[type="checkbox"] {
     margin: 0 auto;
 }
 
-#board-select-div {
-    width: 100px;
+#board-select-div, #roll-white-dice-div {
+    padding-top: 30px;
     height: 100px;
-    border: 1px dashed black;
-    margin: 30px auto;
-    background-image: url(images/tap-to-select.png);
     background-size: contain;
     cursor: pointer;
+    font-size: 30px;
+    color: gray;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: 20px;
 }
 
 #board-select-p {
@@ -158,25 +178,16 @@ input[type="checkbox"] {
     margin-top: 17px;
 }
 
-/* INDEX - STARTING PLAYER */
-
-#starting-player-roll-div {
-    width: 100px;
-    height: 100px;
-    outline: 1px dashed black;
-    margin: 20px auto;
-    background-image: url(images/tap-to-roll.png);
-    background-size: contain;
-    cursor: pointer;
+#link-button-div {
+    padding-top: 30px;
 }
 
-/* DICE - ROLL BUTTON FLEX DIV */
+/* PLAY - ROLL BUTTON AREA */
 
 .roll-button-flex-div {
     display: flex;
     justify-content: space-around;
-    margin: 0 auto 25px;
-    max-width: 414px;
+    margin-bottom: 25px;
 }
 
 .checkbox-div, .button-div {
@@ -193,15 +204,14 @@ input[type="checkbox"] {
     margin: 5px 0 5px 0;
 }
 
-/* DICE - ROLLED DICE FLEX DIV */
+/* PLAY - ROLLED DICE AREA */
 
 .rolled-dice-flex-div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    margin: 0 auto 20px auto;
-    max-width: 414px;;
+    margin-bottom: 20px;
 }
 
 .click-to-hide-div {
@@ -222,15 +232,13 @@ input[type="checkbox"] {
     margin: 0;
 }
 
-/* DICE - PHASE-POINTS-ROUND FLEX DIV */
+/* PLAY - POINT DISPLAY AREA */
 
 .phase-points-round-flex-div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    max-width: 414px;
-    margin: 0 auto;
 }
 
 .phase-round-div p {
@@ -265,15 +273,6 @@ input[type="checkbox"] {
     font-weight: bold;
 }
 
-.point-control-div {
-    max-width: 414px;
-    margin: 10px auto 20px auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;    
-}
-
 #total-points {
     font-size: 85px;
     color: darkred;
@@ -285,12 +284,13 @@ input[type="checkbox"] {
     margin-top: 0;
 }
 
+/* PLAY - POINT ADD AREA (DURING GAME) */
+
 .region-point-tap, .quick-point-tap {
-    max-width: 414px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin: 0 auto 20px auto;
+    margin-bottom: 20px
 }
 
 .region-point-tap div {
@@ -307,8 +307,8 @@ input[type="checkbox"] {
 }
 
 .point-quickadd-div {
-    max-width: 414px;
-    margin: 10px auto 30px auto;
+    margin-top: 10px;
+    margin-bottom: 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -349,6 +349,9 @@ input[type="checkbox"] {
     background-image: url(images/small-bonus.png);
     background-color: #BABDB8;
 }
+
+
+/* PLAY - POINT ADD AREA (GAME END) */
 
 #unsold-goods {
     background-image: url(images/unsold-goods.jpg);
@@ -393,15 +396,27 @@ input[type="checkbox"] {
     background-color: #BEBF8C;
 }
 
-.knowledge-tile-flex-div {
+/* PLAY - POINT CONTROL AND ACTIVITY LOG */
+
+.point-control-div {
+    margin-top: 10px;
+    margin-bottom: 20px;
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
-    margin: 20px auto 0 auto;
-    max-width: 414px;
+    align-items: center;
+    justify-content: center;    
 }
 
-#activity-log p {
+#point-log {
+    background-color: rgba(255,255,255,0.5);
+}
+
+#point-log-span {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#point-log p {
     margin: 0;
 }
 
@@ -435,7 +450,7 @@ input[type="checkbox"] {
     border-style: 
 }
 
-/* SETUP GUIDE */
+/* SETUP */
 
 .setup-div {
     margin: 0 auto;
@@ -463,7 +478,44 @@ input[type="checkbox"] {
     text-align: left;
 }
 
+/* REFERENCE */
 
-#play-button-div {
-    margin: 20px;
+.knowledge-tile-flex-div {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px auto 0 auto;
+    max-width: 414px;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 339px) {
+    #roll-1-div, #roll-2-div, #roll-3-div {
+        height: 80px;
+        width: 80px;
+    }
+    
+    .region-point-tap div {
+        font-size: 40px;
+        width: 60px;
+        height: 60px;
+        margin: 5px;
+        padding-top: 2px;
+    }
+}
+
+@media screen and (max-width: 281px) {
+    #roll-1-div, #roll-2-div, #roll-3-div {
+        height: 70px;
+        width: 70px;
+    }
+    
+    .total-points-div {
+        width: 100px;
+    }
+    
+    #total-points {
+        font-size: 60px;
+    }
 }

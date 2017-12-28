@@ -8,6 +8,7 @@
 </head>
 <body>
          
+    <div id="main-wrapper-div">     
     <div class="roll-button-flex-div">
         <div class="checkbox-div">
             <p class="check-here-p">1st</p>
@@ -38,17 +39,17 @@
     
     <div class="phase-points-round-flex-div">
         <div class="phase-round-div" onclick="adjustPhase()">
-            <p>Phase</p><span id="phase-span">A</span>
+            <p>Phase</p><span id="phase-span">-</span>
         </div>
-        <div class="total-points-div">
+        <div class="total-points-div" onclick="setOrAdjust()">
             <p class="total-points-p"><span id="total-points">0</span></p>
         </div>
         <div class="phase-round-div" onclick="adjustPhase()">
-            <p>Round</p><span id="round-span">1</span>
+            <p>Round</p><span id="round-span">-</span>
         </div>
     </div>
     
-    <div class="centered-div">
+    <div>
         <p class="player-p">Number of Players: <span id="player-span"></span></p>
     </div>
     
@@ -84,20 +85,13 @@
     </div>
         
     <div class="point-control-div">
-        <div class="button-1" onclick="setPoints()">Set</div>
-        <div class="button-1" onclick="resetPoints()">Reset</div>
-        <div class="button-1" onclick="adjustPoints()">Adjust</div>
+        <div class="button-4" onclick="resetGame()">Reset</div>
     </div>
            
-    <div>       
-        <a href="reference.html" target="_blank">
-            <div class="button-3">Reference</div>
-        </a>
+    <div id="point-log"><span id="point-log-span" class="black-chancery-h1">Point Log</span></div>
     </div>
-           
-    <div id="activity-log"></div>
             
-    <script src="scripts/dice-roll.js"></script>
+    <script src="scripts/play.js"></script>
     
 </body>
 </html>
