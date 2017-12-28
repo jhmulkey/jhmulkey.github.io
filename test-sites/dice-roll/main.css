@@ -575,14 +575,14 @@ input[type="checkbox"] {
     max-width: 240px;
 }
 
-#select-players-pop, #select-color-pop, #goods-pop, #animals-pop, #unsold-pop, #silver-pop, #worker-pop, #k15-pop, #k1623-pop, #k24-pop, #k25-pop, #k26-pop, #end-pop {
+#select-players-pop, #select-color-pop, #select-phase-pop, #select-round-pop, #set-adjust-points-pop, #goods-pop, #animals-pop, #end-pop {
     max-width: 414px;
-    padding-top: 40px;
+    padding-top: 20px;
     padding-bottom: 40px;
     display: none;
 }
 
-#select-players-pop p, #select-color-pop p, #goods-pop p, #animals-pop p, #end-pop p {
+#select-players-pop p, #select-color-pop p, #select-phase-pop p, #select-round-pop p, #set-adjust-points-pop p, #goods-pop p, #animals-pop p, #end-pop p {
     font-size: 30px;
 }
 

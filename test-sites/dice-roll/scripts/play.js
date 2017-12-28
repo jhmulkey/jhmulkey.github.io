@@ -13,6 +13,7 @@ var _ph = 0;
 var _pts = 0;
 var _color;
 var _endIndex;
+var _adjPh
 
 function rollDice(color) {
     if (_rd < 25) {
@@ -82,47 +83,39 @@ function setRound() {
     document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
 };
 
-function adjustPhase() {
-    var newPhase = prompt("Enter Phase (A-E)");
-    if (!isNaN(newPhase) || newPhase.toUpperCase() > "E" || newPhase.length > 1) {
-        alert("Please enter a letter between A-E");
-    } else {
-        adjustRound(newPhase.toUpperCase());
-    };
+function adjustPhase(x) {
+    _adjPh = x;
+    document.getElementById("select-phase-pop").style.display = "none";
+    document.getElementById("select-round-pop").style.display = "block";
 };
 
-function adjustRound(phase) {
-    var newRound = parseInt(prompt("Enter Round (1-5)"));
-    if (isNaN(newRound) || newRound < 1 || newRound > 5) {
-        alert("Please enter a number between 1-5");
-        adjustPhase();
-    } else {
-        if (phase == "A") {
-            _rd = newRound;
-            _ph = 0;
-        } else if (phase == "B") {
-            _rd = newRound + 5;
-            _ph = 1;
-        } else if (phase == "C") {
-            _rd = newRound + 10;
-            _ph = 2;
-        } else if (phase == "D") {
-            _rd = newRound + 15;
-            _ph = 3;
-        } else if (phase == "E") {
-            _rd = newRound + 20;
-            _ph = 4;
-        };
-        document.getElementById("phase-span").innerHTML = phase;
-        document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
-        activityLog("PHASE " + phase, "black", "20px");
-        var log = "round adjusted to Phase " + phase + " Round " + newRound;
-        latestPointsColor("red");
-        document.getElementById("latest-points-span").innerHTML = log;
-        activityLog(log, "red");
-        rollSound.play();
-        randomDice(_color);
+function adjustRound(x) {
+    if (_adjPh == "A") {
+        _rd = x;
+        _ph = 0;
+    } else if (_adjPh == "B") {
+        _rd = x + 5;
+        _ph = 1;
+    } else if (_adjPh == "C") {
+        _rd = x + 10;
+        _ph = 2;
+    } else if (_adjPh == "D") {
+        _rd = x + 15;
+        _ph = 3;
+    } else if (_adjPh == "E") {
+        _rd = x + 20;
+        _ph = 4;
     };
+    document.getElementById("phase-span").innerHTML = _adjPh;
+    document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
+    activityLog("PHASE " + _adjPh, "black", "20px");
+    var log = "round adjusted to Phase " + _adjPh + " Round " + x;
+    latestPointsColor("red");
+    document.getElementById("latest-points-span").innerHTML = log;
+    activityLog(log, "red");
+    rollSound.play();
+    randomDice(_color);
+    document.getElementById("select-round-pop").style.display = "none";
 };
 
 function randomBonus() {
@@ -141,19 +134,6 @@ function hide(x) {
     };
 };
 
-function setOrAdjust() {
-    var x = parseInt(prompt("Set or adjust? (1 = set | 2 = adjust)"));
-    if (isNaN(x) || x < 1 || x > 2) {
-        alert("Please enter a number between 1-2");
-    } else {
-        if (x == 1) {
-            setPoints();
-        } else if (x == 2) {
-            adjustPoints();
-        };
-    };
-};
-
 function setPoints() {
     var x = parseInt(prompt("Set points to:"));
     if (isNaN(x)) {
@@ -166,6 +146,7 @@ function setPoints() {
         document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log, "red");
         pointSound.play();
+        document.getElementById("set-adjust-points-pop").style.display = "none";
         window.scrollTo(0,0);
     };
 };
@@ -182,6 +163,7 @@ function adjustPoints() {
         document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log, "red");
         pointSound.play();
+        document.getElementById("set-adjust-points-pop").style.display = "none";
         window.scrollTo(0,0);
     };
 };
@@ -263,10 +245,7 @@ function bonusTile(x) {
 };
 
 function endGamePts(x) {
-    if (_rd < 25) {
-        alert("These points can only be added at end of game!");
-    } else {
-        var keywords = [
+    var keywords = [
             "unsold goods tiles", 
             "unspent silverlings", 
             "unused workers", 
@@ -276,25 +255,24 @@ function endGamePts(x) {
             "sold goods tiles",
             "bonus tiles"
         ];
-        if (_endIndex == 3 && x > 6) {
-            alert("No more than 6 goods types possible!");
-        } else if (_endIndex == 5 && x > 5) {
-            alert("No more than 5 animal types possible!");
-        } else if (_endIndex == 7 && x > 7) {
-            alert("No more than 7 bonus tiles possible!");
-        } else {
-            var factors = [x, x, Math.floor(x / 2), (x*3), (x * 4), (x * 4), x, (x * 2)];
-            _pts += factors[_endIndex];
-            document.getElementById("total-points").innerHTML = _pts;
-            var log = factors[_endIndex] + " points for " + x + " " + keywords[_endIndex];
-            latestPointsColor("blue");
-            document.getElementById("latest-points-span").innerHTML = log;
-            activityLog(log, "blue");
-            pointSound.play();
-            document.getElementById("end-pop").style.display = "none";
-            document.getElementById("unsold-goods").scrollIntoView();
-        };   
-    };
+    if (_endIndex == 3 && x > 6) {
+        alert("No more than 6 goods types possible!");
+    } else if (_endIndex == 5 && x > 5) {
+        alert("No more than 5 animal types possible!");
+    } else if (_endIndex == 7 && x > 7) {
+        alert("No more than 7 bonus tiles possible!");
+    } else {
+        var factors = [x, x, Math.floor(x / 2), (x*3), (x * 4), (x * 4), x, (x * 2)];
+        _pts += factors[_endIndex];
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = factors[_endIndex] + " points for " + x + " " + keywords[_endIndex];
+        latestPointsColor("blue");
+        document.getElementById("latest-points-span").innerHTML = log;
+        activityLog(log, "blue");
+        pointSound.play();
+        document.getElementById("end-pop").style.display = "none";
+        document.getElementById("unsold-goods").scrollIntoView();
+    };  
 };
 
 function activityLog(x, color, margin) {
@@ -326,6 +304,24 @@ function colorPop() {
     document.getElementById("select-color-pop").style.display = "block";
 };
 
+function phasePop() {
+    if (document.getElementById("select-phase-pop").style.display == "" || document.getElementById("select-phase-pop").style.display == "none") {
+        document.getElementById("select-phase-pop").style.display = "block";
+        document.getElementById("select-phase-pop").scrollIntoView();
+    } else {
+        document.getElementById("select-phase-pop").style.display = "";
+    };
+};
+
+function pointsPop() {
+   if (document.getElementById("set-adjust-points-pop").style.display == "" || document.getElementById("set-adjust-points-pop").style.display == "none") {
+        document.getElementById("set-adjust-points-pop").style.display = "block";
+        document.getElementById("set-adjust-points-pop").scrollIntoView();
+    } else {
+        document.getElementById("set-adjust-points-pop").style.display = "";
+    }; 
+};
+
 function goodsPop() {
     if (document.getElementById("goods-pop").style.display == "" || document.getElementById("goods-pop").style.display == "none") {
         document.getElementById("goods-pop").style.display = "block";
@@ -345,24 +341,28 @@ function animalsPop() {
 };
 
 function endGamePop(x) {
-    _endIndex = x;
-    if (document.getElementById("end-pop").style.display == "" || document.getElementById("end-pop").style.display == "none") {
-        document.getElementById("end-pop").style.display = "block";
-        var p = [
-            "How many unsold goods tiles remain?",
-            "How many silverlings remain?",
-            "How many workers remain?",
-            "How goods types sold?<br/>(max = 6)",
-            "How many eligible buildings?",
-            "How many animal types on estate?<br/>(max = 5)",
-            "How many goods tiles sold?",
-            "How many bonus tiles?<br/>(max = 7)"
-        ];
-        document.getElementById("end-pop-p").innerHTML = p[x];
-        document.getElementById("end-pop").scrollIntoView();
+    if (_rd < 25) {
+        alert("These points can only be added at end of game!");
     } else {
-        document.getElementById("end-pop").style.display = "";
+        _endIndex = x;
+        if (document.getElementById("end-pop").style.display == "" || document.getElementById("end-pop").style.display == "none") {
+            document.getElementById("end-pop").style.display = "block";
+            var p = [
+                "How many unsold goods tiles remain?",
+                "How many silverlings remain?",
+                "How many workers remain?",
+                "How goods types sold?<br/>(max = 6)",
+                "How many eligible buildings?",
+                "How many animal types on estate?<br/>(max = 5)",
+                "How many goods tiles sold?",
+                "How many bonus tiles?<br/>(max = 7)"
+            ];
+            document.getElementById("end-pop-p").innerHTML = p[x];
+            document.getElementById("end-pop").scrollIntoView();
+        } else {
+            document.getElementById("end-pop").style.display = "";
+        };
     };
-}
+};
 
 playerPop();
