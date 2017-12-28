@@ -310,6 +310,7 @@ function phasePop() {
         document.getElementById("select-phase-pop").scrollIntoView();
     } else {
         document.getElementById("select-phase-pop").style.display = "";
+        window.scrollTo(0,0);
     };
 };
 
@@ -319,6 +320,7 @@ function pointsPop() {
         document.getElementById("set-adjust-points-pop").scrollIntoView();
     } else {
         document.getElementById("set-adjust-points-pop").style.display = "";
+        window.scrollTo(0,0);
     }; 
 };
 
