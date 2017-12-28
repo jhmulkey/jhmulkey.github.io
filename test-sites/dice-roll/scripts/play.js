@@ -116,6 +116,7 @@ function adjustRound(x) {
     rollSound.play();
     randomDice(_color);
     document.getElementById("select-round-pop").style.display = "none";
+    window.scrollTo(0,0);
 };
 
 function randomBonus() {
