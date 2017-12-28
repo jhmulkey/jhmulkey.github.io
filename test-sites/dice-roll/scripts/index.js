@@ -1,5 +1,5 @@
-var diceRoll = new Audio();
-diceRoll.src = "./audio/dice-roll.mp3";
+var rollSound = new Audio();
+rollSound.src = "./audio/roll-sound.mp3";
 
 var _boards = [
     [1,2,3,4,5,6,7,8,9],
@@ -27,7 +27,7 @@ function chooseBoards(_boardsIndex) {
 };
 
 function rollWhiteDice() {
-    diceRoll.play();
+    rollSound.play();
     var x = (Math.floor(Math.random() * 6)) + 1;
     document.getElementById("roll-white-dice-div").innerHTML = "";
     document.getElementById("roll-white-dice-div").style.backgroundImage = "url(images/white-dice-" + x + ".png)";
