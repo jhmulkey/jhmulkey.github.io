@@ -31,17 +31,17 @@ function rollDice(color) {
     };
 };
 
-function setPlayers() {
-    var x = parseInt(prompt("How many players (2-4)?"));
-    if (isNaN(x) || x < 2 || x > 4) {
-        alert("Please enter a number between 2 and 4");
-    } else {
-        _pl = x;
-        document.getElementById("player-span").innerHTML = x;
-    };
-    if (!_color) {
-        setColor();
-    };
+function setPlayers(x) {
+    _pl = x;
+    document.getElementById("player-span").innerHTML = x;
+    colorPop();
+};
+
+function setColor(x) {
+    var colors = ["", "black", "red", "green", "blue"];
+    _color = colors[x];
+    document.getElementById("select-color-pop").style.display = "none";
+    document.getElementById("main-wrapper-div").style.display = "block";
 };
 
 function randomDice(color) {
@@ -114,7 +114,7 @@ function adjustRound(phase) {
         };
         document.getElementById("phase-span").innerHTML = phase;
         document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
-        activityLog("PHASE " + phase, "black", "10px");
+        activityLog("PHASE " + phase, "black", "20px");
         var log = "round adjusted to Phase " + phase + " Round " + newRound;
         latestPointsColor("red");
         document.getElementById("latest-points-span").innerHTML = log;
@@ -187,7 +187,6 @@ function adjustPoints() {
 
 function resetGame() {
     if (window.confirm("Are you sure you want to reset game?")) {
-        window.scrollTo(0,0);
         location.reload();
     };
 };
@@ -205,41 +204,28 @@ function regionPoints(x) {
     window.scrollTo(0,0);
 };
 
-function sellGoods() {
-    if (_pl < 2 || _pl > 4) {
-        setPlayers();
-        sellGoods();
-    } else {
-        var x = parseInt(prompt("How many goods sold?"));
-        if (isNaN(x) || x < 0 || x > 10) {
-        alert("Please enter a number between 1 and 10");
-        } else {
-            _pts += x * _pl;
-            document.getElementById("total-points").innerHTML = _pts;
-            var log = (x * _pl) + " points for sale of " + x + " goods";
-            latestPointsColor("black");
-            document.getElementById("latest-points-span").innerHTML = log;
-            activityLog(log);
-            pointSound.play();
-            window.scrollTo(0,0);
-        };
-    };
+function sellGoods(x) {
+    _pts += x * _pl;
+    document.getElementById("total-points").innerHTML = _pts;
+    var log = (x * _pl) + " points for sale of " + x + " goods";
+    latestPointsColor("black");
+    document.getElementById("latest-points-span").innerHTML = log;
+    activityLog(log);
+    pointSound.play();
+    document.getElementById("goods-pop").style.display = "none";
+    window.scrollTo(0,0);
 };
 
-function animals() {
-    x = parseInt(prompt("Points earned:"));
-    if (isNaN(x) || x < 1) {
-        alert("Please enter a number > 0");
-    } else {
-        _pts += x;
-        document.getElementById("total-points").innerHTML = _pts;
-        var log = x + " points for animals";
-        latestPointsColor("black");
-        document.getElementById("latest-points-span").innerHTML = log;
-        activityLog(log);
-        pointSound.play();
-        window.scrollTo(0,0);
-    };
+function animals(x) {
+    _pts += x;
+    document.getElementById("total-points").innerHTML = _pts;
+    var log = x + " points for animals";
+    latestPointsColor("black");
+    document.getElementById("latest-points-span").innerHTML = log;
+    activityLog(log);
+    pointSound.play();
+    document.getElementById("animals-pop").style.display = "none";
+    window.scrollTo(0,0);
 };
 
 function tapPoints(x, name) {
@@ -333,15 +319,65 @@ function latestPointsColor(color) {
     document.getElementById("latest-points-span").style.color = color;
 };
 
-function setColor() {
-    var colorNumber = parseInt(prompt("Select dice color (1 = black | 2 = red | 3 = green | 4 = blue)"));
-    if (isNaN(colorNumber) || colorNumber < 1 || colorNumber > 4) {
-        alert("Please enter a number between 1-4");
-        setColor();
+function playerPop() {
+    window.scrollTo(0,0);
+    document.getElementById("main-wrapper-div").style.display = "none";
+    document.getElementById("select-players-pop").style.display = "block";
+};
+
+function colorPop() {
+    document.getElementById("select-players-pop").style.display = "none";
+    document.getElementById("select-color-pop").style.display = "block";
+};
+
+function goodsPop() {
+    if (document.getElementById("goods-pop").style.display == "" || document.getElementById("goods-pop").style.display == "none") {
+        document.getElementById("goods-pop").style.display = "block";
+        document.getElementById("goods-pop").scrollIntoView();
     } else {
-        var colors = ["", "black", "red", "green", "blue"];
-        _color = colors[colorNumber];
+        document.getElementById("goods-pop").style.display = "";
     };
 };
 
-setTimeout(setPlayers, 1000);
+function animalsPop() {
+    if (document.getElementById("animals-pop").style.display == "" || document.getElementById("animals-pop").style.display == "none") {
+        document.getElementById("animals-pop").style.display = "block";
+        document.getElementById("animals-pop").scrollIntoView();
+    } else {
+        document.getElementById("animals-pop").style.display = "";
+    };
+};
+
+function unsoldPop() {
+    
+};
+
+function unspentPop() {
+    
+};
+
+function unusedPop() {
+    
+};
+
+function k15Pop() {
+    
+};
+
+function k1623Pop() {
+    
+};
+
+function k24Pop() {
+    
+};
+
+function k25Pop() {
+    
+};
+
+function k26Pop() {
+    
+};
+
+playerPop();

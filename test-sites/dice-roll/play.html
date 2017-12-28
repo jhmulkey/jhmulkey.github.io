@@ -8,7 +8,27 @@
 </head>
 <body>
          
-    <div id="main-wrapper-div">     
+    <div id="select-players-pop">
+        <p>How many players?</p>
+        <div id="select-players-flex-div">
+            <div class="select-button" onclick="setPlayers(2)">2</div>
+            <div class="select-button" onclick="setPlayers(3)">3</div>
+            <div class="select-button" onclick="setPlayers(4)">4</div>
+        </div>
+    </div>    
+        
+    <div id="select-color-pop">
+        <p>Select Color</p>
+        <div id="select-color-flex-div">
+            <img src="images/black-dice-3.png" width="50px" height="50px" onclick="setColor(1)"/>
+            <img src="images/red-dice-3.png" width="50px" height="50px" onclick="setColor(2)"/>
+            <img src="images/green-dice-3.png" width="50px" height="50px" onclick="setColor(3)"/>
+            <img src="images/blue-dice-3.png" width="50px" height="50px" onclick="setColor(4)"/>
+        </div>
+    </div> 
+    
+    <div id="main-wrapper-div">
+        
     <div class="roll-button-flex-div">
         <div class="checkbox-div">
             <p class="check-here-p">1st</p>
@@ -64,9 +84,51 @@
         <div onclick="regionPoints(7)">8</div>
     </div>
    
+    <div id="goods-pop">
+        <p>How many goods sold?</p>
+        <div id="goods-flex-div">
+            <div class="select-button" onclick="sellGoods(1)">1</div>
+            <div class="select-button" onclick="sellGoods(2)">2</div>
+            <div class="select-button" onclick="sellGoods(3)">3</div>
+            <div class="select-button" onclick="sellGoods(4)">4</div>
+            <div class="select-button" onclick="sellGoods(5)">5</div>
+            <div class="select-button" onclick="sellGoods(6)">6</div>
+            <div class="select-button" onclick="sellGoods(7)">7</div>
+            <div class="select-button" onclick="sellGoods(8)">8</div>
+            <div class="select-button" onclick="sellGoods(9)">9</div>
+            <div class="select-button" onclick="sellGoods(10)">10</div>
+        </div>
+    </div>
+        
+    <div id="animals-pop">
+        <p>How many animal points?</p>
+        <div id="animals-flex-div">
+            <div class="select-button" onclick="animals(1)">1</div>
+            <div class="select-button" onclick="animals(2)">2</div>
+            <div class="select-button" onclick="animals(3)">3</div>
+            <div class="select-button" onclick="animals(4)">4</div>
+            <div class="select-button" onclick="animals(5)">5</div>
+            <div class="select-button" onclick="animals(6)">6</div>
+            <div class="select-button" onclick="animals(7)">7</div>
+            <div class="select-button" onclick="animals(8)">8</div>
+            <div class="select-button" onclick="animals(9)">9</div>
+            <div class="select-button" onclick="animals(10)">10</div>
+            <div class="select-button" onclick="animals(11)">11</div>
+            <div class="select-button" onclick="animals(12)">12</div>
+            <div class="select-button" onclick="animals(13)">13</div>
+            <div class="select-button" onclick="animals(14)">14</div>
+            <div class="select-button" onclick="animals(15)">15</div>
+            <div class="select-button" onclick="animals(16)">16</div>
+            <div class="select-button" onclick="animals(17)">17</div>
+            <div class="select-button" onclick="animals(18)">18</div>
+            <div class="select-button" onclick="animals(19)">19</div>
+            <div class="select-button" onclick="animals(20)">20</div>
+        </div>
+    </div>
+        
     <div class="point-quickadd-div">
-        <div id="sell-goods" class="button-2" onclick="sellGoods()"></div>
-        <div id="animals" class="button-2" onclick="animals()"></div>
+        <div id="sell-goods" class="button-2" onclick="goodsPop()"></div>
+        <div id="animals" class="button-2" onclick="animalsPop()"></div>
         <div id="watchtower" class="button-2" onclick="tapPoints(4, 'watchtower')"></div>
         <div id="monastaries" class="button-2" onclick="tapPoints(5, 'monastaries')"></div>
         <div id="large-bonus" class="button-2" onclick="bonusTile('large')"></div>
