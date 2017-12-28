@@ -128,6 +128,19 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+.button-3b {
+    display: inline-block;
+    height: 50px;
+    width: 175px;
+    margin: 0 auto 20px auto;
+    padding-top: 4px;
+    border: 2px solid black;
+    font-size: 30px;
+    color: white;
+    background-color: rgba(255,0,0,0.8);
+    cursor: pointer;
+}
+
 .button-4 {
     height: 50px;
     width: 100px;
@@ -170,6 +183,7 @@ input[type="checkbox"] {
     background-repeat: no-repeat;
     background-position: center;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #board-select-p {
