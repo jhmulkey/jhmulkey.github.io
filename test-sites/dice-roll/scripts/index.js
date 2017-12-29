@@ -44,11 +44,17 @@ function rollWhiteDice() {
 function titleScreen() {
     document.getElementById("title-screen").style.display = "none";
     document.getElementById("select-board-group-pop").style.display = "block";
+    document.getElementById("index-html").style.backgroundImage = "url(images/background.jpg)";
 }
 
-function whiteDicePop() {
-    document.getElementById("select-board-pop").style.display = "none";
-    document.getElementById("white-dice-pop").style.display = "block";
-}
+function whiteDicePop(x) {
+    if (x) {
+        document.getElementById("select-board-group-pop").style.display = "none";
+        document.getElementById("white-dice-pop").style.display = "block";
+    } else {
+        document.getElementById("select-board-pop").style.display = "none";
+        document.getElementById("white-dice-pop").style.display = "block"; 
+    };  
+};
 
-setTimeout(titleScreen, 2000);
+//setTimeout(titleScreen, 2000);

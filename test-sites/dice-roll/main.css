@@ -528,37 +528,7 @@ input[type="checkbox"] {
     max-width: 414px;
 }
 
-/* MEDIA QUERIES */
 
-@media screen and (max-width: 339px) {
-    #roll-1-div, #roll-2-div, #roll-3-div {
-        height: 80px;
-        width: 80px;
-    }
-    
-    .region-point-tap div {
-        font-size: 40px;
-        width: 60px;
-        height: 60px;
-        margin: 5px;
-        padding-top: 2px;
-    }
-}
-
-@media screen and (max-width: 281px) {
-    #roll-1-div, #roll-2-div, #roll-3-div {
-        height: 70px;
-        width: 70px;
-    }
-    
-    .total-points-div {
-        width: 100px;
-    }
-    
-    #total-points {
-        font-size: 60px;
-    }
-}
 
 /* NEW RULES */
 
@@ -625,7 +595,6 @@ input[type="checkbox"] {
 #title-screen {
     max-width: 414px;
     height: 736px;
-    background-image: url(images/background2.jpg);
     //display: none;
 }
 
@@ -650,4 +619,49 @@ input[type="checkbox"] {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 150px;
+}
+
+#index-html {
+    background-image: url(images/background2.jpg);
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 339px) {
+    #roll-1-div, #roll-2-div, #roll-3-div {
+        height: 80px;
+        width: 80px;
+    }
+    
+    .region-point-tap div {
+        font-size: 40px;
+        width: 60px;
+        height: 60px;
+        margin: 5px;
+        padding-top: 2px;
+    }
+    
+    #title-screen p {
+        padding: 40px;
+        margin: 0;
+        font-size: 50px;
+        font-family: black-chancery;
+        color: gold;
+        text-shadow: 4px 4px 4px black;
+    }
+}
+
+@media screen and (max-width: 281px) {
+    #roll-1-div, #roll-2-div, #roll-3-div {
+        height: 70px;
+        width: 70px;
+    }
+    
+    .total-points-div {
+        width: 100px;
+    }
+    
+    #total-points {
+        font-size: 60px;
+    }
 }
