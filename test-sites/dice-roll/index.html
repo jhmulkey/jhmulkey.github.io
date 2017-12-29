@@ -9,31 +9,39 @@
 </head>
 <body>
      
-    <div id="main-wrapper-div">
-    <div>
-        <div class="board-radio-flex-div">
-            <div>
-                <p class="board-p">1-9</p>
-                <input id="B1-9" type="radio" name="select-board-group" checked="checked" onclick="setBoardIndex(0)"/>
-            </div>
-            <div>
-                <p class="board-p">10a-h</p>
-                <input id="B10a-h" type="radio" name="select-board-group" onclick="setBoardIndex(1)"/>
-            </div>
-            <div>
-                <p class="board-p">13a-h</p>
-                <input id="B13a-h" type="radio" name="select-board-group" onclick="setBoardIndex(2)"/>
-            </div>
-            <div>
-                <p class="board-p">All</p>
-                <input id="all-boards" type="radio" name="select-board-group" onclick="setBoardIndex(3)"/>
-            </div>
-        </div>
+    <div id="title-screen">
+        <p>Castles of Burgundy</p>
+        <img src="images/title-photo.jpg" width="75%"/>
     </div>
-       
-    <div id="board-select-div" onclick="chooseBoards(_boardsIndex)">tap to choose board</div>  
     
-    <div id="roll-white-dice-div" onclick="rollWhiteDice()">tap to roll white dice</div>
+    <div id="select-board-group-pop">
+        <p>Select Board Group</p>
+        <div id="select-players-flex-div">
+            <div class="board-button" onclick="setBoardIndex(0)">Boards 1-9</div>
+            <div class="board-button" onclick="setBoardIndex(1)">Boards 10a-h</div>
+            <div class="board-button" onclick="setBoardIndex(2)">Boards 13a-h</div>
+            <div class="board-button" onclick="setBoardIndex(3)">All Boards</div>
+            <a href="play.html">
+                <div class="board-button2">Skip</div>
+            </a>
+        </div>
+    </div> 
+    
+    <div id="select-board-pop" onclick="chooseBoards(_boardsIndex)">
+        <p>Tap Screen to Select Random Board</p>
+        <div id="tap-to-select"></div>
+        <div class="button-3b" onclick="whiteDicePop()">Continue</div>
+    </div> 
+    
+    <div id="white-dice-pop" onclick="rollWhiteDice()">
+        <p>Tap Screen to Roll White Dice</p>
+        <div id="tap-to-roll"></div>
+        <a href="play.html">
+            <div class="button-3b">Continue</div>
+        </a>
+    </div> 
+     
+    <!-- <div id="main-wrapper-div">
     
     <div id="link-button-div">
         <a href="play.html" target="_blank">
@@ -52,7 +60,7 @@
             <div class="button-3">Reference</div>
         </a>
     </div>
-    </div>
+    </div> -->
     <script src="scripts/index.js"></script>
 </body>
 </html>

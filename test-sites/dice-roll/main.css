@@ -24,7 +24,7 @@ html {
 body {
     font-family: Tahoma, serif;
     margin: 0;
-    padding: 20px 0;
+    padding: 0;
 }
 
 div {
@@ -148,10 +148,33 @@ input[type="checkbox"] {
     padding-top: 10px;
     border: 2px solid black;
     font-size: 20px;
-    color: white;
-    background-color: rgba(255,0,0,0.8);
+    color: darkred;
+    background-color: rgba(255,255,255,0.3);
     cursor: pointer;
-    display: inline-block;
+}
+
+.board-button {
+    height: 60px;
+    width: 275px;
+    font-size: 40px;
+    background-color: rgba(255,255,255,0.8);
+    border: 2px solid black;
+    cursor: pointer;
+    margin: 15px;
+    color: darkred;
+    padding-top: 3px;
+}
+
+.board-button2 {
+    height: 60px;
+    width: 275px;
+    font-size: 40px;
+    background-color: rgba(255,0,0,0.8);
+    border: 2px solid black;
+    cursor: pointer;
+    margin: 15px;
+    color: white;
+    padding-top: 3px;
 }
 
 /* INDEX - BOARD */
@@ -201,6 +224,7 @@ input[type="checkbox"] {
 .roll-button-flex-div {
     display: flex;
     justify-content: space-around;
+    margin-top: 20px;
     margin-bottom: 25px;
 }
 
@@ -575,14 +599,14 @@ input[type="checkbox"] {
     max-width: 240px;
 }
 
-#select-players-pop, #select-color-pop, #select-phase-pop, #select-round-pop, #set-adjust-points-pop, #goods-pop, #animals-pop, #end-pop {
+#select-board-group-pop, #select-board-pop, #white-dice-pop, #select-players-pop, #select-color-pop, #select-phase-pop, #select-round-pop, #set-adjust-points-pop, #goods-pop, #animals-pop, #end-pop {
     max-width: 414px;
     padding-top: 20px;
     padding-bottom: 40px;
     display: none;
 }
 
-#select-players-pop p, #select-color-pop p, #select-phase-pop p, #select-round-pop p, #set-adjust-points-pop p, #goods-pop p, #animals-pop p, #end-pop p {
+#select-board-group-pop p, #select-board-pop p, #white-dice-pop p, #select-players-pop p, #select-color-pop p, #select-phase-pop p, #select-round-pop p, #set-adjust-points-pop p, #goods-pop p, #animals-pop p, #end-pop p {
     font-size: 30px;
 }
 
@@ -596,4 +620,34 @@ input[type="checkbox"] {
     flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 30px;
+}
+
+#title-screen {
+    max-width: 414px;
+    height: 736px;
+    background-image: url(images/background2.jpg);
+    //display: none;
+}
+
+#title-screen p {
+    padding: 40px;
+    margin: 0;
+    font-size: 75px;
+    font-family: black-chancery;
+    color: gold;
+    text-shadow: 4px 4px 4px black;
+}
+
+#tap-to-select, #tap-to-roll {
+    max-width: 414px;
+    height: 300px;
+    padding-top: 75px;
+    font-size: 100px;
+    margin-bottom: 50px
+}
+
+#tap-to-roll {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 150px;
 }
