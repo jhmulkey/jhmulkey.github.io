@@ -17,6 +17,10 @@
     //outline: 1px solid black;
 }
 
+input, a, div, p, img {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
 html {
     background: url(images/background.jpg);
 }

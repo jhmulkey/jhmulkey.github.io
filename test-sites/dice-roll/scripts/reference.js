@@ -23,3 +23,5 @@ var knowledgeTileArray = [
 function knowledgeTile(x) {
     alert(knowledgeTileArray[x-1]);
 };
+
+document.addEventListener("touchstart", function(){}, true);

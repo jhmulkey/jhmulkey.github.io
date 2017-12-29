@@ -58,3 +58,5 @@ function whiteDicePop(x) {
 };
 
 setTimeout(titleScreen, 2000);
+
+document.addEventListener("touchstart", function(){}, true);

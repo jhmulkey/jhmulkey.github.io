@@ -371,3 +371,5 @@ function endGamePop(x) {
 };
 
 playerPop();
+
+document.addEventListener("touchstart", function(){}, true);
