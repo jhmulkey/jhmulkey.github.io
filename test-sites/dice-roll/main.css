@@ -532,8 +532,6 @@ input[type="checkbox"] {
     max-width: 414px;
 }
 
-
-
 /* NEW RULES */
 
 .select-button {
@@ -569,8 +567,8 @@ input[type="checkbox"] {
     margin-top: 30px;
 }
 
-#select-color-flex-div {
-    max-width: 240px;
+#select-players-flex-div {
+    width: 120px;
 }
 
 #select-board-group-pop, #select-board-pop, #white-dice-pop, #select-players-pop, #select-color-pop, #select-phase-pop, #select-round-pop, #set-adjust-points-pop, #goods-pop, #animals-pop, #end-pop {
@@ -586,7 +584,7 @@ input[type="checkbox"] {
 
 #select-color-pop img {
     cursor: pointer;
-    margin: 10px;
+    margin: 20px;
 }
 
 .pu-flex-div {
