@@ -1,4 +1,9 @@
-/* FONTS */
+/******************************
+******************************
+    FONTS
+******************************
+******************************/
+
 
 @font-face {
     font-family: black-chancery;
@@ -10,7 +15,13 @@
     src: url(fonts/Tahoma.ttf);
 }
 
-/* GLOBAL ELEMENT STYLES */
+
+/******************************
+******************************
+    ELEMENTS
+******************************
+******************************/
+
 
 *, *:before, *:after {
     box-sizing: border-box;
@@ -72,7 +83,13 @@ th {
     color: white;
 }
 
-/* GLOBAL INPUT */
+
+/******************************
+******************************
+    INPUTS
+******************************
+******************************/
+
 
 input[type="radio"] {
     width: 20px;
@@ -86,7 +103,13 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-/* BUTTONS */ 
+
+/******************************
+******************************
+    BUTTONS
+******************************
+******************************/
+
 
 .board-button, .board-button-skip {
     height: 60px;
@@ -145,7 +168,13 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-/* GLOBAL CLASS STYLES */
+
+/******************************
+******************************
+    GLOBAL STYLES
+******************************
+******************************/
+
 
 #main-wrapper-div {
     max-width: 414px;
@@ -157,19 +186,82 @@ input[type="checkbox"] {
     margin: 0;
 }
 
-/* INDEX - BOARD */
+/******************************
+******************************
+    INDEX.HTML
+******************************
+******************************/
 
-.board-radio-flex-div {
+
+#index-html {
+    background-image: url(images/background2.jpg);
+}
+
+#title-screen-pop {
+    max-width: 414px;
+    height: 736px;
+}
+
+#title-screen-pop p {
+    padding: 40px;
+    margin: 0;
+    font-size: 75px;
+    font-family: black-chancery, serif;
+    color: gold;
+    text-shadow: 4px 4px 4px black;
+}
+
+#tap-to-select, #tap-to-roll {
+    max-width: 414px;
+    height: 300px;
+    padding-top: 75px;
+    font-size: 100px;
+    margin-bottom: 50px
+}
+
+#tap-to-roll {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 150px;
+}
+
+#select-board-group-pop div {
+    margin: 0 auto;
+    margin-bottom: 25px;
+    
+}
+
+#select-color-pop img {
+    cursor: pointer;
+    margin: 10px 10px;
+}
+
+#select-players-flex-div, #select-color-flex-div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    margin-top: 50px;
 }
 
-.board-p {
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 20px;
+#select-players-flex-div {
+    width: 150px;
 }
+
+#select-players-flex-div div {
+    margin-bottom: 30px;
+}
+
+#select-color-flex-div {
+    width: 250px;
+}
+
+
+/******************************
+******************************
+    PLAY.HTML
+******************************
+******************************/
+
 
 /* PLAY - ROLL BUTTON AREA */
 
@@ -224,11 +316,22 @@ input[type="checkbox"] {
 
 /* PLAY - POINT DISPLAY AREA */
 
+.latest-points-div {
+    height: 20px;
+}
+
+#latest-points-span {
+    font-weight: bold;
+}
+
 .phase-points-round-flex-div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+}
+
+.phase-round-div {
     cursor: pointer;
 }
 
@@ -246,22 +349,22 @@ input[type="checkbox"] {
     font-size: 30px;
 }
 
-.latest-points-div {
-    height: 20px;
-}
-
-#latest-points-span {
-    font-weight: bold;
-}
-
 .total-points-div {
     width: 150px;
     margin: 0;
     cursor: pointer;
 }
 
+#spw-flex-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
 .player-p {
-    margin-top: 0;
+    margin: 0;
     font-weight: bold;
 }
 
@@ -405,7 +508,38 @@ input[type="checkbox"] {
     margin: 0;
 }
 
-/* BONUS */
+/* NEW RULES */
+
+#select-board-group-pop, #select-board-pop, #white-dice-pop, #select-players-pop, #select-color-pop, #select-phase-pop, #select-round-pop, #set-adjust-points-pop, #goods-pop, #animals-pop, #end-pop {
+    max-width: 414px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    display: none;
+}
+
+#select-board-group-pop p, #select-board-pop p, #white-dice-pop p, #select-players-pop p, #select-color-pop p, #select-phase-pop p, #select-round-pop p, #set-adjust-points-pop p, #goods-pop p, #animals-pop p, #end-pop p {
+    font-size: 30px;
+}
+
+.pu-flex-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 30px;
+    width: 255px;
+}
+
+.pu-flex-div div {
+    margin: 5px;
+}
+
+
+/******************************
+******************************
+    BONUS.HTML
+******************************
+******************************/
+
 
 #bonus-html {
     background: url(images/background2.jpg);
@@ -435,7 +569,13 @@ input[type="checkbox"] {
     border-style: 
 }
 
-/* SETUP */
+
+/******************************
+******************************
+    SETUP.HTML
+******************************
+******************************/
+
 
 .setup-div {
     margin: 0 auto;
@@ -446,7 +586,13 @@ input[type="checkbox"] {
     font-size: 22px;
 }
 
-/* EXPANSION RULES */
+
+/******************************
+******************************
+    EXPANSION.HTML
+******************************
+******************************/
+
 
 .exp-main-wrap {
     margin: 0 auto;
@@ -463,7 +609,13 @@ input[type="checkbox"] {
     text-align: left;
 }
 
-/* REFERENCE */
+
+/******************************
+******************************
+    REFERENCE.HTML
+******************************
+******************************/
+
 
 .knowledge-tile-flex-div {
     display: flex;
@@ -473,98 +625,13 @@ input[type="checkbox"] {
     max-width: 414px;
 }
 
-/* NEW RULES */
 
-#select-board-group-pop div {
-    margin: 0 auto;
-    margin-bottom: 25px;
-    
-}
+/******************************
+******************************
+    MEDIA QUERIES
+******************************
+******************************/
 
-#select-players-flex-div, #select-color-flex-div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 50px;
-}
-
-#select-players-flex-div {
-    width: 150px;
-}
-
-#select-players-flex-div {
-    width: 150px;
-}
-
-#select-players-flex-div div {
-    margin-bottom: 30px;
-}
-
-#select-color-flex-div {
-    width: 250px;
-}
-
-#select-board-group-pop, #select-board-pop, #white-dice-pop, #select-players-pop, #select-color-pop, #select-phase-pop, #select-round-pop, #set-adjust-points-pop, #goods-pop, #animals-pop, #end-pop {
-    max-width: 414px;
-    padding-top: 20px;
-    padding-bottom: 40px;
-    display: none;
-}
-
-#select-board-group-pop p, #select-board-pop p, #white-dice-pop p, #select-players-pop p, #select-color-pop p, #select-phase-pop p, #select-round-pop p, #set-adjust-points-pop p, #goods-pop p, #animals-pop p, #end-pop p {
-    font-size: 30px;
-}
-
-#select-color-pop img {
-    cursor: pointer;
-    margin: 10px 10px;
-}
-
-.pu-flex-div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 30px;
-    width: 255px;
-}
-
-.pu-flex-div div {
-    margin: 5px;
-}
-
-#title-screen-pop {
-    max-width: 414px;
-    height: 736px;
-}
-
-#title-screen-pop p {
-    padding: 40px;
-    margin: 0;
-    font-size: 75px;
-    font-family: black-chancery, serif;
-    color: gold;
-    text-shadow: 4px 4px 4px black;
-}
-
-#tap-to-select, #tap-to-roll {
-    max-width: 414px;
-    height: 300px;
-    padding-top: 75px;
-    font-size: 100px;
-    margin-bottom: 50px
-}
-
-#tap-to-roll {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 150px;
-}
-
-#index-html {
-    background-image: url(images/background2.jpg);
-}
-
-/* MEDIA QUERIES */
 
 @media screen and (max-width: 339px) {
     #roll-1-div, #roll-2-div, #roll-3-div {
