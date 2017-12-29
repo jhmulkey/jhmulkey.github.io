@@ -595,7 +595,6 @@ input[type="checkbox"] {
 #title-screen {
     max-width: 414px;
     height: 736px;
-    //display: none;
 }
 
 #title-screen p {

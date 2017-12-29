@@ -57,4 +57,4 @@ function whiteDicePop(x) {
     };  
 };
 
-//setTimeout(titleScreen, 2000);
+setTimeout(titleScreen, 2000);
