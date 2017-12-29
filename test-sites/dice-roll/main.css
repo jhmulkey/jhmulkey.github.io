@@ -86,6 +86,65 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+/* BUTTONS */ 
+
+.board-button, .board-button-skip {
+    height: 60px;
+    width: 275px;
+    font-size: 40px;
+    border: 2px solid black;
+    cursor: pointer;
+    margin: 0 auto;
+    padding-top: 3px;
+}
+
+.board-button {
+    background-color: rgba(255,255,255,0.8);
+    color: darkred;
+}
+
+.board-button-skip {
+    background-color: red;
+    color: white;
+}
+
+.tile-button {
+    height: 100px;
+    width: 100px;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+.select-button-small, .select-button-large {
+    color: darkred;
+    font-weight: bold;
+    background-color: rgba(255,255,255,0.5);
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+.select-button-small, .select-button-region {
+    width: 75px;
+    height: 75px;
+    font-size: 50px;
+    padding-top: 5px;    
+}
+
+.select-button-large {
+    width: 100px;
+    height: 100px;
+    font-size: 60px;
+    padding-top: 7px;
+}
+
+.select-button-region {
+    color: white;
+    background-color: darkred;
+    font-weight: bold;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
 /* GLOBAL CLASS STYLES */
 
 #main-wrapper-div {
@@ -96,89 +155,6 @@ input[type="checkbox"] {
 .black-chancery-h1 {
     font-family: black-chancery;
     margin: 0;
-    text-align: center;
-}
-
-.button-1 {
-    height: 50px;
-    width: 100px;
-    margin: 0 auto 10px auto;
-    padding-top: 10px;
-    border: 2px solid black;
-    font-size: 20px;
-    color: darkred;
-    background-color: rgba(255,255,255,0.3);
-    cursor: pointer;
-    display: inline-block;
-}
-
-.button-2 {
-    height: 100px;
-    width: 100px;
-    border: 2px solid black;
-    cursor: pointer;
-}
-
-.button-3 {
-    display: inline-block;
-    height: 50px;
-    width: 175px;
-    margin: 0 auto 20px auto;
-    padding-top: 10px;
-    border: 2px solid black;
-    font-size: 20px;
-    color: darkred;
-    background-color: rgba(255,255,255,0.3);
-    cursor: pointer;
-}
-
-.button-3b {
-    display: inline-block;
-    height: 50px;
-    width: 175px;
-    margin: 0 auto 20px auto;
-    padding-top: 4px;
-    border: 2px solid black;
-    font-size: 30px;
-    color: white;
-    background-color: rgba(255,0,0,0.8);
-    cursor: pointer;
-}
-
-.button-4 {
-    height: 50px;
-    width: 100px;
-    margin: 0 auto 10px auto;
-    padding-top: 10px;
-    border: 2px solid black;
-    font-size: 20px;
-    color: white;
-    background-color: rgba(255,0,0,0.8);
-    cursor: pointer;
-}
-
-.board-button {
-    height: 60px;
-    width: 275px;
-    font-size: 40px;
-    background-color: rgba(255,255,255,0.8);
-    border: 2px solid black;
-    cursor: pointer;
-    margin: 15px;
-    color: darkred;
-    padding-top: 3px;
-}
-
-.board-button2 {
-    height: 60px;
-    width: 275px;
-    font-size: 40px;
-    background-color: rgba(255,0,0,0.8);
-    border: 2px solid black;
-    cursor: pointer;
-    margin: 15px;
-    color: white;
-    padding-top: 3px;
 }
 
 /* INDEX - BOARD */
@@ -193,34 +169,6 @@ input[type="checkbox"] {
     margin-top: 0;
     margin-bottom: 5px;
     font-size: 20px;
-}
-
-#B1-9, #B10a-h, #B13a-h, #B1-13h {
-    margin: 0 auto;
-}
-
-#board-select-div, #roll-white-dice-div {
-    padding-top: 30px;
-    height: 100px;
-    background-size: contain;
-    cursor: pointer;
-    font-size: 30px;
-    color: gray;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-#board-select-p {
-    font-size: 50px;
-    font-weight: bold;
-    margin-top: 17px;
-}
-
-#link-button-div {
-    padding-top: 30px;
 }
 
 /* PLAY - ROLL BUTTON AREA */
@@ -285,7 +233,7 @@ input[type="checkbox"] {
 }
 
 .phase-round-div p {
-    font-family: black-chancery;
+    font-family: black-chancery, serif;
     font-size: 25px;
     font-weight: bold;
     margin-top: 5px;
@@ -330,33 +278,25 @@ input[type="checkbox"] {
 
 /* PLAY - POINT ADD AREA (DURING GAME) */
 
-.region-point-tap, .quick-point-tap {
+.region-point-tap {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    max-width: 340px;
+    margin: 0 auto;
 }
 
 .region-point-tap div {
-    color: white;
-    background-color: darkred;
-    font-size: 50px;
-    font-weight: bold;
-    width: 75px;
-    height: 75px;
-    border: 2px solid black;
     margin: 5px;
-    padding-top: 2px;
-    cursor: pointer;
 }
 
 .point-quickadd-div {
-    margin-top: 10px;
     margin-bottom: 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    overflow: hidden;
+    max-width: 330px;
 }
 
 .point-quickadd-div div {
@@ -453,6 +393,7 @@ input[type="checkbox"] {
 
 #point-log {
     background-color: rgba(255,255,255,0.5);
+    margin-bottom: 40px;
 }
 
 #point-log-span {
@@ -472,7 +413,7 @@ input[type="checkbox"] {
 
 .bonus-h1 {
     color: gold;
-    font-family: black-chancery;
+    font-family: black-chancery, serif;
     text-align: center;
     font-size: 75px;
     margin: 20px 0;
@@ -534,37 +475,33 @@ input[type="checkbox"] {
 
 /* NEW RULES */
 
-.select-button {
-    width: 100px;
-    height: 100px;
-    font-size: 60px;
-    font-weight: bold;
-    padding-top: 7px;
-    color: darkred;
-    background-color: rgba(255,255,255,0.5);
-    border: 2px solid black;
-    cursor: pointer;
-    margin: 10px;
-}
-
-.select-button2 {
-    width: 75px;
-    height: 75px;
-    font-size: 50px;
-    font-weight: bold;
-    padding-top: 5px;
-    color: darkred;
-    background-color: rgba(255,255,255,0.5);
-    border: 2px solid black;
-    cursor: pointer;
-    margin: 10px;
+#select-board-group-pop div {
+    margin: 0 auto;
+    margin-bottom: 25px;
+    
 }
 
 #select-players-flex-div, #select-color-flex-div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-top: 30px;
+    margin-top: 50px;
+}
+
+#select-players-flex-div {
+    width: 150px;
+}
+
+#select-players-flex-div {
+    width: 150px;
+}
+
+#select-players-flex-div div {
+    margin-bottom: 30px;
+}
+
+#select-color-flex-div {
+    width: 250px;
 }
 
 #select-board-group-pop, #select-board-pop, #white-dice-pop, #select-players-pop, #select-color-pop, #select-phase-pop, #select-round-pop, #set-adjust-points-pop, #goods-pop, #animals-pop, #end-pop {
@@ -580,7 +517,7 @@ input[type="checkbox"] {
 
 #select-color-pop img {
     cursor: pointer;
-    margin: 20px;
+    margin: 10px 10px;
 }
 
 .pu-flex-div {
@@ -588,18 +525,23 @@ input[type="checkbox"] {
     flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 30px;
+    width: 255px;
 }
 
-#title-screen {
+.pu-flex-div div {
+    margin: 5px;
+}
+
+#title-screen-pop {
     max-width: 414px;
     height: 736px;
 }
 
-#title-screen p {
+#title-screen-pop p {
     padding: 40px;
     margin: 0;
     font-size: 75px;
-    font-family: black-chancery;
+    font-family: black-chancery, serif;
     color: gold;
     text-shadow: 4px 4px 4px black;
 }
@@ -638,11 +580,11 @@ input[type="checkbox"] {
         padding-top: 2px;
     }
     
-    #title-screen p {
+    #title-screen-pop p {
         padding: 40px;
         margin: 0;
         font-size: 50px;
-        font-family: black-chancery;
+        font-family: black-chancery, serif;
         color: gold;
         text-shadow: 4px 4px 4px black;
     }

@@ -11,9 +11,9 @@
     <div id="select-players-pop">
         <p>How many players?</p>
         <div id="select-players-flex-div">
-            <div class="select-button" onclick="setPlayers(2)">2</div>
-            <div class="select-button" onclick="setPlayers(3)">3</div>
-            <div class="select-button" onclick="setPlayers(4)">4</div>
+            <div class="select-button-large" onclick="setPlayers(2)">2</div>
+            <div class="select-button-large" onclick="setPlayers(3)">3</div>
+            <div class="select-button-large" onclick="setPlayers(4)">4</div>
         </div>
     </div>    
         
@@ -60,29 +60,29 @@
     <div id="select-phase-pop">
         <p>Select Phase</p>
         <div class="pu-flex-div">
-            <div class="select-button" onclick="adjustPhase('A')">A</div>
-            <div class="select-button" onclick="adjustPhase('B')">B</div>
-            <div class="select-button" onclick="adjustPhase('C')">C</div>
-            <div class="select-button" onclick="adjustPhase('D')">D</div>
-            <div class="select-button" onclick="adjustPhase('E')">E</div>
+            <div class="select-button-small" onclick="adjustPhase('A')">A</div>
+            <div class="select-button-small" onclick="adjustPhase('B')">B</div>
+            <div class="select-button-small" onclick="adjustPhase('C')">C</div>
+            <div class="select-button-small" onclick="adjustPhase('D')">D</div>
+            <div class="select-button-small" onclick="adjustPhase('E')">E</div>
         </div>
     </div>   
         
     <div id="select-round-pop">
         <p>Select Round</p>
         <div class="pu-flex-div">
-            <div class="select-button" onclick="adjustRound(1)">1</div>
-            <div class="select-button" onclick="adjustRound(2)">2</div>
-            <div class="select-button" onclick="adjustRound(3)">3</div>
-            <div class="select-button" onclick="adjustRound(4)">4</div>
-            <div class="select-button" onclick="adjustRound(5)">5</div>
+            <div class="select-button-small" onclick="adjustRound(1)">1</div>
+            <div class="select-button-small" onclick="adjustRound(2)">2</div>
+            <div class="select-button-small" onclick="adjustRound(3)">3</div>
+            <div class="select-button-small" onclick="adjustRound(4)">4</div>
+            <div class="select-button-small" onclick="adjustRound(5)">5</div>
         </div>
     </div>  
         
     <div id="set-adjust-points-pop">
         <p>Point Control</p>
-        <div class="button-3" onclick="setPoints()">SET</div><br/>
-        <div class="button-3" onclick="adjustPoints()">ADJUST</div>
+        <div class="board-button" onclick="setPoints()">SET</div><br/>
+        <div class="board-button" onclick="adjustPoints()">ADJUST</div>
     </div> 
         
     <div class="phase-points-round-flex-div">
@@ -102,106 +102,92 @@
     </div>
     
     <div class="region-point-tap">
-        <div onclick="regionPoints(0)">1</div>
-        <div onclick="regionPoints(1)">2</div>
-        <div onclick="regionPoints(2)">3</div>
-        <div onclick="regionPoints(3)">4</div>
-        <div onclick="regionPoints(4)">5</div>
-        <div onclick="regionPoints(5)">6</div>
-        <div onclick="regionPoints(6)">7</div>
-        <div onclick="regionPoints(7)">8</div>
+        <div class="select-button-region" onclick="regionPoints(0)">1</div>
+        <div class="select-button-region" onclick="regionPoints(1)">2</div>
+        <div class="select-button-region" onclick="regionPoints(2)">3</div>
+        <div class="select-button-region" onclick="regionPoints(3)">4</div>
+        <div class="select-button-region" onclick="regionPoints(4)">5</div>
+        <div class="select-button-region" onclick="regionPoints(5)">6</div>
+        <div class="select-button-region" onclick="regionPoints(6)">7</div>
+        <div class="select-button-region" onclick="regionPoints(7)">8</div>
     </div>
    
     <div id="goods-pop">
         <p>How many goods sold?</p>
         <div class="pu-flex-div">
-            <div class="select-button2" onclick="sellGoods(1)">1</div>
-            <div class="select-button2" onclick="sellGoods(2)">2</div>
-            <div class="select-button2" onclick="sellGoods(3)">3</div>
-            <div class="select-button2" onclick="sellGoods(4)">4</div>
-            <div class="select-button2" onclick="sellGoods(5)">5</div>
-            <div class="select-button2" onclick="sellGoods(6)">6</div>
-            <div class="select-button2" onclick="sellGoods(7)">7</div>
-            <div class="select-button2" onclick="sellGoods(8)">8</div>
-            <div class="select-button2" onclick="sellGoods(9)">9</div>
-            <div class="select-button2" onclick="sellGoods(10)">10</div>
+            <div class="select-button-small" onclick="sellGoods(1)">1</div>
+            <div class="select-button-small" onclick="sellGoods(2)">2</div>
+            <div class="select-button-small" onclick="sellGoods(3)">3</div>
+            <div class="select-button-small" onclick="sellGoods(4)">4</div>
+            <div class="select-button-small" onclick="sellGoods(5)">5</div>
+            <div class="select-button-small" onclick="sellGoods(6)">6</div>
+            <div class="select-button-small" onclick="sellGoods(7)">7</div>
+            <div class="select-button-small" onclick="sellGoods(8)">8</div>
+            <div class="select-button-small" onclick="sellGoods(9)">9</div>
+            <div class="select-button-small" onclick="sellGoods(10)">10</div>
         </div>
     </div>
         
     <div id="animals-pop">
         <p>How many animal points?</p>
         <div class="pu-flex-div">
-            <div class="select-button2" onclick="animals(1)">1</div>
-            <div class="select-button2" onclick="animals(2)">2</div>
-            <div class="select-button2" onclick="animals(3)">3</div>
-            <div class="select-button2" onclick="animals(4)">4</div>
-            <div class="select-button2" onclick="animals(5)">5</div>
-            <div class="select-button2" onclick="animals(6)">6</div>
-            <div class="select-button2" onclick="animals(7)">7</div>
-            <div class="select-button2" onclick="animals(8)">8</div>
-            <div class="select-button2" onclick="animals(9)">9</div>
-            <div class="select-button2" onclick="animals(10)">10</div>
-            <div class="select-button2" onclick="animals(11)">11</div>
-            <div class="select-button2" onclick="animals(12)">12</div>
-            <div class="select-button2" onclick="animals(13)">13</div>
-            <div class="select-button2" onclick="animals(14)">14</div>
-            <div class="select-button2" onclick="animals(15)">15</div>
-            <div class="select-button2" onclick="animals(16)">16</div>
-            <div class="select-button2" onclick="animals(17)">17</div>
-            <div class="select-button2" onclick="animals(18)">18</div>
-            <div class="select-button2" onclick="animals(19)">19</div>
-            <div class="select-button2" onclick="animals(20)">20</div>
+            <div class="select-button-small" onclick="animals(1)">1</div>
+            <div class="select-button-small" onclick="animals(2)">2</div>
+            <div class="select-button-small" onclick="animals(3)">3</div>
+            <div class="select-button-small" onclick="animals(4)">4</div>
+            <div class="select-button-small" onclick="animals(5)">5</div>
+            <div class="select-button-small" onclick="animals(6)">6</div>
+            <div class="select-button-small" onclick="animals(7)">7</div>
+            <div class="select-button-small" onclick="animals(8)">8</div>
+            <div class="select-button-small" onclick="animals(9)">9</div>
+            <div class="select-button-small" onclick="animals(10)">10</div>
+            <div class="select-button-small" onclick="animals(11)">11</div>
+            <div class="select-button-small" onclick="animals(12)">12</div>
+            <div class="select-button-small" onclick="animals(13)">13</div>
+            <div class="select-button-small" onclick="animals(14)">14</div>
+            <div class="select-button-small" onclick="animals(15)">15</div>
         </div>
     </div>
         
     <div class="point-quickadd-div">
-        <div id="sell-goods" class="button-2" onclick="goodsPop()"></div>
-        <div id="animals" class="button-2" onclick="animalsPop()"></div>
-        <div id="watchtower" class="button-2" onclick="tapPoints(4, 'watchtower')"></div>
-        <div id="monastaries" class="button-2" onclick="tapPoints(5, 'monastaries')"></div>
-        <div id="large-bonus" class="button-2" onclick="bonusTile('large')"></div>
-        <div id="small-bonus" class="button-2" onclick="bonusTile('small')"></div>
+        <div id="sell-goods" class="tile-button" onclick="goodsPop()"></div>
+        <div id="animals" class="tile-button" onclick="animalsPop()"></div>
+        <div id="watchtower" class="tile-button" onclick="tapPoints(4, 'watchtower')"></div>
+        <div id="monastaries" class="tile-button" onclick="tapPoints(5, 'monastaries')"></div>
+        <div id="large-bonus" class="tile-button" onclick="bonusTile('large')"></div>
+        <div id="small-bonus" class="tile-button" onclick="bonusTile('small')"></div>
     </div>
         
     <div id="end-pop">
         <p id="end-pop-p"></p>
         <div class="pu-flex-div">
-            <div class="select-button2" onclick="endGamePts(1)">1</div>
-            <div class="select-button2" onclick="endGamePts(2)">2</div>
-            <div class="select-button2" onclick="endGamePts(3)">3</div>
-            <div class="select-button2" onclick="endGamePts(4)">4</div>
-            <div class="select-button2" onclick="endGamePts(5)">5</div>
-            <div class="select-button2" onclick="endGamePts(6)">6</div>
-            <div class="select-button2" onclick="endGamePts(7)">7</div>
-            <div class="select-button2" onclick="endGamePts(8)">8</div>
-            <div class="select-button2" onclick="endGamePts(9)">9</div>
-            <div class="select-button2" onclick="endGamePts(10)">10</div>
-            <div class="select-button2" onclick="endGamePts(11)">11</div>
-            <div class="select-button2" onclick="endGamePts(12)">12</div>
-            <div class="select-button2" onclick="endGamePts(13)">13</div>
-            <div class="select-button2" onclick="endGamePts(14)">14</div>
-            <div class="select-button2" onclick="endGamePts(15)">15</div>
-            <div class="select-button2" onclick="endGamePts(16)">16</div>
-            <div class="select-button2" onclick="endGamePts(17)">17</div>
-            <div class="select-button2" onclick="endGamePts(18)">18</div>
-            <div class="select-button2" onclick="endGamePts(19)">19</div>
-            <div class="select-button2" onclick="endGamePts(20)">20</div>
+            <div class="select-button-small" onclick="endGamePts(1)">1</div>
+            <div class="select-button-small" onclick="endGamePts(2)">2</div>
+            <div class="select-button-small" onclick="endGamePts(3)">3</div>
+            <div class="select-button-small" onclick="endGamePts(4)">4</div>
+            <div class="select-button-small" onclick="endGamePts(5)">5</div>
+            <div class="select-button-small" onclick="endGamePts(6)">6</div>
+            <div class="select-button-small" onclick="endGamePts(7)">7</div>
+            <div class="select-button-small" onclick="endGamePts(8)">8</div>
+            <div class="select-button-small" onclick="endGamePts(9)">9</div>
+            <div class="select-button-small" onclick="endGamePts(10)">10</div>
+            <div class="select-button-small" onclick="endGamePts(11)">11</div>
+            <div class="select-button-small" onclick="endGamePts(12)">12</div>
+            <div class="select-button-small" onclick="endGamePts(13)">13</div>
+            <div class="select-button-small" onclick="endGamePts(14)">14</div>
+            <div class="select-button-small" onclick="endGamePts(15)">15</div>
         </div>
     </div>    
         
     <div class="point-quickadd-div">
-        <div id="unsold-goods" class="button-2" onclick="endGamePop(0)"></div>
-        <div id="silverlings" class="button-2" onclick="endGamePop(1)"></div>
-        <div id="workers" class="button-2" onclick="endGamePop(2)"></div>
-        <div id="know15" class="button-2" onclick="endGamePop(3)"></div>
-        <div id="know16-23" class="button-2" onclick="endGamePop(4)"></div>
-        <div id="know24" class="button-2" onclick="endGamePop(5)"></div>
-        <div id="know25" class="button-2" onclick="endGamePop(6)"></div>
-        <div id="know26" class="button-2" onclick="endGamePop(7)"></div>
-    </div>
-        
-    <div class="point-control-div">
-        <div class="button-4" onclick="resetGame()">Reset</div>
+        <div id="unsold-goods" class="tile-button" onclick="endGamePop(0)"></div>
+        <div id="silverlings" class="tile-button" onclick="endGamePop(1)"></div>
+        <div id="workers" class="tile-button" onclick="endGamePop(2)"></div>
+        <div id="know15" class="tile-button" onclick="endGamePop(3)"></div>
+        <div id="know16-23" class="tile-button" onclick="endGamePop(4)"></div>
+        <div id="know24" class="tile-button" onclick="endGamePop(5)"></div>
+        <div id="know25" class="tile-button" onclick="endGamePop(6)"></div>
+        <div id="know26" class="tile-button" onclick="endGamePop(7)"></div>
     </div>
            
     <div id="point-log"><span id="point-log-span" class="black-chancery-h1">Point Log</span></div>

@@ -42,7 +42,7 @@ function rollWhiteDice() {
 };
 
 function titleScreen() {
-    document.getElementById("title-screen").style.display = "none";
+    document.getElementById("title-screen-pop").style.display = "none";
     document.getElementById("select-board-group-pop").style.display = "block";
     document.getElementById("index-html").style.backgroundImage = "url(images/background.jpg)";
 }
