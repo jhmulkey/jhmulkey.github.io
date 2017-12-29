@@ -14,7 +14,7 @@
 
 *, *:before, *:after {
     box-sizing: border-box;
-    //outline: 1px solid black;
+    outline: 1px solid black;
 }
 
 input, a, div, p, img {
@@ -565,10 +565,6 @@ input[type="checkbox"] {
     flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 30px;
-}
-
-#select-players-flex-div {
-    width: 120px;
 }
 
 #select-board-group-pop, #select-board-pop, #white-dice-pop, #select-players-pop, #select-color-pop, #select-phase-pop, #select-round-pop, #set-adjust-points-pop, #goods-pop, #animals-pop, #end-pop {
