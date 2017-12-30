@@ -14,8 +14,8 @@
         <img src="images/title-photo.jpg" width="75%"/>
     </div>
     
-    <div id="select-board-group-pop">
-        <p>Select Board Group</p>
+    <div id="select-board-group-pop" class="pu">
+        <p class="pu-p">Select Board Group</p>
         <div>
             <div class="board-button" onclick="setBoardIndex(0)">Boards 1-9</div>
             <div class="board-button" onclick="setBoardIndex(1)">Boards 10a-h</div>
@@ -25,14 +25,14 @@
         </div>
     </div> 
     
-    <div id="select-board-pop" onclick="chooseBoards(_boardsIndex)">
-        <p>Tap Screen to<br/>Select Random Board</p>
+    <div id="select-board-pop" class="pu" onclick="chooseBoards(_boardsIndex)">
+        <p class="pu-p">Tap Screen to<br/>Select Random Board</p>
         <div id="tap-to-select"></div>
         <div class="board-button-skip" onclick="whiteDicePop()">Continue</div>
     </div> 
     
-    <div id="white-dice-pop" onclick="rollWhiteDice()">
-        <p>Tap Screen to<br/>Roll White Dice</p>
+    <div id="white-dice-pop" class="pu" onclick="rollWhiteDice()">
+        <p class="pu-p">Tap Screen to<br/>Roll White Dice</p>
         <div id="tap-to-roll"></div>
         <a href="play.html">
             <div class="board-button-skip">Continue</div>

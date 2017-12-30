@@ -8,8 +8,8 @@
 </head>
 <body>
          
-    <div id="select-players-pop">
-        <p>How many players?</p>
+    <div id="select-players-pop" class="pu">
+        <p class="pu-p">How many players?</p>
         <div id="select-players-flex-div">
             <div class="select-button-large" onclick="setPlayers(2)">2</div>
             <div class="select-button-large" onclick="setPlayers(3)">3</div>
@@ -17,13 +17,13 @@
         </div>
     </div>    
         
-    <div id="select-color-pop">
-        <p>Select Color</p>
+    <div id="select-color-pop" class="pu">
+        <p class="pu-p">Select Color</p>
         <div id="select-color-flex-div">
-            <img src="images/black-dice-1.png" width="100px" height="100px" onclick="setColor(1)"/>
-            <img src="images/red-dice-1.png" width="100px" height="100px" onclick="setColor(2)"/>
-            <img src="images/green-dice-1.png" width="100px" height="100px" onclick="setColor(3)"/>
-            <img src="images/blue-dice-1.png" width="100px" height="100px" onclick="setColor(4)"/>
+            <img src="images/black-dice-1.png" width="100px" height="100px" onclick="setColor(0)"/>
+            <img src="images/red-dice-1.png" width="100px" height="100px" onclick="setColor(1)"/>
+            <img src="images/green-dice-1.png" width="100px" height="100px" onclick="setColor(2)"/>
+            <img src="images/blue-dice-1.png" width="100px" height="100px" onclick="setColor(3)"/>
         </div>
     </div> 
     
@@ -57,8 +57,8 @@
         <span id="latest-points-span"></span>
     </div>
     
-    <div id="select-phase-pop">
-        <p>Select Phase</p>
+    <div id="select-phase-pop" class="pu">
+        <p class="pu-p">Select Phase</p>
         <div class="pu-flex-div">
             <div class="select-button-small" onclick="adjustPhase('A')">A</div>
             <div class="select-button-small" onclick="adjustPhase('B')">B</div>
@@ -68,8 +68,8 @@
         </div>
     </div>   
         
-    <div id="select-round-pop">
-        <p>Select Round</p>
+    <div id="select-round-pop" class="pu">
+        <p class="pu-p">Select Round</p>
         <div class="pu-flex-div">
             <div class="select-button-small" onclick="adjustRound(1)">1</div>
             <div class="select-button-small" onclick="adjustRound(2)">2</div>
@@ -79,8 +79,8 @@
         </div>
     </div>  
         
-    <div id="set-adjust-points-pop">
-        <p>Point Control</p>
+    <div id="set-adjust-points-pop" class="pu">
+        <p class="pu-p">Point Control</p>
         <div class="board-button" onclick="setPoints()">SET</div><br/>
         <div class="board-button" onclick="adjustPoints()">ADJUST</div>
     </div> 
@@ -90,7 +90,7 @@
             <p>Phase</p><span id="phase-span">-</span>
         </div>
         <div class="total-points-div" onclick="pointsPop()">
-            <p class="total-points-p"><span id="total-points">0</span></p>
+            <span id="total-points">0</span>
         </div>
         <div class="phase-round-div" onclick="phasePop()">
             <p>Round</p><span id="round-span">-</span>
@@ -118,8 +118,8 @@
         <div class="select-button-region" onclick="regionPoints(7)">8</div>
     </div>
    
-    <div id="goods-pop">
-        <p>How many goods sold?</p>
+    <div id="goods-pop" class="pu">
+        <p class="pu-p">How many goods sold?</p>
         <div class="pu-flex-div">
             <div class="select-button-small" onclick="sellGoods(1)">1</div>
             <div class="select-button-small" onclick="sellGoods(2)">2</div>
@@ -134,8 +134,8 @@
         </div>
     </div>
         
-    <div id="animals-pop">
-        <p>How many animal points?</p>
+    <div id="animals-pop" class="pu">
+        <p class="pu-p">How many animal points?</p>
         <div class="pu-flex-div">
             <div class="select-button-small" onclick="animals(1)">1</div>
             <div class="select-button-small" onclick="animals(2)">2</div>
@@ -164,8 +164,8 @@
         <div id="small-bonus" class="tile-button" onclick="bonusTile('small')"></div>
     </div>
         
-    <div id="end-pop">
-        <p id="end-pop-p"></p>
+    <div id="end-pop" class="pu">
+        <p id="end-pop-p" class="pu-p"></p>
         <div class="pu-flex-div">
             <div class="select-button-small" onclick="endGamePts(1)">1</div>
             <div class="select-button-small" onclick="endGamePts(2)">2</div>
@@ -196,7 +196,7 @@
         <div id="know26" class="tile-button" onclick="endGamePop(7)"></div>
     </div>
            
-    <div id="point-log"><span id="point-log-span" class="black-chancery-h1">Point Log</span></div>
+    <div id="point-log"><h1 id="point-log-h1">Point Log</h1></div>
     </div>
             
     <script src="scripts/play.js"></script>

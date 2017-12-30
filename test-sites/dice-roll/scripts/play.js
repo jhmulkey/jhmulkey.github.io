@@ -40,7 +40,7 @@ function setPlayers(x) {
 };
 
 function setColor(x) {
-    var colors = ["", "black", "red", "green", "blue"];
+    var colors = ["black", "red", "green", "blue"];
     _color = colors[x];
     document.getElementById("select-color-pop").style.display = "none";
     document.getElementById("main-wrapper-div").style.display = "block";
@@ -353,14 +353,14 @@ function endGamePop(x) {
         if (document.getElementById("end-pop").style.display == "" || document.getElementById("end-pop").style.display == "none") {
             document.getElementById("end-pop").style.display = "block";
             var p = [
-                "How many unsold goods tiles remain?",
-                "How many silverlings remain?",
-                "How many workers remain?",
-                "How goods types sold?<br/>(max = 6)",
-                "How many eligible buildings?",
-                "How many animal types on estate?<br/>(max = 5)",
-                "How many goods tiles sold?",
-                "How many bonus tiles?<br/>(max = 7)"
+                "unsold goods tiles remaining?",
+                "silverlings remaining?",
+                "workers remaining?",
+                "goods types sold?<br/>(max = 6)",
+                "eligible buildings?",
+                "animal types?<br/>(max = 5)",
+                "goods tiles sold?",
+                "bonus tiles?<br/>(max = 7)"
             ];
             document.getElementById("end-pop-p").innerHTML = p[x];
             document.getElementById("end-pop").scrollIntoView();

@@ -3,8 +3,6 @@
     FONTS
 ******************************
 ******************************/
-
-
 @font-face {
     font-family: black-chancery;
     src: url(fonts/black-chancery.ttf);
@@ -21,8 +19,6 @@
     ELEMENTS
 ******************************
 ******************************/
-
-
 *, *:before, *:after {
     box-sizing: border-box;
     //outline: 1px solid black;
@@ -53,9 +49,14 @@ a {
     outline: none;
 }
 
+h1 {
+    font-family: black-chancery;
+    font-size: 40px;
+    margin: 0;
+}
+
 h2 {
     color: darkred;
-    text-align: center;
 }
 
 li {
@@ -89,8 +90,6 @@ th {
     INPUTS
 ******************************
 ******************************/
-
-
 input[type="radio"] {
     width: 20px;
     height: 20px;
@@ -109,8 +108,6 @@ input[type="checkbox"] {
     BUTTONS
 ******************************
 ******************************/
-
-
 .board-button, .board-button-skip {
     height: 60px;
     width: 275px;
@@ -174,350 +171,25 @@ input[type="checkbox"] {
     GLOBAL STYLES
 ******************************
 ******************************/
-
-
 #main-wrapper-div {
     max-width: 414px;
     text-align: center;
 }
 
-.black-chancery-h1 {
-    font-family: black-chancery;
-    margin: 0;
-}
 
 /******************************
 ******************************
-    INDEX.HTML
+    ALL POP-UPS
 ******************************
 ******************************/
-
-
-#index-html {
-    background-image: url(images/background2.jpg);
-}
-
-#title-screen-pop {
-    max-width: 414px;
-    height: 736px;
-}
-
-#title-screen-pop p {
-    padding: 40px;
-    margin: 0;
-    font-size: 75px;
-    font-family: black-chancery, serif;
-    color: gold;
-    text-shadow: 4px 4px 4px black;
-}
-
-#tap-to-select, #tap-to-roll {
-    max-width: 414px;
-    height: 300px;
-    padding-top: 75px;
-    font-size: 100px;
-    margin-bottom: 50px
-}
-
-#tap-to-roll {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 150px;
-}
-
-#select-board-group-pop div {
-    margin: 0 auto;
-    margin-bottom: 25px;
-    
-}
-
-#select-color-pop img {
-    cursor: pointer;
-    margin: 10px 10px;
-}
-
-#select-players-flex-div, #select-color-flex-div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 50px;
-}
-
-#select-players-flex-div {
-    width: 150px;
-}
-
-#select-players-flex-div div {
-    margin-bottom: 30px;
-}
-
-#select-color-flex-div {
-    width: 250px;
-}
-
-
-/******************************
-******************************
-    PLAY.HTML
-******************************
-******************************/
-
-
-/* PLAY - ROLL BUTTON AREA */
-
-.roll-button-flex-div {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    margin-bottom: 25px;
-}
-
-.checkbox-div, .button-div {
-    width: 300px;
-    height: 70px;
-}
-
-.button-div img {
-    cursor: pointer;
-}
-
-.check-here-p {
-    font-size: 15px;
-    margin: 5px 0 5px 0;
-}
-
-/* PLAY - ROLLED DICE AREA */
-
-.rolled-dice-flex-div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.click-to-hide-div {
-    margin: 10px;
-    outline: 1px dashed gray;
-    cursor: pointer;
-}
-
-#roll-1-div, #roll-2-div, #roll-3-div {
-    height: 100px;
-    width: 100px;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-#roll-3-div {
-    visibility: hidden;
-    margin: 0;
-}
-
-/* PLAY - POINT DISPLAY AREA */
-
-.latest-points-div {
-    height: 20px;
-}
-
-#latest-points-span {
-    font-weight: bold;
-}
-
-.phase-points-round-flex-div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.phase-round-div {
-    cursor: pointer;
-}
-
-.phase-round-div p {
-    font-family: black-chancery, serif;
-    font-size: 25px;
-    font-weight: bold;
-    margin-top: 5px;
-    margin-bottom: 3px;
-}
-
-#phase-span, #round-span {
-    font-family: Tahoma, serif;
-    font-weight: bold;
-    font-size: 30px;
-}
-
-.total-points-div {
-    width: 150px;
-    margin: 0;
-    cursor: pointer;
-}
-
-#spw-flex-div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.player-p {
-    margin: 0;
-    font-weight: bold;
-}
-
-#total-points {
-    font-size: 85px;
-    color: darkred;
-    font-weight: bold;
-}
-
-.total-points-p {
-    text-align: center;
-    margin-top: 0;
-}
-
-/* PLAY - POINT ADD AREA (DURING GAME) */
-
-.region-point-tap {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    max-width: 340px;
-    margin: 0 auto 30px auto;
-}
-
-.region-point-tap div {
-    margin: 5px;
-}
-
-.point-quickadd-div {
-    margin-bottom: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    max-width: 330px;
-}
-
-.point-quickadd-div div {
-    margin: 5px;
-}
-
-#sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #unsold-goods, #silverlings, #workers, #know15, #know16-23, #know24, #know25, #know26 {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-#sell-goods {
-    background-image: url(images/sell-goods.jpg);
-    background-color: #D2CC95;
-}
-
-
-#watchtower {
-    background-image: url(images/watchtower.png);
-    background-color: #D2CC95;
-}
-
-#animals {
-    background-image: url(images/animals.png);
-    background-color: #BEE53D;
-}
-
-#large-bonus {
-    background-image: url(images/large-bonus.jpg);
-}
-
-#small-bonus {
-    background-image: url(images/small-bonus.png);
-    background-color: #BABDB8;
-}
-
-
-/* PLAY - POINT ADD AREA (GAME END) */
-
-#unsold-goods {
-    background-image: url(images/unsold-goods.jpg);
-}
-
-#silverlings {
-    background-image: url(images/silverling.png);
-    background-color: #C6B4B1;
-}
-
-#workers {
-    background-image: url(images/worker.jpg);
-}
-
-#know15 {
-    background-image: url(images/knowledge-tiles-15.png);
-    background-color: #E0D537;
-}
-
-#know16-23 {
-    background-image: url(images/knowledge-tiles-16-23.png);
-    background-color: #E0D537;
-}
-
-#know24 {
-    background-image: url(images/knowledge-tiles-24.png);
-    background-color: #E0D537;
-}
-
-#know25 {
-    background-image: url(images/knowledge-tiles-25.png);
-    background-color: #E0D537;
-}
-
-#know26 {
-    background-image: url(images/knowledge-tiles-26.png);
-    background-color: #E0D537;
-}
-
-#monastaries {
-    background-image: url(images/monastary.png);
-    background-color: #BEBF8C;
-}
-
-/* PLAY - POINT CONTROL AND ACTIVITY LOG */
-
-.point-control-div {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;    
-}
-
-#point-log {
-    background-color: rgba(255,255,255,0.5);
-    margin-bottom: 40px;
-}
-
-#point-log-span {
-    font-size: 25px;
-    font-weight: bold;
-}
-
-#point-log p {
-    margin: 0;
-}
-
-/* NEW RULES */
-
-#select-board-group-pop, #select-board-pop, #white-dice-pop, #select-players-pop, #select-color-pop, #select-phase-pop, #select-round-pop, #set-adjust-points-pop, #goods-pop, #animals-pop, #end-pop {
+.pu {
     max-width: 414px;
     padding-top: 20px;
     padding-bottom: 40px;
     display: none;
 }
 
-#select-board-group-pop p, #select-board-pop p, #white-dice-pop p, #select-players-pop p, #select-color-pop p, #select-phase-pop p, #select-round-pop p, #set-adjust-points-pop p, #goods-pop p, #animals-pop p, #end-pop p {
+.pu-p {
     font-size: 30px;
 }
 
@@ -532,6 +204,332 @@ input[type="checkbox"] {
 .pu-flex-div div {
     margin: 5px;
 }
+
+
+/******************************
+******************************
+    INDEX
+******************************
+******************************/
+#index-html {
+    background-image: url(images/background2.jpg);
+}
+
+    /******************************
+        INDEX > TITLE SCREEN
+    ******************************/
+    #title-screen-pop {
+        max-width: 414px;
+        height: 736px;
+    }
+
+    #title-screen-pop p {
+        padding: 40px;
+        margin: 0;
+        font-size: 75px;
+        font-family: black-chancery, serif;
+        color: gold;
+        text-shadow: 4px 4px 4px black;
+    }
+
+    /******************************
+        INDEX > BOARD GROUP & WHITE DICE
+    ******************************/
+    #select-board-group-pop div {
+        margin: 0 auto;
+        margin-bottom: 25px; 
+    }
+
+    #tap-to-select, #tap-to-roll {
+        max-width: 414px;
+        height: 300px;
+        padding-top: 75px;
+        font-size: 100px;
+        margin-bottom: 50px
+    }
+
+    #tap-to-roll {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 150px;
+    }
+
+
+/******************************
+******************************
+    PLAY
+******************************
+******************************/
+
+    /******************************
+        PLAY > PLAYERS & COLORS
+    ******************************/
+    #select-players-flex-div, #select-color-flex-div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 50px;
+    }
+
+    #select-players-flex-div {
+        width: 150px;
+    }
+
+    #select-players-flex-div div {
+        margin-bottom: 30px;
+    }
+
+    #select-color-pop img {
+        cursor: pointer;
+        margin: 10px 10px;
+    }
+
+    #select-color-flex-div {
+        width: 250px;
+    }
+
+    /******************************
+        PLAY > ROLL BUTTON FLEX DIV
+    ******************************/
+    .roll-button-flex-div {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+        margin-bottom: 25px;
+    }
+
+    .checkbox-div, .button-div {
+        width: 300px;
+        height: 70px;
+    }
+
+    .button-div img {
+        cursor: pointer;
+    }
+
+    .check-here-p {
+        font-size: 15px;
+        margin: 5px 0 5px 0;
+    }
+
+    /******************************
+        PLAY > ROLLED DICE FLEX DIV
+    ******************************/
+    .rolled-dice-flex-div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .click-to-hide-div {
+        margin: 10px;
+        outline: 1px dashed gray;
+        cursor: pointer;
+    }
+
+    #roll-1-div, #roll-2-div, #roll-3-div {
+        height: 100px;
+        width: 100px;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    #roll-3-div {
+        visibility: hidden;
+        margin: 0;
+    }
+
+    /******************************
+        PLAY > LATEST POINTS
+    ******************************/
+    .latest-points-div {
+        height: 20px;
+    }
+
+    #latest-points-span {
+        font-weight: bold;
+    }
+
+    /******************************
+        PLAY > PHASE-POINTS-ROUND FLEX DIV
+    ******************************/
+    .phase-points-round-flex-div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .phase-round-div {
+        cursor: pointer;
+    }
+
+    .phase-round-div p {
+        font-family: black-chancery, serif;
+        font-size: 25px;
+        font-weight: bold;
+        margin-top: 5px;
+        margin-bottom: 3px;
+    }
+
+    #phase-span, #round-span {
+        font-weight: bold;
+        font-size: 30px;
+    }
+
+    .total-points-div {
+        width: 150px;
+        margin: 0;
+        cursor: pointer;
+    }
+
+    #total-points {
+        font-size: 85px;
+        color: darkred;
+        font-weight: bold;
+    }
+
+    /******************************
+        PLAY > SILVER-PLAYERS-WORKERS FLEX DIV
+    ******************************/
+    #spw-flex-div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .player-p {
+        margin: 0;
+        font-weight: bold;
+    }
+
+    /******************************
+        PLAY > REGION POINTS
+    ******************************/
+    .region-point-tap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-bottom: 20px;
+        max-width: 340px;
+        margin: 0 auto 30px auto;
+    }
+
+    .region-point-tap div {
+        margin: 5px;
+    }
+
+    /******************************
+        PLAY > POINT QUICK-ADD
+    ******************************/
+    .point-quickadd-div {
+        margin-bottom: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        max-width: 330px;
+    }
+
+    .point-quickadd-div div {
+        margin: 5px;
+    }
+
+    /******************************
+        PLAY > ALL TILE BUTTONS
+    ******************************/
+    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #unsold-goods, #silverlings, #workers, #know15, #know16-23, #know24, #know25, #know26 {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    #sell-goods {
+        background-image: url(images/sell-goods.jpg);
+        background-color: #D2CC95;
+    }
+
+    #animals {
+        background-image: url(images/animals.png);
+        background-color: #BEE53D;
+    }
+
+    #watchtower {
+        background-image: url(images/watchtower.png);
+        background-color: #D2CC95;
+    }
+
+    #monastaries {
+        background-image: url(images/monastary.png);
+        background-color: #BEBF8C;
+    }
+
+    #large-bonus {
+        background-image: url(images/large-bonus.jpg);
+    }
+
+    #small-bonus {
+        background-image: url(images/small-bonus.png);
+        background-color: #BABDB8;
+    }
+
+    #unsold-goods {
+        background-image: url(images/unsold-goods.jpg);
+    }
+
+    #silverlings {
+        background-image: url(images/silverling.png);
+        background-color: #C6B4B1;
+    }
+
+    #workers {
+        background-image: url(images/worker.jpg);
+    }
+
+    #know15 {
+        background-image: url(images/knowledge-tiles-15.png);
+        background-color: #E0D537;
+    }
+
+    #know16-23 {
+        background-image: url(images/knowledge-tiles-16-23.png);
+        background-color: #E0D537;
+    }
+
+    #know24 {
+        background-image: url(images/knowledge-tiles-24.png);
+        background-color: #E0D537;
+    }
+
+    #know25 {
+        background-image: url(images/knowledge-tiles-25.png);
+        background-color: #E0D537;
+    }
+
+    #know26 {
+        background-image: url(images/knowledge-tiles-26.png);
+        background-color: #E0D537;
+    }
+
+    /******************************
+        PLAY > POINT LOG
+    ******************************/
+
+    #point-log {
+        background-color: rgba(255,255,255,0.5);
+        margin-bottom: 40px;
+    }
+
+    #point-log-h1 {
+        font-size: 25px;
+    }
+
+    #point-log p {
+        margin: 0;
+    }
 
 
 /******************************
