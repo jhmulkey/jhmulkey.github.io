@@ -13,7 +13,79 @@ var _ph = 0;
 var _pts = 0;
 var _color;
 var _endIndex;
-var _adjPh
+var _adjPh;
+var _silver = 1; 
+var _workers;
+var _goods = 3;
+var _mines = 0;
+
+function setPlayers(x) {
+    _pl = x;
+    document.getElementById("player-span").innerHTML = x;
+    playerOrderPop();
+};
+
+function initializeWorkers(x) {
+    _workers = x;
+    document.getElementById("worker-span").innerHTML = _workers;
+    colorPop();
+}
+
+function adjustWorkers(x, name) {
+    _workers += x;
+    document.getElementById("worker-span").innerHTML = _workers;
+    var log = x + " workers for " + name;
+    latestPointsColor("black");
+    document.getElementById("latest-points-span").innerHTML = log;
+    activityLog(log);
+    pointSound.play();
+    window.scrollTo(0,0);
+}
+
+function adjustMines(i) {
+    if (i == 0) {
+        if (_mines == 3) {
+            alert("no more than 3 mines may be added to estate!")
+        } else {
+            _mines += 1;
+            document.getElementById("mine-p").innerHTML = _mines;
+            var log = "1 mine added to estate"
+            latestPointsColor("black");
+            document.getElementById("latest-points-span").innerHTML = log;
+            activityLog(log);
+            pointSound.play();
+            window.scrollTo(0,0);
+        };
+    } else if (i == 1) {
+        var x = parseInt(prompt("Adjust mines by:"));
+        if ((_mines += x) > 3) {
+            alert("no more than 3 mines may be added to estate!");
+        } else if ((_mines += x) < 1) {
+            alert("mines cannot be less than 0!");
+        } else {
+            _mines += x;
+            document.getElementById("mine-p").innerHTML = _mines;
+            var log = "mines adjusted by " + x;
+            latestPointsColor("red");
+            document.getElementById("latest-points-span").innerHTML = log;
+            activityLog(log, "red");
+            pointSound.play();
+            window.scrollTo(0,0);
+        };
+    };  
+};
+
+function adjustSilver(x) {
+    _silver += x;
+    document.getElementById("silver-span").innerHTML = _silver;
+};
+
+function setColor(x) {
+    var colors = ["black", "red", "green", "blue"];
+    _color = colors[x];
+    document.getElementById("select-color-pop").style.display = "none";
+    document.getElementById("main-wrapper-div").style.display = "block";
+};
 
 function rollDice(color) {
     if (_rd < 25) {
@@ -25,25 +97,15 @@ function rollDice(color) {
         if (document.getElementById("bonus-checkbox").checked) {
             randomBonus();
         };
+        if (_mines > 0 && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
+            adjustSilver(_mines);
+        };
     } else if (_rd >= 25) {
         if (window.confirm("End of Game. Ok to reset?")) {
             window.scrollTo(0,0);
             location.reload();
         };
     };
-};
-
-function setPlayers(x) {
-    _pl = x;
-    document.getElementById("player-span").innerHTML = x;
-    colorPop();
-};
-
-function setColor(x) {
-    var colors = ["black", "red", "green", "blue"];
-    _color = colors[x];
-    document.getElementById("select-color-pop").style.display = "none";
-    document.getElementById("main-wrapper-div").style.display = "block";
 };
 
 function randomDice(color) {
@@ -190,6 +252,7 @@ function regionPoints(x) {
 
 function sellGoods(x) {
     _pts += x * _pl;
+    adjustSilver(1);
     document.getElementById("total-points").innerHTML = _pts;
     var log = (x * _pl) + " points for sale of " + x + " goods";
     latestPointsColor("black");
@@ -276,6 +339,27 @@ function endGamePts(x) {
     };  
 };
 
+function quickEndGamePts(x, i) {
+    if (_rd < 25) {
+        alert("These points can only be added at end of game!");
+    } else {
+        var factors = [x, x, Math.floor(x / 2)];
+        var labels = [
+            "unsold goods tiles",
+            "unspent silverlings",
+            "unused workers"
+        ]
+        _pts += factors[i]
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = factors[i] + " points for " + x + " " + labels[i];
+        latestPointsColor("blue");
+        document.getElementById("latest-points-span").innerHTML = log;
+        activityLog(log, "blue");
+        pointSound.play();
+        document.getElementById("unsold-goods").scrollIntoView();
+    };
+};
+
 function activityLog(x, color, margin) {
     var elementNode = document.createElement("p");
     if (color) {
@@ -300,8 +384,14 @@ function playerPop() {
     document.getElementById("select-players-pop").style.display = "block";
 };
 
-function colorPop() {
+function playerOrderPop() {
+    window.scrollTo(0,0);
     document.getElementById("select-players-pop").style.display = "none";
+    document.getElementById("player-order-pop").style.display = "block";
+}
+
+function colorPop() {
+    document.getElementById("player-order-pop").style.display = "none";
     document.getElementById("select-color-pop").style.display = "block";
 };
 

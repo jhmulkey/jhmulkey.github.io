@@ -15,7 +15,17 @@
             <div class="select-button-large" onclick="setPlayers(3)">3</div>
             <div class="select-button-large" onclick="setPlayers(4)">4</div>
         </div>
-    </div>    
+    </div>   
+       
+    <div id="player-order-pop" class="pu">
+        <p class="pu-p">Select Player Order</p>
+        <div id="player-order-flex-div">
+            <div class="select-button-large-2" onclick="initializeWorkers(1)">1st</div>
+            <div class="select-button-large-2" onclick="initializeWorkers(2)">2nd</div>
+            <div class="select-button-large-2" onclick="initializeWorkers(3)">3rd</div>
+            <div class="select-button-large-2" onclick="initializeWorkers(4)">4th</div>
+        </div>
+    </div>   
         
     <div id="select-color-pop" class="pu">
         <p class="pu-p">Select Color</p>
@@ -99,11 +109,15 @@
     
     <div id="spw-flex-div">
         <div>
+            <img id="silver-count-img" src="images/silverling.png"/>
+            <span id="silver-span">1</span>
         </div>
         <div>
             <p class="player-p">Players: <span id="player-span"></span></p>
         </div>
         <div>
+            <img src="images/worker.jpg"/>
+            <span id="worker-span">0</span>
         </div>
     </div>
     
@@ -162,6 +176,7 @@
         <div id="monastaries" class="tile-button" onclick="tapPoints(5, 'monastaries')"></div>
         <div id="large-bonus" class="tile-button" onclick="bonusTile('large')"></div>
         <div id="small-bonus" class="tile-button" onclick="bonusTile('small')"></div>
+        <div id="workhouse" class="tile-button" onclick="adjustWorkers(4,'boarding house')"></div>
     </div>
         
     <div id="end-pop" class="pu">
@@ -188,7 +203,7 @@
     <div class="point-quickadd-div">
         <div id="unsold-goods" class="tile-button" onclick="endGamePop(0)"></div>
         <div id="silverlings" class="tile-button" onclick="endGamePop(1)"></div>
-        <div id="workers" class="tile-button" onclick="endGamePop(2)"></div>
+        <div id="workers" class="tile-button" onclick="quickEndGamePts(_workers, 2)"></div>
         <div id="know15" class="tile-button" onclick="endGamePop(3)"></div>
         <div id="know16-23" class="tile-button" onclick="endGamePop(4)"></div>
         <div id="know24" class="tile-button" onclick="endGamePop(5)"></div>
@@ -198,7 +213,7 @@
            
     <div id="point-log"><h1 id="point-log-h1">Point Log</h1></div>
     </div>
-            
+    
     <script src="scripts/play.js"></script>
     
 </body>
