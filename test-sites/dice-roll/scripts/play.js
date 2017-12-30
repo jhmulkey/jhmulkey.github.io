@@ -19,8 +19,13 @@ var _silver = 1;
 var _workers;
 var _unsold = 3;
 var _sold = 0;
-var _k2 = true;
-
+var _k = {
+    k2: false,
+    k3: false,
+    k4: false,
+    k13: false,
+    k14: false
+};
 
 function setPlayers(x) {
     _pl = x;
@@ -45,7 +50,7 @@ function adjustWorkers(x, name) {
     window.scrollTo(0,0);
 }
 
-function adjustWorkersK2(x) {
+function adjustWorkersNL(x) {
     _workers += x;
     document.getElementById("worker-span").innerHTML = _workers;
 }
@@ -66,10 +71,12 @@ function adjustMines(i) {
         };
     } else if (i == 1) {
         var x = parseInt(prompt("Adjust mines by:"));
-        if ((_mines + x) > 3) {
-            alert("no more than 3 mines may be added to estate!");
+        if (isNaN(x)) {
+            alert("please enter a number");
+        } else if ((_mines + x) > 3) {
+            alert("no more than 3 mines may be added to estate");
         } else if ((_mines + x) < 0) {
-            alert("mines cannot be less than 0!");
+            alert("mines cannot be less than 0");
         } else {
             _mines += x;
             document.getElementById("mine-span").innerHTML = _mines;
@@ -83,9 +90,18 @@ function adjustMines(i) {
     };  
 };
 
-function adjustSilver(x) {
+function adjustSilver(x, source) {
     _silver += x;
     document.getElementById("silver-span").innerHTML = _silver;
+    if (source == "bank") {
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = "2 silverlings for bank";
+        latestPointsColor("black");
+        document.getElementById("latest-points-span").innerHTML = log;
+        activityLog(log);
+        pointSound.play();
+        window.scrollTo(0,0);
+    };
 };
 
 function setColor(x) {
@@ -108,8 +124,8 @@ function rollDice(color) {
         if (_mines > 0 && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
             adjustSilver(_mines);
         };
-        if (_k2 = true && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
-            adjustWorkersK2(_mines);
+        if (_k.k2 === true && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
+            adjustWorkersNL(_mines);
         };
     } else if (_rd >= 25) {
         if (window.confirm("End of Game. Click OK to adjust silverlings and workers as applicable.")) {
@@ -279,7 +295,14 @@ function sellGoods(x) {
         _unsold -= x;
         _sold += x;
         _pts += x * _pl;
-        adjustSilver(1);
+        if (_k.k3 === true) {
+            adjustSilver(2);
+        } else {
+            adjustSilver(1);
+        };
+        if (_k.k4 === true) {
+            adjustWorkersNL(1);
+        };
         document.getElementById("unsold-span").innerHTML = _unsold;
         document.getElementById("sold-span").innerHTML = _sold;
         document.getElementById("total-points").innerHTML = _pts;
@@ -511,12 +534,50 @@ function endGameAdjust() {
     if (_mines > 0) {
         adjustSilver(_mines);
     };
-    if (_k2 = true) {
-        adjustWorkersK2(_mines)
+    if (_k.k2 === true) {
+        adjustWorkersNL(_mines)
     };
     pointSound.play();
     window.scrollTo(0,0);
 }
+
+function addKnowledge(i) {
+    var globals = ["k2", "k3", "k4", "k13", "k14"];
+    var numbers = [2, 3, 4, 13, 14];
+    if (_k[globals[i]] === false) {
+        _k[globals[i]] = true;
+        document.getElementById("k" + numbers[i]).style.borderColor = "red";
+        document.getElementById("k" + numbers[i]).style.borderStyle = "dashed";
+        var log = "knowledge tile " + numbers[i] + " added";
+        document.getElementById("latest-points-span").innerHTML = log;
+        latestPointsColor("black")
+        activityLog(log);
+        pointSound.play();
+    } else {
+       if (window.confirm("Knowledge Tile " + numbers[i] + " is already on estate. Remove?")) {
+           _k[globals[i]] = false;
+           document.getElementById("k" + numbers[i]).style.borderColor = "black";
+           document.getElementById("k" + numbers[i]).style.borderStyle = "solid";
+           var log = "knowledge tile " + numbers[i] + " removed";
+           document.getElementById("latest-points-span").innerHTML = log;
+           latestPointsColor("red")
+           activityLog(log, "red");
+           pointSound.play();
+        };
+    };
+    window.scrollTo(0,0);
+};
+
+function tradeDiceForWorkers() {
+    if (_k.k14 === true) {
+        adjustWorkers(4);
+    } else {
+        adjustWorkers(2);
+    };
+    if (_k.k13 === true) {
+        adjustSilver(1);
+    };
+};
 
 playerPop();
 
