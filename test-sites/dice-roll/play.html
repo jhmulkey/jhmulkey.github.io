@@ -40,14 +40,20 @@
     <div id="main-wrapper-div">
         
     <div class="roll-button-flex-div">
-        <div class="checkbox-div">
+        <div>
             <p class="check-here-p">1st</p>
             <input type="checkbox" onclick="hide(3)"/>
         </div>
-        <div class="button-div">
-            <img src="images/roll-button.png" onclick="rollDice(_color)"/>
+        <div onclick="adjustMines(1)">
+            <p class="mus-p">M: <span id="mine-span">0</span></p>
         </div>
-        <div class="checkbox-div">
+        <div>
+            <p class="mus-p">U: <span id="unsold-span">3</span></p>
+        </div>
+        <div>
+            <p class="mus-p">S: <span id="sold-span">0</span></p>
+        </div>
+        <div>
             <p class="check-here-p">Bonus</p>
             <input id="bonus-checkbox" type="checkbox"/>
         </div>
@@ -57,7 +63,9 @@
         <div class="click-to-hide-div" onclick="hide(1)">
             <div id="roll-1-div" style="visibility: visible"></div>
         </div>
-        <div id="roll-3-div" style="visibility: hidden"></div>
+        <div class="click-to-roll-div" onclick="rollDice(_color)">
+            <div id="roll-3-div" style="visibility: hidden"></div>
+        </div>
         <div class="click-to-hide-div" onclick="hide(2)">
             <div id="roll-2-div"></div>
         </div>
@@ -169,6 +177,22 @@
         </div>
     </div>
         
+    <div id="ship-pop" class="pu">
+        <p class="pu-p">How many goods acquired?</p>
+        <div class="pu-flex-div">
+            <div class="select-button-small" onclick="addGoods(1)">1</div>
+            <div class="select-button-small" onclick="addGoods(2)">2</div>
+            <div class="select-button-small" onclick="addGoods(3)">3</div>
+            <div class="select-button-small" onclick="addGoods(4)">4</div>
+            <div class="select-button-small" onclick="addGoods(5)">5</div>
+            <div class="select-button-small" onclick="addGoods(6)">6</div>
+            <div class="select-button-small" onclick="addGoods(7)">7</div>
+            <div class="select-button-small" onclick="addGoods(8)">8</div>
+            <div class="select-button-small" onclick="addGoods(9)">9</div>
+            <div class="select-button-small" onclick="addGoods(10)">10</div>
+        </div>
+    </div>
+        
     <div class="point-quickadd-div">
         <div id="sell-goods" class="tile-button" onclick="goodsPop()"></div>
         <div id="animals" class="tile-button" onclick="animalsPop()"></div>
@@ -176,7 +200,9 @@
         <div id="monastaries" class="tile-button" onclick="tapPoints(5, 'monastaries')"></div>
         <div id="large-bonus" class="tile-button" onclick="bonusTile('large')"></div>
         <div id="small-bonus" class="tile-button" onclick="bonusTile('small')"></div>
-        <div id="workhouse" class="tile-button" onclick="adjustWorkers(4,'boarding house')"></div>
+        <div id="mine" class="tile-button" onclick="adjustMines(0)"></div>
+        <div id="boardhouse" class="tile-button" onclick="adjustWorkers(4,'boarding house')"></div>
+        <div id="ship" class="tile-button" onclick="shipPop()"></div>
     </div>
         
     <div id="end-pop" class="pu">
@@ -201,8 +227,8 @@
     </div>    
         
     <div class="point-quickadd-div">
-        <div id="unsold-goods" class="tile-button" onclick="endGamePop(0)"></div>
-        <div id="silverlings" class="tile-button" onclick="endGamePop(1)"></div>
+        <div id="unsold-goods" class="tile-button" onclick="quickEndGamePts(_unsold, 0)"></div>
+        <div id="silverlings" class="tile-button" onclick="quickEndGamePts(_silver, 1)"></div>
         <div id="workers" class="tile-button" onclick="quickEndGamePts(_workers, 2)"></div>
         <div id="know15" class="tile-button" onclick="endGamePop(3)"></div>
         <div id="know16-23" class="tile-button" onclick="endGamePop(4)"></div>

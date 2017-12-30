@@ -135,13 +135,6 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-.tile-button-long {
-    height: 100px;
-    width: 200px;
-    border: 2px solid black;
-    cursor: pointer;
-}
-
 .select-button-small, .select-button-large, .select-button-large-2 {
     color: darkred;
     font-weight: bold;
@@ -314,20 +307,22 @@ input[type="checkbox"] {
         justify-content: space-around;
         margin-top: 20px;
         margin-bottom: 25px;
-    }
-
-    .checkbox-div, .button-div {
-        width: 300px;
-        height: 70px;
-    }
-
-    .button-div img {
-        cursor: pointer;
+        height: 60px;
     }
 
     .check-here-p {
         font-size: 15px;
         margin: 5px 0 5px 0;
+    }
+
+    .mus-p {
+        font-size: 25px;
+        margin: 15px 0 0 0;
+    }
+
+    #mine-span, #unsold-span, #sold-span {
+        font-size: 25px;
+        font-weight: bold;
     }
 
     /******************************
@@ -344,6 +339,12 @@ input[type="checkbox"] {
     .click-to-hide-div {
         margin: 10px;
         outline: 1px dashed gray;
+        cursor: pointer;
+    }
+
+    .click-to-roll-div {
+        margin: 10px;
+        outline: 1px dashed red;
         cursor: pointer;
     }
 
@@ -436,6 +437,7 @@ input[type="checkbox"] {
 
     #silver-span, #worker-span {
         font-size: 25px;
+        font-weight: bold;
         float: right;
     }
 
@@ -479,7 +481,7 @@ input[type="checkbox"] {
     /******************************
         PLAY > ALL TILE BUTTONS
     ******************************/
-    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #workhouse, #unsold-goods, #silverlings, #workers, #know15, #know16-23, #know24, #know25, #know26 {
+    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #boardhouse, #ship, #unsold-goods, #silverlings, #workers, #know15, #know16-23, #know24, #know25, #know26 {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -514,9 +516,19 @@ input[type="checkbox"] {
         background-color: #BABDB8;
     }
 
-    #workhouse {
+    #mine {
+        background-image: url(images/mine.png);
+        background-color: #BDC1BE;
+    }
+
+    #boardhouse {
         background-image: url(images/boarding.png);
         background-color: #D2CC95;
+    }
+
+    #ship {
+        background-image: url(images/ship.png);
+        background-color: #7AC4E4;
     }
 
     #unsold-goods {

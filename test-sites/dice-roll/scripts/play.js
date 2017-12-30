@@ -14,10 +14,13 @@ var _pts = 0;
 var _color;
 var _endIndex;
 var _adjPh;
+var _mines = 0;
 var _silver = 1; 
 var _workers;
-var _goods = 3;
-var _mines = 0;
+var _unsold = 3;
+var _sold = 0;
+var _k2 = true;
+
 
 function setPlayers(x) {
     _pl = x;
@@ -42,13 +45,18 @@ function adjustWorkers(x, name) {
     window.scrollTo(0,0);
 }
 
+function adjustWorkersK2(x) {
+    _workers += x;
+    document.getElementById("worker-span").innerHTML = _workers;
+}
+
 function adjustMines(i) {
     if (i == 0) {
         if (_mines == 3) {
             alert("no more than 3 mines may be added to estate!")
         } else {
             _mines += 1;
-            document.getElementById("mine-p").innerHTML = _mines;
+            document.getElementById("mine-span").innerHTML = _mines;
             var log = "1 mine added to estate"
             latestPointsColor("black");
             document.getElementById("latest-points-span").innerHTML = log;
@@ -58,13 +66,13 @@ function adjustMines(i) {
         };
     } else if (i == 1) {
         var x = parseInt(prompt("Adjust mines by:"));
-        if ((_mines += x) > 3) {
+        if ((_mines + x) > 3) {
             alert("no more than 3 mines may be added to estate!");
-        } else if ((_mines += x) < 1) {
+        } else if ((_mines + x) < 0) {
             alert("mines cannot be less than 0!");
         } else {
             _mines += x;
-            document.getElementById("mine-p").innerHTML = _mines;
+            document.getElementById("mine-span").innerHTML = _mines;
             var log = "mines adjusted by " + x;
             latestPointsColor("red");
             document.getElementById("latest-points-span").innerHTML = log;
@@ -100,10 +108,12 @@ function rollDice(color) {
         if (_mines > 0 && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
             adjustSilver(_mines);
         };
+        if (_k2 = true && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
+            adjustWorkersK2(_mines);
+        };
     } else if (_rd >= 25) {
-        if (window.confirm("End of Game. Ok to reset?")) {
-            window.scrollTo(0,0);
-            location.reload();
+        if (window.confirm("End of Game. Click OK to adjust silverlings and workers as applicable.")) {
+            endGameAdjust();
         };
     };
 };
@@ -250,17 +260,37 @@ function regionPoints(x) {
     window.scrollTo(0,0);
 };
 
-function sellGoods(x) {
-    _pts += x * _pl;
-    adjustSilver(1);
-    document.getElementById("total-points").innerHTML = _pts;
-    var log = (x * _pl) + " points for sale of " + x + " goods";
+function addGoods(x) {
+    _unsold += x;
+    document.getElementById("unsold-span").innerHTML = _unsold;
+    var log = x + " goods acquired"
     latestPointsColor("black");
     document.getElementById("latest-points-span").innerHTML = log;
     activityLog(log);
     pointSound.play();
-    document.getElementById("goods-pop").style.display = "none";
+    document.getElementById("ship-pop").style.display = "none";
     window.scrollTo(0,0);
+};
+
+function sellGoods(x) {
+    if (x > _unsold) {
+        alert("You only have " + _unsold + " goods available to sell!")
+    } else {
+        _unsold -= x;
+        _sold += x;
+        _pts += x * _pl;
+        adjustSilver(1);
+        document.getElementById("unsold-span").innerHTML = _unsold;
+        document.getElementById("sold-span").innerHTML = _sold;
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = (x * _pl) + " points for sale of " + x + " goods";
+        latestPointsColor("black");
+        document.getElementById("latest-points-span").innerHTML = log;
+        activityLog(log);
+        pointSound.play();
+        document.getElementById("goods-pop").style.display = "none";
+        window.scrollTo(0,0);
+    };
 };
 
 function animals(x) {
@@ -348,8 +378,15 @@ function quickEndGamePts(x, i) {
             "unsold goods tiles",
             "unspent silverlings",
             "unused workers"
-        ]
+        ];
         _pts += factors[i]
+        if (i == 0) {
+            _unsold = 0;
+        } else if (i == 1) {
+            _silver = 0;
+        } else if (i == 2) {
+            _workers = 0;
+        }
         document.getElementById("total-points").innerHTML = _pts;
         var log = factors[i] + " points for " + x + " " + labels[i];
         latestPointsColor("blue");
@@ -435,6 +472,16 @@ function animalsPop() {
     };
 };
 
+function shipPop() {
+    if (document.getElementById("ship-pop").style.display == "" || document.getElementById("ship-pop").style.display == "none") {
+        document.getElementById("ship-pop").style.display = "block";
+        document.getElementById("ship-pop").scrollIntoView();
+    } else {
+        document.getElementById("ship-pop").style.display = "";
+        window.scrollTo(0,0);
+    };
+};
+
 function endGamePop(x) {
     if (_rd < 25) {
         alert("These points can only be added at end of game!");
@@ -459,6 +506,17 @@ function endGamePop(x) {
         };
     };
 };
+
+function endGameAdjust() {
+    if (_mines > 0) {
+        adjustSilver(_mines);
+    };
+    if (_k2 = true) {
+        adjustWorkersK2(_mines)
+    };
+    pointSound.play();
+    window.scrollTo(0,0);
+}
 
 playerPop();
 
