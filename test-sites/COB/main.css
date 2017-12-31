@@ -181,6 +181,7 @@ input[type="checkbox"] {
 #main-wrapper-div {
     max-width: 414px;
     text-align: center;
+    display: none;
 }
 
 
@@ -209,7 +210,7 @@ input[type="checkbox"] {
 }
 
 .pu-flex-div div {
-    margin: 5px;
+    margin-bottom: 30px;
 }
 
 
@@ -383,6 +384,7 @@ input[type="checkbox"] {
 
     .phase-round-div {
         cursor: pointer;
+        margin-top: 0;
     }
 
     .phase-round-div p {
@@ -450,7 +452,7 @@ input[type="checkbox"] {
     /******************************
         PLAY > REGION POINTS
     ******************************/
-    .region-point-tap {
+    #region-point-tap {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
@@ -459,7 +461,7 @@ input[type="checkbox"] {
         margin: 0 auto 30px auto;
     }
 
-    .region-point-tap div {
+    #region-point-tap div {
         margin: 5px;
     }
 
@@ -475,13 +477,25 @@ input[type="checkbox"] {
     }
 
     .point-quickadd-div div {
+        margin: 5px !important;
+    }
+
+    #point-quickadd-div-end {
+        margin-bottom: 30px;
+        display: none;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        max-width: 330px;
+    }
+
+    #point-quickadd-div-end div {
         margin: 5px;
     }
 
     /******************************
         PLAY > ALL TILE BUTTONS
     ******************************/
-    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #bank, #boardhouse, #warehouse, #ship, #k2, #k3, #k4, #k13, #k14, #unsold-goods, #silverlings, #workers, #know15, #know16-23, #know24, #know25, #know26 {
+    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #bank, #boardhouse, #warehouse, #ship, #dice-trade, #k2, #k3, #k4, #k13, #k14, #k15, #k1623, #k24, #k25, #k26, #unsold-goods, #silverlings, #workers, #know15, #know16-23, #know24, #know25, #know26 {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -541,6 +555,12 @@ input[type="checkbox"] {
         background-color: #7AC4E4;
     }
 
+    #dice-trade {
+        background-image: url(images/bw-dice.png);
+        background-size: 75% !important;
+        background-color: #BDC1BE;
+    }
+
     #k2 {
         background-image: url(images/knowledge-tiles-2.png);
         background-color: #E0D537; 
@@ -563,6 +583,31 @@ input[type="checkbox"] {
 
     #k14 {
         background-image: url(images/knowledge-tiles-14.png);
+        background-color: #E0D537; 
+    }
+
+    #k15 {
+        background-image: url(images/knowledge-tiles-15.png);
+        background-color: #E0D537; 
+    }
+
+    #k1623 {
+        background-image: url(images/knowledge-tiles-16-23.png);
+        background-color: #E0D537; 
+    }
+
+    #k24 {
+        background-image: url(images/knowledge-tiles-24.png);
+        background-color: #E0D537; 
+    }
+
+    #k25 {
+        background-image: url(images/knowledge-tiles-25.png);
+        background-color: #E0D537; 
+    }
+
+    #k26 {
+        background-image: url(images/knowledge-tiles-26.png);
         background-color: #E0D537; 
     }
 
