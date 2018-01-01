@@ -204,6 +204,10 @@ input[type="checkbox"] {
     display: none;
 }
 
+    #take-action-pop {
+        max-width: 350px;
+    }
+
 .pu-p {
     font-size: 30px;
 }
