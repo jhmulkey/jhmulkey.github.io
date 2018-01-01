@@ -4,6 +4,9 @@ rollSound.src = "./audio/roll-sound.mp3";
 var pointSound = new Audio();
 pointSound.src = "./audio/point-sound.mp3";
 
+var silverSound = new Audio();
+silverSound.src = "./audio/silver-sound.mp3";
+
 var bonusSound = new Audio();
 bonusSound.src = "./audio/bonus-sound.mp3";
 
@@ -206,7 +209,7 @@ function adjustSilver(x, i) {
         document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log);
     };
-    pointSound.play();
+    silverSound.play();
     window.scrollTo(0,0);
 }
 
@@ -473,6 +476,8 @@ function endGamePts(x) {
         _pts += factors[_endIndex];
         document.getElementById("total-points").innerHTML = _pts;
         var log = factors[_endIndex] + " points for " + x + " " + keywords[_endIndex];
+        latestPointsColor("blue")
+        document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log, "blue");
         pointSound.play();
         document.getElementById("end-pop").style.display = "none";
@@ -538,6 +543,8 @@ function quickEndGamePts(x, i) {
         _endGameIndexUsed[i] = true;
         document.getElementById("total-points").innerHTML = _pts;
         var log = factors[i] + " points for " + x + " " + labels[i];
+        latestPointsColor("blue")
+        document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log, "blue");
         pointSound.play();
     };
