@@ -864,5 +864,3 @@ function k1623Pop() {
 ******************************
 ******************************/
 selectPlayersPop();
-
-/*document.addEventListener("touchstart", function(){}, true);*/
