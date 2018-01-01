@@ -223,7 +223,7 @@ function adjustWorkers(x, name, trade) {
     } else {
         if ((_workers + x) < 0 && x < 0) {
             alert("You don't have enough workers");
-            document.getElementById("worker-pop").style.display = "none";
+            workerPop();
             return;
         } else {
             _workers += x;
@@ -341,7 +341,7 @@ function adjustSilver(x, i) {
     } else if (i == 1) {
         if ((_silver + x) < 0) {
             alert("You don't have enough silverlings");
-            document.getElementById("silver-pop").style.display = "none";
+            silverPop();
             return;
         } else {
             _silver += x;
@@ -864,5 +864,9 @@ function k1623Pop() {
 ******************************
 ******************************/
 selectPlayersPop();
+
+window.onbeforeunload = function() {
+  return "Data will be lost if you leave the page, are you sure?";
+};
 
 document.addEventListener("touchstart", function(){}, true);
