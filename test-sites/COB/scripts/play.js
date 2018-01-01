@@ -249,13 +249,18 @@ function adjustWorkersNL(x) {
 }
 
 function setWorkers(x) {
-    var x = parseInt(prompt("Set workers to:"));
-    if (isNaN(x)) {
-        alert("please enter a number");
+    var x = prompt("Set workers to:");
+    if (x === null) {
+        return;
     } else {
-        _workers = x;
+        var y = parseInt(x);
+    };
+    if (isNaN(y)) {
+        alert("Please enter a number");
+    } else {
+        _workers = y;
         document.getElementById("worker-count").innerHTML = _workers;
-        var log = "workers set to " + x;
+        var log = "workers set to " + y;
         latestPointsColor("red");
         document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log, "red");
@@ -280,17 +285,22 @@ function adjustMines(i) {
             window.scrollTo(0,0);
         };
     } else if (i == 1) {
-        var x = parseInt(prompt("Set mines to:"));
-        if (isNaN(x)) {
-            alert("please enter a number");
-        } else if (x > 3) {
+        var x = prompt("Set mines to:");
+        if (x === null) {
+            return;
+        } else {
+            var y = parseInt(x);
+        };
+        if (isNaN(y)) {
+            alert("Please enter a number");
+        } else if (y > 3) {
             alert("no more than 3 mines may be added to estate");
-        } else if (x < 0) {
+        } else if (y < 0) {
             alert("mines cannot be less than 0");
         } else {
-            _mines += x;
+            _mines = y;
             document.getElementById("mine-span").innerHTML = _mines;
-            var log = "mines set to " + x;
+            var log = "mines set to " + y;
             latestPointsColor("red");
             document.getElementById("latest-points-span").innerHTML = log;
             activityLog(log, "red");
@@ -310,15 +320,24 @@ function adjustSilver(x, i) {
         "for dice trade",        
     ];
     if (i == 0) {
-        y = parseInt(prompt("Set silverlings to:"));
-        x = y;
-        _silver = x;
-        document.getElementById("silver-count").innerHTML = _silver;
-        var log = "silverlings set to " + x;
-        latestPointsColor("red");
-        document.getElementById("latest-points-span").innerHTML = log;
-        activityLog(log, "red");
-        document.getElementById("silver-pop").style.display = "none";
+        var y = prompt("Set silverlings to:");
+        if (y === null) {
+            return;
+        } else {
+            var z = parseInt(y);
+        };
+        if (isNaN(z)) {
+            alert("Please enter a number");
+            return;
+        } else {
+            _silver = z;
+            document.getElementById("silver-count").innerHTML = _silver;
+            var log = "silverlings set to " + z;
+            latestPointsColor("red");
+            document.getElementById("latest-points-span").innerHTML = log;
+            activityLog(log, "red");
+            document.getElementById("silver-pop").style.display = "none";
+        };
     } else if (i == 1) {
         if ((_silver + x) < 0) {
             alert("You don't have enough silverlings");
@@ -354,8 +373,13 @@ function hide(x) {
 };
 
 function setPoints() {
-    var x = parseInt(prompt("Set points to:"));
-    if (isNaN(x)) {
+    var x = prompt("Set points to:");
+    if (x === null) {
+        return;
+    } else {
+        var y = parseInt(x);
+    };
+    if (isNaN(y)) {
         alert("Please enter a number");
     } else {
         _pts = x;
