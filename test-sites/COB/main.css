@@ -116,6 +116,7 @@ input[type="checkbox"] {
     cursor: pointer;
     margin: 0 auto;
     padding-top: 3px;
+    display: inline-block;
 }
 
 .board-button {
@@ -132,6 +133,12 @@ input[type="checkbox"] {
     height: 100px;
     width: 100px;
     border: 2px solid black;
+    cursor: pointer;
+}
+
+.tile-button-no-border {
+    height: 100px;
+    width: 100px;
     cursor: pointer;
 }
 
@@ -303,11 +310,10 @@ input[type="checkbox"] {
     /******************************
         PLAY > ROLL BUTTON FLEX DIV
     ******************************/
-    .roll-button-flex-div {
+    .upper-flex-div {
         display: flex;
         justify-content: space-around;
         margin-top: 20px;
-        margin-bottom: 25px;
         height: 60px;
     }
 
@@ -380,6 +386,7 @@ input[type="checkbox"] {
         flex-wrap: wrap;
         justify-content: space-around;
         align-items: center;
+        margin-bottom: 10px;
     }
 
     .phase-round-div {
@@ -420,33 +427,39 @@ input[type="checkbox"] {
         flex-wrap: wrap;
         justify-content: space-around;
         align-items: center;
-        margin-bottom: 20px;
-        height: 30px;
+        margin-bottom: 30px;
+        height: 60px;
     }
 
-    #spw-flex-div div, #spw-flex-div span, #spw-flex-div img {
-        height: 30px;
+    #spw-flex-div div {
+        height: 60px;
     }
 
-    #spw-flex-div img {
-        margin-right: 10px;
+    #silver-img, #silver-count, #worker-img, #worker-count {
+        display: inline-block;
+        height: 58px;
+        width: 58px;
+        background-size: contain;
+        
+    }
+
+    #silver-count, #worker-count {
+        float: right;
+        font-size: 48px;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+    }
+
+    #silver-img {
+        background-image: url(images/silverling.png);
+        background-color: #C6B4B1;
         border: 1px solid black;
     }
 
-    #silver-count-img {
-        background-color: #C6B4B1;
-    }
-
-    #silver-span, #worker-span {
-        font-size: 25px;
-        font-weight: bold;
-        float: right;
-    }
-
-    .player-p {
-        margin: 0;
-        font-size: 25px;
-        font-weight: bold;
+    #worker-img {
+        background-image: url(images/worker.jpg);
+        border: 1px solid black;
     }
 
     /******************************
@@ -495,7 +508,7 @@ input[type="checkbox"] {
     /******************************
         PLAY > ALL TILE BUTTONS
     ******************************/
-    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #bank, #boardhouse, #warehouse, #ship, #dice-trade, #k2, #k3, #k4, #k13, #k14, #k15, #k1623, #k24, #k25, #k26, #unsold-goods, #silverlings, #workers, #know15, #know16-23, #know24, #know25, #know26 {
+    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #bank, #boardhouse, #warehouse, #ship, #market, #church, #carpenter, #city-hall, #castle, #dice-trade, #k2, #k3, #k4, #k13, #k14, #k15, #k1623, #k24, #k25, #k26, #unsold-goods, #silverlings, #workers, #know15, #know16-23, #know24, #know25, #know26 {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -526,8 +539,7 @@ input[type="checkbox"] {
     }
 
     #small-bonus {
-        background-image: url(images/small-bonus.png);
-        background-color: #BABDB8;
+        background-image: url(images/small-bonus-border.png);
     }
 
     #mine {
@@ -559,6 +571,31 @@ input[type="checkbox"] {
         background-image: url(images/bw-dice.png);
         background-size: 75% !important;
         background-color: #BDC1BE;
+    }
+
+    #market {
+        background-image: url(images/market.png);
+        background-color: #D2CC95;
+    }
+
+    #church {
+        background-image: url(images/church.png);
+        background-color: #D2CC95;
+    }
+
+    #carpenter {
+        background-image: url(images/carpenter.png);
+        background-color: #D2CC95;
+    }
+
+    #city-hall {
+        background-image: url(images/city-hall.png);
+        background-color: #D2CC95;
+    }
+
+    #castle {
+        background-image: url(images/castle.png);
+        background-color: #75B15A;
     }
 
     #k2 {

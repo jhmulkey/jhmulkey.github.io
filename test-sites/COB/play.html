@@ -39,7 +39,7 @@
     
     <div id="main-wrapper-div">
         
-    <div class="roll-button-flex-div">
+    <div class="upper-flex-div">
         <div>
             <p class="check-here-p">1st</p>
             <input type="checkbox" onclick="hide(3)"/>
@@ -75,6 +75,16 @@
         <span id="latest-points-span"></span>
     </div>
     
+    <div id="master-pop" class="pu">
+        <div class="pu-flex-div">
+            <div class="board-button" onclick="masterLink(0)">SETUP</div>
+            <div class="board-button" onclick="masterLink(1)">REFERENCE</div>
+            <div class="board-button" onclick="masterLink(2)">EXPANSION</div>
+            <div class="board-button" onclick="masterLink(3)">SET POINTS</div>
+            <div class="board-button-skip" onclick="masterPop()">CANCEL</div>
+        </div>
+    </div> 
+    
     <div id="select-phase-pop" class="pu">
         <p class="pu-p">Set Phase</p>
         <div class="pu-flex-div">
@@ -98,35 +108,33 @@
             <div class="board-button-skip" onclick="roundPop()">CANCEL</div>
         </div>
     </div>  
-        
-    <div id="set-adjust-points-pop" class="pu">
-        <p class="pu-p">Points</p>
-        <div class="board-button" onclick="setPoints()">SET</div><br/>
-        <div class="board-button-skip" onclick="pointsPop()">CANCEL</div>
-    </div> 
        
     <div id="silver-pop" class="pu">
         <p class="pu-p">Silverlings</p>
-        <div class="board-button" onclick="adjustSilver(0,0)">SET</div><br/>
-        <div class="board-button" onclick="adjustSilver(-1,1)">SPEND 1</div><br/>
-        <div class="board-button" onclick="adjustSilver(-2,1)">SPEND 2</div><br/>
-        <div class="board-button-skip" onclick="silverPop()">CANCEL</div>
+        <div class="pu-flex-div">
+            <div class="board-button" onclick="adjustSilver(0,0)">SET</div>
+            <div class="board-button" onclick="adjustSilver(-1,1)">SPEND 1</div>
+            <div class="board-button" onclick="adjustSilver(-2,1)">SPEND 2</div>
+            <div class="board-button-skip" onclick="silverPop()">CANCEL</div>
+        </div>
     </div> 
        
     <div id="worker-pop" class="pu">
         <p class="pu-p">Workers</p>
-        <div class="board-button" onclick="setWorkers()">SET</div><br/>
-        <div class="board-button" onclick="adjustWorkers(-1, 'used')">USE 1</div><br/>
-        <div class="board-button" onclick="adjustWorkers(-2, 'used')">USE 2</div><br/>
-        <div class="board-button" onclick="adjustWorkers(-3, 'used')">USE 3</div><br/>
-        <div class="board-button-skip" onclick="workerPop()">CANCEL</div>
+        <div class="pu-flex-div">
+            <div class="board-button" onclick="setWorkers()">SET</div>
+            <div class="board-button" onclick="adjustWorkers(-1, 'used')">USE 1</div>
+            <div class="board-button" onclick="adjustWorkers(-2, 'used')">USE 2</div>
+            <div class="board-button" onclick="adjustWorkers(-3, 'used')">USE 3</div>
+            <div class="board-button-skip" onclick="workerPop()">CANCEL</div>
+        </div>
     </div> 
         
     <div class="phase-points-round-flex-div">
         <div class="phase-round-div" onclick="phasePop()">
             <p>Phase</p><span id="phase-span">-</span>
         </div>
-        <div class="total-points-div" onclick="pointsPop()">
+        <div class="total-points-div" onclick="masterPop()">
             <span id="total-points">0</span>
         </div>
         <div class="phase-round-div" onclick="phasePop()">
@@ -136,15 +144,13 @@
     
     <div id="spw-flex-div">
         <div onclick="silverPop()">
-            <img id="silver-count-img" src="images/silverling.png"/>
-            <span id="silver-span">1</span>
+            <div id="silver-img"></div>
+            <div id="silver-count">1</div>
         </div>
-        <div>
-            <p class="player-p">Players: <span id="player-span"></span></p>
-        </div>
+        
         <div onclick="workerPop()">
-            <img src="images/worker.jpg"/>
-            <span id="worker-span">0</span>
+            <div id="worker-img"></div>
+            <div id="worker-count"></div>
         </div>
     </div>
     
@@ -238,7 +244,11 @@
             <div class="select-button-small" onclick="addGoods(10)">10</div>
             <div class="board-button-skip" onclick="shipPop()">CANCEL</div>
         </div>
-        
+    </div>
+       
+    <div id="take-action-pop" class="pu">
+        <p id="take-action-p" class="pu-p"></p>
+        <div class="board-button-skip" onclick="takeActionPop()">OK</div>
     </div>
         
     <div id="quickadd-1" class="point-quickadd-div">
@@ -249,11 +259,17 @@
         <div id="watchtower" class="tile-button" onclick="tapPoints(4, 'watchtower')"></div>
         <div id="monastaries" class="tile-button" onclick="tapPoints(5, 'monastaries')"></div>
         <div id="large-bonus" class="tile-button" onclick="bonusTile('large')"></div>
-        <div id="small-bonus" class="tile-button" onclick="bonusTile('small')"></div>
+        <div id="small-bonus" class="tile-button-no-border" onclick="bonusTile('small')"></div>
         <div id="mine" class="tile-button" onclick="adjustMines(0)"></div>
         <div id="bank" class="tile-button" onclick="adjustSilver(2,3)"></div>
         <div id="boardhouse" class="tile-button" onclick="adjustWorkers(4,'boarding house')"></div>
         <div id="dice-trade" class="tile-button" onclick="adjustWorkers(2, 'dice trade', true)"></div>
+        <div id="market" class="tile-button" onclick="takeActionPop(0)"></div>
+        <div id="church" class="tile-button" onclick="takeActionPop(1)"></div>
+        <div id="carpenter" class="tile-button" onclick="takeActionPop(2)"></div>
+        <div id="city-hall" class="tile-button" onclick="takeActionPop(3)"></div>
+        <div class="tile-button-no-border"></div> 
+        <div id="castle" class="tile-button" onclick="takeActionPop(4)"></div>
     </div>
         
     <div id="quickadd-2" class="point-quickadd-div">
