@@ -1,3 +1,8 @@
+/******************************
+******************************
+    AUDIO
+******************************
+******************************/
 var rollSound = new Audio();
 rollSound.src = "./audio/roll-sound.mp3";
 
@@ -10,6 +15,12 @@ silverSound.src = "./audio/silver-sound.mp3";
 var bonusSound = new Audio();
 bonusSound.src = "./audio/bonus-sound.mp3";
 
+
+/******************************
+******************************
+    GLOBALS
+******************************
+******************************/
 var _pl = 0;
 var _rd = 0;
 var _ph = 0;
@@ -55,8 +66,15 @@ var _g = {
     red: false
 };
 
-var _endGameIndexUsed = [false,false,false,false,false,false,false];
+var _endGameIndexUsed = [false,false,false,false,false,false];
+var _k1623Used = false;
 
+
+/******************************
+******************************
+    PRIMARY FUNCTIONS
+******************************
+******************************/
 function setPlayers(x) {
     _pl = x;
     document.getElementById("player-span").innerHTML = x;
@@ -90,12 +108,20 @@ function rollDice(color) {
             adjustSilver(_mines,4);
         };
         if (_k.k2 === true && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
-            adjustWorkersNL(_mines);
+            adjustWorkers(_mines, "mines");
         };
     } else if (_rd >= 25) {
         if (window.confirm("Click OK to add any earned silverlings and workers before cacluating end of game points.")) {
             endGameAdjust();
         };
+    };
+};
+
+function randomBonus() {
+    var b = Math.floor(Math.random() * 20);
+    if (b == 9) {
+        bonusSound.play();
+        window.open("bonus.html");
     };
 };
 
@@ -191,7 +217,7 @@ function adjustWorkers(x, name, trade) {
             pointSound.play();
         }
     } else {
-        if ((_workers + x) < 0) {
+        if ((_workers + x) < 0 && x < 0) {
             alert("You don't have enough workers");
             document.getElementById("worker-pop").style.display = "none";
             return;
@@ -201,9 +227,7 @@ function adjustWorkers(x, name, trade) {
         pointSound.play();
     };
     document.getElementById("worker-span").innerHTML = _workers;
-    if (_k.k13 === true) {
-        var log = added + " workers and 1 silverling for " + name;
-    } else if (name == "used") {
+    if (name == "used") {
         var log = Math.abs(added) + " workers used";
         workerPop();
     } else {
@@ -278,7 +302,7 @@ function adjustSilver(x, i) {
         "spent",
         "for goods sale",
         "for bank",
-        "for mine",
+        "for mines",
         "for dice trade",        
     ];
     if (i == 0) {
@@ -317,14 +341,6 @@ function adjustSilver(x, i) {
     window.scrollTo(0,0);
 }
 
-function randomBonus() {
-    var b = Math.floor(Math.random() * 20);
-    if (b == 9) {
-        bonusSound.play();
-        window.open("bonus.html");
-    };
-};
-
 function hide(x) {
     if (document.getElementById("roll-" + x + "-div").style.visibility == "visible") {
         document.getElementById("roll-" + x + "-div").style.visibility = "hidden";
@@ -347,12 +363,6 @@ function setPoints() {
         pointSound.play();
         document.getElementById("set-adjust-points-pop").style.display = "none";
         window.scrollTo(0,0);
-    };
-};
-
-function resetGame() {
-    if (window.confirm("Are you sure you want to reset game?")) {
-        location.reload();
     };
 };
 
@@ -454,87 +464,16 @@ function bonusTile(x) {
     };
 };
 
-function endGamePts(x) {
-    var keywords = [
-            "unsold goods tiles", 
-            "unspent silverlings", 
-            "unused workers", 
-            "sold goods types", 
-            "eligible buildings", 
-            "animal types", 
-            "sold goods tiles",
-            "bonus tiles"
-        ];
-    if (_endIndex == 3 && x > 6) {
-        alert("No more than 6 goods types possible");
-    } else if (_endIndex == 5 && x > 5) {
-        alert("No more than 5 animal types possible");
-    } else if (_endIndex == 7 && x > 7) {
-        alert("No more than 7 bonus tiles possible");
-    } else {
-        var factors = [x, x, Math.floor(x / 2), (x*3), (x * 4), (x * 4), x, (x * 2)];
-        _pts += factors[_endIndex];
-        document.getElementById("total-points").innerHTML = _pts;
-        var log = factors[_endIndex] + " points for " + x + " " + keywords[_endIndex];
-        latestPointsColor("blue")
-        document.getElementById("latest-points-span").innerHTML = log;
-        activityLog(log, "blue");
-        pointSound.play();
-        document.getElementById("end-pop").style.display = "none";
-        document.getElementById("unsold-goods").scrollIntoView();
-    };  
-};
-
-function endGameKCheck(i) {
-    var values = ["k15", "k1623", "k24", "k25", "k26"]
-    if (_k[values[i]] === false) {
-        alert("this knowledge tile is not on estate");
-    } else {
-        if (i == 0) {
-            if (_gType == 0) {
-                alert("no goods sold");
-            } else {
-                quickEndGamePts(_gType,(i+3));
-            };
-        } else if (i == 1) {
-            endGamePop(4);
-        } else if (i == 2) {
-            if (_aType == 0) {
-                alert("no animals on estate");
-            } else {
-                quickEndGamePts(_aType,(i+3));
-            };
-        } else if (i == 3) {
-            if (_sold == 0) {
-                alert("no goods sold");
-            } else {
-                quickEndGamePts(_sold,(i+3));
-            };
-        } else if (i == 4) {
-            if (_sold == 0) {
-                alert("no bonus tiles");
-            } else {
-                quickEndGamePts(_bonus,(i+3));
-            };
-        };
-    };
-};
-
 function quickEndGamePts(x, i) {
     if (_endGameIndexUsed[i] === true) {
         alert("These points have already been added");
-    } else if (i == 4) {
-        _endGameIndexUsed[i] === true;
-    }
-        
-        else {
-        var factors = [x, x, Math.floor(x / 2), (x * 3), (x * 4), (x * 4), x, (x * 2)];
+    } else {
+        var factors = [x, x, Math.floor(x / 2), (x * 3), (x * 4), x, (x * 2)];
         var labels = [
             "unsold goods tiles",
             "unspent silverlings",
             "unused workers",
             "goods types sold",
-            "eligible buildings",
             "animal types",
             "goods sold",
             "bonus tiles",
@@ -548,6 +487,18 @@ function quickEndGamePts(x, i) {
         activityLog(log, "blue");
         pointSound.play();
     };
+};
+
+function k1623Points(x) {
+    _pts += (x * 4);
+    document.getElementById("total-points").innerHTML = _pts;
+    _k1623Used = true;
+    var log = (x * 4) + " points for eligible buildings"
+    latestPointsColor("blue")
+    document.getElementById("latest-points-span").innerHTML = log;
+    activityLog(log, "blue");
+    pointSound.play();
+    document.getElementById("k1623-pop").style.display = "none";
 };
 
 function activityLog(x, color, margin) {
@@ -573,7 +524,7 @@ function endGameAdjust() {
         adjustSilver(_mines,4);
     };
     if (_k.k2 === true) {
-        adjustWorkersNL(_mines)
+        adjustWorkersNL(_mines, "mines")
     };
     disableEndTiles();
     latestPointsColor("blue")
@@ -656,64 +607,48 @@ function tradeDiceForWorkers() {
 function animalType(i) {
     if (i == 0) {
         _a.sheep = true;
-        _aType += 1;
         document.getElementById("sheep").style.display = "none";
     } else if (i == 1) {
         _a.cows = true
-        _aType += 1;
         document.getElementById("cows").style.display = "none";
     } else if (i == 2) {
         _a.pigs = true
-        _aType += 1;
         document.getElementById("pigs").style.display = "none";
     } else if (i == 3) {
         _a.chickens = true
-        _aType += 1;
         document.getElementById("chickens").style.display = "none";
     };
     document.getElementById("animals-type-pop").style.display = "none";
+    _aType++;
     animalsPop();
 };
 
 function goodsType(i) {
     if (i == 0) {
         _a.blue = true;
-        _gType += 1;
         document.getElementById("blue").style.display = "none";
     } else if (i == 1) {
         _a.brown = true
-        _gType += 1;
         document.getElementById("brown").style.display = "none";
     } else if (i == 2) {
         _a.orange = true
-        _gType += 1;
         document.getElementById("orange").style.display = "none";
     } else if (i == 3) {
         _a.pink = true
-        _gType += 1;
         document.getElementById("pink").style.display = "none";
     } else if (i == 4) {
         _a.purple = true
-        _gType += 1;
         document.getElementById("purple").style.display = "none";
     } else if (i == 5) {
         _a.red = true
-        _gType += 1;
         document.getElementById("red").style.display = "none";
     }
     document.getElementById("goods-type-pop").style.display = "none";
+    _gType++;
+    console.log(_gType);
     goodsPop();
 };
 
-function animalTypeSkip() {
-    document.getElementById("animals-type-pop").style.display = "none";
-    animalsPop();
-};
-
-function goodsTypeSkip() {
-    document.getElementById("goods-type-pop").style.display = "none";
-    goodsPop();
-};
 
 /******************************
 ******************************
@@ -820,6 +755,11 @@ function goodsTypePop() {
     };
 };
 
+    function goodsTypeSkip() {
+        document.getElementById("goods-type-pop").style.display = "none";
+        goodsPop();
+    };
+
 function animalsPop() {
     if (document.getElementById("animals-pop").style.display != "block") {
         document.getElementById("animals-pop").style.display = "block";
@@ -844,24 +784,22 @@ function animalsTypePop() {
     };
 };
 
-function endGamePop(x) {
-    _endIndex = x;
-    if (document.getElementById("end-pop").style.display != "block") {
-        document.getElementById("end-pop").style.display = "block";
-        var p = [
-            "unsold goods tiles remaining?",
-            "silverlings remaining?",
-            "workers remaining?",
-            "goods types sold?<br/>(max = 6)",
-            "eligible buildings?",
-            "animal types?<br/>(max = 5)",
-            "goods tiles sold?",
-            "bonus tiles?<br/>(max = 7)"
-        ];
-        document.getElementById("end-pop-p").innerHTML = p[x];
-        document.getElementById("end-pop").scrollIntoView();
+    function animalTypeSkip() {
+        document.getElementById("animals-type-pop").style.display = "none";
+        animalsPop();
+    };
+
+function k1623Pop() {
+    if (_k1623Used === true) {
+        alert("These points have already been added");
     } else {
-        document.getElementById("end-pop").style.display = "";
+        if (document.getElementById("k1623-pop").style.display != "block") {
+            document.getElementById("k1623-pop").style.display = "block";
+            document.getElementById("k1623-pop").scrollIntoView();
+        } else {
+            document.getElementById("k1623-pop").style.display = "";
+            window.scrollTo(0,0);
+        };
     };
 };
 
@@ -871,7 +809,6 @@ function endGamePop(x) {
     ONLOAD
 ******************************
 ******************************/
-
 selectPlayersPop();
 
 document.addEventListener("touchstart", function(){}, true);

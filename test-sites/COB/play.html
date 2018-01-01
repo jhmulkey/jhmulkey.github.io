@@ -220,6 +220,7 @@
             <div id="chickens" class="board-button" onclick="animalType(3)">Chickens</div>
             <div class="board-button-skip" onclick="animalTypeSkip()">not new</div>
         </div>
+        
     </div>
         
     <div id="ship-pop" class="pu">
@@ -237,6 +238,7 @@
             <div class="select-button-small" onclick="addGoods(10)">10</div>
             <div class="board-button-skip" onclick="shipPop()">CANCEL</div>
         </div>
+        
     </div>
         
     <div id="quickadd-1" class="point-quickadd-div">
@@ -267,36 +269,31 @@
         <div id="k26" class="tile-button" onclick="addKnowledge(9)"></div>
     </div>
         
-    <div id="end-pop" class="pu">
-        <p id="end-pop-p" class="pu-p"></p>
+    <div id="k1623-pop" class="pu">
+        <p class="pu-p">Eligible Buildings:</p>
         <div class="pu-flex-div">
-            <div class="select-button-small" onclick="endGamePts(1)">1</div>
-            <div class="select-button-small" onclick="endGamePts(2)">2</div>
-            <div class="select-button-small" onclick="endGamePts(3)">3</div>
-            <div class="select-button-small" onclick="endGamePts(4)">4</div>
-            <div class="select-button-small" onclick="endGamePts(5)">5</div>
-            <div class="select-button-small" onclick="endGamePts(6)">6</div>
-            <div class="select-button-small" onclick="endGamePts(7)">7</div>
-            <div class="select-button-small" onclick="endGamePts(8)">8</div>
-            <div class="select-button-small" onclick="endGamePts(9)">9</div>
-            <div class="select-button-small" onclick="endGamePts(10)">10</div>
-            <div class="select-button-small" onclick="endGamePts(11)">11</div>
-            <div class="select-button-small" onclick="endGamePts(12)">12</div>
-            <div class="select-button-small" onclick="endGamePts(13)">13</div>
-            <div class="select-button-small" onclick="endGamePts(14)">14</div>
-            <div class="select-button-small" onclick="endGamePts(15)">15</div>
+            <div class="select-button-small" onclick="k1623Points(1)">1</div>
+            <div class="select-button-small" onclick="k1623Points(2)">2</div>
+            <div class="select-button-small" onclick="k1623Points(3)">3</div>
+            <div class="select-button-small" onclick="k1623Points(4)">4</div>
+            <div class="select-button-small" onclick="ek1623Points(5)">5</div>
+            <div class="select-button-small" onclick="k1623Points(6)">6</div>
+            <div class="select-button-small" onclick="k1623Points(7)">7</div>
+            <div class="select-button-small" onclick="k1623Points(8)">8</div>
+            <div class="select-button-small" onclick="k1623Points(9)">9</div>
+            <div class="select-button-small" onclick="k1623Points(10)">10</div>
         </div>
     </div>    
         
     <div id="point-quickadd-div-end">
-        <div id="unsold-goods" class="tile-button" onclick="quickEndGamePts(_unsold, 0)"></div>
-        <div id="silverlings" class="tile-button" onclick="quickEndGamePts(_silver, 1)"></div>
-        <div id="workers" class="tile-button" onclick="quickEndGamePts(_workers, 2)"></div>
-        <div id="know15" class="tile-button" onclick="endGameKCheck(0)"></div>
-        <div id="know16-23" class="tile-button" onclick="endGameKCheck(1)"></div>
-        <div id="know24" class="tile-button" onclick="endGameKCheck(2)"></div>
-        <div id="know25" class="tile-button" onclick="endGameKCheck(3)"></div>
-        <div id="know26" class="tile-button" onclick="endGameKCheck(4)"></div>
+        <div id="unsold-goods" class="tile-button" onclick="quickEndGamePts(_unsold,0)"></div>
+        <div id="silverlings" class="tile-button" onclick="quickEndGamePts(_silver,1)"></div>
+        <div id="workers" class="tile-button" onclick="quickEndGamePts(_workers,2)"></div>
+        <div id="know15" class="tile-button" onclick="quickEndGamePts(_gType,3)"></div>
+        <div id="know16-23" class="tile-button" onclick="k1623Pop()"></div>
+        <div id="know24" class="tile-button" onclick="quickEndGamePts(_aType,4)"></div>
+        <div id="know25" class="tile-button" onclick="quickEndGamePts(_sold,5)"></div>
+        <div id="know26" class="tile-button" onclick="quickEndGamePts(_bonus,6)"></div>
     </div>
            
     <div id="point-log"><h1 id="point-log-h1">Point Log</h1></div>
