@@ -865,8 +865,4 @@ function k1623Pop() {
 ******************************/
 selectPlayersPop();
 
-window.onbeforeunload = function() {
-  return "Data will be lost if you leave the page, are you sure?";
-};
-
-document.addEventListener("touchstart", function(){}, true);
+/*document.addEventListener("touchstart", function(){}, true);*/
