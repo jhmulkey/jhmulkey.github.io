@@ -66,7 +66,6 @@ var _g = {
     red: false
 };
 
-var _endGameIndexUsed = [false,false,false,false,false,false];
 var _k1623Used = false;
 
 
@@ -115,7 +114,7 @@ function rollDice(color) {
             adjustWorkers(_mines, "mines");
         };
     } else if (_rd >= 25) {
-        if (window.confirm("Click OK to add any earned silverlings and workers before cacluating end of game points.")) {
+        if (window.confirm("Click OK to cacluate end of game points.")) {
             endGameAdjust();
         };
     };
@@ -388,9 +387,9 @@ function setPoints() {
     if (isNaN(y)) {
         alert("Please enter a number");
     } else {
-        _pts = x;
+        _pts = y;
         document.getElementById("total-points").innerHTML = _pts;
-        var log = "points set to " + x;
+        var log = "points set to " + y;
         latestPointsColor("red");
         document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log, "red");
@@ -496,28 +495,24 @@ function bonusTile(x) {
 };
 
 function quickEndGamePts(x, i) {
-    if (_endGameIndexUsed[i] === true) {
-        alert("These points have already been added");
-    } else {
-        var factors = [x, x, Math.floor(x / 2), (x * 3), (x * 4), x, (x * 2)];
-        var labels = [
-            "unsold goods tiles",
-            "unspent silverlings",
-            "unused workers",
-            "goods types sold",
-            "animal types",
-            "goods sold",
-            "bonus tiles",
-        ];
-        _pts += factors[i];
-        _endGameIndexUsed[i] = true;
-        document.getElementById("total-points").innerHTML = _pts;
-        var log = factors[i] + " points for " + x + " " + labels[i];
-        latestPointsColor("blue")
-        document.getElementById("latest-points-span").innerHTML = log;
-        activityLog(log, "blue");
-        pointSound.play();
-    };
+    var factors = [x, x, Math.floor(x / 2), (x * 3), (x * 4), x, (x * 2)];
+    var labels = [
+        "unsold goods tiles",
+        "unspent silverlings",
+        "unused workers",
+        "goods types sold",
+        "animal types",
+        "goods sold",
+        "bonus tiles",
+    ];
+    _pts += factors[i];
+    document.getElementById("QE"+i).style.display = "none";
+    document.getElementById("total-points").innerHTML = _pts;
+    var log = factors[i] + " points for " + x + " " + labels[i];
+    latestPointsColor("blue")
+    document.getElementById("latest-points-span").innerHTML = log;
+    activityLog(log, "blue");
+    pointSound.play();
 };
 
 function k1623Points(x) {
@@ -562,7 +557,6 @@ function endGameAdjust() {
     document.getElementById("latest-points-span").innerHTML = "calculate end game points";
     document.getElementById("region-point-tap").style.display = "none";
     document.getElementById("quickadd-1").style.display = "none";
-    document.getElementById("quickadd-2").style.display = "none";
     document.getElementById("point-quickadd-div-end").style.display = "flex";
     pointSound.play();
     window.scrollTo(0,0);
@@ -570,28 +564,28 @@ function endGameAdjust() {
 
 function disableEndTiles() {
     if (_unsold == 0) {
-        document.getElementById("unsold-goods").style.display = "none";
+        document.getElementById("QE0").style.display = "none";
     };
     if (_silver == 0) {
-        document.getElementById("silverlings").style.display = "none";
+        document.getElementById("QE1").style.display = "none";
     };
     if (_workers < 2) {
-        document.getElementById("workers").style.display = "none";
+        document.getElementById("QE2").style.display = "none";
     };
     if (_k.k15 === false || _gType == 0) {
-        document.getElementById("know15").style.display = "none";
+        document.getElementById("QE3").style.display = "none";
     };
     if (_k.k1623 === false) {
-        document.getElementById("know16-23").style.display = "none";
+        document.getElementById("QE4").style.display = "none";
     };
     if (_k.k24 === false || _aType == 0) {
-        document.getElementById("know24").style.display = "none";
+        document.getElementById("QE5").style.display = "none";
     };
     if (_k.k25 === false || _sold == 0) {
-        document.getElementById("know25").style.display = "none";
+        document.getElementById("QE6").style.display = "none";
     };
     if (_k.k26 === false || _bonus == 0) {
-        document.getElementById("know26").style.display = "none";
+        document.getElementById("QE7").style.display = "none";
     };
 };
 

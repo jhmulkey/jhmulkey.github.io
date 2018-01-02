@@ -504,36 +504,36 @@ input[type="checkbox"] {
         width: 355px;
     }
 
-        .point-quickadd-div-pop {
-            display: none;
-            flex-wrap: wrap;
-            justify-content: space-around;
+        .point-quickadd-div div {
+            margin: 5px !important;
         }
+    
+    .point-quickadd-div-pop {
+        display: none;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
 
         .point-quickadd-div-pop div {
             margin: 5px !important;
         }
 
-    .point-quickadd-div div {
-        margin: 5px !important;
-    }
-
-    #point-quickadd-div-end {
+    .point-quickadd-div-end {
         margin-bottom: 30px;
         display: none;
         flex-wrap: wrap;
         justify-content: space-around;
-        max-width: 330px;
+        width: 355px;
     }
 
-    #point-quickadd-div-end div {
-        margin: 5px;
-    }
+        #point-quickadd-div-end div {
+            margin: 5px !important;
+        }
 
     /******************************
         PLAY > ALL TILE BUTTONS
     ******************************/
-    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #bank, #boardhouse, #warehouse, #ship, #market, #church, #carpenter, #city-hall, #castle, #dice-trade, #building, #animal, #knowledge, #k2, #k3, #k4, #k13, #k14, #k15, #k1623, #k24, #k25, #k26, #unsold-goods, #silverlings, #workers, #know15, #know16-23, #know24, #know25, #know26 {
+    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #bank, #boardhouse, #warehouse, #ship, #market, #church, #carpenter, #city-hall, #castle, #dice-trade, #building, #animal, #knowledge, #k2, #k3, #k4, #k13, #k14, #k15, #k1623, #k24, #k25, #k26, #QE0, #QE1, #QE2, #QE3, #QE4, #QE5, #QE6, #QE7 {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -688,40 +688,40 @@ input[type="checkbox"] {
         background-color: #E0D537; 
     }
 
-    #unsold-goods {
+    #QE0 {
         background-image: url(images/unsold-goods.jpg);
     }
 
-    #silverlings {
+    #QE1 {
         background-image: url(images/silverling.png);
         background-color: #C6B4B1;
     }
 
-    #workers {
+    #QE2 {
         background-image: url(images/worker.jpg);
     }
 
-    #know15 {
+    #QE3 {
         background-image: url(images/knowledge-tiles-15.png);
         background-color: #E0D537;
     }
 
-    #know16-23 {
+    #QE4 {
         background-image: url(images/knowledge-tiles-16-23.png);
         background-color: #E0D537;
     }
 
-    #know24 {
+    #QE5 {
         background-image: url(images/knowledge-tiles-24.png);
         background-color: #E0D537;
     }
 
-    #know25 {
+    #QE6 {
         background-image: url(images/knowledge-tiles-25.png);
         background-color: #E0D537;
     }
 
-    #know26 {
+    #QE7 {
         background-image: url(images/knowledge-tiles-26.png);
         background-color: #E0D537;
     }
