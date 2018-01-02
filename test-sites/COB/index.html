@@ -9,13 +9,13 @@
 </head>
 <body>
      
-    <div id="title-screen-pop">
+    <div id="pu-ts">
         <p>Castles of Burgundy</p>
         <img src="images/title-photo.jpg" width="75%"/>
     </div>
     
-    <div id="select-board-group-pop" class="pu">
-        <p class="pu-p">Select Board Group</p>
+    <div id="pu-bgs" class="pu">
+        <h1>Board Group</h1>
         <div>
             <div class="board-button" onclick="setBoardIndex(0)">Boards 1-9</div>
             <div class="board-button" onclick="setBoardIndex(1)">Boards 10a-h</div>
@@ -25,14 +25,14 @@
         </div>
     </div> 
     
-    <div id="select-board-pop" class="pu" onclick="chooseBoards(_boardsIndex)">
-        <p class="pu-p">Tap Screen to<br/>Select Random Board</p>
+    <div id="pu-bs" class="pu" onclick="chooseBoards(_boardsIndex)">
+        <h1>Random Boards</h1>
         <div id="tap-to-select"></div>
         <div class="board-button-skip" onclick="whiteDicePop()">Continue</div>
     </div> 
     
-    <div id="white-dice-pop" class="pu" onclick="rollWhiteDice()">
-        <p class="pu-p">Tap Screen to<br/>Roll White Dice</p>
+    <div id="pu-wdr" class="pu" onclick="rollWhiteDice()">
+        <h1>White Dice</h1>
         <div id="tap-to-roll"></div>
         <a href="play.html">
             <div class="board-button-skip">Continue</div>

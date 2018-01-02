@@ -216,6 +216,10 @@ input[type="checkbox"] {
     display: none;
 }
 
+    .pu h1 {
+        margin: 20px 0;
+    }
+
     #take-action-pop {
         max-width: 350px;
     }
@@ -244,12 +248,12 @@ input[type="checkbox"] {
     /******************************
         INDEX > TITLE SCREEN
     ******************************/
-    #title-screen-pop {
+    #pu-ts {
         max-width: 414px;
         height: 736px;
     }
 
-    #title-screen-pop p {
+    #pu-ts p {
         padding: 40px;
         margin: 0;
         font-size: 75px;
@@ -261,7 +265,7 @@ input[type="checkbox"] {
     /******************************
         INDEX > BOARD GROUP & WHITE DICE
     ******************************/
-    #select-board-group-pop div {
+    #pu-bgs div {
         margin: 0 auto;
         margin-bottom: 25px; 
     }

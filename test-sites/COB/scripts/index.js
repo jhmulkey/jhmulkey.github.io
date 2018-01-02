@@ -18,8 +18,8 @@ var _boardsReset = [
 
 function setBoardIndex(x) {
     _boardsIndex = x;
-    document.getElementById("select-board-group-pop").style.display = "none";
-    document.getElementById("select-board-pop").style.display = "block";
+    document.getElementById("pu-bgs").style.display = "none";
+    document.getElementById("pu-bs").style.display = "block";
 };
 
 function chooseBoards(_boardsIndex) {
@@ -42,18 +42,18 @@ function rollWhiteDice() {
 };
 
 function titleScreen() {
-    document.getElementById("title-screen-pop").style.display = "none";
-    document.getElementById("select-board-group-pop").style.display = "block";
+    document.getElementById("pu-ts").style.display = "none";
+    document.getElementById("pu-bgs").style.display = "block";
     document.getElementById("index-html").style.backgroundImage = "url(images/background.jpg)";
 }
 
 function whiteDicePop(x) {
     if (x) {
-        document.getElementById("select-board-group-pop").style.display = "none";
-        document.getElementById("white-dice-pop").style.display = "block";
+        document.getElementById("pu-bgs").style.display = "none";
+        document.getElementById("pu-wdr").style.display = "block";
     } else {
-        document.getElementById("select-board-pop").style.display = "none";
-        document.getElementById("white-dice-pop").style.display = "block"; 
+        document.getElementById("pu-bs").style.display = "none";
+        document.getElementById("pu-wdr").style.display = "block"; 
     };  
 };
 
