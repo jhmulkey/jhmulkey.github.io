@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ontouch>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,9 +8,14 @@
 </head>
 <body onclick="rollDice()">
      
-    <div id="dice-1" class="dice-div"></div>
+    <div id="wrapper" onclick="rollDice()">
     
-    <div id="dice-2" class="dice-div"></div>
+        <div id="dice-1" class="dice-div"></div>
+    
+        <div id="dice-2" class="dice-div"></div>
+        
+    </div>
+
 
     <script src="index.js"></script>
     
