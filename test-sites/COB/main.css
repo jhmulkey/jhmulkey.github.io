@@ -130,15 +130,15 @@ input[type="checkbox"] {
 }
 
 .tile-button {
-    height: 100px;
-    width: 100px;
+    height: 167px;
+    width: 167px;
     border: 2px solid black;
     cursor: pointer;
 }
 
 .tile-button-no-border {
-    height: 100px;
-    width: 100px;
+    height: 167px;
+    width: 167px;
     cursor: pointer;
 }
 
@@ -490,8 +490,18 @@ input[type="checkbox"] {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
-        max-width: 330px;
+        width: 355px;
     }
+
+        .point-quickadd-div-pop {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .point-quickadd-div-pop div {
+            margin: 5px !important;
+        }
 
     .point-quickadd-div div {
         margin: 5px !important;
@@ -512,7 +522,7 @@ input[type="checkbox"] {
     /******************************
         PLAY > ALL TILE BUTTONS
     ******************************/
-    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #bank, #boardhouse, #warehouse, #ship, #market, #church, #carpenter, #city-hall, #castle, #dice-trade, #k2, #k3, #k4, #k13, #k14, #k15, #k1623, #k24, #k25, #k26, #unsold-goods, #silverlings, #workers, #know15, #know16-23, #know24, #know25, #know26 {
+    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #bank, #boardhouse, #warehouse, #ship, #market, #church, #carpenter, #city-hall, #castle, #dice-trade, #building, #animal, #knowledge, #k2, #k3, #k4, #k13, #k14, #k15, #k1623, #k24, #k25, #k26, #unsold-goods, #silverlings, #workers, #know15, #know16-23, #know24, #know25, #know26 {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -600,6 +610,21 @@ input[type="checkbox"] {
     #castle {
         background-image: url(images/castle.png);
         background-color: #75B15A;
+    }
+
+    #building {
+        background-image: url(images/building-tile-labeled.png);
+        background-color: #D2CC95;
+    }
+
+    #animal {
+        background-image: url(images/animal-tile-labeled.png);
+        background-color: #BEE53D;
+    }
+
+    #knowledge {
+       background-image: url(images/knowledge-tile-labeled.png);
+       background-color: #E0D537;  
     }
 
     #k2 {
@@ -695,11 +720,14 @@ input[type="checkbox"] {
     ******************************/
 
     #point-log {
+        padding-top: 30px;
         background-color: rgba(255,255,255,0.5);
         margin-bottom: 40px;
+        display: none;
     }
 
     #point-log-h1 {
+        margin-top: 20px;
         font-size: 25px;
     }
 

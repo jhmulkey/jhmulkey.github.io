@@ -38,6 +38,11 @@
     </div> 
     
     <div id="main-wrapper-div">
+       
+    <div id="point-log">
+        <div class="board-button-skip" onclick="pointLogPop()">CANCEL</div>
+        <h1 id="point-log-h1">Point Log</h1>
+    </div>
         
     <div class="upper-flex-div">
         <div>
@@ -80,6 +85,7 @@
             <div class="board-button" onclick="masterLink(0)">SETUP</div>
             <div class="board-button" onclick="masterLink(1)">REFERENCE</div>
             <div class="board-button" onclick="masterLink(2)">EXPANSION</div>
+            <div class="board-button" onclick="masterLink('PL')">POINT LOG</div>
             <div class="board-button" onclick="masterLink(3)">SET POINTS</div>
             <div class="board-button-skip" onclick="masterPop()">CANCEL</div>
         </div>
@@ -195,7 +201,7 @@
         </div>
     </div>
         
-    <div id="animals-pop" class="pu">
+    <div id="animal-pop" class="pu">
         <p class="pu-p">Animal Points:</p>
         <div class="pu-flex-div">
             <div class="select-button-small" onclick="animals(1)">1</div>
@@ -213,20 +219,8 @@
             <div class="select-button-small" onclick="animals(13)">13</div>
             <div class="select-button-small" onclick="animals(14)">14</div>
             <div class="select-button-small" onclick="animals(15)">15</div>
-            <div class="board-button-skip" onclick="animalsPop()">CANCEL</div>
+            <div class="board-button-skip" onclick="animalPop()">CANCEL</div>
         </div>
-    </div>
-       
-    <div id="animals-type-pop" class="pu">
-        <p class="pu-p">New Animal Type:</p>
-        <div class="pu-flex-div">
-            <div id="sheep" class="board-button" onclick="animalType(0)">Sheep</div>
-            <div id="cows" class="board-button" onclick="animalType(1)">Cows</div>
-            <div id="pigs" class="board-button" onclick="animalType(2)">Pigs</div>
-            <div id="chickens" class="board-button" onclick="animalType(3)">Chickens</div>
-            <div class="board-button-skip" onclick="animalTypeSkip()">not new</div>
-        </div>
-        
     </div>
         
     <div id="ship-pop" class="pu">
@@ -246,33 +240,46 @@
         </div>
     </div>
        
-    <div id="take-action-pop" class="pu">
-        <p id="take-action-p" class="pu-p"></p>
-        <div class="board-button-skip" onclick="takeActionPop()">OK</div>
+    <div id="building-action-pop" class="pu">
+        <p id="building-action-p" class="pu-p"></p>
+        <div class="board-button-skip" onclick="buildingActionPop()">OK</div>
+    </div>
+       
+    <div id="quickadd-building" class="point-quickadd-div-pop">
+        <div id="watchtower" class="tile-button" onclick="tapPoints(4,'watchtower','building')"></div>
+        <div id="warehouse" class="tile-button" onclick="goodsTypePop()"></div>
+        <div id="boardhouse" class="tile-button" onclick="adjustWorkers(4,'boarding house',false,'building')"></div>
+        <div id="bank" class="tile-button" onclick="adjustSilver(2,3,'building')"></div>
+        <div id="market" class="tile-button" onclick="buildingActionPop(0)"></div>
+        <div id="church" class="tile-button" onclick="buildingActionPop(1)"></div>
+        <div id="carpenter" class="tile-button" onclick="buildingActionPop(2)"></div>
+        <div id="city-hall" class="tile-button" onclick="buildingActionPop(3)"></div>
+        <div id="monastaries" class="tile-button" onclick="tapPoints(5,'monastaries','building')"></div>
+        <div class="board-button-skip" onclick="buildingPop()">CANCEL</div>
     </div>
         
     <div id="quickadd-1" class="point-quickadd-div">
-        <div id="ship" class="tile-button" onclick="shipPop()"></div>
         <div id="sell-goods" class="tile-button" onclick="goodsTypePop()"></div>
-        <div id="warehouse" class="tile-button" onclick="goodsTypePop()"></div>
-        <div id="animals" class="tile-button" onclick="animalsTypePop()"></div>
-        <div id="watchtower" class="tile-button" onclick="tapPoints(4, 'watchtower')"></div>
-        <div id="monastaries" class="tile-button" onclick="tapPoints(5, 'monastaries')"></div>
+        <div id="dice-trade" class="tile-button" onclick="adjustWorkers(2, 'dice trade', true)"></div>
         <div id="large-bonus" class="tile-button" onclick="bonusTile('large')"></div>
         <div id="small-bonus" class="tile-button-no-border" onclick="bonusTile('small')"></div>
+        <div id="ship" class="tile-button" onclick="shipPop()"></div>
         <div id="mine" class="tile-button" onclick="adjustMines(0)"></div>
-        <div id="bank" class="tile-button" onclick="adjustSilver(2,3)"></div>
-        <div id="boardhouse" class="tile-button" onclick="adjustWorkers(4,'boarding house')"></div>
-        <div id="dice-trade" class="tile-button" onclick="adjustWorkers(2, 'dice trade', true)"></div>
-        <div id="market" class="tile-button" onclick="takeActionPop(0)"></div>
-        <div id="church" class="tile-button" onclick="takeActionPop(1)"></div>
-        <div id="carpenter" class="tile-button" onclick="takeActionPop(2)"></div>
-        <div id="city-hall" class="tile-button" onclick="takeActionPop(3)"></div>
-        <div class="tile-button-no-border"></div> 
         <div id="castle" class="tile-button" onclick="takeActionPop(4)"></div>
+        <div id="building" class="tile-button" onclick="buildingPop()"></div>
+        <div id="animal" class="tile-button" onclick="animalPop()"></div>
+        <div id="knowledge" class="tile-button" onclick="knowledgePop()"></div>
     </div>
+       
+        <!-- 
+        <div id="animals" class="tile-button" onclick="animalsTypePop()"></div>
+        </div>
         
-    <div id="quickadd-2" class="point-quickadd-div">
+        <div class="tile-button-no-border"></div>  -->
+        
+    
+        
+    <!-- <div id="quickadd-2" class="point-quickadd-div">
         <div id="k2" class="tile-button" onclick="addKnowledge(0)"></div>
         <div id="k3" class="tile-button" onclick="addKnowledge(1)"></div>
         <div id="k4" class="tile-button" onclick="addKnowledge(2)"></div>
@@ -283,7 +290,7 @@
         <div id="k24" class="tile-button" onclick="addKnowledge(7)"></div>
         <div id="k25" class="tile-button" onclick="addKnowledge(8)"></div>
         <div id="k26" class="tile-button" onclick="addKnowledge(9)"></div>
-    </div>
+    </div> -->
         
     <div id="k1623-pop" class="pu">
         <p class="pu-p">Eligible Buildings:</p>
@@ -311,8 +318,7 @@
         <div id="know25" class="tile-button" onclick="quickEndGamePts(_sold,5)"></div>
         <div id="know26" class="tile-button" onclick="quickEndGamePts(_bonus,6)"></div>
     </div>
-           
-    <div id="point-log"><h1 id="point-log-h1">Point Log</h1></div>
+        
     </div>
     
     <script src="scripts/play.js"></script>

@@ -202,7 +202,7 @@ function adjustRound(x) {
     window.scrollTo(0,0);
 };
 
-function adjustWorkers(x, name, trade) {
+function adjustWorkers(x, name, trade, type) {
     var added = x;
     if (trade) {
         if (_k.k13 === true && _k.k14 === false) {
@@ -240,6 +240,9 @@ function adjustWorkers(x, name, trade) {
     latestPointsColor("black");
     document.getElementById("latest-points-span").innerHTML = log;
     activityLog(log);
+    if (type == "building") {
+        buildingPop();
+    };
     window.scrollTo(0,0);
 };
 
@@ -310,7 +313,7 @@ function adjustMines(i) {
     };  
 };
 
-function adjustSilver(x, i) {
+function adjustSilver(x, i, type) {
     var sources = [
         "adjustment",
         "spent",
@@ -361,6 +364,9 @@ function adjustSilver(x, i) {
         activityLog(log);
     };
     silverSound.play();
+    if (type == "building") {
+        buildingPop();
+    };
     window.scrollTo(0,0);
 }
 
@@ -454,11 +460,10 @@ function animals(x) {
     document.getElementById("latest-points-span").innerHTML = log;
     activityLog(log);
     pointSound.play();
-    document.getElementById("animals-pop").style.display = "none";
-    window.scrollTo(0,0);
+    animalPop();
 };
 
-function tapPoints(x, name) {
+function tapPoints(x, name, type) {
     _pts += x;
     document.getElementById("total-points").innerHTML = _pts;
     var log = x + " points for " + name;
@@ -466,6 +471,9 @@ function tapPoints(x, name) {
     document.getElementById("latest-points-span").innerHTML = log;
     activityLog(log);
     pointSound.play();
+    if (type == "building") {
+        buildingPop();
+    };
     window.scrollTo(0,0);
 };
 
@@ -626,25 +634,6 @@ function tradeDiceForWorkers() {
         adjustSilver(1,5);
     };
 };
-    
-function animalType(i) {
-    if (i == 0) {
-        _a.sheep = true;
-        document.getElementById("sheep").style.display = "none";
-    } else if (i == 1) {
-        _a.cows = true
-        document.getElementById("cows").style.display = "none";
-    } else if (i == 2) {
-        _a.pigs = true
-        document.getElementById("pigs").style.display = "none";
-    } else if (i == 3) {
-        _a.chickens = true
-        document.getElementById("chickens").style.display = "none";
-    };
-    document.getElementById("animals-type-pop").style.display = "none";
-    _aType++;
-    animalsPop();
-};
 
 function goodsType(i) {
     if (i == 0) {
@@ -712,10 +701,23 @@ function masterPop() {
         ];
         if (i == 3) {
             setPoints();
+        } else if (i == "PL") {
+            pointLogPop();
         } else {
             window.open(links[i], "_blank");
         };
     };
+
+function pointLogPop() {
+    if (document.getElementById("point-log").style.display != "block") {
+        masterPop();
+        document.getElementById("point-log").style.display = "block";
+        document.getElementById("point-log").scrollIntoView();
+    } else {
+        document.getElementById("point-log").style.display = "";
+        window.scrollTo(0,0);
+    };
+};
 
 function phasePop() {
     if (document.getElementById("select-phase-pop").style.display != "block") {
@@ -767,6 +769,38 @@ function shipPop() {
     };
 };
 
+function buildingPop() {
+    if (document.getElementById("quickadd-building").style.display != "flex") {
+        document.getElementById("quickadd-building").style.display = "flex";
+        document.getElementById("quickadd-1").style.display = "none";
+        document.getElementById("quickadd-building").scrollIntoView();
+    } else {
+        document.getElementById("quickadd-building").style.display = "";
+        document.getElementById("quickadd-1").style.display = "flex";
+        window.scrollTo(0,0);
+    };
+};
+
+    function buildingActionPop(i) {
+        var actions = [
+            "Take 1 ship or animal tile from any depot except black depot",
+            "Take 1 mine, castle, or knowledge tile from any depot except black depot",
+            "Take 1 building tile from any depot except black depot",
+            "Add any tile from your storage spaces to your estate",
+        ];
+        if (document.getElementById("building-action-pop").style.display != "block") {
+            document.getElementById("building-action-pop").style.display = "block";
+            document.getElementById("building-action-p").innerHTML = actions[i];
+            document.getElementById("quickadd-building").style.display = "";
+            document.getElementById("building-action-pop").scrollIntoView();
+        } else {
+            document.getElementById("building-action-pop").style.display = "";
+            document.getElementById("quickadd-building").style.display = "";
+            document.getElementById("quickadd-1").style.display = "flex";
+            window.scrollTo(0,0);
+        };
+    };
+
 function goodsPop() {
     if (document.getElementById("goods-pop").style.display != "block") {
         document.getElementById("goods-pop").style.display = "block";
@@ -796,36 +830,19 @@ function goodsTypePop() {
         goodsPop();
     };
 
-function animalsPop() {
-    if (document.getElementById("animals-pop").style.display != "block") {
-        document.getElementById("animals-pop").style.display = "block";
-        document.getElementById("animals-pop").scrollIntoView();
+function animalPop() {
+    if (document.getElementById("animal-pop").style.display != "block") {
+        document.getElementById("animal-pop").style.display = "block";
+        document.getElementById("quickadd-1").style.display = "none";
+        document.getElementById("animal-pop").scrollIntoView();
     } else {
-        document.getElementById("animals-pop").style.display = "";
+        document.getElementById("animal-pop").style.display = "";
+        document.getElementById("quickadd-1").style.display = "flex";
         window.scrollTo(0,0);
     };
 };
-    
-function animalsTypePop() {
-    if (_aType == 4) {
-        animalsPop();
-    } else {
-        if (document.getElementById("animals-type-pop").style.display != "block") {
-            document.getElementById("animals-type-pop").style.display = "block";
-            document.getElementById("animals-type-pop").scrollIntoView();
-        } else {
-            document.getElementById("animals-type-pop").style.display = "";
-            window.scrollTo(0,0);
-        };
-    };
-};
 
-    function animalTypeSkip() {
-        document.getElementById("animals-type-pop").style.display = "none";
-        animalsPop();
-    };
-
-function takeActionPop(i) {
+function takeActionPop(i, type) {
     var actions = [
         "Take 1 ship or animal tile from any depot except black depot",
         "Take 1 mine, castle, or knowledge tile from any depot except black depot",
@@ -839,7 +856,11 @@ function takeActionPop(i) {
         document.getElementById("take-action-pop").scrollIntoView();
     } else {
         document.getElementById("take-action-pop").style.display = "";
-        window.scrollTo(0,0);
+        if (type === "building") {
+            document.getElementById("quickadd-building").scrollIntoView();
+        } else {
+            window.scrollTo(0,0);
+        };
     };
 };
 
