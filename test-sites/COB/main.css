@@ -157,6 +157,18 @@ input[type="checkbox"] {
     padding-top: 5px;    
 }
 
+.number-button {
+    height: 167px;
+    width: 167px;
+    color: darkred;
+    font-weight: bold;
+    font-size: 100px;
+    padding-top: 18px;
+    background-color: rgba(255,255,255,0.5);
+    border: 2px solid black;
+    cursor: pointer;
+}
+
 .select-button-large {
     width: 100px;
     height: 100px;
@@ -208,20 +220,15 @@ input[type="checkbox"] {
         max-width: 350px;
     }
 
-.pu-p {
-    font-size: 30px;
-}
-
 .pu-flex-div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 30px;
-    width: 255px;
 }
 
 .pu-flex-div div {
-    margin-bottom: 20px;
+    margin: 5px;
 }
 
 
@@ -464,6 +471,10 @@ input[type="checkbox"] {
     #worker-img {
         background-image: url(images/worker.jpg);
         border: 1px solid black;
+    }
+
+    #spend-1 {
+        display: none;
     }
 
     /******************************

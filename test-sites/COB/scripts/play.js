@@ -773,20 +773,22 @@ function buildingPop() {
     if (document.getElementById("quickadd-building").style.display != "flex") {
         document.getElementById("quickadd-building").style.display = "flex";
         document.getElementById("quickadd-1").style.display = "none";
+        document.getElementById("hide-top").style.display = "none";
         document.getElementById("quickadd-building").scrollIntoView();
     } else {
         document.getElementById("quickadd-building").style.display = "";
         document.getElementById("quickadd-1").style.display = "flex";
+        document.getElementById("hide-top").style.display = "block";
         window.scrollTo(0,0);
     };
 };
 
     function buildingActionPop(i) {
         var actions = [
-            "Take 1 ship or animal tile from any depot except black depot",
-            "Take 1 mine, castle, or knowledge tile from any depot except black depot",
-            "Take 1 building tile from any depot except black depot",
-            "Add any tile from your storage spaces to your estate",
+            "<h1>Marketplace</h1>Take 1 ship or animal tile from any depot except black depot",
+            "<h1>Church</h1>Take 1 mine, castle, or knowledge tile from any depot except black depot",
+            "<h1>Carpenter Shop</h1>Take 1 building tile from any depot except black depot",
+            "<h1>City Hall</h1>Add any tile from your storage spaces to your estate",
         ];
         if (document.getElementById("building-action-pop").style.display != "block") {
             document.getElementById("building-action-pop").style.display = "block";
@@ -797,6 +799,7 @@ function buildingPop() {
             document.getElementById("building-action-pop").style.display = "";
             document.getElementById("quickadd-building").style.display = "";
             document.getElementById("quickadd-1").style.display = "flex";
+            document.getElementById("hide-top").style.display = "block";
             window.scrollTo(0,0);
         };
     };
@@ -810,25 +813,6 @@ function goodsPop() {
         window.scrollTo(0,0);
     };
 };
-
-function goodsTypePop() {
-    if (_gType == 6) {
-        goodsPop();
-    } else {
-        if (document.getElementById("goods-type-pop").style.display != "block") {
-            document.getElementById("goods-type-pop").style.display = "block";
-            document.getElementById("goods-type-pop").scrollIntoView();
-        } else {
-            document.getElementById("goods-type-pop").style.display = "";
-            window.scrollTo(0,0);
-        };
-    };
-};
-
-    function goodsTypeSkip() {
-        document.getElementById("goods-type-pop").style.display = "none";
-        goodsPop();
-    };
 
 function animalPop() {
     if (document.getElementById("animal-pop").style.display != "block") {
