@@ -10,33 +10,32 @@
          
     <div id="select-players-pop" class="pu">
         <h1>Players</h1>
-        <div id="select-players-flex-div">
-            <div class="select-button-large" onclick="setPlayers(2)">2</div>
-            <div class="select-button-large" onclick="setPlayers(3)">3</div>
-            <div class="select-button-large" onclick="setPlayers(4)">4</div>
+        <div class="pu-flex-div">
+            <div class="number-button" onclick="setPlayers(2)">2</div>
+            <div class="number-button" onclick="setPlayers(3)">3</div>
+            <div class="number-button" onclick="setPlayers(4)">4</div>
         </div>
     </div>   
        
     <div id="player-order-pop" class="pu">
         <h1>Player Order</h1>
-        <div id="player-order-flex-div">
-            <div class="select-button-large-2" onclick="initializeWorkers(1)">1st</div>
-            <div class="select-button-large-2" onclick="initializeWorkers(2)">2nd</div>
-            <div class="select-button-large-2" onclick="initializeWorkers(3)">3rd</div>
-            <div class="select-button-large-2" onclick="initializeWorkers(4)">4th</div>
+        <div class="pu-flex-div">
+            <div class="number-button" onclick="initializeWorkers(1)">1</div>
+            <div class="number-button" onclick="initializeWorkers(2)">2</div>
+            <div class="number-button" onclick="initializeWorkers(3)">3</div>
+            <div class="number-button" onclick="initializeWorkers(4)">4</div>
         </div>
     </div>   
         
     <div id="select-color-pop" class="pu">
         <h1>Color</h1>
-        <div id="select-color-flex-div">
-            <img src="images/black-dice-1.png" width="100px" height="100px" onclick="setColor(0)"/>
-            <img src="images/red-dice-1.png" width="100px" height="100px" onclick="setColor(1)"/>
-            <img src="images/green-dice-1.png" width="100px" height="100px" onclick="setColor(2)"/>
-            <img src="images/blue-dice-1.png" width="100px" height="100px" onclick="setColor(3)"/>
+        <div class="pu-flex-div">
+            <div id="black" class="number-button" onclick="setColor(0)"></div>
+            <div id="red" class="number-button" onclick="setColor(1)"></div>
+            <div id="green" class="number-button" onclick="setColor(2)"></div>
+            <div id="blue" class="number-button" onclick="setColor(3)"></div>
         </div>
     </div> 
-    
     
     <div id="main-wrapper-div">
        
@@ -252,7 +251,7 @@
         <div id="castle" class="tile-button" onclick=""></div>
         <div id="building" class="tile-button" onclick="buildingPop()"></div>
         <div id="animal" class="tile-button" onclick="animalPop()"></div>
-        <div id="knowledge" class="tile-button" onclick="knowledgePop()"></div>
+        <div id="knowledge" class="tile-button" onclick=""></div>
     </div>
        
         <!-- 

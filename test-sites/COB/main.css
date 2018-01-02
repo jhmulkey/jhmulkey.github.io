@@ -884,3 +884,23 @@ input[type="checkbox"] {
         font-size: 60px;
     }
 }
+.pu-p {
+    font-size: 35px;
+    padding: 0 10px;
+}
+
+#black {
+    background-color: #000000;
+}
+
+#red {
+    background-color: #ff0000;
+}
+
+#green {
+    background-color: #007E42;
+}
+
+#blue {
+    background-color: #0068C2;
+}
