@@ -39,18 +39,18 @@
         </div>
     </div> 
        
-    <div id="pu-pl">
-        <div class="board-button-skip" onclick="pop('pl','block')">CANCEL</div>
-        <h1 id="point-log-h1">Point Log</h1>
+    <div id="pu-al">
+        <div class="board-button-skip" onclick="pop('al','block')">CANCEL</div>
+        <h1 id="pu-al-h1">Activity Log</h1>
     </div>
     
     <div id="pu-mm" class="pu">
         <div class="pu-flex-div">
-            <div class="board-button" onclick="masterLink(0)">SETUP</div>
-            <div class="board-button" onclick="masterLink(1)">REFERENCE</div>
-            <div class="board-button" onclick="masterLink(2)">EXPANSION</div>
-            <div class="board-button" onclick="masterLink('PL')">POINT LOG</div>
-            <div class="board-button" onclick="masterLink(3)">SET POINTS</div>
+            <div class="board-button" onclick="mmLink(0)">SETUP</div>
+            <div class="board-button" onclick="mmLink(1)">REFERENCE</div>
+            <div class="board-button" onclick="mmLink(2)">EXPANSION</div>
+            <div class="board-button" onclick="pu_pl()">POINT LOG</div>
+            <div class="board-button" onclick="mmLink(3)">SET POINTS</div>
             <div class="board-button-skip" onclick="pop('mm','block')">CANCEL</div>
         </div>
     </div> 
@@ -170,6 +170,36 @@
         <div class="board-button-skip" onclick="pop('b','flex')">CANCEL</div>
     </div>
     
+    <div id="pu-km" class="pu">
+        <h1 id="pu-km-h1"></h1>
+        <p id="pu-km-p"></p>
+        <div class="board-button-skip" onclick="pop('km','block')">OK</div>
+    </div>
+    
+    <div id="pu-k">
+        <div id="k1" class="tile-button" onclick="pu_km(0,'1')"></div>
+        <div id="k2" class="tile-button" onclick="addKnowledge(0)"></div>
+        <div id="k3" class="tile-button" onclick="addKnowledge(1)"></div>
+        <div id="k4" class="tile-button" onclick="addKnowledge(2)"></div>
+        <div id="k5" class="tile-button" onclick="pu_km(1,'5')"></div>
+        <div id="k6" class="tile-button" onclick="pu_km(2,'6')"></div>
+        <div id="k7" class="tile-button" onclick="pu_km(3,'7')"></div>
+        <div id="k8" class="tile-button" onclick="pu_km(4,'8')"></div>
+        <div id="k9" class="tile-button" onclick="pu_km(5,'9')"></div>
+        <div id="k10" class="tile-button" onclick="pu_km(6,'10')"></div>
+        <div id="k11" class="tile-button" onclick="pu_km(7,'11')"></div>
+        <div id="k12" class="tile-button" onclick="pu_km(8,'12')"></div>
+        <div id="k13" class="tile-button" onclick="addKnowledge(3)"></div>
+        <div id="k14" class="tile-button" onclick="addKnowledge(4)"></div>
+        <div id="k15" class="tile-button" onclick="addKnowledge(5)"></div>
+        <div id="k1623" class="tile-button" onclick="addKnowledge(6)"></div>
+        <div id="k24" class="tile-button" onclick="addKnowledge(7)"></div>
+        <div id="k25" class="tile-button" onclick="addKnowledge(8)"></div>
+        <div id="k26" class="tile-button" onclick="addKnowledge(9)"></div>
+        <div class="board-button-skip" onclick="pop('k','flex')">CANCEL</div>
+        
+    </div>
+    
 <div id="main">
     <div class="upper-flex-div">
         <div>
@@ -252,50 +282,10 @@
         <div id="castle" class="tile-button" onclick="pu_bm(4,'Castle',true)"></div>
         <div id="building" class="tile-button" onclick="pop('b','flex')"></div>
         <div id="animal" class="tile-button" onclick="pop('a','block')"></div>
-        <div id="knowledge" class="tile-button" onclick=""></div>
+        <div id="knowledge" class="tile-button" onclick="pop('k','flex')"></div>
     </div>
 
 </div>
-    
-    <!-- <div id="quickadd-2" class="point-quickadd-div">
-        <div id="k2" class="tile-button" onclick="addKnowledge(0)"></div>
-        <div id="k3" class="tile-button" onclick="addKnowledge(1)"></div>
-        <div id="k4" class="tile-button" onclick="addKnowledge(2)"></div>
-        <div id="k13" class="tile-button" onclick="addKnowledge(3)"></div>
-        <div id="k14" class="tile-button" onclick="addKnowledge(4)"></div>
-        <div id="k15" class="tile-button" onclick="addKnowledge(5)"></div>
-        <div id="k1623" class="tile-button" onclick="addKnowledge(6)"></div>
-        <div id="k24" class="tile-button" onclick="addKnowledge(7)"></div>
-        <div id="k25" class="tile-button" onclick="addKnowledge(8)"></div>
-        <div id="k26" class="tile-button" onclick="addKnowledge(9)"></div>
-    </div> 
-        
-    <div>
-        <h1>Eligible Buildings</h1>
-        <div class="pu-flex-div">
-            <div class="number-button" onclick="k1623Points(1)">1</div>
-            <div class="number-button" onclick="k1623Points(2)">2</div>
-            <div class="number-button" onclick="k1623Points(3)">3</div>
-            <div class="number-button" onclick="k1623Points(4)">4</div>
-            <div class="number-button" onclick="ek1623Points(5)">5</div>
-            <div class="number-button" onclick="k1623Points(6)">6</div>
-            <div class="number-button" onclick="k1623Points(7)">7</div>
-            <div class="number-button" onclick="k1623Points(8)">8</div>
-            <div class="number-button" onclick="k1623Points(9)">9</div>
-            <div class="number-button" onclick="k1623Points(10)">10</div>
-        </div>
-    </div>    
-        
-    <div id="point-quickadd-div-end" class="point-quickadd-div-end">
-        <div id="QE0" class="tile-button" onclick="quickEndGamePts(_unsold,0)"></div>
-        <div id="QE1" class="tile-button" onclick="quickEndGamePts(_silver,1)"></div>
-        <div id="QE2" class="tile-button" onclick="quickEndGamePts(_workers,2)"></div>
-        <div id="QE3" class="tile-button" onclick="quickEndGamePts(_gType,3)"></div>
-        <div id="QE4" class="tile-button" onclick="k1623Pop()"></div>
-        <div id="QE5" class="tile-button" onclick="quickEndGamePts(_aType,4)"></div>
-        <div id="QE6" class="tile-button" onclick="quickEndGamePts(_sold,5)"></div>
-        <div id="QE7" class="tile-button" onclick="quickEndGamePts(_bonus,6)"></div>
-    </div> -->
         
 </div>
     

@@ -212,7 +212,7 @@ input[type="checkbox"] {
 ******************************
 ******************************/
 
-#pu-bs, #pu-wdr, #pu-ps, #pu-pos, #pu-cs, #pu-mm, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-a, #pu-k, #pu-pl, #pu-eb {
+#pu-bgs, #pu-bs, #pu-wdr, #pu-ps, #pu-pos, #pu-cs, #pu-mm, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-eb {
     display: none;
 }
 
@@ -226,11 +226,11 @@ input[type="checkbox"] {
         margin: 20px 0;
     }
 
-#pu-bm {
+#pu-bm, #pu-km {
         max-width: 350px;
     }
 
-    #pu-bm p {
+    #pu-bm p, #pu-km p {
         font-size: 35px;
     }
 
@@ -458,6 +458,7 @@ input[type="checkbox"] {
 
     #spw-flex-div div {
         height: 60px;
+        cursor: pointer;
     }
 
     #silver-img, #silver-count, #worker-img, #worker-count {
@@ -522,7 +523,7 @@ input[type="checkbox"] {
             margin: 5px !important;
         }
 
-    #pu-b {
+    #pu-b, #pu-k {
         margin-bottom: 30px;
         display: none;
         flex-wrap: wrap;
@@ -530,7 +531,7 @@ input[type="checkbox"] {
         width: 355px;
     }
 
-        #pu-b div {
+        #pu-b div, #pu-k div {
             margin: 5px !important;
         }
 
@@ -549,7 +550,7 @@ input[type="checkbox"] {
     /******************************
         PLAY > ALL TILE BUTTONS
     ******************************/
-    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #bank, #boardhouse, #warehouse, #ship, #market, #church, #carpenter, #city-hall, #castle, #dice-trade, #building, #animal, #knowledge, #k2, #k3, #k4, #k13, #k14, #k15, #k1623, #k24, #k25, #k26, #QE0, #QE1, #QE2, #QE3, #QE4, #QE5, #QE6, #QE7 {
+    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #bank, #boardhouse, #warehouse, #ship, #market, #church, #carpenter, #city-hall, #castle, #dice-trade, #building, #animal, #knowledge, #k1, #k2, #k3, #k4, #k5, #k6, #k7, #k8, #k9, #k10, #k11, #k12, #k13, #k14, #k15, #k1623, #k24, #k25, #k26, #QE0, #QE1, #QE2, #QE3, #QE4, #QE5, #QE6, #QE7 {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -654,6 +655,11 @@ input[type="checkbox"] {
        background-color: #E0D537;  
     }
 
+    #k1 {
+        background-image: url(images/knowledge-tiles-1.png);
+        background-color: #E0D537; 
+    }
+
     #k2 {
         background-image: url(images/knowledge-tiles-2.png);
         background-color: #E0D537; 
@@ -666,6 +672,46 @@ input[type="checkbox"] {
 
     #k4 {
         background-image: url(images/knowledge-tiles-4.png);
+        background-color: #E0D537; 
+    }
+
+    #k5 {
+        background-image: url(images/knowledge-tiles-5.png);
+        background-color: #E0D537; 
+        }
+
+    #k6 {
+        background-image: url(images/knowledge-tiles-6.png);
+        background-color: #E0D537; 
+    }
+
+    #k7 {
+        background-image: url(images/knowledge-tiles-7.png);
+        background-color: #E0D537; 
+    }
+
+    #k8 {
+        background-image: url(images/knowledge-tiles-8.png);
+        background-color: #E0D537; 
+    }
+
+    #k9 {
+        background-image: url(images/knowledge-tiles-9.png);
+        background-color: #E0D537; 
+    }
+
+    #k10 {
+        background-image: url(images/knowledge-tiles-10.png);
+        background-color: #E0D537; 
+    }
+
+    #k11 {
+        background-image: url(images/knowledge-tiles-11.png);
+        background-color: #E0D537; 
+    }
+
+    #k12 {
+        background-image: url(images/knowledge-tiles-12.png);
         background-color: #E0D537; 
     }
 
@@ -743,22 +789,21 @@ input[type="checkbox"] {
     }
 
     /******************************
-        PLAY > POINT LOG
+        PLAY > ACTIVITY LOG
     ******************************/
 
-    #pu-pl {
+    #pu-al {
         padding-top: 30px;
         background-color: rgba(255,255,255,0.5);
         margin-bottom: 40px;
         display: none;
     }
 
-    #point-log-h1 {
+    #pu-al-h1 {
         margin-top: 20px;
-        font-size: 25px;
     }
 
-    #point-log p {
+    #pu-al p {
         margin: 0;
     }
 

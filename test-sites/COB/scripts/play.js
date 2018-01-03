@@ -33,8 +33,6 @@ var _silver = 1;
 var _workers;
 var _unsold = 3;
 var _sold = 0;
-var _gType = 0;
-var _aType = 0;
 var _bonus = 0;
 
 var _k = {
@@ -49,25 +47,6 @@ var _k = {
     k25: false,
     k26: false
 };
-
-var _a = {
-    sheep: false,
-    cows: false,
-    pigs: false,
-    chickens: false,
-};
-
-var _g = {
-    blue: false,
-    brown: false,
-    orange: false,
-    pink: false,
-    purple: false,
-    red: false
-};
-
-var _k1623Used = false;
-
 
 /******************************
 ******************************
@@ -116,7 +95,8 @@ function rollDice(color) {
         };
     } else if (_rd >= 25) {
         if (window.confirm("Click OK to cacluate end of game points.")) {
-            endGameAdjust();
+            document.getElementById("latest-points-span").innerHTML = "calculating end game points";
+            endOfGamePoints();
         };
     };
 };
@@ -146,19 +126,19 @@ function randomDice(color) {
 function setPhase() {
     if (_rd == 1) {
         document.getElementById("phase-span").innerHTML = "A"
-        activityLog("PHASE A", "black", "20px");
+        activityLog("Phase A","black","25px","20px","h1");
     } else if (_rd == 6) {
         document.getElementById("phase-span").innerHTML = "B"; _ph = 1;
-        activityLog("PHASE B", "black", "20px");
+        activityLog("Phase B","black","25px","20px","h1");
     } else if (_rd == 11) {
         document.getElementById("phase-span").innerHTML = "C"; _ph = 2;
-        activityLog("PHASE C", "black", "20px");
+        activityLog("Phase C","black","25px","20px","h1");
     } else if (_rd == 16) {
         document.getElementById("phase-span").innerHTML = "D"; _ph = 3;
-        activityLog("PHASE D", "black", "20px");
+        activityLog("Phase D","black","25px","20px","h1");
     } else if (_rd == 21) {
         document.getElementById("phase-span").innerHTML = "E"; _ph = 4;
-        activityLog("PHASE E", "black", "20px");
+        activityLog("Phase E","black","25px","20px","h1");
     };
 };
 
@@ -191,15 +171,15 @@ function adjustRound(x) {
     };
     document.getElementById("phase-span").innerHTML = _adjPh;
     document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
-    activityLog("PHASE " + _adjPh, "black", "20px");
+    activityLog("Phase " + _adjPh,"black","25px","20px","h1");
+    console.log("hello");
     var log = "round adjusted to Phase " + _adjPh + " Round " + x;
     latestPointsColor("red");
     document.getElementById("latest-points-span").innerHTML = log;
-    activityLog(log, "red");
+    activityLog(log,"red");
     rollSound.play();
     randomDice(_color);
-    document.getElementById("pu-re").style.display = "none";
-    window.scrollTo(0,0);
+    pop('re','block');
 };
 
 function adjustWorkers(x, name, trade, type) {
@@ -306,7 +286,7 @@ function adjustMines(i) {
             var log = "mines set to " + y;
             latestPointsColor("red");
             document.getElementById("latest-points-span").innerHTML = log;
-            activityLog(log, "red");
+            activityLog(log,"red");
             pointSound.play();
             window.scrollTo(0,0);
         };
@@ -338,7 +318,7 @@ function adjustSilver(x, i, type) {
             var log = "silverlings set to " + z;
             latestPointsColor("red");
             document.getElementById("latest-points-span").innerHTML = log;
-            activityLog(log, "red");
+            activityLog(log,"red");
             pop("si","block");
         };
     } else if (i == 1) {
@@ -393,7 +373,7 @@ function setPoints() {
         var log = "points set to " + y;
         latestPointsColor("red");
         document.getElementById("latest-points-span").innerHTML = log;
-        activityLog(log, "red");
+        activityLog(log,"red");
         pointSound.play();
         pop("mm","block");
         window.scrollTo(0,0);
@@ -510,7 +490,7 @@ function quickEndGamePts(x, i) {
     var log = factors[i] + " points for " + x + " " + labels[i];
     latestPointsColor("blue")
     document.getElementById("latest-points-span").innerHTML = log;
-    activityLog(log, "blue");
+    activityLog(log,"blue");
     pointSound.play();
 };
 
@@ -521,23 +501,30 @@ function k1623Points(x) {
     var log = (x * 4) + " points for eligible buildings"
     latestPointsColor("blue")
     document.getElementById("latest-points-span").innerHTML = log;
-    activityLog(log, "blue");
+    activityLog(log,"blue");
     pointSound.play();
     document.getElementById("k1623-pop").style.display = "none";
 };
 
-function activityLog(x, color, margin) {
-    var elementNode = document.createElement("p");
+function activityLog(x, color, size, margin, type) {
+    if (type) {
+        var elementNode = document.createElement(type);
+    } else {
+        var elementNode = document.createElement("p");
+    }
     if (color) {
         elementNode.style.color = color;
     };
     if (margin) {
         elementNode.style.marginTop = margin;
     };
+    if (size) {
+        elementNode.style.fontSize = size;
+    }
     elementNode.style.fontWeight = "bold";
     var textNode = document.createTextNode(x);
     elementNode.appendChild(textNode);
-    document.getElementById("pu-pl").appendChild(elementNode);
+    document.getElementById("pu-al").appendChild(elementNode);
 };
 
 function latestPointsColor(color) {
@@ -610,11 +597,11 @@ function addKnowledge(i) {
            var log = "knowledge tile " + numbers[i] + " removed";
            document.getElementById("latest-points-span").innerHTML = log;
            latestPointsColor("red")
-           activityLog(log, "red");
+           activityLog(log,"red");
            pointSound.play();
         };
     };
-    window.scrollTo(0,0);
+    pop('k','flex');
 };
 
 function tradeDiceForWorkers() {
@@ -643,7 +630,7 @@ function pop(abbr, display, warehouse) {
             document.getElementById("pu-b").style.display = "none";
         };
     } else {
-        document.getElementById("pu-"+abbr).style.display = "";
+        document.getElementById("pu-"+abbr).style.display = "none";
         document.getElementById("main").style.display = "block";
         window.scrollTo(0,0);
     };
@@ -665,7 +652,7 @@ function pu_c() {
     document.getElementById("pu-cs").style.display = "block";
 };
 
-function masterLink(i) {
+function mmLink(i) {
     var links = [
         "./setup.html",
         "./reference.html",
@@ -673,47 +660,10 @@ function masterLink(i) {
     ];
     if (i == 3) {
         setPoints();
-    } else if (i == "PL") {
-        pop("pl","block");
     } else {
         window.open(links[i], "_blank");
     };
 };
-
-function buildingPop() {
-    if (document.getElementById("pu-b").style.display != "flex") {
-        document.getElementById("pu-b").style.display = "flex";
-        document.getElementById("main-tiles").style.display = "none";
-        document.getElementById("main").style.display = "none";
-        document.getElementById("pu-b").scrollIntoView();
-    } else {
-        document.getElementById("pu-b").style.display = "";
-        document.getElementById("main-tiles").style.display = "flex";
-        document.getElementById("main").style.display = "block";
-        window.scrollTo(0,0);
-    };
-};
-
-    function buildingActionPop(i) {
-        var actions = [
-            "<h1>Marketplace</h1>Take 1 ship or animal tile from any depot except black depot",
-            "<h1>Church</h1>Take 1 mine, castle, or knowledge tile from any depot except black depot",
-            "<h1>Carpenter Shop</h1>Take 1 building tile from any depot except black depot",
-            "<h1>City Hall</h1>Add any tile from your storage spaces to your estate",
-        ];
-        if (document.getElementById("pu-bm").style.display != "block") {
-            document.getElementById("pu-bm").style.display = "block";
-            document.getElementById("building-action-p").innerHTML = actions[i];
-            document.getElementById("pu-b").style.display = "";
-            document.getElementById("pu-bm").scrollIntoView();
-        } else {
-            document.getElementById("pu-bm").style.display = "";
-            document.getElementById("pu-b").style.display = "";
-            document.getElementById("main-tiles").style.display = "flex";
-            document.getElementById("main").style.display = "block";
-            window.scrollTo(0,0);
-        };
-    };
 
 function pu_bm(i, building, castle) {
     var actions = [
@@ -737,18 +687,159 @@ function pu_bm(i, building, castle) {
     };
 };
 
-function k1623Pop() {
-    if (_k1623Used === true) {
-        alert("These points have already been added");
+function pu_km(i, number) {
+    var actions = [
+        "more than 1 of each building type allowed per city",
+        "receive goods from 2 neighboring depots (not just 1) when ship placed",
+        "silverlings may be used to buy tiles from any depot, not just the black depot",
+        "if you place an animal tile when knowledge tile #7 is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type on the same pasture",
+        "worker tiles can adjust dice roll by up to +2 or -2",
+        "any dice result may be adjusted +1 or -1 to place a building",
+        "any dice result may be adjusted +1 or -1 to place a ship or animal tile",
+        "any dice result may be adjusted +1 or -1 to place a castle, knowledge tile, or mine",
+        "any dice result may be adjusted +1 or -1 to acquire any new tile",
+    ];
+    if (document.getElementById("pu-km").style.display != "block") {
+        document.getElementById("pu-km").style.display = "block";
+        document.getElementById("pu-km-h1").innerHTML = "Knowledge Tile " + number;
+        document.getElementById("pu-km-p").innerHTML = actions[i];
+        document.getElementById("pu-k").style.display = "none"
     } else {
-        if (document.getElementById("k1623-pop").style.display != "block") {
-            document.getElementById("k1623-pop").style.display = "block";
-            document.getElementById("k1623-pop").scrollIntoView();
+        document.getElementById("pu-km").style.display = "none";
+    };
+};
+
+function pu_pl() {
+    if (document.getElementById("pu-al").style.display != "block") {
+        document.getElementById("pu-al").style.display = "block";
+        document.getElementById("main").style.display = "none"
+        document.getElementById("pu-mm").style.display = "none"
+    } else {
+        document.getElementById("pu-al").style.display = "none";
+    };
+};
+
+function endOfGamePoints() {
+    document.getElementById("region-point-tap").style.display = "none";
+    document.getElementById("main-tiles").style.display = "none";
+    var gType = 0;
+    var eBuild = 0;
+    var aType = 0;
+    
+    if (_sold > 0 && _k["k15"] === true) {
+        var a = prompt("How many goods types sold?");
+        if (a === null) {
+            endOfGamePoints()
+        } else if (isNaN(a)) {
+            alert("Please enter a number");
         } else {
-            document.getElementById("k1623-pop").style.display = "";
-            window.scrollTo(0,0);
+            var gType = parseInt(a);
         };
     };
+        
+    if (_k["k1623"] === true) {
+        var b = prompt("How many eligible buildings for Knowledge Tiles 16-23?");
+        if (b === null) {
+            endOfGamePoints()
+        } else if (isNaN(b)) {
+            alert("Please enter a number");
+        } else {
+            var eBuild = parseInt(b);
+        };
+    };
+    
+    if (_k["k24"] === true) {
+        var c = prompt("How many animal types on estate?");
+        if (c === null) {
+            endOfGamePoints()
+        } else if (isNaN(c)) {
+            alert("Please enter a number");
+        } else {
+            var aType = parseInt(c);
+        };
+    };
+    
+    var soldPoints = 0;
+    var bonusPoints = 0;
+    var unsoldPoints = 0;
+    var silverPoints = 0;
+    var workerPoints = 0;
+    
+    
+    if (_sold > 0 && _k["k25"] === true ) {
+        soldPoints += _sold;
+    };
+    
+    if (_bonus > 0 && _k["k26"] === true ) {
+        bonusPoints += (_bonus * 2);
+    };
+    
+    if (_unsold > 0) {
+        unsoldPoints += _unsold;
+    };
+    
+    if (_mines > 0) {
+        _silver += _mines;
+        document.getElementById("silver-count").innerHTML = _silver;
+    };
+    
+    silverPoints += _silver;
+    
+    if (_mines > 0 && _k["k2"] === true) {
+        _workers += _mines;
+        document.getElementById("worker-count").innerHTML = _workers;
+    };
+    
+    if (_workers > 1) {
+        workerPoints += (Math.floor(_workers / 2));
+    }; 
+    
+    _pts += (gType * 3) + (eBuild * 4) + (aType * 4) + soldPoints + bonusPoints + unsoldPoints + silverPoints + workerPoints;
+    document.getElementById("total-points").innerHTML = _pts;
+    
+    if (unsoldPoints > 0) {
+        var unsoldLog = unsoldPoints + " points for " + _unsold + " unsold goods";
+        activityLog(unsoldLog,"blue");
+    };
+    
+    if (silverPoints > 0) {
+        var silverLog = silverPoints + " points for " + _silver + " unspent silverlings";
+        activityLog(silverLog,"blue");
+    };
+    
+    if (workerPoints > 0) {
+        var workerLog = workerPoints + " points for " + _workers + " unused workers";
+        activityLog(workerLog,"blue");
+    };
+    
+    if (gType > 0) {
+        var gTypeLog = (gType * 3) + " points for " + gType + " goods types sold";
+        activityLog(gTypeLog,"blue");
+    };
+    
+    if (eBuild > 0) {
+        var eBuildLog = (eBuild * 4) + " points for " + eBuild + " eligible buildings";
+        activityLog(eBuildLog,"blue");
+    };
+    
+    if (aType > 0) {
+        var aTypeLog = (aType * 4) + " points for " + aType + " animal types";
+        activityLog(aTypeLog,"blue");
+    };
+    
+    if (soldPoints > 0) {
+        var soldLog = soldPoints + " points for " + _sold + " sold goods";
+        activityLog(soldLog,"blue");
+    };
+    
+    if (bonusPoints > 0) {
+        var bonusLog = bonusPoints + " points for " + _bonus + " bonus tiles";
+        activityLog(bonusLog,"blue");
+    };
+    
+    pointSound.play();
+    latestPointsColor("blue");
+    document.getElementById("latest-points-span").innerHTML = "FINAL SCORE";
 };
 
 
