@@ -200,28 +200,38 @@ input[type="checkbox"] {
 #main-wrapper-div {
     max-width: 414px;
     text-align: center;
-    display: none;
 }
 
+#main {
+    display: none;
+}
 
 /******************************
 ******************************
     ALL POP-UPS
 ******************************
 ******************************/
+
+#pu-bs, #pu-wdr, #pu-ps, #pu-pos, #pu-cs, #pu-mm, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-a, #pu-k, #pu-pl, #pu-eb {
+    display: none;
+}
+
 .pu {
     max-width: 414px;
     padding-top: 20px;
     padding-bottom: 40px;
-    display: none;
 }
 
     .pu h1 {
         margin: 20px 0;
     }
 
-    #take-action-pop {
+#pu-bm {
         max-width: 350px;
+    }
+
+    #pu-bm p {
+        font-size: 35px;
     }
 
 .pu-flex-div {
@@ -511,14 +521,16 @@ input[type="checkbox"] {
         .point-quickadd-div div {
             margin: 5px !important;
         }
-    
-    .point-quickadd-div-pop {
+
+    #pu-b {
+        margin-bottom: 30px;
         display: none;
         flex-wrap: wrap;
         justify-content: space-around;
+        width: 355px;
     }
 
-        .point-quickadd-div-pop div {
+        #pu-b div {
             margin: 5px !important;
         }
 
@@ -734,7 +746,7 @@ input[type="checkbox"] {
         PLAY > POINT LOG
     ******************************/
 
-    #point-log {
+    #pu-pl {
         padding-top: 30px;
         background-color: rgba(255,255,255,0.5);
         margin-bottom: 40px;

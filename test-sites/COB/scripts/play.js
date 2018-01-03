@@ -76,8 +76,9 @@ var _k1623Used = false;
 ******************************/
 function setPlayers(x) {
     _pl = x;
+    latestPointsColor("blue");
     document.getElementById("latest-points-span").innerHTML = "Players: " + _pl;
-    playerOrderPop();
+    pu_pos();
 };
 
 function initializeWorkers(x) {
@@ -86,15 +87,15 @@ function initializeWorkers(x) {
     } else {
         _workers = x;
         document.getElementById("worker-count").innerHTML = _workers;
-        colorPop();
+        pu_c();
     };
 };
 
 function setColor(x) {
     var colors = ["black", "red", "green", "blue"];
     _color = colors[x];
-    document.getElementById("select-color-pop").style.display = "none";
-    document.getElementById("main-wrapper-div").style.display = "block";
+    document.getElementById("pu-cs").style.display = "none";
+    document.getElementById("main").style.display = "block";
 };
 
 function rollDice(color) {
@@ -167,8 +168,8 @@ function setRound() {
 
 function adjustPhase(x) {
     _adjPh = x;
-    document.getElementById("select-phase-pop").style.display = "none";
-    document.getElementById("select-round-pop").style.display = "block";
+    document.getElementById("pu-pe").style.display = "none";
+    document.getElementById("pu-re").style.display = "block";
 };
 
 function adjustRound(x) {
@@ -197,7 +198,7 @@ function adjustRound(x) {
     activityLog(log, "red");
     rollSound.play();
     randomDice(_color);
-    document.getElementById("select-round-pop").style.display = "none";
+    document.getElementById("pu-re").style.display = "none";
     window.scrollTo(0,0);
 };
 
@@ -222,7 +223,7 @@ function adjustWorkers(x, name, trade, type) {
     } else {
         if ((_workers + x) < 0 && x < 0) {
             alert("You don't have enough workers");
-            workerPop();
+            pop("w","block");
             return;
         } else {
             _workers += x;
@@ -232,7 +233,7 @@ function adjustWorkers(x, name, trade, type) {
     document.getElementById("worker-count").innerHTML = _workers;
     if (name == "used") {
         var log = Math.abs(added) + " workers used";
-        workerPop();
+        pop("w","block");
     } else {
         var log = added + " workers for " + name;
     };
@@ -240,7 +241,7 @@ function adjustWorkers(x, name, trade, type) {
     document.getElementById("latest-points-span").innerHTML = log;
     activityLog(log);
     if (type == "building") {
-        buildingPop();
+        pop("b","flex");
     };
     window.scrollTo(0,0);
 };
@@ -267,7 +268,7 @@ function setWorkers(x) {
         document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log, "red");
         pointSound.play();
-        workerPop();
+        pop("w","block");
         window.scrollTo(0,0);
     };
 };
@@ -338,12 +339,12 @@ function adjustSilver(x, i, type) {
             latestPointsColor("red");
             document.getElementById("latest-points-span").innerHTML = log;
             activityLog(log, "red");
-            document.getElementById("silver-pop").style.display = "none";
+            pop("si","block");
         };
     } else if (i == 1) {
         if ((_silver + x) < 0) {
             alert("You don't have enough silverlings");
-            silverPop();
+            pop("si","block");
             return;
         } else {
             _silver += x;
@@ -352,7 +353,7 @@ function adjustSilver(x, i, type) {
             latestPointsColor("black");
             document.getElementById("latest-points-span").innerHTML = log;
             activityLog(log);
-            document.getElementById("silver-pop").style.display = "none";
+            pop("si","block");
         };
     } else {
         _silver += x;
@@ -364,7 +365,7 @@ function adjustSilver(x, i, type) {
     };
     silverSound.play();
     if (type == "building") {
-        buildingPop();
+        pop("b","flex");
     };
     window.scrollTo(0,0);
 }
@@ -394,7 +395,7 @@ function setPoints() {
         document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log, "red");
         pointSound.play();
-        masterPop();
+        pop("mm","block");
         window.scrollTo(0,0);
     };
 };
@@ -420,8 +421,7 @@ function addGoods(x) {
     document.getElementById("latest-points-span").innerHTML = log;
     activityLog(log);
     pointSound.play();
-    document.getElementById("ship-pop").style.display = "none";
-    window.scrollTo(0,0);
+    pop("sh","block");
 };
 
 function sellGoods(x) {
@@ -446,8 +446,7 @@ function sellGoods(x) {
         latestPointsColor("black");
         document.getElementById("latest-points-span").innerHTML = log;
         activityLog(log);
-        document.getElementById("goods-pop").style.display = "none";
-        window.scrollTo(0,0);
+        pop("sg","block");
     };
 };
 
@@ -459,7 +458,7 @@ function animals(x) {
     document.getElementById("latest-points-span").innerHTML = log;
     activityLog(log);
     pointSound.play();
-    animalPop();
+    pop("a","block");
 };
 
 function tapPoints(x, name, type) {
@@ -471,7 +470,7 @@ function tapPoints(x, name, type) {
     activityLog(log);
     pointSound.play();
     if (type == "building") {
-        buildingPop();
+        pop("b","flex");
     };
     window.scrollTo(0,0);
 };
@@ -538,7 +537,7 @@ function activityLog(x, color, margin) {
     elementNode.style.fontWeight = "bold";
     var textNode = document.createTextNode(x);
     elementNode.appendChild(textNode);
-    document.getElementById("point-log").appendChild(elementNode);
+    document.getElementById("pu-pl").appendChild(elementNode);
 };
 
 function latestPointsColor(color) {
@@ -556,7 +555,7 @@ function endGameAdjust() {
     latestPointsColor("blue")
     document.getElementById("latest-points-span").innerHTML = "calculate end game points";
     document.getElementById("region-point-tap").style.display = "none";
-    document.getElementById("quickadd-1").style.display = "none";
+    document.getElementById("main-tiles").style.display = "none";
     document.getElementById("point-quickadd-div-end").style.display = "flex";
     pointSound.play();
     window.scrollTo(0,0);
@@ -629,150 +628,68 @@ function tradeDiceForWorkers() {
     };
 };
 
-function goodsType(i) {
-    if (i == 0) {
-        _a.blue = true;
-        document.getElementById("blue").style.display = "none";
-    } else if (i == 1) {
-        _a.brown = true
-        document.getElementById("brown").style.display = "none";
-    } else if (i == 2) {
-        _a.orange = true
-        document.getElementById("orange").style.display = "none";
-    } else if (i == 3) {
-        _a.pink = true
-        document.getElementById("pink").style.display = "none";
-    } else if (i == 4) {
-        _a.purple = true
-        document.getElementById("purple").style.display = "none";
-    } else if (i == 5) {
-        _a.red = true
-        document.getElementById("red").style.display = "none";
-    }
-    document.getElementById("goods-type-pop").style.display = "none";
-    _gType++;
-    console.log(_gType);
-    goodsPop();
-};
-
 
 /******************************
 ******************************
     POPS
 ******************************
 ******************************/
-function selectPlayersPop() {
-    window.scrollTo(0,0);
-    document.getElementById("select-players-pop").style.display = "block";
+function pop(abbr, display, warehouse) {
+   if (document.getElementById("pu-"+abbr).style.display != display) {
+        document.getElementById("pu-"+abbr).style.display = display;
+        document.getElementById("pu-"+abbr).scrollIntoView();
+        document.getElementById("main").style.display = "none";
+        if (warehouse) {
+            document.getElementById("pu-b").style.display = "none";
+        };
+    } else {
+        document.getElementById("pu-"+abbr).style.display = "";
+        document.getElementById("main").style.display = "block";
+        window.scrollTo(0,0);
+    };
 };
 
-function playerOrderPop() {
+function pu_ps() {
     window.scrollTo(0,0);
-    document.getElementById("select-players-pop").style.display = "none";
-    document.getElementById("player-order-pop").style.display = "block";
+    document.getElementById("pu-ps").style.display = "block";
+};
+
+function pu_pos() {
+    window.scrollTo(0,0);
+    document.getElementById("pu-ps").style.display = "none";
+    document.getElementById("pu-pos").style.display = "block";
 }
 
-function colorPop() {
-    document.getElementById("player-order-pop").style.display = "none";
-    document.getElementById("select-color-pop").style.display = "block";
+function pu_c() {
+    document.getElementById("pu-pos").style.display = "none";
+    document.getElementById("pu-cs").style.display = "block";
 };
 
-function masterPop() {
-   if (document.getElementById("master-pop").style.display != "block") {
-        document.getElementById("master-pop").style.display = "block";
-        document.getElementById("master-pop").scrollIntoView();
+function masterLink(i) {
+    var links = [
+        "./setup.html",
+        "./reference.html",
+        "./expansion.html",
+    ];
+    if (i == 3) {
+        setPoints();
+    } else if (i == "PL") {
+        pop("pl","block");
     } else {
-        document.getElementById("master-pop").style.display = "";
-        window.scrollTo(0,0);
-    }; 
-};
-
-    function masterLink(i) {
-        var links = [
-            "./setup.html",
-            "./reference.html",
-            "./expansion.html",
-        ];
-        if (i == 3) {
-            setPoints();
-        } else if (i == "PL") {
-            pointLogPop();
-        } else {
-            window.open(links[i], "_blank");
-        };
-    };
-
-function pointLogPop() {
-    if (document.getElementById("point-log").style.display != "block") {
-        masterPop();
-        document.getElementById("point-log").style.display = "block";
-        document.getElementById("point-log").scrollIntoView();
-    } else {
-        document.getElementById("point-log").style.display = "";
-        window.scrollTo(0,0);
-    };
-};
-
-function phasePop() {
-    if (document.getElementById("select-phase-pop").style.display != "block") {
-        document.getElementById("select-phase-pop").style.display = "block";
-        document.getElementById("select-phase-pop").scrollIntoView();
-    } else {
-        document.getElementById("select-phase-pop").style.display = "";
-        window.scrollTo(0,0);
-    };
-};
-
-function roundPop() {
-   if (document.getElementById("select-round-pop").style.display != "block") {
-        document.getElementById("select-round-pop").style.display = "block";
-        document.getElementById("select-round-pop").scrollIntoView();
-    } else {
-        document.getElementById("select-round-pop").style.display = "";
-        window.scrollTo(0,0);
-    }; 
-};
-
-function silverPop() {
-   if (document.getElementById("silver-pop").style.display != "block") {
-        document.getElementById("silver-pop").style.display = "block";
-        document.getElementById("silver-pop").scrollIntoView();
-    } else {
-        document.getElementById("silver-pop").style.display = "";
-        window.scrollTo(0,0);
-    }; 
-};
-
-function workerPop() {
-   if (document.getElementById("worker-pop").style.display != "block") {
-        document.getElementById("worker-pop").style.display = "block";
-        document.getElementById("worker-pop").scrollIntoView();
-    } else {
-        document.getElementById("worker-pop").style.display = "";
-        window.scrollTo(0,0);
-    }; 
-};
-
-function shipPop() {
-    if (document.getElementById("ship-pop").style.display != "block") {
-        document.getElementById("ship-pop").style.display = "block";
-        document.getElementById("ship-pop").scrollIntoView();
-    } else {
-        document.getElementById("ship-pop").style.display = "";
-        window.scrollTo(0,0);
+        window.open(links[i], "_blank");
     };
 };
 
 function buildingPop() {
-    if (document.getElementById("quickadd-building").style.display != "flex") {
-        document.getElementById("quickadd-building").style.display = "flex";
-        document.getElementById("quickadd-1").style.display = "none";
-        document.getElementById("hide-top").style.display = "none";
-        document.getElementById("quickadd-building").scrollIntoView();
+    if (document.getElementById("pu-b").style.display != "flex") {
+        document.getElementById("pu-b").style.display = "flex";
+        document.getElementById("main-tiles").style.display = "none";
+        document.getElementById("main").style.display = "none";
+        document.getElementById("pu-b").scrollIntoView();
     } else {
-        document.getElementById("quickadd-building").style.display = "";
-        document.getElementById("quickadd-1").style.display = "flex";
-        document.getElementById("hide-top").style.display = "block";
+        document.getElementById("pu-b").style.display = "";
+        document.getElementById("main-tiles").style.display = "flex";
+        document.getElementById("main").style.display = "block";
         window.scrollTo(0,0);
     };
 };
@@ -784,43 +701,21 @@ function buildingPop() {
             "<h1>Carpenter Shop</h1>Take 1 building tile from any depot except black depot",
             "<h1>City Hall</h1>Add any tile from your storage spaces to your estate",
         ];
-        if (document.getElementById("building-action-pop").style.display != "block") {
-            document.getElementById("building-action-pop").style.display = "block";
+        if (document.getElementById("pu-bm").style.display != "block") {
+            document.getElementById("pu-bm").style.display = "block";
             document.getElementById("building-action-p").innerHTML = actions[i];
-            document.getElementById("quickadd-building").style.display = "";
-            document.getElementById("building-action-pop").scrollIntoView();
+            document.getElementById("pu-b").style.display = "";
+            document.getElementById("pu-bm").scrollIntoView();
         } else {
-            document.getElementById("building-action-pop").style.display = "";
-            document.getElementById("quickadd-building").style.display = "";
-            document.getElementById("quickadd-1").style.display = "flex";
-            document.getElementById("hide-top").style.display = "block";
+            document.getElementById("pu-bm").style.display = "";
+            document.getElementById("pu-b").style.display = "";
+            document.getElementById("main-tiles").style.display = "flex";
+            document.getElementById("main").style.display = "block";
             window.scrollTo(0,0);
         };
     };
 
-function goodsPop() {
-    if (document.getElementById("goods-pop").style.display != "block") {
-        document.getElementById("goods-pop").style.display = "block";
-        document.getElementById("goods-pop").scrollIntoView();
-    } else {
-        document.getElementById("goods-pop").style.display = "";
-        window.scrollTo(0,0);
-    };
-};
-
-function animalPop() {
-    if (document.getElementById("animal-pop").style.display != "block") {
-        document.getElementById("animal-pop").style.display = "block";
-        document.getElementById("quickadd-1").style.display = "none";
-        document.getElementById("animal-pop").scrollIntoView();
-    } else {
-        document.getElementById("animal-pop").style.display = "";
-        document.getElementById("quickadd-1").style.display = "flex";
-        window.scrollTo(0,0);
-    };
-};
-
-function takeActionPop(i, type) {
+function pu_bm(i, building, castle) {
     var actions = [
         "Take 1 ship or animal tile from any depot except black depot",
         "Take 1 mine, castle, or knowledge tile from any depot except black depot",
@@ -828,17 +723,17 @@ function takeActionPop(i, type) {
         "Add any tile from your storage spaces to your estate",
         "Take any action you'd like as if you had a third dice with any number you choose"
     ];
-    if (document.getElementById("take-action-pop").style.display != "block") {
-        document.getElementById("take-action-pop").style.display = "block";
-        document.getElementById("take-action-p").innerHTML = actions[i];
-        document.getElementById("take-action-pop").scrollIntoView();
-    } else {
-        document.getElementById("take-action-pop").style.display = "";
-        if (type === "building") {
-            document.getElementById("quickadd-building").scrollIntoView();
+    if (document.getElementById("pu-bm").style.display != "block") {
+        document.getElementById("pu-bm").style.display = "block";
+        document.getElementById("pu-bm-h1").innerHTML = building;
+        document.getElementById("pu-bm-p").innerHTML = actions[i];
+        if (castle) {
+            document.getElementById("main").style.display = "none"
         } else {
-            window.scrollTo(0,0);
+            document.getElementById("pu-b").style.display = "none"
         };
+    } else {
+        document.getElementById("pu-bm").style.display = "none";
     };
 };
 
@@ -862,4 +757,4 @@ function k1623Pop() {
     ONLOAD
 ******************************
 ******************************/
-selectPlayersPop();
+pu_ps();
