@@ -226,11 +226,6 @@ function adjustWorkers(x, name, trade, type) {
     window.scrollTo(0,0);
 };
 
-function adjustWorkersNL(x) {
-    _workers += x;
-    document.getElementById("worker-count").innerHTML = _workers;
-}
-
 function setWorkers(x) {
     var x = prompt("Set workers to:");
     if (x === null) {
@@ -390,7 +385,7 @@ function regionPoints(x) {
     document.getElementById("latest-points-span").innerHTML = log;
     activityLog(log);
     pointSound.play();
-    window.scrollTo(0,0);
+    pop('cr','block');
 };
 
 function addGoods(x) {
@@ -417,7 +412,7 @@ function sellGoods(x) {
             adjustSilver(1,2);
         };
         if (_k.k4 === true) {
-            adjustWorkersNL(1);
+            adjustWorkers(1, "goods sale");
         };
         document.getElementById("unsold-span").innerHTML = _unsold;
         document.getElementById("sold-span").innerHTML = _sold;
@@ -473,39 +468,6 @@ function bonusTile(x) {
     window.scrollTo(0,0);
 };
 
-function quickEndGamePts(x, i) {
-    var factors = [x, x, Math.floor(x / 2), (x * 3), (x * 4), x, (x * 2)];
-    var labels = [
-        "unsold goods tiles",
-        "unspent silverlings",
-        "unused workers",
-        "goods types sold",
-        "animal types",
-        "goods sold",
-        "bonus tiles",
-    ];
-    _pts += factors[i];
-    document.getElementById("QE"+i).style.display = "none";
-    document.getElementById("total-points").innerHTML = _pts;
-    var log = factors[i] + " points for " + x + " " + labels[i];
-    latestPointsColor("blue")
-    document.getElementById("latest-points-span").innerHTML = log;
-    activityLog(log,"blue");
-    pointSound.play();
-};
-
-function k1623Points(x) {
-    _pts += (x * 4);
-    document.getElementById("total-points").innerHTML = _pts;
-    _k1623Used = true;
-    var log = (x * 4) + " points for eligible buildings"
-    latestPointsColor("blue")
-    document.getElementById("latest-points-span").innerHTML = log;
-    activityLog(log,"blue");
-    pointSound.play();
-    document.getElementById("k1623-pop").style.display = "none";
-};
-
 function activityLog(x, color, size, margin, type) {
     if (type) {
         var elementNode = document.createElement(type);
@@ -529,50 +491,6 @@ function activityLog(x, color, size, margin, type) {
 
 function latestPointsColor(color) {
     document.getElementById("latest-points-span").style.color = color;
-};
-
-function endGameAdjust() {
-    if (_mines > 0) {
-        adjustSilver(_mines,4);
-    };
-    if (_k.k2 === true) {
-        adjustWorkersNL(_mines, "mines")
-    };
-    disableEndTiles();
-    latestPointsColor("blue")
-    document.getElementById("latest-points-span").innerHTML = "calculate end game points";
-    document.getElementById("region-point-tap").style.display = "none";
-    document.getElementById("main-tiles").style.display = "none";
-    document.getElementById("point-quickadd-div-end").style.display = "flex";
-    pointSound.play();
-    window.scrollTo(0,0);
-};
-
-function disableEndTiles() {
-    if (_unsold == 0) {
-        document.getElementById("QE0").style.display = "none";
-    };
-    if (_silver == 0) {
-        document.getElementById("QE1").style.display = "none";
-    };
-    if (_workers < 2) {
-        document.getElementById("QE2").style.display = "none";
-    };
-    if (_k.k15 === false || _gType == 0) {
-        document.getElementById("QE3").style.display = "none";
-    };
-    if (_k.k1623 === false) {
-        document.getElementById("QE4").style.display = "none";
-    };
-    if (_k.k24 === false || _aType == 0) {
-        document.getElementById("QE5").style.display = "none";
-    };
-    if (_k.k25 === false || _sold == 0) {
-        document.getElementById("QE6").style.display = "none";
-    };
-    if (_k.k26 === false || _bonus == 0) {
-        document.getElementById("QE7").style.display = "none";
-    };
 };
 
 function addKnowledge(i) {
@@ -655,7 +573,6 @@ function pu_c() {
 function mmLink(i) {
     var links = [
         "./setup.html",
-        "./reference.html",
         "./expansion.html",
     ];
     if (i == 3) {
@@ -720,7 +637,7 @@ function pu_pl() {
 };
 
 function endOfGamePoints() {
-    document.getElementById("region-point-tap").style.display = "none";
+    document.getElementById("rolled-dice-flex-div").style.display = "none";
     document.getElementById("main-tiles").style.display = "none";
     var gType = 0;
     var eBuild = 0;

@@ -47,9 +47,8 @@
     <div id="pu-mm" class="pu">
         <div class="pu-flex-div">
             <div class="board-button" onclick="mmLink(0)">SETUP</div>
-            <div class="board-button" onclick="mmLink(1)">REFERENCE</div>
-            <div class="board-button" onclick="mmLink(2)">EXPANSION</div>
-            <div class="board-button" onclick="pu_pl()">POINT LOG</div>
+            <div class="board-button" onclick="mmLink(1)">EXPANSION</div>
+            <div class="board-button" onclick="pu_pl()">ACTIVITY</div>
             <div class="board-button" onclick="mmLink(3)">SET POINTS</div>
             <div class="board-button-skip" onclick="pop('mm','block')">CANCEL</div>
         </div>
@@ -131,6 +130,21 @@
             <div class="number-button" onclick="addGoods(9)">9</div>
             <div class="number-button" onclick="addGoods(10)">10</div>
             <div class="board-button-skip" onclick="pop('sh','block')">CANCEL</div>
+        </div>
+    </div>
+    
+    <div id="pu-cr" class="pu">
+        <h1>Region Size</h1>
+        <div class="pu-flex-div">
+            <div class="number-button" onclick="regionPoints(0)">1</div>
+            <div class="number-button" onclick="regionPoints(1)">2</div>
+            <div class="number-button" onclick="regionPoints(2)">3</div>
+            <div class="number-button" onclick="regionPoints(3)">4</div>
+            <div class="number-button" onclick="regionPoints(4)">5</div>
+            <div class="number-button" onclick="regionPoints(5)">6</div>
+            <div class="number-button" onclick="regionPoints(6)">7</div>
+            <div class="number-button" onclick="regionPoints(7)">8</div>
+            <div class="board-button-skip" onclick="pop('cr','block')">CANCEL</div>
         </div>
     </div>
        
@@ -221,7 +235,7 @@
         </div>
     </div>
     
-    <div class="rolled-dice-flex-div">
+    <div id="rolled-dice-flex-div">
         <div class="click-to-hide-div" onclick="hide(1)">
             <div id="roll-1-div" style="visibility: visible"></div>
         </div>
@@ -261,17 +275,6 @@
         </div>
     </div>
     
-    <div id="region-point-tap">
-        <div class="select-button-region" onclick="regionPoints(0)">1</div>
-        <div class="select-button-region" onclick="regionPoints(1)">2</div>
-        <div class="select-button-region" onclick="regionPoints(2)">3</div>
-        <div class="select-button-region" onclick="regionPoints(3)">4</div>
-        <div class="select-button-region" onclick="regionPoints(4)">5</div>
-        <div class="select-button-region" onclick="regionPoints(5)">6</div>
-        <div class="select-button-region" onclick="regionPoints(6)">7</div>
-        <div class="select-button-region" onclick="regionPoints(7)">8</div>
-    </div>
-    
     <div id="main-tiles" class="point-quickadd-div">
         <div id="sell-goods" class="tile-button" onclick="pop('sg','block')"></div>
         <div id="dice-trade" class="tile-button" onclick="adjustWorkers(2, 'dice trade', true)"></div>
@@ -283,6 +286,7 @@
         <div id="building" class="tile-button" onclick="pop('b','flex')"></div>
         <div id="animal" class="tile-button" onclick="pop('a','block')"></div>
         <div id="knowledge" class="tile-button" onclick="pop('k','flex')"></div>
+        <div id="region-points" class="region-button" onclick="pop('cr','block')">Complete Region</div>
     </div>
 
 </div>

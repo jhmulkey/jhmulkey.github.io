@@ -129,6 +129,18 @@ input[type="checkbox"] {
     color: white;
 }
 
+.region-button {
+    height: 167px;
+    width: 339px;
+    color: darkred;
+    font-weight: bold;
+    font-size: 50px;
+    padding-top: 18px;
+    background-color: rgba(255,255,255,0.5);
+    border: 2px solid black;
+    cursor: pointer;
+}
+
 .tile-button {
     height: 167px;
     width: 167px;
@@ -212,7 +224,7 @@ input[type="checkbox"] {
 ******************************
 ******************************/
 
-#pu-bgs, #pu-bs, #pu-wdr, #pu-ps, #pu-pos, #pu-cs, #pu-mm, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-eb {
+#pu-bgs, #pu-bs, #pu-wdr, #pu-ps, #pu-pos, #pu-cs, #pu-mm, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-eb, #pu-cr {
     display: none;
 }
 
@@ -360,7 +372,7 @@ input[type="checkbox"] {
     /******************************
         PLAY > ROLLED DICE FLEX DIV
     ******************************/
-    .rolled-dice-flex-div {
+    #rolled-dice-flex-div {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
@@ -492,21 +504,7 @@ input[type="checkbox"] {
         display: none;
     }
 
-    /******************************
-        PLAY > REGION POINTS
-    ******************************/
-    #region-point-tap {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        margin-bottom: 20px;
-        max-width: 340px;
-        margin: 0 auto 30px auto;
-    }
 
-    #region-point-tap div {
-        margin: 5px;
-    }
 
     /******************************
         PLAY > POINT QUICK-ADD
