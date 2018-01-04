@@ -22,6 +22,7 @@ function rollDice() {
     if (document.getElementById("dice-1").style.backgroundImage != "") {
         document.getElementById("dice-1").style.backgroundImage = "";
         document.getElementById("dice-2").style.backgroundImage = "";
+        scrollTo(0,0);
     } else {
         rollSound.play();
     document.getElementById("dice-1").style.backgroundImage = dice1;
