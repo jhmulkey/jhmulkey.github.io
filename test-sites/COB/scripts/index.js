@@ -16,10 +16,9 @@ var _boardsReset = [
     ["13a","13b","13c","13d","13e","13f","13g","13h"], [1,2,3,4,5,6,7,8,9,"10a","10b","10c","10d","10e","10f","10g","10h","13a","13b","13c","13d","13e","13f","13g","13h"]
 ];
 
-function setBoardIndex(x) {
-    _boardsIndex = x;
-    document.getElementById("pu-bgs").style.display = "none";
-    document.getElementById("pu-bs").style.display = "block";
+function setBoardIndex(i) {
+    _boardsIndex = i;
+    pop("bs","bgs");
 };
 
 function chooseBoards(_boardsIndex) {
@@ -29,9 +28,9 @@ function chooseBoards(_boardsIndex) {
         };
         chooseBoards(_boardsIndex);
     } else {
-        var x = Math.floor(Math.random() * (_boards[_boardsIndex].length));
-        document.getElementById("tap-to-select").innerHTML = _boards[_boardsIndex][x];
-        _boards[_boardsIndex].splice(x,1);
+        var i = Math.floor(Math.random() * (_boards[_boardsIndex].length));
+        document.getElementById("tap-to-select").innerHTML = _boards[_boardsIndex][i];
+        _boards[_boardsIndex].splice(i,1);
     };
 };
 
@@ -41,20 +40,18 @@ function rollWhiteDice() {
     document.getElementById("tap-to-roll").style.backgroundImage = "url(images/white-dice-" + x + ".png)";
 };
 
-function titleScreen() {
-    document.getElementById("pu-ts").style.display = "none";
-    document.getElementById("pu-bgs").style.display = "block";
-    document.getElementById("index-html").style.backgroundImage = "url(images/background.jpg)";
-}
-
-function whiteDicePop(x) {
-    if (x) {
-        document.getElementById("pu-bgs").style.display = "none";
-        document.getElementById("pu-wdr").style.display = "block";
-    } else {
-        document.getElementById("pu-bs").style.display = "none";
-        document.getElementById("pu-wdr").style.display = "block"; 
-    };  
+function pop(abbr,close) {
+    if (document.getElementById("pu-ts").style.display = "block") {
+        document.getElementById("pu-ts").style.display = "none";
+        document.getElementById("index-html").style.backgroundImage = "url(images/background.jpg)";
+    };
+    if (close) {
+        document.getElementById("pu-"+close).style.display = "none";
+    };
+    document.getElementById("pu-"+abbr).style.display = "block";
+    document.getElementById("pu-"+abbr).scrollIntoView();
 };
 
-setTimeout(titleScreen, 3000);
+setTimeout(function() {
+    pop("bgs");
+}, 3000);

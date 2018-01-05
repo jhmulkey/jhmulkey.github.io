@@ -21,14 +21,14 @@
             <div class="board-button" onclick="setBoardIndex(1)">Boards 10a-h</div>
             <div class="board-button" onclick="setBoardIndex(2)">Boards 13a-h</div>
             <div class="board-button" onclick="setBoardIndex(3)">All Boards</div>
-            <div class="board-button-skip" onclick="whiteDicePop(true)">Skip</div>
+            <div class="board-button-skip" onclick="pop('wdr','bgs')">Skip</div>
         </div>
     </div> 
     
     <div id="pu-bs" class="pu" onclick="chooseBoards(_boardsIndex)">
         <h1>Random Boards</h1>
         <div id="tap-to-select"></div>
-        <div class="board-button-skip" onclick="whiteDicePop()">Continue</div>
+        <div class="board-button-skip" onclick="pop('wdr','bs')">Continue</div>
     </div> 
     
     <div id="pu-wdr" class="pu" onclick="rollWhiteDice()">

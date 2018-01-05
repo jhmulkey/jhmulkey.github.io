@@ -56,7 +56,8 @@ function setPlayers(x) {
     _pl = x;
     latestPointsColor("blue");
     document.getElementById("latest-points-span").innerHTML = "Players: " + _pl;
-    pu_pos();
+    pop("ps","block");
+    pop("pos","block");
 };
 
 function initializeWorkers(x) {
@@ -65,14 +66,14 @@ function initializeWorkers(x) {
     } else {
         _workers = x;
         document.getElementById("worker-count").innerHTML = _workers;
-        pu_c();
+        pop("pos","block");
+        pop("cs","block");
     };
 };
 
-function setColor(x) {
-    var colors = ["black", "red", "green", "blue"];
-    _color = colors[x];
-    document.getElementById("pu-cs").style.display = "none";
+function setColor(color) {
+    _color = color;
+    pop("cs","block");
     document.getElementById("main").style.display = "block";
 };
 
@@ -549,24 +550,7 @@ function pop(abbr, display, warehouse) {
     } else {
         document.getElementById("pu-"+abbr).style.display = "none";
         document.getElementById("main").style.display = "block";
-        window.scrollTo(0,0);
     };
-};
-
-function pu_ps() {
-    window.scrollTo(0,0);
-    document.getElementById("pu-ps").style.display = "block";
-};
-
-function pu_pos() {
-    window.scrollTo(0,0);
-    document.getElementById("pu-ps").style.display = "none";
-    document.getElementById("pu-pos").style.display = "block";
-}
-
-function pu_c() {
-    document.getElementById("pu-pos").style.display = "none";
-    document.getElementById("pu-cs").style.display = "block";
 };
 
 function mmLink(i) {
@@ -773,4 +757,4 @@ function endOfGamePoints() {
     ONLOAD
 ******************************
 ******************************/
-pu_ps();
+pop("ps","block");
