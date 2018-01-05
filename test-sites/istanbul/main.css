@@ -20,10 +20,14 @@ div {
 
 #subtract {
     float: left;
+    position: relative;
+    top: 75px;
 }
 
 #add {
     float: right;
+    position: relative;
+    top: 75px;
 }
 
 table {
