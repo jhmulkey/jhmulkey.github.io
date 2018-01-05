@@ -54,8 +54,8 @@ var _k = {
 ******************************/
 function setPlayers(x) {
     _pl = x;
-    latestPointsColor("blue");
-    document.getElementById("latest-points-span").innerHTML = "Players: " + _pl;
+    var log = "Players: " + _pl;
+    latestActivity("blue",log);
     pop("ps","block");
     pop("pos","block");
 };
@@ -82,8 +82,7 @@ function rollDice(color) {
         rollSound.play();
         _rd++;
         randomDice(color);
-        setPhase();
-        setRound();
+        setPhaseRound();
         if (document.getElementById("bonus-checkbox").checked) {
             randomBonus();
         };
@@ -91,21 +90,13 @@ function rollDice(color) {
             adjustSilver(_mines,4);
         };
         if (_k.k2 === true && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
-            adjustWorkers(_mines, "mines");
+            adjustWorkers(_mines,"mines");
         };
     } else if (_rd >= 25) {
         if (window.confirm("Click OK to cacluate end of game points.")) {
-            document.getElementById("latest-points-span").innerHTML = "calculating end game points";
-            endOfGamePoints();
+            document.getElementById("latest-activity-span").innerHTML = "calculating end game points";
+            totalScore();
         };
-    };
-};
-
-function randomBonus() {
-    var b = Math.floor(Math.random() * 20);
-    if (b == 9) {
-        bonusSound.play();
-        window.open("bonus.html");
     };
 };
 
@@ -121,9 +112,18 @@ function randomDice(color) {
     document.getElementById("roll-1-div").style.backgroundImage = dice1;
     document.getElementById("roll-2-div").style.backgroundImage = dice2;
     document.getElementById("roll-3-div").style.backgroundImage = dice3;
+    document.getElementById("dice-1").innerHTML = x;
+    document.getElementById("dice-2").innerHTML = y;
+    if (document.getElementById("roll-3-div").style.visibility == "visible") {
+        var log = "rolled " + x + " and " + y + " (white: " + z + ")"
+    } else {
+        var log = "rolled " + x + " and " + y
+    }
+    latestActivity("black",log);
+    activityLog(log);
 };
 
-function setPhase() {
+function setPhaseRound() {
     if (_rd == 1) {
         document.getElementById("phase-span").innerHTML = "A"
         activityLog("Phase A","black","25px","20px","h1");
@@ -140,16 +140,12 @@ function setPhase() {
         document.getElementById("phase-span").innerHTML = "E"; _ph = 4;
         activityLog("Phase E","black","25px","20px","h1");
     };
-};
-
-function setRound() {
     document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
 };
 
 function adjustPhase(x) {
     _adjPh = x;
-    document.getElementById("pu-pe").style.display = "none";
-    document.getElementById("pu-re").style.display = "block";
+    pop("re","block","pe");
 };
 
 function adjustRound(x) {
@@ -174,15 +170,22 @@ function adjustRound(x) {
     activityLog("Phase " + _adjPh,"black","25px","20px","h1");
     console.log("hello");
     var log = "round adjusted to Phase " + _adjPh + " Round " + x;
-    latestPointsColor("red");
-    document.getElementById("latest-points-span").innerHTML = log;
+    latestActivity("red",log);
     activityLog(log,"red");
     rollSound.play();
     randomDice(_color);
     pop('re','block');
 };
 
-function adjustWorkers(x, name, trade, type) {
+function randomBonus() {
+    var b = Math.floor(Math.random() * 20);
+    if (b == 9) {
+        bonusSound.play();
+        window.open("bonus.html");
+    };
+};
+
+function adjustWorkers(x,name,trade,type) {
     var added = x;
     if (trade) {
         if (_k.k13 === true && _k.k14 === false) {
@@ -217,8 +220,7 @@ function adjustWorkers(x, name, trade, type) {
     } else {
         var log = added + " workers for " + name;
     };
-    latestPointsColor("black");
-    document.getElementById("latest-points-span").innerHTML = log;
+    latestActivity("black",log);
     activityLog(log);
     if (type == "building") {
         pop("b","flex");
@@ -226,7 +228,7 @@ function adjustWorkers(x, name, trade, type) {
     window.scrollTo(0,0);
 };
 
-function setWorkers(x) {
+function setWorkers() {
     var x = prompt("Set workers to:");
     if (x === null) {
         return;
@@ -235,60 +237,44 @@ function setWorkers(x) {
     };
     if (isNaN(y)) {
         alert("Please enter a number");
+        setWorkers();
     } else {
         _workers = y;
         document.getElementById("worker-count").innerHTML = _workers;
         var log = "workers set to " + y;
-        latestPointsColor("red");
-        document.getElementById("latest-points-span").innerHTML = log;
-        activityLog(log, "red");
+        latestActivity("red",log);
+        activityLog(log,"red");
         pointSound.play();
         pop("w","block");
         window.scrollTo(0,0);
     };
 };
 
-function adjustMines(i) {
-    if (i == 0) {
-        if (_mines == 3) {
-            alert("no more than 3 mines may be added to estate")
-        } else {
-            _mines += 1;
-            document.getElementById("mine-span").innerHTML = _mines;
-            var log = "1 mine added to estate"
-            latestPointsColor("black");
-            document.getElementById("latest-points-span").innerHTML = log;
-            activityLog(log);
-            pointSound.play();
-            window.scrollTo(0,0);
-        };
-    } else if (i == 1) {
-        var x = prompt("Set mines to:");
-        if (x === null) {
-            return;
-        } else {
-            var y = parseInt(x);
-        };
-        if (isNaN(y)) {
-            alert("Please enter a number");
-        } else if (y > 3) {
-            alert("no more than 3 mines may be added to estate");
-        } else if (y < 0) {
-            alert("mines cannot be less than 0");
-        } else {
-            _mines = y;
-            document.getElementById("mine-span").innerHTML = _mines;
-            var log = "mines set to " + y;
-            latestPointsColor("red");
-            document.getElementById("latest-points-span").innerHTML = log;
-            activityLog(log,"red");
-            pointSound.play();
-            window.scrollTo(0,0);
-        };
-    };  
+function setMines(x) {
+    _mines = x;
+    document.getElementById("mine-span").innerHTML = _mines;
+    var log = "mines set to " + x;
+    latestActivity("red",log);
+    activityLog(log,"red");
+    pointSound.play();
+    pop('ms','block');
 };
 
-function adjustSilver(x, i, type) {
+function addMines() {
+    if (_mines == 3) {
+        alert("no more than 3 mines may be added to estate")
+    } else {
+        _mines += 1;
+        document.getElementById("mine-span").innerHTML = _mines;
+        var log = "1 mine added to estate";
+        latestActivity("black",log);
+        activityLog(log);
+        pointSound.play();
+        window.scrollTo(0,0);
+    };
+};
+
+function adjustSilver(x,i,type) {
     var sources = [
         "adjustment",
         "spent",
@@ -311,8 +297,7 @@ function adjustSilver(x, i, type) {
             _silver = z;
             document.getElementById("silver-count").innerHTML = _silver;
             var log = "silverlings set to " + z;
-            latestPointsColor("red");
-            document.getElementById("latest-points-span").innerHTML = log;
+            latestActivity("red",log);
             activityLog(log,"red");
             pop("si","block");
         };
@@ -325,8 +310,7 @@ function adjustSilver(x, i, type) {
             _silver += x;
             document.getElementById("silver-count").innerHTML = _silver;
             var log = Math.abs(x) + " silverlings " + sources[i];
-            latestPointsColor("black");
-            document.getElementById("latest-points-span").innerHTML = log;
+            latestActivity("black",log);
             activityLog(log);
             pop("si","block");
         };
@@ -334,8 +318,7 @@ function adjustSilver(x, i, type) {
         _silver += x;
         document.getElementById("silver-count").innerHTML = _silver;
         var log = x + " silverlings " + sources[i];
-        latestPointsColor("black");
-        document.getElementById("latest-points-span").innerHTML = log;
+        latestActivity("black",log);
         activityLog(log);
     };
     silverSound.play();
@@ -362,12 +345,12 @@ function setPoints() {
     };
     if (isNaN(y)) {
         alert("Please enter a number");
+        setPoints();
     } else {
         _pts = y;
         document.getElementById("total-points").innerHTML = _pts;
         var log = "points set to " + y;
-        latestPointsColor("red");
-        document.getElementById("latest-points-span").innerHTML = log;
+        latestActivity("red",log);
         activityLog(log,"red");
         pointSound.play();
         pop("mm","block");
@@ -381,8 +364,7 @@ function regionPoints(x) {
     _pts += added;
     document.getElementById("total-points").innerHTML = _pts;
     var log = added + " points for region size " + (x + 1) + " in Phase " + document.getElementById("phase-span").innerHTML;
-    latestPointsColor("black");
-    document.getElementById("latest-points-span").innerHTML = log;
+    latestActivity("black",log);
     activityLog(log);
     pointSound.play();
     pop('cr','block');
@@ -392,8 +374,7 @@ function addGoods(x) {
     _unsold += x;
     document.getElementById("unsold-span").innerHTML = _unsold;
     var log = x + " goods acquired"
-    latestPointsColor("black");
-    document.getElementById("latest-points-span").innerHTML = log;
+    latestActivity("black",log);
     activityLog(log);
     pointSound.play();
     pop("sh","block");
@@ -418,8 +399,7 @@ function sellGoods(x) {
         document.getElementById("sold-span").innerHTML = _sold;
         document.getElementById("total-points").innerHTML = _pts;
         var log = (x * _pl) + " points for sale of " + x + " goods";
-        latestPointsColor("black");
-        document.getElementById("latest-points-span").innerHTML = log;
+        latestActivity("black",log);
         activityLog(log);
         pop("sg","block");
     };
@@ -429,19 +409,17 @@ function animals(x) {
     _pts += x;
     document.getElementById("total-points").innerHTML = _pts;
     var log = x + " points for animals";
-    latestPointsColor("black");
-    document.getElementById("latest-points-span").innerHTML = log;
+    latestActivity("black",log);
     activityLog(log);
     pointSound.play();
     pop("a","block");
 };
 
-function tapPoints(x, name, type) {
+function tapPoints(x,name,type) {
     _pts += x;
     document.getElementById("total-points").innerHTML = _pts;
     var log = x + " points for " + name;
-    latestPointsColor("black");
-    document.getElementById("latest-points-span").innerHTML = log;
+    latestActivity("black",log);
     activityLog(log);
     pointSound.play();
     if (type == "building") {
@@ -461,36 +439,36 @@ function bonusTile(x) {
     _bonus++;
     document.getElementById("total-points").innerHTML = _pts;
     var log = added + " points for " + x + " bonus tile";
-    latestPointsColor("black");
-    document.getElementById("latest-points-span").innerHTML = log;
+    latestActivity("black",log);
     activityLog(log);
     pointSound.play();
     window.scrollTo(0,0);
 };
 
-function activityLog(x, color, size, margin, type) {
-    if (type) {
-        var elementNode = document.createElement(type);
+function activityLog(log,color,size,marginTop,element) {
+    if (element) {
+        var elementNode = document.createElement(element);
     } else {
         var elementNode = document.createElement("p");
     }
     if (color) {
         elementNode.style.color = color;
     };
-    if (margin) {
-        elementNode.style.marginTop = margin;
+    if (marginTop) {
+        elementNode.style.marginTop = marginTop;
     };
     if (size) {
         elementNode.style.fontSize = size;
     }
     elementNode.style.fontWeight = "bold";
-    var textNode = document.createTextNode(x);
+    var textNode = document.createTextNode(log);
     elementNode.appendChild(textNode);
     document.getElementById("pu-al").appendChild(elementNode);
 };
 
-function latestPointsColor(color) {
-    document.getElementById("latest-points-span").style.color = color;
+function latestActivity(color,log) {
+    document.getElementById("latest-activity-span").style.color = color;
+    document.getElementById("latest-activity-span").innerHTML = log;
 };
 
 function addKnowledge(i) {
@@ -502,8 +480,7 @@ function addKnowledge(i) {
         document.getElementById("k" + numbers[i]).style.borderStyle = "dashed";
         document.getElementById("k" + numbers[i]).style.borderWidth = "5px";
         var log = "knowledge tile " + numbers[i] + " added";
-        document.getElementById("latest-points-span").innerHTML = log;
-        latestPointsColor("black")
+        latestActivity("black",log);
         activityLog(log);
         pointSound.play();
     } else {
@@ -513,8 +490,7 @@ function addKnowledge(i) {
            document.getElementById("k" + numbers[i]).style.borderStyle = "solid";
            document.getElementById("k" + numbers[i]).style.borderWidth = "2px";
            var log = "knowledge tile " + numbers[i] + " removed";
-           document.getElementById("latest-points-span").innerHTML = log;
-           latestPointsColor("red")
+           latestActivity("red",log);
            activityLog(log,"red");
            pointSound.play();
         };
@@ -533,107 +509,29 @@ function tradeDiceForWorkers() {
     };
 };
 
-
-/******************************
-******************************
-    POPS
-******************************
-******************************/
-function pop(abbr, display, warehouse) {
-   if (document.getElementById("pu-"+abbr).style.display != display) {
-        document.getElementById("pu-"+abbr).style.display = display;
-        document.getElementById("pu-"+abbr).scrollIntoView();
-        document.getElementById("main").style.display = "none";
-        if (warehouse) {
-            document.getElementById("pu-b").style.display = "none";
-        };
-    } else {
-        document.getElementById("pu-"+abbr).style.display = "none";
-        document.getElementById("main").style.display = "block";
-    };
-};
-
-function mmLink(i) {
-    var links = [
-        "./setup.html",
-        "./expansion.html",
-    ];
-    if (i == 3) {
-        setPoints();
-    } else {
-        window.open(links[i], "_blank");
-    };
-};
-
-function pu_bm(i, building, castle) {
-    var actions = [
-        "Take 1 ship or animal tile from any depot except black depot",
-        "Take 1 mine, castle, or knowledge tile from any depot except black depot",
-        "Take 1 building tile from any depot except black depot",
-        "Add any tile from your storage spaces to your estate",
-        "Take any action you'd like as if you had a third dice with any number you choose"
-    ];
-    if (document.getElementById("pu-bm").style.display != "block") {
-        document.getElementById("pu-bm").style.display = "block";
-        document.getElementById("pu-bm-h1").innerHTML = building;
-        document.getElementById("pu-bm-p").innerHTML = actions[i];
-        if (castle) {
-            document.getElementById("main").style.display = "none"
-        } else {
-            document.getElementById("pu-b").style.display = "none"
-        };
-    } else {
-        document.getElementById("pu-bm").style.display = "none";
-    };
-};
-
-function pu_km(i, number) {
-    var actions = [
-        "more than 1 of each building type allowed per city",
-        "receive goods from 2 neighboring depots (not just 1) when ship placed",
-        "silverlings may be used to buy tiles from any depot, not just the black depot",
-        "if you place an animal tile when knowledge tile #7 is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type on the same pasture",
-        "worker tiles can adjust dice roll by up to +2 or -2",
-        "any dice result may be adjusted +1 or -1 to place a building",
-        "any dice result may be adjusted +1 or -1 to place a ship or animal tile",
-        "any dice result may be adjusted +1 or -1 to place a castle, knowledge tile, or mine",
-        "any dice result may be adjusted +1 or -1 to acquire any new tile",
-    ];
-    if (document.getElementById("pu-km").style.display != "block") {
-        document.getElementById("pu-km").style.display = "block";
-        document.getElementById("pu-km-h1").innerHTML = "Knowledge Tile " + number;
-        document.getElementById("pu-km-p").innerHTML = actions[i];
-        document.getElementById("pu-k").style.display = "none"
-    } else {
-        document.getElementById("pu-km").style.display = "none";
-    };
-};
-
-function pu_al() {
-    if (document.getElementById("pu-al").style.display != "block") {
-        document.getElementById("pu-al").style.display = "block";
-        document.getElementById("main").style.display = "none"
-        document.getElementById("pu-mm").style.display = "none"
-    } else {
-        document.getElementById("pu-al").style.display = "none";
-    };
-};
-
-function endOfGamePoints() {
+function totalScore() {
+    
     document.getElementById("rolled-dice-flex-div").style.display = "none";
     document.getElementById("main-tiles").style.display = "none";
+    
     var gType = 0;
     var eBuild = 0;
     var aType = 0;
     
+    var soldPoints = 0;
+    var bonusPoints = 0;
+    var unsoldPoints = 0;
+    var silverPoints = 0;
+    var workerPoints = 0;
+    
     if (_sold > 0 && _k["k15"] === true) {
         var a = prompt("How many goods types sold?");
         if (a === null) {
-            endOfGamePoints();
+            totalScore();
             return;
         } else if (isNaN(a)) {
             alert("Please enter a number");
-            endOfGamePoints();
+            totalScore();
             return;
         } else {
             var gType = parseInt(a);
@@ -643,11 +541,11 @@ function endOfGamePoints() {
     if (_k["k1623"] === true) {
         var b = prompt("How many eligible buildings for Knowledge Tiles 16-23?");
         if (b === null) {
-            endOfGamePoints();
+            totalScore();
             return;
         } else if (isNaN(b)) {
             alert("Please enter a number");
-            endOfGamePoints();
+            totalScore();
             return;
         } else {
             var eBuild = parseInt(b);
@@ -657,23 +555,16 @@ function endOfGamePoints() {
     if (_k["k24"] === true) {
         var c = prompt("How many animal types on estate?");
         if (c === null) {
-            endOfGamePoints();
+            totalScore();
             return;
         } else if (isNaN(c)) {
             alert("Please enter a number");
-            endOfGamePoints();
+            totalScore();
             return;
         } else {
             var aType = parseInt(c);
         };
     };
-    
-    var soldPoints = 0;
-    var bonusPoints = 0;
-    var unsoldPoints = 0;
-    var silverPoints = 0;
-    var workerPoints = 0;
-    
     
     if (_sold > 0 && _k["k25"] === true ) {
         soldPoints += _sold;
@@ -747,10 +638,73 @@ function endOfGamePoints() {
     };
     
     pointSound.play();
-    latestPointsColor("blue");
-    document.getElementById("latest-points-span").innerHTML = "FINAL SCORE";
+    latestActivity("blue","FINAL SCORE");
 };
 
+
+/******************************
+******************************
+    POPS
+******************************
+******************************/
+function pop(open,display,close) {
+   if (document.getElementById("pu-"+open).style.display != display) {
+        document.getElementById("pu-"+open).style.display = display;
+        document.getElementById("pu-"+open).scrollIntoView();
+        document.getElementById("main").style.display = "none";
+    } else {
+        document.getElementById("pu-"+open).style.display = "none";
+        document.getElementById("main").style.display = "block";
+    };
+    if (close) {
+        document.getElementById("pu-"+close).style.display = "none";
+    }
+    scrollTo(0,0);
+};
+
+function pu_bm(i,building,castle) {
+    var actions = [
+        "Take 1 ship or animal tile from any depot except black depot",
+        "Take 1 mine, castle, or knowledge tile from any depot except black depot",
+        "Take 1 building tile from any depot except black depot",
+        "Add any tile from your storage spaces to your estate",
+        "Take any action you'd like as if you had a third dice with any number you choose"
+    ];
+    if (document.getElementById("pu-bm").style.display != "block") {
+        document.getElementById("pu-bm").style.display = "block";
+        document.getElementById("pu-bm-h1").innerHTML = building;
+        document.getElementById("pu-bm-p").innerHTML = actions[i];
+        if (castle) {
+            document.getElementById("main").style.display = "none"
+        } else {
+            document.getElementById("pu-b").style.display = "none"
+        };
+    } else {
+        document.getElementById("pu-bm").style.display = "none";
+    };
+};
+
+function pu_km(i,number) {
+    var actions = [
+        "more than 1 of each building type allowed per city",
+        "receive goods from 2 neighboring depots (not just 1) when ship placed",
+        "silverlings may be used to buy tiles from any depot, not just the black depot",
+        "if you place an animal tile when knowledge tile #7 is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type on the same pasture",
+        "worker tiles can adjust dice roll by up to +2 or -2",
+        "any dice result may be adjusted +1 or -1 to place a building",
+        "any dice result may be adjusted +1 or -1 to place a ship or animal tile",
+        "any dice result may be adjusted +1 or -1 to place a castle, knowledge tile, or mine",
+        "any dice result may be adjusted +1 or -1 to acquire any new tile",
+    ];
+    if (document.getElementById("pu-km").style.display != "block") {
+        document.getElementById("pu-km").style.display = "block";
+        document.getElementById("pu-km-h1").innerHTML = "Knowledge Tile " + number;
+        document.getElementById("pu-km-p").innerHTML = actions[i];
+        document.getElementById("pu-k").style.display = "none"
+    } else {
+        document.getElementById("pu-km").style.display = "none";
+    };
+};
 
 /******************************
 ******************************

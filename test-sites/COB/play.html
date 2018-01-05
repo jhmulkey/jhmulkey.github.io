@@ -46,11 +46,24 @@
     
     <div id="pu-mm" class="pu">
         <div class="pu-flex-div">
-            <div class="board-button" onclick="mmLink(0)">SETUP</div>
-            <div class="board-button" onclick="mmLink(1)">EXPANSION</div>
-            <div class="board-button" onclick="pu_al()">ACTIVITY</div>
-            <div class="board-button" onclick="mmLink(3)">SET POINTS</div>
+            <a href="setup.html" target="_blank">
+                <div class="board-button">SETUP</div></a>
+            <a href="expansion.html" target="_blank">
+                <div class="board-button">EXPANSION</div></a>
+            <div class="board-button" onclick="pop('al','block','mm')">ACTIVITY</div>
+            <div class="board-button" onclick="setPoints()">SET POINTS</div>
             <div class="board-button-skip" onclick="pop('mm','block')">CANCEL</div>
+        </div>
+    </div> 
+    
+    <div id="pu-ms" class="pu">
+        <h1>Set Mines</h1>
+        <div class="pu-flex-div">
+            <div class="number-button" onclick="setMines(0)">0</div>
+            <div class="number-button" onclick="setMines(1)">1</div>
+            <div class="number-button" onclick="setMines(2)">2</div>
+            <div class="number-button" onclick="setMines(3)">3</div>
+            <div class="board-button-skip" onclick="pop('ms','block')">CANCEL</div>
         </div>
     </div> 
     
@@ -173,7 +186,7 @@
        
     <div id="pu-b">
         <div id="watchtower" class="tile-button" onclick="tapPoints(4,'watchtower','building')"></div>
-        <div id="warehouse" class="tile-button" onclick="pop('sg','block',true)"></div>
+        <div id="warehouse" class="tile-button" onclick="pop('sg','block','b')"></div>
         <div id="boardhouse" class="tile-button" onclick="adjustWorkers(4,'boarding house',false,'building')"></div>
         <div id="bank" class="tile-button" onclick="adjustSilver(2,3,'building')"></div>
         <div id="market" class="tile-button" onclick="pu_bm(0,'Market')"></div>
@@ -211,7 +224,6 @@
         <div id="k25" class="tile-button" onclick="addKnowledge(8)"></div>
         <div id="k26" class="tile-button" onclick="addKnowledge(9)"></div>
         <div class="board-button-skip" onclick="pop('k','flex')">CANCEL</div>
-        
     </div>
     
 <div id="main">
@@ -220,7 +232,7 @@
             <p class="check-here-p">1st</p>
             <input type="checkbox" onclick="hide(3)"/>
         </div>
-        <div onclick="adjustMines(1)">
+        <div onclick="pop('ms','block')">
             <p class="mus-p">M: <span id="mine-span">0</span></p>
         </div>
         <div>
@@ -237,18 +249,20 @@
     
     <div id="rolled-dice-flex-div">
         <div class="click-to-hide-div" onclick="hide(1)">
+            <span id="dice-1"></span>
             <div id="roll-1-div" style="visibility: visible"></div>
         </div>
         <div class="click-to-roll-div" onclick="rollDice(_color)">
             <div id="roll-3-div" style="visibility: hidden"></div>
         </div>
         <div class="click-to-hide-div" onclick="hide(2)">
+            <span id="dice-2"></span>
             <div id="roll-2-div"></div>
         </div>
     </div>
     
-    <div class="latest-points-div">
-        <span id="latest-points-span"></span>
+    <div class="latest-activity-div">
+        <span id="latest-activity-span"></span>
     </div>
         
     <div class="phase-points-round-flex-div">
@@ -281,7 +295,7 @@
         <div id="large-bonus" class="tile-button" onclick="bonusTile('large')"></div>
         <div id="small-bonus" class="tile-button-no-border" onclick="bonusTile('small')"></div>
         <div id="ship" class="tile-button" onclick="pop('sh','block')"></div>
-        <div id="mine" class="tile-button" onclick="adjustMines(0)"></div>
+        <div id="mine" class="tile-button" onclick="addMines()"></div>
         <div id="castle" class="tile-button" onclick="pu_bm(4,'Castle',true)"></div>
         <div id="building" class="tile-button" onclick="pop('b','flex')"></div>
         <div id="animal" class="tile-button" onclick="pop('a','block')"></div>

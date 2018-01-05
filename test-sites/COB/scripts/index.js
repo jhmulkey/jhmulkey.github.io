@@ -40,7 +40,7 @@ function rollWhiteDice() {
     document.getElementById("tap-to-roll").style.backgroundImage = "url(images/white-dice-" + x + ".png)";
 };
 
-function pop(abbr,close) {
+function pop(open,close) {
     if (document.getElementById("pu-ts").style.display = "block") {
         document.getElementById("pu-ts").style.display = "none";
         document.getElementById("index-html").style.backgroundImage = "url(images/background.jpg)";
@@ -48,8 +48,8 @@ function pop(abbr,close) {
     if (close) {
         document.getElementById("pu-"+close).style.display = "none";
     };
-    document.getElementById("pu-"+abbr).style.display = "block";
-    document.getElementById("pu-"+abbr).scrollIntoView();
+    document.getElementById("pu-"+open).style.display = "block";
+    document.getElementById("pu-"+open).scrollIntoView();
 };
 
 setTimeout(function() {

@@ -224,7 +224,7 @@ input[type="checkbox"] {
 ******************************
 ******************************/
 
-#pu-bgs, #pu-bs, #pu-wdr, #pu-ps, #pu-pos, #pu-cs, #pu-mm, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-eb, #pu-cr {
+#pu-bgs, #pu-bs, #pu-wdr, #pu-ps, #pu-pos, #pu-cs, #pu-mm, #pu-ms, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-eb, #pu-cr {
     display: none;
 }
 
@@ -345,7 +345,7 @@ input[type="checkbox"] {
     }
 
     /******************************
-        PLAY > ROLL BUTTON FLEX DIV
+        PLAY > UPPER FLEX DIV
     ******************************/
     .upper-flex-div {
         display: flex;
@@ -381,9 +381,20 @@ input[type="checkbox"] {
     }
 
     .click-to-hide-div {
+        height: 100px;
+        width: 100px;
         margin: 10px;
         outline: 1px dashed gray;
         cursor: pointer;
+    }
+
+    #dice-1, #dice-2 {
+        position: relative;
+        float: left;
+        left: 27.5px;
+        font-size: 80px;
+        color: gray;
+        z-index: -1;
     }
 
     .click-to-roll-div {
@@ -407,11 +418,11 @@ input[type="checkbox"] {
     /******************************
         PLAY > LATEST POINTS
     ******************************/
-    .latest-points-div {
+    .latest-activity-div {
         height: 20px;
     }
 
-    #latest-points-span {
+    #latest-activity-span {
         font-weight: bold;
     }
 
