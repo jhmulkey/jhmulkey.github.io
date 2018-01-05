@@ -26,7 +26,6 @@ var _rd = 0;
 var _ph = 0;
 var _pts = 0;
 var _color;
-var _endIndex;
 var _adjPh;
 var _mines = 0;
 var _silver = 1; 
@@ -626,7 +625,7 @@ function pu_km(i, number) {
     };
 };
 
-function pu_pl() {
+function pu_al() {
     if (document.getElementById("pu-al").style.display != "block") {
         document.getElementById("pu-al").style.display = "block";
         document.getElementById("main").style.display = "none"
@@ -646,9 +645,12 @@ function endOfGamePoints() {
     if (_sold > 0 && _k["k15"] === true) {
         var a = prompt("How many goods types sold?");
         if (a === null) {
-            endOfGamePoints()
+            endOfGamePoints();
+            return;
         } else if (isNaN(a)) {
             alert("Please enter a number");
+            endOfGamePoints();
+            return;
         } else {
             var gType = parseInt(a);
         };
@@ -657,9 +659,12 @@ function endOfGamePoints() {
     if (_k["k1623"] === true) {
         var b = prompt("How many eligible buildings for Knowledge Tiles 16-23?");
         if (b === null) {
-            endOfGamePoints()
+            endOfGamePoints();
+            return;
         } else if (isNaN(b)) {
             alert("Please enter a number");
+            endOfGamePoints();
+            return;
         } else {
             var eBuild = parseInt(b);
         };
@@ -668,9 +673,12 @@ function endOfGamePoints() {
     if (_k["k24"] === true) {
         var c = prompt("How many animal types on estate?");
         if (c === null) {
-            endOfGamePoints()
+            endOfGamePoints();
+            return;
         } else if (isNaN(c)) {
             alert("Please enter a number");
+            endOfGamePoints();
+            return;
         } else {
             var aType = parseInt(c);
         };
