@@ -1,8 +1,3 @@
-/******************************
-******************************
-    AUDIO
-******************************
-******************************/
 var rollSound = new Audio();
 rollSound.src = "./audio/roll-sound.mp3";
 
@@ -15,12 +10,6 @@ silverSound.src = "./audio/silver-sound.mp3";
 var bonusSound = new Audio();
 bonusSound.src = "./audio/bonus-sound.mp3";
 
-
-/******************************
-******************************
-    GLOBALS
-******************************
-******************************/
 var _pl = 0;
 var _rd = 0;
 var _ph = 0;
@@ -47,11 +36,6 @@ var _k = {
     k26: false
 };
 
-/******************************
-******************************
-    PRIMARY FUNCTIONS
-******************************
-******************************/
 function setPlayers(x) {
     _pl = x;
     var log = "Players: " + _pl;
@@ -618,12 +602,6 @@ function totalScore() {
     latestActivity("blue","FINAL SCORE");
 };
 
-
-/******************************
-******************************
-    POPS
-******************************
-******************************/
 function pop(open,display,close) {
    if (document.getElementById("pu-"+open).style.display != display) {
         document.getElementById("pu-"+open).style.display = display;
@@ -683,9 +661,4 @@ function pu_km(i,number) {
     };
 };
 
-/******************************
-******************************
-    ONLOAD
-******************************
-******************************/
 pop("ps","block");
