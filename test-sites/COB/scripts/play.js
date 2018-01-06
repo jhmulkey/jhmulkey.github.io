@@ -50,7 +50,7 @@ function setColor(color) {
     document.getElementById("main").style.display = "block";
 };
 
-function rollDice(color) {
+function rollDice() {
     _rd++;
     if (_rd < 25) {
         if (document.getElementById("bonus-checkbox").checked) {
@@ -64,7 +64,7 @@ function rollDice(color) {
         };
         setPhaseRound();
         rollSound.play();
-        randomDice(color);
+        randomDice();
     } else if (_rd >= 25) {
         if (window.confirm("Click OK to cacluate end of game points.")) {
             document.getElementById("latest-activity-span").innerHTML = "calculating end game points";
@@ -73,12 +73,12 @@ function rollDice(color) {
     };
 };
 
-function randomDice(color) {
+function randomDice() {
     var x = Math.floor(Math.random() * 6) + 1;
     var y = Math.floor(Math.random() * 6) + 1;
     var z = Math.floor(Math.random() * 6) + 1;
-    var dice1 = "url(images/" + color + "-dice-" + x + ".png)";
-    var dice2 = "url(images/" + color + "-dice-" + y + ".png)";
+    var dice1 = "url(images/" + _color + "-dice-" + x + ".png)";
+    var dice2 = "url(images/" + _color + "-dice-" + y + ".png)";
     var dice3 = "url(images/white-dice-" + z + ".png)";
     document.getElementById("roll-1-div").style.visibility = "visible";
     document.getElementById("roll-2-div").style.visibility = "visible";
