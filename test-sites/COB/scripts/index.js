@@ -2,7 +2,6 @@ var rollSound = new Audio();
 rollSound.src = "./audio/roll-sound.mp3";
 
 var _boardsIndex = 0;
-var _randomIndex = 0;
 
 var _boards = [
     [1,2,3,4,5,6,7,8,9],
@@ -21,7 +20,7 @@ function setBoardIndex(i) {
     pop("bs","bgs");
 };
 
-function chooseBoards(_boardsIndex) {
+function chooseBoards() {
     if (_boards[_boardsIndex].length == 0) {
         for (i = 0; i < _boardsReset[_boardsIndex].length; i++) {
             _boards[_boardsIndex].push(_boardsReset[_boardsIndex][i]);
