@@ -186,7 +186,7 @@
     </div>
        
     <div id="pu-b">
-        <div id="watchtower" class="tile-button" onclick="tapPoints(4,'watchtower','building')"></div>
+        <div id="watchtower" class="tile-button" onclick="tapPoints(4,'watchtower')"></div>
         <div id="warehouse" class="tile-button" onclick="pop('sg','block','b')"></div>
         <div id="boardhouse" class="tile-button" onclick="addWorkers(4,'boarding house')"></div>
         <div id="bank" class="tile-button" onclick="addSilver(2,'bank')"></div>
@@ -194,7 +194,7 @@
         <div id="church" class="tile-button" onclick="pu_bm(1,'Church')"></div>
         <div id="carpenter" class="tile-button" onclick="pu_bm(2,'Carpenter Shop')"></div>
         <div id="city-hall" class="tile-button" onclick="pu_bm(3,'City Hall')"></div>
-        <div id="monastaries" class="tile-button" onclick="tapPoints(5,'monastaries','building')"></div>
+        <div id="monastaries" class="tile-button" onclick="tapPoints(5,'monastaries')"></div>
         <div class="board-button-skip" onclick="pop('b','flex')">CANCEL</div>
     </div>
     
@@ -291,17 +291,22 @@
     </div>
     
     <div id="main-tiles" class="point-quickadd-div">
-        <div id="sell-goods" class="tile-button" onclick="pop('sg','block')"></div>
+       
+        <div id="building" class="tile-button" onclick="pop('b','flex')"></div>
+        <div id="knowledge" class="tile-button" onclick="pop('k','flex')"></div>
+        <div id="animal" class="tile-button" onclick="pop('a','block')"></div>
         <div id="dice-trade" class="tile-button" onclick="addWorkers(2,'dice trade')"></div>
+        <div id="ship" class="tile-button" onclick="pop('sh','block')"></div>
+        <div id="sell-goods" class="tile-button" onclick="pop('sg','block')"></div>
         <div id="large-bonus" class="tile-button" onclick="bonusTile(_pl + 3,'large')"></div>
         <div id="small-bonus" class="tile-button-no-border" onclick="bonusTile(_pl,'small')"></div>
-        <div id="ship" class="tile-button" onclick="pop('sh','block')"></div>
         <div id="mine" class="tile-button" onclick="addMines()"></div>
         <div id="castle" class="tile-button" onclick="pu_bm(4,'Castle',true)"></div>
-        <div id="building" class="tile-button" onclick="pop('b','flex')"></div>
-        <div id="animal" class="tile-button" onclick="pop('a','block')"></div>
-        <div id="knowledge" class="tile-button" onclick="pop('k','flex')"></div>
+        
+        
+        
         <div id="region-points" class="region-button" onclick="pop('cr','block')">Complete Region</div>
+        <div class="board-button-skip" onclick="undo()">UNDO</div>
     </div>
 
 </div>

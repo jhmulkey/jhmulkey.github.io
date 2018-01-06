@@ -22,6 +22,81 @@ var _workers;
 var _unsold = 3;
 var _sold = 0;
 var _bonus = 0;
+var _undoFunc;
+var _undoDesc;
+var _undoPts;
+var _undoLimit = true;
+
+function undo() {
+    
+    if (_undoLimit === true) {
+        alert("Cannot undo any more actions");
+        return;
+    };
+    
+    _undoLimit = true;
+    
+    if (_undoFunc == "spend silver") {
+        _silver -= _undoPts;
+        document.getElementById("silver-count").innerHTML = _silver;
+        var log = "reversed spending of " + Math.abs(_undoPts) + " silverlings"
+    };
+    
+    if (_undoFunc == "use workers") {
+        _workers -= _undoPts;
+        document.getElementById("worker-count").innerHTML = _workers;
+        var log = "reversed use of " + Math.abs(_undoPts) + " workers"
+    };
+    
+    if (_undoFunc == "add workers") {
+        _workers -= _undoPts;
+        document.getElementById("worker-count").innerHTML = _workers;
+        var log = "reversed " + _undoPts + " workers for " + _undoDesc
+    };
+    
+    if (_undoFunc == "tap points") {
+        _pts -= _undoPts;
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = "reversed " + _undoPts + " points for " + _undoDesc;
+    };
+    
+    if (_undoFunc == "region points") {
+        _pts -= _undoPts;
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = "reversed " + _undoPts + " points for region size " + _undoDesc;
+    };
+    
+    if (_undoFunc == "add goods") {
+        _unsold -= _undoPts;
+        document.getElementById("unsold-span").innerHTML = _unsold;
+        var log = "reversed acquisition of " + _undoPts + " goods";
+    };
+    
+    if (_undoFunc == "bonus") {
+        _pts -= _undoPts;
+        _bonus--;
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = "reversed " + _undoPts + " points for " + _undoDesc + " bonus tile";
+    };
+    
+    if (_undoFunc == "mines") {
+        _mines--;
+        document.getElementById("mine-span").innerHTML = _mines;
+        var log = "reversed addition of 1 mine";
+    };
+    
+    if (_undoFunc == "animals") {
+        _pts -= _undoPts;
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = "reversed " + _undoPts + " points for animals";
+    };
+    
+    latestActivity("red",log);
+    activityLog(log, "red");
+    pointSound.play();
+    window.scrollTo(0,0);
+};
+
 
 var _k = {
     k2: false,
@@ -52,6 +127,7 @@ function setColor(color) {
 
 function rollDice() {
     if (_rd < 25) {
+        _undoLimit = false;
         _rd++;
         setPhaseRound();
         rollSound.play();
@@ -180,22 +256,22 @@ function setPoints() {
     };
 };
 
-function tapPoints(x,name,type) {
+function tapPoints(x,name) {
+    _undoFunc = "tap points"; _undoDesc = name; _undoPts = x; _undoLimit = false;
     _pts += x;
     document.getElementById("total-points").innerHTML = _pts;
     var log = x + " points for " + name;
     latestActivity("black",log);
     activityLog(log);
     pointSound.play();
-    if (type == "building") {
-        pop("b","flex");
-    };
+    pop("b","flex");
     window.scrollTo(0,0);
 };
 
 function regionPoints(x) {
     var points = [11, 13, 16, 20, 25, 31, 38, 46];
-    var added = points[x] - (_ph * 2); 
+    var added = points[x] - (_ph * 2);
+    _undoFunc = "region points"; _undoDesc = x + 1; _undoPts = added; _undoLimit = false;
     _pts += added;
     document.getElementById("total-points").innerHTML = _pts;
     var log = added + " points for region size " + (x + 1) + " in Phase " + document.getElementById("phase-span").innerHTML;
@@ -238,12 +314,10 @@ function setWorkers() {
     };
 };
 
-function addWorkers(x,name) {
-    var total = x;
-    
+function addWorkers(x,name) {    
     if (_k.k14 === true && name == "dice trade") {
-        total = (x * 2)
-        _workers += total;
+        x = x * 2
+        _workers += x;
     } else {
         _workers += x;
     };
@@ -252,8 +326,10 @@ function addWorkers(x,name) {
         addSilver(1,"dice trade");
     };
     
+    _undoFunc = "add workers"; _undoDesc = name; _undoPts = x; _undoLimit = false;
+    
     document.getElementById("worker-count").innerHTML = _workers;
-    var log = total + " workers for " + name;
+    var log = x + " workers for " + name;
     latestActivity("black",log);
     activityLog(log);
     pointSound.play();
@@ -270,6 +346,7 @@ function useWorkers(x) {
     } else {
         _workers += x;
     };
+    _undoFunc = "use workers"; _undoPts = x; _undoLimit = false;
     document.getElementById("worker-count").innerHTML = _workers;
     var log = Math.abs(x) + " workers used";
     latestActivity("black",log);
@@ -302,6 +379,7 @@ function setSilver() {
 };
 
 function addSilver(x,name) {
+    _undoFunc = "add silver"; _undoDesc = name; _undoPts = x; _undoLimit = false;
     _silver += x;
     document.getElementById("silver-count").innerHTML = _silver;
     var log = x + " silverlings for " + name;
@@ -321,6 +399,7 @@ function spendSilver(x) {
     } else {
         _silver += x;
     };
+    _undoFunc = "spend silver"; _undoPts = x; _undoLimit = false;
     document.getElementById("silver-count").innerHTML = _silver;
     var log = Math.abs(x) + " silverlings spent";
     latestActivity("black",log);
@@ -341,6 +420,8 @@ function setMines(x) {
 };
 
 function addMines() {
+    _undoFunc = "mines"; _undoLimit = false;
+    
     if (_mines == 3) {
         alert("no more than 3 mines may be added to estate")
     } else {
@@ -355,6 +436,7 @@ function addMines() {
 };
 
 function addGoods(x) {
+    _undoFunc = "add goods"; _undoPts = x; _undoLimit = false;
     _unsold += x;
     document.getElementById("unsold-span").innerHTML = _unsold;
     var log = x + " goods acquired"
@@ -391,6 +473,7 @@ function sellGoods(x) {
 };
 
 function animals(x) {
+    _undoFunc = "animals"; _undoPts = x; _undoLimit = false;
     _pts += x;
     document.getElementById("total-points").innerHTML = _pts;
     var log = x + " points for animals";
@@ -401,6 +484,7 @@ function animals(x) {
 };
 
 function bonusTile(x,size) {
+    _undoFunc = "bonus"; _undoDesc = size; _undoPts = x; _undoLimit = false;
     _pts += x;
     _bonus++;
     document.getElementById("total-points").innerHTML = _pts;
