@@ -51,8 +51,11 @@ function setColor(color) {
 };
 
 function rollDice() {
-    _rd++;
     if (_rd < 25) {
+        _rd++;
+        setPhaseRound();
+        rollSound.play();
+        randomDice();
         if (document.getElementById("bonus-checkbox").checked) {
             randomBonus();
         };
@@ -62,9 +65,7 @@ function rollDice() {
         if (_k.k2 === true && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
             addWorkers(_mines,"mines");
         };
-        setPhaseRound();
-        rollSound.play();
-        randomDice();
+        
     } else if (_rd >= 25) {
         if (window.confirm("Click OK to cacluate end of game points.")) {
             document.getElementById("latest-activity-span").innerHTML = "calculating end game points";
