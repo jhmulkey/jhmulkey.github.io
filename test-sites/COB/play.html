@@ -46,12 +46,12 @@
     
     <div id="pu-mm" class="pu">
         <div class="pu-flex-div">
+            <div class="board-button" onclick="pop('al','block','mm')">ACTIVITY</div>
+            <div class="board-button" onclick="setPoints()">SET POINTS</div>
             <a href="setup.html" target="_blank">
                 <div class="board-button">SETUP</div></a>
             <a href="expansion.html" target="_blank">
                 <div class="board-button">EXPANSION</div></a>
-            <div class="board-button" onclick="pop('al','block','mm')">ACTIVITY</div>
-            <div class="board-button" onclick="setPoints()">SET POINTS</div>
             <div class="board-button-skip" onclick="pop('mm','block')">CANCEL</div>
         </div>
     </div> 
@@ -94,9 +94,9 @@
     <div id="pu-si" class="pu">
         <h1>Silverlings</h1>
         <div class="pu-flex-div">
-            <div id="spend-1" class="number-button" onclick="adjustSilver(-1,1)">1</div>
-            <div class="number-button" onclick="adjustSilver(-2,1)">2</div>
-            <div class="board-button" onclick="adjustSilver(0,0)">SET</div>
+            <div id="spend-1" class="number-button" onclick="spendSilver(-1)">1</div>
+            <div class="number-button" onclick="spendSilver(-2)">2</div>
+            <div class="board-button" onclick="setSilver()">SET</div>
             <div class="board-button-skip" onclick="pop('si','block')">CANCEL</div>
         </div>
     </div> 
@@ -104,9 +104,9 @@
     <div id="pu-w" class="pu">
         <h1>Workers</h1>
         <div class="pu-flex-div">
-            <div class="number-button" onclick="adjustWorkers(-1, 'used')">1</div>
-            <div class="number-button" onclick="adjustWorkers(-2, 'used')">2</div>
-            <div class="number-button" onclick="adjustWorkers(-3, 'used')">3</div>
+            <div class="number-button" onclick="useWorkers(-1)">1</div>
+            <div class="number-button" onclick="useWorkers(-2)">2</div>
+            <div class="number-button" onclick="useWorkers(-3)">3</div>
             <div class="board-button" onclick="setWorkers()">SET</div>
             <div class="board-button-skip" onclick="pop('w','block')">CANCEL</div>
         </div>
@@ -187,8 +187,8 @@
     <div id="pu-b">
         <div id="watchtower" class="tile-button" onclick="tapPoints(4,'watchtower','building')"></div>
         <div id="warehouse" class="tile-button" onclick="pop('sg','block','b')"></div>
-        <div id="boardhouse" class="tile-button" onclick="adjustWorkers(4,'boarding house',false,'building')"></div>
-        <div id="bank" class="tile-button" onclick="adjustSilver(2,3,'building')"></div>
+        <div id="boardhouse" class="tile-button" onclick="addWorkers(4,'boarding house')"></div>
+        <div id="bank" class="tile-button" onclick="addSilver(2,'bank')"></div>
         <div id="market" class="tile-button" onclick="pu_bm(0,'Market')"></div>
         <div id="church" class="tile-button" onclick="pu_bm(1,'Church')"></div>
         <div id="carpenter" class="tile-button" onclick="pu_bm(2,'Carpenter Shop')"></div>
@@ -291,9 +291,9 @@
     
     <div id="main-tiles" class="point-quickadd-div">
         <div id="sell-goods" class="tile-button" onclick="pop('sg','block')"></div>
-        <div id="dice-trade" class="tile-button" onclick="adjustWorkers(2, 'dice trade', true)"></div>
-        <div id="large-bonus" class="tile-button" onclick="bonusTile('large')"></div>
-        <div id="small-bonus" class="tile-button-no-border" onclick="bonusTile('small')"></div>
+        <div id="dice-trade" class="tile-button" onclick="addWorkers(2,'dice trade')"></div>
+        <div id="large-bonus" class="tile-button" onclick="bonusTile(_pl + 3,'large')"></div>
+        <div id="small-bonus" class="tile-button-no-border" onclick="bonusTile(_pl,'small')"></div>
         <div id="ship" class="tile-button" onclick="pop('sh','block')"></div>
         <div id="mine" class="tile-button" onclick="addMines()"></div>
         <div id="castle" class="tile-button" onclick="pu_bm(4,'Castle',true)"></div>
