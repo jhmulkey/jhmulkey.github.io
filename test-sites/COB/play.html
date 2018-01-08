@@ -41,19 +41,20 @@
     </div> 
        
     <div id="pu-al">
-        <div class="board-button-skip" onclick="pop('al','block')">CANCEL</div>
+        <div class="board-button-skip" onclick="pop('al','block')">back</div>
         <h1 id="pu-al-h1">Activity Log</h1>
     </div>
     
     <div id="pu-mm" class="pu">
         <div class="pu-flex-div">
-            <div class="board-button" onclick="pop('al','block','mm','epl')">ACTIVITY</div>
-            <div class="board-button" onclick="setPoints()">SET POINTS</div>
+            <div class="board-button" onclick="pop('al','block','mm')">Activity</div>
+            <div class="board-button" onclick="setPoints()">Set Points</div>
+            <div class="board-button" onclick="pop('ms','block','mm')">Set Mines</div>
             <a href="setup.html" target="_blank">
-                <div class="board-button">SETUP</div></a>
+                <div class="board-button">Setup</div></a>
             <a href="expansion.html" target="_blank">
-                <div class="board-button">EXPANSION</div></a>
-            <div class="board-button-skip" onclick="pop('mm','block')">CANCEL</div>
+                <div class="board-button">Expansion</div></a>
+            <div class="board-button-skip" onclick="pop('mm','block')">back</div>
         </div>
     </div> 
     
@@ -64,7 +65,7 @@
             <div class="number-button" onclick="setMines(1)">1</div>
             <div class="number-button" onclick="setMines(2)">2</div>
             <div class="number-button" onclick="setMines(3)">3</div>
-            <div class="board-button-skip" onclick="pop('ms','block')">CANCEL</div>
+            <div class="board-button-skip" onclick="pop('ms','block')">back</div>
         </div>
     </div> 
     
@@ -76,7 +77,7 @@
             <div class="number-button" onclick="adjustPhase('C')">C</div>
             <div class="number-button" onclick="adjustPhase('D')">D</div>
             <div class="number-button" onclick="adjustPhase('E')">E</div>
-            <div class="board-button-skip" onclick="pop('pe','block')">CANCEL</div>
+            <div class="board-button-skip" onclick="pop('pe','block')">back</div>
         </div>
     </div>   
         
@@ -88,7 +89,7 @@
             <div class="number-button" onclick="adjustRound(3)">3</div>
             <div class="number-button" onclick="adjustRound(4)">4</div>
             <div class="number-button" onclick="adjustRound(5)">5</div>
-            <div class="board-button-skip" onclick="pop('re','block')">CANCEL</div>
+            <div class="board-button-skip" onclick="pop('re','block')">back</div>
         </div>
     </div>  
        
@@ -98,7 +99,7 @@
             <div id="spend-1" class="number-button" onclick="spendSilver(-1)">1</div>
             <div class="number-button" onclick="spendSilver(-2)">2</div>
             <div class="board-button" onclick="setSilver()">SET</div>
-            <div class="board-button-skip" onclick="pop('si','block')">CANCEL</div>
+            <div class="board-button-skip" onclick="pop('si','block')">back</div>
         </div>
     </div> 
        
@@ -109,13 +110,14 @@
             <div class="number-button" onclick="useWorkers(-2)">2</div>
             <div class="number-button" onclick="useWorkers(-3)">3</div>
             <div class="board-button" onclick="setWorkers()">SET</div>
-            <div class="board-button-skip" onclick="pop('w','block')">CANCEL</div>
+            <div class="board-button-skip" onclick="pop('w','block')">back</div>
         </div>
     </div> 
     
     <div id="pu-sg" class="pu">
         <h1>Goods Sold</h1>
         <div class="pu-flex-div">
+            <div class="board-button-skip top-skip" onclick="pop('sg','block')">back</div>
             <div class="number-button" onclick="sellGoods(1)">1</div>
             <div class="number-button" onclick="sellGoods(2)">2</div>
             <div class="number-button" onclick="sellGoods(3)">3</div>
@@ -126,13 +128,14 @@
             <div class="number-button" onclick="sellGoods(8)">8</div>
             <div class="number-button" onclick="sellGoods(9)">9</div>
             <div class="number-button" onclick="sellGoods(10)">10</div>
-            <div class="board-button-skip" onclick="pop('sg','block')">CANCEL</div>
+            <div class="board-button-skip" onclick="pop('sg','block')">back</div>
         </div>
     </div>
         
     <div id="pu-sh" class="pu">
         <h1>Goods Acquired</h1>
         <div class="pu-flex-div">
+            <div class="board-button-skip top-skip" onclick="pop('sh','block')">back</div>
             <div class="number-button" onclick="addGoods(1)">1</div>
             <div class="number-button" onclick="addGoods(2)">2</div>
             <div class="number-button" onclick="addGoods(3)">3</div>
@@ -143,13 +146,14 @@
             <div class="number-button" onclick="addGoods(8)">8</div>
             <div class="number-button" onclick="addGoods(9)">9</div>
             <div class="number-button" onclick="addGoods(10)">10</div>
-            <div class="board-button-skip" onclick="pop('sh','block')">CANCEL</div>
+            <div class="board-button-skip" onclick="pop('sh','block')">back</div>
         </div>
     </div>
     
     <div id="pu-cr" class="pu">
         <h1>Region Size</h1>
         <div class="pu-flex-div">
+            <div class="board-button-skip top-skip" onclick="pop('cr','block')">back</div>
             <div class="number-button" onclick="regionPoints(0)">1</div>
             <div class="number-button" onclick="regionPoints(1)">2</div>
             <div class="number-button" onclick="regionPoints(2)">3</div>
@@ -158,13 +162,14 @@
             <div class="number-button" onclick="regionPoints(5)">6</div>
             <div class="number-button" onclick="regionPoints(6)">7</div>
             <div class="number-button" onclick="regionPoints(7)">8</div>
-            <div class="board-button-skip" onclick="pop('cr','block')">CANCEL</div>
+            <div class="board-button-skip" onclick="pop('cr','block')">back</div>
         </div>
     </div>
        
     <div id="pu-a" class="pu">
         <h1>Animal Points</h1>
         <div class="pu-flex-div">
+            <div class="board-button-skip top-skip" onclick="pop('a','block')">back</div>
             <div class="number-button" onclick="animals(1)">1</div>
             <div class="number-button" onclick="animals(2)">2</div>
             <div class="number-button" onclick="animals(3)">3</div>
@@ -175,7 +180,7 @@
             <div class="number-button" onclick="animals(8)">8</div>
             <div class="number-button" onclick="animals(9)">9</div>
             <div class="number-button" onclick="animals(10)">10</div>
-            <div class="board-button-skip" onclick="pop('a','block')">CANCEL</div>
+            <div class="board-button-skip" onclick="pop('a','block')">back</div>
         </div>
     </div>    
         
@@ -186,6 +191,7 @@
     </div>
        
     <div id="pu-b">
+        <div class="board-button-skip top-skip" onclick="pop('b','flex')">back</div>
         <div id="watchtower" class="tile-button" onclick="tapPoints(4,'watchtower')"></div>
         <div id="warehouse" class="tile-button" onclick="pop('sg','block','b')"></div>
         <div id="boardhouse" class="tile-button" onclick="addWorkers(4,'boarding house')"></div>
@@ -194,17 +200,20 @@
         <div id="church" class="tile-button" onclick="pu_bm(1,'Church')"></div>
         <div id="carpenter" class="tile-button" onclick="pu_bm(2,'Carpenter Shop')"></div>
         <div id="city-hall" class="tile-button" onclick="pu_bm(3,'City Hall')"></div>
-        <div id="monastaries" class="tile-button" onclick="tapPoints(5,'monastaries')"></div>
-        <div class="board-button-skip" onclick="pop('b','flex')">CANCEL</div>
+        <div id="park" class="tile-button" onclick="pu_bm(5,'Park')"></div>
+        <div id="pleasure-garden" class="tile-button" onclick="pu_bm(6,'Pleasure Garden')"></div>
+        <div id="monastaries" class="tile-button" onclick="tapPoints(5,'connecting monastaries')"></div>
+        <div class="board-button-skip" onclick="pop('b','flex')">back</div>
     </div>
     
     <div id="pu-km" class="pu">
-        <h1 id="pu-km-h1"></h1>
+        <div id="pu-km-tile" class="tile-button"></div>
         <p id="pu-km-p"></p>
         <div class="board-button-skip" onclick="pop('km','block')">OK</div>
     </div>
     
     <div id="pu-k">
+        <div class="board-button-skip top-skip" onclick="pop('k','flex')">back</div>
         <div id="k1" class="tile-button" onclick="pu_km(0,'1')"></div>
         <div id="k2" class="tile-button" onclick="addKnowledge(0)"></div>
         <div id="k3" class="tile-button" onclick="addKnowledge(1)"></div>
@@ -220,21 +229,21 @@
         <div id="k13" class="tile-button" onclick="addKnowledge(3)"></div>
         <div id="k14" class="tile-button" onclick="addKnowledge(4)"></div>
         <div id="k15" class="tile-button" onclick="addKnowledge(5)"></div>
-        <div id="k1623" class="tile-button" onclick="addKnowledge(6)"></div>
+        <div id="k16-23" class="tile-button" onclick="addKnowledge(6)"></div>
         <div id="k24" class="tile-button" onclick="addKnowledge(7)"></div>
         <div id="k25" class="tile-button" onclick="addKnowledge(8)"></div>
         <div id="k26" class="tile-button" onclick="addKnowledge(9)"></div>
-        <div class="board-button-skip" onclick="pop('k','flex')">CANCEL</div>
+        <div id="ke2a" class="tile-button" onclick="pu_km(9,'e2a')"></div>
+        <div id="ke2b" class="tile-button" onclick="pu_km(10,'e2b')"></div>
+        <div id="ke5" class="tile-button" onclick="addKnowledge(10)"></div>
+        <div class="board-button-skip" onclick="pop('k','flex')">back</div>
     </div>
     
 <div id="main">
     <div class="upper-flex-div">
         <div>
-            <p class="check-here-p">1st</p>
+            <p class="checkbox-p">1st</p>
             <input type="checkbox" onclick="hide(3)"/>
-        </div>
-        <div onclick="pop('ms','block')">
-            <p class="mus-p">M: <span id="mine-span">0</span></p>
         </div>
         <div>
             <p class="mus-p">U: <span id="unsold-span">3</span></p>
@@ -243,8 +252,8 @@
             <p class="mus-p">S: <span id="sold-span">0</span></p>
         </div>
         <div>
-            <p class="check-here-p">Bonus</p>
-            <input id="bonus-checkbox" type="checkbox"/>
+            <p class="checkbox-p">Mini</p>
+            <input id="mini-checkbox" type="checkbox" onclick="mini()"/>
         </div>
     </div>
     
@@ -291,18 +300,19 @@
     </div>
     
     <div id="main-tiles" class="point-quickadd-div">
-       <div id="region-points" class="region-button" onclick="pop('cr','block')">Region</div>
+        <div id="region-points" class="tile-button" onclick="pop('cr','block')"></div>
         <div id="building" class="tile-button" onclick="pop('b','flex')"></div>
         <div id="knowledge" class="tile-button" onclick="pop('k','flex')"></div>
         <div id="animal" class="tile-button" onclick="pop('a','block')"></div>
-        <div id="dice-trade" class="tile-button" onclick="addWorkers(2,'dice trade')"></div>
         <div id="ship" class="tile-button" onclick="pop('sh','block')"></div>
         <div id="sell-goods" class="tile-button" onclick="pop('sg','block')"></div>
         <div id="large-bonus" class="tile-button" onclick="bonusTile(_pl + 3,'large')"></div>
         <div id="small-bonus" class="tile-button-no-border" onclick="bonusTile(_pl,'small')"></div>
         <div id="mine" class="tile-button" onclick="addMines()"></div>
+        <div id="dice-trade" class="tile-button" onclick="addWorkers(2,'dice trade')"></div>
         <div id="castle" class="tile-button" onclick="pu_bm(4,'Castle',true)"></div>
-        <div class="board-button-skip" onclick="undo()">UNDO</div>
+        <div id="cloister" class="tile-button" onclick="pu_bm(7,'Cloister',true)"></div>
+        <div id="undo" class="undo-button" onclick="undo()">Undo</div>
     </div>
 
 </div>

@@ -7,9 +7,6 @@ pointSound.src = "./audio/point-sound.mp3";
 var silverSound = new Audio();
 silverSound.src = "./audio/silver-sound.mp3";
 
-var bonusSound = new Audio();
-bonusSound.src = "./audio/bonus-sound.mp3";
-
 var _pl = 0;
 var _rd = 0;
 var _ph = 0;
@@ -27,6 +24,48 @@ var _undoDesc;
 var _undoPts;
 var _undoLimit = true;
 
+var _k = {
+    k2: false,
+    k3: false,
+    k4: false,
+    k13: false,
+    k14: false,
+    k15: false,
+    k1623: false,
+    k24: false,
+    k25: false,
+    k26: false,
+    ke5: false
+};
+
+function mini() {
+    
+    if (document.documentElement.clientWidth < 354) {
+        alert("Your device width is too small to use this feature");
+        return;
+    };
+    
+    var tiles = document.getElementsByClassName("tile-button");
+    
+    if (document.getElementById("mini-checkbox").checked) {
+        for (i = 0; i < tiles.length; i++) {
+            tiles[i].style.height = "75px";
+            tiles[i].style.width = "75px";
+            document.getElementById("small-bonus").style.height = "75px";
+            document.getElementById("small-bonus").style.width = "75px";
+            document.getElementById("undo").style.cssText = "height:75px; width:345px; padding-top: 3px";
+        };
+    } else {
+        for (i = 0; i < tiles.length; i++) {
+            tiles[i].style.height = "167px";
+            tiles[i].style.width = "167px";
+            document.getElementById("small-bonus").style.height = "167px";
+            document.getElementById("small-bonus").style.width = "167px";
+            document.getElementById("undo").style.cssText = "height:100px; width:345px; padding-top: 14px";
+        };
+    };
+};
+
 function undo() {
     
     if (_undoLimit === true) {
@@ -35,6 +74,35 @@ function undo() {
     };
     
     _undoLimit = true;
+    
+    if (_undoFunc == "sell goods") {
+        if (_k.k3 === true) {
+            _silver -= 2;
+        } else {
+            _silver--;
+        };
+        document.getElementById("silver-count").innerHTML = _silver;
+        
+        if (_k.k4 === true) {
+            _workers--;
+            document.getElementById("worker-count").innerHTML = _workers;
+        };
+        
+        _sold -= _undoPts;
+        _unsold += _undoPts;
+        _pts -= _undoPts * _pl;
+        
+        document.getElementById("sold-span").innerHTML = _sold;
+        document.getElementById("unsold-span").innerHTML = _unsold;
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = "reversed sale of " + _undoPts + " goods";
+    };
+    
+    if (_undoFunc == "add silver") {
+        _silver -= _undoPts;
+        document.getElementById("silver-count").innerHTML = _silver;
+        var log = "reversed " + _undoPts + " silverlings for " + _undoDesc;
+    };
     
     if (_undoFunc == "spend silver") {
         _silver -= _undoPts;
@@ -81,7 +149,7 @@ function undo() {
     
     if (_undoFunc == "mines") {
         _mines--;
-        document.getElementById("mine-span").innerHTML = _mines;
+        mineOverlay();
         var log = "reversed addition of 1 mine";
     };
     
@@ -95,20 +163,6 @@ function undo() {
     activityLog(log, "red");
     pointSound.play();
     window.scrollTo(0,0);
-};
-
-
-var _k = {
-    k2: false,
-    k3: false,
-    k4: false,
-    k13: false,
-    k14: false,
-    k15: false,
-    k1623: false,
-    k24: false,
-    k25: false,
-    k26: false
 };
 
 function setPlayers(x) {
@@ -131,16 +185,12 @@ function rollDice() {
         setPhaseRound();
         rollSound.play();
         randomDice();
-        if (document.getElementById("bonus-checkbox").checked) {
-            randomBonus();
-        };
         if (_mines > 0 && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
             addSilver(_mines,"mines");
         };
         if (_k.k2 === true && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
             addWorkers(_mines,"mines");
         };
-        
     } else if (_rd >= 25) {
         if (window.confirm("Click OK to cacluate end of game points.")) {
             document.getElementById("latest-activity-span").innerHTML = "calculating end game points";
@@ -225,16 +275,8 @@ function adjustRound(x) {
     pop('re','block');
 };
 
-function randomBonus() {
-    var b = Math.floor(Math.random() * 20);
-    if (b == 9) {
-        bonusSound.play();
-        window.open("bonus.html");
-    };
-};
-
 function setPoints() {
-    var x = prompt("Set points to:");
+    var x = prompt("set points to:");
     if (x === null) {
         return;
     } else {
@@ -292,7 +334,7 @@ function initializeWorkers(x) {
 };
 
 function setWorkers() {
-    var x = prompt("Set workers to:");
+    var x = prompt("set workers to:");
     if (x === null) {
         return;
     } else {
@@ -335,6 +377,9 @@ function addWorkers(x,name) {
     if (name == "boarding house") {
         pop("b","flex");
     };
+    if (name == "mines") {
+        _undoLimit = true;
+    };
     scrollTo(0,0);
 };
 
@@ -356,7 +401,7 @@ function useWorkers(x) {
 };
 
 function setSilver() {
-    var x = prompt("Set silverlings to:");
+    var x = prompt("set silverlings to:");
     if (x === null) {
         return;
     } else {
@@ -371,7 +416,7 @@ function setSilver() {
         var log = "silverlings set to " + y;
         latestActivity("red",log);
         activityLog(log,"red");
-        silverSound.play();
+        pointSound.play();
         pop("si","block");
         window.scrollTo(0,0);
     };
@@ -387,6 +432,9 @@ function addSilver(x,name) {
     silverSound.play();
     if (name == "bank") {
         pop("b","flex");
+    };
+    if (name == "mines") {
+        _undoLimit = true;
     };
     scrollTo(0,0);
 };
@@ -410,7 +458,7 @@ function spendSilver(x) {
 
 function setMines(x) {
     _mines = x;
-    document.getElementById("mine-span").innerHTML = _mines;
+    mineOverlay();
     var log = "mines set to " + x;
     latestActivity("red",log);
     activityLog(log,"red");
@@ -425,13 +473,17 @@ function addMines() {
         alert("no more than 3 mines may be added to estate")
     } else {
         _mines += 1;
-        document.getElementById("mine-span").innerHTML = _mines;
+        mineOverlay();
         var log = "1 mine added to estate";
         latestActivity("black",log);
         activityLog(log);
         pointSound.play();
         window.scrollTo(0,0);
     };
+};
+
+function mineOverlay() {
+    document.getElementById("mine").style.backgroundImage = "url(images/"+_mines+"-mines.png)";
 };
 
 function addGoods(x) {
@@ -460,6 +512,7 @@ function sellGoods(x) {
         if (_k.k4 === true) {
             addWorkers(1,"goods sale");
         };
+        _undoFunc = "sell goods"; _undoPts = x; _undoLimit = false;
         document.getElementById("unsold-span").innerHTML = _unsold;
         document.getElementById("sold-span").innerHTML = _sold;
         document.getElementById("total-points").innerHTML = _pts;
@@ -468,6 +521,8 @@ function sellGoods(x) {
         activityLog(log);
         pointSound.play();
         pop("sg","block");
+        console.log(_undoFunc);
+        console.log(_undoPts);
     };
 };
 
@@ -541,8 +596,8 @@ function latestActivity(color,log) {
 };
 
 function addKnowledge(i) {
-    var values = ["k2", "k3", "k4", "k13", "k14", "k15", "k1623", "k24", "k25", "k26"];
-    var numbers = [2, 3, 4, 13, 14, 15, 1623, 24, 25, 26];
+    var values = ["k2", "k3", "k4", "k13", "k14", "k15", "k1623", "k24", "k25", "k26", "ke5"];
+    var numbers = [2, 3, 4, 13, 14, 15, "16-23", 24, 25, 26, "e5"];
     if (_k[values[i]] === false) {
         _k[values[i]] = true;
         document.getElementById("k" + numbers[i]).style.cssText = "border: 5px dashed red";
@@ -589,12 +644,12 @@ function totalScore() {
         };
         if (gType > 0) {
             var gTypeLog = (gType * 3) + " points for " + gType + " goods types sold";
-            activityLog(gTypeLog,"blue"); endPointLog(gTypeLog);
+            endPointLog(gTypeLog);
         };
     };
         
-    if (_k["k1623"] === true) {
-        var b = prompt("How many eligible buildings for Knowledge Tiles 16-23?");
+    if (_k["k1623"] === true || _k["ke5"] === true) {
+        var b = prompt("How many eligible buildings for Knowledge Tiles?");
         if (b === null) {
             totalScore();
             return;
@@ -607,7 +662,7 @@ function totalScore() {
         };
         if (eBuild > 0) {
             var eBuildLog = (eBuild * 4) + " points for " + eBuild + " eligible buildings";
-            activityLog(eBuildLog,"blue"); endPointLog(eBuildLog);
+            endPointLog(eBuildLog);
         };
     };
     
@@ -625,26 +680,26 @@ function totalScore() {
         };
         if (aType > 0) {
             var aTypeLog = (aType * 4) + " points for " + aType + " animal types";
-            activityLog(aTypeLog,"blue"); endPointLog(aTypeLog);
+            endPointLog(aTypeLog);
         };
     };
     
     if (_sold > 0 && _k["k25"] === true ) {
         soldPoints += _sold;
         var soldLog = soldPoints + " points for " + _sold + " sold goods";
-        activityLog(soldLog,"blue"); endPointLog(soldLog);
+        endPointLog(soldLog);
     };
     
     if (_bonus > 0 && _k["k26"] === true ) {
         bonusPoints += (_bonus * 2);
         var bonusLog = bonusPoints + " points for " + _bonus + " bonus tiles";
-        activityLog(bonusLog,"blue"); endPointLog(bonusLog);
+        endPointLog(bonusLog);
     };
     
     if (_unsold > 0) {
         unsoldPoints += _unsold;
         var unsoldLog = unsoldPoints + " points for " + _unsold + " unsold goods";
-        activityLog(unsoldLog,"blue"); endPointLog(unsoldLog);
+        endPointLog(unsoldLog);
     };
     
     if (_mines > 0) {
@@ -656,7 +711,7 @@ function totalScore() {
     
     if (silverPoints > 0) {
         var silverLog = silverPoints + " points for " + _silver + " unspent silverlings";
-        activityLog(silverLog,"blue"); endPointLog(silverLog);
+        endPointLog(silverLog);
     };
     
     if (_mines > 0 && _k["k2"] === true) {
@@ -667,7 +722,7 @@ function totalScore() {
     if (_workers > 1) {
         workerPoints += (Math.floor(_workers / 2));
         var workerLog = workerPoints + " points for " + _workers + " unused workers";
-        activityLog(workerLog,"blue"); endPointLog(workerLog);
+        endPointLog(workerLog);
     }; 
     
     _pts += (gType * 3) + (eBuild * 4) + (aType * 4) + soldPoints + bonusPoints + unsoldPoints + silverPoints + workerPoints;
@@ -698,19 +753,22 @@ function pop(open,display,close1,close2) {
     scrollTo(0,0);
 };
 
-function pu_bm(i,building,castle) {
+function pu_bm(i,building,main) {
     var actions = [
         "Take 1 ship or animal tile from any depot except black depot",
         "Take 1 mine, castle, or knowledge tile from any depot except black depot",
         "Take 1 building tile from any depot except black depot",
         "Add any tile from your storage spaces to your estate",
-        "Take any action you'd like as if you had a third dice with any number you choose"
+        "Take any action you'd like as if you had a third dice with any number you choose",
+        "Functions as any building you want at placement and when scoring building knowledge tiles",
+        "Take any action using the number of the white dice (may be adjusted using worker tiles)",
+        "Use to help complete any region. Multiple cloisters allowed in any region. Increases region size by 1 (region sizes may not exceed 8)."
     ];
     if (document.getElementById("pu-bm").style.display != "block") {
         document.getElementById("pu-bm").style.display = "block";
         document.getElementById("pu-bm-h1").innerHTML = building;
         document.getElementById("pu-bm-p").innerHTML = actions[i];
-        if (castle) {
+        if (main) {
             document.getElementById("main").style.display = "none"
         } else {
             document.getElementById("pu-b").style.display = "none"
@@ -731,12 +789,15 @@ function pu_km(i,number) {
         "any dice result may be adjusted +1 or -1 to place a ship or animal tile",
         "any dice result may be adjusted +1 or -1 to place a castle, knowledge tile, or mine",
         "any dice result may be adjusted +1 or -1 to acquire any new tile",
+        "always stay at the top of any stack on the turn order track (only players ahead of the stack will be ahead of you in player order)",
+        "may use 1 silverling to buy 2 workers"
     ];
     if (document.getElementById("pu-km").style.display != "block") {
         document.getElementById("pu-km").style.display = "block";
-        document.getElementById("pu-km-h1").innerHTML = "Knowledge Tile " + number;
+        document.getElementById("pu-km-tile").style.backgroundImage = "url(images/k"+number+".png)";
         document.getElementById("pu-km-p").innerHTML = actions[i];
         document.getElementById("pu-k").style.display = "none"
+        scrollTo(0,0);
     } else {
         document.getElementById("pu-km").style.display = "none";
     };

@@ -110,7 +110,7 @@ input[type="checkbox"] {
 ******************************/
 .board-button, .board-button-skip {
     height: 60px;
-    width: 275px;
+    width: 345px;
     font-size: 40px;
     border: 2px solid black !important;
     cursor: pointer;
@@ -129,14 +129,14 @@ input[type="checkbox"] {
     color: white;
 }
 
-.region-button {
+.undo-button {
     height: 100px;
     width: 345px;
-    color: darkred;
+    color: white;
     font-weight: bold;
     font-size: 50px;
     padding: 14px;
-    background-color: rgba(255,255,255,0.5);
+    background-color: red;
     border: 2px solid black;
     cursor: pointer;
 }
@@ -144,13 +144,24 @@ input[type="checkbox"] {
 .tile-button {
     height: 167px;
     width: 167px;
+    color: darkred;
+    font-weight: bold;
+    font-size: 125px;
+    padding-top: 3px;
     border: 2px solid black;
+    background-color: rgba(255,255,255,0.5);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     cursor: pointer;
 }
 
 .tile-button-no-border {
     height: 167px;
     width: 167px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     cursor: pointer;
 }
 
@@ -235,7 +246,7 @@ input[type="checkbox"] {
 }
 
     .pu h1 {
-        margin: 20px 0;
+        margin: 0;
     }
 
 #pu-bm, #pu-km {
@@ -243,6 +254,7 @@ input[type="checkbox"] {
     }
 
     #pu-bm p, #pu-km p {
+        margin: 10px 0 25px 0;
         font-size: 35px;
     }
 
@@ -250,7 +262,7 @@ input[type="checkbox"] {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .pu-flex-div div {
@@ -375,7 +387,7 @@ input[type="checkbox"] {
         height: 60px;
     }
 
-    .check-here-p {
+    .checkbox-p {
         font-size: 15px;
         margin: 5px 0 5px 0;
     }
@@ -385,7 +397,7 @@ input[type="checkbox"] {
         margin: 15px 0 0 0;
     }
 
-    #mine-span, #unsold-span, #sold-span {
+    #unsold-span, #sold-span {
         font-size: 25px;
         font-weight: bold;
     }
@@ -546,7 +558,7 @@ input[type="checkbox"] {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
-        width: 355px;
+        max-width: 355px;
     }
 
         .point-quickadd-div div {
@@ -554,6 +566,7 @@ input[type="checkbox"] {
         }
 
     #pu-b, #pu-k {
+        padding-top: 20px;
         margin-bottom: 30px;
         display: none;
         flex-wrap: wrap;
@@ -580,10 +593,8 @@ input[type="checkbox"] {
     /******************************
         PLAY > ALL TILE BUTTONS
     ******************************/
-    #sell-goods, #watchtower, #animals, #monastaries, #large-bonus, #small-bonus, #mine, #bank, #boardhouse, #warehouse, #ship, #market, #church, #carpenter, #city-hall, #castle, #dice-trade, #building, #animal, #knowledge, #k1, #k2, #k3, #k4, #k5, #k6, #k7, #k8, #k9, #k10, #k11, #k12, #k13, #k14, #k15, #k1623, #k24, #k25, #k26, #QE0, #QE1, #QE2, #QE3, #QE4, #QE5, #QE6, #QE7 {
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
+    #region-points {
+        background-image: url(images/R.png);
     }
 
     #sell-goods {
@@ -611,11 +622,11 @@ input[type="checkbox"] {
     }
 
     #small-bonus {
-        background-image: url(images/small-bonus-border.png);
+        background-image: url(images/small-bonus.png);
     }
 
     #mine {
-        background-image: url(images/mine.png);
+        background-image: url(images/0-mines.png);
         background-color: #BDC1BE;
     }
 
@@ -665,9 +676,24 @@ input[type="checkbox"] {
         background-color: #D2CC95;
     }
 
+    #park {
+        background-image: url(images/park.png);
+        background-color: #D2CC95;
+    }
+
+    #pleasure-garden {
+        background-image: url(images/pleasure-garden.png);
+        background-color: #D2CC95;
+    }
+
     #castle {
         background-image: url(images/castle.png);
         background-color: #75B15A;
+    }
+
+    #cloister {
+        background-image: url(images/cloister.png);
+        background-color: rgba(0,0,0,0.9);
     }
 
     #building {
@@ -686,97 +712,116 @@ input[type="checkbox"] {
     }
 
     #k1 {
-        background-image: url(images/knowledge-tiles-1.png);
+        background-image: url(images/k1.png);
         background-color: #E0D537; 
     }
 
     #k2 {
-        background-image: url(images/knowledge-tiles-2.png);
+        background-image: url(images/k2.png);
         background-color: #E0D537; 
     }
 
     #k3 {
-        background-image: url(images/knowledge-tiles-3.png);
+        background-image: url(images/k3.png);
         background-color: #E0D537; 
     }
 
     #k4 {
-        background-image: url(images/knowledge-tiles-4.png);
+        background-image: url(images/k4.png);
         background-color: #E0D537; 
     }
 
     #k5 {
-        background-image: url(images/knowledge-tiles-5.png);
+        background-image: url(images/k5.png);
         background-color: #E0D537; 
         }
 
     #k6 {
-        background-image: url(images/knowledge-tiles-6.png);
+        background-image: url(images/k6.png);
         background-color: #E0D537; 
     }
 
     #k7 {
-        background-image: url(images/knowledge-tiles-7.png);
+        background-image: url(images/k7.png);
         background-color: #E0D537; 
     }
 
     #k8 {
-        background-image: url(images/knowledge-tiles-8.png);
+        background-image: url(images/k8.png);
         background-color: #E0D537; 
     }
 
     #k9 {
-        background-image: url(images/knowledge-tiles-9.png);
+        background-image: url(images/k9.png);
         background-color: #E0D537; 
     }
 
     #k10 {
-        background-image: url(images/knowledge-tiles-10.png);
+        background-image: url(images/k10.png);
         background-color: #E0D537; 
     }
 
     #k11 {
-        background-image: url(images/knowledge-tiles-11.png);
+        background-image: url(images/k11.png);
         background-color: #E0D537; 
     }
 
     #k12 {
-        background-image: url(images/knowledge-tiles-12.png);
+        background-image: url(images/k12.png);
         background-color: #E0D537; 
     }
 
     #k13 {
-        background-image: url(images/knowledge-tiles-13.png);
+        background-image: url(images/k13.png);
         background-color: #E0D537; 
     }
 
     #k14 {
-        background-image: url(images/knowledge-tiles-14.png);
+        background-image: url(images/k14.png);
         background-color: #E0D537; 
     }
 
     #k15 {
-        background-image: url(images/knowledge-tiles-15.png);
+        background-image: url(images/k15.png);
         background-color: #E0D537; 
     }
 
-    #k1623 {
-        background-image: url(images/knowledge-tiles-16-23.png);
+    #k16-23 {
+        background-image: url(images/k16-23.png);
         background-color: #E0D537; 
     }
 
     #k24 {
-        background-image: url(images/knowledge-tiles-24.png);
+        background-image: url(images/k24.png);
         background-color: #E0D537; 
     }
 
     #k25 {
-        background-image: url(images/knowledge-tiles-25.png);
+        background-image: url(images/k25.png);
         background-color: #E0D537; 
     }
 
     #k26 {
-        background-image: url(images/knowledge-tiles-26.png);
+        background-image: url(images/k26.png);
+        background-color: #E0D537; 
+    }
+
+    #ke2a {
+            background-image: url(images/ke2a.png);
+            background-color: #E0D537; 
+        }
+
+    #ke2b {
+            background-image: url(images/ke2b.png);
+            background-color: #E0D537; 
+        }
+
+    #ke5 {
+            background-image: url(images/ke5.png);
+            background-color: #E0D537; 
+        }
+
+    #pu-km-tile {
         background-color: #E0D537; 
     }
 
@@ -823,6 +868,11 @@ input[type="checkbox"] {
     ******************************/
 
     #pu-al {
+        padding-top: 20px;
+        background-color: rgba(255,255,255,0.5);
+    }
+
+    #pu-epl {
         background-color: rgba(255,255,255,0.5);
     }
 
@@ -935,20 +985,7 @@ input[type="checkbox"] {
 
 
 @media screen and (max-width: 339px) {
-    #roll-1-div, #roll-2-div, #roll-3-div {
-        height: 80px;
-        width: 80px;
-    }
-    
-    .region-point-tap div {
-        font-size: 40px;
-        width: 60px;
-        height: 60px;
-        margin: 5px;
-        padding-top: 2px;
-    }
-    
-    #title-screen-pop p {
+    #pu-ts p {
         padding: 40px;
         margin: 0;
         font-size: 50px;
@@ -956,19 +993,18 @@ input[type="checkbox"] {
         color: gold;
         text-shadow: 4px 4px 4px black;
     }
-}
-
-@media screen and (max-width: 281px) {
-    #roll-1-div, #roll-2-div, #roll-3-div {
-        height: 70px;
-        width: 70px;
+    
+    #roll-1-div, #roll-2-div, #roll-3-div, .click-to-hide-div {
+        height: 80px;
+        width: 80px;
     }
     
-    .total-points-div {
-        width: 100px;
+    .undo-button {
+        width: 305px;
     }
     
-    #total-points {
-        font-size: 60px;
-    }
+    .tile-button, .tile-button-no-border {
+        width: 90px;
+        height: 90px;
+    }    
 }
