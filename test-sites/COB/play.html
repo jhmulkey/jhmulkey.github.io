@@ -47,7 +47,7 @@
     
     <div id="pu-mm" class="pu">
         <div class="pu-flex-div">
-            <div class="board-button" onclick="pop('al','block','mm')">ACTIVITY</div>
+            <div class="board-button" onclick="pop('al','block','mm','epl')">ACTIVITY</div>
             <div class="board-button" onclick="setPoints()">SET POINTS</div>
             <a href="setup.html" target="_blank">
                 <div class="board-button">SETUP</div></a>
@@ -291,7 +291,7 @@
     </div>
     
     <div id="main-tiles" class="point-quickadd-div">
-       
+       <div id="region-points" class="region-button" onclick="pop('cr','block')">Region</div>
         <div id="building" class="tile-button" onclick="pop('b','flex')"></div>
         <div id="knowledge" class="tile-button" onclick="pop('k','flex')"></div>
         <div id="animal" class="tile-button" onclick="pop('a','block')"></div>
@@ -302,14 +302,12 @@
         <div id="small-bonus" class="tile-button-no-border" onclick="bonusTile(_pl,'small')"></div>
         <div id="mine" class="tile-button" onclick="addMines()"></div>
         <div id="castle" class="tile-button" onclick="pu_bm(4,'Castle',true)"></div>
-        
-        
-        
-        <div id="region-points" class="region-button" onclick="pop('cr','block')">Complete Region</div>
         <div class="board-button-skip" onclick="undo()">UNDO</div>
     </div>
 
 </div>
+       
+   <div id="pu-epl"></div> <!--end point log-->
         
 </div>
     

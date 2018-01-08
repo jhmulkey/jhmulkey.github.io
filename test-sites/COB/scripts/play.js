@@ -127,7 +127,6 @@ function setColor(color) {
 
 function rollDice() {
     if (_rd < 25) {
-        _undoLimit = false;
         _rd++;
         setPhaseRound();
         rollSound.play();
@@ -528,6 +527,14 @@ function activityLog(log,color,size,marginTop,element) {
     document.getElementById("pu-al").appendChild(elementNode);
 };
 
+function endPointLog(log) {
+    var elementNode = document.createElement("p");
+    elementNode.style.cssText = "color:blue; font-weight:bold; margin:0;";
+    var textNode = document.createTextNode(log);
+    elementNode.appendChild(textNode);
+    document.getElementById("pu-epl").appendChild(elementNode);
+};
+
 function latestActivity(color,log) {
     document.getElementById("latest-activity-span").style.color = color;
     document.getElementById("latest-activity-span").innerHTML = log;
@@ -542,6 +549,7 @@ function addKnowledge(i) {
         var log = "knowledge tile " + numbers[i] + " added";
         latestActivity("black",log);
         activityLog(log);
+        pointSound.play();
     } else {
        if (window.confirm("Knowledge Tile " + numbers[i] + " is already on estate. Remove?")) {
            _k[values[i]] = false;
@@ -549,16 +557,13 @@ function addKnowledge(i) {
            var log = "knowledge tile " + numbers[i] + " removed";
            latestActivity("red",log);
            activityLog(log,"red");
+           pointSound.play();
         };
     };
-    pointSound.play();
     pop('k','flex');
 };
 
 function totalScore() {
-    
-    document.getElementById("rolled-dice-flex-div").style.display = "none";
-    document.getElementById("main-tiles").style.display = "none";
     
     var gType = 0;
     var eBuild = 0;
@@ -582,6 +587,10 @@ function totalScore() {
         } else {
             var gType = parseInt(a);
         };
+        if (gType > 0) {
+            var gTypeLog = (gType * 3) + " points for " + gType + " goods types sold";
+            activityLog(gTypeLog,"blue"); endPointLog(gTypeLog);
+        };
     };
         
     if (_k["k1623"] === true) {
@@ -595,6 +604,10 @@ function totalScore() {
             return;
         } else {
             var eBuild = parseInt(b);
+        };
+        if (eBuild > 0) {
+            var eBuildLog = (eBuild * 4) + " points for " + eBuild + " eligible buildings";
+            activityLog(eBuildLog,"blue"); endPointLog(eBuildLog);
         };
     };
     
@@ -610,18 +623,28 @@ function totalScore() {
         } else {
             var aType = parseInt(c);
         };
+        if (aType > 0) {
+            var aTypeLog = (aType * 4) + " points for " + aType + " animal types";
+            activityLog(aTypeLog,"blue"); endPointLog(aTypeLog);
+        };
     };
     
     if (_sold > 0 && _k["k25"] === true ) {
         soldPoints += _sold;
+        var soldLog = soldPoints + " points for " + _sold + " sold goods";
+        activityLog(soldLog,"blue"); endPointLog(soldLog);
     };
     
     if (_bonus > 0 && _k["k26"] === true ) {
         bonusPoints += (_bonus * 2);
+        var bonusLog = bonusPoints + " points for " + _bonus + " bonus tiles";
+        activityLog(bonusLog,"blue"); endPointLog(bonusLog);
     };
     
     if (_unsold > 0) {
         unsoldPoints += _unsold;
+        var unsoldLog = unsoldPoints + " points for " + _unsold + " unsold goods";
+        activityLog(unsoldLog,"blue"); endPointLog(unsoldLog);
     };
     
     if (_mines > 0) {
@@ -631,6 +654,11 @@ function totalScore() {
     
     silverPoints += _silver;
     
+    if (silverPoints > 0) {
+        var silverLog = silverPoints + " points for " + _silver + " unspent silverlings";
+        activityLog(silverLog,"blue"); endPointLog(silverLog);
+    };
+    
     if (_mines > 0 && _k["k2"] === true) {
         _workers += _mines;
         document.getElementById("worker-count").innerHTML = _workers;
@@ -638,56 +666,21 @@ function totalScore() {
     
     if (_workers > 1) {
         workerPoints += (Math.floor(_workers / 2));
+        var workerLog = workerPoints + " points for " + _workers + " unused workers";
+        activityLog(workerLog,"blue"); endPointLog(workerLog);
     }; 
     
     _pts += (gType * 3) + (eBuild * 4) + (aType * 4) + soldPoints + bonusPoints + unsoldPoints + silverPoints + workerPoints;
     document.getElementById("total-points").innerHTML = _pts;
     
-    if (unsoldPoints > 0) {
-        var unsoldLog = unsoldPoints + " points for " + _unsold + " unsold goods";
-        activityLog(unsoldLog,"blue");
-    };
-    
-    if (silverPoints > 0) {
-        var silverLog = silverPoints + " points for " + _silver + " unspent silverlings";
-        activityLog(silverLog,"blue");
-    };
-    
-    if (workerPoints > 0) {
-        var workerLog = workerPoints + " points for " + _workers + " unused workers";
-        activityLog(workerLog,"blue");
-    };
-    
-    if (gType > 0) {
-        var gTypeLog = (gType * 3) + " points for " + gType + " goods types sold";
-        activityLog(gTypeLog,"blue");
-    };
-    
-    if (eBuild > 0) {
-        var eBuildLog = (eBuild * 4) + " points for " + eBuild + " eligible buildings";
-        activityLog(eBuildLog,"blue");
-    };
-    
-    if (aType > 0) {
-        var aTypeLog = (aType * 4) + " points for " + aType + " animal types";
-        activityLog(aTypeLog,"blue");
-    };
-    
-    if (soldPoints > 0) {
-        var soldLog = soldPoints + " points for " + _sold + " sold goods";
-        activityLog(soldLog,"blue");
-    };
-    
-    if (bonusPoints > 0) {
-        var bonusLog = bonusPoints + " points for " + _bonus + " bonus tiles";
-        activityLog(bonusLog,"blue");
-    };
-    
+    document.getElementById("rolled-dice-flex-div").style.display = "none";
+    document.getElementById("main-tiles").style.display = "none";
+    document.getElementById("pu-epl").style.display = "block";
     pointSound.play();
     latestActivity("blue","FINAL SCORE");
 };
 
-function pop(open,display,close) {
+function pop(open,display,close1,close2) {
    if (document.getElementById("pu-"+open).style.display != display) {
         document.getElementById("pu-"+open).style.display = display;
         document.getElementById("pu-"+open).scrollIntoView();
@@ -696,8 +689,11 @@ function pop(open,display,close) {
         document.getElementById("pu-"+open).style.display = "none";
         document.getElementById("main").style.display = "block";
     };
-    if (close) {
-        document.getElementById("pu-"+close).style.display = "none";
+    if (close1) {
+        document.getElementById("pu-"+close1).style.display = "none";
+    }
+    if (close2) {
+        document.getElementById("pu-"+close2).style.display = "none";
     }
     scrollTo(0,0);
 };
