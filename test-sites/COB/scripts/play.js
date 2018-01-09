@@ -9,10 +9,10 @@ silverSound.src = "./audio/silver-sound.mp3";
 
 var _pl = 0;
 var _rd = 0;
-var _ph = 0;
+var _ph;
+var _rollct = 0;
 var _pts = 0;
 var _color;
-var _adjPh;
 var _mines = 0;
 var _silver = 1; 
 var _workers;
@@ -46,15 +46,19 @@ function mini() {
     };
     
     var tiles = document.getElementsByClassName("tile-button");
+    var topSkip = document.getElementsByClassName("top-skip");
     
     if (document.getElementById("mini-checkbox").checked) {
         for (i = 0; i < tiles.length; i++) {
             tiles[i].style.height = "75px";
             tiles[i].style.width = "75px";
-            document.getElementById("small-bonus").style.height = "75px";
-            document.getElementById("small-bonus").style.width = "75px";
-            document.getElementById("undo").style.cssText = "height:75px; width:345px; padding-top: 3px";
         };
+        for (i = 0; i < topSkip.length; i++) {
+            topSkip[i].style.display = "none";
+        };
+        document.getElementById("small-bonus").style.cssText = "height:75px; width:75px;";
+        document.getElementById("undo").style.cssText = "height:75px; width:345px; padding-top: 3px";
+        
     } else {
         for (i = 0; i < tiles.length; i++) {
             tiles[i].style.height = "167px";
@@ -180,8 +184,8 @@ function setColor(color) {
 };
 
 function rollDice() {
-    if (_rd < 25) {
-        _rd++;
+    if (_rollct < 25) {
+        _rollct++; _rd++;
         setPhaseRound();
         rollSound.play();
         randomDice();
@@ -191,7 +195,7 @@ function rollDice() {
         if (_k.k2 === true && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
             addWorkers(_mines,"mines");
         };
-    } else if (_rd >= 25) {
+    } else if (_rollct >= 25) {
         if (window.confirm("Click OK to cacluate end of game points.")) {
             document.getElementById("latest-activity-span").innerHTML = "calculating end game points";
             totalScore();
@@ -211,8 +215,8 @@ function randomDice() {
     document.getElementById("roll-1-div").style.backgroundImage = dice1;
     document.getElementById("roll-2-div").style.backgroundImage = dice2;
     document.getElementById("roll-3-div").style.backgroundImage = dice3;
-    document.getElementById("dice-1").innerHTML = x;
-    document.getElementById("dice-2").innerHTML = y;
+    document.getElementById("dice-1").style.backgroundImage = "url(images/"+x+".png)";
+    document.getElementById("dice-2").style.backgroundImage = "url(images/"+y+".png)";
     if (document.getElementById("roll-3-div").style.visibility == "visible") {
         var log = "rolled " + x + " and " + y + " (white: " + z + ")"
     } else {
@@ -223,55 +227,51 @@ function randomDice() {
 };
 
 function setPhaseRound() {
-    if (_rd == 1) {
-        document.getElementById("phase-span").innerHTML = "A"
+    if (_rollct == 1) {
+        _ph = "A";
         activityLog("Phase A","black","25px","20px","h1");
-    } else if (_rd == 6) {
-        document.getElementById("phase-span").innerHTML = "B"; _ph = 1;
+    } else if (_rollct == 6) {
+        _ph = "B"; _rd = 1;
         activityLog("Phase B","black","25px","20px","h1");
-    } else if (_rd == 11) {
-        document.getElementById("phase-span").innerHTML = "C"; _ph = 2;
+    } else if (_rollct == 11) {
+        _ph = "C"; _rd = 1;
         activityLog("Phase C","black","25px","20px","h1");
-    } else if (_rd == 16) {
-        document.getElementById("phase-span").innerHTML = "D"; _ph = 3;
+    } else if (_rollct == 16) {
+        _ph = "D"; _rd = 1; _rd = 1;
         activityLog("Phase D","black","25px","20px","h1");
-    } else if (_rd == 21) {
-        document.getElementById("phase-span").innerHTML = "E"; _ph = 4;
+    } else if (_rollct == 21) {
+        _ph = "E"; _rd = 1;
         activityLog("Phase E","black","25px","20px","h1");
+    } else {
+        _ph = _ph;
     };
-    document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
+    document.getElementById("phase-round-span").innerHTML = _ph+_rd;
 };
 
 function adjustPhase(x) {
-    _adjPh = x;
+    _ph = x;
     pop("re","block","pe");
 };
 
 function adjustRound(x) {
-    if (_adjPh == "A") {
-        _rd = x;
-        _ph = 0;
-    } else if (_adjPh == "B") {
-        _rd = x + 5;
-        _ph = 1;
-    } else if (_adjPh == "C") {
-        _rd = x + 10;
-        _ph = 2;
-    } else if (_adjPh == "D") {
-        _rd = x + 15;
-        _ph = 3;
-    } else if (_adjPh == "E") {
-        _rd = x + 20;
-        _ph = 4;
+    _rd = x;
+    if (_ph == "A") {
+        _rollct = x
+    } else if (_ph == "B") {
+        _rollct = x + 5;
+    } else if (_ph == "C") {
+        _rollct = x + 10;
+    } else if (_ph == "D") {
+        _rollct = x + 15;
+    } else if (_ph == "E") {
+        _rollct = x + 20;
     };
-    document.getElementById("phase-span").innerHTML = _adjPh;
-    document.getElementById("round-span").innerHTML = _rd - (5 * _ph);
-    activityLog("Phase " + _adjPh,"black","25px","20px","h1");
-    var log = "round adjusted to Phase " + _adjPh + " Round " + x;
-    latestActivity("red",log);
+    document.getElementById("phase-round-span").innerHTML = _ph+_rd;
+    activityLog("Phase " + _ph,"black","25px","20px","h1");
+    var log = "round adjusted to Phase " + _ph + " Round " + x;
     activityLog(log,"red");
     rollSound.play();
-    randomDice(_color);
+    randomDice();
     pop('re','block');
 };
 

@@ -52,7 +52,6 @@ a {
 h1 {
     font-family: black-chancery;
     font-size: 40px;
-    margin: 0;
 }
 
 h2 {
@@ -246,7 +245,7 @@ input[type="checkbox"] {
 }
 
     .pu h1 {
-        margin: 0;
+        margin-bottom 20px;
     }
 
 #pu-bm, #pu-km {
@@ -411,23 +410,15 @@ input[type="checkbox"] {
         justify-content: space-around;
         align-items: center;
         margin-bottom: 20px;
+        max-width: 355px;
     }
 
     .click-to-hide-div {
-        height: 100px;
-        width: 100px;
+        height: 95px;
+        width: 95px;
         margin: 10px;
         outline: 1px dashed gray;
         cursor: pointer;
-    }
-
-    #dice-1, #dice-2 {
-        position: relative;
-        float: left;
-        left: 27.5px;
-        font-size: 80px;
-        color: gray;
-        z-index: -1;
     }
 
     .click-to-roll-div {
@@ -437,8 +428,8 @@ input[type="checkbox"] {
     }
 
     #roll-1-div, #roll-2-div, #roll-3-div {
-        height: 100px;
-        width: 100px;
+        height: 95px;
+        width: 95px;
         background-size: contain;
         background-repeat: no-repeat;
     }
@@ -470,22 +461,16 @@ input[type="checkbox"] {
         margin-bottom: 10px;
     }
 
-    .phase-round-div {
-        cursor: pointer;
-        margin-top: 0;
-    }
-
-    .phase-round-div p {
-        font-family: black-chancery, serif;
-        font-size: 25px;
-        font-weight: bold;
-        margin-top: 5px;
-        margin-bottom: 3px;
-    }
-
     #phase-span, #round-span {
         font-weight: bold;
         font-size: 30px;
+    }
+
+    #phase-round-span {
+        display: inline-block;
+        font-weight: bold;
+        font-size: 40px;
+        margin-top: 5px;
     }
 
     .total-points-div {
@@ -508,13 +493,19 @@ input[type="checkbox"] {
         flex-wrap: wrap;
         justify-content: space-around;
         align-items: center;
-        margin-bottom: 30px;
+        margin: 0 auto 10px auto;
         height: 60px;
+        max-width: 355px;
     }
 
     #spw-flex-div div {
         height: 60px;
+        height: 60px;
         cursor: pointer;
+    }
+
+    #phase-round-div {
+        width: 90px;
     }
 
     #silver-img, #silver-count, #worker-img, #worker-count {
@@ -522,26 +513,25 @@ input[type="checkbox"] {
         height: 58px;
         width: 58px;
         background-size: contain;
-        
     }
 
-    #silver-count, #worker-count {
+    #silver-count, #worker-count {       
         float: right;
         font-size: 48px;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
-        border-right: 1px solid black;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        border-right: 2px solid black;
     }
 
     #silver-img {
         background-image: url(images/silverling.png);
         background-color: #C6B4B1;
-        border: 1px solid black;
+        border: 2px solid black;
     }
 
     #worker-img {
         background-image: url(images/worker.jpg);
-        border: 1px solid black;
+        border: 2px solid black;
     }
 
     #spend-1 {
@@ -999,6 +989,10 @@ input[type="checkbox"] {
         width: 80px;
     }
     
+    #phase-round-div {
+        width: 40px;
+    }
+    
     .undo-button {
         width: 305px;
     }
@@ -1007,4 +1001,9 @@ input[type="checkbox"] {
         width: 90px;
         height: 90px;
     }    
+}
+#dice-1, #dice-2 {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
