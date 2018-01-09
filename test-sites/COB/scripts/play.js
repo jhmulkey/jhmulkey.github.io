@@ -10,6 +10,7 @@ silverSound.src = "./audio/silver-sound.mp3";
 var _pl = 0;
 var _rd = 0;
 var _ph;
+var _phFactor = 0;
 var _rollct = 0;
 var _pts = 0;
 var _color;
@@ -36,6 +37,14 @@ var _k = {
     k25: false,
     k26: false,
     ke5: false
+};
+
+function restoreVariables() {
+    _pts = parseInt(localStorage.getItem("_pts"));
+    document.getElementById("total-points").innerHTML = _pts;
+    latestActivity("green","session restored");
+    pointSound.play();
+    scrollTo(0,0);
 };
 
 function mini() {
@@ -231,16 +240,16 @@ function setPhaseRound() {
         _ph = "A";
         activityLog("Phase A","black","25px","20px","h1");
     } else if (_rollct == 6) {
-        _ph = "B"; _rd = 1;
+        _ph = "B"; _rd = 1; _phFactor = 1;
         activityLog("Phase B","black","25px","20px","h1");
     } else if (_rollct == 11) {
-        _ph = "C"; _rd = 1;
+        _ph = "C"; _rd = 1; _phFactor = 2;
         activityLog("Phase C","black","25px","20px","h1");
     } else if (_rollct == 16) {
-        _ph = "D"; _rd = 1; _rd = 1;
+        _ph = "D"; _rd = 1; _rd = 1; _phFactor = 3;
         activityLog("Phase D","black","25px","20px","h1");
     } else if (_rollct == 21) {
-        _ph = "E"; _rd = 1;
+        _ph = "E"; _rd = 1; _phFactor = 4;
         activityLog("Phase E","black","25px","20px","h1");
     } else {
         _ph = _ph;
@@ -256,15 +265,15 @@ function adjustPhase(x) {
 function adjustRound(x) {
     _rd = x;
     if (_ph == "A") {
-        _rollct = x
+        _rollct = x; _phFactor = 0;
     } else if (_ph == "B") {
-        _rollct = x + 5;
+        _rollct = x + 5; _phFactor = 1;
     } else if (_ph == "C") {
-        _rollct = x + 10;
+        _rollct = x + 10; _phFactor = 2;
     } else if (_ph == "D") {
-        _rollct = x + 15;
+        _rollct = x + 15; _phFactor = 3;
     } else if (_ph == "E") {
-        _rollct = x + 20;
+        _rollct = x + 20; _phFactor = 4;
     };
     document.getElementById("phase-round-span").innerHTML = _ph+_rd;
     activityLog("Phase " + _ph,"black","25px","20px","h1");
@@ -311,11 +320,12 @@ function tapPoints(x,name) {
 
 function regionPoints(x) {
     var points = [11, 13, 16, 20, 25, 31, 38, 46];
-    var added = points[x] - (_ph * 2);
+    var added = points[x] - (_phFactor * 2);
     _undoFunc = "region points"; _undoDesc = x + 1; _undoPts = added; _undoLimit = false;
     _pts += added;
+    localStorage.setItem("_pts", _pts);
     document.getElementById("total-points").innerHTML = _pts;
-    var log = added + " points for region size " + (x + 1) + " in Phase " + document.getElementById("phase-span").innerHTML;
+    var log = added + " points for region size " + (x + 1) + " in Phase " + _ph;
     latestActivity("black",log);
     activityLog(log);
     pointSound.play();
