@@ -8,12 +8,12 @@ var silverSound = new Audio();
 silverSound.src = "./audio/silver-sound.mp3";
 
 var _pl = 0;
-var _rd = 0;
-var _ph;
-var _phFactor = 0;
-var _rollct = 0;
-var _pts = 0;
 var _color;
+var _rd = 0; // 1-5
+var _ph; // "A"-"E"
+var _phFactor = 0; // 0-4
+var _rollct = 0; // 1-25
+var _pts = 0;
 var _mines = 0;
 var _silver = 1; 
 var _workers;
@@ -39,12 +39,42 @@ var _k = {
     ke5: false
 };
 
+function zeroVariables() {
+    var strings = ["_pts", "_mines", "_workers", "_unsold", "_sold", "_bonus"]
+    for (i = 0; i < strings.length; i++) {
+        if (isNaN(parseInt(localStorage.getItem(strings[i])))) {
+            localStorage.setItem(strings[i],0);
+        };
+    };
+    if (isNaN(parseInt(localStorage.getItem("_silver")))) {
+        localStorage.setItem("_silver",1);
+    };
+};
+zeroVariables();
+
 function restoreVariables() {
     _pts = parseInt(localStorage.getItem("_pts"));
+    _mines = parseInt(localStorage.getItem("_mines"));
+    _silver = parseInt(localStorage.getItem("_silver"));
+    _workers = parseInt(localStorage.getItem("_workers"));
+    _unsold = parseInt(localStorage.getItem("_unsold"));
+    _sold = parseInt(localStorage.getItem("_sold"));
+    _bonus = parseInt(localStorage.getItem("_bonus"));
+    
     document.getElementById("total-points").innerHTML = _pts;
+    document.getElementById("mine").style.backgroundImage = "url(images/"+_mines+"-mines.png)";
+    document.getElementById("silver-count").innerHTML = _silver;
+    document.getElementById("worker-count").innerHTML = _workers;
+    document.getElementById("unsold-span").innerHTML = _unsold;
+    document.getElementById("sold-span").innerHTML = _sold;
+    
     latestActivity("green","session restored");
-    pointSound.play();
     scrollTo(0,0);
+    alert("Session restored successfully.\nPhase, round, and knowledge tiles must be manually restored");
+};
+
+function storeVariables(string,variable) {
+    localStorage.setItem(string,variable);
 };
 
 function mini() {
@@ -90,20 +120,20 @@ function undo() {
     
     if (_undoFunc == "sell goods") {
         if (_k.k3 === true) {
-            _silver -= 2;
+            _silver -= 2; storeVariables("_silver",_silver);
         } else {
-            _silver--;
+            _silver--; storeVariables("_silver",_silver);
         };
         document.getElementById("silver-count").innerHTML = _silver;
         
         if (_k.k4 === true) {
-            _workers--;
+            _workers--; storeVariables("_workers",_workers);
             document.getElementById("worker-count").innerHTML = _workers;
         };
         
-        _sold -= _undoPts;
-        _unsold += _undoPts;
-        _pts -= _undoPts * _pl;
+        _sold -= _undoPts; storeVariables("_sold",_sold);
+        _unsold += _undoPts; storeVariables("_unsold",_unsold);
+        _pts -= _undoPts * _pl; storeVariables("_pts",_pts);
         
         document.getElementById("sold-span").innerHTML = _sold;
         document.getElementById("unsold-span").innerHTML = _unsold;
@@ -112,62 +142,62 @@ function undo() {
     };
     
     if (_undoFunc == "add silver") {
-        _silver -= _undoPts;
+        _silver -= _undoPts; storeVariables("_silver",_silver);
         document.getElementById("silver-count").innerHTML = _silver;
         var log = "reversed " + _undoPts + " silverlings for " + _undoDesc;
     };
     
     if (_undoFunc == "spend silver") {
-        _silver -= _undoPts;
+        _silver -= _undoPts; storeVariables("_silver",_silver);
         document.getElementById("silver-count").innerHTML = _silver;
         var log = "reversed spending of " + Math.abs(_undoPts) + " silverlings"
     };
     
     if (_undoFunc == "use workers") {
-        _workers -= _undoPts;
+        _workers -= _undoPts; storeVariables("_workers",_workers);
         document.getElementById("worker-count").innerHTML = _workers;
         var log = "reversed use of " + Math.abs(_undoPts) + " workers"
     };
     
     if (_undoFunc == "add workers") {
-        _workers -= _undoPts;
+        _workers -= _undoPts; storeVariables("_workers",_workers);
         document.getElementById("worker-count").innerHTML = _workers;
         var log = "reversed " + _undoPts + " workers for " + _undoDesc
     };
     
     if (_undoFunc == "tap points") {
-        _pts -= _undoPts;
+        _pts -= _undoPts; storeVariables("_pts",_pts);
         document.getElementById("total-points").innerHTML = _pts;
         var log = "reversed " + _undoPts + " points for " + _undoDesc;
     };
     
     if (_undoFunc == "region points") {
-        _pts -= _undoPts;
+        _pts -= _undoPts; storeVariables("_pts",_pts);
         document.getElementById("total-points").innerHTML = _pts;
         var log = "reversed " + _undoPts + " points for region size " + _undoDesc;
     };
     
     if (_undoFunc == "add goods") {
-        _unsold -= _undoPts;
+        _unsold -= _undoPts; storeVariables("_unsold",_unsold);
         document.getElementById("unsold-span").innerHTML = _unsold;
         var log = "reversed acquisition of " + _undoPts + " goods";
     };
     
     if (_undoFunc == "bonus") {
-        _pts -= _undoPts;
-        _bonus--;
+        _pts -= _undoPts; storeVariables("_pts",_pts);
+        _bonus--; storeVariables("_bonus",_bonus);
         document.getElementById("total-points").innerHTML = _pts;
         var log = "reversed " + _undoPts + " points for " + _undoDesc + " bonus tile";
     };
     
     if (_undoFunc == "mines") {
-        _mines--;
+        _mines--; storeVariables("_mines",_mines);
         mineOverlay();
         var log = "reversed addition of 1 mine";
     };
     
     if (_undoFunc == "animals") {
-        _pts -= _undoPts;
+        _pts -= _undoPts; storeVariables("_pts",_pts);
         document.getElementById("total-points").innerHTML = _pts;
         var log = "reversed " + _undoPts + " points for animals";
     };
@@ -198,10 +228,10 @@ function rollDice() {
         setPhaseRound();
         rollSound.play();
         randomDice();
-        if (_mines > 0 && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
+        if (_mines > 0 && (_rollct == 6 || _rollct == 11 || _rollct == 16 || _rollct == 21)) {
             addSilver(_mines,"mines");
         };
-        if (_k.k2 === true && (_rd == 6 || _rd == 11 || _rd == 16 || _rd == 21)) {
+        if (_k.k2 === true && (_rollct == 6 || _rollct == 11 || _rollct == 16 || _rollct == 21)) {
             addWorkers(_mines,"mines");
         };
     } else if (_rollct >= 25) {
@@ -295,7 +325,7 @@ function setPoints() {
         alert("Please enter a number");
         setPoints();
     } else {
-        _pts = y;
+        _pts = y; storeVariables("_pts",_pts);
         document.getElementById("total-points").innerHTML = _pts;
         var log = "points set to " + y;
         latestActivity("red",log);
@@ -308,7 +338,7 @@ function setPoints() {
 
 function tapPoints(x,name) {
     _undoFunc = "tap points"; _undoDesc = name; _undoPts = x; _undoLimit = false;
-    _pts += x;
+    _pts += x; storeVariables("_pts",_pts);
     document.getElementById("total-points").innerHTML = _pts;
     var log = x + " points for " + name;
     latestActivity("black",log);
@@ -322,8 +352,7 @@ function regionPoints(x) {
     var points = [11, 13, 16, 20, 25, 31, 38, 46];
     var added = points[x] - (_phFactor * 2);
     _undoFunc = "region points"; _undoDesc = x + 1; _undoPts = added; _undoLimit = false;
-    _pts += added;
-    localStorage.setItem("_pts", _pts);
+    _pts += added; storeVariables("_pts",_pts);
     document.getElementById("total-points").innerHTML = _pts;
     var log = added + " points for region size " + (x + 1) + " in Phase " + _ph;
     latestActivity("black",log);
@@ -336,7 +365,7 @@ function initializeWorkers(x) {
     if (x > _pl) {
         alert("Cannot be player " + x + " in a " + _pl + " player game")
     } else {
-        _workers = x;
+        _workers = x; storeVariables("_workers",_workers);
         document.getElementById("worker-count").innerHTML = _workers;
         pop("pos","block");
         pop("cs","block");
@@ -354,13 +383,13 @@ function setWorkers() {
         alert("Please enter a number");
         setWorkers();
     } else {
-        _workers = y;
+        _workers = y; storeVariables("_workers",_workers);
         document.getElementById("worker-count").innerHTML = _workers;
         var log = "workers set to " + y;
         latestActivity("red",log);
         activityLog(log,"red");
         pointSound.play();
-        pop("w","block");
+        pop("mm","block");
         window.scrollTo(0,0);
     };
 };
@@ -368,9 +397,9 @@ function setWorkers() {
 function addWorkers(x,name) {    
     if (_k.k14 === true && name == "dice trade") {
         x = x * 2
-        _workers += x;
+        _workers += x; storeVariables("_workers",_workers);
     } else {
-        _workers += x;
+        _workers += x; storeVariables("_workers",_workers);
     };
     
     if (_k.k13 === true && name == "dice trade") {
@@ -398,7 +427,7 @@ function useWorkers(x) {
         alert("You only have " + _workers + " workers");
         return;
     } else {
-        _workers += x;
+        _workers += x; storeVariables("_workers",_workers);
     };
     _undoFunc = "use workers"; _undoPts = x; _undoLimit = false;
     document.getElementById("worker-count").innerHTML = _workers;
@@ -421,20 +450,20 @@ function setSilver() {
         alert("Please enter a number");
         setSilver();
     } else {
-        _silver = y;
+        _silver = y; storeVariables("_silver",_silver);
         document.getElementById("silver-count").innerHTML = _silver;
         var log = "silverlings set to " + y;
         latestActivity("red",log);
         activityLog(log,"red");
         pointSound.play();
-        pop("si","block");
+        pop("mm","block");
         window.scrollTo(0,0);
     };
 };
 
 function addSilver(x,name) {
     _undoFunc = "add silver"; _undoDesc = name; _undoPts = x; _undoLimit = false;
-    _silver += x;
+    _silver += x; storeVariables("_silver",_silver);
     document.getElementById("silver-count").innerHTML = _silver;
     var log = x + " silverlings for " + name;
     latestActivity("black",log);
@@ -454,7 +483,7 @@ function spendSilver(x) {
         alert("You only have " + _silver + " silverlings");
         return;
     } else {
-        _silver += x;
+        _silver += x; storeVariables("_silver",_silver);
     };
     _undoFunc = "spend silver"; _undoPts = x; _undoLimit = false;
     document.getElementById("silver-count").innerHTML = _silver;
@@ -467,7 +496,7 @@ function spendSilver(x) {
 };
 
 function setMines(x) {
-    _mines = x;
+    _mines = x; storeVariables("_mines",_mines);
     mineOverlay();
     var log = "mines set to " + x;
     latestActivity("red",log);
@@ -478,11 +507,10 @@ function setMines(x) {
 
 function addMines() {
     _undoFunc = "mines"; _undoLimit = false;
-    
     if (_mines == 3) {
         alert("no more than 3 mines may be added to estate")
     } else {
-        _mines += 1;
+        _mines += 1; storeVariables("_mines",_mines);
         mineOverlay();
         var log = "1 mine added to estate";
         latestActivity("black",log);
@@ -498,7 +526,7 @@ function mineOverlay() {
 
 function addGoods(x) {
     _undoFunc = "add goods"; _undoPts = x; _undoLimit = false;
-    _unsold += x;
+    _unsold += x; storeVariables("_unsold",_unsold);
     document.getElementById("unsold-span").innerHTML = _unsold;
     var log = x + " goods acquired"
     latestActivity("black",log);
@@ -511,9 +539,9 @@ function sellGoods(x) {
     if (x > _unsold) {
         alert("You only have " + _unsold + " goods available to sell")
     } else {
-        _unsold -= x;
-        _sold += x;
-        _pts += x * _pl;
+        _unsold -= x; storeVariables("_unsold",_unsold);
+        _sold += x; storeVariables("_sold",_sold);
+        _pts += x * _pl; storeVariables("_pts",_pts);
         if (_k.k3 === true) {
             addSilver(2,"goods sale");
         } else {
@@ -538,7 +566,7 @@ function sellGoods(x) {
 
 function animals(x) {
     _undoFunc = "animals"; _undoPts = x; _undoLimit = false;
-    _pts += x;
+    _pts += x; storeVariables("_pts",_pts);
     document.getElementById("total-points").innerHTML = _pts;
     var log = x + " points for animals";
     latestActivity("black",log);
@@ -549,8 +577,8 @@ function animals(x) {
 
 function bonusTile(x,size) {
     _undoFunc = "bonus"; _undoDesc = size; _undoPts = x; _undoLimit = false;
-    _pts += x;
-    _bonus++;
+    _pts += x; storeVariables("_pts",_pts);
+    _bonus++; storeVariables("_bonus",_bonus);
     document.getElementById("total-points").innerHTML = _pts;
     var log = x + " points for " + size + " bonus tile";
     latestActivity("black",log);
@@ -713,7 +741,7 @@ function totalScore() {
     };
     
     if (_mines > 0) {
-        _silver += _mines;
+        _silver += _mines; storeVariables("_silver",_silver);
         document.getElementById("silver-count").innerHTML = _silver;
     };
     
@@ -725,7 +753,7 @@ function totalScore() {
     };
     
     if (_mines > 0 && _k["k2"] === true) {
-        _workers += _mines;
+        _workers += _mines; storeVariables("_workers",_workers);
         document.getElementById("worker-count").innerHTML = _workers;
     };
     
@@ -735,7 +763,8 @@ function totalScore() {
         endPointLog(workerLog);
     }; 
     
-    _pts += (gType * 3) + (eBuild * 4) + (aType * 4) + soldPoints + bonusPoints + unsoldPoints + silverPoints + workerPoints;
+    _pts += (gType * 3) + (eBuild * 4) + (aType * 4) + soldPoints + bonusPoints + unsoldPoints + silverPoints + workerPoints; 
+    storeVariables("_pts",_pts);
     document.getElementById("total-points").innerHTML = _pts;
     
     document.getElementById("rolled-dice-flex-div").style.display = "none";
