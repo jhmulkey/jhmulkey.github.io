@@ -169,7 +169,6 @@ function mini() {
             topSkip[i].style.display = "none";
         };
         document.getElementById("small-bonus").style.cssText = "height:75px; width:75px;";
-        document.getElementById("undo").style.cssText = "height:75px; width:345px; padding-top: 3px";
         document.getElementById("mini").innerHTML = "Turn Mini Tiles Off";
         
     } else {
