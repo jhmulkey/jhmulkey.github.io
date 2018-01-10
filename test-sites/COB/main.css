@@ -427,7 +427,7 @@ input[type="checkbox"] {
 
     .click-to-roll-div {
         margin: 10px;
-        outline: 2px dashed red;
+        outline: 1px dashed red;
         cursor: pointer;
     }
 
