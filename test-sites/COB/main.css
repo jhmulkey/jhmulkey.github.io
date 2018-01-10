@@ -191,6 +191,10 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+.number-button sup {
+    font-size: 50px;
+}
+
 .select-button-large {
     width: 100px;
     height: 100px;
@@ -234,7 +238,7 @@ input[type="checkbox"] {
 ******************************
 ******************************/
 
-#pu-bgs, #pu-bs, #pu-wdr, #pu-ps, #pu-pos, #pu-cs, #pu-mm, #pu-ms, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-epl, #pu-eb, #pu-cr {
+#pu-bgs, #pu-bs, #pu-wdr, #pu-ps, #pu-pos, #pu-cs, #pu-mm, #pu-mm-s, #pu-mm-rr, #pu-ms, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-epl, #pu-eb, #pu-cr {
     display: none;
 }
 
@@ -393,7 +397,7 @@ input[type="checkbox"] {
 
     .mus-p {
         font-size: 25px;
-        margin: 15px 0 0 0;
+        margin: 10px 0 0 0;
     }
 
     #unsold-span, #sold-span {
@@ -423,7 +427,7 @@ input[type="checkbox"] {
 
     .click-to-roll-div {
         margin: 10px;
-        outline: 1px dashed red;
+        outline: 2px dashed red;
         cursor: pointer;
     }
 
@@ -444,6 +448,7 @@ input[type="checkbox"] {
     ******************************/
     .latest-activity-div {
         height: 20px;
+        background-color: rgba(255,255,255,0.5);
     }
 
     #latest-activity-span {
@@ -521,6 +526,7 @@ input[type="checkbox"] {
         border-top: 2px solid black;
         border-bottom: 2px solid black;
         border-right: 2px solid black;
+        background: rgba(255,255,255,0.25);
     }
 
     #silver-img {
@@ -1006,4 +1012,9 @@ input[type="checkbox"] {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.pu-mm-rr-p {
+    padding: 0 10px;
+    margin: 3px 0 25px 0;
 }
