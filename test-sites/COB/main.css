@@ -52,6 +52,7 @@ a {
 h1 {
     font-family: black-chancery;
     font-size: 40px;
+    margin: 0 0 10px 0;
 }
 
 h2 {
@@ -125,7 +126,7 @@ input[type="checkbox"] {
 }
 
 .board-button-skip {
-    background-color: red;
+    background-color: darkred;
     color: white;
 }
 
@@ -267,6 +268,7 @@ input[type="checkbox"] {
     flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 15px;
+    max-width: 360px;
 }
 
 .pu-flex-div div {
@@ -315,10 +317,9 @@ input[type="checkbox"] {
 
     #tap-to-select, #tap-to-roll {
         max-width: 414px;
-        height: 300px;
-        padding-top: 75px;
+        padding-top: 20vh;
+        height: 65vh;
         font-size: 100px;
-        margin-bottom: 50px
     }
 
     #tap-to-roll {
