@@ -177,7 +177,6 @@ function mini() {
             tiles[i].style.width = "167px";
             document.getElementById("small-bonus").style.height = "167px";
             document.getElementById("small-bonus").style.width = "167px";
-            document.getElementById("undo").style.cssText = "height:100px; width:345px; padding-top: 14px";
             document.getElementById("mini").innerHTML = "Turn Mini Tiles On";
         };
     };

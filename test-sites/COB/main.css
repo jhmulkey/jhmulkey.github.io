@@ -502,7 +502,7 @@ input[type="checkbox"] {
 
     #total-points {
         height: 90px;
-        line-height: 100%;
+        line-height: 110%;
         margin: 0;
         font-size: 85px;
         color: darkred;
