@@ -191,6 +191,69 @@ input[type="checkbox"] {
     background-color: rgba(255,255,255,0.5);
     border: 2px solid black;
     cursor: pointer;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.first {
+    background-image: url(images/1st.png);
+}
+
+.second {
+    background-image: url(images/2nd.png);
+}
+
+.third {
+    background-image: url(images/3rd.png);
+}
+
+.fourth {
+    background-image: url(images/4th.png);
+}
+
+.zero {
+    background-image: url(images/0.png);
+}
+
+.one {
+    background-image: url(images/1.png);
+}
+
+.two {
+    background-image: url(images/2.png);
+}
+
+.three {
+    background-image: url(images/3.png);
+}
+
+.four {
+    background-image: url(images/4.png);
+}
+
+.five {
+    background-image: url(images/5.png);
+}
+
+.six {
+    background-image: url(images/6.png);
+}
+
+.seven {
+    background-image: url(images/7.png);
+}
+
+.eight {
+    background-image: url(images/8.png);
+}
+
+.nine {
+    background-image: url(images/9.png);
+}
+
+.ten {
+    background-image: url(images/10.png);
 }
 
 .number-button sup {
@@ -315,10 +378,10 @@ input[type="checkbox"] {
         margin-bottom: 25px; 
     }
 
-    #tap-to-select, #tap-to-roll {
+    #tap-to-select {
         max-width: 414px;
-        padding-top: 20vh;
-        height: 65vh;
+        padding-top: 85px;
+        height: 350px;
         font-size: 100px;
     }
 
@@ -326,6 +389,8 @@ input[type="checkbox"] {
         background-repeat: no-repeat;
         background-position: center;
         background-size: 150px;
+        height: 350px;
+        margin-bottom: 20px;
     }
 
 
@@ -1011,7 +1076,13 @@ input[type="checkbox"] {
         width: 90px;
         height: 90px;
     }    
+    
+    .number-button {
+        width: 90px;
+        height: 90px;
+    }    
 }
+
 #dice-1, #dice-2 {
     background-size: contain;
     background-position: center;

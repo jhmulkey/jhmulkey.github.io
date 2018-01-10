@@ -43,6 +43,14 @@ var _k = {
     ke5: false
 };
 
+function pageLinks(i) {
+    var links = [
+        "setup.html",
+        "expansion.html"
+    ];
+    window.open(links[i],"_blank");
+};
+
 function info(i) {
     var info = [
         "number of unsold goods",
@@ -158,12 +166,17 @@ function mini() {
     };
     
     var tiles = document.getElementsByClassName("tile-button");
+    var numbers = document.getElementsByClassName("number-button");
     var topSkip = document.getElementsByClassName("top-skip");
     
     if (_mini === true) {
         for (i = 0; i < tiles.length; i++) {
             tiles[i].style.height = "75px";
             tiles[i].style.width = "75px";
+        };
+        for (i = 0; i < numbers.length; i++) {
+            numbers[i].style.height = "75px";
+            numbers[i].style.width = "75px";
         };
         for (i = 0; i < topSkip.length; i++) {
             topSkip[i].style.display = "none";
@@ -175,10 +188,14 @@ function mini() {
         for (i = 0; i < tiles.length; i++) {
             tiles[i].style.height = "167px";
             tiles[i].style.width = "167px";
-            document.getElementById("small-bonus").style.height = "167px";
-            document.getElementById("small-bonus").style.width = "167px";
-            document.getElementById("mini").innerHTML = "Turn Mini Tiles On";
         };
+        for (i = 0; i < numbers.length; i++) {
+            numbers[i].style.height = "167px";
+            numbers[i].style.width = "167px";
+        };
+        document.getElementById("small-bonus").style.height = "167px";
+        document.getElementById("small-bonus").style.width = "167px";
+        document.getElementById("mini").innerHTML = "Turn Mini Tiles On";
     };
     
     pop("mm","block");
@@ -331,8 +348,8 @@ function randomDice() {
     document.getElementById("roll-1-div").style.backgroundImage = dice1;
     document.getElementById("roll-2-div").style.backgroundImage = dice2;
     document.getElementById("roll-3-div").style.backgroundImage = dice3;
-    document.getElementById("dice-1").style.backgroundImage = "url(images/"+x+".png)";
-    document.getElementById("dice-2").style.backgroundImage = "url(images/"+y+".png)";
+    document.getElementById("dice-1").style.backgroundImage = "url(images/"+x+"-dice.png)";
+    document.getElementById("dice-2").style.backgroundImage = "url(images/"+y+"-dice.png)";
     rollSound.play();
     if (document.getElementById("roll-3-div").style.visibility == "visible") {
         var log = "(" + _ph+_rd + ") rolled " + x + " and " + y + " + white " + z + " (" + _ph+_rd + ")";
