@@ -8,6 +8,7 @@ var silverSound = new Audio();
 silverSound.src = "./audio/silver-sound.mp3";
 
 var _pl = 0;
+var _plo;
 var _color;
 var _rd = 0; // 1-5
 var _ph; // "A"-"E"
@@ -39,8 +40,8 @@ var _k = {
     ke5: false
 };
 
-function zeroVariables() {
-    var strings = ["_pts", "_mines", "_workers", "_unsold", "_sold", "_bonus"]
+function zeroNaNVariables() {
+    var strings = ["_pts", "_mines", "_sold", "_bonus"];
     for (i = 0; i < strings.length; i++) {
         if (isNaN(parseInt(localStorage.getItem(strings[i])))) {
             localStorage.setItem(strings[i],0);
@@ -49,8 +50,33 @@ function zeroVariables() {
     if (isNaN(parseInt(localStorage.getItem("_silver")))) {
         localStorage.setItem("_silver",1);
     };
+    if (isNaN(parseInt(localStorage.getItem("_unsold")))) {
+        localStorage.setItem("_unsold",3);
+    };
 };
-zeroVariables();
+zeroNaNVariables();
+
+function loop() {
+    console.log("_pts "+parseInt(localStorage.getItem("_pts")));
+    console.log("_mines "+parseInt(localStorage.getItem("_mines")));
+    console.log("_unsold "+parseInt(localStorage.getItem("_unsold")));
+    console.log("_sold "+parseInt(localStorage.getItem("_sold")));
+    console.log("_bonus "+parseInt(localStorage.getItem("_bonus")));
+    console.log("_silver "+parseInt(localStorage.getItem("_silver")));
+    console.log("_workers "+parseInt(localStorage.getItem("_workers")));
+    console.log("");
+};
+
+function zeroAllVariables() {
+    if (window.confirm("Are you sure you want to reset the game?")) {
+        var strings = ["_pts","_mines","_unsold","_sold","_bonus","_workers"];
+        for (i = 0; i < strings.length; i++) {
+            localStorage.setItem(strings[i],"");
+        };
+        localStorage.setItem("_silver",1);
+        location.reload();
+    };
+};
 
 function restoreVariables() {
     _pts = parseInt(localStorage.getItem("_pts"));
@@ -365,7 +391,10 @@ function initializeWorkers(x) {
     if (x > _pl) {
         alert("Cannot be player " + x + " in a " + _pl + " player game")
     } else {
-        _workers = x; storeVariables("_workers",_workers);
+        _workers = x; _plo = x;
+        if (isNaN(parseInt(localStorage.getItem("_workers")))) {
+            storeVariables("_workers",_plo);
+        };
         document.getElementById("worker-count").innerHTML = _workers;
         pop("pos","block");
         pop("cs","block");
@@ -559,8 +588,6 @@ function sellGoods(x) {
         activityLog(log);
         pointSound.play();
         pop("sg","block");
-        console.log(_undoFunc);
-        console.log(_undoPts);
     };
 };
 
@@ -638,7 +665,7 @@ function addKnowledge(i) {
     var numbers = [2, 3, 4, 13, 14, 15, "16-23", 24, 25, 26, "e5"];
     if (_k[values[i]] === false) {
         _k[values[i]] = true;
-        document.getElementById("k" + numbers[i]).style.cssText = "border: 5px dashed red";
+        document.getElementById("k" + numbers[i]).style.border = "5px dashed red";
         var log = "knowledge tile " + numbers[i] + " added";
         latestActivity("black",log);
         activityLog(log);
@@ -646,7 +673,7 @@ function addKnowledge(i) {
     } else {
        if (window.confirm("Knowledge Tile " + numbers[i] + " is already on estate. Remove?")) {
            _k[values[i]] = false;
-           document.getElementById("k" + numbers[i]).style.cssText = "border: 2px solid black";
+           document.getElementById("k" + numbers[i]).style.border = "2px solid black";
            var log = "knowledge tile " + numbers[i] + " removed";
            latestActivity("red",log);
            activityLog(log,"red");
