@@ -13,7 +13,7 @@ const students = [
 const pickedStudents = [];
 
 function chooseWinner() {
-    const i = Math.floor(Math.random() * (students.length - 1));
+    const i = Math.floor(Math.random() * (students.length));
     const winner = students[i];
     if (students.length > 0) {
         document.getElementById("winner").innerHTML = winner;
@@ -27,8 +27,8 @@ function chooseWinner() {
         document.getElementById("winner-button").classList.add("hide");
         document.getElementById("reset-button").classList.remove("hide");
     };
-}
+};
 
 function resetPage() {
     location.reload();
-}
+};
