@@ -51,6 +51,8 @@
             <div class="board-button" onclick="pop('al','block','mm')">Activity Log</div>
             <div class="board-button" onclick="pop('mm-s','block','mm')">Set...</div>
             <div class="board-button" onclick="pop('mm-rr','block','mm')">Restore/Reset...</div>
+            <div class="board-button" onclick="undo()">Undo Last Action</div>
+            <div id="mini" class="board-button" onclick="mini()">Turn Mini Tiles On</div>
             <a href="setup.html" target="_blank">
                 <div class="board-button">Setup Info</div></a>
             <a href="expansion.html" target="_blank">
@@ -74,7 +76,7 @@
             <div class="board-button" onclick="restoreVariables()">Restore Game</div>
             <p class="pu-mm-rr-p">Restores game to last known state after accidental page refresh, closure, or browser crash.</p>
             <div class="board-button" onclick="zeroAllVariables()">Reset Game</div>
-            <p class="pu-mm-rr-p">Zeros all data and restarts the game.</p>
+            <p class="pu-mm-rr-p">Deletes all data and restarts the game.</p>
             <div class="board-button-skip" onclick="pop('mm','block','mm-rr')">&#8678;</div>
         </div>
     </div> 
@@ -259,13 +261,20 @@
     
 <div id="main">
     <div class="upper-flex-div">
+        <div id="silver" onclick="pop('si','block')">
+            <div id="silver-img"></div>
+            <div id="silver-count">1</div>
+        </div>
+        <div id="phase-round-div" onclick="pop('pe','block')">
+            <div><span id="phase-round-span">--</span></div>
+        </div>
         <div>
             <p class="checkbox-p">1st</p>
             <input type="checkbox" onclick="hide(3)"/>
         </div>
-        <div>
-            <p class="checkbox-p">Mini</p>
-            <input id="mini-checkbox" type="checkbox" onclick="mini()"/>
+        <div id="workers" onclick="pop('w','block')">
+            <div id="worker-img"></div>
+            <div id="worker-count"></div>
         </div>
     </div>
     
@@ -286,7 +295,7 @@
     </div>
         
     <div class="phase-points-round-flex-div">
-        <div>
+        <div id="unsold-sold">
             <div>
                 <p class="mus-p" onclick="info(0)">U: <span id="unsold-span">3</span></p>
             </div>
@@ -295,29 +304,15 @@
             </div>
         </div>
         <div class="total-points-div" onclick="pop('mm','block')">
-            <span id="total-points">0</span>
+            <p id="total-points">0</p>
         </div>
-        <div>
+        <div id="bonus-turn">
             <div>
                 <p class="mus-p" onclick="info(2)">B: <span id="bonus-span">0</span></p>
             </div>
             <div>
                 <p class="mus-p" onclick="info(3)">T: <span id="turn-span">0</span></p>
             </div>
-        </div>
-    </div>
-    
-    <div id="spw-flex-div">
-        <div onclick="pop('si','block')">
-            <div id="silver-img"></div>
-            <div id="silver-count">1</div>
-        </div>
-        <div id="phase-round-div" onclick="pop('pe','block')">
-            <div><span id="phase-round-span">--</span></div>
-        </div>
-        <div onclick="pop('w','block')">
-            <div id="worker-img"></div>
-            <div id="worker-count"></div>
         </div>
     </div>
     
@@ -334,7 +329,6 @@
         <div id="dice-trade" class="tile-button" onclick="addWorkers(2,'dice trade')"></div>
         <div id="castle" class="tile-button" onclick="pu_bm(4,'Castle',true)"></div>
         <div id="cloister" class="tile-button" onclick="pu_bm(7,'Cloister',true)"></div>
-        <div id="undo" class="undo-button" onclick="undo()">Undo</div>
         <!-- <div id="undo" class="undo-button" onclick="loop()">test loop</div> -->
     </div>
 

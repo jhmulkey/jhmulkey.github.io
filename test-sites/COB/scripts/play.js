@@ -27,6 +27,7 @@ var _undoDesc;
 var _undoPts;
 var _undoLimit = true;
 var _alog;
+var _mini = false;
 
 var _k = {
     k2: false,
@@ -149,6 +150,7 @@ function restoreVariables() {
 };
 
 function mini() {
+    _mini === true ? _mini = false : _mini = true;
     
     if (document.documentElement.clientWidth < 354) {
         alert("Your device width is too small to use this feature");
@@ -158,7 +160,7 @@ function mini() {
     var tiles = document.getElementsByClassName("tile-button");
     var topSkip = document.getElementsByClassName("top-skip");
     
-    if (document.getElementById("mini-checkbox").checked) {
+    if (_mini === true) {
         for (i = 0; i < tiles.length; i++) {
             tiles[i].style.height = "75px";
             tiles[i].style.width = "75px";
@@ -168,6 +170,7 @@ function mini() {
         };
         document.getElementById("small-bonus").style.cssText = "height:75px; width:75px;";
         document.getElementById("undo").style.cssText = "height:75px; width:345px; padding-top: 3px";
+        document.getElementById("mini").innerHTML = "Turn Mini Tiles Off";
         
     } else {
         for (i = 0; i < tiles.length; i++) {
@@ -176,8 +179,11 @@ function mini() {
             document.getElementById("small-bonus").style.height = "167px";
             document.getElementById("small-bonus").style.width = "167px";
             document.getElementById("undo").style.cssText = "height:100px; width:345px; padding-top: 14px";
+            document.getElementById("mini").innerHTML = "Turn Mini Tiles On";
         };
     };
+    
+    pop("mm","block");
 };
 
 function undo() {
@@ -273,8 +279,9 @@ function undo() {
         var log = "reversed " + _undoPts + " points for animals";
     };
     
+    pop("mm","block");
     latestActivity("red",log);
-    activityLog(log, "red");
+    activityLog(log, "red","transparent");
     pointSound.play();
     window.scrollTo(0,0);
 };
@@ -330,30 +337,30 @@ function randomDice() {
     document.getElementById("dice-2").style.backgroundImage = "url(images/"+y+".png)";
     rollSound.play();
     if (document.getElementById("roll-3-div").style.visibility == "visible") {
-        var log = "rolled " + x + " and " + y + " (white: " + z + ")" + " (" + _ph+_rd + ")"
+        var log = "(" + _ph+_rd + ") rolled " + x + " and " + y + " + white " + z + " (" + _ph+_rd + ")";
     } else {
-        var log = "rolled " + x + " and " + y + " (" + _ph+_rd + ")"
+        var log = "(" + _ph+_rd + ") rolled " + x + " and " + y + " (" + _ph+_rd + ")";
     }
     latestActivity("black",log);
-    activityLog(log);
+    activityLog(log,"white","black");
 };
 
 function setPhaseRound() {
     if (_rollct == 1) {
         _ph = "A";
-        activityLog("Phase A","black","25px","20px","h1");
+        activityLog("Phase A","black","transparent","25px","20px","h1");
     } else if (_rollct == 6) {
         _ph = "B"; _rd = 1; _phFactor = 1;
-        activityLog("Phase B","black","25px","20px","h1");
+        activityLog("Phase B","black","transparent","25px","20px","h1");
     } else if (_rollct == 11) {
         _ph = "C"; _rd = 1; _phFactor = 2;
-        activityLog("Phase C","black","25px","20px","h1");
+        activityLog("Phase C","black","transparent","25px","20px","h1");
     } else if (_rollct == 16) {
         _ph = "D"; _rd = 1; _rd = 1; _phFactor = 3;
-        activityLog("Phase D","black","25px","20px","h1");
+        activityLog("Phase D","black","transparent","25px","20px","h1");
     } else if (_rollct == 21) {
         _ph = "E"; _rd = 1; _phFactor = 4;
-        activityLog("Phase E","black","25px","20px","h1");
+        activityLog("Phase E","black","transparent","25px","20px","h1");
     } else {
         _ph = _ph;
     };
@@ -384,9 +391,9 @@ function adjustRound(x) {
     localStorage.setItem("_rollct",_rollct);
     localStorage.setItem("_phFactor",_phFactor);
     document.getElementById("phase-round-span").innerHTML = _ph+_rd;
-    activityLog("Phase " + _ph,"black","25px","20px","h1");
+    activityLog("Phase " + _ph,"black","transparent","25px","20px","h1");
     var log = "round adjusted to Phase " + _ph + " Round " + x;
-    activityLog(log,"red");
+    activityLog(log,"red","transparent");
     rollSound.play();
     randomDice();
     pop('re','block');
@@ -407,7 +414,7 @@ function setPoints() {
         document.getElementById("total-points").innerHTML = _pts;
         var log = "points set to " + y;
         latestActivity("red",log);
-        activityLog(log,"red");
+        activityLog(log,"red","transparent");
         pointSound.play();
         pop("mm-s","block","mm");
         window.scrollTo(0,0);
@@ -468,7 +475,7 @@ function setWorkers() {
         document.getElementById("worker-count").innerHTML = _workers;
         var log = "workers set to " + y;
         latestActivity("red",log);
-        activityLog(log,"red");
+        activityLog(log,"red","transparent");
         pointSound.play();
         pop("mm-s","block","mm");
         window.scrollTo(0,0);
@@ -535,7 +542,7 @@ function setSilver() {
         document.getElementById("silver-count").innerHTML = _silver;
         var log = "silverlings set to " + y;
         latestActivity("red",log);
-        activityLog(log,"red");
+        activityLog(log,"red","transparent");
         pointSound.play();
         pop("mm-s","block","mm");
         window.scrollTo(0,0);
@@ -581,7 +588,7 @@ function setMines(x) {
     mineOverlay();
     var log = "mines set to " + x;
     latestActivity("red",log);
-    activityLog(log,"red");
+    activityLog(log,"red","transparent");
     pointSound.play();
     pop("ms","block","mm-s");
 };
@@ -677,7 +684,7 @@ function hide(x) {
     };
 };
 
-function activityLog(log,color,size,marginTop,element) {
+function activityLog(log,color,background,size,marginTop,element) {
     if (element) {
         var elementNode = document.createElement(element);
     } else {
@@ -687,6 +694,10 @@ function activityLog(log,color,size,marginTop,element) {
     if (color) {
         elementNode.style.color = color;
     };
+    
+    if (background) {
+        elementNode.style.backgroundColor = background;
+    }
     
     if (marginTop) {
         elementNode.style.marginTop = marginTop;
@@ -733,7 +744,7 @@ function addKnowledge(i) {
            document.getElementById("k" + numbers[i]).style.border = "2px solid black";
            var log = "knowledge tile " + numbers[i] + " removed";
            latestActivity("red",log);
-           activityLog(log,"red");
+           activityLog(log,"red","transparent");
            pointSound.play();
         };
     };

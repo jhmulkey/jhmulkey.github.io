@@ -110,11 +110,12 @@ input[type="checkbox"] {
 .board-button, .board-button-skip {
     height: 60px;
     width: 345px;
-    font-size: 40px;
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 7.5px;
     border: 2px solid black !important;
     cursor: pointer;
     margin: 0 auto;
-    padding-top: 3px;
     display: inline-block;
 }
 
@@ -387,20 +388,24 @@ input[type="checkbox"] {
         display: flex;
         justify-content: space-around;
         margin-top: 20px;
-        height: 60px;
+        height: 50px;
+    }
+
+    .upper-flex-div div {
+        height: 50px;
     }
 
     .checkbox-p {
         font-size: 15px;
-        margin: 5px 0 5px 0;
+        margin: 0 0 3px 0;
     }
 
     .mus-p {
         font-size: 25px;
-        margin: 10px 0 0 0;
+        margin: 5px 0 0 0;
     }
 
-    #unsold-span, #sold-span {
+    #unsold-span, #sold-span, #bonus-span, #turn-span {
         font-size: 25px;
         font-weight: bold;
     }
@@ -413,7 +418,7 @@ input[type="checkbox"] {
         flex-wrap: wrap;
         justify-content: space-around;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         max-width: 355px;
     }
 
@@ -464,6 +469,16 @@ input[type="checkbox"] {
         justify-content: space-around;
         align-items: center;
         margin-bottom: 10px;
+        height: 90px;
+    }
+
+    #unsold-sold, #bonus-turn {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        height: 90px;
+        width: 70px;
     }
 
     #phase-span, #round-span {
@@ -474,17 +489,21 @@ input[type="checkbox"] {
     #phase-round-span {
         display: inline-block;
         font-weight: bold;
+        height: 50px;
         font-size: 40px;
-        margin-top: 5px;
     }
 
     .total-points-div {
         width: 150px;
+        height: 90px;
         margin: 0;
         cursor: pointer;
     }
 
     #total-points {
+        height: 90px;
+        line-height: 100%;
+        margin: 0;
         font-size: 85px;
         color: darkred;
         font-weight: bold;
@@ -493,51 +512,35 @@ input[type="checkbox"] {
     /******************************
         PLAY > SILVER-PLAYERS-WORKERS FLEX DIV
     ******************************/
-    #spw-flex-div {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-        margin: 0 auto 10px auto;
-        height: 60px;
-        max-width: 355px;
-    }
-
-    #spw-flex-div div {
-        height: 60px;
-        height: 60px;
-        cursor: pointer;
-    }
-
     #phase-round-div {
         width: 90px;
     }
 
     #silver-img, #silver-count, #worker-img, #worker-count {
         display: inline-block;
-        height: 58px;
-        width: 58px;
+        height: 40px;
+        width: 40px;
         background-size: contain;
     }
 
     #silver-count, #worker-count {       
         float: right;
-        font-size: 48px;
-        border-top: 2px solid black;
-        border-bottom: 2px solid black;
-        border-right: 2px solid black;
+        font-size: 30px;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
         background: rgba(255,255,255,0.25);
     }
 
     #silver-img {
         background-image: url(images/silverling.png);
         background-color: #C6B4B1;
-        border: 2px solid black;
+        border: 1px solid black;
     }
 
     #worker-img {
         background-image: url(images/worker.jpg);
-        border: 2px solid black;
+        border: 1px solid black;
     }
 
     #spend-1 {
@@ -1015,6 +1018,11 @@ input[type="checkbox"] {
 }
 
 .pu-mm-rr-p {
+    font-weight: bold;
     padding: 0 10px;
     margin: 3px 0 25px 0;
+}
+
+#silver, #workers {
+    padding-top: 5px;
 }
