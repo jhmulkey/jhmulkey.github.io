@@ -26,6 +26,7 @@ var _undoFunc;
 var _undoDesc;
 var _undoPts;
 var _undoLimit = true;
+var _alog;
 
 var _k = {
     k2: false,
@@ -85,7 +86,7 @@ function loop() {
 
 function zeroAllVariables() {
     if (window.confirm("Are you sure you want to reset the game?")) {
-        var strings = ["_pts","_mines","_unsold","_sold","_bonus","_workers","_turn","_rd","_rollct","_phFactor"];
+        var strings = ["_pts","_mines","_unsold","_sold","_bonus","_workers","_turn","_rd","_rollct","_phFactor","_alog"];
         for (i = 0; i < strings.length; i++) {
             localStorage.setItem(strings[i],"");
         };
@@ -116,11 +117,14 @@ function restoreVariables() {
     _rollct = parseInt(localStorage.getItem("_rollct"));
     _rd = parseInt(localStorage.getItem("_rd"));
     
-    _k = JSON.parse(localStorage.getItem("_k"));
+    _alog = localStorage.getItem("_alog");
     
-    for (var key in _k) {
-        if (_k[key] === true) {
-            document.getElementById(key.toString()).style.border = "5px dashed red";
+    if (JSON.parse(localStorage.getItem("_k") != null)) {
+        _k = JSON.parse(localStorage.getItem("_k"));
+        for (var key in _k) {
+            if (_k[key] === true) {
+                document.getElementById(key.toString()).style.border = "5px dashed red";
+            };
         };
     };
     
@@ -128,12 +132,14 @@ function restoreVariables() {
         document.getElementById("phase-round-span").innerHTML = _ph+_rd;
     };
     
+    document.getElementById("pu-al").innerHTML = _alog;
     document.getElementById("total-points").innerHTML = _pts;
     document.getElementById("mine").style.backgroundImage = "url(images/"+_mines+"-mines.png)";
     document.getElementById("silver-count").innerHTML = _silver;
     document.getElementById("worker-count").innerHTML = _workers;
     document.getElementById("unsold-span").innerHTML = _unsold;
     document.getElementById("sold-span").innerHTML = _sold;
+    document.getElementById("bonus-span").innerHTML = _bonus;
     document.getElementById("turn-span").innerHTML = _turn;
     
     latestActivity("green","session restored");
@@ -297,7 +303,7 @@ function rollDice() {
         if (_mines > 0 && (_rollct == 6 || _rollct == 11 || _rollct == 16 || _rollct == 21)) {
             addSilver(_mines,"mines");
         };
-        if (_k.k2 === true && (_rollct == 6 || _rollct == 11 || _rollct == 16 || _rollct == 21)) {
+        if (_k.k2 === true && _mines > 0 && (_rollct == 6 || _rollct == 11 || _rollct == 16 || _rollct == 21)) {
             addWorkers(_mines,"mines");
         };
     } else if (_rollct >= 25) {
@@ -324,9 +330,9 @@ function randomDice() {
     document.getElementById("dice-2").style.backgroundImage = "url(images/"+y+".png)";
     rollSound.play();
     if (document.getElementById("roll-3-div").style.visibility == "visible") {
-        var log = "rolled " + x + " and " + y + " (white: " + z + ")"
+        var log = "rolled " + x + " and " + y + " (white: " + z + ")" + " (" + _ph+_rd + ")"
     } else {
-        var log = "rolled " + x + " and " + y
+        var log = "rolled " + x + " and " + y + " (" + _ph+_rd + ")"
     }
     latestActivity("black",log);
     activityLog(log);
@@ -426,7 +432,7 @@ function regionPoints(x) {
     _undoFunc = "region points"; _undoDesc = x + 1; _undoPts = added; _undoLimit = false;
     _pts += added; localStorage.setItem("_pts",_pts);
     document.getElementById("total-points").innerHTML = _pts;
-    var log = added + " points for region size " + (x + 1) + " in Phase " + _ph;
+    var log = added + " points for region size " + (x + 1);
     latestActivity("black",log);
     activityLog(log);
     pointSound.play();
@@ -694,6 +700,8 @@ function activityLog(log,color,size,marginTop,element) {
     var textNode = document.createTextNode(log);
     elementNode.appendChild(textNode);
     document.getElementById("pu-al").appendChild(elementNode);
+    _alog = document.getElementById("pu-al").innerHTML;
+    localStorage.setItem("_alog",_alog);
 };
 
 function endPointLog(log) {
