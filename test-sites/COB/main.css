@@ -851,7 +851,7 @@ input[type="checkbox"] {
         background-color: #E0D537; 
     }
 
-    #k16-23 {
+    #k16_23 {
         background-image: url(images/k16-23.png);
         background-color: #E0D537; 
     }
@@ -948,6 +948,26 @@ input[type="checkbox"] {
     #pu-al p {
         margin: 0;
     }
+
+#dice-1, #dice-2 {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.pu-mm-rr-p {
+    font-weight: bold;
+    padding: 0 10px;
+    margin: 3px 0 25px 0;
+}
+
+#silver, #workers {
+    padding-top: 5px;
+}
+
+#silver-for-workers {
+    display: none;
+}
 
 
 /******************************
@@ -1081,20 +1101,4 @@ input[type="checkbox"] {
         width: 90px;
         height: 90px;
     }    
-}
-
-#dice-1, #dice-2 {
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.pu-mm-rr-p {
-    font-weight: bold;
-    padding: 0 10px;
-    margin: 3px 0 25px 0;
-}
-
-#silver, #workers {
-    padding-top: 5px;
 }

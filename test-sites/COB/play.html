@@ -17,6 +17,8 @@
             <div class="number-button two" onclick="setPlayers(2)"></div>
             <div class="number-button three" onclick="setPlayers(3)"></div>
             <div class="number-button four" onclick="setPlayers(4)"></div>
+            <div class="board-button" onclick="restoreVariables()">Restore Game</div>
+            <p class="pu-mm-rr-p">Restores game to last known state after accidental page refresh, closure, or browser crash.</p>
         </div>
     </div>   
        
@@ -50,7 +52,7 @@
         <div class="pu-flex-div">
             <div class="board-button" onclick="pop('al','block','mm')">Activity Log</div>
             <div class="board-button" onclick="pop('mm-s','block','mm')">Set...</div>
-            <div class="board-button" onclick="pop('mm-rr','block','mm')">Restore/Reset...</div>
+            <div class="board-button" onclick="zeroAllVariables()">Reset Game</div>
             <div class="board-button" onclick="undo()">Undo Last Action</div>
             <div id="mini" class="board-button" onclick="mini()">Turn Mini Tiles On</div>
             <div class="board-button" onclick="pageLinks(0)">Setup Info</div>
@@ -68,16 +70,6 @@
             <div class="board-button-skip" onclick="pop('mm','block','mm-s')">&#8678;</div>
         </div>
     </div>
-    
-    <div id="pu-mm-rr" class="pu">
-        <div class="pu-flex-div">
-            <div class="board-button" onclick="restoreVariables()">Restore Game</div>
-            <p class="pu-mm-rr-p">Restores game to last known state after accidental page refresh, closure, or browser crash.</p>
-            <div class="board-button" onclick="zeroAllVariables()">Reset Game</div>
-            <p class="pu-mm-rr-p">Deletes all data and restarts the game.</p>
-            <div class="board-button-skip" onclick="pop('mm','block','mm-rr')">&#8678;</div>
-        </div>
-    </div> 
     
     <div id="pu-ms" class="pu">
         <h1>Set Mines</h1>
@@ -116,7 +108,7 @@
     <div id="pu-si" class="pu">
         <h1>Spend Silverlings</h1>
         <div class="pu-flex-div">
-            <div id="spend-1" class="number-button one" onclick="spendSilver(-1)"></div>
+            <div id="silver-for-workers" class="board-button" onclick="silverForWorkers()">1 silverling for 2 workers</div>
             <div class="number-button two" onclick="spendSilver(-2)"></div>
             <div class="board-button-skip" onclick="pop('si','block')">&#8678;</div>
         </div>
@@ -247,13 +239,13 @@
         <div id="k13" class="tile-button" onclick="addKnowledge(3)"></div>
         <div id="k14" class="tile-button" onclick="addKnowledge(4)"></div>
         <div id="k15" class="tile-button" onclick="addKnowledge(5)"></div>
-        <div id="k16-23" class="tile-button" onclick="addKnowledge(6)"></div>
+        <div id="k16_23" class="tile-button" onclick="addKnowledge(6)"></div>
         <div id="k24" class="tile-button" onclick="addKnowledge(7)"></div>
         <div id="k25" class="tile-button" onclick="addKnowledge(8)"></div>
         <div id="k26" class="tile-button" onclick="addKnowledge(9)"></div>
         <div id="ke2a" class="tile-button" onclick="pu_km(9,'e2a')"></div>
-        <div id="ke2b" class="tile-button" onclick="pu_km(10,'e2b')"></div>
-        <div id="ke5" class="tile-button" onclick="addKnowledge(10)"></div>
+        <div id="ke2b" class="tile-button" onclick="addKnowledge(10)"></div>
+        <div id="ke5" class="tile-button" onclick="addKnowledge(11)"></div>
         <div class="board-button-skip" onclick="pop('k','flex')">&#8678;</div>
     </div>
     

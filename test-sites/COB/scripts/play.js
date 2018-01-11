@@ -36,10 +36,11 @@ var _k = {
     k13: false,
     k14: false,
     k15: false,
-    k1623: false,
+    k16_23: false,
     k24: false,
     k25: false,
     k26: false,
+    ke2b: false,
     ke5: false
 };
 
@@ -95,7 +96,7 @@ function loop() {
 
 function zeroAllVariables() {
     if (window.confirm("Are you sure you want to reset the game?")) {
-        var strings = ["_pts","_mines","_unsold","_sold","_bonus","_workers","_turn","_rd","_rollct","_phFactor","_alog"];
+        var strings = ["_pl","_pts","_mines","_unsold","_sold","_bonus","_workers","_turn","_rd","_rollct","_phFactor","_alog"];
         for (i = 0; i < strings.length; i++) {
             localStorage.setItem(strings[i],"");
         };
@@ -112,6 +113,13 @@ function zeroAllVariables() {
 };
 
 function restoreVariables() {
+    if (isNaN(parseInt(localStorage.getItem("_pl"))) || parseInt(localStorage.getItem("_rollct")) < 1) {
+        alert("nothing to restore");
+        return;
+    };
+    
+    _pl = parseInt(localStorage.getItem("_pl"));
+    _color = localStorage.getItem("_color");
     _pts = parseInt(localStorage.getItem("_pts"));
     _mines = parseInt(localStorage.getItem("_mines"));
     _silver = parseInt(localStorage.getItem("_silver"));
@@ -120,12 +128,10 @@ function restoreVariables() {
     _sold = parseInt(localStorage.getItem("_sold"));
     _bonus = parseInt(localStorage.getItem("_bonus"));
     _turn = parseInt(localStorage.getItem("_turn"));
-    
     _ph = localStorage.getItem("_ph");
     _phfactor = parseInt(localStorage.getItem("_phfactor"));
     _rollct = parseInt(localStorage.getItem("_rollct"));
     _rd = parseInt(localStorage.getItem("_rd"));
-    
     _alog = localStorage.getItem("_alog");
     
     if (JSON.parse(localStorage.getItem("_k") != null)) {
@@ -152,7 +158,11 @@ function restoreVariables() {
     document.getElementById("turn-span").innerHTML = _turn;
     
     latestActivity("green","session restored");
-    pop("mm-rr","block","mm");
+    if (document.getElementById("pu-ps").style.display == "block") {
+        pop("ps","block");
+    } else {
+        pop("mm-rr","block","mm");
+    };
     scrollTo(0,0);
     randomDice();
 };
@@ -245,6 +255,15 @@ function undo() {
         var log = "reversed spending of " + Math.abs(_undoPts) + " silverlings"
     };
     
+    if (_undoFunc == "silver for workers") {
+        _silver++; _workers -= 2;
+        localStorage.setItem("_silver",_silver);
+        localStorage.setItem("_workers",_workers);
+        document.getElementById("silver-count").innerHTML = _silver;
+        document.getElementById("worker-count").innerHTML = _workers;
+        var log = "reversed 2 workers for silverling"
+    };
+    
     if (_undoFunc == "use workers") {
         _workers -= _undoPts; localStorage.setItem("_workers",_workers);
         document.getElementById("worker-count").innerHTML = _workers;
@@ -302,7 +321,16 @@ function undo() {
 };
 
 function setPlayers(x) {
+    if (!isNaN(parseInt(localStorage.getItem("_pl")))) {
+        if (window.confirm("Old game data found. Click OK to reset all data and then try again.")) {
+            zeroAllVariables();
+            return;
+        } else {
+            return;
+        };
+    };
     _pl = x;
+    localStorage.setItem("_pl",_pl);
     var log = "Players: " + _pl;
     latestActivity("blue",log);
     pop("ps","block");
@@ -311,6 +339,7 @@ function setPlayers(x) {
 
 function setColor(color) {
     _color = color;
+    localStorage.setItem("_color",_color);
     pop("cs","block");
     document.getElementById("main").style.display = "block";
 };
@@ -352,9 +381,9 @@ function randomDice() {
     document.getElementById("dice-2").style.backgroundImage = "url(images/"+y+"-dice.png)";
     rollSound.play();
     if (document.getElementById("roll-3-div").style.visibility == "visible") {
-        var log = "(" + _ph+_rd + ") rolled " + x + " and " + y + " + white " + z + " (" + _ph+_rd + ")";
+        var log = "(" + _ph+_rd + ") rolled " + x + " and " + y + " + white " + z;
     } else {
-        var log = "(" + _ph+_rd + ") rolled " + x + " and " + y + " (" + _ph+_rd + ")";
+        var log = "(" + _ph+_rd + ") rolled " + x + " and " + y;
     }
     latestActivity("black",log);
     activityLog(log,"white","black");
@@ -376,8 +405,6 @@ function setPhaseRound() {
     } else if (_rollct == 21) {
         _ph = "E"; _rd = 1; _phFactor = 4;
         activityLog("Phase E","black","transparent","25px","20px","h1");
-    } else {
-        _ph = _ph;
     };
     localStorage.setItem("_ph",_ph);
     localStorage.setItem("_rd",_rd);
@@ -581,7 +608,7 @@ function addSilver(x,name) {
     scrollTo(0,0);
 };
 
-function spendSilver(x) {
+function spendSilver(x,e2b) {
     if (_silver + x < 0) {
         alert("You only have " + _silver + " silverlings");
         return;
@@ -590,12 +617,22 @@ function spendSilver(x) {
     };
     _undoFunc = "spend silver"; _undoPts = x; _undoLimit = false;
     document.getElementById("silver-count").innerHTML = _silver;
-    var log = Math.abs(x) + " silverlings spent";
+    if (e2b) {
+        _undoFunc = "silver for workers"; _undoLimit = false;
+        var log = Math.abs(x) + " silverling spent for 2 workers";
+    } else {
+        var log = Math.abs(x) + " silverlings spent at black depot";
+    };
     latestActivity("black",log);
     activityLog(log);
     silverSound.play();
     pop("si","block");
     scrollTo(0,0);
+};
+
+function silverForWorkers() {
+    addWorkers(2,"silverling");
+    spendSilver(-1,true);
 };
 
 function setMines(x) {
@@ -744,11 +781,14 @@ function latestActivity(color,log) {
 };
 
 function addKnowledge(i) {
-    var values = ["k2", "k3", "k4", "k13", "k14", "k15", "k1623", "k24", "k25", "k26", "ke5"];
-    var numbers = [2, 3, 4, 13, 14, 15, "16-23", 24, 25, 26, "e5"];
+    var values = ["k2", "k3", "k4", "k13", "k14", "k15", "k16_23", "k24", "k25", "k26", "ke2b", "ke5"];
+    var numbers = [2, 3, 4, 13, 14, 15, "16_23", 24, 25, 26, "e2b", "e5"];
     if (_k[values[i]] === false) {
         _k[values[i]] = true; localStorage.setItem("_k",JSON.stringify(_k));
         document.getElementById("k" + numbers[i]).style.border = "5px dashed red";
+        if (_k["ke2b"] === true) {
+            document.getElementById("silver-for-workers").style.display = "block";
+        };
         var log = "knowledge tile " + numbers[i] + " added";
         latestActivity("black",log);
         activityLog(log);
@@ -757,6 +797,9 @@ function addKnowledge(i) {
        if (window.confirm("Knowledge Tile " + numbers[i] + " is already on estate. Remove?")) {
            _k[values[i]] = false;
            document.getElementById("k" + numbers[i]).style.border = "2px solid black";
+           if (_k["ke2b"] === false) {
+               document.getElementById("silver-for-workers").style.display = "none";
+           };
            var log = "knowledge tile " + numbers[i] + " removed";
            latestActivity("red",log);
            activityLog(log,"red","transparent");
@@ -938,8 +981,7 @@ function pu_km(i,number) {
         "any dice result may be adjusted +1 or -1 to place a ship or animal tile",
         "any dice result may be adjusted +1 or -1 to place a castle, knowledge tile, or mine",
         "any dice result may be adjusted +1 or -1 to acquire any new tile",
-        "always stay at the top of any stack on the turn order track (only players ahead of the stack will be ahead of you in player order)",
-        "may use 1 silverling to buy 2 workers"
+        "always stay at the top of any stack on the turn order track (only players ahead of the stack will be ahead of you in player order)"
     ];
     if (document.getElementById("pu-km").style.display != "block") {
         document.getElementById("pu-km").style.display = "block";
