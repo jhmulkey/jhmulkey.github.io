@@ -143,12 +143,8 @@ input[type="checkbox"] {
 }
 
 .tile-button {
-    height: 167px;
-    width: 167px;
-    color: darkred;
-    font-weight: bold;
-    font-size: 125px;
-    padding-top: 3px;
+    height: 75px;
+    width: 75px;
     border: 2px solid black;
     background-color: rgba(255,255,255,0.5);
     background-size: contain;
@@ -158,8 +154,8 @@ input[type="checkbox"] {
 }
 
 .tile-button-no-border {
-    height: 167px;
-    width: 167px;
+    height: 75px;
+    width: 75px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -182,12 +178,8 @@ input[type="checkbox"] {
 }
 
 .number-button {
-    height: 167px;
-    width: 167px;
-    color: darkred;
-    font-weight: bold;
-    font-size: 100px;
-    padding-top: 18px;
+    height: 75px;
+    width: 75px;
     background-color: rgba(255,255,255,0.5);
     border: 2px solid black;
     cursor: pointer;
@@ -256,6 +248,26 @@ input[type="checkbox"] {
     background-image: url(images/10.png);
 }
 
+.a {
+    background-image: url(images/a.png);
+}
+
+.b {
+    background-image: url(images/b.png);
+}
+
+.c {
+    background-image: url(images/c.png);
+}
+
+.d {
+    background-image: url(images/d.png);
+}
+
+.e {
+    background-image: url(images/e.png);
+}
+
 .number-button sup {
     font-size: 50px;
 }
@@ -293,7 +305,7 @@ input[type="checkbox"] {
     text-align: center;
 }
 
-#main {
+#pu-main {
     display: none;
 }
 
@@ -303,7 +315,7 @@ input[type="checkbox"] {
 ******************************
 ******************************/
 
-#pu-bgs, #pu-bs, #pu-wdr, #pu-ps, #pu-pos, #pu-cs, #pu-mm, #pu-mm-s, #pu-mm-rr, #pu-ms, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-epl, #pu-eb, #pu-cr {
+#pu-bgs, #pu-bs, #pu-wdr, #pu-pos, #pu-cs, #pu-mm, #pu-mm-s, #pu-mm-rr, #pu-ms, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-epl, #pu-eb, #pu-cr {
     display: none;
 }
 
@@ -388,9 +400,10 @@ input[type="checkbox"] {
     #tap-to-roll {
         background-repeat: no-repeat;
         background-position: center;
-        background-size: 150px;
-        height: 350px;
-        margin-bottom: 20px;
+        background-size: contain;
+        width: 100px;
+        height: 100px;
+        outline: 1px dashed gray;
     }
 
 
@@ -955,11 +968,7 @@ input[type="checkbox"] {
     background-repeat: no-repeat;
 }
 
-.pu-mm-rr-p {
-    font-weight: bold;
-    padding: 0 10px;
-    margin: 3px 0 25px 0;
-}
+
 
 #silver, #workers {
     padding-top: 5px;
@@ -1101,4 +1110,20 @@ input[type="checkbox"] {
         width: 90px;
         height: 90px;
     }    
+}
+.top-skip {
+    display: none;
+}
+
+#wdr-p {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+
+
+
+
+#restore-div {
+    margin-top: 30px;
 }

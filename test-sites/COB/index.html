@@ -1,5 +1,5 @@
 <!doctype html>
-<html id="index-html">
+<html>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,12 +8,45 @@
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
 </head>
 <body>
+
+<div id="main-wrapper-div">
      
-    <div id="pu-ts">
-        <p>Castles of Burgundy</p>
-        <img src="images/title-photo.jpg" width="75%"/>
-    </div>
-    
+    <div id="pu-ps" class="pu">
+        <h1>Players</h1>
+        <div class="pu-flex-div">
+            <div class="number-button two" onclick="setPlayers(2)"></div>
+            <div class="number-button three" onclick="setPlayers(3)"></div>
+            <div class="number-button four" onclick="setPlayers(4)"></div>
+        </div>
+        <div id="restore-div">
+            <div class="board-button" onclick="restoreVariables()">Restore Game</div>
+        </div>
+    </div>   
+       
+    <div id="pu-pos" class="pu">
+        <h1>Player Order</h1>
+        <div class="pu-flex-div">
+            <div class="number-button first" onclick="initializeWorkers(1)"></div>
+            <div class="number-button second" onclick="initializeWorkers(2)"></div>
+            <div class="number-button third" onclick="initializeWorkers(3)"></div>
+            <div class="number-button fourth" onclick="initializeWorkers(4)"></div>
+        </div>
+        <div>
+            <p id="wdr-p">Tap box to roll white die.</p>
+            <div id="tap-to-roll" onclick="rollWhiteDice()"></div>
+        </div>
+    </div>   
+        
+    <div id="pu-cs" class="pu">
+        <h1>Color</h1>
+        <div class="pu-flex-div">
+            <div id="black" class="number-button" onclick="setColor('black')"></div>
+            <div id="red" class="number-button" onclick="setColor('red')"></div>
+            <div id="green" class="number-button" onclick="setColor('green')"></div>
+            <div id="blue" class="number-button" onclick="setColor('blue')"></div>
+        </div>
+    </div> 
+      
     <div id="pu-bgs" class="pu">
         <h1>Board Group</h1>
         <div class="pu-flex-div">
@@ -21,24 +54,304 @@
             <div class="board-button" onclick="setBoardIndex(1)">Boards 10a-h</div>
             <div class="board-button" onclick="setBoardIndex(2)">Boards 13a-h</div>
             <div class="board-button" onclick="setBoardIndex(3)">All Boards</div>
-            <div class="board-button-skip" onclick="pop('wdr','bgs')">Skip</div>
+            <div class="board-button-skip" onclick="pop('main','block','bgs')">Skip</div>
         </div>
     </div> 
     
-    <div id="pu-bs" class="pu" onclick="chooseBoards()">
+    <div id="pu-bs" class="pu">
         <h1>Random Boards</h1>
-        <div id="tap-to-select"></div>
-        <div class="board-button-skip" onclick="pop('wdr','bs')">Continue</div>
+        <div id="tap-to-select" onclick="chooseBoards()"></div>
+        <div class="pu-flex-div">
+            <div class="board-button-skip" onclick="pop('main','block','bs')">Continue</div>
+            <div class="board-button-skip" onclick="pop('bgs','block','bs')">&#8678;</div>
+        </div>
     </div> 
     
-    <div id="pu-wdr" class="pu" onclick="rollWhiteDice()">
-        <h1>White Dice</h1>
-        <div id="tap-to-roll"></div>
-        <a href="play.html">
-            <div class="board-button-skip">Continue</div>
-        </a>
+    <div id="pu-mm" class="pu">
+        <h1>Main Menu</h1>
+        <div class="pu-flex-div">
+            <div class="board-button" onclick="pop('al','block','mm')">Activity Log</div>
+            <div class="board-button" onclick="pop('mm-s','block','mm')">Set...</div>
+            <div class="board-button" onclick="zeroAllVariables()">Reset Game</div>
+            <div class="board-button" onclick="undo()">Undo Last Action</div>
+            <div id="jumbo" class="board-button" onclick="jumbo()">Turn Jumbo Tiles On</div>
+            <div class="board-button" onclick="pageLinks(0)">Setup Info</div>
+            <div class="board-button" onclick="pageLinks(1)">Expansion Info</div>
+            <div class="board-button-skip" onclick="pop('mm','block')">&#8678;</div>
+        </div>
     </div> 
-     
-    <script src="scripts/index.js"></script>
+    
+    <div id="pu-mm-s" class="pu">
+        <div class="pu-flex-div">
+            <div class="board-button" onclick="setPoints()">Set Points</div>
+            <div class="board-button" onclick="setSilver()">Set Silverlings</div>
+            <div class="board-button" onclick="setWorkers()">Set Workers</div>
+            <div class="board-button" onclick="pop('ms','block','mm-s')">Set Mines</div>
+            <div class="board-button-skip" onclick="pop('mm','block','mm-s')">&#8678;</div>
+        </div>
+    </div>
+    
+    <div id="pu-ms" class="pu">
+        <h1>Set Mines</h1>
+        <div class="pu-flex-div">
+            <div class="number-button zero" onclick="setMines(0)"></div>
+            <div class="number-button one" onclick="setMines(1)"></div>
+            <div class="number-button two" onclick="setMines(2)"></div>
+            <div class="number-button three" onclick="setMines(3)"></div>
+            <div class="board-button-skip" onclick="pop('mm-s','block','ms')">&#8678;</div>
+        </div>
+    </div> 
+    
+    <div id="pu-al">
+        <div class="board-button-skip" onclick="pop('al','block')">&#8678;</div>
+        <h1 id="pu-al-h1">Activity Log</h1>
+    </div>
+    
+    <div id="pu-pe" class="pu">
+        <h1>Phase</h1>
+        <div class="pu-flex-div">
+            <div class="number-button a" onclick="adjustPhase('A')"></div>
+            <div class="number-button b" onclick="adjustPhase('B')"></div>
+            <div class="number-button c" onclick="adjustPhase('C')"></div>
+            <div class="number-button d" onclick="adjustPhase('D')"></div>
+            <div class="number-button e" onclick="adjustPhase('E')"></div>
+            <div class="board-button-skip" onclick="pop('pe','block')">&#8678;</div>
+        </div>
+    </div>   
+        
+    <div id="pu-re" class="pu">
+        <h1>Round</h1>
+        <div class="pu-flex-div">
+            <div class="number-button one" onclick="adjustRound(1)"></div>
+            <div class="number-button two" onclick="adjustRound(2)"></div>
+            <div class="number-button three" onclick="adjustRound(3)"></div>
+            <div class="number-button four" onclick="adjustRound(4)"></div>
+            <div class="number-button five" onclick="adjustRound(5)"></div>
+        </div>
+    </div>  
+       
+    <div id="pu-si" class="pu">
+        <h1>Spend Silverlings</h1>
+        <div class="pu-flex-div">
+            <div id="silver-for-workers" class="board-button" onclick="silverForWorkers()">1 silverling for 2 workers</div>
+            <div class="number-button two" onclick="spendSilver(-2)"></div>
+            <div class="board-button-skip" onclick="pop('si','block')">&#8678;</div>
+        </div>
+    </div> 
+       
+    <div id="pu-w" class="pu">
+        <h1>Use Workers</h1>
+        <div class="pu-flex-div">
+            <div class="number-button one" onclick="useWorkers(-1)"></div>
+            <div class="number-button two" onclick="useWorkers(-2)"></div>
+            <div class="number-button three" onclick="useWorkers(-3)"></div>
+            <div class="board-button-skip" onclick="pop('w','block')">&#8678;</div>
+        </div>
+    </div> 
+    
+    <div id="pu-sg" class="pu">
+        <h1>Goods Sold</h1>
+        <div class="pu-flex-div">
+            <div class="board-button-skip top-skip" onclick="pop('sg','block')">&#8678;</div>
+            <div class="number-button one" onclick="sellGoods(1)"></div>
+            <div class="number-button two" onclick="sellGoods(2)"></div>
+            <div class="number-button three" onclick="sellGoods(3)"></div>
+            <div class="number-button four" onclick="sellGoods(4)"></div>
+            <div class="number-button five" onclick="sellGoods(5)"></div>
+            <div class="number-button six" onclick="sellGoods(6)"></div>
+            <div class="number-button seven" onclick="sellGoods(7)"></div>
+            <div class="number-button eight" onclick="sellGoods(8)"></div>
+            <div class="number-button nine" onclick="sellGoods(9)"></div>
+            <div class="number-button ten" onclick="sellGoods(10)"></div>
+            <div class="board-button-skip" onclick="pop('sg','block')">&#8678;</div>
+        </div>
+    </div>
+        
+    <div id="pu-sh" class="pu">
+        <h1>Goods Acquired</h1>
+        <div class="pu-flex-div">
+            <div class="board-button-skip top-skip" onclick="pop('sh','block')">&#8678;</div>
+            <div class="number-button one" onclick="addGoods(1)"></div>
+            <div class="number-button two" onclick="addGoods(2)"></div>
+            <div class="number-button three" onclick="addGoods(3)"></div>
+            <div class="number-button four" onclick="addGoods(4)"></div>
+            <div class="number-button five" onclick="addGoods(5)"></div>
+            <div class="number-button six" onclick="addGoods(6)"></div>
+            <div class="number-button seven" onclick="addGoods(7)"></div>
+            <div class="number-button eight" onclick="addGoods(8)"></div>
+            <div class="number-button nine" onclick="addGoods(9)"></div>
+            <div class="number-button ten" onclick="addGoods(10)"></div>
+            <div class="board-button-skip" onclick="pop('sh','block')">&#8678;</div>
+        </div>
+    </div>
+    
+    <div id="pu-cr" class="pu">
+        <h1>Region Size</h1>
+        <div class="pu-flex-div">
+            <div class="board-button-skip top-skip" onclick="pop('cr','block')">&#8678;</div>
+            <div class="number-button one" onclick="regionPoints(0)"></div>
+            <div class="number-button two" onclick="regionPoints(1)"></div>
+            <div class="number-button three" onclick="regionPoints(2)"></div>
+            <div class="number-button four" onclick="regionPoints(3)"></div>
+            <div class="number-button five" onclick="regionPoints(4)"></div>
+            <div class="number-button six" onclick="regionPoints(5)"></div>
+            <div class="number-button seven" onclick="regionPoints(6)"></div>
+            <div class="number-button eight" onclick="regionPoints(7)"></div>
+            <div class="board-button-skip" onclick="pop('cr','block')">&#8678;</div>
+        </div>
+    </div>
+       
+    <div id="pu-a" class="pu">
+        <h1>Animal Points</h1>
+        <div class="pu-flex-div">
+            <div class="board-button-skip top-skip" onclick="pop('a','block')">&#8678;</div>
+            <div class="number-button one" onclick="animals(1)"></div>
+            <div class="number-button two" onclick="animals(2)"></div>
+            <div class="number-button three" onclick="animals(3)"></div>
+            <div class="number-button four" onclick="animals(4)"></div>
+            <div class="number-button five" onclick="animals(5)"></div>
+            <div class="number-button six" onclick="animals(6)"></div>
+            <div class="number-button seven" onclick="animals(7)"></div>
+            <div class="number-button eight" onclick="animals(8)"></div>
+            <div class="number-button nine" onclick="animals(9)"></div>
+            <div class="number-button ten" onclick="animals(10)"></div>
+            <div class="board-button-skip" onclick="pop('a','block')">&#8678;</div>
+        </div>
+    </div>    
+        
+    <div id="pu-bm" class="pu">
+        <h1 id="pu-bm-h1"></h1>
+        <p id="pu-bm-p"></p>
+        <div class="board-button-skip" onclick="pop('bm','block')">OK</div>
+    </div>
+       
+    <div id="pu-b">
+        <div class="board-button-skip top-skip" onclick="pop('b','flex')">&#8678;</div>
+        <div id="watchtower" class="tile-button" onclick="tapPoints(4,'watchtower')"></div>
+        <div id="warehouse" class="tile-button" onclick="pop('sg','block','b')"></div>
+        <div id="boardhouse" class="tile-button" onclick="addWorkers(4,'boarding house')"></div>
+        <div id="bank" class="tile-button" onclick="addSilver(2,'bank')"></div>
+        <div id="market" class="tile-button" onclick="pu_bm(0,'Market')"></div>
+        <div id="church" class="tile-button" onclick="pu_bm(1,'Church')"></div>
+        <div id="carpenter" class="tile-button" onclick="pu_bm(2,'Carpenter Shop')"></div>
+        <div id="city-hall" class="tile-button" onclick="pu_bm(3,'City Hall')"></div>
+        <div id="park" class="tile-button" onclick="pu_bm(5,'Park')"></div>
+        <div id="pleasure-garden" class="tile-button" onclick="pu_bm(6,'Pleasure Garden')"></div>
+        <div id="monastaries" class="tile-button" onclick="tapPoints(5,'connecting monastaries')"></div>
+        <div class="board-button-skip" onclick="pop('b','flex')">&#8678;</div>
+    </div>
+    
+    <div id="pu-km" class="pu">
+        <div id="pu-km-tile" class="tile-button"></div>
+        <p id="pu-km-p"></p>
+        <div class="board-button-skip" onclick="pop('km','block')">OK</div>
+    </div>
+    
+    <div id="pu-k">
+        <div class="board-button-skip top-skip" onclick="pop('k','flex')">&#8678;</div>
+        <div id="k1" class="tile-button" onclick="pu_km(0,'1')"></div>
+        <div id="k2" class="tile-button" onclick="addKnowledge(0)"></div>
+        <div id="k3" class="tile-button" onclick="addKnowledge(1)"></div>
+        <div id="k4" class="tile-button" onclick="addKnowledge(2)"></div>
+        <div id="k5" class="tile-button" onclick="pu_km(1,'5')"></div>
+        <div id="k6" class="tile-button" onclick="pu_km(2,'6')"></div>
+        <div id="k7" class="tile-button" onclick="pu_km(3,'7')"></div>
+        <div id="k8" class="tile-button" onclick="pu_km(4,'8')"></div>
+        <div id="k9" class="tile-button" onclick="pu_km(5,'9')"></div>
+        <div id="k10" class="tile-button" onclick="pu_km(6,'10')"></div>
+        <div id="k11" class="tile-button" onclick="pu_km(7,'11')"></div>
+        <div id="k12" class="tile-button" onclick="pu_km(8,'12')"></div>
+        <div id="k13" class="tile-button" onclick="addKnowledge(3)"></div>
+        <div id="k14" class="tile-button" onclick="addKnowledge(4)"></div>
+        <div id="k15" class="tile-button" onclick="addKnowledge(5)"></div>
+        <div id="k16_23" class="tile-button" onclick="addKnowledge(6)"></div>
+        <div id="k24" class="tile-button" onclick="addKnowledge(7)"></div>
+        <div id="k25" class="tile-button" onclick="addKnowledge(8)"></div>
+        <div id="k26" class="tile-button" onclick="addKnowledge(9)"></div>
+        <div id="ke2a" class="tile-button" onclick="pu_km(9,'e2a')"></div>
+        <div id="ke2b" class="tile-button" onclick="addKnowledge(10)"></div>
+        <div id="ke5" class="tile-button" onclick="addKnowledge(11)"></div>
+        <div class="board-button-skip" onclick="pop('k','flex')">&#8678;</div>
+    </div>
+    
+<div id="pu-main">
+    <div class="upper-flex-div">
+        <div id="silver" onclick="pop('si','block','main')">
+            <div id="silver-img"></div>
+            <div id="silver-count">1</div>
+        </div>
+        <div id="phase-round-div" onclick="pop('pe','block','main')">
+            <div><span id="phase-round-span">--</span></div>
+        </div>
+        <div>
+            <p class="checkbox-p">1st</p>
+            <input type="checkbox" onclick="hide(3)"/>
+        </div>
+        <div id="workers" onclick="pop('w','block','main')">
+            <div id="worker-img"></div>
+            <div id="worker-count"></div>
+        </div>
+    </div>
+    
+    <div id="rolled-dice-flex-div">
+        <div id="dice-1" class="click-to-hide-div" onclick="hide(1)">
+            <div id="roll-1-div" style="visibility: visible"></div>
+        </div>
+        <div class="click-to-roll-div" onclick="rollDice()">
+            <div id="roll-3-div" style="visibility: hidden"></div>
+        </div>
+        <div id="dice-2" class="click-to-hide-div" onclick="hide(2)">
+            <div id="roll-2-div"></div>
+        </div>
+    </div>
+    
+    <div class="latest-activity-div">
+        <span id="latest-activity-span"></span>
+    </div>
+        
+    <div class="phase-points-round-flex-div">
+        <div id="unsold-sold">
+            <div>
+                <p class="mus-p" onclick="info(0)">U: <span id="unsold-span">3</span></p>
+            </div>
+            <div>
+                <p class="mus-p" onclick="info(1)">S: <span id="sold-span">0</span></p>
+            </div>
+        </div>
+        <div class="total-points-div" onclick="pop('mm','block','main')">
+            <p id="total-points">0</p>
+        </div>
+        <div id="bonus-turn">
+            <div>
+                <p class="mus-p" onclick="info(2)">B: <span id="bonus-span">0</span></p>
+            </div>
+            <div>
+                <p class="mus-p" onclick="info(3)">T: <span id="turn-span">0</span></p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="main-tiles" class="point-quickadd-div">
+        <div id="region-points" class="tile-button" onclick="pop('cr','block','main')"></div>
+        <div id="building" class="tile-button" onclick="pop('b','flex','main')"></div>
+        <div id="knowledge" class="tile-button" onclick="pop('k','flex','main')"></div>
+        <div id="animal" class="tile-button" onclick="pop('a','block','main')"></div>
+        <div id="ship" class="tile-button" onclick="pop('sh','block','main')"></div>
+        <div id="sell-goods" class="tile-button" onclick="pop('sg','block','main')"></div>
+        <div id="large-bonus" class="tile-button" onclick="bonusTile(_pl + 3,'large')"></div>
+        <div id="small-bonus" class="tile-button-no-border" onclick="bonusTile(_pl,'small')"></div>
+        <div id="mine" class="tile-button" onclick="addMines()"></div>
+        <div id="dice-trade" class="tile-button" onclick="addWorkers(2,'dice trade')"></div>
+        <div id="castle" class="tile-button" onclick="pu_bm(4,'Castle',true)"></div>
+        <div id="cloister" class="tile-button" onclick="pu_bm(7,'Cloister',true)"></div>
+        <!-- <div id="undo" class="undo-button" onclick="loop()">test loop</div> -->
+    </div>
+
+</div>
+   <div id="pu-epl"></div> <!--end point log-->
+</div>
+    
+    <script src="main.js"></script>
+    
 </body>
 </html>

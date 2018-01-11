@@ -8,8 +8,10 @@ var silverSound = new Audio();
 silverSound.src = "./audio/silver-sound.mp3";
 
 var _pl = 0;
+var _wdr = false;
 var _plo;
 var _color;
+var _boardsIndex = 0;
 var _rd = 0; // 1-5
 var _ph; // "A"-"E"
 var _phFactor = 0; // 0-4
@@ -27,7 +29,7 @@ var _undoDesc;
 var _undoPts;
 var _undoLimit = true;
 var _alog;
-var _mini = false;
+var _jumbo = false;
 
 var _k = {
     k2: false,
@@ -43,6 +45,92 @@ var _k = {
     ke2b: false,
     ke5: false
 };
+
+function setPlayers(x) {
+    if (!isNaN(parseInt(localStorage.getItem("_pl")))) {
+        if (window.confirm("Old game data found. Click OK to reset all data and then try again.")) {
+            zeroAllVariables();
+            return;
+        } else {
+            return;
+        };
+    };
+    _pl = x;
+    localStorage.setItem("_pl",_pl);
+    var log = "Players: " + _pl;
+    latestActivity("blue",log);
+    pop("pos","block","ps");
+};
+
+function rollWhiteDice() {
+    _wdr = true;
+    rollSound.play();
+    var x = (Math.floor(Math.random() * 6)) + 1;
+    document.getElementById("tap-to-roll").style.backgroundImage = "url(images/white-dice-" + x + ".png)";
+};
+
+function initializeWorkers(x) {
+    if (_wdr === false) {
+        alert("You must roll white die to determine player order");
+        return;
+    }; 
+    
+    if (x > _pl) {
+        alert("Cannot be player " + x + " in a " + _pl + " player game");
+        return;
+    };
+    
+    _workers = x; _plo = x; localStorage.setItem("_workers",_plo);
+    
+    /*if (isNaN(parseInt(localStorage.getItem("_workers")))) {
+        localStorage.setItem("_workers",_plo);
+    };*/
+    document.getElementById("worker-count").innerHTML = _workers;
+    pop("cs","block","pos");
+};
+
+function setColor(color) {
+    _color = color;
+    localStorage.setItem("_color",_color);
+    pop("bgs","block","cs");
+};
+
+function setBoardIndex(i) {
+    _boardsIndex = i;
+    pop("bs","block","bgs");
+};
+
+function chooseBoards() {
+    var boards = [
+        [1,2,3,4,5,6,7,8,9],
+        ["10a","10b","10c","10d","10e","10f","10g","10h"],
+        ["13a","13b","13c","13d","13e","13f","13g","13h"], [1,2,3,4,5,6,7,8,9,"10a","10b","10c","10d","10e","10f","10g","10h","13a","13b","13c","13d","13e","13f","13g","13h"]
+    ];
+
+    var boardsReset = [
+        [1,2,3,4,5,6,7,8,9],
+        ["10a","10b","10c","10d","10e","10f","10g","10h"],
+        ["13a","13b","13c","13d","13e","13f","13g","13h"], [1,2,3,4,5,6,7,8,9,"10a","10b","10c","10d","10e","10f","10g","10h","13a","13b","13c","13d","13e","13f","13g","13h"]
+    ];
+    if (boards[_boardsIndex].length == 0) {
+        for (i = 0; i < boardsReset[_boardsIndex].length; i++) {
+            boards[_boardsIndex].push(boardsReset[_boardsIndex][i]);
+        };
+        chooseBoards(_boardsIndex);
+    } else {
+        var i = Math.floor(Math.random() * (boards[_boardsIndex].length));
+        document.getElementById("tap-to-select").innerHTML = boards[_boardsIndex][i];
+        boards[_boardsIndex].splice(i,1);
+    };
+};
+
+
+
+
+
+
+
+
 
 function pageLinks(i) {
     var links = [
@@ -158,28 +246,34 @@ function restoreVariables() {
     document.getElementById("turn-span").innerHTML = _turn;
     
     latestActivity("green","session restored");
-    if (document.getElementById("pu-ps").style.display == "block") {
-        pop("ps","block");
-    } else {
-        pop("mm-rr","block","mm");
-    };
+    pop("main","block","ps");
     scrollTo(0,0);
     randomDice();
 };
 
-function mini() {
-    _mini === true ? _mini = false : _mini = true;
-    
-    if (document.documentElement.clientWidth < 354) {
-        alert("Your device width is too small to use this feature");
-        return;
-    };
+function jumbo() {
+    _jumbo === true ? _jumbo = false : _jumbo = true;
     
     var tiles = document.getElementsByClassName("tile-button");
     var numbers = document.getElementsByClassName("number-button");
     var topSkip = document.getElementsByClassName("top-skip");
     
-    if (_mini === true) {
+    if (_jumbo === true) {
+        for (i = 0; i < tiles.length; i++) {
+            tiles[i].style.height = "167px";
+            tiles[i].style.width = "167px";
+        };
+        for (i = 0; i < numbers.length; i++) {
+            numbers[i].style.height = "167px";
+            numbers[i].style.width = "167px";
+        };
+        for (i = 0; i < topSkip.length; i++) {
+            topSkip[i].style.display = "block";
+        };
+        document.getElementById("small-bonus").style.cssText = "height:167px; width:167px;";
+        document.getElementById("jumbo").innerHTML = "Turn Jumbo Tiles Off";
+        
+    } else {
         for (i = 0; i < tiles.length; i++) {
             tiles[i].style.height = "75px";
             tiles[i].style.width = "75px";
@@ -191,21 +285,9 @@ function mini() {
         for (i = 0; i < topSkip.length; i++) {
             topSkip[i].style.display = "none";
         };
-        document.getElementById("small-bonus").style.cssText = "height:75px; width:75px;";
-        document.getElementById("mini").innerHTML = "Turn Mini Tiles Off";
-        
-    } else {
-        for (i = 0; i < tiles.length; i++) {
-            tiles[i].style.height = "167px";
-            tiles[i].style.width = "167px";
-        };
-        for (i = 0; i < numbers.length; i++) {
-            numbers[i].style.height = "167px";
-            numbers[i].style.width = "167px";
-        };
-        document.getElementById("small-bonus").style.height = "167px";
-        document.getElementById("small-bonus").style.width = "167px";
-        document.getElementById("mini").innerHTML = "Turn Mini Tiles On";
+        document.getElementById("small-bonus").style.height = "75px";
+        document.getElementById("small-bonus").style.width = "75px";
+        document.getElementById("jumbo").innerHTML = "Turn Jumbo Tiles On";
     };
     
     pop("mm","block");
@@ -318,30 +400,6 @@ function undo() {
     activityLog(log, "red","transparent");
     pointSound.play();
     window.scrollTo(0,0);
-};
-
-function setPlayers(x) {
-    if (!isNaN(parseInt(localStorage.getItem("_pl")))) {
-        if (window.confirm("Old game data found. Click OK to reset all data and then try again.")) {
-            zeroAllVariables();
-            return;
-        } else {
-            return;
-        };
-    };
-    _pl = x;
-    localStorage.setItem("_pl",_pl);
-    var log = "Players: " + _pl;
-    latestActivity("blue",log);
-    pop("ps","block");
-    pop("pos","block");
-};
-
-function setColor(color) {
-    _color = color;
-    localStorage.setItem("_color",_color);
-    pop("cs","block");
-    document.getElementById("main").style.display = "block";
 };
 
 function rollDice() {
@@ -486,20 +544,6 @@ function regionPoints(x) {
     activityLog(log);
     pointSound.play();
     pop('cr','block');
-};
-
-function initializeWorkers(x) {
-    if (x > _pl) {
-        alert("Cannot be player " + x + " in a " + _pl + " player game")
-    } else {
-        _workers = x; _plo = x;
-        if (isNaN(parseInt(localStorage.getItem("_workers")))) {
-            localStorage.setItem("_workers",_plo);
-        };
-        document.getElementById("worker-count").innerHTML = _workers;
-        pop("pos","block");
-        pop("cs","block");
-    };
 };
 
 function setWorkers() {
@@ -931,10 +975,9 @@ function pop(open,display,close1,close2) {
    if (document.getElementById("pu-"+open).style.display != display) {
         document.getElementById("pu-"+open).style.display = display;
         document.getElementById("pu-"+open).scrollIntoView();
-        document.getElementById("main").style.display = "none";
     } else {
         document.getElementById("pu-"+open).style.display = "none";
-        document.getElementById("main").style.display = "block";
+        document.getElementById("pu-main").style.display = "block";
     };
     if (close1) {
         document.getElementById("pu-"+close1).style.display = "none";
@@ -961,7 +1004,7 @@ function pu_bm(i,building,main) {
         document.getElementById("pu-bm-h1").innerHTML = building;
         document.getElementById("pu-bm-p").innerHTML = actions[i];
         if (main) {
-            document.getElementById("main").style.display = "none"
+            document.getElementById("pu-main").style.display = "none"
         } else {
             document.getElementById("pu-b").style.display = "none"
         };
@@ -993,5 +1036,3 @@ function pu_km(i,number) {
         document.getElementById("pu-km").style.display = "none";
     };
 };
-
-pop("ps","block");
