@@ -484,7 +484,7 @@ input[type="checkbox"] {
         margin: 5px 0 0 0;
     }
 
-    #unsold-span, #sold-span, #bonus-span, #turn-span {
+    #unsold-count, #sold-count, #bonus-count, #turn-count {
         font-size: 25px;
         font-weight: bold;
     }
@@ -1124,6 +1124,6 @@ input[type="checkbox"] {
 
 
 
-#restore-div {
-    margin-top: 30px;
+.back-button-div {
+    margin-top: 50px;
 }

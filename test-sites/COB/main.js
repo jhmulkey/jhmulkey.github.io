@@ -1,3 +1,4 @@
+//***AUDIO***//
 var rollSound = new Audio();
 rollSound.src = "./audio/roll-sound.mp3";
 
@@ -7,31 +8,31 @@ pointSound.src = "./audio/point-sound.mp3";
 var silverSound = new Audio();
 silverSound.src = "./audio/silver-sound.mp3";
 
-var _pl = 0;
-var _wdr = false;
-var _plo;
-var _color;
-var _boardsIndex = 0;
-var _rd = 0; // 1-5
-var _ph; // "A"-"E"
-var _phFactor = 0; // 0-4
-var _rollct = 0; // 1-25
-var _pts = 0;
-var _mines = 0;
-var _silver = 1; 
-var _workers;
-var _unsold = 3;
-var _sold = 0;
-var _bonus = 0;
-var _turn = 0;
-var _undoFunc;
-var _undoDesc;
-var _undoPts;
-var _undoLimit = true;
-var _alog;
-var _jumbo = false;
-
-var _k = {
+//***GLOBALS***//
+var _pl = 0; // number of players
+var _wdr = false; // tests if white dice has been rolled to determine player order
+var _plo; // player order
+var _color; // dice color
+var _boardsIndex = 0; // which board group to choose from
+var _rd = 0; // round (1-5)
+var _ph; // phase ("A"-"E")
+var _phFactor = 0; // phase factor for point calculation (0-4)
+var _rollct = 0; // roll count (1-25)
+var _pts = 0; // total points
+var _mines = 0; // mines on estate
+var _silver = 1; // total silverlings
+var _workers; // total workers
+var _unsold = 3; // total unsold goods
+var _sold = 0; // total sold goods
+var _bonus = 0; // number of bonus tiles earned
+var _turn = 0; // position on turn order track
+var _alog; // stores current activity log for game restore
+var _jumbo = false; // tests whether jumbo tiles are on
+var _undoFunc; // function to undo
+var _undoDesc; // description of undo action for log
+var _undoPts; // points or other incremented numbers to undo
+var _undoLimit = true; // test if undo limit has been reached
+var _k = { 
     k2: false,
     k3: false,
     k4: false,
@@ -44,12 +45,394 @@ var _k = {
     k26: false,
     ke2b: false,
     ke5: false
+}; // tests whether certain knowledge tiles are on estate
+
+
+//***TEST FUNCTIONS***//
+function testLoop() {
+    var globals = ["_pl", "_pts", "_mines", "_unsold", "_sold", "_bonus", "_silver", "_workers", "_turn", "_phFactor", "_rollct", "_rd",]
+    for (i = 0; i < globals.length; i++) {
+        console.log(globals[i] + " " + parseInt(localStorage.getItem(globals[i])));
+    };
+    console.log("_ph "+localStorage.getItem("_ph"));
+    console.log("_color "+localStorage.getItem("_color"));
 };
 
+
+//***GENERAL FUNCTIONS***//
+function pageLinks(i) {
+    var links = [
+        "setup.html",
+        "expansion.html"
+    ];
+    window.open(links[i],"_blank");
+};
+
+function info(i) {
+    var info = [
+        "number of unsold goods",
+        "number of sold goods",
+        "number of bonus tiles",
+        "number of turn-order moves"
+    ];
+    alert(info[i]);
+};
+
+
+//***CSS FUNCTIONS***//
+function jumbo() {
+    _jumbo === true ? _jumbo = false : _jumbo = true;
+    
+    var tiles = document.getElementsByClassName("tile-button");
+    var numbers = document.getElementsByClassName("number-button");
+    var topSkip = document.getElementsByClassName("top-skip");
+    
+    if (_jumbo === true) {
+        for (i = 0; i < tiles.length; i++) {
+            tiles[i].style.height = "167px";
+            tiles[i].style.width = "167px";
+        };
+        for (i = 0; i < numbers.length; i++) {
+            numbers[i].style.height = "167px";
+            numbers[i].style.width = "167px";
+        };
+        for (i = 0; i < topSkip.length; i++) {
+            topSkip[i].style.display = "block";
+        };
+        document.getElementById("small-bonus").style.cssText = "height:167px; width:167px;";
+        document.getElementById("jumbo").innerHTML = "Turn Jumbo Tiles Off";
+        
+    } else {
+        for (i = 0; i < tiles.length; i++) {
+            tiles[i].style.height = "75px";
+            tiles[i].style.width = "75px";
+        };
+        for (i = 0; i < numbers.length; i++) {
+            numbers[i].style.height = "75px";
+            numbers[i].style.width = "75px";
+        };
+        for (i = 0; i < topSkip.length; i++) {
+            topSkip[i].style.display = "none";
+        };
+        document.getElementById("small-bonus").style.height = "75px";
+        document.getElementById("small-bonus").style.width = "75px";
+        document.getElementById("jumbo").innerHTML = "Turn Jumbo Tiles On";
+    };
+    
+    pop("mm","block");
+};
+
+function hide(x) {
+    if (document.getElementById("roll-" + x + "-div").style.visibility == "visible") {
+        document.getElementById("roll-" + x + "-div").style.visibility = "hidden";
+    } else {
+        document.getElementById("roll-" + x + "-div").style.visibility = "visible";
+    };
+};
+
+
+//***LOCALSTORAGE FUNCTIONS***//
+function zeroVariables() {
+    if (window.confirm("Are you sure you want to reset the game?")) {
+        var strings = ["_pl","_rd","_phFactor","_rollct","_pts","_mines","_sold","_bonus","_turn"];
+        for (i = 0; i < strings.length; i++) {
+            localStorage.setItem(strings[i],0);
+        };
+        
+        localStorage.setItem("_silver",1);
+        localStorage.setItem("_unsold",3);
+        localStorage.setItem("_alog","");
+        
+        for (var key in _k) {
+            _k[key] = false;
+        };
+        
+        localStorage.setItem("_k",JSON.stringify(_k));
+        
+        location.reload();
+    };
+};
+
+function restoreVariables() {
+    if (isNaN(parseInt(localStorage.getItem("_pl"))) || parseInt(localStorage.getItem("_rollct")) < 1) {
+        alert("nothing to restore");
+        return;
+    };
+    
+    _pl = parseInt(localStorage.getItem("_pl"));
+    _color = localStorage.getItem("_color");
+    _rd = parseInt(localStorage.getItem("_rd"));
+    _ph = localStorage.getItem("_ph");
+    _phfactor = parseInt(localStorage.getItem("_phfactor"));
+    _rollct = parseInt(localStorage.getItem("_rollct"));
+    _pts = parseInt(localStorage.getItem("_pts"));
+    _mines = parseInt(localStorage.getItem("_mines"));
+    _silver = parseInt(localStorage.getItem("_silver"));
+    _workers = parseInt(localStorage.getItem("_workers"));
+    _unsold = parseInt(localStorage.getItem("_unsold"));
+    _sold = parseInt(localStorage.getItem("_sold"));
+    _bonus = parseInt(localStorage.getItem("_bonus"));
+    _turn = parseInt(localStorage.getItem("_turn"));
+    _alog = localStorage.getItem("_alog");
+    
+    if (JSON.parse(localStorage.getItem("_k") != null)) {
+        _k = JSON.parse(localStorage.getItem("_k"));
+        for (var key in _k) {
+            if (_k[key] === true) {
+                document.getElementById(key.toString()).style.border = "5px dashed red";
+            };
+        };
+    };
+    
+    document.getElementById("phase-round-span").innerHTML = _ph+_rd;
+    document.getElementById("total-points").innerHTML = _pts;
+    document.getElementById("mine").style.backgroundImage = "url(images/"+_mines+"-mines.png)";
+    document.getElementById("silver-count").innerHTML = _silver;
+    document.getElementById("worker-count").innerHTML = _workers;
+    document.getElementById("unsold-count").innerHTML = _unsold;
+    document.getElementById("sold-count").innerHTML = _sold;
+    document.getElementById("bonus-count").innerHTML = _bonus;
+    document.getElementById("turn-count").innerHTML = _turn;
+    document.getElementById("pu-al").innerHTML = _alog;
+    pop("main","block","ps");
+    activityLog("session restored","green");
+    randomDice();
+    scrollTo(0,0);
+};
+
+
+//***UNDO FUNCTIONS***//
+function undo() {
+    
+    if (_undoLimit === true) {
+        alert("Cannot undo any more actions");
+        return;
+    };
+    
+    _undoLimit = true;
+    
+    if (_undoFunc == "sell goods") {
+        if (_k.k3 === true) {
+            _silver -= 2; localStorage.setItem("_silver",_silver);
+        } else {
+            _silver--; localStorage.setItem("_silver",_silver);
+        };
+        document.getElementById("silver-count").innerHTML = _silver;
+        
+        if (_k.k4 === true) {
+            _workers--; localStorage.setItem("_workers",_workers);
+            document.getElementById("worker-count").innerHTML = _workers;
+        };
+        
+        _sold -= _undoPts; localStorage.setItem("_sold",_sold);
+        _unsold += _undoPts; localStorage.setItem("_unsold",_unsold);
+        _pts -= _undoPts * _pl; localStorage.setItem("_pts",_pts);
+        document.getElementById("sold-count").innerHTML = _sold;
+        document.getElementById("unsold-count").innerHTML = _unsold;
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = "reversed sale of " + _undoPts + " goods";
+    };
+    
+    if (_undoFunc == "add silver") {
+        _silver -= _undoPts; localStorage.setItem("_silver",_silver);
+        document.getElementById("silver-count").innerHTML = _silver;
+        var log = "reversed " + _undoPts + " silverlings for " + _undoDesc;
+    };
+    
+    if (_undoFunc == "spend silver") {
+        _silver -= _undoPts; localStorage.setItem("_silver",_silver);
+        document.getElementById("silver-count").innerHTML = _silver;
+        var log = "reversed spending of " + Math.abs(_undoPts) + " silverlings"
+    };
+    
+    if (_undoFunc == "silver for workers") {
+        _silver++; _workers -= 2;
+        localStorage.setItem("_silver",_silver);
+        localStorage.setItem("_workers",_workers);
+        document.getElementById("silver-count").innerHTML = _silver;
+        document.getElementById("worker-count").innerHTML = _workers;
+        var log = "reversed 2 workers for silverling"
+    };
+    
+    if (_undoFunc == "use workers") {
+        _workers -= _undoPts; localStorage.setItem("_workers",_workers);
+        document.getElementById("worker-count").innerHTML = _workers;
+        var log = "reversed use of " + Math.abs(_undoPts) + " workers"
+    };
+    
+    if (_undoFunc == "add workers") {
+        _workers -= _undoPts; localStorage.setItem("_workers",_workers);
+        document.getElementById("worker-count").innerHTML = _workers;
+        var log = "reversed " + _undoPts + " workers for " + _undoDesc
+    };
+    
+    if (_undoFunc == "tap points") {
+        _pts -= _undoPts; localStorage.setItem("_pts",_pts);
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = "reversed " + _undoPts + " points for " + _undoDesc;
+    };
+    
+    if (_undoFunc == "region points") {
+        _pts -= _undoPts; localStorage.setItem("_pts",_pts);
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = "reversed " + _undoPts + " points for region size " + _undoDesc;
+    };
+    
+    if (_undoFunc == "add goods") {
+        _unsold -= _undoPts; localStorage.setItem("_unsold",_unsold);
+        _turn--; localStorage.setItem("_turn",_turn);
+        document.getElementById("turn-count").innerHTML = _turn;
+        document.getElementById("unsold-count").innerHTML = _unsold;
+        var log = "reversed acquisition of " + _undoPts + " goods";
+    };
+    
+    if (_undoFunc == "bonus") {
+        _pts -= _undoPts; localStorage.setItem("_pts",_pts);
+        _bonus--; localStorage.setItem("_bonus",_bonus);
+        document.getElementById("bonus-count").innerHTML = _bonus;
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = "reversed " + _undoPts + " points for " + _undoDesc + " bonus tile";
+    };
+    
+    if (_undoFunc == "mines") {
+        _mines--; localStorage.setItem("_mines",_mines);
+        mineOverlay();
+        var log = "reversed addition of 1 mine";
+    };
+    
+    if (_undoFunc == "animals") {
+        _pts -= _undoPts; localStorage.setItem("_pts",_pts);
+        document.getElementById("total-points").innerHTML = _pts;
+        var log = "reversed " + _undoPts + " points for animals";
+    };
+    
+    pop("mm","block");
+    latestActivity("red",log);
+    activityLog(log,"red","transparent");
+    pointSound.play();
+    window.scrollTo(0,0);
+};
+
+
+//***ACTIVITY LOGGING FUNCTIONS***//
+function activityLog(log,color,background,size,marginTop,element) {
+    if (element) {
+        var elementNode = document.createElement(element);
+    } else {
+        var elementNode = document.createElement("p");
+    };
+    
+    if (color) {
+        elementNode.style.color = color;
+    };
+    
+    if (background) {
+        elementNode.style.backgroundColor = background;
+    }
+    
+    if (marginTop) {
+        elementNode.style.marginTop = marginTop;
+    };
+    
+    if (size) {
+        elementNode.style.fontSize = size;
+    };
+    
+    elementNode.style.fontWeight = "bold";
+    var textNode = document.createTextNode(log);
+    elementNode.appendChild(textNode);
+    document.getElementById("pu-al").appendChild(elementNode);
+    _alog = document.getElementById("pu-al").innerHTML;
+    localStorage.setItem("_alog",_alog);
+};
+
+function endPointLog(log) {
+    var elementNode = document.createElement("p");
+    elementNode.style.cssText = "color:blue; font-weight:bold; margin:0;";
+    var textNode = document.createTextNode(log);
+    elementNode.appendChild(textNode);
+    document.getElementById("pu-epl").appendChild(elementNode);
+};
+
+function latestActivity(color,log) {
+    document.getElementById("latest-activity-span").style.color = color;
+    document.getElementById("latest-activity-span").innerHTML = log;
+};
+
+
+//***POP FUNCTIONS***//
+function pop(open,display,close1,close2) {
+   if (document.getElementById("pu-"+open).style.display != display) {
+        document.getElementById("pu-"+open).style.display = display;
+        document.getElementById("pu-"+open).scrollIntoView();
+    } else {
+        document.getElementById("pu-"+open).style.display = "none";
+        document.getElementById("pu-main").style.display = "block";
+    };
+    if (close1) {
+        document.getElementById("pu-"+close1).style.display = "none";
+    }
+    if (close2) {
+        document.getElementById("pu-"+close2).style.display = "none";
+    }
+    scrollTo(0,0);
+};
+
+function pu_bm(i,building,main) {
+    var actions = [
+        "Take 1 ship or animal tile from any depot except black depot",
+        "Take 1 mine, castle, or knowledge tile from any depot except black depot",
+        "Take 1 building tile from any depot except black depot",
+        "Add any tile from your storage spaces to your estate",
+        "Take any action you'd like as if you had a third dice with any number you choose",
+        "Functions as any building you want at placement and when scoring building knowledge tiles",
+        "Take any action using the number of the white dice (may be adjusted using worker tiles)",
+        "Use to help complete any region. Multiple cloisters allowed in any region. Increases region size by 1 (region sizes may not exceed 8)."
+    ];
+    if (document.getElementById("pu-bm").style.display != "block") {
+        document.getElementById("pu-bm").style.display = "block";
+        document.getElementById("pu-bm-h1").innerHTML = building;
+        document.getElementById("pu-bm-p").innerHTML = actions[i];
+        if (main) {
+            document.getElementById("pu-main").style.display = "none"
+        } else {
+            document.getElementById("pu-b").style.display = "none"
+        };
+    } else {
+        document.getElementById("pu-bm").style.display = "none";
+    };
+};
+
+function pu_km(i,number) {
+    var actions = [
+        "more than 1 of each building type allowed per city",
+        "receive goods from 2 neighboring depots (not just 1) when ship placed",
+        "silverlings may be used to buy tiles from any depot, not just the black depot",
+        "if you place an animal tile when knowledge tile #7 is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type on the same pasture",
+        "worker tiles can adjust dice roll by up to +2 or -2",
+        "any dice result may be adjusted +1 or -1 to place a building",
+        "any dice result may be adjusted +1 or -1 to place a ship or animal tile",
+        "any dice result may be adjusted +1 or -1 to place a castle, knowledge tile, or mine",
+        "any dice result may be adjusted +1 or -1 to acquire any new tile",
+        "always stay at the top of any stack on the turn order track (only players ahead of the stack will be ahead of you in player order)"
+    ];
+    if (document.getElementById("pu-km").style.display != "block") {
+        document.getElementById("pu-km").style.display = "block";
+        document.getElementById("pu-km-tile").style.backgroundImage = "url(images/k"+number+".png)";
+        document.getElementById("pu-km-p").innerHTML = actions[i];
+        document.getElementById("pu-k").style.display = "none"
+        scrollTo(0,0);
+    } else {
+        document.getElementById("pu-km").style.display = "none";
+    };
+};
+
+
+//***PRELIMINARY FUNCTIONS***//
 function setPlayers(x) {
-    if (!isNaN(parseInt(localStorage.getItem("_pl")))) {
+    if (localStorage.getItem("_pl") > 0) {
         if (window.confirm("Old game data found. Click OK to reset all data and then try again.")) {
-            zeroAllVariables();
+            zeroVariables();
             return;
         } else {
             return;
@@ -125,283 +508,7 @@ function chooseBoards() {
 };
 
 
-
-
-
-
-
-
-
-function pageLinks(i) {
-    var links = [
-        "setup.html",
-        "expansion.html"
-    ];
-    window.open(links[i],"_blank");
-};
-
-function info(i) {
-    var info = [
-        "number of unsold goods",
-        "number of sold goods",
-        "number of bonus tiles",
-        "number of turn-order moves"
-    ];
-    alert(info[i]);
-};
-
-function zeroNaNVariables() {
-    var strings = ["_pts","_mines","_sold","_bonus","_turn","_rd","_rollct","_phFactor"];
-    for (i = 0; i < strings.length; i++) {
-        if (isNaN(parseInt(localStorage.getItem(strings[i])))) {
-            localStorage.setItem(strings[i],0);
-        };
-    };
-    if (isNaN(parseInt(localStorage.getItem("_silver")))) {
-        localStorage.setItem("_silver",1);
-    };
-    if (isNaN(parseInt(localStorage.getItem("_unsold")))) {
-        localStorage.setItem("_unsold",3);
-    };
-};
-zeroNaNVariables();
-
-function loop() {
-    console.log("_pts "+parseInt(localStorage.getItem("_pts")));
-    console.log("_mines "+parseInt(localStorage.getItem("_mines")));
-    console.log("_unsold "+parseInt(localStorage.getItem("_unsold")));
-    console.log("_sold "+parseInt(localStorage.getItem("_sold")));
-    console.log("_bonus "+parseInt(localStorage.getItem("_bonus")));
-    console.log("_silver "+parseInt(localStorage.getItem("_silver")));
-    console.log("_workers "+parseInt(localStorage.getItem("_workers")));
-    console.log("_turn "+parseInt(localStorage.getItem("_turn")));
-    console.log("_ph "+localStorage.getItem("_ph"));
-    console.log("_phFactor "+parseInt(localStorage.getItem("_phFactor")));
-    console.log("_rollct "+parseInt(localStorage.getItem("_rollct")));
-    console.log("_rd "+parseInt(localStorage.getItem("_rd")));
-    console.log("");
-};
-
-function zeroAllVariables() {
-    if (window.confirm("Are you sure you want to reset the game?")) {
-        var strings = ["_pl","_pts","_mines","_unsold","_sold","_bonus","_workers","_turn","_rd","_rollct","_phFactor","_alog"];
-        for (i = 0; i < strings.length; i++) {
-            localStorage.setItem(strings[i],"");
-        };
-        localStorage.setItem("_silver",1);
-        
-        for (var key in _k) {
-            _k[key] = false;
-        };
-        
-        localStorage.setItem("_k",JSON.stringify(_k));
-        
-        location.reload();
-    };
-};
-
-function restoreVariables() {
-    if (isNaN(parseInt(localStorage.getItem("_pl"))) || parseInt(localStorage.getItem("_rollct")) < 1) {
-        alert("nothing to restore");
-        return;
-    };
-    
-    _pl = parseInt(localStorage.getItem("_pl"));
-    _color = localStorage.getItem("_color");
-    _pts = parseInt(localStorage.getItem("_pts"));
-    _mines = parseInt(localStorage.getItem("_mines"));
-    _silver = parseInt(localStorage.getItem("_silver"));
-    _workers = parseInt(localStorage.getItem("_workers"));
-    _unsold = parseInt(localStorage.getItem("_unsold"));
-    _sold = parseInt(localStorage.getItem("_sold"));
-    _bonus = parseInt(localStorage.getItem("_bonus"));
-    _turn = parseInt(localStorage.getItem("_turn"));
-    _ph = localStorage.getItem("_ph");
-    _phfactor = parseInt(localStorage.getItem("_phfactor"));
-    _rollct = parseInt(localStorage.getItem("_rollct"));
-    _rd = parseInt(localStorage.getItem("_rd"));
-    _alog = localStorage.getItem("_alog");
-    
-    if (JSON.parse(localStorage.getItem("_k") != null)) {
-        _k = JSON.parse(localStorage.getItem("_k"));
-        for (var key in _k) {
-            if (_k[key] === true) {
-                document.getElementById(key.toString()).style.border = "5px dashed red";
-            };
-        };
-    };
-    
-    if (!isNaN(_rd)) {
-        document.getElementById("phase-round-span").innerHTML = _ph+_rd;
-    };
-    
-    document.getElementById("pu-al").innerHTML = _alog;
-    document.getElementById("total-points").innerHTML = _pts;
-    document.getElementById("mine").style.backgroundImage = "url(images/"+_mines+"-mines.png)";
-    document.getElementById("silver-count").innerHTML = _silver;
-    document.getElementById("worker-count").innerHTML = _workers;
-    document.getElementById("unsold-span").innerHTML = _unsold;
-    document.getElementById("sold-span").innerHTML = _sold;
-    document.getElementById("bonus-span").innerHTML = _bonus;
-    document.getElementById("turn-span").innerHTML = _turn;
-    
-    latestActivity("green","session restored");
-    pop("main","block","ps");
-    scrollTo(0,0);
-    randomDice();
-};
-
-function jumbo() {
-    _jumbo === true ? _jumbo = false : _jumbo = true;
-    
-    var tiles = document.getElementsByClassName("tile-button");
-    var numbers = document.getElementsByClassName("number-button");
-    var topSkip = document.getElementsByClassName("top-skip");
-    
-    if (_jumbo === true) {
-        for (i = 0; i < tiles.length; i++) {
-            tiles[i].style.height = "167px";
-            tiles[i].style.width = "167px";
-        };
-        for (i = 0; i < numbers.length; i++) {
-            numbers[i].style.height = "167px";
-            numbers[i].style.width = "167px";
-        };
-        for (i = 0; i < topSkip.length; i++) {
-            topSkip[i].style.display = "block";
-        };
-        document.getElementById("small-bonus").style.cssText = "height:167px; width:167px;";
-        document.getElementById("jumbo").innerHTML = "Turn Jumbo Tiles Off";
-        
-    } else {
-        for (i = 0; i < tiles.length; i++) {
-            tiles[i].style.height = "75px";
-            tiles[i].style.width = "75px";
-        };
-        for (i = 0; i < numbers.length; i++) {
-            numbers[i].style.height = "75px";
-            numbers[i].style.width = "75px";
-        };
-        for (i = 0; i < topSkip.length; i++) {
-            topSkip[i].style.display = "none";
-        };
-        document.getElementById("small-bonus").style.height = "75px";
-        document.getElementById("small-bonus").style.width = "75px";
-        document.getElementById("jumbo").innerHTML = "Turn Jumbo Tiles On";
-    };
-    
-    pop("mm","block");
-};
-
-function undo() {
-    
-    if (_undoLimit === true) {
-        alert("Cannot undo any more actions");
-        return;
-    };
-    
-    _undoLimit = true;
-    
-    if (_undoFunc == "sell goods") {
-        if (_k.k3 === true) {
-            _silver -= 2; localStorage.setItem("_silver",_silver);
-        } else {
-            _silver--; localStorage.setItem("_silver",_silver);
-        };
-        document.getElementById("silver-count").innerHTML = _silver;
-        
-        if (_k.k4 === true) {
-            _workers--; localStorage.setItem("_workers",_workers);
-            document.getElementById("worker-count").innerHTML = _workers;
-        };
-        
-        _sold -= _undoPts; localStorage.setItem("_sold",_sold);
-        _unsold += _undoPts; localStorage.setItem("_unsold",_unsold);
-        _pts -= _undoPts * _pl; localStorage.setItem("_pts",_pts);
-        
-        document.getElementById("sold-span").innerHTML = _sold;
-        document.getElementById("unsold-span").innerHTML = _unsold;
-        document.getElementById("total-points").innerHTML = _pts;
-        var log = "reversed sale of " + _undoPts + " goods";
-    };
-    
-    if (_undoFunc == "add silver") {
-        _silver -= _undoPts; localStorage.setItem("_silver",_silver);
-        document.getElementById("silver-count").innerHTML = _silver;
-        var log = "reversed " + _undoPts + " silverlings for " + _undoDesc;
-    };
-    
-    if (_undoFunc == "spend silver") {
-        _silver -= _undoPts; localStorage.setItem("_silver",_silver);
-        document.getElementById("silver-count").innerHTML = _silver;
-        var log = "reversed spending of " + Math.abs(_undoPts) + " silverlings"
-    };
-    
-    if (_undoFunc == "silver for workers") {
-        _silver++; _workers -= 2;
-        localStorage.setItem("_silver",_silver);
-        localStorage.setItem("_workers",_workers);
-        document.getElementById("silver-count").innerHTML = _silver;
-        document.getElementById("worker-count").innerHTML = _workers;
-        var log = "reversed 2 workers for silverling"
-    };
-    
-    if (_undoFunc == "use workers") {
-        _workers -= _undoPts; localStorage.setItem("_workers",_workers);
-        document.getElementById("worker-count").innerHTML = _workers;
-        var log = "reversed use of " + Math.abs(_undoPts) + " workers"
-    };
-    
-    if (_undoFunc == "add workers") {
-        _workers -= _undoPts; localStorage.setItem("_workers",_workers);
-        document.getElementById("worker-count").innerHTML = _workers;
-        var log = "reversed " + _undoPts + " workers for " + _undoDesc
-    };
-    
-    if (_undoFunc == "tap points") {
-        _pts -= _undoPts; localStorage.setItem("_pts",_pts);
-        document.getElementById("total-points").innerHTML = _pts;
-        var log = "reversed " + _undoPts + " points for " + _undoDesc;
-    };
-    
-    if (_undoFunc == "region points") {
-        _pts -= _undoPts; localStorage.setItem("_pts",_pts);
-        document.getElementById("total-points").innerHTML = _pts;
-        var log = "reversed " + _undoPts + " points for region size " + _undoDesc;
-    };
-    
-    if (_undoFunc == "add goods") {
-        _unsold -= _undoPts; localStorage.setItem("_unsold",_unsold);
-        document.getElementById("unsold-span").innerHTML = _unsold;
-        var log = "reversed acquisition of " + _undoPts + " goods";
-    };
-    
-    if (_undoFunc == "bonus") {
-        _pts -= _undoPts; localStorage.setItem("_pts",_pts);
-        _bonus--; localStorage.setItem("_bonus",_bonus);
-        document.getElementById("total-points").innerHTML = _pts;
-        var log = "reversed " + _undoPts + " points for " + _undoDesc + " bonus tile";
-    };
-    
-    if (_undoFunc == "mines") {
-        _mines--; localStorage.setItem("_mines",_mines);
-        mineOverlay();
-        var log = "reversed addition of 1 mine";
-    };
-    
-    if (_undoFunc == "animals") {
-        _pts -= _undoPts; localStorage.setItem("_pts",_pts);
-        document.getElementById("total-points").innerHTML = _pts;
-        var log = "reversed " + _undoPts + " points for animals";
-    };
-    
-    pop("mm","block");
-    latestActivity("red",log);
-    activityLog(log, "red","transparent");
-    pointSound.play();
-    window.scrollTo(0,0);
-};
-
+//***PRIMARY FUNCTIONS***//
 function rollDice() {
     if (_rollct < 25) {
         _rollct++; _rd++;
@@ -712,8 +819,8 @@ function addGoods(x) {
     _undoFunc = "add goods"; _undoPts = x; _undoLimit = false;
     _unsold += x; localStorage.setItem("_unsold",_unsold);
     _turn++; localStorage.setItem("_turn",_turn);
-    document.getElementById("unsold-span").innerHTML = _unsold;
-    document.getElementById("turn-span").innerHTML = _turn;
+    document.getElementById("unsold-count").innerHTML = _unsold;
+    document.getElementById("turn-count").innerHTML = _turn;
     var log = x + " goods acquired"
     latestActivity("black",log);
     activityLog(log);
@@ -737,8 +844,8 @@ function sellGoods(x) {
             addWorkers(1,"goods sale");
         };
         _undoFunc = "sell goods"; _undoPts = x; _undoLimit = false;
-        document.getElementById("unsold-span").innerHTML = _unsold;
-        document.getElementById("sold-span").innerHTML = _sold;
+        document.getElementById("unsold-count").innerHTML = _unsold;
+        document.getElementById("sold-count").innerHTML = _sold;
         document.getElementById("total-points").innerHTML = _pts;
         var log = (x * _pl) + " points for sale of " + x + " goods";
         latestActivity("black",log);
@@ -764,64 +871,12 @@ function bonusTile(x,size) {
     _pts += x; localStorage.setItem("_pts",_pts);
     _bonus++; localStorage.setItem("_bonus",_bonus);
     document.getElementById("total-points").innerHTML = _pts;
-    document.getElementById("bonus-span").innerHTML = _bonus;
+    document.getElementById("bonus-count").innerHTML = _bonus;
     var log = x + " points for " + size + " bonus tile";
     latestActivity("black",log);
     activityLog(log);
     pointSound.play();
     window.scrollTo(0,0);
-};
-
-function hide(x) {
-    if (document.getElementById("roll-" + x + "-div").style.visibility == "visible") {
-        document.getElementById("roll-" + x + "-div").style.visibility = "hidden";
-    } else {
-        document.getElementById("roll-" + x + "-div").style.visibility = "visible";
-    };
-};
-
-function activityLog(log,color,background,size,marginTop,element) {
-    if (element) {
-        var elementNode = document.createElement(element);
-    } else {
-        var elementNode = document.createElement("p");
-    };
-    
-    if (color) {
-        elementNode.style.color = color;
-    };
-    
-    if (background) {
-        elementNode.style.backgroundColor = background;
-    }
-    
-    if (marginTop) {
-        elementNode.style.marginTop = marginTop;
-    };
-    
-    if (size) {
-        elementNode.style.fontSize = size;
-    };
-    
-    elementNode.style.fontWeight = "bold";
-    var textNode = document.createTextNode(log);
-    elementNode.appendChild(textNode);
-    document.getElementById("pu-al").appendChild(elementNode);
-    _alog = document.getElementById("pu-al").innerHTML;
-    localStorage.setItem("_alog",_alog);
-};
-
-function endPointLog(log) {
-    var elementNode = document.createElement("p");
-    elementNode.style.cssText = "color:blue; font-weight:bold; margin:0;";
-    var textNode = document.createTextNode(log);
-    elementNode.appendChild(textNode);
-    document.getElementById("pu-epl").appendChild(elementNode);
-};
-
-function latestActivity(color,log) {
-    document.getElementById("latest-activity-span").style.color = color;
-    document.getElementById("latest-activity-span").innerHTML = log;
 };
 
 function addKnowledge(i) {
@@ -969,70 +1024,4 @@ function totalScore() {
     document.getElementById("pu-epl").style.display = "block";
     pointSound.play();
     latestActivity("blue","FINAL SCORE");
-};
-
-function pop(open,display,close1,close2) {
-   if (document.getElementById("pu-"+open).style.display != display) {
-        document.getElementById("pu-"+open).style.display = display;
-        document.getElementById("pu-"+open).scrollIntoView();
-    } else {
-        document.getElementById("pu-"+open).style.display = "none";
-        document.getElementById("pu-main").style.display = "block";
-    };
-    if (close1) {
-        document.getElementById("pu-"+close1).style.display = "none";
-    }
-    if (close2) {
-        document.getElementById("pu-"+close2).style.display = "none";
-    }
-    scrollTo(0,0);
-};
-
-function pu_bm(i,building,main) {
-    var actions = [
-        "Take 1 ship or animal tile from any depot except black depot",
-        "Take 1 mine, castle, or knowledge tile from any depot except black depot",
-        "Take 1 building tile from any depot except black depot",
-        "Add any tile from your storage spaces to your estate",
-        "Take any action you'd like as if you had a third dice with any number you choose",
-        "Functions as any building you want at placement and when scoring building knowledge tiles",
-        "Take any action using the number of the white dice (may be adjusted using worker tiles)",
-        "Use to help complete any region. Multiple cloisters allowed in any region. Increases region size by 1 (region sizes may not exceed 8)."
-    ];
-    if (document.getElementById("pu-bm").style.display != "block") {
-        document.getElementById("pu-bm").style.display = "block";
-        document.getElementById("pu-bm-h1").innerHTML = building;
-        document.getElementById("pu-bm-p").innerHTML = actions[i];
-        if (main) {
-            document.getElementById("pu-main").style.display = "none"
-        } else {
-            document.getElementById("pu-b").style.display = "none"
-        };
-    } else {
-        document.getElementById("pu-bm").style.display = "none";
-    };
-};
-
-function pu_km(i,number) {
-    var actions = [
-        "more than 1 of each building type allowed per city",
-        "receive goods from 2 neighboring depots (not just 1) when ship placed",
-        "silverlings may be used to buy tiles from any depot, not just the black depot",
-        "if you place an animal tile when knowledge tile #7 is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type on the same pasture",
-        "worker tiles can adjust dice roll by up to +2 or -2",
-        "any dice result may be adjusted +1 or -1 to place a building",
-        "any dice result may be adjusted +1 or -1 to place a ship or animal tile",
-        "any dice result may be adjusted +1 or -1 to place a castle, knowledge tile, or mine",
-        "any dice result may be adjusted +1 or -1 to acquire any new tile",
-        "always stay at the top of any stack on the turn order track (only players ahead of the stack will be ahead of you in player order)"
-    ];
-    if (document.getElementById("pu-km").style.display != "block") {
-        document.getElementById("pu-km").style.display = "block";
-        document.getElementById("pu-km-tile").style.backgroundImage = "url(images/k"+number+".png)";
-        document.getElementById("pu-km-p").innerHTML = actions[i];
-        document.getElementById("pu-k").style.display = "none"
-        scrollTo(0,0);
-    } else {
-        document.getElementById("pu-km").style.display = "none";
-    };
 };
