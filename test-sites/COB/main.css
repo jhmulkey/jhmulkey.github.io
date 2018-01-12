@@ -315,7 +315,7 @@ input[type="checkbox"] {
 ******************************
 ******************************/
 
-#pu-bgs, #pu-bs, #pu-wdr, #pu-pos, #pu-cs, #pu-mm, #pu-mm-s, #pu-mm-rr, #pu-ms, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-epl, #pu-eb, #pu-cr {
+#pu-bgs, #pu-bs, #pu-wdr, #pu-pos, #pu-cs, #pu-mm, #pu-mm-s, #pu-mm-rr, #pu-ms, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-epl, #pu-eb, #pu-cr, #pu-ts {
     display: none;
 }
 
@@ -671,18 +671,13 @@ input[type="checkbox"] {
     /******************************
         PLAY > ALL TILE BUTTONS
     ******************************/
-    #region-points {
+    #region-points, #region-points-s {
         background-image: url(images/R.png);
     }
 
-    #sell-goods {
+    #sell-goods, #sell-goods-s {
         background-image: url(images/sell-goods.jpg);
         background-color: #D2CC95;
-    }
-
-    #animals {
-        background-image: url(images/animals.png);
-        background-color: #BEE53D;
     }
 
     #watchtower {
@@ -695,15 +690,15 @@ input[type="checkbox"] {
         background-color: #BEBF8C;
     }
 
-    #large-bonus {
+    #large-bonus, #large-bonus-s {
         background-image: url(images/large-bonus.jpg);
     }
 
-    #small-bonus {
+    #small-bonus, #small-bonus-s {
         background-image: url(images/small-bonus.png);
     }
 
-    #mine {
+    #mine, #mine-s {
         background-image: url(images/0-mines.png);
         background-color: #BDC1BE;
     }
@@ -723,12 +718,12 @@ input[type="checkbox"] {
         background-color: #D2CC95;
     }
 
-    #ship {
+    #ship, #ship-s {
         background-image: url(images/ship.png);
         background-color: #7AC4E4;
     }
 
-    #dice-trade {
+    #dice-trade, #dice-trade-s {
         background-image: url(images/bw-dice.png);
         background-size: 75% !important;
         background-color: #BDC1BE;
@@ -764,27 +759,27 @@ input[type="checkbox"] {
         background-color: #D2CC95;
     }
 
-    #castle {
+    #castle, #castle-s {
         background-image: url(images/castle.png);
         background-color: #75B15A;
     }
 
-    #cloister {
+    #cloister, #cloister-s {
         background-image: url(images/cloister.png);
         background-color: rgba(0,0,0,0.9);
     }
 
-    #building {
+    #building, #building-s {
         background-image: url(images/building-tile-labeled.png);
         background-color: #D2CC95;
     }
 
-    #animal {
+    #animal, #animal-s {
         background-image: url(images/animal-tile-labeled.png);
         background-color: #BEE53D;
     }
 
-    #knowledge {
+    #knowledge, #knowledge-s {
        background-image: url(images/knowledge-tile-labeled.png);
        background-color: #E0D537;  
     }
@@ -968,14 +963,21 @@ input[type="checkbox"] {
     background-repeat: no-repeat;
 }
 
-
-
 #silver, #workers {
     padding-top: 5px;
 }
 
 #silver-for-workers {
     display: none;
+}
+
+.back-button-div {
+    margin-top: 50px;
+}
+
+#wdr-p {
+    font-weight: bold;
+    font-size: 25px;
 }
 
 
@@ -1111,19 +1113,8 @@ input[type="checkbox"] {
         height: 90px;
     }    
 }
-.top-skip {
-    display: none;
-}
-
-#wdr-p {
-    font-weight: bold;
-    font-size: 25px;
-}
-
-
-
-
-
-.back-button-div {
-    margin-top: 50px;
+#tile-sizer {
+    background-color: black;
+    margin: 20px 0;
+    width: 75%;
 }

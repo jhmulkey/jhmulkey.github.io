@@ -74,7 +74,7 @@
             <div class="board-button" onclick="pop('mm-s','block','mm')">Set...</div>
             <div class="board-button" onclick="zeroVariables()">Reset Game</div>
             <div class="board-button" onclick="undo()">Undo Last Action</div>
-            <div id="jumbo" class="board-button" onclick="jumbo()">Turn Jumbo Tiles On</div>
+            <div class="board-button" onclick="pop('ts','block','mm')">Resize Tiles</div>
             <div class="board-button" onclick="pageLinks(0)">Setup Info</div>
             <div class="board-button" onclick="pageLinks(1)">Expansion Info</div>
             <div class="board-button-skip" onclick="pop('mm','block')">&#8678;</div>
@@ -160,7 +160,6 @@
     <div id="pu-sg" class="pu">
         <h1>Goods Sold</h1>
         <div class="pu-flex-div">
-            <div class="board-button-skip top-skip" onclick="pop('sg','block')">&#8678;</div>
             <div class="number-button one" onclick="sellGoods(1)"></div>
             <div class="number-button two" onclick="sellGoods(2)"></div>
             <div class="number-button three" onclick="sellGoods(3)"></div>
@@ -180,7 +179,6 @@
     <div id="pu-sh" class="pu">
         <h1>Goods Acquired</h1>
         <div class="pu-flex-div">
-            <div class="board-button-skip top-skip" onclick="pop('sh','block')">&#8678;</div>
             <div class="number-button one" onclick="addGoods(1)"></div>
             <div class="number-button two" onclick="addGoods(2)"></div>
             <div class="number-button three" onclick="addGoods(3)"></div>
@@ -200,7 +198,6 @@
     <div id="pu-cr" class="pu">
         <h1>Region Size</h1>
         <div class="pu-flex-div">
-            <div class="board-button-skip top-skip" onclick="pop('cr','block')">&#8678;</div>
             <div class="number-button one" onclick="regionPoints(0)"></div>
             <div class="number-button two" onclick="regionPoints(1)"></div>
             <div class="number-button three" onclick="regionPoints(2)"></div>
@@ -218,7 +215,6 @@
     <div id="pu-a" class="pu">
         <h1>Animal Points</h1>
         <div class="pu-flex-div">
-            <div class="board-button-skip top-skip" onclick="pop('a','block')">&#8678;</div>
             <div class="number-button one" onclick="animals(1)"></div>
             <div class="number-button two" onclick="animals(2)"></div>
             <div class="number-button three" onclick="animals(3)"></div>
@@ -242,7 +238,6 @@
     </div>
        
     <div id="pu-b">
-        <div class="board-button-skip top-skip" onclick="pop('b','flex')">&#8678;</div>
         <div id="watchtower" class="tile-button" onclick="tapPoints(4,'watchtower')"></div>
         <div id="warehouse" class="tile-button" onclick="pop('sg','block','b')"></div>
         <div id="boardhouse" class="tile-button" onclick="addWorkers(4,'boarding house')"></div>
@@ -265,7 +260,6 @@
     </div>
     
     <div id="pu-k">
-        <div class="board-button-skip top-skip" onclick="pop('k','flex')">&#8678;</div>
         <div id="k1" class="tile-button" onclick="pu_km(0,'1')"></div>
         <div id="k2" class="tile-button" onclick="addKnowledge(0)"></div>
         <div id="k3" class="tile-button" onclick="addKnowledge(1)"></div>
@@ -289,6 +283,25 @@
         <div id="ke2b" class="tile-button" onclick="addKnowledge(10)"></div>
         <div id="ke5" class="tile-button" onclick="addKnowledge(11)"></div>
         <div class="board-button-skip" onclick="pop('k','flex')">&#8678;</div>
+    </div>
+    
+    <div id="pu-ts">
+        <input id="tile-sizer" oninput="tileResize()" type="range" min="75" max="200" value="75">
+        <div class="board-button-skip" onclick="pop('main','block','ts')">OK</div>
+        <div class="point-quickadd-div">
+            <div id="region-points-s" class="tile-button"></div>
+            <div id="building-s" class="tile-button"></div>
+            <div id="knowledge-s" class="tile-button"></div>
+            <div id="animal-s" class="tile-button"></div>
+            <div id="ship-s" class="tile-button"></div>
+            <div id="sell-goods-s" class="tile-button"></div>
+            <div id="large-bonus-s" class="tile-button"></div>
+            <div id="small-bonus-s" class="tile-button-no-border"></div>
+            <div id="mine-s" class="tile-button"></div>
+            <div id="dice-trade-s" class="tile-button"></div>
+            <div id="castle-s" class="tile-button"></div>
+            <div id="cloister-s" class="tile-button"></div>
+        </div>
     </div>
     
 <div id="pu-main">

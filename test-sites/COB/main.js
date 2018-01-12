@@ -80,46 +80,26 @@ function info(i) {
 
 
 //***CSS FUNCTIONS***//
-function jumbo() {
-    _jumbo === true ? _jumbo = false : _jumbo = true;
-    
+function tileResize() {
+    x = document.getElementById("tile-sizer").value;
     var tiles = document.getElementsByClassName("tile-button");
+    var tilesNB = document.getElementsByClassName("tile-button-no-border");
     var numbers = document.getElementsByClassName("number-button");
-    var topSkip = document.getElementsByClassName("top-skip");
     
-    if (_jumbo === true) {
-        for (i = 0; i < tiles.length; i++) {
-            tiles[i].style.height = "167px";
-            tiles[i].style.width = "167px";
-        };
-        for (i = 0; i < numbers.length; i++) {
-            numbers[i].style.height = "167px";
-            numbers[i].style.width = "167px";
-        };
-        for (i = 0; i < topSkip.length; i++) {
-            topSkip[i].style.display = "block";
-        };
-        document.getElementById("small-bonus").style.cssText = "height:167px; width:167px;";
-        document.getElementById("jumbo").innerHTML = "Turn Jumbo Tiles Off";
-        
-    } else {
-        for (i = 0; i < tiles.length; i++) {
-            tiles[i].style.height = "75px";
-            tiles[i].style.width = "75px";
-        };
-        for (i = 0; i < numbers.length; i++) {
-            numbers[i].style.height = "75px";
-            numbers[i].style.width = "75px";
-        };
-        for (i = 0; i < topSkip.length; i++) {
-            topSkip[i].style.display = "none";
-        };
-        document.getElementById("small-bonus").style.height = "75px";
-        document.getElementById("small-bonus").style.width = "75px";
-        document.getElementById("jumbo").innerHTML = "Turn Jumbo Tiles On";
+    for (i = 0; i < tiles.length; i++) {
+        tiles[i].style.height = x+"px";
+        tiles[i].style.width = x+"px";
     };
     
-    pop("mm","block");
+    for (i = 0; i < tilesNB.length; i++) {
+        tilesNB[i].style.height = x+"px";
+        tilesNB[i].style.width = x+"px";
+    };
+    
+    for (i = 0; i < numbers.length; i++) {
+        numbers[i].style.height = x+"px";
+        numbers[i].style.width = x+"px";
+    };
 };
 
 function hide(x) {
