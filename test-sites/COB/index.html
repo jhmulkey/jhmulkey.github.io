@@ -71,9 +71,9 @@
         <h1>Main Menu</h1>
         <div class="pu-flex-div">
             <div class="board-button" onclick="pop('al','block','mm')">Activity Log</div>
-            <div class="board-button" onclick="pop('mm-s','block','mm')">Set...</div>
+            <div id="set" class="board-button" onclick="pop('mm-s','block','mm')">Set...</div>
             <div class="board-button" onclick="zeroVariables()">Reset Game</div>
-            <div class="board-button" onclick="undo()">Undo Last Action</div>
+            <div id="undo" class="board-button" onclick="undo()">Undo Last Action</div>
             <div class="board-button" onclick="pop('ts','block','mm')">Resize Tiles</div>
             <div class="board-button" onclick="pageLinks(0)">Setup Info</div>
             <div class="board-button" onclick="pageLinks(1)">Expansion Info</div>
@@ -289,18 +289,18 @@
         <input id="tile-sizer" oninput="tileResize()" type="range" min="75" max="200" value="75">
         <div class="board-button-skip" onclick="pop('main','block','ts')">OK</div>
         <div class="point-quickadd-div">
-            <div id="region-points-s" class="tile-button"></div>
-            <div id="building-s" class="tile-button"></div>
-            <div id="knowledge-s" class="tile-button"></div>
-            <div id="animal-s" class="tile-button"></div>
-            <div id="ship-s" class="tile-button"></div>
-            <div id="sell-goods-s" class="tile-button"></div>
-            <div id="large-bonus-s" class="tile-button"></div>
-            <div id="small-bonus-s" class="tile-button-no-border"></div>
-            <div id="mine-s" class="tile-button"></div>
-            <div id="dice-trade-s" class="tile-button"></div>
-            <div id="castle-s" class="tile-button"></div>
-            <div id="cloister-s" class="tile-button"></div>
+            <div class="tile-button"></div>
+            <div class="tile-button"></div>
+            <div class="tile-button"></div>
+            <div class="tile-button"></div>
+            <div class="tile-button"></div>
+            <div class="tile-button"></div>
+            <div class="tile-button"></div>
+            <div class="tile-button"></div>
+            <div class="tile-button"></div>
+            <div class="tile-button"></div>
+            <div class="tile-button"></div>
+            <div class="tile-button"></div>
         </div>
     </div>
     
@@ -376,9 +376,9 @@
         <div id="cloister" class="tile-button" onclick="pu_bm(7,'Cloister',true)"></div>
         <!-- <div id="undo" class="undo-button" onclick="testLoop()">test loop</div> -->
     </div>
-
+    <div id="pu-epl"></div> <!--end point log-->
 </div>
-   <div id="pu-epl"></div> <!--end point log-->
+   
 </div>
     
     <script src="main.js"></script>

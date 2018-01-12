@@ -20,18 +20,20 @@ var _phFactor = 0; // phase factor for point calculation (0-4)
 var _rollct = 0; // roll count (1-25)
 var _pts = 0; // total points
 var _mines = 0; // mines on estate
-var _silver = 1; // total silverlings
+var _silver = 0; // total silverlings
 var _workers; // total workers
 var _unsold = 3; // total unsold goods
 var _sold = 0; // total sold goods
 var _bonus = 0; // number of bonus tiles earned
 var _turn = 0; // position on turn order track
 var _alog; // stores current activity log for game restore
+var _epl; // stores end point log for game restore
 var _jumbo = false; // tests whether jumbo tiles are on
 var _undoFunc; // function to undo
 var _undoDesc; // description of undo action for log
 var _undoPts; // points or other incremented numbers to undo
 var _undoLimit = true; // test if undo limit has been reached
+var _ts = false;
 var _k = { 
     k2: false,
     k3: false,
@@ -50,14 +52,45 @@ var _k = {
 
 //***TEST FUNCTIONS***//
 function testLoop() {
-    var globals = ["_pl", "_pts", "_mines", "_unsold", "_sold", "_bonus", "_silver", "_workers", "_turn", "_phFactor", "_rollct", "_rd",]
-    for (i = 0; i < globals.length; i++) {
-        console.log(globals[i] + " " + parseInt(localStorage.getItem(globals[i])));
+    console.log("localStorage getItem values: x :global values")
+    var globals1 = [
+        "_pl",
+        "_color",
+        "_rd",
+        "_ph",
+        "_phFactor",
+        "_rollct",
+        "_pts",
+        "_mines",
+        "_silver",
+        "_workers",
+        "_unsold",
+        "_sold",
+        "_bonus",
+        "_turn",
+        "_ts"
+    ]
+    var globals2 = [
+        _pl,
+        _color,
+        _rd,
+        _ph,
+        _phFactor,
+        _rollct,
+        _pts,
+        _mines,
+        _silver,
+        _workers,
+        _unsold,
+        _sold,
+        _bonus,
+        _turn,
+        _ts
+    ]
+    for (i = 0; i < globals1.length; i++) {
+        console.log(localStorage.getItem(globals1[i]) + " " + globals1[i] + " " + globals2[i]);
     };
-    console.log("_ph "+localStorage.getItem("_ph"));
-    console.log("_color "+localStorage.getItem("_color"));
 };
-
 
 //***GENERAL FUNCTIONS***//
 function pageLinks(i) {
@@ -112,6 +145,17 @@ function hide(x) {
 
 
 //***LOCALSTORAGE FUNCTIONS***//
+function zeroNullVariables() {
+    var strings = ["_pts","_mines","_sold","_bonus","_turn"];
+    for (i = 0; i < strings.length; i++) {
+        if (!localStorage.getItem(strings[i])) {
+            localStorage.setItem(strings[i],0);
+        };
+    };
+};
+zeroNullVariables();
+testLoop();
+
 function zeroVariables() {
     if (window.confirm("Are you sure you want to reset the game?")) {
         var strings = ["_pl","_rd","_phFactor","_rollct","_pts","_mines","_sold","_bonus","_turn"];
@@ -134,7 +178,7 @@ function zeroVariables() {
 };
 
 function restoreVariables() {
-    if (isNaN(parseInt(localStorage.getItem("_pl"))) || parseInt(localStorage.getItem("_rollct")) < 1) {
+    if (!localStorage.getItem("_rollct") || localStorage.getItem("_rollct") == 0) {
         alert("nothing to restore");
         return;
     };
@@ -154,6 +198,14 @@ function restoreVariables() {
     _bonus = parseInt(localStorage.getItem("_bonus"));
     _turn = parseInt(localStorage.getItem("_turn"));
     _alog = localStorage.getItem("_alog");
+    _epl = localStorage.getItem("_epl");
+    _ts = localStorage.getItem("_ts");
+    
+    if (localStorage.getItem("_ts")) {
+        document.getElementById("set").style.display = "none";
+        document.getElementById("undo").style.display = "none";
+        document.getElementById("pu-epl").style.display = "block";
+    };
     
     if (JSON.parse(localStorage.getItem("_k") != null)) {
         _k = JSON.parse(localStorage.getItem("_k"));
@@ -162,6 +214,13 @@ function restoreVariables() {
                 document.getElementById(key.toString()).style.border = "5px dashed red";
             };
         };
+    };
+    
+    if (localStorage.getItem("_ts")) {
+        _elog = localStorage.getItem("_elog");
+        document.getElementById("rolled-dice-flex-div").style.display = "none";
+        document.getElementById("main-tiles").style.display = "none";
+        latestActivity("FINAL SCORE","blue"); 
     };
     
     document.getElementById("phase-round-span").innerHTML = _ph+_rd;
@@ -174,9 +233,12 @@ function restoreVariables() {
     document.getElementById("bonus-count").innerHTML = _bonus;
     document.getElementById("turn-count").innerHTML = _turn;
     document.getElementById("pu-al").innerHTML = _alog;
+    document.getElementById("pu-epl").innerHTML = _epl;
     pop("main","block","ps");
+    randomDice("silent");
+    latestActivity("session restored", "green");
     activityLog("session restored","green");
-    randomDice();
+    pointSound.play();
     scrollTo(0,0);
 };
 
@@ -332,9 +394,11 @@ function endPointLog(log) {
     var textNode = document.createTextNode(log);
     elementNode.appendChild(textNode);
     document.getElementById("pu-epl").appendChild(elementNode);
+    _epl = document.getElementById("pu-epl").innerHTML;
+    localStorage.setItem("_epl",_epl);
 };
 
-function latestActivity(color,log) {
+function latestActivity(log,color) {
     document.getElementById("latest-activity-span").style.color = color;
     document.getElementById("latest-activity-span").innerHTML = log;
 };
@@ -342,7 +406,7 @@ function latestActivity(color,log) {
 
 //***POP FUNCTIONS***//
 function pop(open,display,close1,close2) {
-   if (document.getElementById("pu-"+open).style.display != display) {
+    if (document.getElementById("pu-"+open).style.display != display) {
         document.getElementById("pu-"+open).style.display = display;
         document.getElementById("pu-"+open).scrollIntoView();
     } else {
@@ -355,6 +419,7 @@ function pop(open,display,close1,close2) {
     if (close2) {
         document.getElementById("pu-"+close2).style.display = "none";
     }
+    
     scrollTo(0,0);
 };
 
@@ -420,8 +485,10 @@ function setPlayers(x) {
     };
     _pl = x;
     localStorage.setItem("_pl",_pl);
-    var log = "Players: " + _pl;
-    latestActivity("blue",log);
+    var log1 = "tap the red box to roll dice"
+    var log2 = "Players: " + _pl;
+    latestActivity(log1,"blue");
+    activityLog(log2,"blue");
     pop("pos","block","ps");
 };
 
@@ -444,10 +511,9 @@ function initializeWorkers(x) {
     };
     
     _workers = x; _plo = x; localStorage.setItem("_workers",_plo);
+    _silver = 1; localStorage.setItem("_silver",_silver);
+    _unsold = 3; localStorage.setItem("_unsold",_unsold);
     
-    /*if (isNaN(parseInt(localStorage.getItem("_workers")))) {
-        localStorage.setItem("_workers",_plo);
-    };*/
     document.getElementById("worker-count").innerHTML = _workers;
     pop("cs","block","pos");
 };
@@ -510,7 +576,7 @@ function rollDice() {
     };
 };
 
-function randomDice() {
+function randomDice(silent) {
     var x = Math.floor(Math.random() * 6) + 1;
     var y = Math.floor(Math.random() * 6) + 1;
     var z = Math.floor(Math.random() * 6) + 1;
@@ -524,13 +590,15 @@ function randomDice() {
     document.getElementById("roll-3-div").style.backgroundImage = dice3;
     document.getElementById("dice-1").style.backgroundImage = "url(images/"+x+"-dice.png)";
     document.getElementById("dice-2").style.backgroundImage = "url(images/"+y+"-dice.png)";
-    rollSound.play();
+    if (!silent) {
+        rollSound.play();
+    };
     if (document.getElementById("roll-3-div").style.visibility == "visible") {
         var log = "(" + _ph+_rd + ") rolled " + x + " and " + y + " + white " + z;
     } else {
         var log = "(" + _ph+_rd + ") rolled " + x + " and " + y;
     }
-    latestActivity("black",log);
+    latestActivity(log,"black");
     activityLog(log,"white","black");
 };
 
@@ -600,7 +668,7 @@ function setPoints() {
         _pts = y; localStorage.setItem("_pts",_pts);
         document.getElementById("total-points").innerHTML = _pts;
         var log = "points set to " + y;
-        latestActivity("red",log);
+        latestActivity(log,"red");
         activityLog(log,"red","transparent");
         pointSound.play();
         pop("mm-s","block","mm");
@@ -613,7 +681,7 @@ function tapPoints(x,name) {
     _pts += x; localStorage.setItem("_pts",_pts);
     document.getElementById("total-points").innerHTML = _pts;
     var log = x + " points for " + name;
-    latestActivity("black",log);
+    latestActivity(log,"black");
     activityLog(log);
     pointSound.play();
     pop("b","flex");
@@ -627,7 +695,7 @@ function regionPoints(x) {
     _pts += added; localStorage.setItem("_pts",_pts);
     document.getElementById("total-points").innerHTML = _pts;
     var log = added + " points for region size " + (x + 1);
-    latestActivity("black",log);
+    latestActivity(log,"black");
     activityLog(log);
     pointSound.play();
     pop('cr','block');
@@ -647,7 +715,7 @@ function setWorkers() {
         _workers = y; localStorage.setItem("_workers",_workers);
         document.getElementById("worker-count").innerHTML = _workers;
         var log = "workers set to " + y;
-        latestActivity("red",log);
+        latestActivity(log,"red");
         activityLog(log,"red","transparent");
         pointSound.play();
         pop("mm-s","block","mm");
@@ -671,7 +739,7 @@ function addWorkers(x,name) {
     
     document.getElementById("worker-count").innerHTML = _workers;
     var log = x + " workers for " + name;
-    latestActivity("black",log);
+    latestActivity(log,"black");
     activityLog(log);
     pointSound.play();
     if (name == "boarding house") {
@@ -693,7 +761,7 @@ function useWorkers(x) {
     _undoFunc = "use workers"; _undoPts = x; _undoLimit = false;
     document.getElementById("worker-count").innerHTML = _workers;
     var log = Math.abs(x) + " workers used";
-    latestActivity("black",log);
+    latestActivity(log,"black");
     activityLog(log);
     pointSound.play();
     pop("w","block");
@@ -714,7 +782,7 @@ function setSilver() {
         _silver = y; localStorage.setItem("_silver",_silver);
         document.getElementById("silver-count").innerHTML = _silver;
         var log = "silverlings set to " + y;
-        latestActivity("red",log);
+        latestActivity(log,"red");
         activityLog(log,"red","transparent");
         pointSound.play();
         pop("mm-s","block","mm");
@@ -727,7 +795,7 @@ function addSilver(x,name) {
     _silver += x; localStorage.setItem("_silver",_silver);
     document.getElementById("silver-count").innerHTML = _silver;
     var log = x + " silverlings for " + name;
-    latestActivity("black",log);
+    latestActivity(log,"black");
     activityLog(log);
     silverSound.play();
     if (name == "bank") {
@@ -754,7 +822,7 @@ function spendSilver(x,e2b) {
     } else {
         var log = Math.abs(x) + " silverlings spent at black depot";
     };
-    latestActivity("black",log);
+    latestActivity(log,"black");
     activityLog(log);
     silverSound.play();
     pop("si","block");
@@ -770,7 +838,7 @@ function setMines(x) {
     _mines = x; localStorage.setItem("_mines",_mines);
     mineOverlay();
     var log = "mines set to " + x;
-    latestActivity("red",log);
+    latestActivity(log,"red");
     activityLog(log,"red","transparent");
     pointSound.play();
     pop("ms","block","mm-s");
@@ -784,7 +852,7 @@ function addMines() {
         _mines += 1; localStorage.setItem("_mines",_mines);
         mineOverlay();
         var log = "1 mine added to estate";
-        latestActivity("black",log);
+        latestActivity(log,"black");
         activityLog(log);
         pointSound.play();
         window.scrollTo(0,0);
@@ -802,7 +870,7 @@ function addGoods(x) {
     document.getElementById("unsold-count").innerHTML = _unsold;
     document.getElementById("turn-count").innerHTML = _turn;
     var log = x + " goods acquired"
-    latestActivity("black",log);
+    latestActivity(log,"black");
     activityLog(log);
     pointSound.play();
     pop("sh","block");
@@ -828,7 +896,7 @@ function sellGoods(x) {
         document.getElementById("sold-count").innerHTML = _sold;
         document.getElementById("total-points").innerHTML = _pts;
         var log = (x * _pl) + " points for sale of " + x + " goods";
-        latestActivity("black",log);
+        latestActivity(log,"black");
         activityLog(log);
         pointSound.play();
         pop("sg","block");
@@ -840,7 +908,7 @@ function animals(x) {
     _pts += x; localStorage.setItem("_pts",_pts);
     document.getElementById("total-points").innerHTML = _pts;
     var log = x + " points for animals";
-    latestActivity("black",log);
+    latestActivity(log,"black");
     activityLog(log);
     pointSound.play();
     pop("a","block");
@@ -853,7 +921,7 @@ function bonusTile(x,size) {
     document.getElementById("total-points").innerHTML = _pts;
     document.getElementById("bonus-count").innerHTML = _bonus;
     var log = x + " points for " + size + " bonus tile";
-    latestActivity("black",log);
+    latestActivity(log,"black");
     activityLog(log);
     pointSound.play();
     window.scrollTo(0,0);
@@ -869,7 +937,7 @@ function addKnowledge(i) {
             document.getElementById("silver-for-workers").style.display = "block";
         };
         var log = "knowledge tile " + numbers[i] + " added";
-        latestActivity("black",log);
+        latestActivity(log,"black");
         activityLog(log);
         pointSound.play();
     } else {
@@ -880,7 +948,7 @@ function addKnowledge(i) {
                document.getElementById("silver-for-workers").style.display = "none";
            };
            var log = "knowledge tile " + numbers[i] + " removed";
-           latestActivity("red",log);
+           latestActivity(log,"red");
            activityLog(log,"red","transparent");
            pointSound.play();
         };
@@ -889,6 +957,8 @@ function addKnowledge(i) {
 };
 
 function totalScore() {
+    
+    localStorage.setItem("_ts",true);
     
     var gType = 0;
     var eBuild = 0;
@@ -914,7 +984,7 @@ function totalScore() {
         };
         if (gType > 0) {
             var gTypeLog = (gType * 3) + " points for " + gType + " goods types sold";
-            endPointLog(gTypeLog);
+            endPointLog(gTypeLog); activityLog(gTypeLog,"blue");
         };
     };
         
@@ -932,7 +1002,7 @@ function totalScore() {
         };
         if (eBuild > 0) {
             var eBuildLog = (eBuild * 4) + " points for " + eBuild + " eligible buildings";
-            endPointLog(eBuildLog);
+            endPointLog(eBuildLog); activityLog(eBuildLog,"blue");
         };
     };
     
@@ -950,26 +1020,26 @@ function totalScore() {
         };
         if (aType > 0) {
             var aTypeLog = (aType * 4) + " points for " + aType + " animal types";
-            endPointLog(aTypeLog);
+            endPointLog(aTypeLog); activityLog(aTypeLog,"blue");
         };
     };
     
     if (_sold > 0 && _k["k25"] === true ) {
         soldPoints += _sold;
         var soldLog = soldPoints + " points for " + _sold + " sold goods";
-        endPointLog(soldLog);
+        endPointLog(soldLog); activityLog(soldLog,"blue");
     };
     
     if (_bonus > 0 && _k["k26"] === true ) {
         bonusPoints += (_bonus * 2);
         var bonusLog = bonusPoints + " points for " + _bonus + " bonus tiles";
-        endPointLog(bonusLog);
+        endPointLog(bonusLog); activityLog(bonusLog,"blue");
     };
     
     if (_unsold > 0) {
         unsoldPoints += _unsold;
         var unsoldLog = unsoldPoints + " points for " + _unsold + " unsold goods";
-        endPointLog(unsoldLog);
+        endPointLog(unsoldLog); activityLog(unsoldLog,"blue");
     };
     
     if (_mines > 0) {
@@ -981,7 +1051,7 @@ function totalScore() {
     
     if (silverPoints > 0) {
         var silverLog = silverPoints + " points for " + _silver + " unspent silverlings";
-        endPointLog(silverLog);
+        endPointLog(silverLog); activityLog(silverLog,"blue");
     };
     
     if (_mines > 0 && _k["k2"] === true) {
@@ -992,16 +1062,17 @@ function totalScore() {
     if (_workers > 1) {
         workerPoints += (Math.floor(_workers / 2));
         var workerLog = workerPoints + " points for " + _workers + " unused workers";
-        endPointLog(workerLog);
+        endPointLog(workerLog); activityLog(workerLog,"blue");
     }; 
     
     _pts += (gType * 3) + (eBuild * 4) + (aType * 4) + soldPoints + bonusPoints + unsoldPoints + silverPoints + workerPoints; 
     localStorage.setItem("_pts",_pts);
     document.getElementById("total-points").innerHTML = _pts;
-    
+    document.getElementById("pu-epl").style.display = "block";
     document.getElementById("rolled-dice-flex-div").style.display = "none";
     document.getElementById("main-tiles").style.display = "none";
-    document.getElementById("pu-epl").style.display = "block";
+    document.getElementById("set").style.display = "none";
+    document.getElementById("undo").style.display = "none";
     pointSound.play();
-    latestActivity("blue","FINAL SCORE");
+    latestActivity("FINAL SCORE","blue");
 };
