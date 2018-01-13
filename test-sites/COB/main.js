@@ -8,32 +8,36 @@ pointSound.src = "./audio/point-sound.mp3";
 var silverSound = new Audio();
 silverSound.src = "./audio/silver-sound.mp3";
 
-//***GLOBALS***//
-var _pl = 0; // number of players
+
+//***GLOBALS SET WHEN STARTING NEW GAME***//
+var _pl = 0; // number of players (2-4)
 var _wdr = false; // tests if white dice has been rolled to determine player order
-var _plo; // player order
+var _plo; // player order (1-4)
+var _silver = 1; // total silverlings (1)*modified during gameplay
+var _workers; // total workers (1-4)*modified during gameplay
+var _unsold = 3; // total unsold goods (3)*modified during gameplay
 var _color; // dice color
-var _boardsIndex = 0; // which board group to choose from
-var _rd = 0; // round (1-5)
-var _ph; // phase ("A"-"E")
-var _phFactor = 0; // phase factor for point calculation (0-4)
+var _boardsIndex; // which board group to choose from (0-3)
+
+
+//***GLOBALS SET DURING DICE ROLLS***//
 var _rollct = 0; // roll count (1-25)
+var _ph; // phase (A-E)
+var _phFactor = 0; // phase factor for point calculation (0-4)
+var _rd = 0; // round (1-5)
+var _d1; // last roll of dice 1
+var _d2; // last roll of dice 2
+var _d3; // last roll of dice 3 (white dice)
+
+
+//***GLOBALS SET DURING ACTIONS***//
 var _pts = 0; // total points
-var _mines = 0; // mines on estate
-var _silver = 0; // total silverlings
-var _workers; // total workers
-var _unsold = 3; // total unsold goods
+var _mines = 0; // mines on estate (0-3)
 var _sold = 0; // total sold goods
 var _bonus = 0; // number of bonus tiles earned
 var _turn = 0; // position on turn order track
-var _alog; // stores current activity log for game restore
-var _epl; // stores end point log for game restore
-var _jumbo = false; // tests whether jumbo tiles are on
-var _undoFunc; // function to undo
-var _undoDesc; // description of undo action for log
-var _undoPts; // points or other incremented numbers to undo
-var _undoLimit = true; // test if undo limit has been reached
-var _ts = false;
+var _la; // stores latest activity for game restore
+var _al; // stores current activity log for game restore
 var _k = { 
     k2: false,
     k3: false,
@@ -50,47 +54,50 @@ var _k = {
 }; // tests whether certain knowledge tiles are on estate
 
 
+//***GLOBALS SET AT GAME END***//
+var _ts = false; // test if totalScore function has been called
+var _epl; // stores end point log for game restore
+
+
+//***GLOBALS FOR UNDO***//
+var _undoFunc; // function to undo
+var _undoDesc; // description of undo action for log
+var _undoPts; // points or other incremented numbers to undo
+var _undoLimit = true; // test if undo limit has been reached
+
+
 //***TEST FUNCTIONS***//
 function testLoop() {
-    console.log("localStorage getItem values: x :global values")
-    var globals1 = [
+    var globals = [
         "_pl",
-        "_color",
-        "_rd",
-        "_ph",
-        "_phFactor",
-        "_rollct",
-        "_pts",
-        "_mines",
         "_silver",
         "_workers",
         "_unsold",
+        "_color",
+        "_rollct",
+        "_ph",
+        "_phFactor",
+        "_rd",
+        "_d1",
+        "_d2",
+        "_d3",
+        "_pts",
+        "_mines",
         "_sold",
         "_bonus",
         "_turn",
-        "_ts"
+        "_la",
+        "_al",
+        "_k",
+        "_ts",
+        "_epl"
     ]
-    var globals2 = [
-        _pl,
-        _color,
-        _rd,
-        _ph,
-        _phFactor,
-        _rollct,
-        _pts,
-        _mines,
-        _silver,
-        _workers,
-        _unsold,
-        _sold,
-        _bonus,
-        _turn,
-        _ts
-    ]
-    for (i = 0; i < globals1.length; i++) {
-        console.log(localStorage.getItem(globals1[i]) + " " + globals1[i] + " " + globals2[i]);
+
+    for (i = 0; i < globals.length; i++) {
+        console.log(localStorage.getItem(globals[i]) + " " + globals[i]);
     };
 };
+testLoop();
 
 //***GENERAL FUNCTIONS***//
 function pageLinks(i) {
@@ -152,20 +159,19 @@ function zeroNullVariables() {
             localStorage.setItem(strings[i],0);
         };
     };
-};
-zeroNullVariables();
-testLoop();
+}; // sets any null globals to 0 to avoid NaN innerHTML upon game restore
+
 
 function zeroVariables() {
     if (window.confirm("Are you sure you want to reset the game?")) {
-        var strings = ["_pl","_rd","_phFactor","_rollct","_pts","_mines","_sold","_bonus","_turn"];
+        var strings = ["_pl","_rollct","_phFactor","_rd","_pts","_mines","_sold","_bonus","_turn"];
         for (i = 0; i < strings.length; i++) {
             localStorage.setItem(strings[i],0);
         };
         
-        localStorage.setItem("_silver",1);
-        localStorage.setItem("_unsold",3);
-        localStorage.setItem("_alog","");
+        localStorage.setItem("_al","");
+        localStorage.setItem("_epl","");
+        localStorage.setItem("_ts","");
         
         for (var key in _k) {
             _k[key] = false;
@@ -175,7 +181,7 @@ function zeroVariables() {
         
         location.reload();
     };
-};
+}; // sets ALL globals to default values for game reset
 
 function restoreVariables() {
     if (!localStorage.getItem("_rollct") || localStorage.getItem("_rollct") == 0) {
@@ -184,22 +190,26 @@ function restoreVariables() {
     };
     
     _pl = parseInt(localStorage.getItem("_pl"));
-    _color = localStorage.getItem("_color");
-    _rd = parseInt(localStorage.getItem("_rd"));
-    _ph = localStorage.getItem("_ph");
-    _phfactor = parseInt(localStorage.getItem("_phfactor"));
-    _rollct = parseInt(localStorage.getItem("_rollct"));
-    _pts = parseInt(localStorage.getItem("_pts"));
-    _mines = parseInt(localStorage.getItem("_mines"));
     _silver = parseInt(localStorage.getItem("_silver"));
     _workers = parseInt(localStorage.getItem("_workers"));
     _unsold = parseInt(localStorage.getItem("_unsold"));
+    _color = localStorage.getItem("_color");
+    _rollct = parseInt(localStorage.getItem("_rollct"));
+    _ph = localStorage.getItem("_ph");
+    _phfactor = parseInt(localStorage.getItem("_phfactor"));
+    _rd = parseInt(localStorage.getItem("_rd"));
+    _d1 = parseInt(localStorage.getItem("_d1"));
+    _d2 = parseInt(localStorage.getItem("_d2"));
+    _d3 = parseInt(localStorage.getItem("_d3"));
+    _pts = parseInt(localStorage.getItem("_pts"));
+    _mines = parseInt(localStorage.getItem("_mines"));
     _sold = parseInt(localStorage.getItem("_sold"));
     _bonus = parseInt(localStorage.getItem("_bonus"));
     _turn = parseInt(localStorage.getItem("_turn"));
-    _alog = localStorage.getItem("_alog");
-    _epl = localStorage.getItem("_epl");
+    _la = localStorage.getItem("_la");
+    _al = localStorage.getItem("_al");
     _ts = localStorage.getItem("_ts");
+    _epl = localStorage.getItem("_epl");
     
     if (localStorage.getItem("_ts")) {
         document.getElementById("set").style.display = "none";
@@ -207,7 +217,7 @@ function restoreVariables() {
         document.getElementById("pu-epl").style.display = "block";
     };
     
-    if (JSON.parse(localStorage.getItem("_k") != null)) {
+    if (JSON.parse(localStorage.getItem("_k"))) {
         _k = JSON.parse(localStorage.getItem("_k"));
         for (var key in _k) {
             if (_k[key] === true) {
@@ -223,20 +233,28 @@ function restoreVariables() {
         latestActivity("FINAL SCORE","blue"); 
     };
     
-    document.getElementById("phase-round-span").innerHTML = _ph+_rd;
-    document.getElementById("total-points").innerHTML = _pts;
-    document.getElementById("mine").style.backgroundImage = "url(images/"+_mines+"-mines.png)";
     document.getElementById("silver-count").innerHTML = _silver;
     document.getElementById("worker-count").innerHTML = _workers;
     document.getElementById("unsold-count").innerHTML = _unsold;
+    document.getElementById("phase-round-span").innerHTML = _ph+_rd;
+    
+    document.getElementById("roll-1-div").style.backgroundImage = "url(images/" + _color + "-dice-" + _d1 + ".png)";
+    document.getElementById("roll-2-div").style.backgroundImage = "url(images/" + _color + "-dice-" + _d2 + ".png)";
+    document.getElementById("roll-3-div").style.backgroundImage = "url(images/white-dice-" + _d3 + ".png)";
+    document.getElementById("dice-1").style.backgroundImage = "url(images/"+_d1+"-dice.png)";
+    document.getElementById("dice-2").style.backgroundImage = "url(images/"+_d2+"-dice.png)";
+    
+    document.getElementById("total-points").innerHTML = _pts;
+    document.getElementById("mine").style.backgroundImage = "url(images/"+_mines+"-mines.png)";
     document.getElementById("sold-count").innerHTML = _sold;
     document.getElementById("bonus-count").innerHTML = _bonus;
     document.getElementById("turn-count").innerHTML = _turn;
-    document.getElementById("pu-al").innerHTML = _alog;
+    document.getElementById("latest-activity-span").innerHTML = _la;
+    document.getElementById("pu-al").innerHTML = _al;
     document.getElementById("pu-epl").innerHTML = _epl;
+    
     pop("main","block","ps");
-    randomDice("silent");
-    latestActivity("session restored", "green");
+    
     activityLog("session restored","green");
     pointSound.play();
     scrollTo(0,0);
@@ -349,7 +367,7 @@ function undo() {
     };
     
     pop("mm","block");
-    latestActivity("red",log);
+    latestActivity(log,"red");
     activityLog(log,"red","transparent");
     pointSound.play();
     window.scrollTo(0,0);
@@ -384,8 +402,8 @@ function activityLog(log,color,background,size,marginTop,element) {
     var textNode = document.createTextNode(log);
     elementNode.appendChild(textNode);
     document.getElementById("pu-al").appendChild(elementNode);
-    _alog = document.getElementById("pu-al").innerHTML;
-    localStorage.setItem("_alog",_alog);
+    _al = document.getElementById("pu-al").innerHTML;
+    localStorage.setItem("_al",_al);
 };
 
 function endPointLog(log) {
@@ -401,6 +419,7 @@ function endPointLog(log) {
 function latestActivity(log,color) {
     document.getElementById("latest-activity-span").style.color = color;
     document.getElementById("latest-activity-span").innerHTML = log;
+    localStorage.setItem("_la",document.getElementById("latest-activity-span").innerHTML);
 };
 
 
@@ -487,8 +506,8 @@ function setPlayers(x) {
     localStorage.setItem("_pl",_pl);
     var log1 = "tap the red box to roll dice"
     var log2 = "Players: " + _pl;
-    latestActivity(log1,"blue");
-    activityLog(log2,"blue");
+    latestActivity(log1,"green");
+    activityLog(log2,"green");
     pop("pos","block","ps");
 };
 
@@ -501,7 +520,7 @@ function rollWhiteDice() {
 
 function initializeWorkers(x) {
     if (_wdr === false) {
-        alert("You must roll white die to determine player order");
+        alert("You must roll white dice to determine player order");
         return;
     }; 
     
@@ -510,9 +529,9 @@ function initializeWorkers(x) {
         return;
     };
     
-    _workers = x; _plo = x; localStorage.setItem("_workers",_plo);
-    _silver = 1; localStorage.setItem("_silver",_silver);
-    _unsold = 3; localStorage.setItem("_unsold",_unsold);
+    _workers = x; _plo = x; localStorage.setItem("_workers",x);
+    localStorage.setItem("_silver",_silver);
+    localStorage.setItem("_unsold",_unsold);
     
     document.getElementById("worker-count").innerHTML = _workers;
     pop("cs","block","pos");
@@ -576,10 +595,10 @@ function rollDice() {
     };
 };
 
-function randomDice(silent) {
-    var x = Math.floor(Math.random() * 6) + 1;
-    var y = Math.floor(Math.random() * 6) + 1;
-    var z = Math.floor(Math.random() * 6) + 1;
+function randomDice() {
+    var x = Math.floor(Math.random() * 6) + 1; localStorage.setItem("_d1",x);
+    var y = Math.floor(Math.random() * 6) + 1; localStorage.setItem("_d2",y);
+    var z = Math.floor(Math.random() * 6) + 1; localStorage.setItem("_d3",z);
     var dice1 = "url(images/" + _color + "-dice-" + x + ".png)";
     var dice2 = "url(images/" + _color + "-dice-" + y + ".png)";
     var dice3 = "url(images/white-dice-" + z + ".png)";
@@ -590,14 +609,12 @@ function randomDice(silent) {
     document.getElementById("roll-3-div").style.backgroundImage = dice3;
     document.getElementById("dice-1").style.backgroundImage = "url(images/"+x+"-dice.png)";
     document.getElementById("dice-2").style.backgroundImage = "url(images/"+y+"-dice.png)";
-    if (!silent) {
-        rollSound.play();
-    };
     if (document.getElementById("roll-3-div").style.visibility == "visible") {
         var log = "(" + _ph+_rd + ") rolled " + x + " and " + y + " + white " + z;
     } else {
         var log = "(" + _ph+_rd + ") rolled " + x + " and " + y;
     }
+    rollSound.play();
     latestActivity(log,"black");
     activityLog(log,"white","black");
 };
@@ -1076,3 +1093,6 @@ function totalScore() {
     pointSound.play();
     latestActivity("FINAL SCORE","blue");
 };
+
+//***PRIMARY FUNCTIONS***//
+zeroNullVariables();
