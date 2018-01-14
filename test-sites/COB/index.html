@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html id="html">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -237,18 +237,21 @@
         <div class="board-button-skip" onclick="pop('bm','block')">OK</div>
     </div>
        
-    <div id="pu-b">
-        <div id="watchtower" class="tile-button" onclick="tapPoints(4,'watchtower')"></div>
-        <div id="warehouse" class="tile-button" onclick="pop('sg','block','b')"></div>
-        <div id="boardhouse" class="tile-button" onclick="addWorkers(4,'boarding house')"></div>
-        <div id="bank" class="tile-button" onclick="addSilver(2,'bank')"></div>
-        <div id="market" class="tile-button" onclick="pu_bm(0,'Market')"></div>
-        <div id="church" class="tile-button" onclick="pu_bm(1,'Church')"></div>
-        <div id="carpenter" class="tile-button" onclick="pu_bm(2,'Carpenter Shop')"></div>
-        <div id="city-hall" class="tile-button" onclick="pu_bm(3,'City Hall')"></div>
-        <div id="park" class="tile-button" onclick="pu_bm(5,'Park')"></div>
-        <div id="pleasure-garden" class="tile-button" onclick="pu_bm(6,'Pleasure Garden')"></div>
-        <div id="monastaries" class="tile-button" onclick="tapPoints(5,'connecting monastaries')"></div>
+    <div id="pu-b" class="pu">
+        <div class="pu-flex-div">
+            <div id="watchtower" class="tile-button" onclick="tapPoints(4,'watchtower')"></div>
+            <div id="warehouse" class="tile-button" onclick="pop('sg','block','b')"></div>
+            <div id="boardhouse" class="tile-button" onclick="addWorkers(4,'boarding house')"></div>
+            <div id="bank" class="tile-button" onclick="addSilver(2,'bank')"></div>
+            <div id="market" class="tile-button" onclick="pu_bm(0,'Market')"></div>
+            <div id="church" class="tile-button" onclick="pu_bm(1,'Church')"></div>
+            <div id="carpenter" class="tile-button" onclick="pu_bm(2,'Carpenter Shop')"></div>
+            <div id="city-hall" class="tile-button" onclick="pu_bm(3,'City Hall')"></div>
+            <div id="park" class="tile-button" onclick="pu_bm(5,'Park')"></div>
+            <div id="pleasure-garden" class="tile-button" onclick="pu_bm(6,'Pleasure Garden')"></div>
+            <div id="monastaries" class="tile-button" onclick="tapPoints(5,'connecting monastaries')"></div>
+        </div>
+        
         <div class="board-button-skip" onclick="pop('b','flex')">&#8678;</div>
     </div>
     
@@ -259,36 +262,39 @@
         <div class="board-button-skip" onclick="pop('km','block')">OK</div>
     </div>
     
-    <div id="pu-k">
-        <div id="k1" class="tile-button" onclick="pu_km(0,'1')"></div>
-        <div id="k2" class="tile-button" onclick="addKnowledge(0)"></div>
-        <div id="k3" class="tile-button" onclick="addKnowledge(1)"></div>
-        <div id="k4" class="tile-button" onclick="addKnowledge(2)"></div>
-        <div id="k5" class="tile-button" onclick="pu_km(1,'5')"></div>
-        <div id="k6" class="tile-button" onclick="pu_km(2,'6')"></div>
-        <div id="k7" class="tile-button" onclick="pu_km(3,'7')"></div>
-        <div id="k8" class="tile-button" onclick="pu_km(4,'8')"></div>
-        <div id="k9" class="tile-button" onclick="pu_km(5,'9')"></div>
-        <div id="k10" class="tile-button" onclick="pu_km(6,'10')"></div>
-        <div id="k11" class="tile-button" onclick="pu_km(7,'11')"></div>
-        <div id="k12" class="tile-button" onclick="pu_km(8,'12')"></div>
-        <div id="k13" class="tile-button" onclick="addKnowledge(3)"></div>
-        <div id="k14" class="tile-button" onclick="addKnowledge(4)"></div>
-        <div id="k15" class="tile-button" onclick="addKnowledge(5)"></div>
-        <div id="k16_23" class="tile-button" onclick="addKnowledge(6)"></div>
-        <div id="k24" class="tile-button" onclick="addKnowledge(7)"></div>
-        <div id="k25" class="tile-button" onclick="addKnowledge(8)"></div>
-        <div id="k26" class="tile-button" onclick="addKnowledge(9)"></div>
-        <div id="ke2a" class="tile-button" onclick="pu_km(9,'e2a')"></div>
-        <div id="ke2b" class="tile-button" onclick="addKnowledge(10)"></div>
-        <div id="ke5" class="tile-button" onclick="addKnowledge(11)"></div>
+    <div id="pu-k" class="pu">
+        <div class="pu-flex-div">
+            <div id="k1" class="tile-button" onclick="pu_km(0,'1')"></div>
+            <div id="k2" class="tile-button" onclick="addKnowledge(0)"></div>
+            <div id="k3" class="tile-button" onclick="addKnowledge(1)"></div>
+            <div id="k4" class="tile-button" onclick="addKnowledge(2)"></div>
+            <div id="k5" class="tile-button" onclick="pu_km(1,'5')"></div>
+            <div id="k6" class="tile-button" onclick="pu_km(2,'6')"></div>
+            <div id="k7" class="tile-button" onclick="pu_km(3,'7')"></div>
+            <div id="k8" class="tile-button" onclick="pu_km(4,'8')"></div>
+            <div id="k9" class="tile-button" onclick="pu_km(5,'9')"></div>
+            <div id="k10" class="tile-button" onclick="pu_km(6,'10')"></div>
+            <div id="k11" class="tile-button" onclick="pu_km(7,'11')"></div>
+            <div id="k12" class="tile-button" onclick="pu_km(8,'12')"></div>
+            <div id="k13" class="tile-button" onclick="addKnowledge(3)"></div>
+            <div id="k14" class="tile-button" onclick="addKnowledge(4)"></div>
+            <div id="k15" class="tile-button" onclick="addKnowledge(5)"></div>
+            <div id="k16_23" class="tile-button" onclick="addKnowledge(6)"></div>
+            <div id="k24" class="tile-button" onclick="addKnowledge(7)"></div>
+            <div id="k25" class="tile-button" onclick="addKnowledge(8)"></div>
+            <div id="k26" class="tile-button" onclick="addKnowledge(9)"></div>
+            <div id="ke2a" class="tile-button" onclick="pu_km(9,'e2a')"></div>
+            <div id="ke2b" class="tile-button" onclick="addKnowledge(10)"></div>
+            <div id="ke5" class="tile-button" onclick="addKnowledge(11)"></div>
+        </div>
+        
         <div class="board-button-skip" onclick="pop('k','flex')">&#8678;</div>
     </div>
     
     <div id="pu-ts">
         <input id="tile-sizer" oninput="tileResize()" type="range" min="75" max="200" value="75">
         <div class="board-button-skip" onclick="pop('main','block','ts')">OK</div>
-        <div class="point-quickadd-div">
+        <div class="pu-flex-div">
             <div class="tile-button"></div>
             <div class="tile-button"></div>
             <div class="tile-button"></div>
@@ -339,13 +345,13 @@
         <span id="latest-activity-span"></span>
     </div>
         
-    <div class="phase-points-round-flex-div">
+    <div class="goods-bonus-turn-flex-div">
         <div id="unsold-sold">
             <div>
-                <p class="mus-p" onclick="info(0)">U: <span id="unsold-count">3</span></p>
+                <p onclick="info(0)">U: <span id="unsold-count">3</span></p>
             </div>
             <div>
-                <p class="mus-p" onclick="info(1)">S: <span id="sold-count">0</span></p>
+                <p onclick="info(1)">S: <span id="sold-count">0</span></p>
             </div>
         </div>
         <div class="total-points-div" onclick="pop('mm','block','main')">
@@ -353,15 +359,15 @@
         </div>
         <div id="bonus-turn">
             <div>
-                <p class="mus-p" onclick="info(2)">B: <span id="bonus-count">0</span></p>
+                <p onclick="info(2)">B: <span id="bonus-count">0</span></p>
             </div>
             <div>
-                <p class="mus-p" onclick="info(3)">T: <span id="turn-count">0</span></p>
+                <p onclick="info(3)">T: <span id="turn-count">0</span></p>
             </div>
         </div>
     </div>
     
-    <div id="main-tiles" class="point-quickadd-div">
+    <div id="main-tiles" class="pu-flex-div">
         <div id="region-points" class="tile-button" onclick="pop('cr','block','main')"></div>
         <div id="building" class="tile-button" onclick="pop('b','flex','main')"></div>
         <div id="knowledge" class="tile-button" onclick="pop('k','flex','main')"></div>
@@ -374,7 +380,7 @@
         <div id="dice-trade" class="tile-button" onclick="addWorkers(2,'dice trade')"></div>
         <div id="castle" class="tile-button" onclick="pu_bm(4,'Castle',true)"></div>
         <div id="cloister" class="tile-button" onclick="pu_bm(7,'Cloister',true)"></div>
-        <!-- <div id="undo" class="undo-button" onclick="testLoop()">test loop</div> -->
+        <!-- <div id="undo" class="board-button-skip" onclick="testLoop()">test loop</div> -->
     </div>
     <div id="pu-epl"></div> <!--end point log-->
 </div>

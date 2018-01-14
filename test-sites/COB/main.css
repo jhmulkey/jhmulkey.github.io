@@ -1,8 +1,4 @@
-/******************************
-******************************
-    FONTS
-******************************
-******************************/
+/***FONTS***/
 @font-face {
     font-family: black-chancery;
     src: url(fonts/black-chancery.ttf);
@@ -13,15 +9,28 @@
     src: url(fonts/Tahoma.ttf);
 }
 
+/***UNIVERSAL***/
+.tile-button, .tile-button-no-border, .number-button, #tap-to-roll, #silver-img, #silver-count, #worker-img, #worker-count, #roll-1-div, #roll-2-div, #roll-3-div, #dice-1, #dice-2 {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
-/******************************
-******************************
-    ELEMENTS
-******************************
-******************************/
+input[type="checkbox"], input[type="range"], .board-button, .board-button-skip, .tile-button, .tile-button-no-border, .number-button, .click-to-hide-div, .click-to-roll-div, .goods-bonus-turn-flex-div p, #phase-round-span, #silver, #workers {
+    cursor: pointer;
+}
+
+.pu-flex-div, .upper-flex-div, #rolled-dice-flex-div, .goods-bonus-turn-flex-div, #unsold-sold, #bonus-turn, #pu-b, #pu-k {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+/***ELEMENTS***/
 *, *:before, *:after {
     box-sizing: border-box;
-    //outline: 1px solid black;
+    //outline: 1px solid green;
 }
 
 input, a, div, p, img {
@@ -43,12 +52,6 @@ div {
     margin: 0 auto;
 }
 
-a {
-    text-decoration: none;
-    color: darkred;
-    outline: none;
-}
-
 h1 {
     font-family: black-chancery;
     font-size: 40px;
@@ -60,8 +63,7 @@ h2 {
 }
 
 li {
-    margin-bottom: 5px;
-    margin-right: 10px;
+    margin: 0 10px 5px 0;
     text-align: left;
 }
 
@@ -85,38 +87,26 @@ th {
 }
 
 
-/******************************
-******************************
-    INPUTS
-******************************
-******************************/
-input[type="radio"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
+/***INPUTS***/
 input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    cursor: pointer;
+}
+
+input[type="range"] {
+    width: 75%;
+    margin: 20px 0;
 }
 
 
-/******************************
-******************************
-    BUTTONS
-******************************
-******************************/
+/***BUTTONS***/
 .board-button, .board-button-skip {
     height: 60px;
     width: 345px;
     font-size: 30px;
     font-weight: bold;
     padding-top: 7.5px;
-    border: 2px solid black !important;
-    cursor: pointer;
-    margin: 0 auto;
+    border: 2px solid black;
     display: inline-block;
 }
 
@@ -130,51 +120,14 @@ input[type="checkbox"] {
     color: white;
 }
 
-.undo-button {
-    height: 100px;
-    width: 345px;
-    color: white;
-    font-weight: bold;
-    font-size: 50px;
-    padding: 14px;
-    background-color: red;
-    border: 2px solid black;
-    cursor: pointer;
+.tile-button, .tile-button-no-border {
+    height: 75px;
+    width: 75px;
 }
 
 .tile-button {
-    height: 75px;
-    width: 75px;
     border: 2px solid black;
     background-color: rgba(255,255,255,0.5);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;
-}
-
-.tile-button-no-border {
-    height: 75px;
-    width: 75px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;
-}
-
-.select-button-small, .select-button-large, .select-button-large-2 {
-    color: darkred;
-    font-weight: bold;
-    background-color: rgba(255,255,255,0.5);
-    border: 2px solid black;
-    cursor: pointer;
-}
-
-.select-button-small, .select-button-region {
-    width: 75px;
-    height: 75px;
-    font-size: 50px;
-    padding-top: 5px;    
 }
 
 .number-button {
@@ -182,12 +135,461 @@ input[type="checkbox"] {
     width: 75px;
     background-color: rgba(255,255,255,0.5);
     border: 2px solid black;
-    cursor: pointer;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
+/***INDEX.HTML***/
+#index-html {
+    background-image: url(images/background2.jpg);
+}
+
+#main-wrapper-div {
+    max-width: 414px;
+}
+
+/***INDEX.HTML > GAME SETUP***/
+#tap-to-select {
+    padding-top: 85px;
+    height: 350px;
+    font-size: 100px;
+}
+
+#tap-to-roll {
+    width: 100px;
+    height: 100px;
+    outline: 1px solid gray;
+}
+
+/***INDEX.HTML > TOP SECTION***/
+.upper-flex-div {
+    height: 50px;
+    margin-top: 20px;
+}
+
+.upper-flex-div div {
+    height: 50px;
+}
+
+#phase-round-div {
+    width: 90px;
+}
+
+#phase-round-span {
+    display: inline-block;
+    font-weight: bold;
+    height: 50px;
+    font-size: 40px;
+}
+
+.checkbox-p {
+    font-size: 15px;
+    margin: 0 0 3px 0;
+}
+
+#silver-img, #silver-count, #worker-img, #worker-count {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+}
+
+#silver-count, #worker-count {       
+    float: right;
+    font-size: 30px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    background: rgba(255,255,255,0.35);
+}
+
+#silver-img {
+    background-image: url(images/silverling.png);
+    background-color: #C6B4B1;
+    border: 1px solid black;
+}
+
+#worker-img {
+    background-image: url(images/worker.jpg);
+    border: 1px solid black;
+}
+
+#rolled-dice-flex-div {
+    margin: 10px 0;
+}
+
+.click-to-hide-div {
+    height: 95px;
+    width: 95px;
+    margin: 10px;
+    outline: 1px dashed gray;
+}
+
+.click-to-roll-div {
+    margin: 10px;
+    outline: 1px solid red;
+}
+
+#roll-1-div, #roll-2-div, #roll-3-div {
+    height: 95px;
+    width: 95px;
+}
+
+#roll-3-div {
+    visibility: hidden;
+}
+
+/***INDEX.HTML > MIDDLE SECTION***/
+.latest-activity-div {
+    height: 20px;
+    background-color: rgba(255,255,255,0.5);
+}
+
+#latest-activity-span {
+    font-weight: bold;
+}
+
+.goods-bonus-turn-flex-div {
+    height: 90px;
+}
+
+.goods-bonus-turn-flex-div p {
+    font-size: 25px;
+    margin: 5px 0 0 0;
+}
+
+#unsold-count, #sold-count, #bonus-count, #turn-count {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#unsold-sold, #bonus-turn {
+    align-items: center;
+    height: 90px;
+    width: 70px;
+}
+
+.total-points-div {
+    width: 150px;
+    height: 90px;
+    margin: 0;
+}
+
+#total-points {
+    height: 90px;
+    line-height: 110%;
+    margin: 0;
+    font-size: 85px;
+    color: darkred;
+    font-weight: bold;
+}
+
+
+/***INDEX.HTML > BOTTOM SECTION (MAIN TILES)***/
+#region-points {
+    background-image: url(images/R.png);
+}
+
+#building {
+    background-image: url(images/building-tile-labeled.png);
+    background-color: #D2CC95;
+}
+
+#knowledge {
+   background-image: url(images/knowledge-tile-labeled.png);
+   background-color: #E0D537;  
+}
+
+#animal {
+    background-image: url(images/animal-tile-labeled.png);
+    background-color: #BEE53D;
+}
+
+#ship {
+    background-image: url(images/ship.png);
+    background-color: #7AC4E4;
+}
+
+#sell-goods {
+    background-image: url(images/sell-goods.jpg);
+    background-color: #D2CC95;
+}
+
+#large-bonus {
+    background-image: url(images/large-bonus.jpg);
+}
+
+#small-bonus {
+    background-image: url(images/small-bonus.png);
+}
+
+#mine {
+    background-image: url(images/0-mines.png);
+    background-color: #BDC1BE;
+}
+
+#dice-trade {
+    background-image: url(images/bw-dice.png);
+    background-size: 75% !important;
+    background-color: #BDC1BE;
+}
+
+#castle {
+    background-image: url(images/castle.png);
+    background-color: #75B15A;
+}
+
+#cloister {
+    background-image: url(images/cloister.png);
+    background-color: rgba(0,0,0,0.9);
+}
+
+/***INDEX.HTML > BUILDINGS***/
+#watchtower {
+    background-image: url(images/watchtower.png);
+    background-color: #D2CC95;
+}
+
+#warehouse {
+    background-image: url(images/warehouse.png);
+    background-color: #D2CC95;
+}
+
+#boardhouse {
+    background-image: url(images/boarding.png);
+    background-color: #D2CC95;
+}
+
+#bank {
+    background-image: url(images/bank.png);
+    background-color: #D2CC95;
+}
+
+#market {
+    background-image: url(images/market.png);
+    background-color: #D2CC95;
+}
+
+#church {
+    background-image: url(images/church.png);
+    background-color: #D2CC95;
+}
+
+#carpenter {
+    background-image: url(images/carpenter.png);
+    background-color: #D2CC95;
+}
+
+#city-hall {
+    background-image: url(images/city-hall.png);
+    background-color: #D2CC95;
+}
+
+#park {
+    background-image: url(images/park.png);
+    background-color: #D2CC95;
+}
+
+#pleasure-garden {
+    background-image: url(images/pleasure-garden.png);
+    background-color: #D2CC95;
+}
+
+#monastaries {
+    background-image: url(images/monastary.png);
+    background-color: #BEBF8C;
+}
+
+
+/***INDEX.HTML > KNOWLEDGE***/
+#k1 {
+    background-image: url(images/k1.png);
+    background-color: #E0D537; 
+}
+
+#k2 {
+    background-image: url(images/k2.png);
+    background-color: #E0D537; 
+}
+
+#k3 {
+    background-image: url(images/k3.png);
+    background-color: #E0D537; 
+}
+
+#k4 {
+    background-image: url(images/k4.png);
+    background-color: #E0D537; 
+}
+
+#k5 {
+    background-image: url(images/k5.png);
+    background-color: #E0D537; 
+    }
+
+#k6 {
+    background-image: url(images/k6.png);
+    background-color: #E0D537; 
+}
+
+#k7 {
+    background-image: url(images/k7.png);
+    background-color: #E0D537; 
+}
+
+#k8 {
+    background-image: url(images/k8.png);
+    background-color: #E0D537; 
+}
+
+#k9 {
+    background-image: url(images/k9.png);
+    background-color: #E0D537; 
+}
+
+#k10 {
+    background-image: url(images/k10.png);
+    background-color: #E0D537; 
+}
+
+#k11 {
+    background-image: url(images/k11.png);
+    background-color: #E0D537; 
+}
+
+#k12 {
+    background-image: url(images/k12.png);
+    background-color: #E0D537; 
+}
+
+#k13 {
+    background-image: url(images/k13.png);
+    background-color: #E0D537; 
+}
+
+#k14 {
+    background-image: url(images/k14.png);
+    background-color: #E0D537; 
+}
+
+#k15 {
+    background-image: url(images/k15.png);
+    background-color: #E0D537; 
+}
+
+#k16_23 {
+    background-image: url(images/k16-23.png);
+    background-color: #E0D537; 
+}
+
+#k24 {
+    background-image: url(images/k24.png);
+    background-color: #E0D537; 
+}
+
+#k25 {
+    background-image: url(images/k25.png);
+    background-color: #E0D537; 
+}
+
+#k26 {
+    background-image: url(images/k26.png);
+    background-color: #E0D537; 
+}
+
+#ke2a {
+        background-image: url(images/ke2a.png);
+        background-color: #E0D537; 
+    }
+
+#ke2b {
+        background-image: url(images/ke2b.png);
+        background-color: #E0D537; 
+    }
+
+#ke5 {
+        background-image: url(images/ke5.png);
+        background-color: #E0D537; 
+    }
+
+#pu-km-tile {
+    background-color: #E0D537;
+    margin-bottom: 20px;
+}
+
+
+/***INDEX.HTML > POPUPS***/
+#pu-main, #pu-bgs, #pu-bs, #pu-wdr, #pu-pos, #pu-cs, #pu-mm, #pu-mm-s, #pu-mm-rr, #pu-ms, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-epl, #pu-eb, #pu-cr, #pu-ts {
+    display: none;
+}
+
+.pu {
+    margin-top: 20px;
+}
+
+.pu p {
+    padding: 0 10px;
+    margin: 0 0 20px 0;
+}
+
+.pu-flex-div {
+    margin-top: 15px;
+    max-width: 360px;
+}
+
+.pu-flex-div div {
+    margin: 5px;
+}
+
+#pu-bm p, #pu-km p {
+    font-size: 25px;
+}
+
+#pu-al {
+    background-color: rgba(255,255,255,0.5);
+}
+
+#pu-epl {
+    background-color: rgba(255,255,255,0.5);
+}
+
+#pu-al-h1 {
+    margin-top: 20px;
+}
+
+#pu-al p {
+    margin: 0;
+}
+
+#silver-for-workers {
+    display: none;
+}
+
+.back-button-div {
+    margin-top: 50px;
+}
+
+#wdr-p {
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+/***BACKGROUND-COLORS***/
+#black {
+    background-color: #000000;
+}
+
+#red {
+    background-color: #ff0000;
+}
+
+#green {
+    background-color: #007E42;
+}
+
+#blue {
+    background-color: #0068C2;
+}
+
+/***BACKGROUND-IMAGES***/
 .first {
     background-image: url(images/1st.png);
 }
@@ -268,762 +670,8 @@ input[type="checkbox"] {
     background-image: url(images/e.png);
 }
 
-.number-button sup {
-    font-size: 50px;
-}
 
-.select-button-large {
-    width: 100px;
-    height: 100px;
-    font-size: 60px;
-    padding-top: 7px;
-}
-
-.select-button-large-2 {
-    width: 100px;
-    height: 100px;
-    font-size: 50px;
-    padding-top: 13px; 
-}
-
-.select-button-region {
-    color: white;
-    background-color: darkred;
-    font-weight: bold;
-    border: 2px solid black;
-    cursor: pointer;
-}
-
-
-/******************************
-******************************
-    GLOBAL STYLES
-******************************
-******************************/
-#main-wrapper-div {
-    max-width: 414px;
-    text-align: center;
-}
-
-#pu-main {
-    display: none;
-}
-
-/******************************
-******************************
-    ALL POP-UPS
-******************************
-******************************/
-
-#pu-bgs, #pu-bs, #pu-wdr, #pu-pos, #pu-cs, #pu-mm, #pu-mm-s, #pu-mm-rr, #pu-ms, #pu-pe, #pu-re, #pu-si, #pu-w, #pu-sg, #pu-sh, #pu-c, #pu-b, #pu-bm, #pu-k, #pu-km, #pu-a, #pu-k, #pu-al, #pu-epl, #pu-eb, #pu-cr, #pu-ts {
-    display: none;
-}
-
-.pu {
-    max-width: 414px;
-    padding-top: 20px;
-    padding-bottom: 40px;
-}
-
-    .pu h1 {
-        margin-bottom 20px;
-    }
-
-#pu-bm, #pu-km {
-        max-width: 350px;
-    }
-
-    #pu-bm p, #pu-km p {
-        margin: 10px 0 25px 0;
-        font-size: 35px;
-    }
-
-.pu-flex-div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 15px;
-    max-width: 360px;
-}
-
-.pu-flex-div div {
-    margin: 5px;
-}
-
-.pu-p {
-    font-size: 35px;
-    padding: 0 10px;
-}
-
-
-/******************************
-******************************
-    INDEX
-******************************
-******************************/
-#index-html {
-    background-image: url(images/background2.jpg);
-}
-
-    /******************************
-        INDEX > TITLE SCREEN
-    ******************************/
-    #pu-ts {
-        max-width: 414px;
-        height: 736px;
-    }
-
-    #pu-ts p {
-        padding: 40px;
-        margin: 0;
-        font-size: 75px;
-        font-family: black-chancery, serif;
-        color: gold;
-        text-shadow: 4px 4px 4px black;
-    }
-
-    /******************************
-        INDEX > BOARD GROUP & WHITE DICE
-    ******************************/
-    #pu-bgs div {
-        margin: 0 auto;
-        margin-bottom: 25px; 
-    }
-
-    #tap-to-select {
-        max-width: 414px;
-        padding-top: 85px;
-        height: 350px;
-        font-size: 100px;
-    }
-
-    #tap-to-roll {
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        width: 100px;
-        height: 100px;
-        outline: 1px dashed gray;
-    }
-
-
-/******************************
-******************************
-    PLAY
-******************************
-******************************/
-
-    /******************************
-        PLAY > PLAYERS, ORDER, & COLORS
-    ******************************/
-    #select-players-flex-div, #select-color-flex-div, #player-order-flex-div {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        margin-top: 50px;
-    }
-
-    #select-players-flex-div {
-        width: 150px;
-    }
-
-    #player-order-flex-div {
-        width: 260px;
-    }
-
-    #select-players-flex-div div, #player-order-flex-div div {
-        margin-bottom: 30px;
-    }
-
-    #select-color-pop img {
-        cursor: pointer;
-        margin: 10px 10px;
-    }
-
-    #select-color-flex-div {
-        width: 250px;
-    }
-
-    #black {
-        background-color: #000000;
-    }
-
-    #red {
-        background-color: #ff0000;
-    }
-
-    #green {
-        background-color: #007E42;
-    }
-
-    #blue {
-        background-color: #0068C2;
-    }
-
-    /******************************
-        PLAY > UPPER FLEX DIV
-    ******************************/
-    .upper-flex-div {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 20px;
-        height: 50px;
-    }
-
-    .upper-flex-div div {
-        height: 50px;
-    }
-
-    .checkbox-p {
-        font-size: 15px;
-        margin: 0 0 3px 0;
-    }
-
-    .mus-p {
-        font-size: 25px;
-        margin: 5px 0 0 0;
-    }
-
-    #unsold-count, #sold-count, #bonus-count, #turn-count {
-        font-size: 25px;
-        font-weight: bold;
-    }
-
-    /******************************
-        PLAY > ROLLED DICE FLEX DIV
-    ******************************/
-    #rolled-dice-flex-div {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-        margin-bottom: 10px;
-        max-width: 355px;
-    }
-
-    .click-to-hide-div {
-        height: 95px;
-        width: 95px;
-        margin: 10px;
-        outline: 1px dashed gray;
-        cursor: pointer;
-    }
-
-    .click-to-roll-div {
-        margin: 10px;
-        outline: 1px solid red;
-        cursor: pointer;
-    }
-
-    #roll-1-div, #roll-2-div, #roll-3-div {
-        height: 95px;
-        width: 95px;
-        background-size: contain;
-        background-repeat: no-repeat;
-    }
-
-    #roll-3-div {
-        visibility: hidden;
-        margin: 0;
-    }
-
-    /******************************
-        PLAY > LATEST POINTS
-    ******************************/
-    .latest-activity-div {
-        height: 20px;
-        background-color: rgba(255,255,255,0.5);
-    }
-
-    #latest-activity-span {
-        font-weight: bold;
-    }
-
-    /******************************
-        PLAY > PHASE-POINTS-ROUND FLEX DIV
-    ******************************/
-    .phase-points-round-flex-div {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-        margin-bottom: 10px;
-        height: 90px;
-    }
-
-    #unsold-sold, #bonus-turn {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-        height: 90px;
-        width: 70px;
-    }
-
-    #phase-span, #round-span {
-        font-weight: bold;
-        font-size: 30px;
-    }
-
-    #phase-round-span {
-        display: inline-block;
-        font-weight: bold;
-        height: 50px;
-        font-size: 40px;
-    }
-
-    .total-points-div {
-        width: 150px;
-        height: 90px;
-        margin: 0;
-        cursor: pointer;
-    }
-
-    #total-points {
-        height: 90px;
-        line-height: 110%;
-        margin: 0;
-        font-size: 85px;
-        color: darkred;
-        font-weight: bold;
-    }
-
-    /******************************
-        PLAY > SILVER-PLAYERS-WORKERS FLEX DIV
-    ******************************/
-    #phase-round-div {
-        width: 90px;
-    }
-
-    #silver-img, #silver-count, #worker-img, #worker-count {
-        display: inline-block;
-        height: 40px;
-        width: 40px;
-        background-size: contain;
-    }
-
-    #silver-count, #worker-count {       
-        float: right;
-        font-size: 30px;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
-        border-right: 1px solid black;
-        background: rgba(255,255,255,0.25);
-    }
-
-    #silver-img {
-        background-image: url(images/silverling.png);
-        background-color: #C6B4B1;
-        border: 1px solid black;
-    }
-
-    #worker-img {
-        background-image: url(images/worker.jpg);
-        border: 1px solid black;
-    }
-
-    #spend-1 {
-        display: none;
-    }
-
-
-
-    /******************************
-        PLAY > POINT QUICK-ADD
-    ******************************/
-    .point-quickadd-div {
-        margin-bottom: 30px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        max-width: 355px;
-    }
-
-        .point-quickadd-div div {
-            margin: 5px !important;
-        }
-
-    #pu-b, #pu-k {
-        padding-top: 20px;
-        margin-bottom: 30px;
-        display: none;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        width: 355px;
-    }
-
-        #pu-b div, #pu-k div {
-            margin: 5px !important;
-        }
-
-    .point-quickadd-div-end {
-        margin-bottom: 30px;
-        display: none;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        width: 355px;
-    }
-
-        #point-quickadd-div-end div {
-            margin: 5px !important;
-        }
-
-    /******************************
-        PLAY > ALL TILE BUTTONS
-    ******************************/
-    #region-points {
-        background-image: url(images/R.png);
-    }
-
-    #sell-goods {
-        background-image: url(images/sell-goods.jpg);
-        background-color: #D2CC95;
-    }
-
-    #watchtower {
-        background-image: url(images/watchtower.png);
-        background-color: #D2CC95;
-    }
-
-    #monastaries {
-        background-image: url(images/monastary.png);
-        background-color: #BEBF8C;
-    }
-
-    #large-bonus {
-        background-image: url(images/large-bonus.jpg);
-    }
-
-    #small-bonus {
-        background-image: url(images/small-bonus.png);
-    }
-
-    #mine {
-        background-image: url(images/0-mines.png);
-        background-color: #BDC1BE;
-    }
-
-    #bank {
-        background-image: url(images/bank.png);
-        background-color: #D2CC95;
-    }
-
-    #boardhouse {
-        background-image: url(images/boarding.png);
-        background-color: #D2CC95;
-    }
-
-    #warehouse {
-        background-image: url(images/warehouse.png);
-        background-color: #D2CC95;
-    }
-
-    #ship {
-        background-image: url(images/ship.png);
-        background-color: #7AC4E4;
-    }
-
-    #dice-trade {
-        background-image: url(images/bw-dice.png);
-        background-size: 75% !important;
-        background-color: #BDC1BE;
-    }
-
-    #market {
-        background-image: url(images/market.png);
-        background-color: #D2CC95;
-    }
-
-    #church {
-        background-image: url(images/church.png);
-        background-color: #D2CC95;
-    }
-
-    #carpenter {
-        background-image: url(images/carpenter.png);
-        background-color: #D2CC95;
-    }
-
-    #city-hall {
-        background-image: url(images/city-hall.png);
-        background-color: #D2CC95;
-    }
-
-    #park {
-        background-image: url(images/park.png);
-        background-color: #D2CC95;
-    }
-
-    #pleasure-garden {
-        background-image: url(images/pleasure-garden.png);
-        background-color: #D2CC95;
-    }
-
-    #castle {
-        background-image: url(images/castle.png);
-        background-color: #75B15A;
-    }
-
-    #cloister {
-        background-image: url(images/cloister.png);
-        background-color: rgba(0,0,0,0.9);
-    }
-
-    #building {
-        background-image: url(images/building-tile-labeled.png);
-        background-color: #D2CC95;
-    }
-
-    #animal {
-        background-image: url(images/animal-tile-labeled.png);
-        background-color: #BEE53D;
-    }
-
-    #knowledge {
-       background-image: url(images/knowledge-tile-labeled.png);
-       background-color: #E0D537;  
-    }
-
-    #k1 {
-        background-image: url(images/k1.png);
-        background-color: #E0D537; 
-    }
-
-    #k2 {
-        background-image: url(images/k2.png);
-        background-color: #E0D537; 
-    }
-
-    #k3 {
-        background-image: url(images/k3.png);
-        background-color: #E0D537; 
-    }
-
-    #k4 {
-        background-image: url(images/k4.png);
-        background-color: #E0D537; 
-    }
-
-    #k5 {
-        background-image: url(images/k5.png);
-        background-color: #E0D537; 
-        }
-
-    #k6 {
-        background-image: url(images/k6.png);
-        background-color: #E0D537; 
-    }
-
-    #k7 {
-        background-image: url(images/k7.png);
-        background-color: #E0D537; 
-    }
-
-    #k8 {
-        background-image: url(images/k8.png);
-        background-color: #E0D537; 
-    }
-
-    #k9 {
-        background-image: url(images/k9.png);
-        background-color: #E0D537; 
-    }
-
-    #k10 {
-        background-image: url(images/k10.png);
-        background-color: #E0D537; 
-    }
-
-    #k11 {
-        background-image: url(images/k11.png);
-        background-color: #E0D537; 
-    }
-
-    #k12 {
-        background-image: url(images/k12.png);
-        background-color: #E0D537; 
-    }
-
-    #k13 {
-        background-image: url(images/k13.png);
-        background-color: #E0D537; 
-    }
-
-    #k14 {
-        background-image: url(images/k14.png);
-        background-color: #E0D537; 
-    }
-
-    #k15 {
-        background-image: url(images/k15.png);
-        background-color: #E0D537; 
-    }
-
-    #k16_23 {
-        background-image: url(images/k16-23.png);
-        background-color: #E0D537; 
-    }
-
-    #k24 {
-        background-image: url(images/k24.png);
-        background-color: #E0D537; 
-    }
-
-    #k25 {
-        background-image: url(images/k25.png);
-        background-color: #E0D537; 
-    }
-
-    #k26 {
-        background-image: url(images/k26.png);
-        background-color: #E0D537; 
-    }
-
-    #ke2a {
-            background-image: url(images/ke2a.png);
-            background-color: #E0D537; 
-        }
-
-    #ke2b {
-            background-image: url(images/ke2b.png);
-            background-color: #E0D537; 
-        }
-
-    #ke5 {
-            background-image: url(images/ke5.png);
-            background-color: #E0D537; 
-        }
-
-    #pu-km-tile {
-        background-color: #E0D537; 
-    }
-
-    #QE0 {
-        background-image: url(images/unsold-goods.jpg);
-    }
-
-    #QE1 {
-        background-image: url(images/silverling.png);
-        background-color: #C6B4B1;
-    }
-
-    #QE2 {
-        background-image: url(images/worker.jpg);
-    }
-
-    #QE3 {
-        background-image: url(images/knowledge-tiles-15.png);
-        background-color: #E0D537;
-    }
-
-    #QE4 {
-        background-image: url(images/knowledge-tiles-16-23.png);
-        background-color: #E0D537;
-    }
-
-    #QE5 {
-        background-image: url(images/knowledge-tiles-24.png);
-        background-color: #E0D537;
-    }
-
-    #QE6 {
-        background-image: url(images/knowledge-tiles-25.png);
-        background-color: #E0D537;
-    }
-
-    #QE7 {
-        background-image: url(images/knowledge-tiles-26.png);
-        background-color: #E0D537;
-    }
-
-    /******************************
-        PLAY > ACTIVITY LOG
-    ******************************/
-
-    #pu-al {
-        padding-top: 20px;
-        background-color: rgba(255,255,255,0.5);
-    }
-
-    #pu-epl {
-        background-color: rgba(255,255,255,0.5);
-    }
-
-    #pu-al-h1 {
-        margin-top: 20px;
-    }
-
-    #pu-al p {
-        margin: 0;
-    }
-
-#dice-1, #dice-2 {
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-#silver, #workers {
-    padding-top: 5px;
-}
-
-#silver-for-workers {
-    display: none;
-}
-
-.back-button-div {
-    margin-top: 50px;
-}
-
-#wdr-p {
-    font-weight: bold;
-    font-size: 25px;
-}
-
-
-/******************************
-******************************
-    BONUS.HTML
-******************************
-******************************/
-
-
-#bonus-html {
-    background: url(images/background2.jpg);
-}
-
-.bonus-h1 {
-    color: gold;
-    font-family: black-chancery, serif;
-    text-align: center;
-    font-size: 75px;
-    margin: 20px 0;
-    text-shadow: 3px 3px 5px black;
-}
-
-.bonus-description-div {
-    max-width: 300px;
-    margin: 0 auto;
-    font-size: 30px;
-}
-
-#bonus-description {
-    background-color: rgba(127, 0, 127, 0.5);
-    color: gold;
-    padding: 20px;
-    border: 10px ridge gold;
-    text-shadow: 1px 1px 5px black;
-    border-style: 
-}
-
-
-/******************************
-******************************
-    SETUP.HTML
-******************************
-******************************/
-
-
+/***SETUP.HTML***/
 .setup-div {
     margin: 0 auto;
     max-width: 414px;
@@ -1034,13 +682,7 @@ input[type="checkbox"] {
 }
 
 
-/******************************
-******************************
-    EXPANSION.HTML
-******************************
-******************************/
-
-
+/***EXPANSION.HTML***/
 .exp-main-wrap {
     margin: 0 auto;
     max-width: 414px;
@@ -1057,29 +699,7 @@ input[type="checkbox"] {
 }
 
 
-/******************************
-******************************
-    REFERENCE.HTML
-******************************
-******************************/
-
-
-.knowledge-tile-flex-div {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin: 20px auto 0 auto;
-    max-width: 414px;
-}
-
-
-/******************************
-******************************
-    MEDIA QUERIES
-******************************
-******************************/
-
-
+/***MEDIA QUERIES***/
 @media screen and (max-width: 339px) {
     #pu-ts p {
         padding: 40px;
@@ -1113,8 +733,6 @@ input[type="checkbox"] {
         height: 90px;
     }    
 }
-#tile-sizer {
-    background-color: black;
-    margin: 20px 0;
-    width: 75%;
-}
+
+
+

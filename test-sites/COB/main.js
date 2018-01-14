@@ -38,7 +38,7 @@ var _bonus = 0; // number of bonus tiles earned
 var _turn = 0; // position on turn order track
 var _la; // stores latest activity for game restore
 var _al; // stores current activity log for game restore
-var _k = { 
+var _k = {
     k2: false,
     k3: false,
     k4: false,
@@ -67,7 +67,7 @@ var _undoLimit = true; // test if undo limit has been reached
 
 
 //***TEST FUNCTIONS***//
-function testLoop() {
+/*function testLoop() {
     var globals = [
         "_pl",
         "_silver",
@@ -91,13 +91,12 @@ function testLoop() {
         "_k",
         "_ts",
         "_epl"
-    ]
+    ];
 
     for (i = 0; i < globals.length; i++) {
-        console.log(localStorage.getItem(globals[i]) + " " + globals[i]);
-    };
-};
-testLoop();
+        console.log(localStorage.getItem(globals[i]) + " " + globals[i])
+    }
+};*/
 
 //***GENERAL FUNCTIONS***//
 function pageLinks(i) {
@@ -119,7 +118,7 @@ function info(i) {
 };
 
 
-//***CSS FUNCTIONS***//
+//***CSS FUNCTIONS***
 function tileResize() {
     x = document.getElementById("tile-sizer").value;
     var tiles = document.getElementsByClassName("tile-button");
@@ -160,7 +159,6 @@ function zeroNullVariables() {
         };
     };
 }; // sets any null globals to 0 to avoid NaN innerHTML upon game restore
-
 
 function zeroVariables() {
     if (window.confirm("Are you sure you want to reset the game?")) {
@@ -230,7 +228,7 @@ function restoreVariables() {
         _elog = localStorage.getItem("_elog");
         document.getElementById("rolled-dice-flex-div").style.display = "none";
         document.getElementById("main-tiles").style.display = "none";
-        latestActivity("FINAL SCORE","blue"); 
+        latestActivity("FINAL SCORE","blue");
     };
     
     document.getElementById("silver-count").innerHTML = _silver;
@@ -437,8 +435,8 @@ function pop(open,display,close1,close2) {
     }
     if (close2) {
         document.getElementById("pu-"+close2).style.display = "none";
-    }
-    
+    };
+
     scrollTo(0,0);
 };
 
@@ -668,7 +666,7 @@ function adjustRound(x) {
     activityLog(log,"red","transparent");
     rollSound.play();
     randomDice();
-    pop('re','block');
+    pop("re","block");
 };
 
 function setPoints() {
@@ -715,7 +713,7 @@ function regionPoints(x) {
     latestActivity(log,"black");
     activityLog(log);
     pointSound.play();
-    pop('cr','block');
+    pop("cr","block");
 };
 
 function setWorkers() {
@@ -970,7 +968,7 @@ function addKnowledge(i) {
            pointSound.play();
         };
     };
-    pop('k','flex');
+    pop("k","flex");
 };
 
 function totalScore() {
