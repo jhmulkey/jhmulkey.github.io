@@ -4,9 +4,6 @@
 }
 
 
-
-
-
 /* global styles */
 html {
     background: url("../images/home-background-1b.jpg") no-repeat center center fixed;
@@ -40,9 +37,6 @@ header {
 a:hover .non-index-header {
     background-color: rgba(0,0,0,0.9);
 }
-
-
-
 
 
 /* index.html styles */
@@ -138,9 +132,6 @@ a:hover .non-index-header {
 a:active .contact-icon-wrapper {
     top: 2px;
 }
-
-
-
 
 
 /* missions.html styles */
@@ -240,9 +231,6 @@ a:active .contact-icon-wrapper {
 } */
 
 
-
-
-
 /* calendar.html, ranks.html, and handbook.html styles */
 .doc-div {
     margin: 0;
@@ -259,39 +247,6 @@ a:active .contact-icon-wrapper {
     text-align: center;
     margin: 20px;
 }
-
-
-
-
-
-/* test.html styles */
-.test-html {
-    background: black;
-}
-
-.test-div {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.test-div a {
-    display: block;
-    background-color: rgba(255,255,255,0.2);
-    padding: 10px 20px;
-    margin-top: 20px;
-    border: 2px solid gray;
-    font-size: 50px;
-    font-weight: bold;
-    color: green;
-    font-family: Tahoma, serif;
-}
-
-.test-div a:hover {
-    border: 2px solid white;
-}
-
-
-
 
 
 /* media queries */

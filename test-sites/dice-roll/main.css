@@ -1,0 +1,32 @@
+input, a, div, p, img {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: black;
+}
+
+div {
+    text-align: center;
+    margin: 0 auto;
+}
+
+#wrapper-div {
+    padding: 150px 50px;
+}
+
+#dice-1, #dice-2 {
+    height: 150px;
+    width: 150px;
+    outline: 1px dotted gray;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#dice-1 {
+    margin-bottom: 50px;
+}
