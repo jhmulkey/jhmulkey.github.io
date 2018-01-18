@@ -1,0 +1,141 @@
+<!doctype html>
+<html ontouch>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+    <title>class-records</title>
+</head>
+<body>
+<div id="master-wrapper">
+
+  <div id="mainPop" class="pop">
+      <input id="search" type="text" placeholder=
+    "search names" oninput="searchNames()"/>
+    
+    <div id="nameList">
+        <p class="name" onclick="loadStudent(Rogers)">Cameron Rogers</p>
+        <p class="name">Raegan Demming</p>
+        <p class="name">Job Peoples</p>
+        <p class="name" onclick="loadStudent(Walker)">Macie Walker</p>
+        <p class="name">Samuel Collins</p>
+    </div>
+  </div>
+
+  <div id="studentPop" class="pop">
+     <p id="popRank"></p>
+     <p id="popName" onclick="pop('studentPop','mainPop')"></p>
+     <div id="popInsignia"></div>
+     <p>Points: <span id="popPoints"></span></p>
+     <div id=popButtons>
+         <div class="button">Attendance</div>
+         <div class="button" onclick="pop('studentPop','missionsPop')">Missions</div>
+     </div>
+  </div>
+  
+  <div id="missionsPop" class="pop">
+      <div class="asmvButton" onclick="pop('missionsPop','studentPop')">&#8678;</div>
+      <div id="asPop">
+          <div id="asq4bPop" class="asmvButton" onclick="asPop('asq4b')">Q4B</div>
+          <div id="as48Pop" class="asmvButton">Prayer</div>
+          <div id="as47Pop" class="asmvButton">Sword</div>
+          <div id="as46Pop" class="asmvButton">Helmet</div>
+          <div id="as45Pop" class="asmvButton">Shield</div>
+          <div id="as44Pop" class="asmvButton">Shoes</div>
+          <div id="as43Pop" class="asmvButton">BPlate</div>
+          <div id="as42Pop" class="asmvButton">Belt</div>
+          <div id="as41Pop" class="asmvButton">Armor</div>
+          <div id="asq3bPop" class="asmvButton">Q3B</div>
+          <div id="as38Pop" class="asmvButton">Jn Rev</div>
+          <div id="as37Pop" class="asmvButton">Jn 21</div>
+          <div id="as36Pop" class="asmvButton">Jn 20</div>
+          <div id="as35Pop" class="asmvButton">Jn 19</div>
+          <div id="as34Pop" class="asmvButton">Jn 18</div>
+          <div id="as33Pop" class="asmvButton">Jn 17</div>
+          <div id="as32Pop" class="asmvButton">Jn 16</div>
+          <div id="as31Pop" class="asmvButton">Jn 15</div>
+          <div id="asq2bPop" class="asmvButton">Q2B</div>
+          <div id="as28Pop" class="asmvButton">Mt 7</div>
+          <div id="as27Pop" class="asmvButton">Jn 14</div>
+          <div id="as26Pop" class="asmvButton">Jn 13</div>
+          <div id="as25Pop" class="asmvButton">Jn 12</div>
+          <div id="as24Pop" class="asmvButton">Jn 11</div>
+          <div id="as23Pop" class="asmvButton">Jn 10</div>
+          <div id="as22Pop" class="asmvButton">Jn 9</div>
+          <div id="as21Pop" class="asmvButton">Jn 8</div>
+          <div id="asq1bPop" class="asmvButton">Q1B</div>
+          <div id="as19Pop" class="asmvButton">Mt 13</div>
+          <div id="as18Pop" class="asmvButton">Jn 7</div>
+          <div id="as17Pop" class="asmvButton">Jn 6</div>
+          <div id="as16Pop" class="asmvButton">Jn 5</div>
+          <div id="as15Pop" class="asmvButton">Jn 4</div>
+          <div id="as14Pop" class="asmvButton">Jn 3</div>
+          <div id="as13Pop" class="asmvButton">Jn 2</div>
+          <div id="as12Pop" class="asmvButton">Jn 1</div>
+          <div id="as11Pop" class="asmvButton">Class</div>
+      </div>
+      <div id="mvPop">
+          <div class="asmvButtonFill"></div>
+          <div class="asmvButtonFill"></div>
+          <div id="mv47Pop" class="asmvButton" onclick="mvPop('mv47')">6:18</div>
+          <div id="mv46Pop" class="asmvButton">6:17</div>
+          <div id="mv45Pop" class="asmvButton">6:16</div>
+          <div id="mv44Pop" class="asmvButton">6:14-15</div>
+          <div id="mv43Pop" class="asmvButton">6:13</div>
+          <div id="mv42Pop" class="asmvButton">6:12</div>
+          <div id="mv41Pop" class="asmvButton">6:10-11</div>
+          <div class="asmvButtonFill"></div>
+          <div id="mv38Pop" class="asmvButton">8:38-39</div>
+          <div id="mv37Pop" class="asmvButton">8:37</div>
+          <div id="mv36Pop" class="asmvButton">8:36</div>
+          <div id="mv35Pop" class="asmvButton">8:35</div>
+          <div id="mv34Pop" class="asmvButton">8:34</div>
+          <div id="mv33Pop" class="asmvButton">8:33</div>
+          <div id="mv32Pop" class="asmvButton">8:32</div>
+          <div id="mv31Pop" class="asmvButton">8:31</div>
+          <div class="asmvButtonFill"></div>
+          <div id="mv28Pop" class="asmvButton">5:11-12</div>
+          <div id="mv27Pop" class="asmvButton">5:10</div>
+          <div id="mv26Pop" class="asmvButton">5:9</div>
+          <div id="mv25Pop" class="asmvButton">5:8</div>
+          <div id="mv24Pop" class="asmvButton">5:7</div>
+          <div id="mv23Pop" class="asmvButton">5:6</div>
+          <div id="mv22Pop" class="asmvButton">5:5</div>
+          <div id="mv21Pop" class="asmvButton">5:4</div>
+          <div class="asmvButtonFill"></div>
+          <div id="mv19Pop" class="asmvButton">5:3</div>
+          <div id="mv18Pop" class="asmvButton">2:11</div>
+          <div id="mv17Pop" class="asmvButton">2:10</div>
+          <div id="mv16Pop" class="asmvButton">2:9</div>
+          <div id="mv15Pop" class="asmvButton">2:8</div>
+          <div id="mv14Pop" class="asmvButton">2:7</div>
+          <div id="mv13Pop" class="asmvButton">2:6</div>
+          <div id="mv12Pop" class="asmvButton">2:5</div>
+          <div id="mv11Pop" class="asmvButton">139:17</div>
+      </div>
+  </div>
+  
+  <div id="asPointsPop" class="pop">
+      <div class="numberButton" onclick="pop('asPointsPop','missionsPop')">&#8678;</div>
+      <div class="numberButton" onclick="_currentName.asPoints(_asNum,1)">1</div>
+      <div class="numberButton" onclick="_currentName.asPoints(_asNum,2)">2</div>
+      <div class="numberButton" onclick="_currentName.asPoints(_asNum,3)">3</div>
+  </div>
+   
+  <div id="mvPointsPop" class="pop">
+      <div class="numberButton" onclick="pop('mvPointsPop','missionsPop')">&#8678;</div>
+      <div class="numberButton" onclick="_currentName.mvPoints(_mvNum,1)">1</div>
+      <div class="numberButton" onclick="_currentName.mvPoints(_mvNum,2)">2</div>
+      <div class="numberButton" onclick="_currentName.mvPoints(_mvNum,3)">3</div>
+  </div>
+   
+  <div id="promoPop" class="pop">
+      <p>Promotion</p>
+      <p id="popRankPromo"></p>
+      <div id="popInsigniaPromo" onclick="pop('promoPop','missionsPop')"></div>
+  </div>
+    
+</div> <!--end of master-wrapper-->
+<script src="main.js"></script>
+</body>
+</html>

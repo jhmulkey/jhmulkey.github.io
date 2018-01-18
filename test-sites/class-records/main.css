@@ -1,0 +1,158 @@
+@font-face {
+    font-family: black-chancery;
+    src: url(fonts/black-chancery.ttf);
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+    //outline: 1px solid green;
+}
+
+html {
+    background-color: #000000;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Courier New", monospace;
+    //font-weight: bold;
+    font-size: 30px;
+    color: white;
+}
+
+div {
+    text-align: center;
+    margin: 0 auto;
+}
+
+p {
+    margin: 5px;
+}
+
+#master-wrapper {
+    width: 414px;
+    height: 736px;
+}
+
+.pop {
+    padding: 20px;
+}
+
+#popRank, #popName {
+    //text-align: left;
+}
+
+#popInsignia {
+    //outline: 1px dotted silver;
+    height: 125px;
+    width: 125px;
+    margin: 25px auto;
+    background-image: url(images/10.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.button {
+    height: 50px;
+    width: 250px;
+    padding-top: 5px;
+    border: 2px solid white;
+}
+
+#popButtons div {
+    margin: 40px auto;
+}
+
+#studentPop, #missions {
+    display: none;
+}
+
+#search {
+    height: 30px;
+    width: 300px;
+}
+
+#nameList {
+    margin: 25px auto;
+}
+
+#nameList p {
+    margin: 10px;
+}
+
+.asmvButton {
+    height: 100px;
+    width: 100px;
+    border: 1px solid white;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.numberButton {
+    height: 100px;
+    width: 100px;
+    border: 1px solid white;
+}
+
+.asmvButtonFill {
+    height: 100px;
+    width: 100px;
+    border: 1px solid transparent;
+}
+
+#mainPop {
+    //display: none;
+}
+
+#asPop div, #mvPop div {
+    font-size: 20px;
+    margin: 15px auto;
+    padding-top: 35px;
+}
+
+#asPointsPop div, #mvPointsPop div {
+    font-size: 100px;
+    margin: 15px auto;
+}
+
+#asPop {
+    width: 187px;
+    float: left;
+}
+
+#mvPop {
+    width: 187px;
+    float: right;    
+}
+
+#missionsPop {
+    display: none;
+}
+
+#mvPointsPop {
+    display: none;
+}
+
+#asPointsPop {
+    display: none;
+}
+
+#promoPop {
+    display: none;
+}
+
+#promoPop p {
+    font-size: 50px;
+}
+
+#popInsigniaPromo {
+    height: 200px;
+    width: 200px;
+    margin-top: 50px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
