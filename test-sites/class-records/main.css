@@ -8,6 +8,10 @@
     //outline: 1px solid green;
 }
 
+input, a, div, p, img {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
 html {
     background-color: #000000;
 }
@@ -30,6 +34,16 @@ p {
     margin: 5px;
 }
 
+.W32, .W33, .W34, .W35, .W36, .W37, .W38, .W41, .W42, .W43, .W44, .W45, .W46, .W47, .W48 {
+    display: none;
+}
+
+/* week reset
+.W11, .W12, .W13, .W14, .W15, .W16, .W17, .W18, .W19, .W21, .W22, .W23, .W24, .W25, .W26, .W27, .W28, .W31, .W32, .W33, .W34, .W35, .W36, .W37, .W38, .W41, .W42, .W43, .W44, .W45, .W46, .W47, .W48 {
+    display: none;
+}
+*/
+
 #master-wrapper {
     width: 414px;
     height: 736px;
@@ -39,16 +53,10 @@ p {
     padding: 20px;
 }
 
-#popRank, #popName {
-    //text-align: left;
-}
-
 #popInsignia {
-    //outline: 1px dotted silver;
     height: 125px;
     width: 125px;
     margin: 25px auto;
-    background-image: url(images/10.png);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -61,8 +69,18 @@ p {
     border: 2px solid white;
 }
 
+.backButton {
+    height: 50px;
+    width: 250px;
+    font-size: 27px;
+    font-weight: bold;
+    padding-top: 5px;
+    margin-bottom: 20px;
+    border: 2px solid white;
+}
+
 #popButtons div {
-    margin: 40px auto;
+    margin: 10px auto;
 }
 
 #studentPop, #missions {
@@ -87,6 +105,8 @@ p {
     height: 100px;
     width: 100px;
     border: 1px solid white;
+    font-size: 20px;
+    padding-top: 35px;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -96,7 +116,11 @@ p {
     height: 100px;
     width: 100px;
     border: 1px solid white;
+    font-size: 90px;
+    font-weight: bold;
 }
+
+
 
 .asmvButtonFill {
     height: 100px;
@@ -104,18 +128,11 @@ p {
     border: 1px solid transparent;
 }
 
-#mainPop {
-    //display: none;
-}
-
 #asPop div, #mvPop div {
-    font-size: 20px;
     margin: 15px auto;
-    padding-top: 35px;
 }
 
 #asPointsPop div, #mvPointsPop div {
-    font-size: 100px;
     margin: 15px auto;
 }
 
@@ -129,19 +146,7 @@ p {
     float: right;    
 }
 
-#missionsPop {
-    display: none;
-}
-
-#mvPointsPop {
-    display: none;
-}
-
-#asPointsPop {
-    display: none;
-}
-
-#promoPop {
+#missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop {
     display: none;
 }
 
@@ -156,4 +161,38 @@ p {
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+}
+#backupArray {
+    font-size: 15px;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#topMenu {
+    margin-bottom: 20px;
+}
+
+#attendanceCheck {
+    //display: inline;
+}
+
+#att {
+    font-size: 30px;
+}
+
+#popButtons {
+    margin-top: 30px;
+}
+
+#popButtons div {
+    margin: 20px auto;
+}
+
+#mvText {
+    margin-top: 20px;
+    font-size: 30px;
 }
