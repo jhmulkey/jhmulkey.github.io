@@ -11,7 +11,7 @@
 
   <div id="mainPop" class="pop">
         <div id="topMenu" class="flex">
-            <div class="asmvButton" onclick="pop('mainPop','attListPop')">Att</div>
+            <div class="asmvButton" onclick="loadAttendees()">Att</div>
             <div class="asmvButton" onclick="pop('mainPop','promoListPop')">Prom</div>
             <div class="asmvButton" onclick="pop('mainPop','backupPop')">BU</div>
         </div>
@@ -25,10 +25,10 @@
   <div id="studentPop" class="pop">
      <p id="popRank"></p>
      <p id="popName" onclick="pop('studentPop','mainPop')"></p>
-     <div id="popInsignia"></div>
+     <div id="popInsignia" onclick="pop('studentPop','mainPop')"></div>
      <p>Points: <span id="popPoints"></span></p>
      <div id=popButtons>
-         <div class="button" onclick="attendance()">Attendance</div>
+         <div id="attendanceButton" class="button" onclick="attendance()">Attendance</div>
          <div class="button" onclick="pop('studentPop','missionsPop')">Missions</div>
          <div class="button" onclick="setPoints()">Set Points</div>
      </div>
@@ -118,16 +118,20 @@
   
     <div id="asPointsPop" class="pop">
       <div class="backButton" onclick="pop('asPointsPop','missionsPop')">&#8678;</div>
-      <div class="numberButton" onclick="asPoints(_asNum,1)">1</div>
-      <div class="numberButton" onclick="asPoints(_asNum,2)">2</div>
-      <div class="numberButton" onclick="asPoints(_asNum,3)">3</div>
+      <div class="flex">
+          <div class="numberButton asPts" onclick="asPoints(_asNum,1)">1</div>
+          <div class="numberButton asPts" onclick="asPoints(_asNum,2)">2</div>
+          <div class="numberButton asPts" onclick="asPoints(_asNum,3)">3</div>
+      </div>
     </div>
    
     <div id="mvPointsPop" class="pop">
       <div class="backButton" onclick="pop('mvPointsPop','missionsPop')">&#8678;</div>
-      <div class="numberButton" onclick="mvPoints(_mvNum,1)">1</div>
-      <div class="numberButton" onclick="mvPoints(_mvNum,2)">2</div>
-      <div class="numberButton" onclick="mvPoints(_mvNum,3)">3</div>
+      <div class="flex">
+          <div class="numberButton mvPts" onclick="mvPoints(_mvNum,1)">1</div>
+          <div class="numberButton mvPts" onclick="mvPoints(_mvNum,2)">2</div>
+          <div class="numberButton mvPts" onclick="mvPoints(_mvNum,3)">3</div>
+      </div>
       <p id="mvText"></p>
     </div>
    
@@ -149,7 +153,8 @@
     </div>
    
     <div id="backupPop" class="pop">
-       <div id="backupArray" onclick="pop('backupPop','mainPop')"></div>
+      <div class="backButton" onclick="pop('backupPop','mainPop')">&#8678;</div>
+       <div id="backupArray"></div>
     </div>
     
 </div> <!--end of master-wrapper-->
