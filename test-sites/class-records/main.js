@@ -4,7 +4,7 @@ promotionSound.src = "promotion.mp3";
 var feedbackSound = new Audio();
 feedbackSound.src = "feedback.mp3";
 
-var _currentIndex;
+var _ci; //current index
 var _asNum;
 var _mvNum;
 var _attendance = 0;
@@ -18,6 +18,7 @@ class Student {
         this.rank = 0;
         this.rankName = "New Recruit"
         this.attendance = false;
+        this.promoted = false;
         this.as = {
             as11: 0,
             as12: 0,
@@ -92,7 +93,7 @@ class Student {
     }
 };
 
-var studentList = [];
+var sl = []; // student list
 var Aldrich1 = new Student("Aeralind","Aldrich");
 var Aldrich2 = new Student("Bronwyn","Aldrich");
 var Ballard = new Student("Calvin","Ballard");
@@ -120,133 +121,151 @@ var Walker = new Student("Macie","Walker");
 var Waters = new Student("Olivia","Waters");
 
 function pushData() {
-    studentList.push(Aldrich1);
-    studentList.push(Aldrich2);
-    studentList.push(Ballard);
-    studentList.push(Brown);
-    studentList.push(Childs);
-    studentList.push(Collins);
-    studentList.push(Cronin);
-    studentList.push(Cruice);
-    studentList.push(Deming);
-    studentList.push(Hotchkiss);
-    studentList.push(Ice);
-    studentList.push(Mair);
-    studentList.push(Morris);
-    studentList.push(Neal);
-    studentList.push(Nelson);
-    studentList.push(Noblitt);
-    studentList.push(Norton);
-    studentList.push(Pahnke);
-    studentList.push(Peoples);
-    studentList.push(Pidcock);
-    studentList.push(Rogers);
-    studentList.push(Schley);
-    studentList.push(Snyder);
-    studentList.push(Walker);
-    studentList.push(Waters);
+    sl.push(Aldrich1);
+    sl.push(Aldrich2);
+    sl.push(Ballard);
+    sl.push(Brown);
+    sl.push(Childs);
+    sl.push(Collins);
+    sl.push(Cronin);
+    sl.push(Cruice);
+    sl.push(Deming);
+    sl.push(Hotchkiss);
+    sl.push(Ice);
+    sl.push(Mair);
+    sl.push(Morris);
+    sl.push(Neal);
+    sl.push(Nelson);
+    sl.push(Noblitt);
+    sl.push(Norton);
+    sl.push(Pahnke);
+    sl.push(Peoples);
+    sl.push(Pidcock);
+    sl.push(Rogers);
+    sl.push(Schley);
+    sl.push(Snyder);
+    sl.push(Walker);
+    sl.push(Waters);
 };
 
 function setPoints() {
-    x = parseInt(prompt("set points to:"));
-    studentList[_currentIndex].points = x;
-    studentList[_currentIndex].rank = Math.floor(x/10);
-    setRankName();
-    document.getElementById("popRank").innerHTML = studentList[_currentIndex].rankName;
-    document.getElementById("popInsignia").style.backgroundImage = "url(images/"+studentList[_currentIndex].rank+".png)";
-    document.getElementById("popPoints").innerHTML = studentList[_currentIndex].points;
-    localStorage.setItem("studentList",JSON.stringify(studentList));
-    backupNewData();
+    x = prompt("set points to:");
+    if (x === null) {
+        return;
+    } else {
+        y = parseInt(x);
+        sl[_ci].points = y;
+        sl[_ci].rank = Math.floor(y/10);
+        setRankName();
+        document.getElementById("dispRankName").innerHTML = sl[_ci].rankName;
+        document.getElementById("dispInsig").style.backgroundImage = "url(images/"+sl[_ci].rank+".png)";
+        document.getElementById("dispPts").innerHTML = sl[_ci].points;
+        localStorage.setItem("sl",JSON.stringify(sl));
+        backupNewData();
+    };
 };
 
 function promotion() {
-    studentList[_currentIndex].rank++;
+    sl[_ci].rank++;
+    sl[_ci].promoted = true;
     setRankName();
     promotionSound.play();
-    document.getElementById("popRank").innerHTML = studentList[_currentIndex].rankName;
-    document.getElementById("popInsignia").style.backgroundImage = "url(images/"+studentList[_currentIndex].rank+".png)";
-    document.getElementById("popRankPromo").innerHTML = studentList[_currentIndex].rankName;
-    document.getElementById("popInsigniaPromo").style.backgroundImage = "url(images/"+studentList[_currentIndex].rank+".png)";
-    log = studentList[_currentIndex].rankName + " " + studentList[_currentIndex].fullName;
-    promotionList(log);
+    document.getElementById("dispRankName").innerHTML = sl[_ci].rankName;
+    document.getElementById("dispInsig").style.backgroundImage = "url(images/"+sl[_ci].rank+".png)";
+    document.getElementById("dispRankNamePromo").innerHTML = sl[_ci].rankName;
+    document.getElementById("dispInsigPromo").style.backgroundImage = "url(images/"+sl[_ci].rank+".png)";
     setTimeout(function() {
         pop("missionsPop","promoPop")
     },500);
 };
 
 function demotion() {
-    studentList[_currentIndex].rank--;
+    sl[_ci].rank--;
     setRankName();
-    document.getElementById("popRank").innerHTML = studentList[_currentIndex].rankName;
-    document.getElementById("popInsignia").style.backgroundImage = "url(images/"+studentList[_currentIndex].rank+".png)";
-    document.getElementById("popRankPromo").innerHTML = studentList[_currentIndex].rankName;
-    document.getElementById("popInsigniaPromo").style.backgroundImage = "url(images/"+studentList[_currentIndex].rank+".png)";
+    document.getElementById("dispRankName").innerHTML = sl[_ci].rankName;
+    document.getElementById("dispInsig").style.backgroundImage = "url(images/"+sl[_ci].rank+".png)";
+    //document.getElementById("dispRankNamePromo").innerHTML = sl[_ci].rankName;
+    //document.getElementById("dispInsigPromo").style.backgroundImage = "url(images/"+sl[_ci].rank+".png)";
 };
 
 function setRankName() {
     var rankNames = ["New Recruit","PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAG","LTC","COL","BG","MG","LTG","GEN","GOA",];
-    studentList[_currentIndex].rankName = rankNames[studentList[_currentIndex].rank];
+    sl[_ci].rankName = rankNames[sl[_ci].rank];
 }
 
 function asPoints(_asNum,x) {
-    feedbackSound.play();
-    if (studentList[_currentIndex].as[_asNum]) {
-        if ((studentList[_currentIndex].points + (x - studentList[_currentIndex].as[_asNum])) < (studentList[_currentIndex].rank * 10)) {
+    if (sl[_ci].as[_asNum] == 0) {
+        if ((sl[_ci].points - (sl[_ci].rank * 10)) + x >= 10) {
+            promotion();
+        };
+        sl[_ci].points += x;
+        sl[_ci].as[_asNum] = x;
+    } else if (sl[_ci].as[_asNum] > 0 && sl[_ci].as[_asNum] != x) {
+        if ((sl[_ci].points + (x - sl[_ci].as[_asNum])) < (sl[_ci].rank * 10)) {
             demotion();
         };
-        if ((studentList[_currentIndex].points - (studentList[_currentIndex].rank * 10)) + (x - studentList[_currentIndex].as[_asNum]) >= 10) {
+        if ((sl[_ci].points - (sl[_ci].rank * 10)) + (x - sl[_ci].as[_asNum]) >= 10) {
             promotion();
         };
-        studentList[_currentIndex].points += (x - studentList[_currentIndex].as[_asNum]);
-    } else {
-        if ((studentList[_currentIndex].points - (studentList[_currentIndex].rank * 10)) + x >= 10) {
-            promotion();
+        sl[_ci].points += (x - sl[_ci].as[_asNum]);
+        sl[_ci].as[_asNum] = x;
+    } else if (sl[_ci].as[_asNum] > 0 && sl[_ci].as[_asNum] == x) {
+        sl[_ci].as[_asNum] -= x;
+        sl[_ci].points -= x;
+        if (sl[_ci].points < (sl[_ci].rank * 10)) {
+            demotion();
         };
-        studentList[_currentIndex].points += x;
     };
-    studentList[_currentIndex].as[_asNum] = x;
-    document.getElementById("popPoints").innerHTML = studentList[_currentIndex].points;
-    document.getElementById("popRank").innerHTML = studentList[_currentIndex].rankName;
-    for (var key in studentList[_currentIndex].as) {
-        if (studentList[_currentIndex].as[key] > 0) {
+    document.getElementById("dispPts").innerHTML = sl[_ci].points;
+    document.getElementById("dispRankName").innerHTML = sl[_ci].rankName;
+    for (var key in sl[_ci].as) {
+        if (sl[_ci].as[key] > 0) {
             document.getElementById(key+"Pop").style.backgroundImage = "url(images/check.png)";
         } else {
             document.getElementById(key+"Pop").style.backgroundImage = "none";
         };
     };
-    localStorage.setItem("studentList",JSON.stringify(studentList));
+    localStorage.setItem("sl",JSON.stringify(sl));
     backupNewData();
+    feedbackSound.play();
     pop("asPointsPop","missionsPop");
 };
 
 function mvPoints(_mvNum,x) {
-    feedbackSound.play();
-    if (studentList[_currentIndex].mv[_mvNum]) {
-        if ((studentList[_currentIndex].points + (x - studentList[_currentIndex].mv[_mvNum])) < (studentList[_currentIndex].rank * 10)) {
+    if (sl[_ci].mv[_mvNum] == 0) {
+        if ((sl[_ci].points - (sl[_ci].rank * 10)) + x >= 10) {
+            promotion();
+        };
+        sl[_ci].points += x;
+        sl[_ci].mv[_mvNum] = x;
+    } else if (sl[_ci].mv[_mvNum] > 0 && sl[_ci].mv[_mvNum] != x) {
+        if ((sl[_ci].points + (x - sl[_ci].mv[_mvNum])) < (sl[_ci].rank * 10)) {
             demotion();
         };
-        if ((studentList[_currentIndex].points - (studentList[_currentIndex].rank * 10)) + (x - studentList[_currentIndex].mv[_mvNum]) >= 10) {
+        if ((sl[_ci].points - (sl[_ci].rank * 10)) + (x - sl[_ci].mv[_mvNum]) >= 10) {
             promotion();
         };
-        studentList[_currentIndex].points += (x - studentList[_currentIndex].mv[_mvNum]);
-    } else {
-        if ((studentList[_currentIndex].points - (studentList[_currentIndex].rank * 10)) + x >= 10) {
-            promotion();
+        sl[_ci].points += (x - sl[_ci].mv[_mvNum]);
+        sl[_ci].mv[_mvNum] = x;
+    } else if (sl[_ci].mv[_mvNum] > 0 && sl[_ci].mv[_mvNum] == x) {
+        sl[_ci].mv[_mvNum] -= x;
+        sl[_ci].points -= x;
+        if (sl[_ci].points < (sl[_ci].rank * 10)) {
+            demotion();
         };
-        studentList[_currentIndex].points += x;
     };
-    studentList[_currentIndex].mv[_mvNum] = x;
-    document.getElementById("popPoints").innerHTML = studentList[_currentIndex].points;
-    document.getElementById("popRank").innerHTML = studentList[_currentIndex].rankName;
-    for (var key in studentList[_currentIndex].mv) {
-        if (studentList[_currentIndex].mv[key] > 0) {
+    document.getElementById("dispPts").innerHTML = sl[_ci].points;
+    document.getElementById("dispRankName").innerHTML = sl[_ci].rankName;
+    for (var key in sl[_ci].mv) {
+        if (sl[_ci].mv[key] > 0) {
             document.getElementById(key+"Pop").style.backgroundImage = "url(images/check.png)";
         } else {
             document.getElementById(key+"Pop").style.backgroundImage = "none";
         };
     };
-    localStorage.setItem("studentList",JSON.stringify(studentList));
+    localStorage.setItem("sl",JSON.stringify(sl));
     backupNewData();
+    feedbackSound.play();
     pop("mvPointsPop","missionsPop");
 };
 
@@ -272,24 +291,24 @@ function searchNames() {
 };
 
 function loadStudent(index) {
-    _currentIndex = index;
+    _ci = index;
     document.getElementById("studentPop").style.display = "block";
     document.getElementById("mainPop").style.display = "none";    
-    document.getElementById("popRank").innerHTML = studentList[_currentIndex].rankName;
-    document.getElementById("popName").innerHTML = studentList[_currentIndex].fullName;
-    document.getElementById("popInsignia").style.backgroundImage = "url(images/"+studentList[_currentIndex].rank+".png)";
-    document.getElementById("popPoints").innerHTML = studentList[_currentIndex].points;
+    document.getElementById("dispRankName").innerHTML = sl[_ci].rankName;
+    document.getElementById("dispName").innerHTML = sl[_ci].fullName;
+    document.getElementById("dispInsig").style.backgroundImage = "url(images/"+sl[_ci].rank+".png)";
+    document.getElementById("dispPts").innerHTML = sl[_ci].points;
     document.getElementById("search").value = "";
     searchNames();
-    for (var key in studentList[_currentIndex].as) {
-        if (studentList[_currentIndex].as[key] > 0) {
+    for (var key in sl[_ci].as) {
+        if (sl[_ci].as[key] > 0) {
             document.getElementById(key+"Pop").style.backgroundImage = "url(images/check.png)";
         } else {
             document.getElementById(key+"Pop").style.backgroundImage = "none";
         };
     };
-    for (var key in studentList[_currentIndex].mv) {
-        if (studentList[_currentIndex].mv[key] > 0) {
+    for (var key in sl[_ci].mv) {
+        if (sl[_ci].mv[key] > 0) {
             document.getElementById(key+"Pop").style.backgroundImage = "url(images/check.png)";
         } else {
             document.getElementById(key+"Pop").style.backgroundImage = "none";
@@ -306,6 +325,7 @@ function pop(close,open,close2) {
     if (open == "mainPop") {
         document.getElementById("search").focus();
     };
+    scrollTo(0,0);
 };
 
 function asPop(asNum) {
@@ -314,7 +334,7 @@ function asPop(asNum) {
     _asNum = asNum;
     var asPts = document.getElementsByClassName("asPts");
     for (i = 0; i < asPts.length; i++) {
-        if (asPts[i].innerHTML == studentList[_currentIndex].as[_asNum]) {
+        if (asPts[i].innerHTML == sl[_ci].as[_asNum]) {
             asPts[i].style.cssText = "border: 3px solid green";
         } else {
             asPts[i].style.cssText = "border: 1px solid white";
@@ -329,7 +349,7 @@ function mvPop(mvNum,index) {
     document.getElementById("mvText").innerHTML = mvText[index];
     var mvPts = document.getElementsByClassName("mvPts");
     for (i = 0; i < mvPts.length; i++) {
-        if (mvPts[i].innerHTML == studentList[_currentIndex].mv[_mvNum]) {
+        if (mvPts[i].innerHTML == sl[_ci].mv[_mvNum]) {
             mvPts[i].style.cssText = "border: 3px solid green";
         } else {
             mvPts[i].style.cssText = "border: 1px solid white";
@@ -344,6 +364,16 @@ function promotionList(log) {
     document.getElementById("promoList").appendChild(elementNode);
 }
 
+function loadPromotees() {
+    document.getElementById("promoList").innerHTML = "";
+    for (i = 0; i < sl.length; i++) {
+        if (sl[i].promoted === true) {
+            promotionList(sl[i].rankName + " " + sl[i].fullName);
+        };
+    };
+    pop("mainMenuPop","promoListPop");
+};
+
 function attendanceList(log) {
     var elementNode = document.createElement("p");
     var textNode = document.createTextNode(log);
@@ -353,16 +383,16 @@ function attendanceList(log) {
 
 function loadAttendees() {
     document.getElementById("attList").innerHTML = "";
-    for (i = 0; i < studentList.length; i++) {
-        if (studentList[i].attendance === true) {
-            attendanceList(studentList[i].fullName);
+    for (i = 0; i < sl.length; i++) {
+        if (sl[i].attendance === true) {
+            attendanceList(sl[i].fullName);
         };
     };
-    pop("mainPop","attListPop");
+    pop("mainMenuPop","attListPop");
 };
 
 function populateNames() {
-    for (i = 0; i < studentList.length; i++) {
+    for (i = 0; i < sl.length; i++) {
         var elementNode = document.createElement("p");
         elementNode.classList.add("name");
         (function(i){
@@ -370,27 +400,27 @@ function populateNames() {
                 loadStudent(i);
             };
         })(i);
-        var textNode = document.createTextNode(studentList[i].fullName);
+        var textNode = document.createTextNode(sl[i].fullName);
         elementNode.appendChild(textNode);
         document.getElementById("nameList").appendChild(elementNode);
     };  
 };
 
 function attendance() {
-    if (studentList[_currentIndex].attendance === false) {
-        studentList[_currentIndex].attendance = true;
+    if (sl[_ci].attendance === false) {
+        sl[_ci].attendance = true;
         document.getElementById("attendanceButton").style.borderColor = "green";
         setTimeout(function() {
             document.getElementById("attendanceButton").style.borderColor = "white";
         },500);
     } else {
-        studentList[_currentIndex].attendance = false;
+        sl[_ci].attendance = false;
         document.getElementById("attendanceButton").style.borderColor = "red";
         setTimeout(function() {
             document.getElementById("attendanceButton").style.borderColor = "white";
         },500);
     }
-    localStorage.setItem("studentList",JSON.stringify(studentList));
+    localStorage.setItem("sl",JSON.stringify(sl));
     backupNewData();
     feedbackSound.play();
 };
@@ -431,38 +461,50 @@ var mvText = [
 ];
 
 //***ONLOAD FUNCTIONS***//
-function loadBackup() {
-    if (!localStorage.getItem("studentList")) {
+function whatToLoad() {
+    if (!localStorage.getItem("sl")) {
         if (JSON.parse(localStorage.getItem("backup"))) {
-            studentList = JSON.parse(localStorage.getItem("backup"));
+            sl = JSON.parse(localStorage.getItem("backup"));
             populateNames();
+            for (i = 0; i < sl.length; i++) {
+                sl[i].attendance = false;
+                sl[i].promoted = false;
+            };
         } else {
             pushData();
             populateNames();
         };
     } else {
-        studentList = JSON.parse(localStorage.getItem("studentList"));
-        populateNames();
+        pop("mainPop","wtlPop");
     };
-}; // only loads localstorage data from backup.js if localstorage data from main.js does not exist
-// if no localstorage data is found, all students will be loaded with default values (only suitable for testing purposes) */
+}; 
 
-function restoreData() {
-    studentList = JSON.parse(localStorage.getItem("studentList"));
+function loadBackup() {
+    if (confirm("This action may potentially overwrite more current data. Are you sure?")) {
+        sl = JSON.parse(localStorage.getItem("backup"));
+        populateNames();
+        for (i = 0; i < sl.length; i++) {
+        sl[i].attendance = false;
+        sl[i].promoted = false;
+        };
+        pop("wtlPop","mainPop");
+    };
+};
+
+function loadLS() {
+    sl = JSON.parse(localStorage.getItem("sl"));
+    populateNames();
+    backupNewData();
+    pop("wtlPop","mainPop");
 };
 
 function backupNewData() {
-    document.getElementById("backupArray").innerHTML = localStorage.getItem("studentList");
+    document.getElementById("backupArray").innerHTML = localStorage.getItem("sl");
 };
 
 
 //***ONLOAD FUNCTION CALLS***//
-loadBackup();
-
-if (JSON.parse(localStorage.getItem("studentList"))) {
-    restoreData();
-    backupNewData();
-};
+whatToLoad();
 
 document.getElementById("search").focus();
 
