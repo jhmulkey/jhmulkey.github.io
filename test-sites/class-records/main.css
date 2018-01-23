@@ -146,7 +146,7 @@ p {
     float: right;    
 }
 
-#missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop {
+#missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawingPop {
     display: none;
 }
 
@@ -201,4 +201,8 @@ p {
     margin: 20px auto;
 }
 
-
+#winner {
+    margin: 150px auto;
+    font-size: 75px;
+    font-weight: bold;
+}

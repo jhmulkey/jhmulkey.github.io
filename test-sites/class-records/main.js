@@ -19,6 +19,7 @@ class Student {
         this.rankName = "New Recruit"
         this.attendance = false;
         this.promoted = false;
+        this.drawing = false;
         this.as = {
             as11: 0,
             as12: 0,
@@ -148,6 +149,30 @@ function pushData() {
     sl.push(Waters);
 };
 
+function newStudent() {
+    var first = prompt("First Name:");
+    var last = prompt("Last Name:");
+    if (first === null || last === null) {
+        return;
+    } else {
+        var newStudent = new Student(first,last);
+        newStudent.attendance = true;
+        sl.push(newStudent);
+        sortStudentList();
+        populateNames();
+        storeNewData();
+        backupNewData();
+    };
+};
+
+function sortStudentList() {
+    sl.sort(function(a,b) {
+        var textA = a.lastName.toLowerCase();
+        var textB = b.lastName.toLowerCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    });
+};
+
 function setPoints() {
     x = prompt("set points to:");
     if (x === null) {
@@ -160,7 +185,7 @@ function setPoints() {
         document.getElementById("dispRankName").innerHTML = sl[_ci].rankName;
         document.getElementById("dispInsig").style.backgroundImage = "url(images/"+sl[_ci].rank+".png)";
         document.getElementById("dispPts").innerHTML = sl[_ci].points;
-        localStorage.setItem("sl",JSON.stringify(sl));
+        storeNewData();
         backupNewData();
     };
 };
@@ -184,8 +209,6 @@ function demotion() {
     setRankName();
     document.getElementById("dispRankName").innerHTML = sl[_ci].rankName;
     document.getElementById("dispInsig").style.backgroundImage = "url(images/"+sl[_ci].rank+".png)";
-    //document.getElementById("dispRankNamePromo").innerHTML = sl[_ci].rankName;
-    //document.getElementById("dispInsigPromo").style.backgroundImage = "url(images/"+sl[_ci].rank+".png)";
 };
 
 function setRankName() {
@@ -225,7 +248,7 @@ function asPoints(_asNum,x) {
             document.getElementById(key+"Pop").style.backgroundImage = "none";
         };
     };
-    localStorage.setItem("sl",JSON.stringify(sl));
+    storeNewData();
     backupNewData();
     feedbackSound.play();
     pop("asPointsPop","missionsPop");
@@ -263,18 +286,10 @@ function mvPoints(_mvNum,x) {
             document.getElementById(key+"Pop").style.backgroundImage = "none";
         };
     };
-    localStorage.setItem("sl",JSON.stringify(sl));
+    storeNewData();
     backupNewData();
     feedbackSound.play();
     pop("mvPointsPop","missionsPop");
-};
-
-function asVoid() {
-    
-};
-
-function mvVoid() {
-    
 };
 
 function searchNames() {
@@ -392,6 +407,7 @@ function loadAttendees() {
 };
 
 function populateNames() {
+    document.getElementById("nameList").innerHTML = "";
     for (i = 0; i < sl.length; i++) {
         var elementNode = document.createElement("p");
         elementNode.classList.add("name");
@@ -420,9 +436,40 @@ function attendance() {
             document.getElementById("attendanceButton").style.borderColor = "white";
         },500);
     }
-    localStorage.setItem("sl",JSON.stringify(sl));
+    storeNewData();
     backupNewData();
     feedbackSound.play();
+};
+
+function drawing() {
+    var eligibleNames = [];
+    for (i = 0; i < sl.length; i++) {
+        if (sl[i].attendance === true && sl[i].drawing === false) {
+            eligibleNames.push(sl[i])
+        };
+    };
+    if (eligibleNames.length == 0) {
+        resetDrawing();
+    } else {
+        var x = Math.floor(Math.random() * eligibleNames.length);
+        var winner = eligibleNames[x];
+        winner.drawing = true;
+        document.getElementById("drawingFirst").innerHTML = winner.firstName;
+        document.getElementById("drawingLast").innerHTML = winner.lastName;
+        storeNewData();
+        backupNewData();
+        pop("mainMenuPop","drawingPop");
+    };
+};
+
+function resetDrawing() {
+    if (confirm("Are you sure you want to reset quarterly drawing stats?")) {
+        for (i = 0; i < sl.length; i++) {
+            sl[i].drawing = false;
+        };
+        storeNewData();
+        backupNewData();
+    };
 };
     
 var mvText = [
@@ -465,6 +512,7 @@ function whatToLoad() {
     if (!localStorage.getItem("sl")) {
         if (JSON.parse(localStorage.getItem("backup"))) {
             sl = JSON.parse(localStorage.getItem("backup"));
+            sortStudentList();
             populateNames();
             for (i = 0; i < sl.length; i++) {
                 sl[i].attendance = false;
@@ -472,6 +520,7 @@ function whatToLoad() {
             };
         } else {
             pushData();
+            sortStudentList();
             populateNames();
         };
     } else {
@@ -482,10 +531,11 @@ function whatToLoad() {
 function loadBackup() {
     if (confirm("This action may potentially overwrite more current data. Are you sure?")) {
         sl = JSON.parse(localStorage.getItem("backup"));
+        sortStudentList();
         populateNames();
         for (i = 0; i < sl.length; i++) {
-        sl[i].attendance = false;
-        sl[i].promoted = false;
+            sl[i].attendance = false;
+            sl[i].promoted = false;
         };
         pop("wtlPop","mainPop");
     };
@@ -498,6 +548,10 @@ function loadLS() {
     pop("wtlPop","mainPop");
 };
 
+function storeNewData() {
+    localStorage.setItem("sl",JSON.stringify(sl));
+};
+
 function backupNewData() {
     document.getElementById("backupArray").innerHTML = localStorage.getItem("sl");
 };
@@ -508,6 +562,12 @@ whatToLoad();
 
 document.getElementById("search").focus();
 
+
+for (i = 0; i < sl.length; i++) {
+    if (sl[i].drawing === true) {
+       console.log(sl[i].fullName);
+    };
+};
 /*
 asCompletion() {
     var completed = 0;

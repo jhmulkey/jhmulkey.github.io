@@ -23,6 +23,8 @@
         <div class="buttonArr">
             <div class="button" onclick="loadAttendees()">Attendees</div>
             <div class="button" onclick="loadPromotees()">Promotees</div>
+            <div class="button" onclick="newStudent()">New Student</div>
+            <div class="button" onclick="drawing()">Drawing</div>
             <div class="button" onclick="pop('mainMenuPop','backupPop')">Backup</div>
             <div class="backButton" onclick="pop('mainMenuPop','mainPop')">&#8678;</div>
         </div>
@@ -34,17 +36,28 @@
       <div class="button" onclick="loadBackup()">Backup.js</div>
   </div>
 
-  <div id="studentPop" class="pop">
-     <p id="dispRankName"></p>
-     <p id="dispName"></p>
-     <div id="dispInsig"></div>
-     <p>Points: <span id="dispPts" onclick="setPoints()"></span></p>
-     <div id=popButtons>
-         <div id="attendanceButton" class="button" onclick="attendance()">Attendance</div>
-         <div class="button" onclick="pop('studentPop','missionsPop')">Missions</div>
-         <div class="backButton" onclick="pop('studentPop','mainPop')">&#8678;</div>
-     </div>
-  </div>
+    <div id="studentPop" class="pop">
+        <p id="dispRankName"></p>
+        <p id="dispName"></p>
+        <div id="dispInsig"></div>
+        <p>Points: <span id="dispPts" onclick="setPoints()"></span></p>
+        <div id=popButtons>
+            <div id="attendanceButton" class="button" onclick="attendance()">Attendance</div>
+            <div class="button" onclick="pop('studentPop','missionsPop')">Missions</div>
+            <div class="backButton" onclick="pop('studentPop','mainPop')">&#8678;</div>
+        </div>
+    </div>
+  
+    <div id="drawingPop" class="pop">
+        <div id="winner">
+            <p id="drawingFirst"></p>
+            <p id="drawingLast" ></p>
+        </div>
+            <div class="buttonArr">
+            <div class="button" onclick="resetDrawing()">Reset Drawing</div>
+            <div class="backButton" onclick="pop('drawingPop','mainMenuPop')">&#8678;</div>
+        </div>
+    </div>
   
   <div id="missionsPop" class="pop">
       <div class="backButton" onclick="pop('missionsPop','studentPop')">&#8678;</div>
