@@ -206,6 +206,7 @@ function promotion() {
 
 function demotion() {
     sl[_ci].rank--;
+    sl[_ci].promoted = false;
     setRankName();
     document.getElementById("dispRankName").innerHTML = sl[_ci].rankName;
     document.getElementById("dispInsig").style.backgroundImage = "url(images/"+sl[_ci].rank+".png)";
@@ -329,6 +330,10 @@ function loadStudent(index) {
             document.getElementById(key+"Pop").style.backgroundImage = "none";
         };
     };
+};
+
+function missionLinks() {
+    window.open("docs/"+_asNum+".pdf","_blank");
 };
 
 function pop(close,open,close2) {
