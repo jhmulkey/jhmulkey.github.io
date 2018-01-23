@@ -243,7 +243,7 @@ function asPoints(_asNum,x) {
     document.getElementById("dispRankName").innerHTML = sl[_ci].rankName;
     for (var key in sl[_ci].as) {
         if (sl[_ci].as[key] > 0) {
-            document.getElementById(key+"Pop").style.backgroundImage = "url(images/check.png)";
+            document.getElementById(key+"Pop").style.backgroundImage = "url(images/check"+sl[_ci].as[key]+".png)";
         } else {
             document.getElementById(key+"Pop").style.backgroundImage = "none";
         };
@@ -281,7 +281,7 @@ function mvPoints(_mvNum,x) {
     document.getElementById("dispRankName").innerHTML = sl[_ci].rankName;
     for (var key in sl[_ci].mv) {
         if (sl[_ci].mv[key] > 0) {
-            document.getElementById(key+"Pop").style.backgroundImage = "url(images/check.png)";
+            document.getElementById(key+"Pop").style.backgroundImage = "url(images/check"+sl[_ci].mv[key]+".png)";
         } else {
             document.getElementById(key+"Pop").style.backgroundImage = "none";
         };
@@ -317,14 +317,14 @@ function loadStudent(index) {
     searchNames();
     for (var key in sl[_ci].as) {
         if (sl[_ci].as[key] > 0) {
-            document.getElementById(key+"Pop").style.backgroundImage = "url(images/check.png)";
+            document.getElementById(key+"Pop").style.backgroundImage = "url(images/check"+sl[_ci].as[key]+".png)";
         } else {
             document.getElementById(key+"Pop").style.backgroundImage = "none";
         };
     };
     for (var key in sl[_ci].mv) {
         if (sl[_ci].mv[key] > 0) {
-            document.getElementById(key+"Pop").style.backgroundImage = "url(images/check.png)";
+            document.getElementById(key+"Pop").style.backgroundImage = "url(images/check"+sl[_ci].mv[key]+".png)";
         } else {
             document.getElementById(key+"Pop").style.backgroundImage = "none";
         };
@@ -398,11 +398,14 @@ function attendanceList(log) {
 
 function loadAttendees() {
     document.getElementById("attList").innerHTML = "";
+    var attCount = 0
     for (i = 0; i < sl.length; i++) {
         if (sl[i].attendance === true) {
             attendanceList(sl[i].fullName);
+            attCount++;
         };
     };
+    document.getElementById("attCount").innerHTML = attCount;
     pop("mainMenuPop","attListPop");
 };
 
