@@ -11,56 +11,28 @@
 
   <div id="mainPop" class="pop">
         <div id="topMenu" class="flex">
-            <div class="button" onclick="pop('mainPop','mainMenuPop')">Main Menu</div>
+            <div class="asmvButton" onclick="loadAttendees()">Att</div>
+            <div class="asmvButton" onclick="pop('mainPop','promoListPop')">Prom</div>
+            <div class="asmvButton" onclick="pop('mainPop','backupPop')">BU</div>
         </div>
         
         <input id="search" type="text" placeholder="search names" oninput="searchNames()"/>
     
         <div id="nameList"></div>
-  </div>
-  
-  <div id="mainMenuPop" class="pop">
-        <div class="buttonArr">
-            <div class="button" onclick="loadAttendees()">Attendees</div>
-            <div class="button" onclick="loadPromotees()">Promotees</div>
-            <div class="button" onclick="newStudent()">New Student</div>
-            <div class="button" onclick="drawing()">Drawing</div>
-            <div class="button" onclick="pop('mainMenuPop','backupPop')">Backup</div>
-            <div class="backButton" onclick="pop('mainMenuPop','mainPop')">&#8678;</div>
-        </div>
-  </div>
-  
-  <div id="wtlPop" class="pop buttonArr">
-      <p>Load localstorage or backup.js?</p>
-      <div class="button" onclick="loadLS()">localstorage</div>
-      <div class="button" onclick="loadBackup()">Backup.js</div>
+        
   </div>
 
-    <div id="studentPop" class="pop">
-        <p id="dispRankName"></p>
-        <p id="dispName"></p>
-        <div id="dispInsig"></div>
-        <p>Points: <span id="dispPts" onclick="setPoints()"></span></p>
-        <div id=popButtons>
-            <div id="attendanceButton" class="button" onclick="attendance()">Attendance</div>
-            <div class="button" onclick="pop('studentPop','missionsPop')">Missions</div>
-            <div class="backButton" onclick="pop('studentPop','mainPop')">&#8678;</div>
-        </div>
-        <!-- <div id="studentStats">
-            <p>Mission Completion Rate: <span id="allCompletion"></span></p>
-        </div> -->
-    </div>
-  
-    <div id="drawingPop" class="pop">
-        <div id="winner">
-            <p id="drawingFirst"></p>
-            <p id="drawingLast" ></p>
-        </div>
-            <div class="buttonArr">
-            <div class="button" onclick="resetDrawing()">Reset Drawing</div>
-            <div class="backButton" onclick="pop('drawingPop','mainMenuPop')">&#8678;</div>
-        </div>
-    </div>
+  <div id="studentPop" class="pop">
+     <p id="popRank"></p>
+     <p id="popName" onclick="pop('studentPop','mainPop')"></p>
+     <div id="popInsignia" onclick="pop('studentPop','mainPop')"></div>
+     <p>Points: <span id="popPoints"></span></p>
+     <div id=popButtons>
+         <div id="attendanceButton" class="button" onclick="attendance()">Attendance</div>
+         <div class="button" onclick="pop('studentPop','missionsPop')">Missions</div>
+         <div class="button" onclick="setPoints()">Set Points</div>
+     </div>
+  </div>
   
   <div id="missionsPop" class="pop">
       <div class="backButton" onclick="pop('missionsPop','studentPop')">&#8678;</div>
@@ -101,7 +73,7 @@
           <div id="as14Pop" class="asmvButton W14" onclick="asPop('as14')">Jn 3</div>
           <div id="as13Pop" class="asmvButton W13" onclick="asPop('as13')">Jn 2</div>
           <div id="as12Pop" class="asmvButton W12" onclick="asPop('as12')">Jn 1</div>
-          <div id="as11Pop" class="asmvButton W11" onclick="asPop('as11')">Intro</div>
+          <div id="as11Pop" class="asmvButton W11" onclick="asPop('as11')">Class</div>
       </div>
       <div id="mvPop">
           <div class="asmvButtonFill W48"></div>
@@ -151,9 +123,6 @@
           <div class="numberButton asPts" onclick="asPoints(_asNum,2)">2</div>
           <div class="numberButton asPts" onclick="asPoints(_asNum,3)">3</div>
       </div>
-      <div class="buttonArr">
-            <div class="button" onclick="missionLinks()">Download</div>
-      </div>
     </div>
    
     <div id="mvPointsPop" class="pop">
@@ -168,23 +137,23 @@
    
     <div id="promoPop" class="pop">
       <p>Promotion</p>
-      <p id="dispRankNamePromo"></p>
-      <div id="dispInsigPromo" onclick="pop('promoPop','missionsPop')"></div>
+      <p id="popRankPromo"></p>
+      <div id="popInsigniaPromo" onclick="pop('promoPop','missionsPop')"></div>
     </div>
   
     <div id="promoListPop" class="pop">
-       <div class="backButton" onclick="pop('promoListPop','mainMenuPop')">&#8678;</div>
+       <div class="backButton" onclick="pop('promoListPop','mainPop')">&#8678;</div>
        <div id="promoList"></div>
     </div>
     
     <div id="attListPop" class="pop">
-       <div class="backButton" onclick="pop('attListPop','mainMenuPop')">&#8678;</div>
-       <p id="attCount"></p>
+       <div class="backButton" onclick="pop('attListPop','mainPop')">&#8678;</div>
+       <p id="att"></p>
        <div id="attList"></div>
     </div>
    
     <div id="backupPop" class="pop">
-      <div class="backButton" onclick="pop('backupPop','mainMenuPop')">&#8678;</div>
+      <div class="backButton" onclick="pop('backupPop','mainPop')">&#8678;</div>
        <div id="backupArray"></div>
     </div>
     

@@ -1,6 +1,6 @@
 @font-face {
-    font-family: black-chancery;
-    src: url(fonts/black-chancery.ttf);
+    font-family: Tahoma;
+    src: url(Tahoma.ttf);
 }
 
 *, *:before, *:after {
@@ -19,7 +19,7 @@ html {
 body {
     padding: 0;
     margin: 0;
-    font-family: "Courier New", monospace;
+    font-family: Tahoma, serif;
     //font-weight: bold;
     font-size: 30px;
     color: white;
@@ -34,7 +34,7 @@ p {
     margin: 5px;
 }
 
-.W32, .W33, .W34, .W35, .W36, .W37, .W38, .W41, .W42, .W43, .W44, .W45, .W46, .W47, .W48 {
+.W33, .W34, .W35, .W36, .W37, .W38, .W41, .W42, .W43, .W44, .W45, .W46, .W47, .W48 {
     display: none;
 }
 
@@ -53,7 +53,15 @@ p {
     padding: 20px;
 }
 
-#popInsignia {
+#asPointsPop {
+    padding: 0 20px 0 20px;
+}
+
+#mvPointsPop {
+    padding: 0 20px 0 20px;
+}
+
+#dispInsig {
     height: 150px;
     width: 150px;
     margin: 25px auto;
@@ -62,10 +70,14 @@ p {
     background-repeat: no-repeat;
 }
 
+.button, .backButton, #nameList p, .asmvButton, .numberButton, #dispPts, #dispInsig {
+    cursor: pointer;
+}
+
 .button {
     height: 50px;
     width: 250px;
-    padding-top: 5px;
+    padding-top: 3px;
     border: 2px solid white;
 }
 
@@ -83,10 +95,6 @@ p {
     margin: 10px auto;
 }
 
-#studentPop, #missions {
-    display: none;
-}
-
 #search {
     height: 30px;
     width: 300px;
@@ -101,15 +109,28 @@ p {
     margin: 10px;
 }
 
-.asmvButton {
+.asmvHeader {
+    height: 50px;
+    width: 100px;
+    font-size: 20px;
+}
+
+.asmvButton, .asmvButton2 {
     height: 100px;
     width: 100px;
     border: 1px solid white;
     font-size: 20px;
-    padding-top: 35px;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+}
+
+.asmvButton {
+    padding-top: 35px;
+}
+
+.asmvButton2 {
+    padding-top: 23px;
 }
 
 .numberButton {
@@ -117,14 +138,14 @@ p {
     width: 100px;
     border: 1px solid white;
     font-size: 90px;
-    font-weight: bold;
+    line-height: 1;
 }
-
-
 
 .asmvButtonFill {
     height: 100px;
     width: 100px;
+    font-size: 20px;
+    padding-top: 35px;
     border: 1px solid transparent;
 }
 
@@ -146,7 +167,7 @@ p {
     float: right;    
 }
 
-#missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop {
+#missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawingPop, #studentPop {
     display: none;
 }
 
@@ -154,7 +175,7 @@ p {
     font-size: 50px;
 }
 
-#popInsigniaPromo {
+#dispInsigPromo {
     height: 200px;
     width: 200px;
     margin-top: 50px;
@@ -162,6 +183,7 @@ p {
     background-size: contain;
     background-repeat: no-repeat;
 }
+
 #backupArray {
     font-size: 15px;
 }
@@ -176,11 +198,7 @@ p {
     margin-bottom: 20px;
 }
 
-#attendanceCheck {
-    //display: inline;
-}
-
-#att {
+#attCount {
     font-size: 30px;
 }
 
@@ -195,4 +213,14 @@ p {
 #mvText {
     margin-top: 20px;
     font-size: 30px;
+}
+
+.buttonArr div {
+    margin: 20px auto;
+}
+
+#winner {
+    margin: 150px auto;
+    font-size: 75px;
+    font-weight: bold;
 }

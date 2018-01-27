@@ -67,27 +67,32 @@ a:hover .non-index-header {
 }
 
 .missions-icon {
-    background-image: url("../images/nav-missions-squared-fancy.png");
+    background-image: url("../images/nav-missions.png");
+    background-size: 300px 300px;
+}
+
+.students-icon {
+    background-image: url("../images/nav-students.png");
     background-size: 300px 300px;
 }
 
 .calendar-icon {
-    background-image: url("../images/nav-calendar-squared-fancy.png");
+    background-image: url("../images/nav-calendar.png");
     background-size: 300px 300px;
 }
 
 .ranks-icon {
-    background-image: url("../images/nav-ranks-squared-fancy.png");
+    background-image: url("../images/nav-ranks.png");
     background-size: 300px 300px;
 }
 
 .handbook-icon {
-    background-image: url("../images/nav-handbook-squared-fancy.png");
+    background-image: url("../images/nav-handbook.png");
     background-size: 300px 300px;
 }
 
 .contact-icon {
-    background-image: url("../images/nav-contact-rect-fancy.png");
+    background-image: url("../images/nav-mail.png");
     background-size: 100px 50px;
 }
 
