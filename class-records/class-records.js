@@ -360,7 +360,7 @@ function loadStudent(index) {
 };
 
 function missionLinks() {
-    window.open("docs/"+_asNum+".pdf","_blank");
+    window.open("../docs/"+_asNum+".pdf","_blank");
 };
 
 function pop(close,open,close2,open2) {
