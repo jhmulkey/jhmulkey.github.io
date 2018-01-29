@@ -70,7 +70,7 @@ p {
     background-repeat: no-repeat;
 }
 
-.button, .backButton, #nameList p, .asmvButton, .asmvButton2 .numberButton, #dispPts, #dispInsig {
+.button, .backButton, #nameList p, .asmvButton, .asmvButton2, .numberButton, #dispPts, #dispInsig {
     cursor: pointer;
 }
 
