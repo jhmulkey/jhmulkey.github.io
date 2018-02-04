@@ -167,7 +167,7 @@ p {
     float: right;    
 }
 
-#missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawingPop, #studentPop {
+#missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawingPop, #randomPop, #studentPop {
     display: none;
 }
 
@@ -219,7 +219,7 @@ p {
     margin: 20px auto;
 }
 
-#winner {
+#winner, #picked {
     margin: 150px auto;
     font-size: 75px;
     font-weight: bold;

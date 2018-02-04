@@ -20,6 +20,7 @@ class Student {
         this.attendance = false;
         this.promoted = false;
         this.drawing = false;
+        this.random = false;
         this.as = {
             as11: 0,
             as12: 0,
@@ -499,6 +500,30 @@ function drawing() {
         storeNewData();
         backupNewData();
         pop("mainMenuPop","drawingPop");
+    };
+};
+
+function random() {
+    var eligibleNames = [];
+    for (i = 0; i < sl.length; i++) {
+        if (sl[i].attendance === true && sl[i].random === false) {
+            eligibleNames.push(sl[i])
+        };
+    };
+    if (eligibleNames.length == 0) {
+        for (i = 0; i < sl.length; i++) {
+            sl[i].random = false;
+        };
+        random();
+    } else {
+        var x = Math.floor(Math.random() * eligibleNames.length);
+        var picked = eligibleNames[x];
+        picked.random = true;
+        document.getElementById("randomFirst").innerHTML = picked.firstName;
+        document.getElementById("randomLast").innerHTML = picked.lastName;
+        storeNewData();
+        backupNewData();
+        pop("mainMenuPop","randomPop");
     };
 };
 

@@ -25,6 +25,7 @@
             <div class="button" onclick="loadPromotees()">Promotees</div>
             <div class="button" onclick="newStudent()">New Student</div>
             <div class="button" onclick="drawing()">Drawing</div>
+            <div class="button" onclick="pop('mainMenuPop','randomPop')">Random</div>
             <div class="button" onclick="pop('mainMenuPop','backupPop')">Backup</div>
             <div class="backButton" onclick="pop('mainMenuPop','mainPop')">&#8678;</div>
         </div>
@@ -55,6 +56,16 @@
             <div class="buttonArr">
             <div class="button" onclick="resetDrawing()">Reset Drawing</div>
             <div class="backButton" onclick="pop('drawingPop','mainMenuPop')">&#8678;</div>
+        </div>
+    </div>
+    
+    <div id="randomPop" class="pop">
+        <div id="picked">
+            <p id="randomFirst" onclick="random()">tap</p>
+            <p id="randomLast" onclick="random()">to pick</p>
+        </div>
+            <div class="buttonArr">
+            <div class="backButton" onclick="pop('randomPop','mainMenuPop')">&#8678;</div>
         </div>
     </div>
   
