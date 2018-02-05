@@ -582,6 +582,7 @@ function whatToLoad() {
             for (i = 0; i < sl.length; i++) {
                 sl[i].attendance = false;
                 sl[i].promoted = false;
+                sl[i].random = false;
             };
         } else {
             sortStudentList();
