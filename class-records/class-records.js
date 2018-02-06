@@ -627,6 +627,27 @@ function backupNewData() {
     document.getElementById("backupArray").innerHTML = localStorage.getItem("sl");
 };
 
+function SelectText(element) {
+    var text = document.getElementById(element);
+    var range; var selection;    
+    if (document.body.createTextRange) {
+        range = document.body.createTextRange();
+        range.moveToElementText(text);
+        range.select();
+    } else if (window.getSelection) {
+        selection = window.getSelection();        
+        range = document.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    };
+};
+
+document.onclick = function(e) {    
+    if (e.target.className === "select") {
+        SelectText('backupArray');
+    };
+};
 
 //***ONLOAD FUNCTION CALLS***//
 whatToLoad();
