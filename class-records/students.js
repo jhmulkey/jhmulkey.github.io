@@ -1,12 +1,6 @@
-var promotionSound = new Audio();
-promotionSound.src = "promotion.mp3";
-
-var feedbackSound = new Audio();
-feedbackSound.src = "feedback.mp3";
-
-var _ci; //current index
-var _asNum; // activity sheet number
-var _mvNum; // memory verse number
+var _ci;
+var _asNum;
+var _mvNum;
 
 class Student {
     constructor(first,last) {
@@ -227,7 +221,7 @@ var mvText = [
     "Eph 6:18<br/>praying at all times in the Spirit, with all prayer and supplication. To that end, keep alert with all perseverance, making supplication for all the saints," 
 ];
 
-//***ONLOAD FUNCTION CALLS***//
+//***ONLOAD***//
 document.getElementById("search").focus();
 sl = JSON.parse(localStorage.getItem("backup"));
 populateNames();
