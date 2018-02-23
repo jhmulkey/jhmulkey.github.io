@@ -70,6 +70,11 @@ a:hover .non-index-header {
     margin: 20px;
 }
 
+.nav-icon-wrapper:hover {
+	transform: scale(1.05);
+	transition: 0.1s;
+}
+
 .nav-icon-img-wrapper {
     width: 300px;
     height: 300px;
