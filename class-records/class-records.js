@@ -273,6 +273,7 @@ function asPoints(_asNum,x) {
     };
     storeNewData();
     backupNewData();
+    populateNames();
     feedbackSound.play();
     pop("asPointsPop","missionsPop");
 };
@@ -311,6 +312,7 @@ function mvPoints(_mvNum,x) {
     };
     storeNewData();
     backupNewData();
+    populateNames();
     feedbackSound.play();
     pop("mvPointsPop","missionsPop");
 };
@@ -464,7 +466,7 @@ function populateNames() {
                 loadStudent(i);
             };
         })(i);
-        var textNode = document.createTextNode(sl[i].fullName);
+        var textNode = document.createTextNode(sl[i].fullName + " (" + sl[i].points+")");
         elementNode.appendChild(textNode);
         document.getElementById("nameList").appendChild(elementNode);
     };  
