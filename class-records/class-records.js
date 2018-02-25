@@ -401,7 +401,7 @@ function asPop(asNum) {
 
 function mvPop(mvNum,index) {
     document.getElementById("missionsPop").style.display = "none";
-    document.getElementById("mvPointsPop").style.display = "block"; 
+    document.getElementById("mvPointsPop").style.display = "block";
     _mvNum = mvNum;
     document.getElementById("mvText").innerHTML = mvText[index];
     var mvPts = document.getElementsByClassName("mvPts");
@@ -411,6 +411,9 @@ function mvPop(mvNum,index) {
         } else {
             mvPts[i].style.cssText = "border: 1px solid white";
         };
+    };
+    if (_mvNum == "mv28" || _mvNum == "mv38" || _mvNum == "mv42" || _mvNum == "mv44") {
+        document.getElementById("fourPoints").style.display = "block";
     };
 };
 
