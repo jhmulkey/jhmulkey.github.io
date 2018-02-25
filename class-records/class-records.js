@@ -466,7 +466,7 @@ function populateNames() {
                 loadStudent(i);
             };
         })(i);
-        var textNode = document.createTextNode(sl[i].fullName + " (" + sl[i].points+")");
+        var textNode = document.createTextNode(sl[i].fullName + " " + sl[i].points);
         elementNode.appendChild(textNode);
         document.getElementById("nameList").appendChild(elementNode);
     };  
