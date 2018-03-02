@@ -39,6 +39,7 @@ var _turn = 0; // position on turn order track
 var _la; // stores latest activity for game restore
 var _laColor; // stores latest activity font color
 var _al; // stores current activity log for game restore
+var _knum; // knowledge tile number
 var _k = {
     k2: false,
     k3: false,
@@ -190,7 +191,7 @@ function restoreVariables() {
     _color = localStorage.getItem("_color");
     _rollct = parseInt(localStorage.getItem("_rollct"));
     _ph = localStorage.getItem("_ph");
-    _phfactor = parseInt(localStorage.getItem("_phfactor"));
+    _phFactor = parseInt(localStorage.getItem("_phFactor"));
     _rd = parseInt(localStorage.getItem("_rd"));
     _d1 = parseInt(localStorage.getItem("_d1"));
     _d2 = parseInt(localStorage.getItem("_d2"));
@@ -469,22 +470,47 @@ function pu_bm(i,building,main) {
 };
 
 function pu_km(i,number) {
+    _knum = number;
     var actions = [
         "more than 1 of each building type allowed per city",
+        "1 worker earned per mine at end of each phase in addition to the usual silverling",
+        "2 silverlings per goods sale, not just 1",
+        "1 worker per goods sale in addition to the usual silverling",
         "receive goods from 2 neighboring depots (not just 1) when ship placed",
         "silverlings may be used to buy tiles from any depot, not just the black depot",
-        "if you place an animal tile when knowledge tile #7 is on estate, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type on the same pasture",
+        "if you place an animal tile, add 1 extra point for the animal tile itself that you place plus 1 extra point for any other animal tiles of the same animal type on the same pasture",
         "worker tiles can adjust dice roll by up to +2 or -2",
         "any dice result may be adjusted +1 or -1 to place a building",
         "any dice result may be adjusted +1 or -1 to place a ship or animal tile",
         "any dice result may be adjusted +1 or -1 to place a castle, knowledge tile, or mine",
-        "any dice result may be adjusted +1 or -1 to acquire any new tile",
-        "always stay at the top of any stack on the turn order track (only players ahead of the stack will be ahead of you in player order)"
+        "any dice result may be adjusted +1 or -1 to acquire any new tile (excludes black depot)",
+        "1 silverling per dice trade in addition to the usual 2 workers",
+        "4 workers per dice trade instead o the usual 2",
+        "3 points at end of game for every goods type sold",
+        "4 points at end of game for every building of the type pictured on estate",
+        "4 points at end of game for every animal type on estate",
+        "1 point at end of game for every sold goods tile",
+        "2 points at end of game for every bonus tile earned",
+        "always stay at the top of any stack on the turn order track (only players ahead of the stack will be ahead of you in player order)",
+        "1 silverling may be used to buy 2 workers",
+        "4 points at end of game for every pleasure garden on estate"
     ];
     if (document.getElementById("pu-km").style.display != "block") {
         document.getElementById("pu-km").style.display = "block";
         document.getElementById("pu-km-tile").style.backgroundImage = "url(images/k"+number+".png)";
         document.getElementById("pu-km-p").innerHTML = actions[i];
+        
+        if (number == "2" || number == "3" || number == "4" || number == "13" || number == "14" || number == "15" || number == "16_23" || number == "24" || number == "25" || number == "26" || number == "e2b" || number == "e5") {
+            document.getElementById("k_add_remove").style.display = "block";
+            if (_k["k"+number] === false) {
+                document.getElementById("k_add_remove").innerHTML = "add to estate"
+            } else {
+                document.getElementById("k_add_remove").innerHTML = "remove from estate"
+            };
+        } else {
+            document.getElementById("k_add_remove").style.display = "none";
+        };
+        
         document.getElementById("pu-k").style.display = "none"
         scrollTo(0,0);
     } else {
@@ -949,34 +975,30 @@ function bonusTile(x,size) {
     window.scrollTo(0,0);
 };
 
-function addKnowledge(i) {
-    var values = ["k2", "k3", "k4", "k13", "k14", "k15", "k16_23", "k24", "k25", "k26", "ke2b", "ke5"];
-    var numbers = [2, 3, 4, 13, 14, 15, "16_23", 24, 25, 26, "e2b", "e5"];
-    if (_k[values[i]] === false) {
-        _k[values[i]] = true; localStorage.setItem("_k",JSON.stringify(_k));
-        document.getElementById("k" + numbers[i]).style.border = "3px dashed red";
+function addKnowledge() {
+    if (_k["k"+_knum] === false) {
+        _k["k"+_knum] = true; localStorage.setItem("_k",JSON.stringify(_k));
+        document.getElementById("k"+_knum).style.border = "3px dashed red";
         if (_k["ke2b"] === true) {
             document.getElementById("silver-for-workers").style.display = "block";
         };
-        var log = "knowledge tile " + numbers[i] + " added";
+        var log = "knowledge tile " + _knum + " added";
         latestActivity(log,"black");
         activityLog(log);
-        pointSound.play();
     } else {
-       if (window.confirm("Knowledge Tile " + numbers[i] + " is already on estate. Remove?")) {
-           _k[values[i]] = false;
-           document.getElementById("k" + numbers[i]).style.border = "2px solid black";
-           if (_k["ke2b"] === false) {
-               document.getElementById("silver-for-workers").style.display = "none";
-           };
-           var log = "knowledge tile " + numbers[i] + " removed";
-           latestActivity(log,"red");
-           activityLog(log,"red","transparent");
-        };
+       _k["k"+_knum] = false;
+       document.getElementById("k"+_knum).style.border = "2px solid black";
+       if (_k["ke2b"] === false) {
+           document.getElementById("silver-for-workers").style.display = "none";
+       };
+       var log = "knowledge tile " + _knum + " removed";
+       latestActivity(log,"red");
+       activityLog(log,"red","transparent");
     };
-    pop("k","flex");
+    pop("km","block");
+    pointSound.play();
 };
-
+    
 function totalScore() {
     
     localStorage.setItem("_ts",true);

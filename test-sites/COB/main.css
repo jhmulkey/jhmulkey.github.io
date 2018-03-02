@@ -447,7 +447,7 @@ input[type="range"] {
 }
 
 #k16_23 {
-    background-image: url(images/k16-23.png);
+    background-image: url(images/k16_23.png);
 }
 
 #k24 {
@@ -647,4 +647,7 @@ input[type="range"] {
         height: 80px;
         width: 80px;
     }   
+}
+#k_add_remove {
+    margin-bottom: 20px;
 }

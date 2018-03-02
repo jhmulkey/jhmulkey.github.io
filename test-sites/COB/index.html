@@ -63,7 +63,7 @@
         <div id="tap-to-select" onclick="chooseBoards()"></div>
         <div class="pu-flex-div">
             <div class="board-button-skip" onclick="pop('main','block','bs')">Continue</div>
-            <div class="board-button-skip" onclick="pop('bgs','block','bs')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('bgs','block','bs')">go back</div>
         </div>
     </div> 
     
@@ -77,7 +77,7 @@
             <div class="board-button" onclick="pop('ts','block','mm')">Resize Tiles</div>
             <div class="board-button" onclick="pageLinks(1)">Setup Info</div>
             <div class="board-button" onclick="pageLinks(2)">Expansion Info</div>
-            <div class="board-button-skip" onclick="pop('mm','block')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('mm','block')">go back</div>
         </div>
     </div> 
     
@@ -88,7 +88,7 @@
             <div class="board-button" onclick="setSilver()">Set Silverlings</div>
             <div class="board-button" onclick="setWorkers()">Set Workers</div>
             <div class="board-button" onclick="pop('ms','block','mm-s')">Set Mines</div>
-            <div class="board-button-skip" onclick="pop('mm','block','mm-s')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('mm','block','mm-s')">go back</div>
         </div>
     </div>
     
@@ -101,12 +101,12 @@
             <div class="tile-button three" onclick="setMines(3)"></div>
         </div>
         <div class="back-button-div">
-            <div class="board-button-skip" onclick="pop('mm-s','block','ms')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('mm-s','block','ms')">go back</div>
         </div>
     </div> 
     
     <div id="pu-al">
-        <div class="board-button-skip" onclick="pop('al','block')">&#8678;</div>
+        <div class="board-button-skip" onclick="pop('al','block')">go back</div>
         <h1 id="pu-al-h1">Activity Log</h1>
     </div>
     
@@ -120,7 +120,7 @@
             <div class="tile-button e" onclick="adjustPhase('E')"></div>
         </div>
         <div class="back-button-div">
-            <div class="board-button-skip" onclick="pop('mm','block','pe')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('mm','block','pe')">go back</div>
         </div>
     </div>   
         
@@ -142,7 +142,7 @@
             <div class="tile-button two" onclick="spendSilver(-2)"></div>
         </div>
         <div class="back-button-div">
-            <div class="board-button-skip" onclick="pop('si','block')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('si','block')">go back</div>
         </div>
     </div> 
        
@@ -154,7 +154,7 @@
             <div class="tile-button three" onclick="useWorkers(-3)"></div>
         </div>
         <div class="back-button-div">
-            <div class="board-button-skip" onclick="pop('w','block')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('w','block')">go back</div>
         </div>
     </div> 
     
@@ -173,7 +173,7 @@
             <div class="tile-button ten" onclick="sellGoods(10)"></div>
         </div>
         <div class="back-button-div">
-            <div class="board-button-skip" onclick="pop('sg','block')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('sg','block')">go back</div>
         </div>
     </div>
         
@@ -193,7 +193,7 @@
             <div class="tile-button ten" onclick="addGoods(10)"></div>
         </div>
         <div class="back-button-div">
-            <div class="board-button-skip" onclick="pop('sh','block')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('sh','block')">go back</div>
         </div>
     </div>
     
@@ -210,7 +210,7 @@
             <div class="tile-button eight" onclick="regionPoints(7)"></div>
         </div>
         <div class="back-button-div">
-            <div class="board-button-skip" onclick="pop('cr','block')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('cr','block')">go back</div>
         </div>
     </div>
        
@@ -229,14 +229,14 @@
             <div class="tile-button ten" onclick="animals(10)"></div>
         </div>
         <div class="back-button-div">
-            <div class="board-button-skip" onclick="pop('a','block')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('a','block')">go back</div>
         </div>
     </div>    
         
     <div id="pu-bm" class="pu">
         <h1 id="pu-bm-h1"></h1>
         <p id="pu-bm-p"></p>
-        <div class="board-button-skip" onclick="pop('bm','block')">OK</div>
+        <div class="board-button-skip" onclick="pop('bm','block')">go back</div>
     </div>
        
     <div id="pu-b" class="pu">
@@ -254,7 +254,7 @@
             <div id="monastaries" class="tile-button" onclick="tapPoints(5,'connecting monastaries')"></div>
         </div>
         <div class="back-button-div">
-            <div class="board-button-skip" onclick="pop('b','flex')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('b','flex')">go back</div>
         </div>
     </div>
     
@@ -262,9 +262,41 @@
     <div id="pu-km" class="pu">
         <div id="pu-km-tile" class="tile-button"></div>
         <p id="pu-km-p"></p>
-        <div class="board-button-skip" onclick="pop('km','block')">OK</div>
+        <div id="k_add_remove" class="board-button" onclick="addKnowledge()"></div>
+        <div class="board-button-skip" onclick="pop('km','block')">go back</div>
     </div>
     
+    <div id="pu-k" class="pu">
+        <div class="pu-flex-div">
+            <div id="k1" class="tile-button" onclick="pu_km(0,'1')"></div>
+            <div id="k2" class="tile-button" onclick="pu_km(1,'2')"></div>
+            <div id="k3" class="tile-button" onclick="pu_km(2,'3')"></div>
+            <div id="k4" class="tile-button" onclick="pu_km(3,'4')"></div>
+            <div id="k5" class="tile-button" onclick="pu_km(4,'5')"></div>
+            <div id="k6" class="tile-button" onclick="pu_km(5,'6')"></div>
+            <div id="k7" class="tile-button" onclick="pu_km(6,'7')"></div>
+            <div id="k8" class="tile-button" onclick="pu_km(7,'8')"></div>
+            <div id="k9" class="tile-button" onclick="pu_km(8,'9')"></div>
+            <div id="k10" class="tile-button" onclick="pu_km(9,'10')"></div>
+            <div id="k11" class="tile-button" onclick="pu_km(10,'11')"></div>
+            <div id="k12" class="tile-button" onclick="pu_km(11,'12')"></div>
+            <div id="k13" class="tile-button" onclick="pu_km(12,'13')"></div>
+            <div id="k14" class="tile-button" onclick="pu_km(13,'14')"></div>
+            <div id="k15" class="tile-button" onclick="pu_km(14,'15')"></div>
+            <div id="k16_23" class="tile-button" onclick="pu_km(15,'16_23')"></div>
+            <div id="k24" class="tile-button" onclick="pu_km(16,'24')"></div>
+            <div id="k25" class="tile-button" onclick="pu_km(17,'25')"></div>
+            <div id="k26" class="tile-button" onclick="pu_km(18,'26')"></div>
+            <div id="ke2a" class="tile-button" onclick="pu_km(19,'e2a')"></div>
+            <div id="ke2b" class="tile-button" onclick="pu_km(20,'e2b')"></div>
+            <div id="ke5" class="tile-button" onclick="pu_km(21,'e5')"></div>
+        </div>
+        <div class="back-button-div">
+            <div class="board-button-skip" onclick="pop('k','flex')">go back</div>
+        </div>
+    </div>
+    
+    <!--
     <div id="pu-k" class="pu">
         <div class="pu-flex-div">
             <div id="k1" class="tile-button" onclick="pu_km(0,'1')"></div>
@@ -291,13 +323,14 @@
             <div id="ke5" class="tile-button" onclick="addKnowledge(11)"></div>
         </div>
         <div class="back-button-div">
-            <div class="board-button-skip" onclick="pop('k','flex')">&#8678;</div>
+            <div class="board-button-skip" onclick="pop('k','flex')">go back</div>
         </div>
     </div>
+    -->
     
     <div id="pu-ts">
         <input id="tile-sizer" oninput="tileResize()" type="range" min="75" max="200" value="75">
-        <div class="board-button-skip" onclick="pop('main','block','ts')">OK</div>
+        <div class="board-button-skip" onclick="pop('main','block','ts')">go back</div>
         <div class="pu-flex-div">
             <div class="tile-button"></div>
             <div class="tile-button"></div>
