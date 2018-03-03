@@ -72,6 +72,7 @@
         <div class="pu-flex-div">
             <div class="board-button" onclick="pop('al','block','mm')">Activity Log</div>
             <div id="set" class="board-button" onclick="pop('mm-s','block','mm')">Set...</div>
+            <div id="set" class="board-button" onclick="pop('mm-a','block','mm')">Adjust...</div>
             <div class="board-button" onclick="zeroVariables()">Reset Game</div>
             <div id="undo" class="board-button" onclick="undo()">Undo Last Action</div>
             <div class="board-button" onclick="pop('ts','block','mm')">Resize Tiles</div>
@@ -89,6 +90,15 @@
             <div class="board-button" onclick="setWorkers()">Set Workers</div>
             <div class="board-button" onclick="pop('ms','block','mm-s')">Set Mines</div>
             <div class="board-button-skip" onclick="pop('mm','block','mm-s')">go back</div>
+        </div>
+    </div>
+    
+    <div id="pu-mm-a" class="pu">
+        <div class="pu-flex-div">
+            <div class="board-button" onclick="adjustPoints()">Adjust Points</div>
+            <div class="board-button" onclick="adjustSilver()">Adjust Silverlings</div>
+            <div class="board-button" onclick="adjustWorkers()">Adjust Workers</div>
+            <div class="board-button-skip" onclick="pop('mm','block','mm-a')">go back</div>
         </div>
     </div>
     
@@ -263,7 +273,7 @@
         <div id="pu-km-tile" class="tile-button"></div>
         <p id="pu-km-p"></p>
         <div id="k_add_remove" class="board-button" onclick="addKnowledge()"></div>
-        <div class="board-button-skip" onclick="pop('km','block')">go back</div>
+        <div class="board-button-skip" onclick="pop('k','block','km')">go back</div>
     </div>
     
     <div id="pu-k" class="pu">
@@ -292,7 +302,7 @@
             <div id="ke5" class="tile-button" onclick="pu_km(21,'e5')"></div>
         </div>
         <div class="back-button-div">
-            <div class="board-button-skip" onclick="pop('k','flex')">go back</div>
+            <div class="board-button-skip" onclick="pop('main','block','k')">go back</div>
         </div>
     </div>
     
