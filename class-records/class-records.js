@@ -16,7 +16,7 @@ class Student {
         this.points = 0;
         this.rank = 0;
         this.rankName = "New Recruit"
-        this.rankNameAbbr = "New Recruit"
+        this.rankNameAbbr = "NR"
         this.attendance = false;
         this.promoted = false;
         this.drawing = false;
@@ -213,7 +213,7 @@ function setRankName() {
         "General of the Army",
     ];
     var rankNamesAbbr = [
-        "New Recruit",
+        "NR",
         "PVT",
         "PFC",
         "CPL",
@@ -466,7 +466,7 @@ function populateNames() {
                 loadStudent(i);
             };
         })(i);
-        var textNode = document.createTextNode(sl[i].fullName + " " + sl[i].points);
+        var textNode = document.createTextNode(sl[i].rankNameAbbr + " " + sl[i].fullName + " " + sl[i].points);
         elementNode.appendChild(textNode);
         document.getElementById("nameList").appendChild(elementNode);
     };  
