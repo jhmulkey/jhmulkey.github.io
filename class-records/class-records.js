@@ -424,7 +424,7 @@ function attendanceList(log) {
     var textNode = document.createTextNode(log);
     elementNode.appendChild(textNode);
     document.getElementById("attList").appendChild(elementNode);
-}
+};
 
 function loadAttendees() {
     document.getElementById("attList").innerHTML = "";
@@ -443,8 +443,24 @@ function promotionList(log) {
     var elementNode = document.createElement("p");
     var textNode = document.createTextNode(log);
     elementNode.appendChild(textNode);
+    (function(i){
+        elementNode.onclick = function () {
+            togglePromotion(i);
+        };
+    })(i);
     document.getElementById("promoList").appendChild(elementNode);
-}
+};
+
+function togglePromotion(x) {
+    if (sl[x].promoted === true) {
+        sl[x].promoted = false;
+    } else {
+        sl[x].promoted = true;
+    }
+    storeNewData();
+    backupNewData();
+    feedbackSound.play();
+};
 
 function loadPromotees() {
     document.getElementById("promoList").innerHTML = "";
@@ -508,6 +524,20 @@ function drawing() {
     };
 };
 
+function validateRandom() {
+    var count = 0;
+    for (i = 0; i < sl.length; i++) {
+        if (sl[i].attendance === true) {
+            count++
+        };
+    };
+    if (count > 0) {
+        random();
+    } else {
+        alert("No attendees");
+    };
+};
+
 function random() {
     var eligibleNames = [];
     for (i = 0; i < sl.length; i++) {
@@ -533,7 +563,7 @@ function random() {
 };
 
 function resetDrawing() {
-    if (confirm("Are you sure you want to reset quarterly drawing stats?")) {
+    if (confirm("Are you sure you want to reset drawing stats?")) {
         for (i = 0; i < sl.length; i++) {
             sl[i].drawing = false;
         };
@@ -586,7 +616,6 @@ function whatToLoad() {
             populateNames();
             for (i = 0; i < sl.length; i++) {
                 sl[i].attendance = false;
-                sl[i].promoted = false;
                 sl[i].random = false;
             };
         } else {
@@ -610,7 +639,6 @@ function loadBackup() {
             populateNames();
             for (i = 0; i < sl.length; i++) {
                 sl[i].attendance = false;
-                sl[i].promoted = false;
             };
             pop("wtlPop","mainPop");
         };
