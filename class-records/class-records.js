@@ -456,7 +456,8 @@ function togglePromotion(x) {
         sl[x].promoted = false;
     } else {
         sl[x].promoted = true;
-    }
+    };
+    loadPromotees();
     storeNewData();
     backupNewData();
     feedbackSound.play();

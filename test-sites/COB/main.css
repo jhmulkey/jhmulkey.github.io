@@ -204,6 +204,7 @@ input[type="range"] {
     height: 20px;
     background-color: rgba(255,255,255,0.5);
     font-weight: bold;
+    cursor: pointer;
 }
 .goods-bonus-turn-flex-div {
     height: 90px;

@@ -356,14 +356,14 @@ function pop(open,display,close1,close2) {
 };
 function pu_bm(i,building,main) {
     var actions = [
-        "take 1 ship or animal from any depot except black depot",
-        "take 1 mine, castle, or knowledge tile from any depot except black depot",
-        "take 1 building from any depot except black depot",
-        "add any tile from your storage spaces to your estate",
-        "take any action you'd like as if you had a third dice with any number you choose",
-        "functions as any building you want at placement AND as any building you want when scoring knowledge tiles 16-23",
-        "take any action using the number of the white die (may be adjusted using worker tiles)",
-        "use to help complete any region; multiple cloisters allowed in any region; increases region size by 1 (region sizes may not exceed 8)"
+        "Take 1 ship or animal from any depot except black depot",
+        "Take 1 mine, castle, or knowledge tile from any depot except black depot",
+        "Take 1 building from any depot except black depot",
+        "Add any tile from your storage spaces to your estate",
+        "Take any action you'd like as if you had a third dice with any number you choose",
+        "Functions as any building you want at placement AND as any building you want when scoring knowledge tiles 16-23",
+        "Take any action using the number of the white die (may be adjusted using worker tiles)",
+        "Use to help complete any region; multiple cloisters allowed in any region; increases region size by 1 (region sizes may not exceed 8)"
     ];
     if (document.getElementById("pu-bm").style.display != "block") {
         document.getElementById("pu-bm").style.display = "block";
@@ -381,18 +381,18 @@ function pu_bm(i,building,main) {
 function pu_km(i,number) {
     _knum = number;
     var actions = [
-        "more than 1 of each building type allowed per city",
+        "More than 1 of each building type allowed per city",
         "1 worker earned per mine at end of each phase in addition to the usual silverling",
         "2 silverlings per goods sale, not just 1",
         "1 worker per goods sale in addition to the usual silverling",
-        "receive goods from 2 neighboring depots (not just 1) when placing ship",
-        "silverlings may be used to buy tiles from any depot, not just the black depot",
-        "after placing an animal tile, in addition to the usual points earned, add 1 extra point for the tile you placed plus 1 extra point for any other tiles of the same animal type in that pasture",
-        "worker tiles can be used to adjust die by +2 or -2",
-        "any die may be adjusted by +1 or -1 to place a building",
-        "any die may be adjusted by +1 or -1 to place a ship or animal tile",
-        "any die may be adjusted by +1 or -1 to place a castle, knowledge tile, or mine",
-        "any die may be adjusted by +1 or -1 to acquire any new tile (excludes black depot)",
+        "Receive goods from 2 neighboring depots (not just 1) when placing ship",
+        "Silverlings may be used to buy tiles from any depot, not just the black depot",
+        "After placing an animal tile, in addition to the usual points earned, add 1 extra point for the tile you placed plus 1 extra point for any other tiles of the same animal type in that pasture",
+        "Worker tiles can be used to adjust die by +2 or -2",
+        "Any die may be adjusted by +1 or -1 to place a building",
+        "Any die may be adjusted by +1 or -1 to place a ship or animal tile",
+        "Any die may be adjusted by +1 or -1 to place a castle, knowledge tile, or mine",
+        "Any die may be adjusted by +1 or -1 to acquire any new tile (excludes black depot)",
         "1 silverling per dice trade in addition to the usual 2 workers",
         "4 workers per dice trade instead of the usual 2",
         "3 points at end of game for every goods type sold",
@@ -400,7 +400,7 @@ function pu_km(i,number) {
         "4 points at end of game for every animal type on estate",
         "1 point at end of game for every sold goods tile",
         "2 points at end of game for every bonus tile earned",
-        "always stay at the top of any stack on the turn order track (i.e. other players must pass your spot on the track in order to be ahead of you in player order)",
+        "Always stay at the top of any stack on the turn order track (i.e. other players must pass your spot on the track in order to be ahead of you in player order)",
         "1 silverling may be used to buy 2 workers",
         "4 points at end of game for every pleasure garden on estate"
     ];
@@ -411,9 +411,9 @@ function pu_km(i,number) {
         if (number == "2" || number == "3" || number == "4" || number == "13" || number == "14" || number == "15" || number == "16_23" || number == "24" || number == "25" || number == "26" || number == "e2b" || number == "e5") {
             document.getElementById("k_add_remove").style.display = "block";
             if (_k["k"+number] === false) {
-                document.getElementById("k_add_remove").innerHTML = "add to estate"
+                document.getElementById("k_add_remove").innerHTML = "Add to Estate"
             } else {
-                document.getElementById("k_add_remove").innerHTML = "remove from estate"
+                document.getElementById("k_add_remove").innerHTML = "Remove from Estate"
             };
         } else {
             document.getElementById("k_add_remove").style.display = "none";

@@ -27,7 +27,7 @@
             <div class="button" onclick="drawing()">Drawing</div>
             <div class="button" onclick="pop('mainMenuPop','randomPop')">Random</div>
             <div class="button" onclick="pop('mainMenuPop','backupPop')">Backup</div>
-            <div class="backButton" onclick="pop('mainMenuPop','mainPop')">&#8678;</div>
+            <div class="backButton" onclick="pop('mainMenuPop','mainPop')">Go Back</div>
         </div>
   </div>
   
@@ -38,7 +38,7 @@
   </div>
 
     <div id="studentPop" class="pop">
-        <div class="backButton" onclick="pop('studentPop','mainPop','missionsPop')">&#8678;</div>
+        <div class="backButton" onclick="pop('studentPop','mainPop','missionsPop')">Go Back</div>
         <p id="dispRankName"></p>
         <p id="dispName"></p>
         <div id="dispInsig"></div>
@@ -55,7 +55,7 @@
         </div>
             <div class="buttonArr">
             <div class="button" onclick="resetDrawing()">Reset Drawing</div>
-            <div class="backButton" onclick="pop('drawingPop','mainMenuPop')">&#8678;</div>
+            <div class="backButton" onclick="pop('drawingPop','mainMenuPop')">Go Back</div>
         </div>
     </div>
     
@@ -65,7 +65,7 @@
             <p id="randomLast" onclick="validateRandom()">to pick</p>
         </div>
             <div class="buttonArr">
-            <div class="backButton" onclick="pop('randomPop','mainMenuPop')">&#8678;</div>
+            <div class="backButton" onclick="pop('randomPop','mainMenuPop')">Go Back</div>
         </div>
     </div>
   
@@ -153,7 +153,7 @@
   </div>
   
     <div id="asPointsPop" class="pop">
-      <div class="backButton" onclick="pop('asPointsPop','missionsPop')">&#8678;</div>
+      <div class="backButton" onclick="pop('asPointsPop','missionsPop')">Go Back</div>
       <div class="flex">
           <div class="numberButton asPts" onclick="asPoints(_asNum,1)">1</div>
           <div class="numberButton asPts" onclick="asPoints(_asNum,2)">2</div>
@@ -165,7 +165,7 @@
     </div>
    
     <div id="mvPointsPop" class="pop">
-      <div class="backButton" onclick="pop('mvPointsPop','missionsPop')">&#8678;</div>
+      <div class="backButton" onclick="pop('mvPointsPop','missionsPop')">Go Back</div>
       <div class="flex">
           <div class="numberButton mvPts" onclick="mvPoints(_mvNum,1)">1</div>
           <div class="numberButton mvPts" onclick="mvPoints(_mvNum,2)">2</div>
@@ -182,18 +182,18 @@
     </div>
   
     <div id="promoListPop" class="pop">
-       <div class="backButton" onclick="pop('promoListPop','mainMenuPop')">&#8678;</div>
+       <div class="backButton" onclick="pop('promoListPop','mainMenuPop')">Go Back</div>
        <div id="promoList"></div>
     </div>
     
     <div id="attListPop" class="pop">
-       <div class="backButton" onclick="pop('attListPop','mainMenuPop')">&#8678;</div>
+       <div class="backButton" onclick="pop('attListPop','mainMenuPop')">Go Back</div>
        <p id="attCount"></p>
        <div id="attList"></div>
     </div>
    
     <div id="backupPop" class="pop">
-      <div class="backButton" onclick="pop('backupPop','mainMenuPop')">&#8678;</div>
+      <div class="backButton" onclick="pop('backupPop','mainMenuPop')">Go Back</div>
       <div id="backupArray" class="select"></div>
     </div>
     
