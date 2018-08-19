@@ -294,20 +294,6 @@ a:active .contact-icon-wrapper {
         font-size: 45px;
     }
 }
-
-@media screen and (max-width: 735px) {
-    .mt {
-        display: none;
-    }
-    
-    .mt-mobile {
-        display: inline-block;
-    }
-    
-    .mt-mobile-mssg, .mt-mobile-br {
-        display: block;
-    }
-}
     
 @media screen and (max-width: 480px) {
     header {
