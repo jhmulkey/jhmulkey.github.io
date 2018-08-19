@@ -16,7 +16,7 @@
 /* global styles */
 html {
     /*background: url("../images/home-background-1b.jpg") no-repeat center center fixed;*/
-    background-color: black;
+    background-color: #222;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
