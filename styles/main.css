@@ -93,6 +93,11 @@ a:hover .non-index-header {
     background-size: 300px 300px;
 }
 
+.songs-icon {
+    background-image: url("../images/nav-songs.png");
+    background-size: 300px 300px;
+}
+
 .handbook-icon {
     background-image: url("../images/nav-handbook.png");
     background-size: 300px 300px;
@@ -177,6 +182,12 @@ a:active .contact-icon-wrapper {
 
 .mission-number {
     background-color: #FFC001;
+    font-family: army2, Tahoma, serif;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.song-title {
     font-family: army2, Tahoma, serif;
     font-size: 40px;
     font-weight: bold;
