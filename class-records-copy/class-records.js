@@ -98,9 +98,6 @@ class Student {
 };
 
 sl = [
-    new Student("Eliza Grace","Drechsler"),
-    new Student("Annabelle","Crabtree"),
-    new Student("Lazaro","Setian"),
 ]; //student list
 
 function newStudent() {
