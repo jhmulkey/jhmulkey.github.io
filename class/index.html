@@ -1,0 +1,539 @@
+<!doctype html>
+<html ontouch>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+    <link rel=”shortcut icon” href =../“favicon.ico”>
+    <title>class</title>
+</head>
+<body>
+<div id="master-wrapper">
+
+  <div id="mainPop" class="pop">
+        <div id="topMenuContainer">
+            <div class="textNavigationButton" onclick="pop('mainPop','mainMenuPop')">Menu</div>
+            <div class="textNavigationButton" onclick="pop('mainPop','logPop');loadTodaysDate()">Log</div>
+            <!-- <div id="mainMenuButton" onclick="pop('mainPop','mainMenuPop')">Main Menu</div> -->
+            <div class="roundButton" onclick="pop('mainPop','newStudentPop')">&#10010;</div>
+        </div>
+        <input id="search" type="text" placeholder="search names" oninput="searchNames()"/>
+        <div id="nameList"></div>
+  </div>
+
+  <div id="attendance2Pop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('attendance2Pop','studentPop')"><span>f</span></div>
+    </div>
+    <input id="search2" type="text" placeholder="search names" oninput="searchNames2()"/>
+    <div id="nameList2"></div>
+  </div>
+
+  <div id="namesByPointsPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('namesByPointsPop','mainMenuPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div id="nameListByPoints"></div>
+  </div>
+  
+  <div id="mainMenuPop" class="pop">
+        <div class="buttonArr">
+            <div class="navigationButtonContainer">
+              <div class="backButton" onclick="goHome()"><span>f</span></div>
+              <div class="homeButton" onclick="goHome()"><span>5</span></div>
+            </div>
+            <div class="button" onclick="loadAttendees()">Attendance</div>
+            <div class="button" id="promotionButton" onclick="pop('mainMenuPop','promoListPop')">Promotions</div>
+            <div class="button" id="birthdayButton" onclick="pop('mainMenuPop','bdayPop')">Birthdays</div>
+            <div class="button" onclick="pop('mainMenuPop','namesByPointsPop'); populateNamesByPoints()">Sort by Points</div>
+            <div class="button" onclick="pop('mainMenuPop','drawingPop')">Drawing</div>
+            <div class="button" onclick="pop('mainMenuPop','randomPop')">Random</div>
+            <div class="button" onclick="teams()">Teams</div>
+            <div class="button" id="teacherNotesButton" onclick="pop('mainMenuPop','teacherNotesPop'); populateTeacherNotes()">Notes</div>
+            <div class="button" onclick="pop('mainMenuPop','backupPop')">Backup</div>
+            <div class="button" onclick="pop('mainMenuPop','advancedOptionsPop')">Advanced</div>
+        </div>
+  </div>
+
+  <div id="teamsListPop" class="pop">
+
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('teamsListPop','mainMenuPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    
+    <div id="teamListContainer">
+
+      <div id=team1ListDiv>
+        <p>Team1</p>
+        <div id="team1List"></div>
+      </div>
+
+      <div id=team2ListDiv>
+        <p>Team2</p>
+        <div id="team2List"></div>
+      </div>
+
+    </div>
+
+    <div class="button" onclick="loadGame()">Play Game</div>
+    <div class="button" onclick="actionAlert('Generate new teams and start new game?','teamsListPop',false,createTeams)">Reset Game</div>
+
+  </div>
+
+
+  <div id="playGamePop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('playGamePop','teamsListPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div id="teamPointsContainer">
+
+      <div>
+        <p>Team 1</p>
+        <div id="team1Score" onclick="adjustGameScore(1)">0</div>
+      </div>
+
+      <div>
+        <p>Team 2</p>
+        <div id="team2Score" onclick="adjustGameScore(2)">0</div>
+      </div>
+
+    </div>
+
+    <p id="currentPlayer"></p>
+
+    <div id="gamePointButtonsContainer">
+      <div class="gamePointButton" onclick="gameScorePoints(1)">1</div>
+      <div class="gamePointButton" onclick="gameScorePoints(2)">2</div>
+      <div class="gamePointButton" onclick="gameScorePoints(3)">3</div>
+      <div class="gamePointButton" onclick="gameScorePoints(4)">4</div>
+      <div class="gamePointButton" onclick="gameScorePoints(5)">5</div>
+      <div class="gamePointButton" onclick="gameScorePoints(6)">6</div>
+      <div class="gamePointButton" onclick="gameScorePoints(7)">7</div>
+      <div class="gamePointButton" onclick="gameScorePoints(8)">8</div>
+      <div class="gamePointButton" onclick="gameScorePoints(9)">9</div>
+      <div class="gamePointButton" onclick="gameScorePoints(10)">10</div>
+    </div>
+
+  </div>
+
+  <div id="advancedOptionsPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('advancedOptionsPop','mainMenuPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> Fast student entry</label><br>
+    <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> Fast student edit</label><br>
+    <label class="checkboxLabel"><input type="checkbox" id="randomAttendanceCheck" class="checkbox" onclick="toggleRandomAttendance()"/> Randomize attendance</label><br>
+  </div>
+
+  <div id="infoAlertPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="infoAlert()"><span>f</span></div>
+    </div>
+      <p id="infoAlertTitle">Error</p>
+      <p id="infoAlertMessage"></p>
+  </div>
+
+  <div id="actionAlertPop" class="pop">
+    <p id="actionAlertMessage"></p>
+    <div class="optionButtonContainer">
+      <div class="cancelButton" onclick="actionAlert(false,false,false,false,true)">CANCEL</div>
+      <div class="okButton" onclick="actionAlert()">OK</div>
+    </div>
+  </div>
+
+  <div id="dataInputAlertPop" class="pop">
+    <p id="dataInputAlertMessage"></p>
+    <input id="dataInputTextField" type="text"/>
+    <div id="enterReasonDiv">
+      <p>Reason (required):</p>
+      <textarea id="enterReasonTextField" rows="10" cols="30"></textarea>
+    </div>
+    <div class="optionButtonContainer">
+      <div class="cancelButton" onclick="dataInputAlert(false,false,false,false,false,true)">CANCEL</div>
+      <div class="okButton" onclick="dataInputAlert()">OK</div>
+    </div>
+  </div>
+
+  <div id="missionVisibilityPop" class="pop buttonArr">
+      <div class="navigationButtonContainer">
+        <div class="backButton" onclick="pop('missionVisibilityPop','studentPop',false,'missionsPop')"><span>f</span></div>
+        <div class="homeButton" onclick="goHome()"><span>5</span></div>
+      </div>
+      <label class="checkboxLabel"><input type="checkbox" id="check1" class="checkbox" onclick="toggleMissions('01')"/> Class Intro / Ps 139:17-18</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check2" class="checkbox" onclick="toggleMissions('02')"/> John Intro / Jn 20:30-31</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check3" class="checkbox" onclick="toggleMissions('03')"/> John 1 / Jn 1:1-2</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check4" class="checkbox" onclick="toggleMissions('04')"/> John 2 / Jn 1:3</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check5" class="checkbox" onclick="toggleMissions('05')"/> John 3 / Jn 1:4-5</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check6" class="checkbox" onclick="toggleMissions('06')"/> John 4 / Jn 1:6-8</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check7" class="checkbox" onclick="toggleMissions('07')"/> John 5 / Jn 1:9-11</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check8" class="checkbox" onclick="toggleMissions('08')"/> John 6 / Jn 1:12-13</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check9" class="checkbox" onclick="toggleMissions('09')"/> John 7 / Jn 1:14</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check10" class="checkbox" onclick="toggleMissions('10')"/> John 8 / Jn 1:15</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check11" class="checkbox" onclick="toggleMissions('11')"/> John 9 / Jn 1:16-17</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check12" class="checkbox" onclick="toggleMissions('12')"/> John 1-9 Review / Jn 1:18</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check13" class="checkbox" onclick="toggleMissions('13')"/> John 10 / Phil 2:5-6</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check14" class="checkbox" onclick="toggleMissions('14')"/> John 11 / Phil 2:7</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check15" class="checkbox" onclick="toggleMissions('15')"/> John 12 / Phil 2:8</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check16" class="checkbox" onclick="toggleMissions('16')"/> John 13 / Phil 2:9</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check17" class="checkbox" onclick="toggleMissions('17')"/> John 14 / Phil 2:10-11</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check18" class="checkbox" onclick="toggleMissions('18')"/> John 15 / Rom 8:31</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check19" class="checkbox" onclick="toggleMissions('19')"/> John 16 / Rom 8:32</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check20" class="checkbox" onclick="toggleMissions('20')"/> John 17 / Rom 8:33</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check21" class="checkbox" onclick="toggleMissions('21')"/> John 18 / Rom 8:34</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check22" class="checkbox" onclick="toggleMissions('22')"/> John 19 / Rom 8:35</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check23" class="checkbox" onclick="toggleMissions('23')"/> John 20 / Rom 8:36</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check24" class="checkbox" onclick="toggleMissions('24')"/> John 21 / Rom 8:37</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check25" class="checkbox" onclick="toggleMissions('25')"/> John 10-21 Review / Rom 8:38-39</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check26" class="checkbox" onclick="toggleMissions('26')"/> Armor Intro / Eph 6:10-11/</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check27" class="checkbox" onclick="toggleMissions('27')"/> Belt / Eph 6:12</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check28" class="checkbox" onclick="toggleMissions('28')"/> Breastplate / Eph 6:13</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check29" class="checkbox" onclick="toggleMissions('29')"/> Shoes / Eph 6:14-15</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check30" class="checkbox" onclick="toggleMissions('30')"/> Shield / Eph 6:16</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check31" class="checkbox" onclick="toggleMissions('31')"/> Helmet / Eph 6:17</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check32" class="checkbox" onclick="toggleMissions('32')"/> Sword / Eph 6:18</label><br>
+  </div>
+
+  <div id="wtlPop" class="pop buttonArr">
+      <p>Load localstorage or backup.js?</p>
+      <div class="button" onclick="loadLS()">localstorage</div>
+      <div class="button" onclick="actionAlert('This action may potentially overwrite more current data. Are you sure?','wtlPop',false,loadBackup)">backup.js</div>
+  </div>
+
+  <div id="logPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('logPop','mainPop')"><span>f</span></div>
+      <div class="textNavigationButton" onclick="window.print()">Print</div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <p id="todaysDate"></p>
+    <input id="searchLog" type="text" placeholder="search log" oninput="searchLog()"/>
+    <div id="log"></div>
+  </div>
+
+  <div id="studentPop" class="pop">
+      <div class="navigationButtonContainer">
+        <div class="backButton" onclick="goHome()"><span>f</span></div>
+        <div class="homeButton" onclick="goHome()"><span>5</span></div>
+      </div>
+      <span id="dispRankName"></span> <span id="dispPts"></span><br>
+      <p id="dispName" onclick="attendance()"></p>
+      <span id="dispBday"></span><br><br>
+      <div id="penContainer">
+          <div class="studentPopButtons" id="statsButton">stats</div>
+          <div class="studentPopButtons" id="editButton" onclick="populateStudentFields()">edit info</div>
+          <div class="studentPopButtons" id="notesButton" onclick="pop('studentPop','notesPop','missionsPop','notesList'); populateNotes()">notes</div>
+          <div class="studentPopButtons" id="photoButton" onclick="togglePhoto(true)">photo</div>
+          <div class="studentPopButtons" id="attendance2Button" onclick="populateNames2()">Attendance</div>
+          <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields()">email</div>
+      </div>
+  </div>
+
+  <div id="newStudentPop" class="pop">
+    <p>Student Info</p>
+    <input class="textInputField1 focus" id="newFirstAndLast" type="text" placeholder="first/last"/>
+    <div class="genderAndBdayContainer">
+      <input class="textInputField2" id="newGender" type="text" placeholder="M or F"/>
+      <input class="textInputField2" id="newBday" type="text" placeholder="month/day"/>
+    </div>
+    <input class="textInputField1" id="newEmail1" type="text" placeholder="primary email"/>
+    <input class="textInputField1" id="newEmail2" type="text" placeholder="secondary email"/>
+    <input class="textInputField1" id="newParent1" type="text" placeholder="parentfirst/last/phone"/>
+    <input class="textInputField1" id="newParent2" type="text" placeholder="parentfirst/last/phone"/>
+    <p>Note</p>
+    <textarea id="initialNote" rows="10" cols="30"></textarea>
+    <div class="optionButtonContainer">
+      <div class="cancelButton" onclick="pop('newStudentPop','mainPop'); clearStudentFields()">CANCEL</div>
+      <div class="okButton" onclick="newStudent()">OK</div>
+    </div>
+  </div>
+
+  <div id="editStudentPop" class="pop">
+    <p>Student Info</p>
+    <input class="textInputField1" id="editFirstAndLast" type="text" placeholder="first/last"/>
+    <div class="genderAndBdayContainer">
+      <input class="textInputField2 focus" id="editGender" type="text" placeholder="M or F"/>
+      <input class="textInputField2" id="editBday" type="text" placeholder="month/day"/>
+    </div>
+    <input class="textInputField1" id="editEmail1" type="text" placeholder="primary email"/>
+    <input class="textInputField1" id="editEmail2" type="text" placeholder="secondary email"/>
+    <input class="textInputField1" id="editParent1" type="text" placeholder="parentfirst/last/phone"/>
+    <input class="textInputField1" id="editParent2" type="text" placeholder="parentfirst/last/phone"/>
+    <div class="optionButtonContainer">
+      <div class="cancelButton" onclick="pop('editStudentPop','studentPop',false,'missionsPop'); clearStudentFields()">CANCEL</div>
+      <div class="deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?','editStudentPop',false,deleteStudent)">DELETE</div>
+      <div class="okButton" onclick="editStudent()">OK</div>
+    </div>
+    <div class="button" id="setPoints" onclick="dataInputAlert('Set points to:','editStudentPop',false,true,setPoints)">Set Points</div>
+  </div>
+
+  <div id="notesPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('notesPop','studentPop','editNotePop','missionsPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+      <div class="roundButton" id="addNoteButton" onclick="pop('notesPop','addNotePop',false,'addNote')">&#10010;</div>
+    </div>
+    <div id="notesList"></div>
+  </div>
+
+  <div id="teacherNotesPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('teacherNotesPop','mainMenuPop','editTeacherNotePop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+      <div class="roundButton" id="addTeacherNoteButton" onclick="pop('teacherNotesPop','addTeacherNotePop',false,'addTeacherNote')">&#10010;</div>
+    </div>
+    <div id="teacherNotesList"></div>
+  </div>
+
+  <div id="addNotePop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('addNotePop','notesPop',false,'notesList')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <textarea id="addNote" rows="10" cols="30"></textarea>
+    <div class="optionButtonContainer">
+      <div class="cancelButton" onclick="pop('addNotePop','notesPop',false,'notesList')">CANCEL</div>
+      <div class="okButton" onclick="addNote()">OK</div>
+    </div>
+  </div>
+
+  <div id="addTeacherNotePop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('addTeacherNotePop','teacherNotesPop','addTeacherNote','teacherNotesList')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <textarea id="addTeacherNote" rows="10" cols="30"></textarea>
+    <div class="optionButtonContainer">
+      <div class="cancelButton" onclick="pop('addTeacherNotePop','teacherNotesPop','addTeacherNote','teacherNotesList')">CANCEL</div>
+      <div class="okButton" onclick="addTeacherNote()">OK</div>
+    </div>
+  </div>
+
+  <div id="editNotePop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('editNotePop','notesPop','editNote','notesList')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <textarea id="editNote" rows="10" cols="30"></textarea>
+    <div class="optionButtonContainer">
+      <div class="cancelButton" onclick="pop('editNotePop','notesPop','editNote','notesList')">CANCEL</div>
+      <div class="deleteButton" id="deleteNoteButton" onclick="actionAlert('Are you sure you want to delete this note?','editNotePop',false,deleteNote)">DELETE</div>
+      <div class="okButton" onclick="editNote()">OK</div>
+  </div>
+  </div>
+
+  <div id="editTeacherNotePop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('editTeacherNotePop','teacherNotesPop','editTeacherNote','teacherNotesList')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <textarea id="editTeacherNote" rows="10" cols="30"></textarea>
+    <div class="optionButtonContainer">
+      <div class="cancelButton" onclick="pop('editTeacherNotePop','teacherNotesPop','editTeacherNote','teacherNotesList')">CANCEL</div>
+      <div class="deleteButton" id="deleteTeacherNoteButton" onclick="actionAlert('Are you sure you want to delete this note?','editTeacherNotePop',false,deleteTeacherNote)">DELETE</div>
+      <div class="okButton" onclick="editTeacherNote()">OK</div>
+    </div>
+  </div>
+
+  <div id="drawingPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('drawingPop','mainMenuPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div class="randomName" onclick="drawing()">
+        <p id="winnerName">tap here<br>to pick</p>
+    </div>
+  </div>
+  
+  <div id="randomPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('randomPop','mainMenuPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div class="randomName" onclick="random()">
+        <p id="randomName">tap here<br>to pick</p>
+    </div>
+    <div id="randomFilter">
+      <form>
+        <input class="radioButton" type="radio" id="all" name="randomFilter" value="All" checked>
+        <label for="all">All</label><br>
+        <input class="radioButton" type="radio" id="boys" name="randomFilter" value="Boys">
+        <label for="boys">Boys</label><br>
+        <input class="radioButton" type="radio" id="girls" name="randomFilter" value="Girls">
+        <label for="girls">Girls</label><br><br>
+      </form> 
+    </div>
+  </div>
+  
+  <div id="missionsPop" class="pop">
+      <div id="asPop">
+        <div class="asmvHeader" onclick="pop('studentPop','missionVisibilityPop','missionsPop')">Activity<br>Sheets</div>
+        <div id="as33Pop" class="asButton2 w33" onclick="asPop('as33',6)">Armor<br>Review</div>
+        <div id="as32Pop" class="asButton w32" onclick="asPop('as32')">Sword</div>
+        <div id="as31Pop" class="asButton w31" onclick="asPop('as31')">Helmet</div>
+        <div id="as30Pop" class="asButton w30" onclick="asPop('as30')">Shield</div>
+        <div id="as29Pop" class="asButton w29" onclick="asPop('as29')">Shoes</div>
+        <div id="as28Pop" class="asButton2 w28" onclick="asPop('as28')">Breast-<br>plate</div>
+        <div id="as27Pop" class="asButton w27" onclick="asPop('as27')">Belt</div>
+        <div id="as26Pop" class="asButton2 w26" onclick="asPop('as26')">Armor<br>Intro</div>
+        <div id="as25Pop" class="asButton3 w25" onclick="asPop('a25',6)">John<br>10-21<br>Review</div>
+        <div id="as24Pop" class="asButton w24" onclick="asPop('as24')">John 21</div>
+        <div id="as23Pop" class="asButton w23" onclick="asPop('as23')">John 20</div>
+        <div id="as22Pop" class="asButton w22" onclick="asPop('as22')">John 19</div>
+        <div id="as21Pop" class="asButton w21" onclick="asPop('as21')">John 18</div>
+        <div id="as20Pop" class="asButton w20" onclick="asPop('as20')">John 17</div>
+        <div id="as19Pop" class="asButton w19" onclick="asPop('as19')">John 16</div>
+        <div id="as18Pop" class="asButton w18" onclick="asPop('as18')">John 15</div>
+        <div id="as17Pop" class="asButton w17" onclick="asPop('as17')">John 14</div>
+        <div id="as16Pop" class="asButton w16" onclick="asPop('as16')">John 13</div>
+        <div id="as15Pop" class="asButton w15" onclick="asPop('as15')">John 12</div>
+        <div id="as14Pop" class="asButton w14" onclick="asPop('as14')">John 11</div>
+        <div id="as13Pop" class="asButton w13" onclick="asPop('as13')">John 10</div>
+        <div id="as12Pop" class="asButton2 w12" onclick="asPop('as12',6)">John 1-9<br>Review</div>
+        <div id="as11Pop" class="asButton w11" onclick="asPop('as11')">John 9</div>
+        <div id="as10Pop" class="asButton w10" onclick="asPop('as10')">John 8</div>
+        <div id="as09Pop" class="asButton w09" onclick="asPop('as09')">John 7</div>
+        <div id="as08Pop" class="asButton w08" onclick="asPop('as08')">John 6</div>
+        <div id="as07Pop" class="asButton w07" onclick="asPop('as07')">John 5</div>
+        <div id="as06Pop" class="asButton w06" onclick="asPop('as06')">John 4</div>
+        <div id="as05Pop" class="asButton w05" onclick="asPop('as05')">John 3</div>
+        <div id="as04Pop" class="asButton w04" onclick="asPop('as04')">John 2</div>
+        <div id="as03Pop" class="asButton w03" onclick="asPop('as03')">John 1</div>
+        <div id="as02Pop" class="asButton2 w02" onclick="asPop('as02')">John Intro</div>
+        <div id="as01Pop" class="asButton2 w01" onclick="asPop('as01')">Class<br>Intro</div>
+      </div>
+      <div id="mvPop">
+        <div class="asmvHeader" onclick="pop('studentPop','missionVisibilityPop','missionsPop')">Memory<br>Verses</div>
+        <div class="asmvButtonFill w33"></div>
+        <div id="mv32Pop" class="mvButton4 w32" onclick="mvPop('mv32',31)">Eph<br>6:18<br>"praying at"</div>
+        <div id="mv31Pop" class="mvButton3 w31" onclick="mvPop('mv31',30)">Eph<br>6:17<br>"and take"</div>
+        <div id="mv30Pop" class="mvButton3 w30" onclick="mvPop('mv30',29)">Eph<br>6:16<br>"In all"</div>
+        <div id="mv29Pop" class="mvButton4 w29" onclick="mvPop('mv29',28,4)">Eph<br>6:14-15<br>"Stand therefore"</div>
+        <div id="mv28Pop" class="mvButton4 w28" onclick="mvPop('mv28',27)">Eph<br>6:13<br>"Therefore take"</div>
+        <div id="mv27Pop" class="mvButton3 w27" onclick="mvPop('mv27',26,4)">Eph<br>6:12<br>"For we"</div>
+        <div id="mv26Pop" class="mvButton4 w26" onclick="mvPop('mv26',25,4)">Eph<br>6:10-11<br>"Finally, be"</div>
+        <div id="mv25Pop" class="mvButton3 w25" onclick="mvPop('mv25',24,6)">Rom<br>8:38-39<br>"For I"</div>
+        <div id="mv24Pop" class="mvButton3 w24" onclick="mvPop('mv24',23)">Rom<br>8:37<br>"No, in"</div>
+        <div id="mv23Pop" class="mvButton3 w23" onclick="mvPop('mv23',22)">Rom<br>8:36<br>"As it"</div>
+        <div id="mv22Pop" class="mvButton4 w22" onclick="mvPop('mv22',21)">Rom<br>8:35<br>"Who shall separate"</div>
+        <div id="mv21Pop" class="mvButton3 w21" onclick="mvPop('mv21',20,4)">Rom<br>8:34<br>"Who is"</div>
+        <div id="mv20Pop" class="mvButton4 w20" onclick="mvPop('mv20',19)">Rom<br>8:33<br>"Who shall bring"</div>
+        <div id="mv19Pop" class="mvButton3 w19" onclick="mvPop('mv19',18,4)">Rom<br>8:32<br>"He who"</div>
+        <div id="mv18Pop" class="mvButton4 w18" onclick="mvPop('mv18',17)">Rom<br>8:31<br>"What then"</div>
+        <div id="mv17Pop" class="mvButton3 w17" onclick="mvPop('mv17',16,4)">Phil<br>2:10-11<br>"so that"</div>
+        <div id="mv16Pop" class="mvButton4 w16" onclick="mvPop('mv16',15)">Phil<br>2:9<br>"therefore God"</div>
+        <div id="mv15Pop" class="mvButton4 w15" onclick="mvPop('mv15',14)">Phil<br>2:8<br>"And being"</div>
+        <div id="mv14Pop" class="mvButton4 w14" onclick="mvPop('mv14',13)">Phil<br>2:7<br>"But emptied"</div>
+        <div id="mv13Pop" class="mvButton3 w13" onclick="mvPop('mv13',12,4)">Phil<br>2:5-6<br>"Have this"</div>
+        <div id="mv12Pop" class="mvButton3 w12" onclick="mvPop('mv12',11)">John<br>1:18<br>"No one"</div>
+        <div id="mv11Pop" class="mvButton3 w11" onclick="mvPop('mv11',10)">John<br>1:16-17<br>"For from"</div>
+        <div id="mv10Pop" class="mvButton4 w10" onclick="mvPop('mv10',9,4)">John<br>1:15<br>"John bore"</div>
+        <div id="mv09Pop" class="mvButton3 w09" onclick="mvPop('mv09',8,4)">John<br>1:14<br>"And the"</div>
+        <div id="mv08Pop" class="mvButton3 w08" onclick="mvPop('mv08',7,5)">John<br>1:12-13<br>"But to"</div>
+        <div id="mv07Pop" class="mvButton3 w07" onclick="mvPop('mv07',6,5)">John<br>1:9-11<br>"The true"</div>
+        <div id="mv06Pop" class="mvButton4 w06" onclick="mvPop('mv06',5,5)">John<br>1:6-8<br>"There was"</div>
+        <div id="mv05Pop" class="mvButton3 w05" onclick="mvPop('mv05',4)">John<br>1:4-5<br>"In him"</div>
+        <div id="mv04Pop" class="mvButton3 w04" onclick="mvPop('mv04',3)">John<br>1:3<br>"All things"</div>
+        <div id="mv03Pop" class="mvButton3 w03" onclick="mvPop('mv03',2)">John<br>1:1-2<br>"In the"</div>
+        <div id="mv02Pop" class="mvButton4 w02" onclick="mvPop('mv02',1,6)">John<br>20:30-31<br>"Now Jesus"</div>
+        <div id="mv01Pop" class="mvButton4 w01" onclick="mvPop('mv01',0,4)">Psalm<br>139:17<br>"How precious"</div>
+      </div>
+  </div>
+  
+  <div id="asPointsPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('asPointsPop','missionsPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div class="flex">
+        <div class="numberButton asPts" onclick="asPoints(_asNum,1)">1</div>
+        <div class="numberButton asPts" onclick="asPoints(_asNum,2)">2</div>
+        <div class="numberButton asPts" onclick="asPoints(_asNum,3)">3</div>
+        <div id="asFourPoints" class="numberButton asPts" onclick="asPoints(_asNum,4)">4</div>
+        <div id="asFivePoints" class="numberButton asPts" onclick="asPoints(_asNum,5)">5</div>
+        <div id="asSixPoints" class="numberButton asPts" onclick="asPoints(_asNum,6)">6</div>
+    </div>
+    <div>
+      <div id="asPage1" onclick="missionLinks()"></div>
+      <div id="asPage2" onclick="missionLinks()"></div>
+      <div id="asPage3" onclick="missionLinks()"></div>
+    </div>
+  </div>
+  
+  <div id="mvPointsPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('mvPointsPop','missionsPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div class="flex">
+        <div class="numberButton mvPts" onclick="mvPoints(_mvNum,1)">1</div>
+        <div class="numberButton mvPts" onclick="mvPoints(_mvNum,2)">2</div>
+        <div class="numberButton mvPts" onclick="mvPoints(_mvNum,3)">3</div>
+        <div id="mvFourPoints" class="numberButton mvPts" onclick="mvPoints(_mvNum,4)">4</div>
+        <div id="mvFivePoints" class="numberButton mvPts" onclick="mvPoints(_mvNum,5)">5</div>
+        <div id="mvSixPoints" class="numberButton mvPts" onclick="mvPoints(_mvNum,6)">6</div>
+    </div>
+    <p id="mvText"></p>
+  </div>
+  
+  <div id="promoPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('promoPop','studentPop',false,'missionsPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <p>Promotion:</p>
+    <div>
+      <div id="promoInsignia"></div>
+    </div>
+    <p id="dispRankNamePromo"></p>
+  </div>
+
+  <div id="promoListPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('promoListPop','mainMenuPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div id="promoList"></div>
+    <p id="absentPromotion">Absent:</p>
+    <div id="promoListAbsent"></div>
+  </div>
+  
+  <div id="attListPop" class="pop">
+      <div class="navigationButtonContainer">
+        <div class="backButton" onclick="pop('attListPop','mainMenuPop')"><span>f</span></div>
+        <div class="homeButton" onclick="goHome()"><span>5</span></div>
+      </div>
+      <p id="attCount" onclick="actionAlert('Reset attendance?','attListPop',false,resetAttendance)"></p>
+      <div id="attList"></div>
+  </div>
+
+  <div id="bdayPop" class="pop">
+      <div class="navigationButtonContainer">
+        <div class="backButton" onclick="pop('bdayPop','mainMenuPop')"><span>f</span></div>
+        <div class="homeButton" onclick="goHome()"><span>5</span></div>
+      </div>
+      <div id="bdayList"></div>
+      <p id="absentBday">Absent:</p>
+      <div id="bdayListAbsent"></div>
+    </div>
+  
+  <div id="backupPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('backupPop','mainMenuPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div id="backupArrays" class ="select" onclick="selectText('backupArrays')">
+      <div id="slBackupArray"></div>
+      <div id="checkedStateBackupArray"></div>
+      <div id="teacherNotesBackupArray"></div>
+    </div>
+  </div>
+    
+</div> <!--end of master-wrapper-->
+<script src="backup.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
