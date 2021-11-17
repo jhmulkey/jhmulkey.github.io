@@ -156,13 +156,22 @@ class Teams {
         this.team2Score = 0;
         this.currentTeam = 1;
         this.currentPlayer;
+        this.undoGamePts;
     };
 };
 
 function teams() {
+    var attendanceCount = 0;
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].attendance === true) {
+            attendanceCount++
+        };
+    };
     if (_teams != "") {
         populateTeams();
         pop("mainMenuPop","teamsListPop");
+    } else if (attendanceCount < 2) {
+        infoAlert("At least two students must be in attendance to create teams","mainMenuPop");
     } else {
         createTeams();
         populateTeams();
@@ -186,7 +195,7 @@ function createTeams() {
     shuffleArray(attendees);
     if (attendees.length % 2 == 0) {
         for (i = 0; i < attendees.length; i++) {
-            if (i < (attendees.length/2)) {
+            if (i < (attendees.length / 2)) {
                 teamObject.team1.push(attendees[i]);
                 teamObject.team1Reset.push(attendees[i]);
             } else {
@@ -196,7 +205,7 @@ function createTeams() {
         };
     } else if (attendees.length % 2 == 1) {
         for (i = 0; i < attendees.length; i++) {
-            if (i < ((attendees.length - 1)/2)) {
+            if (i < ((attendees.length - 1) / 2)) {
                 teamObject.team1.push(attendees[i]);
                 teamObject.team1Reset.push(attendees[i]);
              } else {
@@ -238,7 +247,8 @@ function populateTeams() {
     };
 };
 
-function gameScorePoints(x) {
+function gameScorePoints(x,undo) {
+    _teams[0].undoGamePts = x;
     if (_teams[0].currentTeam == 1) {
         _teams[0].team1Score += x;
         document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
@@ -269,6 +279,9 @@ function gameScorePoints(x) {
             };
         };
         storeNewData();
+    };
+    if (undo) {
+
     };
 };
 
@@ -331,16 +344,16 @@ function activityLog(log1,log2,color,background) {
 };
 
 function loadAttendees() {
-    document.getElementById("attList").innerHTML = "";
-    var attCount = 0
+    document.getElementById("attendanceList").innerHTML = "";
+    var attendanceCount = 0
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].attendance === true) {
             attendanceList(_sl[i].fullName);
-            attCount++;
+            attendanceCount++;
         };
     };
-    document.getElementById("attCount").innerHTML = attCount;
-    pop("mainMenuPop","attListPop");
+    document.getElementById("attendanceCount").innerHTML = attendanceCount;
+    pop("mainMenuPop","attendanceListPop");
 };
 
 function attendanceList(log) {
@@ -348,14 +361,14 @@ function attendanceList(log) {
     var textNode = document.createTextNode(log);
     elementNode.appendChild(textNode);
     elementNode.classList.add("name");
-    document.getElementById("attList").appendChild(elementNode);
+    document.getElementById("attendanceList").appendChild(elementNode);
 };
 
 function resetAttendance() {
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
     };
-    pop("attListPop","mainPop");
+    pop("attendanceListPop","mainPop");
     storeNewData();
 };
 
@@ -384,7 +397,9 @@ function infoAlert(message,id1,id2,focus) {
         };
         document.getElementById("infoAlertMessage").innerHTML = message;
     };
-    document.getElementById(_focus).focus();
+    if (focus) {
+        document.getElementById(_focus).focus();
+    };
 };
 
 function dataInputAlert(message,id1,id2,reasonRequired,func,bypass) {
@@ -749,13 +764,13 @@ function setPoints(data,reason) {
     y = data;
     _sl[_ci].points = y;
     if (y < 90) {
-        _sl[_ci].rank = Math.floor(y/10);
+        _sl[_ci].rank = Math.floor(y / 10);
     } else if (y >= 90 && y < 160) {
-        _sl[_ci].rank = Math.floor(y/10) - 1;
+        _sl[_ci].rank = Math.floor(y / 10) - 1;
     } else if (y >= 160 && y <210){
-        _sl[_ci].rank = Math.floor(y/10) - 2;
+        _sl[_ci].rank = Math.floor(y / 10) - 2;
     } else if (y >= 210 && y < 220 ) {
-        _sl[_ci].rank = Math.floor(y/10) - 3;
+        _sl[_ci].rank = Math.floor(y / 10) - 3;
     } else if (y >= 220) {
         _sl[_ci].rank = 19;
     };
@@ -1265,7 +1280,7 @@ function populateNotes() {
                 document.getElementById("editNote").value = _sl[_ci].notes[_noteIndex];
             };
         })(i);
-        var textNode = document.createTextNode(i+1 + ". " + _sl[_ci].notes[i]);
+        var textNode = document.createTextNode((i + 1) + ". " + _sl[_ci].notes[i]);
         elementNode.appendChild(textNode);
         document.getElementById("notesList").appendChild(elementNode);
     };  
@@ -1359,7 +1374,7 @@ function populateTeacherNotes() {
                 document.getElementById("editTeacherNote").value = _teacherNotes[_teacherNoteIndex];
             };
         })(i);
-        var textNode = document.createTextNode(i+1 + ". " + _teacherNotes[i]);
+        var textNode = document.createTextNode((i + 1) + ". " + _teacherNotes[i]);
         elementNode.appendChild(textNode);
         document.getElementById("teacherNotesList").appendChild(elementNode);
     };
@@ -1840,3 +1855,4 @@ e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random(
 // list out names and birthdays
 // list out girls vs. boys (all and attending only)
 // log for game
+// undo for game
