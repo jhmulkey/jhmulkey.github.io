@@ -13,6 +13,7 @@ var _noteIndex; // selected note index of notes array
 var _teacherNotes = []; //array where teacher notes are stored
 var _teacherNoteIndex; // selected note index of teacherNotes array
 var _log = ""; // activity log
+var _gameLog = ""; 
 var _checkedState = [0,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
 var _currentPops; // used to store an array of which Pop divs are visible when the infoAlert function is called
 var _currentPops2;
@@ -157,7 +158,87 @@ class Teams {
         this.currentTeam = 1;
         this.currentPlayer;
         this.undoGamePts;
+        this.undoLimit = true;
     };
+};
+
+function gameScorePoints(x) {
+    _teams[0].undoGamePts = x;
+    _teams[0].undoLimit = false;
+    if (_teams[0].currentTeam == 1) {
+        var log1 = _teams[0].team1[0].fullName + " " + x + " pts team 1 (" + _teams[0].team1Score + "-->" + (_teams[0].team1Score + x) + ")";
+        _teams[0].team1Score += x;
+        document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
+        _teams[0].currentTeam ++;
+        _teams[0].undoCurrentPlayer = _teams[0].team1[0];
+        _teams[0].team1.shift();
+        _teams[0].currentPlayer = _teams[0].team2[0].fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].team2[0].fullName;
+        document.getElementById("team2Score").style.backgroundColor = "yellow";
+        document.getElementById("team1Score").style.backgroundColor = "#eee";
+        if (_teams[0].team1.length == 0) {
+            for (i = 0; i < _teams[0].team1Reset.length; i++) {
+                _teams[0].team1.push(_teams[0].team1Reset[i])
+            };
+        };
+        gameActivityLog(log1,"lawngreen");
+        storeNewData();
+    } else {
+        var log2 = _teams[0].team2[0].fullName + " " + x + " pts team 2 (" + _teams[0].team2Score + "-->" + (_teams[0].team2Score + x) + ")";
+        _teams[0].team2Score += x;
+        document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
+        _teams[0].currentTeam --;
+        _teams[0].undoCurrentPlayer = _teams[0].team2[0];
+        _teams[0].team2.shift();
+        _teams[0].currentPlayer = _teams[0].team1[0].fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player: " +  _teams[0].team1[0].fullName
+        document.getElementById("team1Score").style.backgroundColor = "yellow";
+        document.getElementById("team2Score").style.backgroundColor = "#eee";
+        if (_teams[0].team2.length == 0) {
+            for (i = 0; i < _teams[0].team2Reset.length; i++) {
+                _teams[0].team2.push(_teams[0].team2Reset[i])
+            };
+        };
+        gameActivityLog(log2,"white");
+        storeNewData();
+    };
+    for (i = 1; i < 11; i++) {
+        if (i == x) {
+            document.getElementById("gamePoint"+i).style.backgroundColor = "midnightblue";
+        } else {
+            document.getElementById("gamePoint"+i).style.backgroundColor = "black";
+        };
+    };
+};
+
+function undoGameScorePoints() {
+    if (_teams[0].undoLimit === true) {
+        infoAlert("Cannot undo more than one score in a row","playGamePop"); return;
+    } else {
+        _teams[0].undoLimit = true;
+    };
+    if (_teams[0].currentTeam == 1) {
+        var log1 = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " " + _teams[0].undoGamePts + " pts " + "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score - _teams[0].undoGamePts) + ")";
+        _teams[0].currentTeam = 2;
+        _teams[0].team2Score -= _teams[0].undoGamePts;
+        document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
+        _teams[0].team2.unshift(_teams[0].undoCurrentPlayer);
+        document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].team2[0].fullName;
+        document.getElementById("team2Score").style.backgroundColor = "yellow";
+        document.getElementById("team1Score").style.backgroundColor = "#eee";
+        gameActivityLog(log1,"red");
+    } else if (_teams[0].currentTeam == 2) {
+        var log2 = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " " + _teams[0].undoGamePts + " pts " + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
+        _teams[0].currentTeam = 1;
+        _teams[0].team1Score -= _teams[0].undoGamePts;
+        document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
+        _teams[0].team1.unshift(_teams[0].undoCurrentPlayer);
+        document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].team1[0].fullName;
+        document.getElementById("team1Score").style.backgroundColor = "yellow";
+        document.getElementById("team2Score").style.backgroundColor = "#eee";
+        gameActivityLog(log2,"red");
+    };
+    storeNewData();
 };
 
 function teams() {
@@ -214,7 +295,7 @@ function createTeams() {
             };
         };
     };
-    _teams[0].currentPlayer = _teams[0].team1[0].fullName;
+    _teams[0].undoCurrentPlayer = _teams[0].team1[0];
     populateTeams();
     storeNewData();
 };
@@ -247,44 +328,6 @@ function populateTeams() {
     };
 };
 
-function gameScorePoints(x,undo) {
-    _teams[0].undoGamePts = x;
-    if (_teams[0].currentTeam == 1) {
-        _teams[0].team1Score += x;
-        document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
-        _teams[0].currentTeam ++;
-        _teams[0].team1.shift();
-        _teams[0].currentPlayer = _teams[0].team2[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].team2[0].fullName;
-        document.getElementById("team2Score").style.backgroundColor = "yellow";
-        document.getElementById("team1Score").style.backgroundColor = "#eee";
-        if (_teams[0].team1.length == 0) {
-            for (i = 0; i < _teams[0].team1Reset.length; i++) {
-                _teams[0].team1.push(_teams[0].team1Reset[i])
-            };
-        };
-        storeNewData();
-    } else {
-        _teams[0].team2Score += x;
-        document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
-        _teams[0].currentTeam --;
-        _teams[0].team2.shift();
-        _teams[0].currentPlayer = _teams[0].team1[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player: " +  _teams[0].team1[0].fullName
-        document.getElementById("team1Score").style.backgroundColor = "yellow";
-        document.getElementById("team2Score").style.backgroundColor = "#eee";
-        if (_teams[0].team2.length == 0) {
-            for (i = 0; i < _teams[0].team2Reset.length; i++) {
-                _teams[0].team2.push(_teams[0].team2Reset[i])
-            };
-        };
-        storeNewData();
-    };
-    if (undo) {
-
-    };
-};
-
 function loadGame() {
     if (_teams[0].currentTeam == 1) {
         document.getElementById("team1Score").style.backgroundColor = "yellow";
@@ -295,7 +338,7 @@ function loadGame() {
     };
     document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
     document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
-    document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].currentPlayer;
+    document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].undoCurrentPlayer.fullName;
     pop("teamsListPop","playGamePop");
 };
 
@@ -340,6 +383,17 @@ function activityLog(log1,log2,color,background) {
         document.getElementById("log").appendChild(paragraph);
     };
     _log = document.getElementById("log").innerHTML;
+    storeNewData();
+};
+
+function gameActivityLog(log,color,background) {
+    var paragraph = document.createElement("p");
+    paragraph.style.color = color;
+    paragraph.classList.add("logEntry");
+    var textNode = document.createTextNode(log);
+    paragraph.appendChild(textNode);
+    document.getElementById("gameLog").appendChild(paragraph);
+    _gameLog = document.getElementById("gameLog").innerHTML;
     storeNewData();
 };
 
@@ -584,21 +638,16 @@ function capitalize(x) {
     return x.charAt(0).toUpperCase() + x.slice(1);
 };
 
-function toggleRandomAttendance() {
-    if (document.getElementById("randomAttendanceCheck").checked == true) {
-        for (i = 0; i < _sl.length; i++) {
-            _sl[i].attendance = false;
-        };
-        for (i = 0; i < Math.floor(_sl.length / 2); i++) {
-            _sl[Math.floor(Math.random() * _sl.length)].attendance = true;
-        };
-        populateNames();
-    } else {
-        for (i = 0; i < _sl.length; i++) {
-            _sl[i].attendance = false;
-        };
+function randomAttendance() {
+    for (i = 0; i < _sl.length; i++) {
+        _sl[i].attendance = false;
     };
+    for (i = 0; i < Math.floor(_sl.length / 2); i++) {
+        _sl[Math.floor(Math.random() * _sl.length)].attendance = true;
+    };
+    populateNames();
     storeNewData();
+    pop("advancedOptionsPop","mainPop");
 };
 
 function editStudent() {
@@ -1795,7 +1844,9 @@ function loadLS() {
     _sl = JSON.parse(localStorage.getItem("sl"));
     _checkedState = JSON.parse(localStorage.getItem("checkedState"));
     _log = localStorage.getItem("log");
+    _gameLog = localStorage.getItem("gameLog");
     document.getElementById("log").innerHTML = _log;
+    document.getElementById("gameLog").innerHTML = _gameLog;
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotes"));
     _teams = JSON.parse(localStorage.getItem("teams"));
     if (_checkedState != null) {
@@ -1812,6 +1863,7 @@ function storeNewData() {
     localStorage.setItem("checkedState",JSON.stringify(_checkedState));
     localStorage.setItem("teacherNotes",JSON.stringify(_teacherNotes));
     localStorage.setItem("log",_log);
+    localStorage.setItem("gameLog",_gameLog);
     localStorage.setItem("teams",JSON.stringify(_teams));
 
 };
@@ -1838,13 +1890,43 @@ function selectText(element) {
     };
 }; //allows the div of arrays (index.html id:"backupArrays") to be selected all at once by clicking or tapping/hodling briefly in order to easily copy/paste it into an email, text document, etc.
 
+function preloadImages() {
+    pop("advancedOptionsPop","preloadImagesPop");
+    for (i = 0; i < 20; i++) {
+        document.getElementById(i+"-rank").style.backgroundImage = "url(insignia/"+i+"-rank.jpg";
+    };
+    var iLimit = 0
+    for (i = 1; i < 34; i++) {
+        if (_checkedState[i] === true) {
+            iLimit++
+        };
+    };
+    for (i = 1; i < (iLimit + 1); i++) {
+        document.getElementById(i+"a-as").style.backgroundImage = "url(thumbnails/as0"+i+"a.jpg)";
+        document.getElementById(i+"b-as").style.backgroundImage = "url(thumbnails/as0"+i+"b.jpg)";
+    };
+    for (i = 10; i < (iLimit + 1); i++) {
+        document.getElementById(i+"a-as").style.backgroundImage = "url(thumbnails/as"+i+"a.jpg)";
+        document.getElementById(i+"b-as").style.backgroundImage = "url(thumbnails/as"+i+"b.jpg)";
+        if (i == 12) {
+            document.getElementById(i+"c-as").style.backgroundImage = "url(thumbnails/as12c.jpg)";
+        };
+        if (i == 25) {
+            document.getElementById(i+"c-as").style.backgroundImage = "url(thumbnails/as25c.jpg)";
+        };
+        if (i == 33) {
+            document.getElementById(i+"c-as").style.backgroundImage = "url(thumbnails/as33c.jpg)";
+        };
+    };
+};
+
 //*** ONLOAD FUNCTION CALLS ***//
 whatToLoad();
 
 document.getElementById("search").focus();
 
 //*** NOTES ***//
-/*Math.random() returns a number greater than 0 and less than 1
+/*Math.random() returns a random number greater than 0 and less than 1
 multiply Math.random() by one more than the maximum random number you want to generate
 use Math.floor(Math.random()) to be sure the randomly-generated number is rounded down to the ones place
 e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random() * 11)*/
@@ -1854,5 +1936,3 @@ e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random(
 // student stats (including rank progress bar)
 // list out names and birthdays
 // list out girls vs. boys (all and attending only)
-// log for game
-// undo for game
