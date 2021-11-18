@@ -159,6 +159,7 @@ class Teams {
         this.currentPlayer;
         this.undoGamePts;
         this.undoLimit = true;
+        this.undoTeam;
     };
 };
 
@@ -171,6 +172,7 @@ function gameScorePoints(x) {
         document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
         _teams[0].currentTeam ++;
         _teams[0].undoCurrentPlayer = _teams[0].team1[0];
+        _teams[0].undoTeam = 1;
         _teams[0].team1.shift();
         _teams[0].currentPlayer = _teams[0].team2[0].fullName;
         document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].team2[0].fullName;
@@ -189,6 +191,7 @@ function gameScorePoints(x) {
         document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
         _teams[0].currentTeam --;
         _teams[0].undoCurrentPlayer = _teams[0].team2[0];
+        _teams[0].undoTeam = 2;
         _teams[0].team2.shift();
         _teams[0].currentPlayer = _teams[0].team1[0].fullName;
         document.getElementById("currentPlayer").innerHTML = "Current Player: " +  _teams[0].team1[0].fullName
@@ -295,7 +298,10 @@ function createTeams() {
             };
         };
     };
-    _teams[0].undoCurrentPlayer = _teams[0].team1[0];
+    _teams[0].currentPlayer = _teams[0].team1[0].fullName;
+    for (i = 1; i < 11; i++) {
+        document.getElementById("gamePoint"+i).style.backgroundColor = "black";
+    };
     populateTeams();
     storeNewData();
 };
@@ -338,7 +344,11 @@ function loadGame() {
     };
     document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
     document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
-    document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].undoCurrentPlayer.fullName;
+    if (_teams[0].undoTeam != _teams[0].currentTeam) {
+        document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].currentPlayer;
+    } else {
+        document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].undoCurrentPlayer.fullName;
+    };
     pop("teamsListPop","playGamePop");
 };
 
