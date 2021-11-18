@@ -13,6 +13,7 @@
   <div id="mainPop" class="pop">
         <div id="topMenuContainer">
             <div id="mainMenuButton" onclick="pop('mainPop','mainMenuPop')">Main Menu</div>
+            <div id="attendanceCountMain" onclick="loadAttendees()">0</div>
             <div class="roundButton" onclick="pop('mainPop','newStudentPop')">;</div>
         </div>
         <input id="search" type="text" placeholder="search names" oninput="searchNames()"/>
@@ -27,24 +28,43 @@
     <div id="nameList2"></div>
   </div>
 
-  <div id="namesByPointsPop" class="pop">
+  <div id="sortChoicePop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('namesByPointsPop','mainMenuPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop('sortChoicePop','mainMenuPop')"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
-    <div id="nameListByPoints"></div>
+    <div class="button" onclick="sortByPoints()">Sort by Points</div>
+    <div class="button" onclick="sortByGender()">Sort by Boy/Girl</div>
+    <div class="button" onclick="sortByBday()">Sort by Birthday</div>
   </div>
-  
+
+  <div id="customSortListPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('customSortListPop','sortChoicePop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div id="nameListCustom"></div>
+    <div id="genderListContainer">
+      <div id=boysListDiv>
+        <p id="boysListP"></p>
+        <div id="boysList"></div>
+      </div>
+      <div id=girlsListDiv>
+        <p id="girlsListP"></p>
+        <div id="girlsList"></div>
+      </div>
+    </div>
+  </div>
+
   <div id="mainMenuPop" class="pop">
         <div class="buttonArr">
             <div class="navigationButtonContainer">
               <div class="backButton" onclick="goHome()"><span>f</span></div>
               <div class="homeButton" onclick="goHome()"><span>5</span></div>
             </div>
-            <div class="button" onclick="loadAttendees()">Attendance</div>
             <div class="button" id="promotionButton" onclick="pop('mainMenuPop','promoListPop')">Promotions</div>
             <div class="button" id="birthdayButton" onclick="pop('mainMenuPop','bdayPop')">Birthdays</div>
-            <div class="button" onclick="pop('mainMenuPop','namesByPointsPop'); populateNamesByPoints()">Sort by Points</div>
+            <div class="button" onclick="pop('mainMenuPop','sortChoicePop')">Sort Students</div>
             <div class="button" onclick="pop('mainMenuPop','drawingPop')">Drawing</div>
             <div class="button" onclick="pop('mainMenuPop','randomPop')">Random</div>
             <div class="button" onclick="teams()">Teams</div>
@@ -114,7 +134,7 @@
     </div>
     <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> Fast student entry</label><br>
     <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> Fast student edit</label><br>
-    <div class="buttonSmallerText" onclick="randomAttendance()">Randomize Attendance</div>
+    <div class="button" onclick="randomAttendance()">Random Attend.</div>
     <div class="button" onclick="preloadImages()">Preload Images</div>
 
   </div>
@@ -498,11 +518,21 @@
   
   <div id="attendanceListPop" class="pop">
       <div class="navigationButtonContainer">
-        <div class="backButton" onclick="pop('attendanceListPop','mainMenuPop')"><span>f</span></div>
+        <div class="backButton" onclick="pop('attendanceListPop','mainPop')"><span>f</span></div>
         <div class="homeButton" onclick="goHome()"><span>5</span></div>
       </div>
       <p id="attendanceCount" onclick="actionAlert('Reset attendance?','attendanceListPop',false,resetAttendance)"></p>
-      <div id="attendanceList"></div>
+
+      <div id="attendanceListContainer">
+        <div id=boysListAttendanceDiv>
+          <p id="boysListAttendanceP"></p>
+          <div id="boysListAttendance"></div>
+        </div>
+        <div id=girlsListAttendanceDiv>
+          <p id="girlsListAttendanceP"></p>
+          <div id="girlsListAttendance"></div>
+        </div>
+      </div>
   </div>
 
   <div id="bdayPop" class="pop">

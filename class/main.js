@@ -53,6 +53,7 @@ class Student {
         this.gender = gender;
         this.birthdayMonth = month; // 1-12 or 0 if birthday unknown
         this.birthdayDate = date; // 1-31 or 0 if birthday unknown
+        this.birthdayNumber = month + date;
         this.birthday = month + "/" + date;
         this.hasBirthday = false; // has birthday today or before next class
         this.birthdayDone = false; // birthday has been announced in class (and thus will no longer be indicated anywhere in the UI)
@@ -68,6 +69,7 @@ class Student {
         this.parent2Phone = parent2Phone;
         this.notes = note;
         this.points = 0; // total, cumulative points earned year to date
+        this.classRank = 0;
         this.rank = 0; // 0 is PVT; 19 is GOA
         this.rankFactor = 0; // compensates for 20 point promotions in asPoints and mvPoints functions
         this.rankName = "PVT"
@@ -408,17 +410,49 @@ function gameActivityLog(log,color,background) {
     storeNewData();
 };
 
-function loadAttendees() {
-    document.getElementById("attendanceList").innerHTML = "";
+function attendanceCount() {
     var attendanceCount = 0
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].attendance === true) {
-            attendanceList(_sl[i].fullName);
             attendanceCount++;
         };
     };
+    document.getElementById("attendanceCountMain").innerHTML = attendanceCount;
     document.getElementById("attendanceCount").innerHTML = attendanceCount;
-    pop("mainMenuPop","attendanceListPop");
+};
+
+function loadAttendees() {
+    attendanceCount();
+    document.getElementById("boysListAttendance").innerHTML = "";
+    document.getElementById("girlsListAttendance").innerHTML = "";
+    document.getElementById("boysListAttendanceP").innerHTML = "";
+    document.getElementById("girlsListAttendanceP").innerHTML = "";
+    var boys = [];
+    var girls = [];
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].gender == "M" && _sl[i].attendance === true) {
+            boys.push(_sl[i].fullName);
+        } else if (_sl[i].gender == "F" && _sl[i].attendance === true) {
+            girls.push(_sl[i].fullName);
+        };
+    };
+    for (i = 0; i < boys.length; i++) {
+        var elementNode1 = document.createElement("p");
+        elementNode1.classList.add("name2");
+        var textNode1 = document.createTextNode(boys[i]);
+        elementNode1.appendChild(textNode1);
+        document.getElementById("boysListAttendance").appendChild(elementNode1);
+    };  
+    for (i = 0; i < girls.length; i++) {
+        var elementNode2 = document.createElement("p");
+        elementNode2.classList.add("name2");
+        var textNode2 = document.createTextNode(girls[i]);
+        elementNode2.appendChild(textNode2);
+        document.getElementById("girlsListAttendance").appendChild(elementNode2);
+    };  
+    document.getElementById("boysListAttendanceP").innerHTML = "Boys (" + boys.length + ")";
+    document.getElementById("girlsListAttendanceP").innerHTML = "Girls (" + girls.length + ")";
+    pop("mainPop","attendanceListPop");
 };
 
 function attendanceList(log) {
@@ -433,6 +467,7 @@ function resetAttendance() {
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
     };
+    attendanceCount();
     pop("attendanceListPop","mainPop");
     storeNewData();
 };
@@ -624,6 +659,7 @@ function newStudent() {
     var newStudent = new Student(first,last,month,date,email1,email2,parent1First,parent1Last,parent1Phone,parent2First,parent2Last,parent2Phone,gender,note);
     newStudent.attendance = true;
     _sl.push(newStudent);
+    assignBdayNumber(_sl.length-1);
     sortStudentList();
     findBday();
     var log = "new student " + first + " " + last;
@@ -656,6 +692,7 @@ function randomAttendance() {
     for (i = 0; i < Math.floor(_sl.length / 2); i++) {
         _sl[Math.floor(Math.random() * _sl.length)].attendance = true;
     };
+    attendanceCount();
     populateNames();
     storeNewData();
     pop("advancedOptionsPop","mainPop");
@@ -680,6 +717,7 @@ function editStudent() {
         _sl[_ci].birthdayDate = parseInt(newBdayArray[1]);
         _sl[_ci].birthday = newBdayArray[0] + "/" + newBdayArray[1];
     };
+    assignBdayNumber();
     if (document.getElementById("editEmail1").value == "") {
         _sl[_ci].email1 = document.getElementById("editEmail1").value;
     } else {
@@ -749,6 +787,21 @@ function editStudent() {
     };
 };
 
+function assignBdayNumber(x) {
+    if (x) {
+        _ci = x;
+    };
+    var daysInMonth = [0,31,28,31,30,31,30,31,31,30,31,30,31];
+    var daysInMonthLeap = [0,31,29,31,30,31,30,31,31,30,31,30,31];
+    var cumulative = [0,0,31,59,90,120,151,181,212,243,273,304,334];
+    var cumulativeLeap = [0,0,31,60,91,121,152,182,213,244,274,305,335];
+    if (_leapYear) {
+        _sl[_ci].birthdayNumber = cumulativeLeap[_sl[_ci].birthdayMonth] + _sl[_ci].birthdayDate;
+    } else {
+        _sl[_ci].birthdayNumber = cumulative[_sl[_ci].birthdayMonth] + _sl[_ci].birthdayDate;
+    };
+};
+
 function refreshStudentPop() {
     findBday();
     if (_sl[_ci].attendance === true && _sl[_ci].promoted === false) {
@@ -814,9 +867,16 @@ function sortStudentList() {
     populateNames();
 };
 
-function sortStudentListByPoints() {
-    _sl.sort((a,b) => b.points - a.points);
-    populateNames();
+function assignClassRank() {
+    var points = [];
+    for (i = 0; i < _sl.length; i++) {
+        points.push(_sl[i].points);
+    };
+    var pointsSorted = points.slice().sort(function(a,b){return b - a});
+    var pointsRanked = points.map(function(v){return pointsSorted.indexOf(v)+1});
+    for (i = 0; i < _sl.length; i++) {
+        _sl[i].classRank = pointsRanked[i];
+    };
 };
 
 function setPoints(data,reason) {
@@ -836,6 +896,7 @@ function setPoints(data,reason) {
     };
     setRankName();
     setRankFactor();
+    assignClassRank();
     populateNames();
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
     document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
@@ -963,6 +1024,7 @@ function asPoints(_asNum,x) {
     };
     document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
+    assignClassRank();
     storeAndBackup();
     loadStudent(_ci);
     pop("asPointsPop","missionsPop");
@@ -1044,6 +1106,7 @@ function mvPoints(_mvNum,x) {
     };
     document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
+    assignClassRank();
     storeAndBackup();
     loadStudent(_ci);
     pop("mvPointsPop","missionsPop");
@@ -1100,6 +1163,7 @@ function searchLog() {
 function loadStudent(index) {
     _ci = index;
     _sl[_ci].attendance = true;
+    attendanceCount();
     storeNewData();
     refreshStudentPop();
     if (document.getElementById("editStudentPop").style.display != "block") {
@@ -1191,7 +1255,7 @@ function goHome() {
     };
     document.getElementById("search").value = "";
     document.getElementById("search").focus();
-
+    anyAlert();
     sortStudentList();
     removePtBoxes();
 };
@@ -1318,16 +1382,70 @@ function populateNames2() {
     };  
 };
 
-function populateNamesByPoints() {
-    sortStudentListByPoints();
-    document.getElementById("nameListByPoints").innerHTML = "";
+function sortByPoints() {
+    assignClassRank();
+    document.getElementById("nameListCustom").style.display = "block";
+    document.getElementById("genderListContainer").style.display = "none";
+    _sl.sort(function(a,b){return b.points - a.points});
+    document.getElementById("nameListCustom").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
         var elementNode = document.createElement("p");
-        elementNode.classList.add("name");
-        var textNode = document.createTextNode(_sl[i].rankName + " " + _sl[i].fullName + " " + _sl[i].points);
+        elementNode.classList.add("name3");
+        var textNode = document.createTextNode(_sl[i].classRank + ". " + _sl[i].fullName + " (" + _sl[i].points + ")");
         elementNode.appendChild(textNode);
-        document.getElementById("nameListByPoints").appendChild(elementNode);
+        document.getElementById("nameListCustom").appendChild(elementNode);
     };  
+    pop("mainMenuPop","customSortListPop","sortChoicePop");
+};
+
+function sortByGender() {
+    document.getElementById("nameListCustom").style.display = "none";
+    document.getElementById("genderListContainer").style.display = "flex";
+    document.getElementById("boysList").innerHTML = "";
+    document.getElementById("girlsList").innerHTML = "";
+    document.getElementById("boysListP").innerHTML = "";
+    document.getElementById("girlsListP").innerHTML = "";
+    var boys = [];
+    var girls = [];
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].gender == "M") {
+            boys.push(_sl[i].fullName);
+        } else {
+            girls.push(_sl[i].fullName);
+        };
+    };
+    for (i = 0; i < boys.length; i++) {
+        var elementNode1 = document.createElement("p");
+        elementNode1.classList.add("name2");
+        var textNode1 = document.createTextNode(boys[i]);
+        elementNode1.appendChild(textNode1);
+        document.getElementById("boysList").appendChild(elementNode1);
+    };  
+    for (i = 0; i < girls.length; i++) {
+        var elementNode2 = document.createElement("p");
+        elementNode2.classList.add("name2");
+        var textNode2 = document.createTextNode(girls[i]);
+        elementNode2.appendChild(textNode2);
+        document.getElementById("girlsList").appendChild(elementNode2);
+    };  
+    document.getElementById("boysListP").innerHTML = "Boys (" + boys.length + ")";
+    document.getElementById("girlsListP").innerHTML = "Girls (" + girls.length + ")";
+    pop("mainMenuPop","customSortListPop","sortChoicePop");
+};
+
+function sortByBday() {
+    document.getElementById("nameListCustom").innerHTML = "";
+    document.getElementById("nameListCustom").style.display = "block";
+    document.getElementById("genderListContainer").style.display = "none";
+    var birthdayNumberOrder = _sl.sort(function(a,b){return a.birthdayNumber - b.birthdayNumber});
+    for (i = 0; i < _sl.length; i++) {
+        var elementNode = document.createElement("p");
+        elementNode.classList.add("name3");
+        var textNode = document.createTextNode(birthdayNumberOrder[i].birthday + " " + birthdayNumberOrder[i].fullName);
+        elementNode.appendChild(textNode);
+        document.getElementById("nameListCustom").appendChild(elementNode);
+    };  
+    pop("mainMenuPop","customSortListPop","sortChoicePop");
 };
 
 function populateNotes() {
@@ -1449,6 +1567,7 @@ function attendance2(i) {
     } else {
         _sl[i].attendance = false;
     };
+    attendanceCount();
     storeNewData();
 };
 
@@ -1460,6 +1579,7 @@ function attendance() {
         _sl[_ci].attendance = false;
         document.getElementById("dispName").style.color = "white";
     };
+    attendanceCount();
     storeNewData();
 };
 
@@ -1732,6 +1852,15 @@ function alerts() {
     promotionAlert();
     birthdayAlert();
     notesAlert();
+    anyAlert();
+};
+
+function anyAlert() {
+    if (document.getElementById("promoList").innerHTML != "" || document.getElementById("bdayList").innerHTML != "" || document.getElementById("teacherNotesList").innerHTML != "") {
+        document.getElementById("mainMenuButton").style.backgroundColor = "darkgoldenrod";
+    } else {
+        document.getElementById("mainMenuButton").style.backgroundColor = "black";
+    };
 };
 
 function promotionAlert() {
@@ -1874,6 +2003,7 @@ function loadLS() {
     if (_checkedState != null) {
         showMissions();
     }
+    attendanceCount();
     removePtBoxes();
     findBday();
     backupNewData();
@@ -1952,10 +2082,13 @@ document.getElementById("search").focus();
 /*Math.random() returns a random number greater than 0 and less than 1
 multiply Math.random() by one more than the maximum random number you want to generate
 use Math.floor(Math.random()) to be sure the randomly-generated number is rounded down to the ones place
-e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random() * 11)*/
+e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random() * 11)
+
+.sort(function(a,b){return a - b}); returns new array sorted A-Z or 0-10
+.sort(function(a,b){return b - a}); returns new array sorted Z-A or 10-0
+*/
 
 //*** TO DO LIST ***//
 // log text and color-coding
 // student stats (including rank progress bar)
-// list out names and birthdays
 // list out girls vs. boys (all and attending only)
