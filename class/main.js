@@ -56,6 +56,7 @@ class Student {
         this.birthday = month + "/" + date;
         this.hasBirthday = false; // has birthday today or before next class
         this.birthdayDone = false; // birthday has been announced in class (and thus will no longer be indicated anywhere in the UI)
+        this.birthdayLogged = false;
         this.photo = false; // photo has been taken for bulletin board
         this.email1 = email1; // primary parent email
         this.email2 = email2; // secondary parent email
@@ -1630,6 +1631,12 @@ function findBday() {
                     _sl[i].hasBirthday = false;
                 };
             };
+        };
+    };
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].hasBirthday === true && _sl[i].birthdayLogged === false) {
+            activityLog("birthday found: " + _sl[i].fullName + " " + _sl[i].birthday,false,"darkgoldenrod");
+            _sl[i].birthdayLogged = true;
         };
     };
 };
