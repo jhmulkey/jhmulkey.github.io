@@ -12,10 +12,8 @@
 
   <div id="mainPop" class="pop">
         <div id="topMenuContainer">
-            <div class="textNavigationButton" onclick="pop('mainPop','mainMenuPop')">Menu</div>
-            <div class="textNavigationButton" onclick="pop('mainPop','logPop');loadTodaysDate()">Log</div>
-            <!-- <div id="mainMenuButton" onclick="pop('mainPop','mainMenuPop')">Main Menu</div> -->
-            <div class="roundButton" onclick="pop('mainPop','newStudentPop')">&#10010;</div>
+            <div id="mainMenuButton" onclick="pop('mainPop','mainMenuPop')">Main Menu</div>
+            <div class="roundButton" onclick="pop('mainPop','newStudentPop')">;</div>
         </div>
         <input id="search" type="text" placeholder="search names" oninput="searchNames()"/>
         <div id="nameList"></div>
@@ -51,6 +49,7 @@
             <div class="button" onclick="pop('mainMenuPop','randomPop')">Random</div>
             <div class="button" onclick="teams()">Teams</div>
             <div class="button" id="teacherNotesButton" onclick="pop('mainMenuPop','teacherNotesPop'); populateTeacherNotes()">Notes</div>
+            <div class="button" onclick="pop('logPop','mainMenuPop')">Log</div>
             <div class="button" onclick="pop('mainMenuPop','backupPop')">Backup</div>
             <div class="button" onclick="pop('mainMenuPop','advancedOptionsPop')">Advanced</div>
         </div>
@@ -270,7 +269,7 @@
     <div class="navigationButtonContainer">
       <div class="backButton" onclick="pop('notesPop','studentPop','editNotePop','missionsPop')"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
-      <div class="roundButton" id="addNoteButton" onclick="pop('notesPop','addNotePop',false,'addNote')">&#10010;</div>
+      <div class="roundButton" id="addNoteButton" onclick="pop('notesPop','addNotePop',false,'addNote')">;</div>
     </div>
     <div id="notesList"></div>
   </div>
@@ -279,7 +278,7 @@
     <div class="navigationButtonContainer">
       <div class="backButton" onclick="pop('teacherNotesPop','mainMenuPop','editTeacherNotePop')"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
-      <div class="roundButton" id="addTeacherNoteButton" onclick="pop('teacherNotesPop','addTeacherNotePop',false,'addTeacherNote')">&#10010;</div>
+      <div class="roundButton" id="addTeacherNoteButton" onclick="pop('teacherNotesPop','addTeacherNotePop',false,'addTeacherNote')">;</div>
     </div>
     <div id="teacherNotesList"></div>
   </div>

@@ -84,7 +84,7 @@ div {
     cursor: pointer;
 }
 
-.buttonSmallerText, .button, .backButton, .homeButton, .numberButton {
+.buttonSmallerText, .button, .backButton, .homeButton, .numberButton, #mainMenuButton {
     border-radius: 25px;
 }
 
@@ -107,6 +107,13 @@ div {
     padding-top: 3px;
     border: 2px solid white;
     margin: 20px auto;
+}
+
+#mainMenuButton {
+    height: 50px;
+    width: 200px;
+    padding-top: 3px;
+    border: 2px solid white;
 }
 
 .buttonSmallerText {
@@ -318,11 +325,6 @@ div {
     display: none;
 }
 
-#missionDownload {
-    border-radius: 25px;
-    background-color: #485669;
-}
-
 #studentPop {
     padding-bottom: 0;
 }
@@ -349,10 +351,10 @@ div {
 }
 
 .studentPopButtons {
-    border-radius: 25px;
+    border-radius: 10px;
     height: 30px;
     width: 115px;
-    border: 2px solid white;
+    border: 1px solid white;
     margin-bottom: 25px;
     font-size: 20px;
 }
@@ -360,14 +362,14 @@ div {
 #topMenuContainer {
     width: 325px;
     display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    justify-content: space-around;
+    margin-bottom: 10px;
 }
 
 .optionButtonContainer {
     margin: 25px auto;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .navigationButtonContainer {
@@ -392,20 +394,6 @@ div {
     border-radius: 25px;
     height: 50px;
     width: 115px;
-    border: 2px solid white;
-    background-color: black;
-    font-weight: bold;
-    font-family: Tahoma;
-    color: white;
-    background-color: #333;
-    font-size: 30px;
-    padding-top: 3px;
-}
-
-#mainMenuButton {
-    border-radius: 25px;
-    height: 50px;
-    width: 200px;
     border: 2px solid white;
     background-color: black;
     font-weight: bold;
@@ -474,7 +462,7 @@ div {
     color: black;
     font-size: 75px;
     line-height: 1;
-    border-radius: 15px;
+    border-radius: 25px;
     padding-top: 8px;
     font-weight: bolder;
 }
@@ -487,7 +475,7 @@ div {
     font-size: 50px;
     text-align: center;
     line-height: 1;
-    border-radius: 15px;
+    border-radius: 25px;
     padding-top: 5px;
     margin-bottom: 20px;
 }
@@ -536,10 +524,11 @@ div {
     height: 50px;
     width: 50px;
     border: 2px solid white;
-    font-size: 35px;
+    font-size: 25px;
+    font-family: Font-90-Icons;
     font-weight: bolder;
     background-color: green;
-    padding-bottom: 45px;
+    padding-top: 9px;
 }
 
 .logEntry {

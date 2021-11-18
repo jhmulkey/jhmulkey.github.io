@@ -1176,6 +1176,9 @@ function pop(close,open,close2,open2) {
     if (open == "addTeacherNotePop") {
         document.getElementById("addTeacherNote").focus();
     };
+    if (open == "logPop") {
+        loadTodaysDate()
+    };
     alerts();
     scrollTo(0,0);
 };
