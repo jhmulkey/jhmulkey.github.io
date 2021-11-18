@@ -1825,6 +1825,7 @@ function whatToLoad() {
             _sl = JSON.parse(localStorage.getItem("slBackup"));
             _checkedState = JSON.parse(localStorage.getItem("checkedStateBackup"));
             _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
+            removePtBoxes();
             showMissions();
             sortStudentList();
             for (i = 0; i < _sl.length; i++) {
@@ -1855,6 +1856,7 @@ function loadBackup() {
             _sl[i].random = false;
         };
         findBday();
+        removePtBoxes();
         populateTeacherNotes();
         pop("wtlPop","mainPop");
     };
@@ -1872,6 +1874,7 @@ function loadLS() {
     if (_checkedState != null) {
         showMissions();
     }
+    removePtBoxes();
     findBday();
     backupNewData();
     populateTeacherNotes();
