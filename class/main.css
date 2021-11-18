@@ -567,6 +567,7 @@ div {
     height: 150px;
     font-size: 20px;
     resize: none;
+    margin: 10px 0px;
 }
 
 #notesList, #teacherNotesList {

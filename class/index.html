@@ -232,7 +232,6 @@
   </div>
 
   <div id="newStudentPop" class="pop">
-    <p>Student Info</p>
     <input class="textInputField1 focus" id="newFirstAndLast" type="text" placeholder="first/last"/>
     <div class="genderAndBdayContainer">
       <input class="textInputField2" id="newGender" type="text" placeholder="M or F"/>
@@ -242,8 +241,7 @@
     <input class="textInputField1" id="newEmail2" type="text" placeholder="secondary email"/>
     <input class="textInputField1" id="newParent1" type="text" placeholder="parentfirst/last/phone"/>
     <input class="textInputField1" id="newParent2" type="text" placeholder="parentfirst/last/phone"/>
-    <p>Note</p>
-    <textarea id="initialNote" rows="10" cols="30"></textarea>
+    <textarea id="initialNote" rows="10" cols="30" placeholder="note"></textarea>
     <div class="optionButtonContainer">
       <div class="cancelButton" onclick="pop('newStudentPop','mainPop'); clearStudentFields()">CANCEL</div>
       <div class="okButton" onclick="newStudent()">OK</div>
@@ -251,7 +249,6 @@
   </div>
 
   <div id="editStudentPop" class="pop">
-    <p>Student Info</p>
     <input class="textInputField1" id="editFirstAndLast" type="text" placeholder="first/last"/>
     <div class="genderAndBdayContainer">
       <input class="textInputField2 focus" id="editGender" type="text" placeholder="M or F"/>
