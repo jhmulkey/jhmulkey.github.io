@@ -49,6 +49,11 @@ div {
     overflow-y:auto
 }
 
+#nameList {
+    height: 575px;
+    overflow-y:auto
+}
+
 #attendance2Pop {
     border-bottom: 2px solid white;
     background-color: #222;
