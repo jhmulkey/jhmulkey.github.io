@@ -6,7 +6,7 @@ var _asNames = ["class-intro","john-intro","john-1","john-2","john-3","john-4","
 var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8",
 "phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"]; // memory verse names
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,6]; // max points possible for each activity sheet
-var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3]; // max points possible for each memory verse
+var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3,0]; // max points possible for each memory verse
 var _leapYear = false; // used to determine whether Feb has 29 or 29 days for purposes of upcoming birthday alerts
 var _weeksOff = 0; // used to determine when alerts for upcoming birthdays appear if kidstuff will not meet for 1-2 weeks
 var _noteIndex; // selected note index of notes array
@@ -14,7 +14,7 @@ var _teacherNotes = []; //array where teacher notes are stored
 var _teacherNoteIndex; // selected note index of teacherNotes array
 var _log = ""; // activity log
 var _gameLog = ""; 
-var _checkedState = [1,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
+var _checkedState = [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
 var _currentPops; // used to store an array of which Pop divs are visible when the infoAlert function is called
 var _currentPops2;
 var _focus;
@@ -74,6 +74,7 @@ class Student {
         this.rankFactor = 0; // compensates for 20 point promotions in asPoints and mvPoints functions
         this.rankName = "PVT"
         this.attendance = false; // student is in attendance today
+        this.attendanceCount = [];
         this.promoted = false; // student has earned a promotion
         this.promotionNum = 0; // number of promotions accumulated (in case student is absent for promotion ceremony)
         this.drawing = false; // has been picked in drawing (if true, then inelligble to be picked again until stats are reset)
@@ -466,6 +467,7 @@ function attendanceList(log) {
 function resetAttendance() {
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
+        _sl[i].attendanceCount.splice(_sl[i].attendanceCount.length-1,1);
     };
     attendanceCount();
     pop("attendanceListPop","mainPop");
@@ -1163,6 +1165,7 @@ function searchLog() {
 function loadStudent(index) {
     _ci = index;
     _sl[_ci].attendance = true;
+    _sl[_ci].attendanceCount.push(1);
     attendanceCount();
     storeNewData();
     refreshStudentPop();
@@ -1564,8 +1567,10 @@ function populateTeacherNotes() {
 function attendance2(i) {
     if (_sl[i].attendance === false) {
         _sl[i].attendance = true;
+        _sl[i].attendanceCount.push(1);
     } else {
         _sl[i].attendance = false;
+        _sl[i].attendanceCount.splice(_sl[i].attendanceCount.length-1,1);
     };
     attendanceCount();
     storeNewData();
@@ -1574,9 +1579,11 @@ function attendance2(i) {
 function attendance() {
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
+        _sl[_ci].attendanceCount.push(1);
         document.getElementById("dispName").style.color = "lawngreen";
     } else {
         _sl[_ci].attendance = false;
+        _sl[_ci].attendanceCount.splice(_sl[_ci].attendanceCount.length-1,1);
         document.getElementById("dispName").style.color = "white";
     };
     attendanceCount();
@@ -1599,19 +1606,19 @@ function toggleMissions(x) {
 };
 
 function showMissions() {
-    for (i = 1; i < _checkedState.length; i++) {
+    for (i = 0; i < _checkedState.length; i++) {
         if (_checkedState[i] === true) {
-            document.getElementById("check"+String(i)).checked = true
+            document.getElementById("check"+String(i+1)).checked = true
         };
     };
-    for (i = 1; i < _checkedState.length; i++) {
-        if (_checkedState[i] === true && i < 10) {
-            document.getElementById("as0"+i+"Pop").style.display = "block";
-            document.getElementById("mv0"+i+"Pop").style.display = "block";
+    for (i = 0; i < _checkedState.length; i++) {
+        if (_checkedState[i] === true && i < 9) {
+            document.getElementById("as0"+(i+1)+"Pop").style.display = "block";
+            document.getElementById("mv0"+(i+1)+"Pop").style.display = "block";
         };
-        if (_checkedState[i] === true && i >= 10) {
-            document.getElementById("as"+i+"Pop").style.display = "block";
-            document.getElementById("mv"+i+"Pop").style.display = "block";
+        if (_checkedState[i] === true && i >= 9) {
+            document.getElementById("as"+(i+1)+"Pop").style.display = "block";
+            document.getElementById("mv"+(i+1)+"Pop").style.display = "block";
         };
     };
 };
@@ -2100,5 +2107,12 @@ function loadStudentStats() {
             document.getElementById("progressBar"+i).style.backgroundColor = "black";
         };
     };
+
+    document.getElementById("").innerHTML = 
+    document.getElementById("").innerHTML = 
+    document.getElementById("").innerHTML = 
+    document.getElementById("").innerHTML = 
+
+
     pop("studentPop","studentStatsPop","missionsPop");
 };
