@@ -14,7 +14,7 @@ var _teacherNotes = []; //array where teacher notes are stored
 var _teacherNoteIndex; // selected note index of teacherNotes array
 var _log = ""; // activity log
 var _gameLog = ""; 
-var _checkedState = [0,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
+var _checkedState = [1,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
 var _currentPops; // used to store an array of which Pop divs are visible when the infoAlert function is called
 var _currentPops2;
 var _focus;
@@ -2091,4 +2091,14 @@ e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random(
 //*** TO DO LIST ***//
 // log text and color-coding
 // student stats (including rank progress bar)
-// list out girls vs. boys (all and attending only)
+
+function loadStudentStats() {
+    for (i = 0; i < 19; i++) {
+        if (i <= _sl[_ci].rank) {
+            document.getElementById("progressBar"+i).style.backgroundColor = "lawngreen";
+        } else {
+            document.getElementById("progressBar"+i).style.backgroundColor = "black";
+        };
+    };
+    pop("studentPop","studentStatsPop","missionsPop");
+};

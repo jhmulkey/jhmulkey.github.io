@@ -241,13 +241,43 @@
       <p id="dispName" onclick="attendance()"></p>
       <span id="dispBday"></span><br><br>
       <div id="penContainer">
-          <div class="studentPopButtons" id="statsButton">stats</div>
+          <div class="studentPopButtons" id="statsButton" onclick="loadStudentStats()">stats</div>
           <div class="studentPopButtons" id="editButton" onclick="populateStudentFields()">edit info</div>
           <div class="studentPopButtons" id="notesButton" onclick="pop('studentPop','notesPop','missionsPop','notesList'); populateNotes()">notes</div>
           <div class="studentPopButtons" id="photoButton" onclick="togglePhoto(true)">photo</div>
           <div class="studentPopButtons" id="attendance2Button" onclick="populateNames2()">Attendance</div>
           <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields()">email</div>
       </div>
+  </div>
+
+  <div id="studentStatsPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop('studentStatsPop','studentPop',false,'missionsPop')"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <table id="progressBarTable">
+      <tr>
+        <td id="progressBar0"></td>
+        <td id="progressBar1"></td>
+        <td id="progressBar2"></td>
+        <td id="progressBar3"></td>
+        <td id="progressBar4"></td>
+        <td id="progressBar5"></td>
+        <td id="progressBar6"></td>
+        <td id="progressBar7"></td>
+        <td id="progressBar8"></td>
+        <td id="progressBar9"></td>
+        <td id="progressBar10"></td>
+        <td id="progressBar11"></td>
+        <td id="progressBar12"></td>
+        <td id="progressBar13"></td>
+        <td id="progressBar14"></td>
+        <td id="progressBar15"></td>
+        <td id="progressBar16"></td>
+        <td id="progressBar17"></td>
+        <td id="progressBar18"></td>
+      </tr>
+    </table>
   </div>
 
   <div id="newStudentPop" class="pop">
