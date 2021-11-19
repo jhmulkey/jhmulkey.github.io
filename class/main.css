@@ -54,6 +54,12 @@ div {
     overflow-y:auto
 }
 
+#missionCheckBoxDiv {
+    height: 575px;
+    overflow-y: auto;
+    text-align: left;
+}
+
 #attendance2Pop {
     border-bottom: 2px solid white;
     background-color: #222;
@@ -673,7 +679,8 @@ div {
 }
 
 #currentPlayer {
-    font-size: 15px;
+    margin: 15px auto;
+    font-size: 20px;
 }
 
 #progressBarTable, #progressBarTable td {

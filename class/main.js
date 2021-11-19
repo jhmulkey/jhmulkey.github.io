@@ -21,6 +21,7 @@ var _focus;
 var _currentFunction; // used to store a function so various other functions can use it
 var _eligibleRandom; // used to store an array of eligble names for random selection
 var _teams = [];
+var _dataInputParameter;
 
 /* INDEX + RANK / POINTS / RANK FACTOR
 0 PVT / 0
@@ -179,7 +180,7 @@ function gameScorePoints(x) {
         _teams[0].undoTeam = 1;
         _teams[0].team1.shift();
         _teams[0].currentPlayer = _teams[0].team2[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].team2[0].fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
         document.getElementById("team2Score").style.backgroundColor = "yellow";
         document.getElementById("team1Score").style.backgroundColor = "#eee";
         if (_teams[0].team1.length == 0) {
@@ -187,7 +188,7 @@ function gameScorePoints(x) {
                 _teams[0].team1.push(_teams[0].team1Reset[i])
             };
         };
-        gameActivityLog(log1,"lawngreen");
+        gameActivityLog(log1,false,"lawngreen");
         storeNewData();
     } else {
         var log2 = _teams[0].team2[0].fullName + " " + x + " pts team 2 (" + _teams[0].team2Score + "-->" + (_teams[0].team2Score + x) + ")";
@@ -198,7 +199,7 @@ function gameScorePoints(x) {
         _teams[0].undoTeam = 2;
         _teams[0].team2.shift();
         _teams[0].currentPlayer = _teams[0].team1[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player: " +  _teams[0].team1[0].fullName
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
         document.getElementById("team1Score").style.backgroundColor = "yellow";
         document.getElementById("team2Score").style.backgroundColor = "#eee";
         if (_teams[0].team2.length == 0) {
@@ -206,7 +207,7 @@ function gameScorePoints(x) {
                 _teams[0].team2.push(_teams[0].team2Reset[i])
             };
         };
-        gameActivityLog(log2,"white");
+        gameActivityLog(log2,false,"white");
         storeNewData();
     };
     for (i = 1; i < 11; i++) {
@@ -230,20 +231,20 @@ function undoGameScorePoints() {
         _teams[0].team2Score -= _teams[0].undoGamePts;
         document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
         _teams[0].team2.unshift(_teams[0].undoCurrentPlayer);
-        document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].team2[0].fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
         document.getElementById("team2Score").style.backgroundColor = "yellow";
         document.getElementById("team1Score").style.backgroundColor = "#eee";
-        gameActivityLog(log1,"red");
+        gameActivityLog(log1,false,"red");
     } else if (_teams[0].currentTeam == 2) {
         var log2 = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " " + _teams[0].undoGamePts + " pts " + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
         _teams[0].currentTeam = 1;
         _teams[0].team1Score -= _teams[0].undoGamePts;
         document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
         _teams[0].team1.unshift(_teams[0].undoCurrentPlayer);
-        document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].team1[0].fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
         document.getElementById("team1Score").style.backgroundColor = "yellow";
         document.getElementById("team2Score").style.backgroundColor = "#eee";
-        gameActivityLog(log2,"red");
+        gameActivityLog(log2,false,"red");
     };
     storeNewData();
 };
@@ -306,6 +307,7 @@ function createTeams() {
     for (i = 1; i < 11; i++) {
         document.getElementById("gamePoint"+i).style.backgroundColor = "black";
     };
+    document.getElementById("gameLog").innerHTML = "";
     populateTeams();
     storeNewData();
 };
@@ -349,17 +351,27 @@ function loadGame() {
     document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
     document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
     if (_teams[0].undoTeam != _teams[0].currentTeam) {
-        document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].currentPlayer;
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].currentPlayer + "</span>";
     } else {
-        document.getElementById("currentPlayer").innerHTML = "Current Player: " + _teams[0].undoCurrentPlayer.fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].undoCurrentPlayer.fullName + "</span>";
     };
     pop("teamsListPop","playGamePop");
 };
 
-function adjustGameScore(x) {
-    if (x == 1) {
-        _teams[0].team1Score = x
-    }
+function adjustGameScore(parameter,data,reason) {
+    var original
+    if (parameter == 1) { 
+        original = _teams[0].team1Score;
+        _teams[0].team1Score = data;
+    } else { 
+        original = _teams[0].team2Score
+        _teams[0].team2Score = data;
+    };
+    document.getElementById("team"+parameter+"Score").innerHTML = data;
+    var log1 = "Team " + parameter.toString() + " points set " + original + "-->" + data;
+    var log2 = "(reason: " + reason + ")";
+    gameActivityLog(log1,log2,"orange");
+    storeAndBackup();
 };
 
 function setWeeksOff() {
@@ -400,13 +412,27 @@ function activityLog(log1,log2,color,background) {
     storeNewData();
 };
 
-function gameActivityLog(log,color,background) {
+function gameActivityLog(log1,log2,color,background) {
     var paragraph = document.createElement("p");
-    paragraph.style.color = color;
+    var lineBreak = document.createElement("br");
+    if (color) {
+        paragraph.style.color = color;
+    };
+    if (background) {
+        paragraph.style.background = background;
+    };
     paragraph.classList.add("logEntry");
-    var textNode = document.createTextNode(log);
-    paragraph.appendChild(textNode);
-    document.getElementById("gameLog").appendChild(paragraph);
+    var textNode1 = document.createTextNode(log1);
+    var textNode2 = document.createTextNode(log2);
+    if (log2) {
+        paragraph.appendChild(textNode1);
+        paragraph.appendChild(lineBreak);
+        paragraph.appendChild(textNode2);
+        document.getElementById("gameLog").appendChild(paragraph);
+    } else {
+        paragraph.appendChild(textNode1);
+        document.getElementById("gameLog").appendChild(paragraph);
+    };
     _gameLog = document.getElementById("gameLog").innerHTML;
     storeNewData();
 };
@@ -504,8 +530,9 @@ function infoAlert(message,id1,id2,focus) {
     };
 };
 
-function dataInputAlert(message,id1,id2,reasonRequired,func,bypass) {
+function dataInputAlert(message,id1,id2,reasonRequired,func,parameter,bypass) {
     if (document.getElementById("dataInputAlertPop").style.display != "block") {
+        _dataInputParameter = parameter;
         if (id2) {
             _currentPops2 = [id1,id2];
         } else {
@@ -515,7 +542,7 @@ function dataInputAlert(message,id1,id2,reasonRequired,func,bypass) {
         document.getElementById("dataInputAlertPop").style.display = "block";
         document.getElementById("dataInputTextField").value = "";
         document.getElementById("dataInputTextField").focus();
-        for (i = 0; i < _currentPops.length; i++) {
+        for (i = 0; i < _currentPops2.length; i++) {
             if (_currentPops2[i] !== undefined) {
                 document.getElementById(_currentPops2[i]).style.display = "none"
             };
@@ -535,7 +562,7 @@ function dataInputAlert(message,id1,id2,reasonRequired,func,bypass) {
             };
             var data = parseInt(document.getElementById("dataInputTextField").value);
             var reason = document.getElementById("enterReasonTextField").value;
-            _currentFunction(data,reason);
+            _currentFunction(_dataInputParameter,data,reason);
             for (i = 0; i < _currentPops2.length; i++) {
                 if (_currentPops2[i] !== undefined) {
                     document.getElementById(_currentPops2[i]).style.display = "block"
@@ -881,7 +908,7 @@ function assignClassRank() {
     };
 };
 
-function setPoints(data,reason) {
+function setPoints(parameter,data,reason) {
     original = _sl[_ci].points;
     y = data;
     _sl[_ci].points = y;
@@ -1164,8 +1191,10 @@ function searchLog() {
 
 function loadStudent(index) {
     _ci = index;
-    _sl[_ci].attendance = true;
-    _sl[_ci].attendanceCount.push(1);
+    if (_sl[_ci].attendance === false) {
+        _sl[_ci].attendance = true;
+        _sl[_ci].attendanceCount.push(1);
+    };
     attendanceCount();
     storeNewData();
     refreshStudentPop();
@@ -2108,10 +2137,10 @@ function loadStudentStats() {
         };
     };
 
-    document.getElementById("").innerHTML = 
-    document.getElementById("").innerHTML = 
-    document.getElementById("").innerHTML = 
-    document.getElementById("").innerHTML = 
+/*     document.getElementById("attendanceScore").innerHTML = 
+    document.getElementById("activityScore").innerHTML = 
+    document.getElementById("memoryScore").innerHTML = 
+    document.getElementById("participationScore").innerHTML =  */
 
 
     pop("studentPop","studentStatsPop","missionsPop");

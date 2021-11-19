@@ -103,11 +103,11 @@
     <div id="teamPointsContainer">
       <div>
         <p>Team 1</p>
-        <div id="team1Score" onclick="adjustGameScore(1)">0</div>
+        <div id="team1Score" onclick="dataInputAlert('Adjust team 1 score','playGamePop',false,true,adjustGameScore,1)">0</div>
       </div>
       <div>
         <p>Team 2</p>
-        <div id="team2Score" onclick="adjustGameScore(2)">0</div>
+        <div id="team2Score" onclick="dataInputAlert('Adjust team 2 score','playGamePop',false,true,adjustGameScore,2)">0</div>
       </div>
     </div>
     <p id="currentPlayer"></p>
@@ -163,7 +163,7 @@
       <textarea id="enterReasonTextField" rows="10" cols="30"></textarea>
     </div>
     <div class="optionButtonContainer">
-      <div class="cancelButton" onclick="dataInputAlert(false,false,false,false,false,true)">CANCEL</div>
+      <div class="cancelButton" onclick="dataInputAlert(false,false,false,false,false,false,true)">CANCEL</div>
       <div class="okButton" onclick="dataInputAlert()">OK</div>
     </div>
   </div>
@@ -173,39 +173,41 @@
         <div class="backButton" onclick="pop('missionVisibilityPop','studentPop',false,'missionsPop')"><span>f</span></div>
         <div class="homeButton" onclick="goHome()"><span>5</span></div>
       </div>
-      <label class="checkboxLabel"><input type="checkbox" id="check1" class="checkbox" onclick="toggleMissions('01')"/> Class Intro / Ps 139:17-18</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check2" class="checkbox" onclick="toggleMissions('02')"/> John Intro / Jn 20:30-31</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check3" class="checkbox" onclick="toggleMissions('03')"/> John 1 / Jn 1:1-2</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check4" class="checkbox" onclick="toggleMissions('04')"/> John 2 / Jn 1:3</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check5" class="checkbox" onclick="toggleMissions('05')"/> John 3 / Jn 1:4-5</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check6" class="checkbox" onclick="toggleMissions('06')"/> John 4 / Jn 1:6-8</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check7" class="checkbox" onclick="toggleMissions('07')"/> John 5 / Jn 1:9-11</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check8" class="checkbox" onclick="toggleMissions('08')"/> John 6 / Jn 1:12-13</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check9" class="checkbox" onclick="toggleMissions('09')"/> John 7 / Jn 1:14</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check10" class="checkbox" onclick="toggleMissions('10')"/> John 8 / Jn 1:15</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check11" class="checkbox" onclick="toggleMissions('11')"/> John 9 / Jn 1:16-17</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check12" class="checkbox" onclick="toggleMissions('12')"/> John 1-9 Review / Jn 1:18</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check13" class="checkbox" onclick="toggleMissions('13')"/> John 10 / Phil 2:5-6</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check14" class="checkbox" onclick="toggleMissions('14')"/> John 11 / Phil 2:7</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check15" class="checkbox" onclick="toggleMissions('15')"/> John 12 / Phil 2:8</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check16" class="checkbox" onclick="toggleMissions('16')"/> John 13 / Phil 2:9</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check17" class="checkbox" onclick="toggleMissions('17')"/> John 14 / Phil 2:10-11</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check18" class="checkbox" onclick="toggleMissions('18')"/> John 15 / Rom 8:31</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check19" class="checkbox" onclick="toggleMissions('19')"/> John 16 / Rom 8:32</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check20" class="checkbox" onclick="toggleMissions('20')"/> John 17 / Rom 8:33</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check21" class="checkbox" onclick="toggleMissions('21')"/> John 18 / Rom 8:34</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check22" class="checkbox" onclick="toggleMissions('22')"/> John 19 / Rom 8:35</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check23" class="checkbox" onclick="toggleMissions('23')"/> John 20 / Rom 8:36</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check24" class="checkbox" onclick="toggleMissions('24')"/> John 21 / Rom 8:37</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check25" class="checkbox" onclick="toggleMissions('25')"/> John 10-21 Review / Rom 8:38-39</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check26" class="checkbox" onclick="toggleMissions('26')"/> Armor Intro / Eph 6:10-11/</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check27" class="checkbox" onclick="toggleMissions('27')"/> Belt / Eph 6:12</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check28" class="checkbox" onclick="toggleMissions('28')"/> Breastplate / Eph 6:13</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check29" class="checkbox" onclick="toggleMissions('29')"/> Shoes / Eph 6:14-15</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check30" class="checkbox" onclick="toggleMissions('30')"/> Shield / Eph 6:16</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check31" class="checkbox" onclick="toggleMissions('31')"/> Helmet / Eph 6:17</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check32" class="checkbox" onclick="toggleMissions('32')"/> Sword / Eph 6:18</label><br>
-      <label class="checkboxLabel"><input type="checkbox" id="check33" class="checkbox" onclick="toggleMissions('33')"/> Armor Review / no verse</label><br>
+      <div id="missionCheckBoxDiv">
+        <label class="checkboxLabel"><input type="checkbox" id="check1" class="checkbox" onclick="toggleMissions('01')"/> Class Intro / Ps 139:17-18</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check2" class="checkbox" onclick="toggleMissions('02')"/> John Intro / Jn 20:30-31</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check3" class="checkbox" onclick="toggleMissions('03')"/> John 1 / Jn 1:1-2</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check4" class="checkbox" onclick="toggleMissions('04')"/> John 2 / Jn 1:3</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check5" class="checkbox" onclick="toggleMissions('05')"/> John 3 / Jn 1:4-5</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check6" class="checkbox" onclick="toggleMissions('06')"/> John 4 / Jn 1:6-8</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check7" class="checkbox" onclick="toggleMissions('07')"/> John 5 / Jn 1:9-11</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check8" class="checkbox" onclick="toggleMissions('08')"/> John 6 / Jn 1:12-13</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check9" class="checkbox" onclick="toggleMissions('09')"/> John 7 / Jn 1:14</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check10" class="checkbox" onclick="toggleMissions('10')"/> John 8 / Jn 1:15</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check11" class="checkbox" onclick="toggleMissions('11')"/> John 9 / Jn 1:16-17</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check12" class="checkbox" onclick="toggleMissions('12')"/> John 1-9 Review / Jn 1:18</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check13" class="checkbox" onclick="toggleMissions('13')"/> John 10 / Phil 2:5-6</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check14" class="checkbox" onclick="toggleMissions('14')"/> John 11 / Phil 2:7</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check15" class="checkbox" onclick="toggleMissions('15')"/> John 12 / Phil 2:8</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check16" class="checkbox" onclick="toggleMissions('16')"/> John 13 / Phil 2:9</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check17" class="checkbox" onclick="toggleMissions('17')"/> John 14 / Phil 2:10-11</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check18" class="checkbox" onclick="toggleMissions('18')"/> John 15 / Rom 8:31</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check19" class="checkbox" onclick="toggleMissions('19')"/> John 16 / Rom 8:32</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check20" class="checkbox" onclick="toggleMissions('20')"/> John 17 / Rom 8:33</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check21" class="checkbox" onclick="toggleMissions('21')"/> John 18 / Rom 8:34</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check22" class="checkbox" onclick="toggleMissions('22')"/> John 19 / Rom 8:35</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check23" class="checkbox" onclick="toggleMissions('23')"/> John 20 / Rom 8:36</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check24" class="checkbox" onclick="toggleMissions('24')"/> John 21 / Rom 8:37</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check25" class="checkbox" onclick="toggleMissions('25')"/> John 10-21 Review / Rom 8:38-39</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check26" class="checkbox" onclick="toggleMissions('26')"/> Armor Intro / Eph 6:10-11/</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check27" class="checkbox" onclick="toggleMissions('27')"/> Belt / Eph 6:12</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check28" class="checkbox" onclick="toggleMissions('28')"/> Breastplate / Eph 6:13</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check29" class="checkbox" onclick="toggleMissions('29')"/> Shoes / Eph 6:14-15</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check30" class="checkbox" onclick="toggleMissions('30')"/> Shield / Eph 6:16</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check31" class="checkbox" onclick="toggleMissions('31')"/> Helmet / Eph 6:17</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check32" class="checkbox" onclick="toggleMissions('32')"/> Sword / Eph 6:18</label><br>
+        <label class="checkboxLabel"><input type="checkbox" id="check33" class="checkbox" onclick="toggleMissions('33')"/> Armor Review / no verse</label><br>
+      </div>
   </div>
 
   <div id="wtlPop" class="pop buttonArr">
