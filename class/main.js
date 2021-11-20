@@ -14,7 +14,7 @@ var _teacherNotes = []; //array where teacher notes are stored
 var _teacherNoteIndex; // selected note index of teacherNotes array
 var _log = ""; // activity log
 var _gameLog = ""; 
-var _checkedState = [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
+var _checkedState = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
 var _currentPops; // used to store an array of which Pop divs are visible when the infoAlert function is called
 var _currentPops2;
 var _focus;
@@ -22,6 +22,7 @@ var _currentFunction; // used to store a function so various other functions can
 var _eligibleRandom; // used to store an array of eligble names for random selection
 var _teams = [];
 var _dataInputParameter;
+var _elapsedWeeks = 1;
 
 /* INDEX + RANK / POINTS / RANK FACTOR
 0 PVT / 0
@@ -493,7 +494,9 @@ function attendanceList(log) {
 function resetAttendance() {
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
-        _sl[i].attendanceCount.splice(_sl[i].attendanceCount.length-1,1);
+        if (_sl[i].attendanceCount[_elapsedWeeks-1] == 1) {
+            _sl[i].attendanceCount[_elapsedWeeks-1] = 0;
+        };    
     };
     attendanceCount();
     pop("attendanceListPop","mainPop");
@@ -687,6 +690,12 @@ function newStudent() {
     };
     var newStudent = new Student(first,last,month,date,email1,email2,parent1First,parent1Last,parent1Phone,parent2First,parent2Last,parent2Phone,gender,note);
     newStudent.attendance = true;
+    for (i = 0; i <= _checkedState.length; i++) {
+        if (_checkedState[i] == 1) {
+            newStudent.attendanceCount.push(0);
+        };
+    };
+    newStudent.attendanceCount.push(1);
     _sl.push(newStudent);
     assignBdayNumber(_sl.length-1);
     sortStudentList();
@@ -1191,9 +1200,10 @@ function searchLog() {
 
 function loadStudent(index) {
     _ci = index;
+    elapsedWeekCount();
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
-        _sl[_ci].attendanceCount.push(1);
+        _sl[_ci].attendanceCount[_elapsedWeeks-1] = 1;
     };
     attendanceCount();
     storeNewData();
@@ -1594,25 +1604,27 @@ function populateTeacherNotes() {
 };
 
 function attendance2(i) {
+    elapsedWeekCount();
     if (_sl[i].attendance === false) {
         _sl[i].attendance = true;
-        _sl[i].attendanceCount.push(1);
+        _sl[i].attendanceCount[_elapsedWeeks-1] = 1;
     } else {
         _sl[i].attendance = false;
-        _sl[i].attendanceCount.splice(_sl[i].attendanceCount.length-1,1);
+        _sl[i].attendanceCount[_elapsedWeeks-1] = 0;
     };
     attendanceCount();
     storeNewData();
 };
 
 function attendance() {
+    elapsedWeekCount();
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
-        _sl[_ci].attendanceCount.push(1);
+        _sl[_ci].attendanceCount[_elapsedWeeks-1] = 1;
         document.getElementById("dispName").style.color = "lawngreen";
     } else {
         _sl[_ci].attendance = false;
-        _sl[_ci].attendanceCount.splice(_sl[_ci].attendanceCount.length-1,1);
+        _sl[_ci].attendanceCount[_elapsedWeeks-1] = 0;
         document.getElementById("dispName").style.color = "white";
     };
     attendanceCount();
@@ -1625,27 +1637,27 @@ function toggleMissions(x) {
     if (as.style.display != "block") {
         as.style.display = "block";
         mv.style.display = "block";
-        _checkedState[parseInt(x)] = true;
+        _checkedState[parseInt(x-1)] = 1;
     } else {
         as.style.display = "none";
         mv.style.display = "none";
-        _checkedState[parseInt(x)] = false;
+        _checkedState[parseInt(x-1)] = 0;
     };
     storeAndBackup();
 };
 
 function showMissions() {
     for (i = 0; i < _checkedState.length; i++) {
-        if (_checkedState[i] === true) {
+        if (_checkedState[i] == 1) {
             document.getElementById("check"+String(i+1)).checked = true
         };
     };
     for (i = 0; i < _checkedState.length; i++) {
-        if (_checkedState[i] === true && i < 9) {
+        if (_checkedState[i] == 1 && i < 9) {
             document.getElementById("as0"+(i+1)+"Pop").style.display = "block";
             document.getElementById("mv0"+(i+1)+"Pop").style.display = "block";
         };
-        if (_checkedState[i] === true && i >= 9) {
+        if (_checkedState[i] == 1 && i >= 9) {
             document.getElementById("as"+(i+1)+"Pop").style.display = "block";
             document.getElementById("mv"+(i+1)+"Pop").style.display = "block";
         };
@@ -2086,7 +2098,7 @@ function preloadImages() {
     };
     var iLimit = 0
     for (i = 1; i < 34; i++) {
-        if (_checkedState[i] === true) {
+        if (_checkedState[i] == 1) {
             iLimit++
         };
     };
@@ -2127,6 +2139,8 @@ e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random(
 //*** TO DO LIST ***//
 // log text and color-coding
 // student stats (including rank progress bar)
+// partial credit reason for activity sheets
+// make "team1" and "team2" team list headers green and reduce margins
 
 function loadStudentStats() {
     for (i = 0; i < 19; i++) {
@@ -2136,12 +2150,35 @@ function loadStudentStats() {
             document.getElementById("progressBar"+i).style.backgroundColor = "black";
         };
     };
-
-/*     document.getElementById("attendanceScore").innerHTML = 
-    document.getElementById("activityScore").innerHTML = 
-    document.getElementById("memoryScore").innerHTML = 
-    document.getElementById("participationScore").innerHTML =  */
-
-
+    elapsedWeekCount();
+    var weeksAttended = 0;
+    for (i = 0; i < _sl[_ci].attendanceCount.length; i++) {
+        weeksAttended += _sl[_ci].attendanceCount[i];
+    };
+    var totalASpts = 0;
+    var totalMVpts = 0;
+    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+        totalASpts += _asMaxPts[i];
+        totalMVpts += _mvMaxPts[i];
+    };
+    earnedASpts = 0;
+    earnedMVpts = 0;
+    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+        earnedASpts += Object.values(_sl[_ci].as)[i];
+        earnedMVpts += Object.values(_sl[_ci].mv)[i];
+    };
+    document.getElementById("attendanceScore").innerHTML = "Attendance Score: " + weeksAttended + "/" + _elapsedWeeks + " (" + Math.round((weeksAttended / _elapsedWeeks) * 100)+"%)";
+    document.getElementById("activityScore").innerHTML = "Activity Sheet Score: " + earnedASpts + "/" + totalASpts + " (" + Math.round((earnedASpts / totalASpts) * 100)+"%)";
+    document.getElementById("memoryScore").innerHTML = "Memory Verse Score: " + earnedMVpts + "/" + totalMVpts + " (" + Math.round((earnedMVpts / totalMVpts) * 100)+"%)";
+    document.getElementById("participationScore").innerHTML = "Participation Score: " + (weeksAttended + earnedASpts + earnedMVpts) + "/" + (_elapsedWeeks + totalASpts + totalMVpts) + " (" + Math.round(((weeksAttended + earnedASpts + earnedMVpts) / (_elapsedWeeks + totalASpts + totalMVpts)) * 100)+"%)";
     pop("studentPop","studentStatsPop","missionsPop");
+};
+
+function elapsedWeekCount() {
+    _elapsedWeeks = 1;
+    for (i = 0; i <= _checkedState.length; i++) {
+        if (_checkedState[i] == 1) {
+            _elapsedWeeks++;
+        };
+    };
 };
