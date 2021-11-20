@@ -23,6 +23,7 @@ var _eligibleRandom; // used to store an array of eligble names for random selec
 var _teams = [];
 var _dataInputParameter;
 var _elapsedWeeks = 1;
+var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 1009, 1016, 1023, 1030, 1037, 1044, 1051, 1058, 1065, 1072, 1079, 1086, 1093, 1100, 1114, 1121, 1128, 1135, 1142];
 
 /* INDEX + RANK / POINTS / RANK FACTOR
 0 PVT / 0
@@ -376,12 +377,12 @@ function adjustGameScore(parameter,data,reason) {
 };
 
 function setWeeksOff() {
-    var todaysDate = new Date()
-    var thisMonth = todaysDate.getMonth() + 1;
-    var thisDate = todaysDate.getDate();
-    if ((thisMonth == 8 && thisDate == 29) || (thisMonth == 4 && thisDate == 10)) {
+    var today = new Date()
+    var todaysMonth = today.getMonth() + 1;
+    var todaysDate = today.getDate();
+    if ((todaysMonth == 8 && todaysDate == 29) || (todaysMonth == 4 && todaysDate == 10)) {
         _weeksOff = 1;
-    } else if ((thisMonth == 11 && thisDate == 14) || (thisMonth == 12 && thisDate == 19)) {
+    } else if ((todaysMonth == 11 && todaysDate == 14) || (todaysMonth == 12 && todaysDate == 19)) {
         _weeksOff = 2;
     } else {
         _weeksOff = 0;
@@ -494,13 +495,11 @@ function attendanceList(log) {
 function resetAttendance() {
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
-        if (_sl[i].attendanceCount[_elapsedWeeks-1] == 1) {
-            _sl[i].attendanceCount[_elapsedWeeks-1] = 0;
-        };    
+        _sl[i].attendanceCount[_elapsedWeeks-1] = 0;  
     };
     attendanceCount();
     pop("attendanceListPop","mainPop");
-    storeNewData();
+    storeAndBackup();
 };
 
 function loadTodaysDate() {
@@ -829,8 +828,6 @@ function assignBdayNumber(x) {
     if (x) {
         _ci = x;
     };
-    var daysInMonth = [0,31,28,31,30,31,30,31,31,30,31,30,31];
-    var daysInMonthLeap = [0,31,29,31,30,31,30,31,31,30,31,30,31];
     var cumulative = [0,0,31,59,90,120,151,181,212,243,273,304,334];
     var cumulativeLeap = [0,0,31,60,91,121,152,182,213,244,274,305,335];
     if (_leapYear) {
@@ -1200,7 +1197,6 @@ function searchLog() {
 
 function loadStudent(index) {
     _ci = index;
-    elapsedWeekCount();
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
         _sl[_ci].attendanceCount[_elapsedWeeks-1] = 1;
@@ -1604,7 +1600,6 @@ function populateTeacherNotes() {
 };
 
 function attendance2(i) {
-    elapsedWeekCount();
     if (_sl[i].attendance === false) {
         _sl[i].attendance = true;
         _sl[i].attendanceCount[_elapsedWeeks-1] = 1;
@@ -1617,7 +1612,6 @@ function attendance2(i) {
 };
 
 function attendance() {
-    elapsedWeekCount();
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
         _sl[_ci].attendanceCount[_elapsedWeeks-1] = 1;
@@ -1647,9 +1641,12 @@ function toggleMissions(x) {
 };
 
 function showMissions() {
+    loadCheckedStates();
     for (i = 0; i < _checkedState.length; i++) {
         if (_checkedState[i] == 1) {
-            document.getElementById("check"+String(i+1)).checked = true
+            document.getElementById("check"+String(i+1)).checked = true;
+        } else if (_checkedState[i] == 0) {
+            document.getElementById("check"+String(i+1)).checked = false;
         };
     };
     for (i = 0; i < _checkedState.length; i++) {
@@ -1747,8 +1744,8 @@ function setRandomFalse() {
 };
 
 function leapYear() {
-    var todaysDate = new Date();
-    var todaysYear = todaysDate.getFullYear();
+    var today = new Date();
+    var todaysYear = today.getFullYear();
     if ((todaysYear % 4 == 0) && (todaysYear % 100 != 0) || (todaysYear % 400 == 0)) {
         _leapYear = true;
     } else {
@@ -1759,26 +1756,26 @@ function leapYear() {
 function findBday() {
     leapYear();
     setWeeksOff();
-    var todaysDate = new Date()
-    var thisMonth = todaysDate.getMonth() + 1;
-    var thisDate = todaysDate.getDate();
+    var today = new Date()
+    var todaysMonth = today.getMonth() + 1;
+    var todaysDate = today.getDate();
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].birthdayDone === false) {
-            if (thisMonth == _sl[i].birthdayMonth && _sl[i].birthdayDate >= thisDate && _sl[i].birthdayDate <= (thisDate + (6 + (7 * _weeksOff)))) {
+            if (todaysMonth == _sl[i].birthdayMonth && _sl[i].birthdayDate >= todaysDate && _sl[i].birthdayDate <= (todaysDate + (6 + (7 * _weeksOff)))) {
                 _sl[i].hasBirthday = true;
             } else {
                 _sl[i].hasBirthday = false;
             };
-            if (thisMonth == 2 && _sl[i].birthdayMonth == (thisMonth + 1)) {
+            if (todaysMonth == 2 && _sl[i].birthdayMonth == (todaysMonth + 1)) {
                 if (_leapYear === false) {
-                    y = 28 - thisDate;
+                    y = 28 - todaysDate;
                         if (_sl[i].birthdayDate + y <= (6 + (7 * _weeksOff))) {
                             _sl[i].hasBirthday = true;
                         } else {
                             _sl[i].hasBirthday = false;
                         };
                 } else {
-                    y = 29 - thisDate;
+                    y = 29 - todaysDate;
                         if (_sl[i].birthdayDate + y <= (6 + (7 * _weeksOff))) {
                             _sl[i].hasBirthday = true;
                         } else {
@@ -1786,16 +1783,16 @@ function findBday() {
                         };
                 };
             };
-            if ((thisMonth == 4 || thisMonth == 6 || thisMonth == 9 || thisMonth == 11) &&  _sl[i].birthdayMonth == (thisMonth + 1)) {
-                y = 30 - thisDate;
+            if ((todaysMonth == 4 || todaysMonth == 6 || todaysMonth == 9 || todaysMonth == 11) &&  _sl[i].birthdayMonth == (todaysMonth + 1)) {
+                y = 30 - todaysDate;
                 if (_sl[i].birthdayDate + y <= (6 + (7 * _weeksOff))) {
                     _sl[i].hasBirthday = true;
                 } else {
                     _sl[i].hasBirthday = false;
                 };
             };
-            if ((thisMonth == 1 || thisMonth == 3 || thisMonth == 5 || thisMonth == 7 || thisMonth == 8 || thisMonth == 10 || thisMonth == 12) &&  _sl[i].birthdayMonth == (thisMonth + 1)) {
-                y = 31 - thisDate;
+            if ((todaysMonth == 1 || todaysMonth == 3 || todaysMonth == 5 || todaysMonth == 7 || todaysMonth == 8 || todaysMonth == 10 || todaysMonth == 12) &&  _sl[i].birthdayMonth == (todaysMonth + 1)) {
+                y = 31 - todaysDate;
                 if (_sl[i].birthdayDate + y <= (6 + (7 * _weeksOff))) {
                     _sl[i].hasBirthday = true;
                 } else {
@@ -2002,6 +1999,7 @@ function whatToLoad() {
             _sl = JSON.parse(localStorage.getItem("slBackup"));
             _checkedState = JSON.parse(localStorage.getItem("checkedStateBackup"));
             _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
+            loadCheckedStates();
             removePtBoxes();
             showMissions();
             sortStudentList();
@@ -2012,7 +2010,6 @@ function whatToLoad() {
             findBday();
         } else { //A2
             return;
-            showMissions();
         };
     } else { //B
         pop("mainPop","wtlPop");
@@ -2027,6 +2024,7 @@ function loadBackup() {
         _sl = JSON.parse(localStorage.getItem("slBackup"));
         _checkedState = JSON.parse(localStorage.getItem("checkedStateBackup"));
         _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
+        loadCheckedStates();
         showMissions();
         for (i = 0; i < _sl.length; i++) {
             _sl[i].attendance = false;
@@ -2048,9 +2046,10 @@ function loadLS() {
     document.getElementById("gameLog").innerHTML = _gameLog;
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotes"));
     _teams = JSON.parse(localStorage.getItem("teams"));
+    loadCheckedStates();
     if (_checkedState != null) {
         showMissions();
-    }
+    };
     attendanceCount();
     removePtBoxes();
     findBday();
@@ -2150,7 +2149,6 @@ function loadStudentStats() {
             document.getElementById("progressBar"+i).style.backgroundColor = "black";
         };
     };
-    elapsedWeekCount();
     var weeksAttended = 0;
     for (i = 0; i < _sl[_ci].attendanceCount.length; i++) {
         weeksAttended += _sl[_ci].attendanceCount[i];
@@ -2176,9 +2174,66 @@ function loadStudentStats() {
 
 function elapsedWeekCount() {
     _elapsedWeeks = 1;
-    for (i = 0; i <= _checkedState.length; i++) {
+    for (i = 0; i < _checkedState.length; i++) {
         if (_checkedState[i] == 1) {
             _elapsedWeeks++;
         };
     };
 };
+
+function assignDateNumber() {
+    leapYear();
+    var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
+    var dates = [22,29,12,19,26,3,10,17,24,31,7,14,5,12,19,9,16,23,30,6,13,20,27,6,13,20,27,3,10,24,1,8,15,22];
+    var cumulative = [0,0,31,59,90,120,151,181,212,243,273,304,334];
+    var cumulativeLeap = [0,0,31,60,91,121,152,182,213,244,274,305,335];
+    for (i = 0; i < months.length; i++) {
+        if (_leapYear) {
+            if (months[i] >= 8) {
+                _dateNumbers[i] = cumulativeLeap[months[i]] + dates[i];
+            } else {
+                _dateNumbers[i] = cumulativeLeap[months[i]] + dates[i] + 1000;
+            };
+        } else {
+            if (months[i] >= 8) {
+                _dateNumbers[i] = cumulative[months[i]] + dates[i];
+            } else {
+                _dateNumbers[i] = cumulative[months[i]] + dates[i] + 1000;
+            };
+        };
+        console.log(months[i]+"/"+dates[i]+"("+_dateNumbers[i]+")");
+    };
+}; //assigns number to each calendar date that class meets and adds 1000 to dates after December to make them order higher than the Sept-Dec dates even though the day of the year they represent is lower
+
+function loadCheckedStates() {
+    leapYear();
+    var today = new Date();
+    var todaysMonth = today.getMonth() + 1;
+    var todaysDate = today.getDate();
+    var todaysDateNumber;
+    var cumulative = [0,0,31,59,90,120,151,181,212,243,273,304,334];
+    var cumulativeLeap = [0,0,31,60,91,121,152,182,213,244,274,305,335];
+    if (_leapYear) {
+        if (todaysMonth >= 8) {
+            todaysDateNumber = cumulativeLeap[todaysMonth] + todaysDate;
+        } else {
+            todaysDateNumber = cumulativeLeap[todaysMonth] + todaysDate + 1000;
+        };
+    } else {
+        if (todaysMonth >= 8) {
+            todaysDateNumber = cumulative[todaysMonth] + todaysDate;
+        } else {
+            todaysDateNumber = cumulative[todaysMonth] + todaysDate + 1000;
+        };
+    };
+    for (i = 0; i < _dateNumbers.length; i++) {
+        if (i > 0 && todaysDateNumber >= _dateNumbers[i]) {
+            _checkedState[(i-1)] = 1;
+        } else if (i > 0) {
+            _checkedState[(i-1)] = 0;
+        };
+    };
+    elapsedWeekCount();
+};
+
+// for (i = 0; i <= .length; i++) {};
