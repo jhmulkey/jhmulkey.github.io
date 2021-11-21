@@ -24,6 +24,9 @@ var _teams = [];
 var _dataInputParameter;
 var _elapsedWeeks = 1;
 var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 1009, 1016, 1023, 1030, 1037, 1044, 1051, 1058, 1065, 1072, 1079, 1086, 1093, 1100, 1114, 1121, 1128, 1135, 1142];
+var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
+var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
+
 
 /* INDEX + RANK / POINTS / RANK FACTOR
 0 PVT / 0
@@ -360,7 +363,7 @@ function loadGame() {
     pop("teamsListPop","playGamePop");
 };
 
-function adjustGameScore(parameter,data,reason) {
+function adjustGameScore(parameter,data) {
     var original
     if (parameter == 1) { 
         original = _teams[0].team1Score;
@@ -371,8 +374,7 @@ function adjustGameScore(parameter,data,reason) {
     };
     document.getElementById("team"+parameter+"Score").innerHTML = data;
     var log1 = "Team " + parameter.toString() + " points set " + original + "-->" + data;
-    var log2 = "(reason: " + reason + ")";
-    gameActivityLog(log1,log2,"orange");
+    gameActivityLog(log1,false,"orange");
     storeAndBackup();
 };
 
@@ -979,8 +981,7 @@ function demotion() {
 };
 
 function setRankName() {
-    var rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
-    _sl[_ci].rankName = rankNamesAbbr[_sl[_ci].rank];
+    _sl[_ci].rankName = _rankNamesAbbr[_sl[_ci].rank];
 };
 
 function asPoints(_asNum,x) {
@@ -1502,7 +1503,8 @@ function populateNotes() {
         var textNode = document.createTextNode((i + 1) + ". " + _sl[_ci].notes[i]);
         elementNode.appendChild(textNode);
         document.getElementById("notesList").appendChild(elementNode);
-    };  
+    };
+    document.getElementById("studentNotesHeader").innerHTML = _sl[_ci].fullName + " Notes";
 };
 
 function addNote() {
@@ -2139,19 +2141,16 @@ e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random(
 // log text and color-coding
 // student stats (including rank progress bar)
 // partial credit reason for activity sheets
-// make "team1" and "team2" team list headers green and reduce margins
 
 function loadStudentStats() {
-    for (i = 0; i < 19; i++) {
-        if (i <= _sl[_ci].rank) {
-            document.getElementById("progressBar"+i).style.backgroundColor = "lawngreen";
+    var rankPercentage = (((_sl[_ci].rank + 1) / 20) * 100).toFixed(15);
+    var rankSquares = Math.round(rankPercentage / 2.631578947368421);
+    for (i = 1; i <= 38; i++) {
+        if (i <= rankSquares) {
+            document.getElementById("rankProgressBar"+i).style.backgroundColor = "dodgerblue";
         } else {
-            document.getElementById("progressBar"+i).style.backgroundColor = "black";
+            document.getElementById("rankProgressBar"+i).style.backgroundColor = "black";
         };
-    };
-    var weeksAttended = 0;
-    for (i = 0; i < _sl[_ci].attendanceCount.length; i++) {
-        weeksAttended += _sl[_ci].attendanceCount[i];
     };
     var totalASpts = 0;
     var totalMVpts = 0;
@@ -2159,16 +2158,93 @@ function loadStudentStats() {
         totalASpts += _asMaxPts[i];
         totalMVpts += _mvMaxPts[i];
     };
-    earnedASpts = 0;
-    earnedMVpts = 0;
+    var earnedASpts = 0;
+    var earnedMVpts = 0;
     for (i = 0; i < (_elapsedWeeks - 1); i++) {
         earnedASpts += Object.values(_sl[_ci].as)[i];
         earnedMVpts += Object.values(_sl[_ci].mv)[i];
     };
-    document.getElementById("attendanceScore").innerHTML = "Attendance Score: " + weeksAttended + "/" + _elapsedWeeks + " (" + Math.round((weeksAttended / _elapsedWeeks) * 100)+"%)";
-    document.getElementById("activityScore").innerHTML = "Activity Sheet Score: " + earnedASpts + "/" + totalASpts + " (" + Math.round((earnedASpts / totalASpts) * 100)+"%)";
-    document.getElementById("memoryScore").innerHTML = "Memory Verse Score: " + earnedMVpts + "/" + totalMVpts + " (" + Math.round((earnedMVpts / totalMVpts) * 100)+"%)";
-    document.getElementById("participationScore").innerHTML = "Participation Score: " + (weeksAttended + earnedASpts + earnedMVpts) + "/" + (_elapsedWeeks + totalASpts + totalMVpts) + " (" + Math.round(((weeksAttended + earnedASpts + earnedMVpts) / (_elapsedWeeks + totalASpts + totalMVpts)) * 100)+"%)";
+    var asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(15);
+    var asSquares = Math.round(asPercentage / 2.631578947368421);
+    var mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(15);
+    var mvSquares = Math.round(mvPercentage / 2.631578947368421);
+    for (i = 1; i <= 38; i++) {
+        if (i <= asSquares) {
+            document.getElementById("asProgressBar"+i).style.backgroundColor = "lawngreen";
+        } else {
+            document.getElementById("asProgressBar"+i).style.backgroundColor = "black";
+        };
+    };
+    for (i = 1; i <= 38; i++) {
+        if (i <= mvSquares) {
+            document.getElementById("mvProgressBar"+i).style.backgroundColor = "lawngreen";
+        } else {
+            document.getElementById("mvProgressBar"+i).style.backgroundColor = "black";
+        };
+    };
+    var weeksAttended = 0;
+    for (i = 0; i < _sl[_ci].attendanceCount.length; i++) {
+        weeksAttended += _sl[_ci].attendanceCount[i];
+    };
+    var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(15);
+    var attendanceSquares = Math.round(attendancePercentage / 2.631578947368421);
+    for (i = 1; i <= 38; i++) {
+        if (i <= attendanceSquares) {
+            document.getElementById("attendanceProgressBar"+i).style.backgroundColor = "lawngreen";
+        } else {
+            document.getElementById("attendanceProgressBar"+i).style.backgroundColor = "black";
+        };
+    };
+    var totalEarned = weeksAttended + earnedASpts + earnedMVpts;
+    var totalPossible = _elapsedWeeks + totalASpts + totalMVpts;
+    var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(15);
+    var totalSquares = Math.round(totalPercentage / 2.631578947368421);
+    for (i = 1; i <= 38; i++) {
+        if (i <= totalSquares) {
+            document.getElementById("totalProgressBar"+i).style.backgroundColor = "lawngreen";
+        } else {
+            document.getElementById("totalProgressBar"+i).style.backgroundColor = "black";
+        };
+    };
+    if (rankPercentage == 100.000000000000000) {
+        document.getElementById("rankProgressTable").style.backgroundColor = "dodgerblue";
+    } else {
+        document.getElementById("rankProgressTable").style.backgroundColor = "black";
+    };
+
+    if (asPercentage == 100.000000000000000) {
+        document.getElementById("asProgressTable").style.backgroundColor = "lawngreen";
+    } else {
+        document.getElementById("asProgressTable").style.backgroundColor = "black";
+    };
+
+    if (mvPercentage == 100.000000000000000) {
+        document.getElementById("mvProgressTable").style.backgroundColor = "lawngreen";
+    } else {
+        document.getElementById("mvProgressTable").style.backgroundColor = "black";
+    };
+
+    if (attendancePercentage == 100.000000000000000) {
+        document.getElementById("attendanceProgressTable").style.backgroundColor = "lawngreen";
+    } else {
+        document.getElementById("attendanceProgressTable").style.backgroundColor = "black";
+    };
+
+    if (totalPercentage == 100.000000000000000) {
+        document.getElementById("totalProgressTable").style.backgroundColor = "lawngreen";
+    } else {
+        document.getElementById("totalProgressTable").style.backgroundColor = "black";
+    };
+    document.getElementById("studentStatsInsignia").style.backgroundImage = "url(insignia/"+_sl[_ci].rank+"-rank.jpg";
+    document.getElementById("statsRankName").innerHTML = _rankNames[_sl[_ci].rank];
+    document.getElementById("statsName").innerHTML = _sl[_ci].fullName;
+    document.getElementById("statsClassRank").innerHTML = "Class Rank: " + "x";
+
+    document.getElementById("rankProgressTableP").innerHTML = "Rank Completion: " + (_sl[_ci].rank + 1) + "/20" + " (" + Math.round(rankPercentage) + "%)";
+    document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Points: " + earnedASpts + "/" + totalASpts + " (" + Math.round(asPercentage) + "%)";
+    document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Points: " + earnedMVpts + "/" + totalMVpts + " (" + Math.round(mvPercentage) + "%)";
+    document.getElementById("attendanceProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + Math.round(attendancePercentage) + "%)";
+    document.getElementById("totalProgressTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + Math.round(totalPercentage) + "%)";
     pop("studentPop","studentStatsPop","missionsPop");
 };
 
