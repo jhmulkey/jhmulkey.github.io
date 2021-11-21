@@ -2143,9 +2143,9 @@ e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random(
 // partial credit reason for activity sheets
 
 function loadStudentStats() {
-    var rankPercentage = (((_sl[_ci].rank + 1) / 20) * 100).toFixed(15);
-    var rankSquares = Math.round(rankPercentage / 2.631578947368421);
-    for (i = 1; i <= 38; i++) {
+    var rankPercentage = (((_sl[_ci].rank + 1) / 20) * 100).toFixed(2);
+    var rankSquares = Math.round(rankPercentage / 2.50);
+    for (i = 1; i <= 40; i++) {
         if (i <= rankSquares) {
             document.getElementById("rankProgressBar"+i).style.backgroundColor = "dodgerblue";
         } else {
@@ -2164,18 +2164,18 @@ function loadStudentStats() {
         earnedASpts += Object.values(_sl[_ci].as)[i];
         earnedMVpts += Object.values(_sl[_ci].mv)[i];
     };
-    var asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(15);
-    var asSquares = Math.round(asPercentage / 2.631578947368421);
-    var mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(15);
-    var mvSquares = Math.round(mvPercentage / 2.631578947368421);
-    for (i = 1; i <= 38; i++) {
+    var asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(2);
+    var asSquares = Math.round(asPercentage / 2.50);
+    var mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(2);
+    var mvSquares = Math.round(mvPercentage / 2.50);
+    for (i = 1; i <= 40; i++) {
         if (i <= asSquares) {
             document.getElementById("asProgressBar"+i).style.backgroundColor = "lawngreen";
         } else {
             document.getElementById("asProgressBar"+i).style.backgroundColor = "black";
         };
     };
-    for (i = 1; i <= 38; i++) {
+    for (i = 1; i <= 40; i++) {
         if (i <= mvSquares) {
             document.getElementById("mvProgressBar"+i).style.backgroundColor = "lawngreen";
         } else {
@@ -2186,9 +2186,9 @@ function loadStudentStats() {
     for (i = 0; i < _sl[_ci].attendanceCount.length; i++) {
         weeksAttended += _sl[_ci].attendanceCount[i];
     };
-    var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(15);
-    var attendanceSquares = Math.round(attendancePercentage / 2.631578947368421);
-    for (i = 1; i <= 38; i++) {
+    var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(2);
+    var attendanceSquares = Math.round(attendancePercentage / 2.50);
+    for (i = 1; i <= 40; i++) {
         if (i <= attendanceSquares) {
             document.getElementById("attendanceProgressBar"+i).style.backgroundColor = "lawngreen";
         } else {
@@ -2197,48 +2197,50 @@ function loadStudentStats() {
     };
     var totalEarned = weeksAttended + earnedASpts + earnedMVpts;
     var totalPossible = _elapsedWeeks + totalASpts + totalMVpts;
-    var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(15);
-    var totalSquares = Math.round(totalPercentage / 2.631578947368421);
-    for (i = 1; i <= 38; i++) {
+    var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(2);
+    var totalSquares = Math.round(totalPercentage / 2.50);
+    for (i = 1; i <= 40; i++) {
         if (i <= totalSquares) {
             document.getElementById("totalProgressBar"+i).style.backgroundColor = "lawngreen";
         } else {
             document.getElementById("totalProgressBar"+i).style.backgroundColor = "black";
         };
     };
-    if (rankPercentage == 100.000000000000000) {
+    if (rankPercentage == 100.00) {
         document.getElementById("rankProgressTable").style.backgroundColor = "dodgerblue";
     } else {
         document.getElementById("rankProgressTable").style.backgroundColor = "black";
     };
 
-    if (asPercentage == 100.000000000000000) {
+    if (asPercentage == 100.00) {
         document.getElementById("asProgressTable").style.backgroundColor = "lawngreen";
     } else {
         document.getElementById("asProgressTable").style.backgroundColor = "black";
     };
 
-    if (mvPercentage == 100.000000000000000) {
+    if (mvPercentage == 100.00) {
         document.getElementById("mvProgressTable").style.backgroundColor = "lawngreen";
     } else {
         document.getElementById("mvProgressTable").style.backgroundColor = "black";
     };
 
-    if (attendancePercentage == 100.000000000000000) {
+    if (attendancePercentage == 100.00) {
         document.getElementById("attendanceProgressTable").style.backgroundColor = "lawngreen";
     } else {
         document.getElementById("attendanceProgressTable").style.backgroundColor = "black";
     };
 
-    if (totalPercentage == 100.000000000000000) {
+    if (totalPercentage == 100.00) {
         document.getElementById("totalProgressTable").style.backgroundColor = "lawngreen";
     } else {
         document.getElementById("totalProgressTable").style.backgroundColor = "black";
     };
+
+    assignClassRank();
     document.getElementById("studentStatsInsignia").style.backgroundImage = "url(insignia/"+_sl[_ci].rank+"-rank.jpg";
     document.getElementById("statsRankName").innerHTML = _rankNames[_sl[_ci].rank];
     document.getElementById("statsName").innerHTML = _sl[_ci].fullName;
-    document.getElementById("statsClassRank").innerHTML = "Class Rank: " + "x";
+    document.getElementById("statsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
 
     document.getElementById("rankProgressTableP").innerHTML = "Rank Completion: " + (_sl[_ci].rank + 1) + "/20" + " (" + Math.round(rankPercentage) + "%)";
     document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Points: " + earnedASpts + "/" + totalASpts + " (" + Math.round(asPercentage) + "%)";
