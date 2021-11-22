@@ -560,7 +560,6 @@ function dataInputAlert(message,id1,id2,reasonRequired,func,parameter,bypass) {
             document.getElementById("enterReasonDiv").style.display = "block";
             document.getElementById("enterReasonTextField").value = "";
         };
-        scrollTo(0,0);
     } else if (document.getElementById("dataInputAlertPop").style.display == "block") {
         if (!bypass) {
             if (isNaN(parseInt(document.getElementById("dataInputTextField").value))) {
@@ -589,7 +588,8 @@ function dataInputAlert(message,id1,id2,reasonRequired,func,parameter,bypass) {
                 };
             };
         };
-    }; 
+    };
+    scrollTo(0,0);
 };
 
 function actionAlert(message,id1,id2,func,bypass) {
