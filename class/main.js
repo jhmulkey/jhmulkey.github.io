@@ -859,7 +859,12 @@ function refreshStudentPop() {
     } else {
         document.getElementById("dispBday").style.backgroundColor = "fireBrick";
     };
-    doesFileExist("https://ksgrade2.com/class/img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
+    if (_sl[_ci].firstName.includes(" ")) {
+        var firstNameArray = _sl[_ci].firstName.split(" ");
+        doesFileExist("https://ksgrade2.com/class/img/student-thumbnails/"+firstNameArray[0].toLowerCase()+"-"+firstNameArray[1].toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
+    } else {
+        doesFileExist("https://ksgrade2.com/class/img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
+    }
     if (_sl[_ci].email1 == false && _sl[_ci].email2 == false) {
         document.getElementById("emailButton").style.background = "fireBrick";
     } else {
@@ -2334,10 +2339,24 @@ function loadCheckedStates() {
 
 function loadStudentPhoto() {
     if (_studentPhotoExists === true) {
-        document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg)";
+        if (_sl[_ci].firstName.includes(" ")) {
+            var firstNameArray = _sl[_ci].firstName.split(" ");
+            document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+firstNameArray[0].toLowerCase()+"-"+firstNameArray[1].toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg";
+        } else {
+            document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg)";
+        };
         pop("studentPop","studentPhotoPop","missionsPop");
     } else {
         infoAlert("No photo exists for this student","studentPop","missionsPop");
+    };
+};
+
+function photoLinks() {
+    if (_sl[_ci].firstName.includes(" ")) {
+        var firstNameArray = _sl[_ci].firstName.split(" ");
+        window.open("img/student-thumbnails/"+firstNameArray[0].toLowerCase()+"-"+firstNameArray[1].toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
+    } else {
+        window.open("url(img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg)");
     };
 };
 
