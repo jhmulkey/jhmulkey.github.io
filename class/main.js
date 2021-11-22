@@ -538,22 +538,16 @@ function infoAlert(message,id1,id2,focus) {
     };
 };
 
-function dataInputAlert(message,id1,id2,reasonRequired,func,parameter,bypass) {
+function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
     if (document.getElementById("dataInputAlertPop").style.display != "block") {
         _dataInputParameter = parameter;
-        if (id2) {
-            _currentPops2 = [id1,id2];
-        } else {
-            _currentPops2 = [id1];
-        };        
+        _currentPops2 = popArray;
         _currentFunction = func;
         document.getElementById("dataInputAlertPop").style.display = "block";
         document.getElementById("dataInputTextField").value = "";
         document.getElementById("dataInputTextField").focus();
         for (i = 0; i < _currentPops2.length; i++) {
-            if (_currentPops2[i] !== undefined) {
-                document.getElementById(_currentPops2[i]).style.display = "none"
-            };
+            document.getElementById(_currentPops2[i]).style.display = "none"
         };
         document.getElementById("dataInputAlertMessage").innerHTML = message;
         if (reasonRequired === true) {
@@ -572,9 +566,7 @@ function dataInputAlert(message,id1,id2,reasonRequired,func,parameter,bypass) {
             var reason = document.getElementById("enterReasonTextField").value;
             _currentFunction(_dataInputParameter,data,reason);
             for (i = 0; i < _currentPops2.length; i++) {
-                if (_currentPops2[i] !== undefined) {
-                    document.getElementById(_currentPops2[i]).style.display = "block"
-                };
+                document.getElementById(_currentPops2[i]).style.display = "block"
             };
             document.getElementById("enterReasonDiv").style.display = "none";
             document.getElementById("dataInputAlertMessage").innerHTML = "";
@@ -583,22 +575,16 @@ function dataInputAlert(message,id1,id2,reasonRequired,func,parameter,bypass) {
         } else {
             document.getElementById("dataInputAlertPop").style.display = "none";
             for (i = 0; i < _currentPops2.length; i++) {
-                if (_currentPops2[i] !== undefined) {
-                    document.getElementById(_currentPops2[i]).style.display = "block"
-                };
+                document.getElementById(_currentPops2[i]).style.display = "block"
             };
         };
     };
     scrollTo(0,0);
 };
 
-function actionAlert(message,id1,id2,func,bypass) {
+function actionAlert(message,popsArray,func,bypass) {
     if (document.getElementById("actionAlertPop").style.display != "block") { //A
-        if (id2) {
-            _currentPops = [id1,id2]; //A1
-        } else {
-            _currentPops = [id1]; //A1
-        };        
+        _currentPops = popsArray; //A1
         _currentFunction = func; //A1
         document.getElementById("actionAlertPop").style.display = "block"; //A2
         for (i = 0; i < _currentPops.length; i++) { //A3
@@ -720,6 +706,7 @@ function newStudent() {
 
 function deleteStudent() {
     _sl.splice(_ci,1);
+    attendanceCount();
     storeAndBackup();
     sortStudentList();
     goHome();
@@ -1246,53 +1233,6 @@ function loadStudent(index) {
 function missionLinks() {
     window.open("docs/missions/"+_asNum+".pdf","_blank");
 };
-
-/* function pop(close,open,close2,open2) {
-    document.getElementById(close).style.display = "none";
-    document.getElementById(open).style.display = "block";
-    if (close2) {
-        document.getElementById(close2).style.display = "none";
-    };
-    if (open2) {
-        document.getElementById(open2).style.display = "block";
-    };
-    if (open == "mainPop") {
-        document.getElementById("search").value = "";
-        document.getElementById("search").focus();
-        sortStudentList();
-    };
-    if (close == "asPointsPop" || close == "mvPointsPop") {
-        removePtBoxes();
-    };
-    if (open == "randomPop" || open == "drawingPop") {
-        document.getElementById("randomName").innerHTML = "tap here<br>to pick";
-        document.getElementById("winnerName").innerHTML = "tap here<br>to pick";
-    };
-    if (open == "logPop") {
-        document.getElementById("searchLog").value = "";
-        document.getElementById("searchLog").focus();
-        document.getElementById("log").innerHTML = _log;
-    };
-    if (open == "attendance2Pop") {
-        document.getElementById("search2").value = "";
-        document.getElementById("search2").focus();
-        document.getElementById("log").innerHTML = _log;
-    };
-    if (open == "newStudentPop") {
-        document.getElementById("newFirstAndLast").focus();
-    };
-    if (open == "addNotePop") {
-        document.getElementById("addNote").focus();
-    };
-    if (open == "addTeacherNotePop") {
-        document.getElementById("addTeacherNote").focus();
-    };
-    if (open == "logPop") {
-        loadTodaysDate()
-    };
-    alerts();
-    scrollTo(0,0);
-}; */
 
 function pop(closeArray,openArray) {
     for (i = 0; i < closeArray.length; i++) {

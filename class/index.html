@@ -91,7 +91,7 @@
       </div>
     </div>
     <div class="button" onclick="loadGame()">Play Game</div>
-    <div class="button" onclick="actionAlert('Generate new teams and start new game?','teamsListPop',false,createTeams)">Reset Game</div>
+    <div class="button" onclick="actionAlert('Generate new teams and start new game?',['teamsListPop'],createTeams)">Reset Game</div>
   </div>
 
 
@@ -103,11 +103,12 @@
     <div id="teamPointsContainer">
       <div>
         <p>Team 1</p>
-        <div id="team1Score" onclick="dataInputAlert('Adjust team 1 score','playGamePop',false,false,adjustGameScore,1)">0</div>
+        <div id="team1Score" onclick="dataInputAlert('Adjust team 1 score',['playGamePop'],false,adjustGameScore,1)">0</div>
       </div>
       <div>
         <p>Team 2</p>
-        <div id="team2Score" onclick="dataInputAlert('Adjust team 2 score','playGamePop',false,false,adjustGameScore,2)">0</div>
+        <div id="team2Score" onclick="dataInputAlert('Set points to:',['playGamePop'],true,setPoints)">0</div>
+        <!-- onclick="dataInputAlert('Adjust team 2 score',['playGamePop'],false,adjustGameScore,2)" -->
       </div>
     </div>
     <p id="currentPlayer"></p>
@@ -150,7 +151,7 @@
   <div id="actionAlertPop" class="pop">
     <p id="actionAlertMessage"></p>
     <div class="optionButtonContainer">
-      <div class="cancelButton" onclick="actionAlert(false,false,false,false,true)">X</div>
+      <div class="cancelButton" onclick="actionAlert(false,false,false,true)">X</div>
       <div class="okButton" onclick="actionAlert()">V</div>
     </div>
   </div>
@@ -163,7 +164,7 @@
       <textarea id="enterReasonTextField" rows="10" cols="30"></textarea>
     </div>
     <div class="optionButtonContainer">
-      <div class="cancelButton" onclick="dataInputAlert(false,false,false,false,false,false,true)">X</div>
+      <div class="cancelButton" onclick="dataInputAlert(false,false,false,false,false,true)">X</div>
       <div class="okButton" onclick="dataInputAlert()">V</div>
     </div>
   </div>
@@ -213,7 +214,7 @@
   <div id="wtlPop" class="pop buttonArr">
       <p>Load localstorage or backup.js?</p>
       <div class="button" onclick="loadLS()">localstorage</div>
-      <div class="button" onclick="actionAlert('This action may potentially overwrite more current data. Are you sure?','wtlPop',false,loadBackup)">backup.js</div>
+      <div class="button" onclick="actionAlert('This action may potentially overwrite more current data. Are you sure?',['wtlPop'],loadBackup)">backup.js</div>
   </div>
 
   <div id="logPop" class="pop">
@@ -531,10 +532,10 @@
     <input class="textInputField1" id="editParent2" type="text" placeholder="parentfirst/last/phone"/>
     <div class="optionButtonContainer">
       <div class="cancelButton" onclick="pop(['editStudentPop'],['studentPop','missionsPop']); clearStudentFields()">X</div>
-      <div class="deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?','editStudentPop',false,deleteStudent)">U</div>
+      <div class="deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
       <div class="okButton" onclick="editStudent()">V</div>
     </div>
-    <div class="button" id="setPoints" onclick="dataInputAlert('Set points to:','editStudentPop',false,true,setPoints)">Set Points</div>
+    <div class="button" id="setPoints" onclick="dataInputAlert('Set points to:',['editStudentPop'],true,setPoints)">Set Points</div>
   </div>
 
   <div id="notesPop" class="pop">
@@ -589,7 +590,7 @@
     <textarea id="editNote" rows="10" cols="30"></textarea>
     <div class="optionButtonContainer">
       <div class="cancelButton" onclick="pop(['editNotePop','editNote'],['notesPop','notesList'])">X</div>
-      <div class="deleteButton" id="deleteNoteButton" onclick="actionAlert('Are you sure you want to delete this note?','editNotePop',false,deleteNote)">U</div>
+      <div class="deleteButton" id="deleteNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editNotePop'],deleteNote)">U</div>
       <div class="okButton" onclick="editNote()">V</div>
   </div>
   </div>
@@ -602,7 +603,7 @@
     <textarea id="editTeacherNote" rows="10" cols="30"></textarea>
     <div class="optionButtonContainer">
       <div class="cancelButton" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
-      <div class="deleteButton" id="deleteTeacherNoteButton" onclick="actionAlert('Are you sure you want to delete this note?','editTeacherNotePop',false,deleteTeacherNote)">U</div>
+      <div class="deleteButton" id="deleteTeacherNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editTeacherNotePop'],deleteTeacherNote)">U</div>
       <div class="okButton" onclick="editTeacherNote()">V</div>
     </div>
   </div>
@@ -775,7 +776,7 @@
         <div class="backButton" onclick="pop(['attendanceListPop'],['mainPop'])"><span>f</span></div>
         <div class="homeButton" onclick="goHome()"><span>5</span></div>
       </div>
-      <p id="attendanceCount" onclick="actionAlert('Reset attendance?','attendanceListPop',false,resetAttendance)"></p>
+      <p id="attendanceCount" onclick="actionAlert('Reset attendance?',['attendanceListPop'],resetAttendance)"></p>
 
       <div id="attendanceListContainer">
         <div id=boysListAttendanceDiv>
