@@ -23,9 +23,11 @@ var _eligibleRandom; // used to store an array of eligble names for random selec
 var _teams = [];
 var _dataInputParameter;
 var _elapsedWeeks = 1;
+var _classDates = ["8/22", "8/29", "9/12", "9/19", "9/26", "10/3", "10/10", "10/17", "10/24", "10/31", "11/7", "11/14", "12/5", "12/12", "12/19", "1/9", "1/16", "1/23", "1/30", "2/6", "2/13", "2/20", "2/27", "3/6", "3/13", "3/20", "3/27", "4/3", "4/10", "4/24", "5/1", "5/8", "5/15", "5/22"];
 var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 1009, 1016, 1023, 1030, 1037, 1044, 1051, 1058, 1065, 1072, 1079, 1086, 1093, 1100, 1114, 1121, 1128, 1135, 1142];
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
+var _isClassDay;
 
 
 /* INDEX + RANK / POINTS / RANK FACTOR
@@ -497,7 +499,9 @@ function attendanceList(log) {
 function resetAttendance() {
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
-        _sl[i].attendanceCount[_elapsedWeeks-1] = 0;  
+        if (_isClassDay === true) {
+            _sl[i].attendanceCount[_elapsedWeeks-1] = 0;  
+        };
     };
     attendanceCount();
     pop("attendanceListPop","mainPop");
@@ -962,7 +966,7 @@ function promotion() {
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
     document.getElementById("dispRankNamePromo").innerHTML = _sl[_ci].rankName;
     storeAndBackup();
-    document.getElementById("promoInsignia").style.backgroundImage = "url(insignia/"+_sl[_ci].rank+"-rank.jpg";
+    document.getElementById("promoInsignia").style.backgroundImage = "url(img/insignia/"+_sl[_ci].rank+"-rank.jpg)";
     setTimeout(function() {
         pop("studentPop","promoPop","missionsPop")
     },10);
@@ -1200,7 +1204,9 @@ function loadStudent(index) {
     _ci = index;
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
-        _sl[_ci].attendanceCount[_elapsedWeeks-1] = 1;
+        if (_isClassDay === true) {
+            _sl[_ci].attendanceCount[_elapsedWeeks-1] = 1;
+        };
     };
     attendanceCount();
     storeNewData();
@@ -1236,7 +1242,7 @@ function loadStudent(index) {
 };
 
 function missionLinks() {
-    window.open("missions/"+_asNum+".pdf","_blank");
+    window.open("docs/missions/"+_asNum+".pdf","_blank");
 };
 
 function pop(close,open,close2,open2) {
@@ -1328,8 +1334,8 @@ function asPop(asNum,points) {
     } else {
         document.getElementById("asPage3").style.display = "none";
     };
-    var urlStart = "url(thumbnails/";
-    var urlEnd1 = "a.jpg)"; var urlEnd2 = "b.jpg)"; var urlEnd3 = "c.jpg"
+    var urlStart = "url(img/missions/";
+    var urlEnd1 = "a.jpg)"; var urlEnd2 = "b.jpg)"; var urlEnd3 = "c.jpg)"
     document.getElementById("asPage1").style.backgroundImage = urlStart+_asNum+urlEnd1;
     document.getElementById("asPage2").style.backgroundImage = urlStart+_asNum+urlEnd2;
     if (points > 3) {
@@ -1604,10 +1610,14 @@ function populateTeacherNotes() {
 function attendance2(i) {
     if (_sl[i].attendance === false) {
         _sl[i].attendance = true;
-        _sl[i].attendanceCount[_elapsedWeeks-1] = 1;
+        if (_isClassDay === true) {
+            _sl[i].attendanceCount[_elapsedWeeks-1] = 1;
+        };
     } else {
         _sl[i].attendance = false;
-        _sl[i].attendanceCount[_elapsedWeeks-1] = 0;
+        if (_isClassDay === true) {
+            _sl[i].attendanceCount[_elapsedWeeks-1] = 0;
+        };
     };
     attendanceCount();
     storeNewData();
@@ -1616,11 +1626,15 @@ function attendance2(i) {
 function attendance() {
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
-        _sl[_ci].attendanceCount[_elapsedWeeks-1] = 1;
+        if (_isClassDay === true) {
+            _sl[_ci].attendanceCount[_elapsedWeeks-1] = 1;
+        };
         document.getElementById("dispName").style.color = "lawngreen";
     } else {
         _sl[_ci].attendance = false;
-        _sl[_ci].attendanceCount[_elapsedWeeks-1] = 0;
+        if (_isClassDay === true) {
+            _sl[_ci].attendanceCount[_elapsedWeeks-1] = 0;
+        };
         document.getElementById("dispName").style.color = "white";
     };
     attendanceCount();
@@ -1643,7 +1657,6 @@ function toggleMissions(x) {
 };
 
 function showMissions() {
-    loadCheckedStates();
     for (i = 0; i < _checkedState.length; i++) {
         if (_checkedState[i] == 1) {
             document.getElementById("check"+String(i+1)).checked = true;
@@ -2095,7 +2108,7 @@ function selectText(element) {
 function preloadImages() {
     pop("advancedOptionsPop","preloadImagesPop");
     for (i = 0; i < 20; i++) {
-        document.getElementById(i+"-rank").style.backgroundImage = "url(insignia/"+i+"-rank.jpg";
+        document.getElementById(i+"-rank").style.backgroundImage = "url(img/insignia/"+i+"-rank.jpg)";
     };
     var iLimit = 0
     for (i = 1; i < 34; i++) {
@@ -2104,20 +2117,20 @@ function preloadImages() {
         };
     };
     for (i = 1; i < (iLimit + 1); i++) {
-        document.getElementById(i+"a-as").style.backgroundImage = "url(thumbnails/as0"+i+"a.jpg)";
-        document.getElementById(i+"b-as").style.backgroundImage = "url(thumbnails/as0"+i+"b.jpg)";
+        document.getElementById(i+"a-as").style.backgroundImage = "url(img/missions/as0"+i+"a.jpg)";
+        document.getElementById(i+"b-as").style.backgroundImage = "url(img/missions/as0"+i+"b.jpg)";
     };
     for (i = 10; i < (iLimit + 1); i++) {
-        document.getElementById(i+"a-as").style.backgroundImage = "url(thumbnails/as"+i+"a.jpg)";
-        document.getElementById(i+"b-as").style.backgroundImage = "url(thumbnails/as"+i+"b.jpg)";
+        document.getElementById(i+"a-as").style.backgroundImage = "url(img/missions/as"+i+"a.jpg)";
+        document.getElementById(i+"b-as").style.backgroundImage = "url(img/missions/as"+i+"b.jpg)";
         if (i == 12) {
-            document.getElementById(i+"c-as").style.backgroundImage = "url(thumbnails/as12c.jpg)";
+            document.getElementById(i+"c-as").style.backgroundImage = "url(img/missions/as12c.jpg)";
         };
         if (i == 25) {
-            document.getElementById(i+"c-as").style.backgroundImage = "url(thumbnails/as25c.jpg)";
+            document.getElementById(i+"c-as").style.backgroundImage = "url(img/missions/as25c.jpg)";
         };
         if (i == 33) {
-            document.getElementById(i+"c-as").style.backgroundImage = "url(thumbnails/as33c.jpg)";
+            document.getElementById(i+"c-as").style.backgroundImage = "url(img/missions/as33c.jpg)";
         };
     };
 };
@@ -2237,7 +2250,7 @@ function loadStudentStats() {
     };
 
     assignClassRank();
-    document.getElementById("studentStatsInsignia").style.backgroundImage = "url(insignia/"+_sl[_ci].rank+"-rank.jpg";
+    document.getElementById("studentStatsInsignia").style.backgroundImage = "url(img/insignia/"+_sl[_ci].rank+"-rank.jpg)";
     document.getElementById("statsRankName").innerHTML = _rankNames[_sl[_ci].rank];
     document.getElementById("statsName").innerHTML = _sl[_ci].fullName;
     document.getElementById("statsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
@@ -2263,8 +2276,12 @@ function assignDateNumber() {
     leapYear();
     var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
     var dates = [22,29,12,19,26,3,10,17,24,31,7,14,5,12,19,9,16,23,30,6,13,20,27,6,13,20,27,3,10,24,1,8,15,22];
+    var monthsAndDates = [];
     var cumulative = [0,0,31,59,90,120,151,181,212,243,273,304,334];
     var cumulativeLeap = [0,0,31,60,91,121,152,182,213,244,274,305,335];
+    for (i = 0; i < months.length; i++) {
+        monthsAndDates.push(months[i]+"/"+dates[i]);
+    };
     for (i = 0; i < months.length; i++) {
         if (_leapYear) {
             if (months[i] >= 8) {
@@ -2279,8 +2296,8 @@ function assignDateNumber() {
                 _dateNumbers[i] = cumulative[months[i]] + dates[i] + 1000;
             };
         };
-        console.log(months[i]+"/"+dates[i]+"("+_dateNumbers[i]+")");
     };
+    console.log(monthsAndDates);
 }; //assigns number to each calendar date that class meets and adds 1000 to dates after December to make them order higher than the Sept-Dec dates even though the day of the year they represent is lower
 
 function loadCheckedStates() {
@@ -2310,8 +2327,31 @@ function loadCheckedStates() {
         } else if (i > 0) {
             _checkedState[(i-1)] = 0;
         };
+        if (todaysDateNumber == _dateNumbers[i]) {
+            _isClassDay = true; break;
+        } else {
+            _isClassDay = false;
+        };
     };
     elapsedWeekCount();
+};
+
+function loadStudentPhoto() {
+    document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg)";
+    pop("studentPop","studentPhotoPop","missionsPop");
+}
+
+
+function doesFileExist(urlToFile) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', urlToFile, false);
+    xhr.send();
+     
+    if (xhr.status == "404") {
+        return false;
+    } else {
+        return true;
+    };
 };
 
 // for (i = 0; i <= .length; i++) {};
