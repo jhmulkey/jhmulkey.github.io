@@ -590,17 +590,17 @@ function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
         _currentFunction = func;
         document.getElementById("dataInputAlertPop").style.display = "block";
         document.getElementById("dataInputTextField").value = "";
-        document.getElementById("dataInputTextField").focus();
         for (i = 0; i < _currentPops2.length; i++) {
             document.getElementById(_currentPops2[i]).style.display = "none"
         };
-/*         document.getElementById("dataInputAlertMessage").innerHTML = message;
+        document.getElementById("dataInputAlertMessage").innerHTML = message;
         if (reasonRequired === true) {
             document.getElementById("enterReasonDiv").style.display = "block";
             document.getElementById("enterReasonTextField").value = "";
         } else {
             document.getElementById("enterReasonDiv").style.display = "none";
-        }; */
+        };
+        document.getElementById("dataInputTextField").focus();
     } else if (document.getElementById("dataInputAlertPop").style.display == "block") {
         if (!bypass) {
             if (isNaN(parseInt(document.getElementById("dataInputTextField").value))) {
