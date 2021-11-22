@@ -583,11 +583,49 @@ function infoAlert(message,id1,id2,focus) {
     };
 }; */
 
-function dataInputAlert() {
-    document.getElementById("playGamePop").style.display = "none";
-    document.getElementById("dataInputAlertPop").style.display = "block";
-    document.getElementById("dataInputTextField").focus();
-
+function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
+/*     if (document.getElementById("dataInputAlertPop").style.display != "block") {
+ */        _dataInputParameter = parameter;
+        _currentPops2 = popArray;
+        _currentFunction = func;
+        document.getElementById("dataInputAlertPop").style.display = "block";
+        document.getElementById("dataInputTextField").value = "";
+        document.getElementById("dataInputTextField").focus();
+        for (i = 0; i < _currentPops2.length; i++) {
+            document.getElementById(_currentPops2[i]).style.display = "none"
+        };
+        document.getElementById("dataInputAlertMessage").innerHTML = message;
+        if (reasonRequired === true) {
+            document.getElementById("enterReasonDiv").style.display = "block";
+            document.getElementById("enterReasonTextField").value = "";
+        } else {
+            document.getElementById("enterReasonDiv").style.display = "none";
+        };
+/*     } else if (document.getElementById("dataInputAlertPop").style.display == "block") {
+        if (!bypass) {
+            if (isNaN(parseInt(document.getElementById("dataInputTextField").value))) {
+                infoAlert("Please enter a number","dataInputAlertPop",undefined,"dataInputTextField"); return;
+            }
+            if (!bypass && document.getElementById("enterReasonDiv").style.display == "block" && document.getElementById("enterReasonTextField").value == "") {
+                infoAlert("Reason required","dataInputAlertPop",undefined,"enterReasonTextField"); return;
+            };
+            var data = parseInt(document.getElementById("dataInputTextField").value);
+            var reason = document.getElementById("enterReasonTextField").value;
+            _currentFunction(_dataInputParameter,data,reason);
+            for (i = 0; i < _currentPops2.length; i++) {
+                document.getElementById(_currentPops2[i]).style.display = "block"
+            };
+            document.getElementById("enterReasonDiv").style.display = "none";
+            document.getElementById("dataInputAlertMessage").innerHTML = "";
+            document.getElementById("enterReasonTextField").value = "";
+            document.getElementById("dataInputAlertPop").style.display = "none";
+        } else {
+            document.getElementById("dataInputAlertPop").style.display = "none";
+            for (i = 0; i < _currentPops2.length; i++) {
+                document.getElementById(_currentPops2[i]).style.display = "block"
+            };
+        };
+    }; */
 };
 
 function actionAlert(message,popsArray,func,bypass) {
