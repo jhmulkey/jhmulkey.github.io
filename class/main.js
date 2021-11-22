@@ -584,8 +584,8 @@ function infoAlert(message,id1,id2,focus) {
 }; */
 
 function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
-/*     if (document.getElementById("dataInputAlertPop").style.display != "block") {
- */        _dataInputParameter = parameter;
+    if (document.getElementById("dataInputAlertPop").style.display != "block") {
+        _dataInputParameter = parameter;
         _currentPops2 = popArray;
         _currentFunction = func;
         document.getElementById("dataInputAlertPop").style.display = "block";
@@ -594,14 +594,14 @@ function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
         for (i = 0; i < _currentPops2.length; i++) {
             document.getElementById(_currentPops2[i]).style.display = "none"
         };
-        document.getElementById("dataInputAlertMessage").innerHTML = message;
+/*         document.getElementById("dataInputAlertMessage").innerHTML = message;
         if (reasonRequired === true) {
             document.getElementById("enterReasonDiv").style.display = "block";
             document.getElementById("enterReasonTextField").value = "";
         } else {
             document.getElementById("enterReasonDiv").style.display = "none";
-        };
-/*     } else if (document.getElementById("dataInputAlertPop").style.display == "block") {
+        }; */
+    } else if (document.getElementById("dataInputAlertPop").style.display == "block") {
         if (!bypass) {
             if (isNaN(parseInt(document.getElementById("dataInputTextField").value))) {
                 infoAlert("Please enter a number","dataInputAlertPop",undefined,"dataInputTextField"); return;
@@ -625,7 +625,7 @@ function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
                 document.getElementById(_currentPops2[i]).style.display = "block"
             };
         };
-    }; */
+    };
 };
 
 function actionAlert(message,popsArray,func,bypass) {
