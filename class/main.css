@@ -74,11 +74,6 @@ div {
     display: none;
 }
 
-#dataInputAlertPop {
-    height: 300px;
-    overflow-y: scroll;
-}
-
 #absentPromotion, #absentBday {
     margin-top: 20px !important;
     color: darkorange;

@@ -545,7 +545,7 @@ function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
         _currentFunction = func;
         document.getElementById("dataInputAlertPop").style.display = "block";
         document.getElementById("dataInputTextField").value = "";
-        document.getElementById("dataInputTextField").focus();
+        // document.getElementById("dataInputTextField").focus();
         for (i = 0; i < _currentPops2.length; i++) {
             document.getElementById(_currentPops2[i]).style.display = "none"
         };
