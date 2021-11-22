@@ -12,9 +12,9 @@
 
   <div id="mainPop" class="pop">
         <div id="topMenuContainer">
-            <div id="mainMenuButton" onclick="pop('mainPop','mainMenuPop')">Main Menu</div>
+            <div id="mainMenuButton" onclick="pop(['mainPop'],['mainMenuPop'])">Main Menu</div>
             <div id="attendanceCountMain" onclick="loadAttendees()">0</div>
-            <div class="roundButton" onclick="pop('mainPop','newStudentPop')">;</div>
+            <div class="roundButton" onclick="pop(['mainPop'],['newStudentPop'])">;</div>
         </div>
         <input id="search" type="text" placeholder="search names" oninput="searchNames()"/>
         <div id="nameList"></div>
@@ -22,7 +22,7 @@
 
   <div id="attendance2Pop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('attendance2Pop','studentPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['attendance2Pop'],['studentPop'])"><span>f</span></div>
     </div>
     <input id="search2" type="text" placeholder="search names" oninput="searchNames2()"/>
     <div id="nameList2"></div>
@@ -30,7 +30,7 @@
 
   <div id="sortChoicePop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('sortChoicePop','mainMenuPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['sortChoicePop'],['mainMenuPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div class="button" onclick="sortByPoints()">Sort by Points</div>
@@ -40,7 +40,7 @@
 
   <div id="customSortListPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('customSortListPop','sortChoicePop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['customSortListPop'],['sortChoicePop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div id="nameListCustom"></div>
@@ -62,22 +62,22 @@
               <div class="backButton" onclick="goHome()"><span>f</span></div>
               <div class="homeButton" onclick="goHome()"><span>5</span></div>
             </div>
-            <div class="button" id="promotionButton" onclick="pop('mainMenuPop','promoListPop')">Promotions</div>
-            <div class="button" id="birthdayButton" onclick="pop('mainMenuPop','bdayPop')">Birthdays</div>
-            <div class="button" onclick="pop('mainMenuPop','sortChoicePop')">Sort Students</div>
-            <div class="button" onclick="pop('mainMenuPop','drawingPop')">Drawing</div>
-            <div class="button" onclick="pop('mainMenuPop','randomPop')">Random</div>
+            <div class="button" id="promotionButton" onclick="pop(['mainMenuPop'],['promoListPop'])">Promotions</div>
+            <div class="button" id="birthdayButton" onclick="pop(['mainMenuPop'],['bdayPop'])">Birthdays</div>
+            <div class="button" onclick="pop(['mainMenuPop'],['sortChoicePop'])">Sort Students</div>
+            <div class="button" onclick="pop(['mainMenuPop'],['drawingPop'])">Drawing</div>
+            <div class="button" onclick="pop(['mainMenuPop'],['randomPop'])">Random</div>
             <div class="button" onclick="teams()">Teams</div>
-            <div class="button" id="teacherNotesButton" onclick="pop('mainMenuPop','teacherNotesPop'); populateTeacherNotes()">Notes</div>
-            <div class="button" onclick="pop('mainMenuPop','logPop')">Log</div>
-            <div class="button" onclick="pop('mainMenuPop','backupPop')">Backup</div>
-            <div class="button" onclick="pop('mainMenuPop','advancedOptionsPop')">Advanced</div>
+            <div class="button" id="teacherNotesButton" onclick="pop(['mainMenuPop'],['teacherNotesPop']); populateTeacherNotes()">Notes</div>
+            <div class="button" onclick="pop(['mainMenuPop'],['logPop'])">Log</div>
+            <div class="button" onclick="pop(['mainMenuPop'],['backupPop'])">Backup</div>
+            <div class="button" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">Advanced</div>
         </div>
   </div>
 
   <div id="teamsListPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('teamsListPop','mainMenuPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['teamsListPop'],['mainMenuPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div id="teamListContainer">
@@ -97,7 +97,7 @@
 
   <div id="playGamePop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('playGamePop','teamsListPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['playGamePop'],['teamsListPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div id="teamPointsContainer">
@@ -123,13 +123,13 @@
       <div class="gamePointButton" id="gamePoint9" onclick="gameScorePoints(9)">9</div>
       <div class="gameUndoButton" onclick="undoGameScorePoints()">b</div>
       <div class="gamePointButton" id="gamePoint10" onclick="gameScorePoints(10)">10</div>
-      <div class="gameLogButton" onclick="pop('playGamePop','gameLogPop')">Log</div>
+      <div class="gameLogButton" onclick="pop(['playGamePop'],['gameLogPop'])">Log</div>
     </div>
   </div>
 
   <div id="advancedOptionsPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('advancedOptionsPop','mainMenuPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['advancedOptionsPop'],['mainMenuPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> Fast student entry</label><br>
@@ -143,15 +143,15 @@
     <div class="navigationButtonContainer">
       <div class="backButton" onclick="infoAlert()"><span>f</span></div>
     </div>
-      <p id="infoAlertTitle">#</p>
+      <p id="infoAlertTitle">!</p>
       <p id="infoAlertMessage"></p>
   </div>
 
   <div id="actionAlertPop" class="pop">
     <p id="actionAlertMessage"></p>
     <div class="optionButtonContainer">
-      <div class="cancelButton" onclick="actionAlert(false,false,false,false,true)">CANCEL</div>
-      <div class="okButton" onclick="actionAlert()">OK</div>
+      <div class="cancelButton" onclick="actionAlert(false,false,false,false,true)">X</div>
+      <div class="okButton" onclick="actionAlert()">V</div>
     </div>
   </div>
 
@@ -163,14 +163,14 @@
       <textarea id="enterReasonTextField" rows="10" cols="30"></textarea>
     </div>
     <div class="optionButtonContainer">
-      <div class="cancelButton" onclick="dataInputAlert(false,false,false,false,false,false,true)">CANCEL</div>
-      <div class="okButton" onclick="dataInputAlert()">OK</div>
+      <div class="cancelButton" onclick="dataInputAlert(false,false,false,false,false,false,true)">X</div>
+      <div class="okButton" onclick="dataInputAlert()">V</div>
     </div>
   </div>
 
   <div id="missionVisibilityPop" class="pop buttonArr">
       <div class="navigationButtonContainer">
-        <div class="backButton" onclick="pop('missionVisibilityPop','studentPop',false,'missionsPop')"><span>f</span></div>
+        <div class="backButton" onclick="pop(['missionVisibilityPop'],['studentPop','missionsPop'])"><span>f</span></div>
         <div class="homeButton" onclick="goHome()"><span>5</span></div>
       </div>
       <div id="missionCheckBoxDiv">
@@ -218,7 +218,7 @@
 
   <div id="logPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('logPop','mainPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['logPop'],['mainPop'])"><span>f</span></div>
       <div class="textNavigationButton" onclick="window.print()">Print</div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
@@ -229,7 +229,7 @@
 
   <div id="gameLogPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('gameLogPop','playGamePop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['gameLogPop'],['playGamePop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div id="gameLog"></div>
@@ -246,7 +246,7 @@
       <div id="penContainer">
           <div class="studentPopButtons" id="statsButton" onclick="loadStudentStats()">stats</div>
           <div class="studentPopButtons" id="editButton" onclick="populateStudentFields()">edit info</div>
-          <div class="studentPopButtons" id="notesButton" onclick="pop('studentPop','notesPop','missionsPop','notesList'); populateNotes()">notes</div>
+          <div class="studentPopButtons" id="notesButton" onclick="pop(['studentPop','missionsPop'],['notesPop','notesList']); populateNotes()">notes</div>
           <div class="studentPopButtons" id="photoButton" onclick="loadStudentPhoto()">photo</div>
           <div class="studentPopButtons" id="attendance2Button" onclick="populateNames2()">Attendance</div>
           <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields()">email</div>
@@ -255,7 +255,7 @@
 
   <div id="studentPhotoPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('studentPhotoPop','studentPop',false,'missionsPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['studentPhotoPop'],['studentPop','missionsPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div id="dispStudentPhoto" onclick="photoLinks()"></div>
@@ -263,7 +263,7 @@
 
   <div id="studentStatsPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('studentStatsPop','studentPop',false,'missionsPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['studentStatsPop'],['studentPop','missionsPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div id="studentStatsTopContainerDiv">
@@ -514,8 +514,8 @@
     <input class="textInputField1" id="newParent2" type="text" placeholder="parentfirst/last/phone"/>
     <textarea id="initialNote" rows="10" cols="30" placeholder="note"></textarea>
     <div class="optionButtonContainer">
-      <div class="cancelButton" onclick="pop('newStudentPop','mainPop'); clearStudentFields()">CANCEL</div>
-      <div class="okButton" onclick="newStudent()">OK</div>
+      <div class="cancelButton" onclick="pop(['newStudentPop'],['mainPop']); clearStudentFields()">X</div>
+      <div class="okButton" onclick="newStudent()">V</div>
     </div>
   </div>
 
@@ -530,18 +530,18 @@
     <input class="textInputField1" id="editParent1" type="text" placeholder="parentfirst/last/phone"/>
     <input class="textInputField1" id="editParent2" type="text" placeholder="parentfirst/last/phone"/>
     <div class="optionButtonContainer">
-      <div class="cancelButton" onclick="pop('editStudentPop','studentPop',false,'missionsPop'); clearStudentFields()">CANCEL</div>
-      <div class="deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?','editStudentPop',false,deleteStudent)">DELETE</div>
-      <div class="okButton" onclick="editStudent()">OK</div>
+      <div class="cancelButton" onclick="pop(['editStudentPop'],['studentPop','missionsPop']); clearStudentFields()">X</div>
+      <div class="deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?','editStudentPop',false,deleteStudent)">U</div>
+      <div class="okButton" onclick="editStudent()">V</div>
     </div>
     <div class="button" id="setPoints" onclick="dataInputAlert('Set points to:','editStudentPop',false,true,setPoints)">Set Points</div>
   </div>
 
   <div id="notesPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('notesPop','studentPop','editNotePop','missionsPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['notesPop','editNotePop'],['studentPop','missionsPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
-      <div class="roundButton" id="addNoteButton" onclick="pop('notesPop','addNotePop',false,'addNote')">;</div>
+      <div class="roundButton" id="addNoteButton" onclick="pop(['notesPop'],['addNotePop','addNote'])">;</div>
     </div>
     <p id="studentNotesHeader" class="studentNameHeader"></p>
     <div id="notesList"></div>
@@ -549,9 +549,9 @@
 
   <div id="teacherNotesPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('teacherNotesPop','mainMenuPop','editTeacherNotePop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['teacherNotesPop','editTeacherNotePop'],['mainMenuPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
-      <div class="roundButton" id="addTeacherNoteButton" onclick="pop('teacherNotesPop','addTeacherNotePop',false,'addTeacherNote')">;</div>
+      <div class="roundButton" id="addTeacherNoteButton" onclick="pop(['teacherNotesPop'],['addTeacherNotePop','addTeacherNote'])">;</div>
     </div>
     <p id="studentNotesHeader" class="studentNameHeader">Notes</p>
     <div id="teacherNotesList"></div>
@@ -559,57 +559,57 @@
 
   <div id="addNotePop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('addNotePop','notesPop',false,'notesList')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['addNotePop'],['notesPop','notesList'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <textarea id="addNote" rows="10" cols="30"></textarea>
     <div class="optionButtonContainer">
-      <div class="cancelButton" onclick="pop('addNotePop','notesPop',false,'notesList')">CANCEL</div>
-      <div class="okButton" onclick="addNote()">OK</div>
+      <div class="cancelButton" onclick="pop(['addNotePop'],['notesPop','notesList'])">X</div>
+      <div class="okButton" onclick="addNote()">V</div>
     </div>
   </div>
 
   <div id="addTeacherNotePop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('addTeacherNotePop','teacherNotesPop','addTeacherNote','teacherNotesList')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['addTeacherNotePop','addTeacherNote'],['teacherNotesPop','teacherNotesList'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <textarea id="addTeacherNote" rows="10" cols="30"></textarea>
     <div class="optionButtonContainer">
-      <div class="cancelButton" onclick="pop('addTeacherNotePop','teacherNotesPop','addTeacherNote','teacherNotesList')">CANCEL</div>
-      <div class="okButton" onclick="addTeacherNote()">OK</div>
+      <div class="cancelButton" onclick="pop(['addTeacherNotePop','addTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
+      <div class="okButton" onclick="addTeacherNote()">V</div>
     </div>
   </div>
 
   <div id="editNotePop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('editNotePop','notesPop','editNote','notesList')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['editNotePop','editNote'],['notesPop','notesList'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <textarea id="editNote" rows="10" cols="30"></textarea>
     <div class="optionButtonContainer">
-      <div class="cancelButton" onclick="pop('editNotePop','notesPop','editNote','notesList')">CANCEL</div>
-      <div class="deleteButton" id="deleteNoteButton" onclick="actionAlert('Are you sure you want to delete this note?','editNotePop',false,deleteNote)">DELETE</div>
-      <div class="okButton" onclick="editNote()">OK</div>
+      <div class="cancelButton" onclick="pop(['editNotePop','editNote'],['notesPop','notesList'])">X</div>
+      <div class="deleteButton" id="deleteNoteButton" onclick="actionAlert('Are you sure you want to delete this note?','editNotePop',false,deleteNote)">U</div>
+      <div class="okButton" onclick="editNote()">V</div>
   </div>
   </div>
 
   <div id="editTeacherNotePop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('editTeacherNotePop','teacherNotesPop','editTeacherNote','teacherNotesList')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <textarea id="editTeacherNote" rows="10" cols="30"></textarea>
     <div class="optionButtonContainer">
-      <div class="cancelButton" onclick="pop('editTeacherNotePop','teacherNotesPop','editTeacherNote','teacherNotesList')">CANCEL</div>
-      <div class="deleteButton" id="deleteTeacherNoteButton" onclick="actionAlert('Are you sure you want to delete this note?','editTeacherNotePop',false,deleteTeacherNote)">DELETE</div>
-      <div class="okButton" onclick="editTeacherNote()">OK</div>
+      <div class="cancelButton" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
+      <div class="deleteButton" id="deleteTeacherNoteButton" onclick="actionAlert('Are you sure you want to delete this note?','editTeacherNotePop',false,deleteTeacherNote)">U</div>
+      <div class="okButton" onclick="editTeacherNote()">V</div>
     </div>
   </div>
 
   <div id="drawingPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('drawingPop','mainMenuPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['drawingPop'],['mainMenuPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div class="randomName" onclick="drawing()">
@@ -619,7 +619,7 @@
   
   <div id="randomPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('randomPop','mainMenuPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['randomPop'],['mainMenuPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div class="randomName" onclick="random()">
@@ -639,7 +639,7 @@
   
   <div id="missionsPop" class="pop">
       <div id="asPop">
-        <div class="asmvHeader" onclick="pop('studentPop','missionVisibilityPop','missionsPop')">Activity<br>Sheets</div>
+        <div class="asmvHeader" onclick="pop(['studentPop','missionsPop'],['missionVisibilityPop'])">Activity<br>Sheets</div>
         <div id="as33Pop" class="asButton2 w33" onclick="asPop('as33',6)">Armor<br>Review</div>
         <div id="as32Pop" class="asButton w32" onclick="asPop('as32')">Sword</div>
         <div id="as31Pop" class="asButton w31" onclick="asPop('as31')">Helmet</div>
@@ -675,7 +675,7 @@
         <div id="as01Pop" class="asButton2 w01" onclick="asPop('as01')">Class<br>Intro</div>
       </div>
       <div id="mvPop">
-        <div class="asmvHeader" onclick="pop('studentPop','missionVisibilityPop','missionsPop')">Memory<br>Verses</div>
+        <div class="asmvHeader" onclick="pop(['studentPop','missionsPop'],['missionVisibilityPop'])">Memory<br>Verses</div>
         <div id="mv33Pop" class="asmvButtonFill w33"></div>
         <div id="mv32Pop" class="mvButton4 w32" onclick="mvPop('mv32',31)">Eph<br>6:18<br>"praying at"</div>
         <div id="mv31Pop" class="mvButton3 w31" onclick="mvPop('mv31',30)">Eph<br>6:17<br>"and take"</div>
@@ -714,7 +714,7 @@
   
   <div id="asPointsPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('asPointsPop','missionsPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['asPointsPop'],['missionsPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div class="flex">
@@ -734,7 +734,7 @@
   
   <div id="mvPointsPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('mvPointsPop','missionsPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['mvPointsPop'],['missionsPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div class="flex">
@@ -750,7 +750,7 @@
   
   <div id="promoPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('promoPop','studentPop',false,'missionsPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['promoPop','missionsPop'],['studentPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <p>Promotion:</p>
@@ -762,7 +762,7 @@
 
   <div id="promoListPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('promoListPop','mainMenuPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['promoListPop'],['mainMenuPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div id="promoList"></div>
@@ -772,7 +772,7 @@
   
   <div id="attendanceListPop" class="pop">
       <div class="navigationButtonContainer">
-        <div class="backButton" onclick="pop('attendanceListPop','mainPop')"><span>f</span></div>
+        <div class="backButton" onclick="pop(['attendanceListPop'],['mainPop'])"><span>f</span></div>
         <div class="homeButton" onclick="goHome()"><span>5</span></div>
       </div>
       <p id="attendanceCount" onclick="actionAlert('Reset attendance?','attendanceListPop',false,resetAttendance)"></p>
@@ -791,7 +791,7 @@
 
   <div id="bdayPop" class="pop">
       <div class="navigationButtonContainer">
-        <div class="backButton" onclick="pop('bdayPop','mainMenuPop')"><span>f</span></div>
+        <div class="backButton" onclick="pop(['bdayPop'],['mainMenuPop'])"><span>f</span></div>
         <div class="homeButton" onclick="goHome()"><span>5</span></div>
       </div>
       <div id="bdayList"></div>
@@ -801,7 +801,7 @@
   
   <div id="backupPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('backupPop','mainMenuPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['backupPop'],['mainMenuPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div id="backupArrays" class ="select" onclick="selectText('backupArrays')">
@@ -813,7 +813,7 @@
     
   <div id="preloadImagesPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop('preloadImagesPop','advancedOptionsPop')"><span>f</span></div>
+      <div class="backButton" onclick="pop(['preloadImagesPop'],['advancedOptionsPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div id="preloadImagesContainer">

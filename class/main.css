@@ -8,6 +8,11 @@
     src: url(fonts/Font-90-Icons.ttf);
 }
 
+@font-face {
+    font-family: Byom-Icons-Trial;
+    src: url(fonts/Byom-Icons-Trial.ttf);
+}
+
 * {
     box-sizing: border-box;
     /* border: 1px solid green; */
@@ -297,8 +302,8 @@ div {
 
 #infoAlertTitle {
     color: red;
-    font-size: 50px;
-    font-family: Font-90-Icons;
+    font-family: Byom-Icons-Trial;
+    font-size: 75px;
 }
 
 #promoPop p {
@@ -534,25 +539,30 @@ div {
     height: 50px;
     width: 115px;
     border: 2px solid white;
-    font-weight: bold;
 }
 
 .cancelButton {
-    background-color: firebrick;
-    font-size: 25px;
-    padding-top: 7px;
-}
-
-.deleteButton {
-    background-color: firebrick;
-    font-size: 25px;
-    padding-top: 7px;
+    font-family: Byom-Icons-Trial;
+    font-size: 35px;
+    padding-top: 3.5px;
 }
 
 .okButton {
     background-color: green;
-    font-size: 30px;
-    padding-top: 4px;
+    font-family: Byom-Icons-Trial;
+    padding-top: 3.5px;
+    font-size: 35px;
+}
+
+.cancelButton, .deleteButton {
+    background-color: firebrick;
+}
+
+.deleteButton {
+    background-color: firebrick;
+    font-family: Byom-Icons-Trial;
+    font-size: 25px;
+    padding-top: 8px;
 }
 
 .roundButton {
