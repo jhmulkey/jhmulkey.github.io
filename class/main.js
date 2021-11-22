@@ -28,7 +28,7 @@ var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
 var _isClassDay;
-
+var _studentPhotoExists;
 
 /* INDEX + RANK / POINTS / RANK FACTOR
 0 PVT / 0
@@ -859,11 +859,7 @@ function refreshStudentPop() {
     } else {
         document.getElementById("dispBday").style.backgroundColor = "fireBrick";
     };
-    if (_sl[_ci].photo === false) {
-        document.getElementById("photoButton").style.background = "firebrick";
-    } else {
-        document.getElementById("photoButton").style.background = "green";
-    };
+    doesFileExist("https://ksgrade2.com/class/img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
     if (_sl[_ci].email1 == false && _sl[_ci].email2 == false) {
         document.getElementById("emailButton").style.background = "fireBrick";
     } else {
@@ -2337,21 +2333,34 @@ function loadCheckedStates() {
 };
 
 function loadStudentPhoto() {
-    document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg)";
-    pop("studentPop","studentPhotoPop","missionsPop");
-}
-
-
-function doesFileExist(urlToFile) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('HEAD', urlToFile, false);
-    xhr.send();
-     
-    if (xhr.status == "404") {
-        return false;
+    if (_studentPhotoExists === true) {
+        document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg)";
+        pop("studentPop","studentPhotoPop","missionsPop");
     } else {
-        return true;
+        infoAlert("No photo exists for this student","studentPop","missionsPop");
     };
 };
+
+function doesFileExist(url) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.onload = function (e) {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+            _studentPhotoExists = true;
+            document.getElementById("photoButton").style.background = "green";
+        } else {
+            _studentPhotoExists = false;
+            document.getElementById("photoButton").style.background = "firebrick";
+        };
+      };
+    };
+    xhr.onerror = function (e) {
+      console.error(xhr.statusText);
+    };
+    xhr.send(null);
+};
+
+
 
 // for (i = 0; i <= .length; i++) {};
