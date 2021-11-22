@@ -311,9 +311,9 @@ function createTeams() {
         };
     };
     _teams[0].currentPlayer = _teams[0].team1[0].fullName;
-    for (i = 1; i < 11; i++) {
+/*     for (i = 1; i < 11; i++) {
         document.getElementById("gamePoint"+i).style.backgroundColor = "black";
-    };
+    }; */
     document.getElementById("gameLog").innerHTML = "";
     populateTeams();
     storeNewData();
