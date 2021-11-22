@@ -2225,38 +2225,32 @@ function loadStudentStats() {
     } else {
         document.getElementById("rankProgressTable").style.backgroundColor = "black";
     };
-
     if (asPercentage == 100.00) {
         document.getElementById("asProgressTable").style.backgroundColor = "lawngreen";
     } else {
         document.getElementById("asProgressTable").style.backgroundColor = "black";
     };
-
     if (mvPercentage == 100.00) {
         document.getElementById("mvProgressTable").style.backgroundColor = "lawngreen";
     } else {
         document.getElementById("mvProgressTable").style.backgroundColor = "black";
     };
-
     if (attendancePercentage == 100.00) {
         document.getElementById("attendanceProgressTable").style.backgroundColor = "lawngreen";
     } else {
         document.getElementById("attendanceProgressTable").style.backgroundColor = "black";
     };
-
     if (totalPercentage == 100.00) {
         document.getElementById("totalProgressTable").style.backgroundColor = "lawngreen";
     } else {
         document.getElementById("totalProgressTable").style.backgroundColor = "black";
     };
-
     assignClassRank();
     document.getElementById("studentStatsInsignia").style.backgroundImage = "url(img/insignia/"+_sl[_ci].rank+"-rank.jpg)";
     document.getElementById("statsRankName").innerHTML = _rankNames[_sl[_ci].rank];
     document.getElementById("statsName").innerHTML = _sl[_ci].fullName;
     document.getElementById("statsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
-
-    document.getElementById("rankProgressTableP").innerHTML = "Rank Completion: " + (_sl[_ci].rank + 1) + "/20" + " (" + Math.round(rankPercentage) + "%)";
+    document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + Math.round(rankPercentage) + "%)";
     document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Points: " + earnedASpts + "/" + totalASpts + " (" + Math.round(asPercentage) + "%)";
     document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Points: " + earnedMVpts + "/" + totalMVpts + " (" + Math.round(mvPercentage) + "%)";
     document.getElementById("attendanceProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + Math.round(attendancePercentage) + "%)";
@@ -2354,9 +2348,9 @@ function loadStudentPhoto() {
 function photoLinks() {
     if (_sl[_ci].firstName.includes(" ")) {
         var firstNameArray = _sl[_ci].firstName.split(" ");
-        window.open("img/student-thumbnails/"+firstNameArray[0].toLowerCase()+"-"+firstNameArray[1].toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
+        window.open("img/students/"+firstNameArray[0].toLowerCase()+"-"+firstNameArray[1].toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
     } else {
-        window.open("url(img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg)");
+        window.open("img/students/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
     };
 };
 
@@ -2379,7 +2373,5 @@ function doesFileExist(url) {
     };
     xhr.send(null);
 };
-
-
 
 // for (i = 0; i <= .length; i++) {};
