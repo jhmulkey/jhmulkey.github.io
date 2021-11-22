@@ -311,9 +311,9 @@ function createTeams() {
         };
     };
     _teams[0].currentPlayer = _teams[0].team1[0].fullName;
-/*     for (i = 1; i < 11; i++) {
+    for (i = 1; i < 11; i++) {
         document.getElementById("gamePoint"+i).style.backgroundColor = "black";
-    }; */
+    };
     document.getElementById("gameLog").innerHTML = "";
     populateTeams();
     storeNewData();
@@ -553,6 +553,8 @@ function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
         if (reasonRequired === true) {
             document.getElementById("enterReasonDiv").style.display = "block";
             document.getElementById("enterReasonTextField").value = "";
+        } else {
+            document.getElementById("enterReasonDiv").style.display = "none";
         };
     } else if (document.getElementById("dataInputAlertPop").style.display == "block") {
         if (!bypass) {
@@ -579,7 +581,6 @@ function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
             };
         };
     };
-    scrollTo(0,0);
 };
 
 function actionAlert(message,popsArray,func,bypass) {
@@ -1227,7 +1228,6 @@ function loadStudent(index) {
             document.getElementById(key+"Pop").style.background = "black";
         };
     };
-    scrollTo(0,0);
 };
 
 function missionLinks() {
@@ -1356,6 +1356,7 @@ function mvPop(mvNum,index,points) {
         document.getElementById("mvFivePoints").style.display = "block";
         document.getElementById("mvSixPoints").style.display = "block";
     };
+    scrollTo(0,0);
 };
 
 function populateNames() {
