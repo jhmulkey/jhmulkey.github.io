@@ -538,7 +538,7 @@ function infoAlert(message,id1,id2,focus) {
     };
 };
 
-function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
+/* function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
     if (document.getElementById("dataInputAlertPop").style.display != "block") {
         _dataInputParameter = parameter;
         _currentPops2 = popArray;
@@ -581,6 +581,13 @@ function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
             };
         };
     };
+}; */
+
+function dataInputAlert() {
+    document.getElementById("playGamePop").style.display = "none";
+    document.getElementById("dataInputAlertPop").style.display = "block";
+    document.getElementById("dataInputTextField").focus();
+
 };
 
 function actionAlert(message,popsArray,func,bypass) {
