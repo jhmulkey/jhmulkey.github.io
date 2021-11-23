@@ -60,7 +60,7 @@ div {
 }
 
 #nameList {
-    height: 575px;
+    height: 600px;
     margin-top: 20px !important;
     overflow-y: auto;
     background-color: #222;
