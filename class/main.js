@@ -1529,7 +1529,7 @@ function populateNotes() {
         elementNode.classList.add("note");
         (function(i){
             elementNode.onclick = function () {
-                pop(["notesPop","editNote"],["editNotePop"]);
+                pop(["notesPop"],["editNotePop","editNote"]);
                 document.getElementById("editNote").focus();
                 _noteIndex = i;
                 document.getElementById("editNote").value = _sl[_ci].notes[_noteIndex];
