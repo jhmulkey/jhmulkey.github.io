@@ -689,7 +689,7 @@ div {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: black;
+    background-color: #111;
 }
 
 .preloadRankImageDiv {
@@ -699,7 +699,7 @@ div {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: black;
+    background-color: #111;
 }
 
 .preloadAsImageDiv {
@@ -733,7 +733,7 @@ div {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: black;
+    background-color: #111;
 }
 
 #studentStatsName {
@@ -772,7 +772,7 @@ div {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: black;
+    background-color: #111;
 }
 
 #asReason {

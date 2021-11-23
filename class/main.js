@@ -845,7 +845,7 @@ function refreshStudentPop() {
     if (_sl[_ci].hasBirthday === true) {
         document.getElementById("dispBday").style.backgroundColor = "darkgoldenrod";
     } else if (_sl[_ci].hasBirthday === false && _sl[_ci].birthdayMonth != 0 && _sl[_ci].birthdayDate != 0) {
-        document.getElementById("dispBday").style.backgroundColor = "black";
+        document.getElementById("dispBday").style.backgroundColor = "#111";
     } else {
         document.getElementById("dispBday").style.backgroundColor = "fireBrick";
     };
