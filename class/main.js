@@ -453,7 +453,7 @@ function attendanceCount() {
             attendanceCount++;
         };
     };
-    document.getElementById("attendanceCountMain").innerHTML = attendanceCount;
+    document.getElementById("attendanceCountButton").innerHTML = attendanceCount;
     document.getElementById("attendanceCount").innerHTML = attendanceCount;
 };
 
@@ -728,7 +728,7 @@ function randomAttendance() {
     attendanceCount();
     populateNames();
     storeNewData();
-    pop(["advancedOptionsPop"],["mainPop"]);
+    pop(["attendanceListPop"],["mainPop"]);
 };
 
 function editStudent() {
@@ -1939,10 +1939,10 @@ function alerts() {
 };
 
 function anyAlert() {
-    if (document.getElementById("promoList").innerHTML != "" || document.getElementById("bdayList").innerHTML != "" || document.getElementById("teacherNotesList").innerHTML != "") {
-        document.getElementById("mainMenuButton").style.backgroundColor = "darkgoldenrod";
+    if (document.getElementById("promoList").innerHTML != "" || document.getElementById("bdayList").innerHTML != "") {
+        document.getElementById("alertButton").style.backgroundColor = "darkgoldenrod";
     } else {
-        document.getElementById("mainMenuButton").style.backgroundColor = "black";
+        document.getElementById("alertButton").style.backgroundColor = "black";
     };
 };
 
@@ -2129,7 +2129,7 @@ function selectText(element) {
 }; //allows the div of arrays (index.html id:"backupArrays") to be selected all at once by clicking or tapping/hodling briefly in order to easily copy/paste it into an email, text document, etc.
 
 function preloadImages() {
-    pop(["advancedOptionsPop"],["preloadImagesPop"]);
+    pop(["mainMenuPop"],["preloadImagesPop"]);
     for (i = 0; i < 20; i++) {
         document.getElementById(i+"-rank").style.backgroundImage = "url(img/insignia/"+i+"-rank.jpg)";
     };
