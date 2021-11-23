@@ -2391,4 +2391,7 @@ for (i = 0; i < .length; i++) {};
 */
 
 //*** TO DO LIST ***//
+// add warning before undoing as or mv pts
+// add total points bar to student stats
+// add links to student stats (rank chart, incomplete as and mv, etc.)
 

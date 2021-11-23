@@ -19,7 +19,7 @@
 };
 
 html {
-    background-color: black;
+    background-color: #111;
 }
 
 body {
@@ -28,7 +28,7 @@ body {
     font-family: Tahoma, serif;
     font-size: 30px;
     color: white;
-    background-color: black;
+    background-color: #111;
 }
 
 input, textarea {
@@ -127,6 +127,7 @@ div {
     height: 50px;
     width: 50px;
     border: 2px solid white;
+    background-color: black;
     border-radius: 25px;
     font-size: 25px;
     cursor: pointer;
@@ -151,6 +152,7 @@ div {
     width: 250px;
     padding-top: 3px;
     border: 2px solid white;
+    background-color: black;
     border-radius: 25px;
     margin: 20px auto;
     cursor: pointer;
@@ -256,6 +258,7 @@ div {
     margin: 0px 5px;
     padding-top: 1px;
     line-height: 1;
+    background-color: black;
 }
 
 .gamePointButton {
@@ -263,6 +266,7 @@ div {
     height: 80px;
     width: 80px;
     border: 1px solid white;
+    background-color: black;
     padding-top: 7px;
     font-size: 60px;
     line-height: 1;
