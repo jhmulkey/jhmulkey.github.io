@@ -957,7 +957,7 @@ function promotion() {
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
     document.getElementById("dispRankNamePromo").innerHTML = _sl[_ci].rankName;
     storeAndBackup();
-    document.getElementById("promoInsignia").style.backgroundImage = "url(img/insignia/"+_sl[_ci].rank+"-rank.jpg)";
+    document.getElementById("promoInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
     setTimeout(function() {
         pop(["studentPop","missionsPop"],["promoPop"])
     },10);
@@ -1996,38 +1996,38 @@ function storeAndBackup() {
 };
 
 var mvText = [
-    "Ps 139:17-18<br>How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
-    "Jn 20:30-31<br>Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
-    "Jn 1:1-2<br>In the beginning was the Word, and the Word was with God, and the Word was God. He was in the beginning with God.",
-    "Jn 1:3<br>All things were made through him, and without him was not any thing made that was made.",
-    "Jn 1:4-5<br>In him was life, and the life was the light of men. The light shines in the darkness, and the darkness has not overcome it.",
-    "Jn 1:6-8<br>There was a man sent from God, whose name was John. He came as a witness, to bear witness about the light, that all might believe through him. He was not the light, but came to bear witness about the light.",
-    "Jn 1:9-11<br>The true light, which gives light to everyone, was coming into the world. He was in the world, and the world was made through him, yet the world did not know him. He came to his own, and his own people did not receive him.",
-    "Jn 1:12-13<br>But to all who did receive him, who believed in his name, he gave the right to become children of God, who were born, not of blood nor of the will of the flesh nor of the will of man, but of God.",
-    "Jn 1:14<br>And the Word became flesh and dwelt among us, and we have seen his glory, glory as of the only Son from the Father, full of grace and truth.",
-    "Jn 1:15<br>(John bore witness about him, and cried out, “This was he of whom I said, ‘He who comes after me ranks before me, because he was before me.’”)",
-    "Jn 1:16-17<br>For from his fullness we have all received, grace upon grace. For the law was given through Moses; grace and truth came through Jesus Christ.",
-    "Jn 1:18<br>No one has ever seen God; the only God, who is at the Father's side, he has made him known.",
-    "Phil 2:5-6<br>Have this mind among yourselves, which is yours in Christ Jesus, who, though he was in the form of God, did not count equality with God a thing to be grasped,",
-    "Phil 2:7<br>but emptied himself, by taking the form of a servant, being born in the likeness of men.",
-    "Phil 2:8<br>And being found in human form, he humbled himself by becoming obedient to the point of death, even death on a cross.",
-    "Phil 2:9<br>Therefore God has highly exalted him and bestowed on him the name that is above every name,",
-    "Phil 2:10-11<br>so that at the name of Jesus every knee should bow, in heaven and on earth and under the earth, and every tongue confess that Jesus Christ is Lord, to the glory of God the Father.",
-    "Rom 8:31<br>What then shall we say to these things? If God is for us, who can be against us?",
-    "Rom 8:32<br>He who did not spare his own Son but gave him up for us all, how will he not also with him graciously give us all things?",
-    "Rom 8:33<br>Who shall bring any charge against God's elect? It is God who justifies.",
-    "Rom 8:34<br>Who is to condemn?  Christ Jesus is the one who died—more than that, who was raised—who is at the right hand of God, who indeed is interceding for us.",
-    "Rom 8:35<br>Who shall separate us from the love of Christ? Shall tribulation, or distress, or persecution, or famine, or nakedness, or danger, or sword?",
-    "Rom 8:36<br>As it is written, 'For your sake we are being killed all the day long; we are regarded as sheep to be slaughtered.'",
-    "Rom 8:37<br>No, in all these things we are more than conquerors through him who loved us.",
-    "Rom 8:28-39<br>For I am sure that neither death nor life, nor angels nor rulers, nor things present nor things to come, nor powers, nor height nor depth, nor anything else in all creation, will be able to separate us from the love of God in Christ Jesus our Lord.",
-    "Eph 6:10-11<br>Finally, be strong in the Lord and in the strength of his might. Put on the whole armor of God, that you may be able to stand against the schemes of the devil.",
-    "Eph 6:12<br>For we do not wrestle against flesh and blood, but against the rulers, against the authorities, against the cosmic powers over this present darkness, against the spiritual forces of evil in the heavenly places.",
-    "Eph 6:13<br>Therefore take up the whole armor of God, that you may be able to withstand in the evil day, and having done all, to stand firm.",
-    "Eph 6:14-15<br>Stand therefore, having fastened on the belt of truth, and having put on the breastplate of righteousness, and, as shoes for your feet, having put on the readiness given by the gospel of peace.",
-    "Eph 6:16<br>In all circumstances take up the shield of faith, with which you can extinguish all the flaming darts of the evil one;",
-    "Eph 6:17<br>and take the helmet of salvation, and the sword of the Spirit, which is the word of God,",
-    "Eph 6:18<br>praying at all times in the Spirit, with all prayer and supplication. To that end, keep alert with all perseverance, making supplication for all the saints," 
+    "<span style='color: dodgerblue'>Psalm 139:17-18</span><br>How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
+    "<span style='color: dodgerblue'>John 20:30-31</span><br>Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
+    "<span style='color: dodgerblue'>John 1:1-2</span><br>In the beginning was the Word, and the Word was with God, and the Word was God. He was in the beginning with God.",
+    "<span style='color: dodgerblue'>John 1:3</span><br>All things were made through him, and without him was not any thing made that was made.",
+    "<span style='color: dodgerblue'>John 1:4-5</span><br>In him was life, and the life was the light of men. The light shines in the darkness, and the darkness has not overcome it.",
+    "<span style='color: dodgerblue'>John 1:6-8</span><br>There was a man sent from God, whose name was John. He came as a witness, to bear witness about the light, that all might believe through him. He was not the light, but came to bear witness about the light.",
+    "<span style='color: dodgerblue'>John 1:9-11</span><br>The true light, which gives light to everyone, was coming into the world. He was in the world, and the world was made through him, yet the world did not know him. He came to his own, and his own people did not receive him.",
+    "<span style='color: dodgerblue'>John 1:12-13</span><br>But to all who did receive him, who believed in his name, he gave the right to become children of God, who were born, not of blood nor of the will of the flesh nor of the will of man, but of God.",
+    "<span style='color: dodgerblue'>John 1:14</span><br>And the Word became flesh and dwelt among us, and we have seen his glory, glory as of the only Son from the Father, full of grace and truth.",
+    "<span style='color: dodgerblue'>John 1:15</span><br>(John bore witness about him, and cried out, “This was he of whom I said, ‘He who comes after me ranks before me, because he was before me.’”)",
+    "<span style='color: dodgerblue'>John 1:16-17</span><br>For from his fullness we have all received, grace upon grace. For the law was given through Moses; grace and truth came through Jesus Christ.",
+    "<span style='color: dodgerblue'>John 1:18</span><br>No one has ever seen God; the only God, who is at the Father's side, he has made him known.",
+    "<span style='color: dodgerblue'>Philippians 2:5-6</span><br>Have this mind among yourselves, which is yours in Christ Jesus, who, though he was in the form of God, did not count equality with God a thing to be grasped,",
+    "<span style='color: dodgerblue'>Philippians 2:7</span><br>but emptied himself, by taking the form of a servant, being born in the likeness of men.",
+    "<span style='color: dodgerblue'>Philippians 2:8</span><br>And being found in human form, he humbled himself by becoming obedient to the point of death, even death on a cross.",
+    "<span style='color: dodgerblue'>Philippians 2:9</span><br>Therefore God has highly exalted him and bestowed on him the name that is above every name,",
+    "<span style='color: dodgerblue'>Philippians 2:10-11</span><br>so that at the name of Jesus every knee should bow, in heaven and on earth and under the earth, and every tongue confess that Jesus Christ is Lord, to the glory of God the Father.",
+    "<span style='color: dodgerblue'>Romans 8:31</span><br>What then shall we say to these things? If God is for us, who can be against us?",
+    "<span style='color: dodgerblue'>Romans 8:32</span><br>He who did not spare his own Son but gave him up for us all, how will he not also with him graciously give us all things?",
+    "<span style='color: dodgerblue'>Romans 8:33</span><br>Who shall bring any charge against God's elect? It is God who justifies.",
+    "<span style='color: dodgerblue'>Romans 8:34</span><br>Who is to condemn?  Christ Jesus is the one who died—more than that, who was raised—who is at the right hand of God, who indeed is interceding for us.",
+    "<span style='color: dodgerblue'>Romans 8:35</span><br>Who shall separate us from the love of Christ? Shall tribulation, or distress, or persecution, or famine, or nakedness, or danger, or sword?",
+    "<span style='color: dodgerblue'>Romans 8:36</span><br>As it is written, 'For your sake we are being killed all the day long; we are regarded as sheep to be slaughtered.'",
+    "<span style='color: dodgerblue'>Romans 8:37</span><br>No, in all these things we are more than conquerors through him who loved us.",
+    "<span style='color: dodgerblue'>Romans 8:38-39</span><br>For I am sure that neither death nor life, nor angels nor rulers, nor things present nor things to come, nor powers, nor height nor depth, nor anything else in all creation, will be able to separate us from the love of God in Christ Jesus our Lord.",
+    "<span style='color: dodgerblue'>Ephesians 6:10-11</span><br>Finally, be strong in the Lord and in the strength of his might. Put on the whole armor of God, that you may be able to stand against the schemes of the devil.",
+    "<span style='color: dodgerblue'>Ephesians 6:12</span><br>For we do not wrestle against flesh and blood, but against the rulers, against the authorities, against the cosmic powers over this present darkness, against the spiritual forces of evil in the heavenly places.",
+    "<span style='color: dodgerblue'>Ephesians 6:13</span><br>Therefore take up the whole armor of God, that you may be able to withstand in the evil day, and having done all, to stand firm.",
+    "<span style='color: dodgerblue'>Ephesians 6:14-15</span><br>Stand therefore, having fastened on the belt of truth, and having put on the breastplate of righteousness, and, as shoes for your feet, having put on the readiness given by the gospel of peace.",
+    "<span style='color: dodgerblue'>Ephesians 6:16</span><br>In all circumstances take up the shield of faith, with which you can extinguish all the flaming darts of the evil one;",
+    "<span style='color: dodgerblue'>Ephesians 6:17</span><br>and take the helmet of salvation, and the sword of the Spirit, which is the word of God,",
+    "<span style='color: dodgerblue'>Ephesians 6:18</span><br>praying at all times in the Spirit, with all prayer and supplication. To that end, keep alert with all perseverance, making supplication for all the saints," 
 ];
 
 //***ONLOAD FUNCTIONS***//
@@ -2131,7 +2131,7 @@ function selectText(element) {
 function preloadImages() {
     pop(["mainMenuPop"],["preloadImagesPop"]);
     for (i = 0; i < 20; i++) {
-        document.getElementById(i+"-rank").style.backgroundImage = "url(img/insignia/"+i+"-rank.jpg)";
+        document.getElementById(i+"-rank").style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
     };
     var iLimit = 0
     for (i = 0; i < 34; i++) {
@@ -2157,21 +2157,14 @@ function preloadImages() {
 function loadStudentStats() {
     var rankPercentage = (((_sl[_ci].rank + 1) / 20) * 100).toFixed(2);
     var rankSquares = Math.round(rankPercentage / 2.50);
-    for (i = 1; i <= 40; i++) {
-        if (i <= rankSquares) {
-            document.getElementById("rankProgressBar"+i).style.backgroundColor = "dodgerblue";
-        } else {
-            document.getElementById("rankProgressBar"+i).style.backgroundColor = "black";
-        };
-    };
     var totalASpts = 0;
+    var earnedASpts = 0;   
     var totalMVpts = 0;
+    var earnedMVpts = 0;
     for (i = 0; i < (_elapsedWeeks - 1); i++) {
         totalASpts += _asMaxPts[i];
         totalMVpts += _mvMaxPts[i];
     };
-    var earnedASpts = 0;
-    var earnedMVpts = 0;
     for (i = 0; i < (_elapsedWeeks - 1); i++) {
         earnedASpts += Object.values(_sl[_ci].as)[i];
         earnedMVpts += Object.values(_sl[_ci].mv)[i];
@@ -2180,6 +2173,34 @@ function loadStudentStats() {
     var asSquares = Math.round(asPercentage / 2.50);
     var mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(2);
     var mvSquares = Math.round(mvPercentage / 2.50);
+    var totalPoints = totalASpts + totalMVpts;
+    var totalEarnedPoints = earnedASpts + earnedMVpts;
+    var totalPointsPercentage = ((totalEarnedPoints / totalPoints) * 100).toFixed(2);
+    var totalPointsSquares = Math.round(totalPointsPercentage / 2.50);
+    var weeksAttended = 0;
+    for (i = 0; i < _sl[_ci].attendanceCount.length; i++) {
+        weeksAttended += _sl[_ci].attendanceCount[i];
+    };
+    var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(2);
+    var attendanceSquares = Math.round(attendancePercentage / 2.50);
+    var totalEarned = weeksAttended + earnedASpts + earnedMVpts;
+    var totalPossible = _elapsedWeeks + totalASpts + totalMVpts;
+    var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(2);
+    var totalSquares = Math.round(totalPercentage / 2.50);
+    for (i = 1; i <= 40; i++) {
+        if (i <= rankSquares) {
+            document.getElementById("rankProgressBar"+i).style.backgroundColor = "dodgerblue";
+        } else {
+            document.getElementById("rankProgressBar"+i).style.backgroundColor = "black";
+        };
+    };
+    for (i = 1; i <= 40; i++) {
+        if (i <= totalPointsSquares) {
+            document.getElementById("totalProgressBar"+i).style.backgroundColor = "lawngreen";
+        } else {
+            document.getElementById("totalProgressBar"+i).style.backgroundColor = "black";
+        };
+    };
     for (i = 1; i <= 40; i++) {
         if (i <= asSquares) {
             document.getElementById("asProgressBar"+i).style.backgroundColor = "lawngreen";
@@ -2194,12 +2215,6 @@ function loadStudentStats() {
             document.getElementById("mvProgressBar"+i).style.backgroundColor = "black";
         };
     };
-    var weeksAttended = 0;
-    for (i = 0; i < _sl[_ci].attendanceCount.length; i++) {
-        weeksAttended += _sl[_ci].attendanceCount[i];
-    };
-    var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(2);
-    var attendanceSquares = Math.round(attendancePercentage / 2.50);
     for (i = 1; i <= 40; i++) {
         if (i <= attendanceSquares) {
             document.getElementById("attendanceProgressBar"+i).style.backgroundColor = "lawngreen";
@@ -2207,21 +2222,22 @@ function loadStudentStats() {
             document.getElementById("attendanceProgressBar"+i).style.backgroundColor = "black";
         };
     };
-    var totalEarned = weeksAttended + earnedASpts + earnedMVpts;
-    var totalPossible = _elapsedWeeks + totalASpts + totalMVpts;
-    var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(2);
-    var totalSquares = Math.round(totalPercentage / 2.50);
     for (i = 1; i <= 40; i++) {
         if (i <= totalSquares) {
-            document.getElementById("totalProgressBar"+i).style.backgroundColor = "lawngreen";
+            document.getElementById("totalParticipationBar"+i).style.backgroundColor = "lawngreen";
         } else {
-            document.getElementById("totalProgressBar"+i).style.backgroundColor = "black";
+            document.getElementById("totalParticipationBar"+i).style.backgroundColor = "black";
         };
     };
     if (rankPercentage == 100.00) {
         document.getElementById("rankProgressTable").style.backgroundColor = "dodgerblue";
     } else {
         document.getElementById("rankProgressTable").style.backgroundColor = "black";
+    };
+    if (totalPointsPercentage == 100.00) {
+        document.getElementById("totalProgressTable").style.backgroundColor = "lawngreen";
+    } else {
+        document.getElementById("totalProgressTable").style.backgroundColor = "black";
     };
     if (asPercentage == 100.00) {
         document.getElementById("asProgressTable").style.backgroundColor = "lawngreen";
@@ -2239,20 +2255,21 @@ function loadStudentStats() {
         document.getElementById("attendanceProgressTable").style.backgroundColor = "black";
     };
     if (totalPercentage == 100.00) {
-        document.getElementById("totalProgressTable").style.backgroundColor = "lawngreen";
+        document.getElementById("totalParticipationTable").style.backgroundColor = "lawngreen";
     } else {
-        document.getElementById("totalProgressTable").style.backgroundColor = "black";
+        document.getElementById("totalParticipationTable").style.backgroundColor = "black";
     };
     assignClassRank();
-    document.getElementById("studentStatsInsignia").style.backgroundImage = "url(img/insignia/"+_sl[_ci].rank+"-rank.jpg)";
+    document.getElementById("studentStatsInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
     document.getElementById("statsRankName").innerHTML = _rankNames[_sl[_ci].rank];
     document.getElementById("statsName").innerHTML = _sl[_ci].fullName;
     document.getElementById("statsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
     document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + Math.round(rankPercentage) + "%)";
+    document.getElementById("totalProgressTableP").innerHTML = "Total Points: " + totalEarnedPoints + "/" + totalPoints + " (" + Math.round(totalPointsPercentage) + "%)";
     document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Points: " + earnedASpts + "/" + totalASpts + " (" + Math.round(asPercentage) + "%)";
     document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Points: " + earnedMVpts + "/" + totalMVpts + " (" + Math.round(mvPercentage) + "%)";
     document.getElementById("attendanceProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + Math.round(attendancePercentage) + "%)";
-    document.getElementById("totalProgressTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + Math.round(totalPercentage) + "%)";
+    document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + Math.round(totalPercentage) + "%)";
     pop(["studentPop","missionsPop"],["studentStatsPop"]);
 };
 

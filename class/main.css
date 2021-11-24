@@ -63,17 +63,26 @@ div {
     height: 600px;
     margin-top: 20px !important;
     overflow-y: auto;
-    background-color: #222;
-    border: 2px solid #444;
+    background-color: black;
+    border: 2px solid #222;
     padding-top: 20px;
     border-radius: 25px;
 }
 
-#missionCheckBoxDiv {
-    height: 575px;
+#missionCheckBoxDiv, #notesList, #teacherNotesList {
+    height: 600px;
     overflow-y: auto;
     text-align: left;
+    background-color: black;
+    border-radius: 25px;
+    border: 2px solid #222;
+    padding: 10px;
 }
+
+#notesList, #teacherNotesList {
+    margin-top: 20px;
+}
+
 
 #attendance2Pop {
     border-bottom: 2px solid white;
@@ -358,7 +367,12 @@ div {
 
 #mvText {
     margin-top: 20px;
-    font-size: 30px;
+    font-size: 25px;
+    background-color: black;
+    border: 2px solid #222;
+    border-radius: 25px;
+    padding: 10px;
+    color: #eee;
 }
 
 .buttonArr div {
@@ -418,6 +432,7 @@ div {
     border: 1px solid white;
     margin-bottom: 25px;
     font-size: 20px;
+    background-color: black;
 }
 
 #topMenuContainer {
@@ -750,7 +765,7 @@ div {
     text-align: left;
 }
 
-#rankProgressTableP, #asProgressTableP, #mvProgressTableP, #attendanceProgressTableP, #totalProgressTableP {
+#rankProgressTableP, #totalProgressTableP, #asProgressTableP, #mvProgressTableP, #attendanceProgressTableP, #totalParticipationTableP {
     margin-top: 40px;
     margin-bottom: 5px;
 }
@@ -762,7 +777,7 @@ div {
 }
 
 #preloadImagesContainer {
-    height: 575px;
+    height: 600px;
     overflow-y: scroll;
 }
 
