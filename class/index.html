@@ -248,6 +248,7 @@
   <div id="studentPop" class="pop">
       <div class="navigationButtonContainer">
         <div class="backButton" onclick="goHome()"><span>f</span></div>
+        <div class="secretButton" onclick="dataInputAlert('Set points to:',['studentPop','missionsPop'],true,setPoints)"></div>
         <div class="homeButton" onclick="goHome()"><span>5</span></div>
       </div>
       <span id="dispRankName"></span> <span id="dispPts"></span><br>
@@ -259,7 +260,7 @@
           <div class="studentPopButtons" id="notesButton" onclick="pop(['studentPop','missionsPop'],['notesPop','notesList']); populateNotes()">notes</div>
           <div class="studentPopButtons" id="photoButton" onclick="loadStudentPhoto()">photo</div>
           <div class="studentPopButtons" id="attendance2Button" onclick="populateNames2()">attendance</div>
-          <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields()">email</div>
+          <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields('editEmail1')">email</div>
       </div>
   </div>
 
@@ -590,7 +591,6 @@
       <div class="roundButton deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
       <div class="roundButton okButton" onclick="editStudent()">V</div>
     </div>
-    <div class="button" id="setPoints" onclick="dataInputAlert('Set points to:',['editStudentPop'],true,setPoints)">Set Points</div>
   </div>
 
   <div id="notesPop" class="pop">

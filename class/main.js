@@ -867,8 +867,11 @@ function refreshStudentPop() {
     };
 };
 
-function populateStudentFields() {
+function populateStudentFields(id) {
     pop(["studentPop","missionsPop"],["editStudentPop"]);
+    if (id) {
+        document.getElementById(id).focus();
+    };
     document.getElementById("editFirstAndLast").value = _sl[_ci].firstName + "/" + _sl[_ci].lastName;
     document.getElementById("editBday").value = _sl[_ci].birthdayMonth.toString() + "/" + _sl[_ci].birthdayDate.toString();
     document.getElementById("editEmail1").value = _sl[_ci].email1;
@@ -2409,6 +2412,4 @@ for (i = 0; i < .length; i++) {};
 
 //*** TO DO LIST ***//
 // add warning before undoing as or mv pts
-// add total points bar to student stats
 // add links to student stats (rank chart, incomplete as and mv, etc.)
-
