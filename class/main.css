@@ -678,10 +678,6 @@ a:link, a:visited, a:hover, a:active {
 #asPage1, #asPage2, #asPage3 {
     width: 297.5px;
     height: 385px;
-    border: 1px solid white;
-}
-
-#asPage1, #asPage2, #asPage3 {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -806,7 +802,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #rankProgressTableP, #totalProgressTableP, #asProgressTableP, #mvProgressTableP, #attendanceProgressTableP, #totalParticipationTableP {
-    margin-top: 40px;
+    margin-top: 39px;
     margin-bottom: 5px;
 }
 
