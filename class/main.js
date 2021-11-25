@@ -1718,7 +1718,7 @@ function drawing() {
         };
     };
     if (eligibleNames.length == 0) {
-        actionAlert('No more eligible names.  Reset drawing?',['drawingPop'],false,resetDrawing)
+        actionAlert('No more eligible names.  Reset drawing?',['drawingPop'],resetDrawing);
     } else {
         var x = Math.floor(Math.random() * eligibleNames.length);
         var winner = eligibleNames[x];
@@ -1737,6 +1737,7 @@ function resetDrawing() {
     for (i = 0; i < _sl.length; i++) {
         _sl[i].drawing = false;
     };
+    document.getElementById("winnerName").innerHTML = "tap here<br>to pick";
     storeAndBackup();
 };
 
