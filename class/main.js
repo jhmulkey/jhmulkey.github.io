@@ -1718,7 +1718,7 @@ function drawing() {
         };
     };
     if (eligibleNames.length == 0) {
-        actionAlert('No more eligible names.  Reset drawing?','drawingPop',false,resetDrawing)
+        actionAlert('No more eligible names.  Reset drawing?',['drawingPop'],false,resetDrawing)
     } else {
         var x = Math.floor(Math.random() * eligibleNames.length);
         var winner = eligibleNames[x];
@@ -1981,24 +1981,6 @@ function notesAlert() {
     } else {
         document.getElementById("teacherNotesButton").style.backgroundColor = "black";
     };
-};
-
-function togglePhoto(firstCall) {
-    if (firstCall) {
-        if (_sl[_ci].photo === false) {
-            actionAlert("Take photo now?","studentPop","missionsPop",togglePhoto); return;
-        } else {
-            actionAlert("Mark as no photo?","studentPop","missionsPop",togglePhoto); return;
-        };
-    };
-    if (_sl[_ci].photo === false) {
-        _sl[_ci].photo = true;
-        document.getElementById("photoButton").style.background = "green";
-    } else if (_sl[_ci].photo === true) {
-        _sl[_ci].photo = false;
-        document.getElementById("photoButton").style.background = "fireBrick";
-    };
-    storeAndBackup();
 };
 
 function storeAndBackup() {
@@ -2418,3 +2400,4 @@ for (i = 0; i < .length; i++) {};
 //*** TO DO LIST ***//
 // add warning before undoing as or mv pts
 // add links to student stats (rank chart, incomplete as and mv, etc.)
+// keep longer names from changing div size on random and drawing
