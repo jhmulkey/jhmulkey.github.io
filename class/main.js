@@ -16,6 +16,7 @@ var _gameLog = "";
 var _checkedState = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
 var _currentPops; // used to store an array of which Pop divs are visible when infoAlert() is called
 var _currentPops2; // used to store an array of which Pop divs are visible when dataInputAlert() is called
+var _sharedPop; // used if the back button may one of two or more Pops
 var _focus; // stores text field id that focus() is called on when infoAlertPop is dismissed with the back button
 var _currentFunction; // used to store a function so various other functions can use it
 var _eligibleRandom; // used to store an array of eligble names for random selection
@@ -28,6 +29,7 @@ var _isClassDay; // if false, attendance-related functions will not alter the st
 var _studentPhotoExists; // if true, Photo button displays green on StudentPop, otherwise it displays red
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
+var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
 var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14","jn-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword","armor-review"]; // activity sheet names
 var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8",
 "phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"]; // memory verse names
@@ -216,7 +218,7 @@ function gameScorePoints(x) {
     _teams[0].undoGamePts = x;
     _teams[0].undoLimit = false;
     if (_teams[0].currentTeam == 1) {
-        var log1 = _teams[0].team1[0].fullName + " " + x + " pts team 1 (" + _teams[0].team1Score + "-->" + (_teams[0].team1Score + x) + ")";
+        var log1 = _teams[0].team1[0].fullName + " +" + x + " pts team 1 (" + _teams[0].team1Score + "-->" + (_teams[0].team1Score + x) + ")";
         _teams[0].team1Score += x;
         document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
         _teams[0].currentTeam ++;
@@ -235,7 +237,7 @@ function gameScorePoints(x) {
         gameActivityLog(log1,false,"lawngreen");
         storeNewData();
     } else {
-        var log2 = _teams[0].team2[0].fullName + " " + x + " pts team 2 (" + _teams[0].team2Score + "-->" + (_teams[0].team2Score + x) + ")";
+        var log2 = _teams[0].team2[0].fullName + " +" + x + " pts team 2 (" + _teams[0].team2Score + "-->" + (_teams[0].team2Score + x) + ")";
         _teams[0].team2Score += x;
         document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
         _teams[0].currentTeam --;
@@ -251,7 +253,7 @@ function gameScorePoints(x) {
                 _teams[0].team2.push(_teams[0].team2Reset[i])
             };
         };
-        gameActivityLog(log2,false,"white");
+        gameActivityLog(log2,false,"yellow");
         storeNewData();
     };
     for (i = 1; i < 11; i++) {
@@ -270,7 +272,7 @@ function undoGameScorePoints() {
         _teams[0].undoLimit = true;
     };
     if (_teams[0].currentTeam == 1) {
-        var log1 = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " " + _teams[0].undoGamePts + " pts " + "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score - _teams[0].undoGamePts) + ")";
+        var log1 = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " -" + _teams[0].undoGamePts + " pts team 2 " + "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score - _teams[0].undoGamePts) + ")";
         _teams[0].currentTeam = 2;
         _teams[0].team2Score -= _teams[0].undoGamePts;
         document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
@@ -280,7 +282,7 @@ function undoGameScorePoints() {
         document.getElementById("team1Score").style.backgroundColor = "#eee";
         gameActivityLog(log1,false,"red");
     } else if (_teams[0].currentTeam == 2) {
-        var log2 = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " " + _teams[0].undoGamePts + " pts " + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
+        var log2 = _teams[0].undoCurrentPlayer.fullName + " -" + _teams[0].undoGamePts + " pts team 1 " + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
         _teams[0].currentTeam = 1;
         _teams[0].team1Score -= _teams[0].undoGamePts;
         document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
@@ -2362,6 +2364,38 @@ function doesFileExist(url) {
     };
     xhr.send(null);
 };
+
+function loadRankTable() {
+    _sharedPop = "rankChartPop";
+    pop(["studentStatsPop"],["rankChartPop"]);
+    for (i = 0; i < _rankNames.length; i++) {
+        let x; x = i;
+        document.getElementById("rankChartInsignia"+i).style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
+        document.getElementById("rankChartRank"+i).innerHTML = _rankNames[i];
+        document.getElementById("rankChartAbbreviation"+i).innerHTML = _rankNamesAbbr[i];
+        document.getElementById("rankChartPoints"+i).innerHTML = _rankPts[i];
+        document.getElementById("rankChartInsignia"+i).onclick = function() {
+            pop(["rankChartPop"],["openInsigniaPop"]);
+            document.getElementById("displayInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+x+"-rank.jpg)";
+        };
+        if (i == _sl[_ci].rank) {
+            document.getElementById("rankChartRow"+i).style.border = "3px solid lawngreen";
+        } else {
+            document.getElementById("rankChartRow"+i).style.border = "1px solid white";
+        };
+    };
+    document.getElementById("rankChartContainer").scrollTop = 0;
+};
+
+function openInsignia() {
+    _sharedPop = "studentStatsPop";
+    document.getElementById("displayInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
+    pop(["studentStatsPop"],["openInsigniaPop"]);
+};
+
+/* function largerRankInsignia() {
+    window.open("img/insignia-darkgray/"+i+"-rank.jpg","_blank");
+} */
 
 //*** ONLOAD FUNCTION CALLS ***//
 whatToLoad();

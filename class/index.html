@@ -10,8 +10,6 @@
 <body>
 <div id="master-wrapper">
 
-<div id="testDiv"></div>
-
   <div id="mainPop" class="pop">
         <div id="topMenuContainer">
             <div id="mainMenuButton" class="roundButton" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
@@ -278,7 +276,7 @@
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <div id="studentStatsTopContainerDiv">
-      <div id="studentStatsInsignia"></div>
+      <div id="studentStatsInsignia" onclick="openInsignia()"></div>
       <div id="studentStatsName">
         <p id="statsRankName"></p>
         <p id="statsName"></p>
@@ -286,51 +284,53 @@
       </div>
     </div>
     <div id="studentStatsBottomContainerDiv">
-      <p id="rankProgressTableP"></p>
-      <table id="rankProgressTable" class="progressBarTable">
-        <tr>
-          <td id="rankProgressBar1"></td>
-          <td id="rankProgressBar2"></td>
-          <td id="rankProgressBar3"></td>
-          <td id="rankProgressBar4"></td>
-          <td id="rankProgressBar5"></td>
-          <td id="rankProgressBar6"></td>
-          <td id="rankProgressBar7"></td>
-          <td id="rankProgressBar8"></td>
-          <td id="rankProgressBar9"></td>
-          <td id="rankProgressBar10"></td>
-          <td id="rankProgressBar11"></td>
-          <td id="rankProgressBar12"></td>
-          <td id="rankProgressBar13"></td>
-          <td id="rankProgressBar14"></td>
-          <td id="rankProgressBar15"></td>
-          <td id="rankProgressBar16"></td>
-          <td id="rankProgressBar17"></td>
-          <td id="rankProgressBar18"></td>
-          <td id="rankProgressBar19"></td>
-          <td id="rankProgressBar20"></td>
-          <td id="rankProgressBar21"></td>
-          <td id="rankProgressBar22"></td>
-          <td id="rankProgressBar23"></td>
-          <td id="rankProgressBar24"></td>
-          <td id="rankProgressBar25"></td>
-          <td id="rankProgressBar26"></td>
-          <td id="rankProgressBar27"></td>
-          <td id="rankProgressBar28"></td>
-          <td id="rankProgressBar29"></td>
-          <td id="rankProgressBar30"></td>
-          <td id="rankProgressBar31"></td>
-          <td id="rankProgressBar32"></td>
-          <td id="rankProgressBar33"></td>
-          <td id="rankProgressBar34"></td>
-          <td id="rankProgressBar35"></td>
-          <td id="rankProgressBar36"></td>
-          <td id="rankProgressBar37"></td>
-          <td id="rankProgressBar38"></td>
-          <td id="rankProgressBar39"></td>
-          <td id="rankProgressBar40"></td>
-        </tr>
-      </table>
+      <div id=RankProgressTableDiv onclick="loadRankTable()">
+        <p id="rankProgressTableP"></p>
+        <table id="rankProgressTable" class="progressBarTable">
+          <tr>
+            <td id="rankProgressBar1"></td>
+            <td id="rankProgressBar2"></td>
+            <td id="rankProgressBar3"></td>
+            <td id="rankProgressBar4"></td>
+            <td id="rankProgressBar5"></td>
+            <td id="rankProgressBar6"></td>
+            <td id="rankProgressBar7"></td>
+            <td id="rankProgressBar8"></td>
+            <td id="rankProgressBar9"></td>
+            <td id="rankProgressBar10"></td>
+            <td id="rankProgressBar11"></td>
+            <td id="rankProgressBar12"></td>
+            <td id="rankProgressBar13"></td>
+            <td id="rankProgressBar14"></td>
+            <td id="rankProgressBar15"></td>
+            <td id="rankProgressBar16"></td>
+            <td id="rankProgressBar17"></td>
+            <td id="rankProgressBar18"></td>
+            <td id="rankProgressBar19"></td>
+            <td id="rankProgressBar20"></td>
+            <td id="rankProgressBar21"></td>
+            <td id="rankProgressBar22"></td>
+            <td id="rankProgressBar23"></td>
+            <td id="rankProgressBar24"></td>
+            <td id="rankProgressBar25"></td>
+            <td id="rankProgressBar26"></td>
+            <td id="rankProgressBar27"></td>
+            <td id="rankProgressBar28"></td>
+            <td id="rankProgressBar29"></td>
+            <td id="rankProgressBar30"></td>
+            <td id="rankProgressBar31"></td>
+            <td id="rankProgressBar32"></td>
+            <td id="rankProgressBar33"></td>
+            <td id="rankProgressBar34"></td>
+            <td id="rankProgressBar35"></td>
+            <td id="rankProgressBar36"></td>
+            <td id="rankProgressBar37"></td>
+            <td id="rankProgressBar38"></td>
+            <td id="rankProgressBar39"></td>
+            <td id="rankProgressBar40"></td>
+          </tr>
+        </table>
+      </div>
       <p id="totalProgressTableP"></p>
       <table id="totalProgressTable" class="progressBarTable">
         <tr>
@@ -853,14 +853,14 @@
   </div>
 
   <div id="bdayPop" class="pop">
-      <div class="navigationButtonContainer">
-        <div class="backButton" onclick="pop(['bdayPop'],['alertsPop'])"><span>f</span></div>
-        <div class="homeButton" onclick="goHome()"><span>5</span></div>
-      </div>
-      <div id="bdayList"></div>
-      <p id="absentBday">Absent:</p>
-      <div id="bdayListAbsent"></div>
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop(['bdayPop'],['alertsPop'])"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
+    <div id="bdayList"></div>
+    <p id="absentBday">Absent:</p>
+    <div id="bdayListAbsent"></div>
+  </div>
   
   <div id="backupPop" class="pop">
     <div class="navigationButtonContainer">
@@ -879,7 +879,7 @@
       <div class="backButton" onclick="pop(['preloadImagesPop'],['mainMenuPop'])"><span>f</span></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
-    <div id="preloadImagesContainer">
+    <div class="scrollingContainer">
       <div id="0-rank" class="preloadRankImageDiv"></div>
       <div id="1-rank" class="preloadRankImageDiv"></div>
       <div id="2-rank" class="preloadRankImageDiv"></div>
@@ -972,8 +972,160 @@
     </div>
   </div>
 
+  <div id="rankChartPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop(['rankChartPop'],['studentStatsPop'])"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+      <a href="../docs/ranks.pdf" target="_blank"><p>click here to download printable chart</p></a>
+      <div id = "rankChartContainer" class="scrollingContainer">
+      <table id="rankChartTable">
+        <tr>
+          <th>Insignia</th>
+          <th>Rank</th>
+          <th>Abbreviation</th>
+          <th>Points</th>
+        </tr>
+        <tr id="rankChartRow0">
+          <td id="rankChartInsignia0"></td>
+          <td id="rankChartRank0"></td>
+          <td id="rankChartAbbreviation0"></td>
+          <td id="rankChartPoints0"></td>
+        </tr>
+        <tr id="rankChartRow1">
+          <td id="rankChartInsignia1"></td>
+          <td id="rankChartRank1"></td>
+          <td id="rankChartAbbreviation1"></td>
+          <td id="rankChartPoints1"></td>
+        </tr>
+        <tr id="rankChartRow2">
+          <td id="rankChartInsignia2"></td>
+          <td id="rankChartRank2"></td>
+          <td id="rankChartAbbreviation2"></td>
+          <td id="rankChartPoints2"></td>
+        </tr>
+        <tr id="rankChartRow3">
+          <td id="rankChartInsignia3"></td>
+          <td id="rankChartRank3"></td>
+          <td id="rankChartAbbreviation3"></td>
+          <td id="rankChartPoints3"></td>
+        </tr>
+        <tr id="rankChartRow4">
+          <td id="rankChartInsignia4"></td>
+          <td id="rankChartRank4"></td>
+          <td id="rankChartAbbreviation4"></td>
+          <td id="rankChartPoints4"></td>
+        </tr>
+        <tr id="rankChartRow5">
+          <td id="rankChartInsignia5"></td>
+          <td id="rankChartRank5"></td>
+          <td id="rankChartAbbreviation5"></td>
+          <td id="rankChartPoints5"></td>
+        </tr>
+        <tr id="rankChartRow6">
+          <td id="rankChartInsignia6"></td>
+          <td id="rankChartRank6"></td>
+          <td id="rankChartAbbreviation6"></td>
+          <td id="rankChartPoints6"></td>
+        </tr>
+        <tr id="rankChartRow7">
+          <td id="rankChartInsignia7"></td>
+          <td id="rankChartRank7"></td>
+          <td id="rankChartAbbreviation7"></td>
+          <td id="rankChartPoints7"></td>
+        </tr>
+        <tr id="rankChartRow8">
+          <td id="rankChartInsignia8"></td>
+          <td id="rankChartRank8"></td>
+          <td id="rankChartAbbreviation8"></td>
+          <td id="rankChartPoints8"></td>
+        </tr>
+        <tr id="rankChartRow9">
+          <td id="rankChartInsignia9"></td>
+          <td id="rankChartRank9"></td>
+          <td id="rankChartAbbreviation9"></td>
+          <td id="rankChartPoints9"></td>
+        </tr>
+        <tr id="rankChartRow10">
+          <td id="rankChartInsignia10"></td>
+          <td id="rankChartRank10"></td>
+          <td id="rankChartAbbreviation10"></td>
+          <td id="rankChartPoints10"></td>
+        </tr>
+        <tr id="rankChartRow11">
+          <td id="rankChartInsignia11"></td>
+          <td id="rankChartRank11"></td>
+          <td id="rankChartAbbreviation11"></td>
+          <td id="rankChartPoints11"></td>
+        </tr>
+        <tr id="rankChartRow12">
+          <td id="rankChartInsignia12"></td>
+          <td id="rankChartRank12"></td>
+          <td id="rankChartAbbreviation12"></td>
+          <td id="rankChartPoints12"></td>
+        </tr>
+        <tr id="rankChartRow13">
+          <td id="rankChartInsignia13"></td>
+          <td id="rankChartRank13"></td>
+          <td id="rankChartAbbreviation13"></td>
+          <td id="rankChartPoints13"></td>
+        </tr>
+        <tr id="rankChartRow14">
+          <td id="rankChartInsignia14"></td>
+          <td id="rankChartRank14"></td>
+          <td id="rankChartAbbreviation14"></td>
+          <td id="rankChartPoints14"></td>
+        </tr>
+        <tr id="rankChartRow15">
+          <td id="rankChartInsignia15"></td>
+          <td id="rankChartRank15"></td>
+          <td id="rankChartAbbreviation15"></td>
+          <td id="rankChartPoints15"></td>
+        </tr>
+        <tr id="rankChartRow16">
+          <td id="rankChartInsignia16"></td>
+          <td id="rankChartRank16"></td>
+          <td id="rankChartAbbreviation16"></td>
+          <td id="rankChartPoints16"></td>
+        </tr>
+        <tr id="rankChartRow17">
+          <td id="rankChartInsignia17"></td>
+          <td id="rankChartRank17"></td>
+          <td id="rankChartAbbreviation17"></td>
+          <td id="rankChartPoints17"></td>
+        </tr>
+        <tr id="rankChartRow18">
+          <td id="rankChartInsignia18"></td>
+          <td id="rankChartRank18"></td>
+          <td id="rankChartAbbreviation18"></td>
+          <td id="rankChartPoints18"></td>
+        </tr>
+        <tr id="rankChartRow19">
+          <td id="rankChartInsignia19"></td>
+          <td id="rankChartRank19"></td>
+          <td id="rankChartAbbreviation19"></td>
+          <td id="rankChartPoints19"></td>
+        </tr>
+      </table>
+      </div>
+    </div>
+
+  <div id="openInsigniaPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop(['openInsigniaPop'],[_sharedPop])"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div>
+      <div id="displayInsignia"></div>
+    </div>
+  </div>
+
 </div> <!--end of master-wrapper-->
 <script src="backup.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
+
+<!-- <a href="sms:+1864xxxxxxxx"></a>
+<a href="tel:+1864xxxxxxxx"></a>
+<a href="mailto:jonathan@ksgrade2.com"></a> -->
