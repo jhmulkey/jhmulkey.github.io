@@ -386,12 +386,6 @@ a:link, a:visited, a:hover, a:active {
     margin: 0px auto 20px;
 }
 
-.randomName {
-    margin: 150px auto;
-    font-size: 75px;
-    font-weight: bold;    
-}
-
 #longVerse {
     display: none;
 }
@@ -841,4 +835,15 @@ a:link, a:visited, a:hover, a:active {
 .scrollingContainer {
     height: 600px;
     overflow-y: scroll;
+}
+
+#randomNameDiv {
+    margin-top: 150px;
+    height: 330px;
+}
+
+#randomName {
+    margin: 0px !important;
+    font-size: 75px;
+    font-weight: bold;    
 }
