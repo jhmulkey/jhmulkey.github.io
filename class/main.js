@@ -1287,7 +1287,9 @@ function pop(closeArray,openArray) {
     for (i = 0; i < openArray.length; i++) {
         if (openArray != []) {
             document.getElementById(openArray[i]).style.display = "block";
-        };    };
+            
+        };    
+    };
     if (closeArray.includes("asPointsPop") || closeArray.includes("mvPointsPop")) {
         removePtBoxes();
     };
@@ -1331,6 +1333,10 @@ function goHome() {
     for (i = 0; i < pops.length; i++) {
         pops[i].style.display = "none";
         document.getElementById("mainPop").style.display = "block";
+    };
+    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+        document.getElementById("as"+i+"Pop").style.display = "block";
+        document.getElementById("mv"+i+"Pop").style.display = "block";
     };
     document.getElementById("search").value = "";
     document.getElementById("search").focus();
@@ -2374,6 +2380,34 @@ function openInsignia() {
     _sharedPop = "studentStatsPop";
     document.getElementById("displayInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
     pop(["studentStatsPop"],["openInsigniaPop"]);
+};
+
+function toggleIncomplete() {
+    var noneHidden = true;
+    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+        if (document.getElementById("as"+i+"Pop").style.display == "none" || document.getElementById("mv"+i+"Pop").style.display == "none") {
+            noneHidden = false; break;
+        };
+    };
+    if (noneHidden) {
+        for (i = 0; i < (_elapsedWeeks - 1); i++) {
+            if (_sl[_ci].as[i] < _asMaxPts[i]) {
+                document.getElementById("as"+i+"Pop").style.display = "block"
+            } else {
+                document.getElementById("as"+i+"Pop").style.display = "none"
+            };
+            if (_sl[_ci].mv[i] < _mvMaxPts[i]) {
+                document.getElementById("mv"+i+"Pop").style.display = "block"
+            } else {
+                document.getElementById("mv"+i+"Pop").style.display = "none"
+            };
+        };
+    } else {
+        for (i = 0; i < (_elapsedWeeks - 1); i++) {
+            document.getElementById("as"+i+"Pop").style.display = "block";
+            document.getElementById("mv"+i+"Pop").style.display = "block";
+        };
+    };
 };
 
 /* function largerRankInsignia() {

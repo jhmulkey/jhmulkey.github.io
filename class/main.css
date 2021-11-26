@@ -23,8 +23,8 @@ html {
 }
 
 body {
-    padding: 0;
-    margin: 0;
+    padding: 0px;
+    margin: 0px;
     font-family: Tahoma, serif;
     font-size: 30px;
     color: white;
@@ -216,8 +216,8 @@ a:link, a:visited, a:hover, a:active {
     height: 50px;
     width: 100px;
     font-size: 20px;
-    margin-top: 0;
-    padding-top: 0;
+    margin-top: 0px;
+    padding-top: 0px;
 }
 
 .asButton, .asButton2, .asButton3, .mvButton3, .mvButton4 {
@@ -264,7 +264,7 @@ a:link, a:visited, a:hover, a:active {
 .pointButtonContainer {
     display: flex;
     flex-wrap: nowrap;
-    margin-top: 0px;
+    margin-top: 30px;
     margin-bottom: 20px;
     justify-content: space-around;
 }
@@ -329,14 +329,24 @@ a:link, a:visited, a:hover, a:active {
     margin: 25px auto;
 }
 
+#asmvPopContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+#asmvHeaderContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
 #asPop {
     width: 187px;
-    float: left;
 }
 
 #mvPop {
     width: 187px;
-    float: right;    
 }
 
 #infoAlertTitle {
@@ -391,7 +401,15 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #studentPop {
-    padding-bottom: 0;
+    padding-bottom: 0px;
+}
+
+#missionsPop {
+    padding-top: 0px
+}
+
+#asPointsPop, #mvPointsPop {
+    padding-top: 0px;
 }
 
 #attendanceButtonContainer {
@@ -399,8 +417,6 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #penContainer {
-    height: 35px;
-    margin-bottom: 35px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -458,8 +474,8 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .lowerNavigationButtonContainer {
-    margin-top: 20px;
-    margin-bottom: 25px;
+    margin-top: 10px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: center;
 }

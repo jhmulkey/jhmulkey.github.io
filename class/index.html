@@ -694,77 +694,81 @@
   </div>
   
   <div id="missionsPop" class="pop">
-      <div id="asPop">
+      <div id="asmvHeaderContainer">
         <div class="asmvHeader" onclick="pop(['studentPop','missionsPop'],['missionVisibilityPop'])">Activity<br>Sheets</div>
-        <div id="as32Pop" class="asButton2 w32" onclick="asPop(32,6)">Armor<br>Review</div>
-        <div id="as31Pop" class="asButton w31" onclick="asPop(31)">Sword</div>
-        <div id="as30Pop" class="asButton w30" onclick="asPop(30)">Helmet</div>
-        <div id="as29Pop" class="asButton w29" onclick="asPop(29)">Shield</div>
-        <div id="as28Pop" class="asButton w28" onclick="asPop(28)">Shoes</div>
-        <div id="as27Pop" class="asButton2 w27" onclick="asPop(27)">Breast-<br>plate</div>
-        <div id="as26Pop" class="asButton w26" onclick="asPop(26)">Belt</div>
-        <div id="as25Pop" class="asButton2 w25" onclick="asPop(25)">Armor<br>Intro</div>
-        <div id="as24Pop" class="asButton3 w24" onclick="asPop(24,6)">John<br>10-21<br>Review</div>
-        <div id="as23Pop" class="asButton w23" onclick="asPop(23)">John 21</div>
-        <div id="as22Pop" class="asButton w22" onclick="asPop(22)">John 20</div>
-        <div id="as21Pop" class="asButton w21" onclick="asPop(21)">John 19</div>
-        <div id="as20Pop" class="asButton w20" onclick="asPop(20)">John 18</div>
-        <div id="as19Pop" class="asButton w19" onclick="asPop(19)">John 17</div>
-        <div id="as18Pop" class="asButton w18" onclick="asPop(18)">John 16</div>
-        <div id="as17Pop" class="asButton w17" onclick="asPop(17)">John 15</div>
-        <div id="as16Pop" class="asButton w16" onclick="asPop(16)">John 14</div>
-        <div id="as15Pop" class="asButton w15" onclick="asPop(15)">John 13</div>
-        <div id="as14Pop" class="asButton w14" onclick="asPop(14)">John 12</div>
-        <div id="as13Pop" class="asButton w13" onclick="asPop(13)">John 11</div>
-        <div id="as12Pop" class="asButton w12" onclick="asPop(12)">John 10</div>
-        <div id="as11Pop" class="asButton2 w11" onclick="asPop(11,6)">John 1-9<br>Review</div>
-        <div id="as10Pop" class="asButton w10" onclick="asPop(10)">John 9</div>
-        <div id="as9Pop" class="asButton w9" onclick="asPop(9)">John 8</div>
-        <div id="as8Pop" class="asButton w8" onclick="asPop(8)">John 7</div>
-        <div id="as7Pop" class="asButton w7" onclick="asPop(7)">John 6</div>
-        <div id="as6Pop" class="asButton w6" onclick="asPop(6)">John 5</div>
-        <div id="as5Pop" class="asButton w5" onclick="asPop(5)">John 4</div>
-        <div id="as4Pop" class="asButton w4" onclick="asPop(4)">John 3</div>
-        <div id="as3Pop" class="asButton w3" onclick="asPop(3)">John 2</div>
-        <div id="as2Pop" class="asButton w2" onclick="asPop(2)">John 1</div>
-        <div id="as1Pop" class="asButton2 w1" onclick="asPop(1)">John Intro</div>
-        <div id="as0Pop" class="asButton2 w0" onclick="asPop(0)">Class<br>Intro</div>
+        <div class="asmvHeader" onclick="toggleIncomplete()">Memory<br>Verses</div>
       </div>
-      <div id="mvPop">
-        <div class="asmvHeader" onclick="pop(['studentPop','missionsPop'],['missionVisibilityPop'])">Memory<br>Verses</div>
-        <div id="mv32Pop" class="asmvButtonFill w32"></div>
-        <div id="mv31Pop" class="mvButton4 w31" onclick="mvPop(31,31)">Eph<br>6:18<br>"praying at"</div>
-        <div id="mv30Pop" class="mvButton3 w30" onclick="mvPop(30,30)">Eph<br>6:17<br>"and take"</div>
-        <div id="mv29Pop" class="mvButton3 w29" onclick="mvPop(29,29)">Eph<br>6:16<br>"In all"</div>
-        <div id="mv28Pop" class="mvButton4 w28" onclick="mvPop(28,28,4)">Eph<br>6:14-15<br>"Stand therefore"</div>
-        <div id="mv27Pop" class="mvButton4 w27" onclick="mvPop(27,27)">Eph<br>6:13<br>"Therefore take"</div>
-        <div id="mv26Pop" class="mvButton3 w26" onclick="mvPop(26,26,4)">Eph<br>6:12<br>"For we"</div>
-        <div id="mv25Pop" class="mvButton4 w25" onclick="mvPop(25,25,4)">Eph<br>6:10-11<br>"Finally, be"</div>
-        <div id="mv24Pop" class="mvButton3 w24" onclick="mvPop(24,24,6)">Rom<br>8:38-39<br>"For I"</div>
-        <div id="mv23Pop" class="mvButton3 w23" onclick="mvPop(23,23)">Rom<br>8:37<br>"No, in"</div>
-        <div id="mv22Pop" class="mvButton3 w22" onclick="mvPop(22,22)">Rom<br>8:36<br>"As it"</div>
-        <div id="mv21Pop" class="mvButton4 w21" onclick="mvPop(21,21)">Rom<br>8:35<br>"Who shall separate"</div>
-        <div id="mv20Pop" class="mvButton3 w20" onclick="mvPop(20,20,4)">Rom<br>8:34<br>"Who is"</div>
-        <div id="mv19Pop" class="mvButton4 w19" onclick="mvPop(19,19)">Rom<br>8:33<br>"Who shall bring"</div>
-        <div id="mv18Pop" class="mvButton3 w18" onclick="mvPop(18,18,4)">Rom<br>8:32<br>"He who"</div>
-        <div id="mv17Pop" class="mvButton4 w17" onclick="mvPop(17,17)">Rom<br>8:31<br>"What then"</div>
-        <div id="mv16Pop" class="mvButton3 w16" onclick="mvPop(16,16,4)">Phil<br>2:10-11<br>"so that"</div>
-        <div id="mv15Pop" class="mvButton4 w15" onclick="mvPop(15,15)">Phil<br>2:9<br>"therefore God"</div>
-        <div id="mv14Pop" class="mvButton4 w14" onclick="mvPop(14,14)">Phil<br>2:8<br>"And being"</div>
-        <div id="mv13Pop" class="mvButton4 w13" onclick="mvPop(13,13)">Phil<br>2:7<br>"But emptied"</div>
-        <div id="mv12Pop" class="mvButton3 w12" onclick="mvPop(12,12,4)">Phil<br>2:5-6<br>"Have this"</div>
-        <div id="mv11Pop" class="mvButton3 w11" onclick="mvPop(11,11)">John<br>1:18<br>"No one"</div>
-        <div id="mv10Pop" class="mvButton3 w10" onclick="mvPop(10,10)">John<br>1:16-17<br>"For from"</div>
-        <div id="mv9Pop" class="mvButton4 w9" onclick="mvPop(9,9,4)">John<br>1:15<br>"John bore"</div>
-        <div id="mv8Pop" class="mvButton3 w8" onclick="mvPop(8,8,4)">John<br>1:14<br>"And the"</div>
-        <div id="mv7Pop" class="mvButton3 w7" onclick="mvPop(7,7,5)">John<br>1:12-13<br>"But to"</div>
-        <div id="mv6Pop" class="mvButton3 w6" onclick="mvPop(6,6,5)">John<br>1:9-11<br>"The true"</div>
-        <div id="mv5Pop" class="mvButton4 w5" onclick="mvPop(5,5,5)">John<br>1:6-8<br>"There was"</div>
-        <div id="mv4Pop" class="mvButton3 w4" onclick="mvPop(4,4)">John<br>1:4-5<br>"In him"</div>
-        <div id="mv3Pop" class="mvButton3 w3" onclick="mvPop(3,3)">John<br>1:3<br>"All things"</div>
-        <div id="mv2Pop" class="mvButton3 w2" onclick="mvPop(2,2)">John<br>1:1-2<br>"In the"</div>
-        <div id="mv1Pop" class="mvButton4 w1" onclick="mvPop(1,1,6)">John<br>20:30-31<br>"Now Jesus"</div>
-        <div id="mv0Pop" class="mvButton4 w0" onclick="mvPop(0,0,4)">Psalm<br>139:17<br>"How precious"</div>
+      <div id=asmvPopContainer>
+        <div id="asPop">
+          <div id="as32Pop" class="asButton2 w32" onclick="asPop(32,6)">Armor<br>Review</div>
+          <div id="as31Pop" class="asButton w31" onclick="asPop(31)">Sword</div>
+          <div id="as30Pop" class="asButton w30" onclick="asPop(30)">Helmet</div>
+          <div id="as29Pop" class="asButton w29" onclick="asPop(29)">Shield</div>
+          <div id="as28Pop" class="asButton w28" onclick="asPop(28)">Shoes</div>
+          <div id="as27Pop" class="asButton2 w27" onclick="asPop(27)">Breast-<br>plate</div>
+          <div id="as26Pop" class="asButton w26" onclick="asPop(26)">Belt</div>
+          <div id="as25Pop" class="asButton2 w25" onclick="asPop(25)">Armor<br>Intro</div>
+          <div id="as24Pop" class="asButton3 w24" onclick="asPop(24,6)">John<br>10-21<br>Review</div>
+          <div id="as23Pop" class="asButton w23" onclick="asPop(23)">John 21</div>
+          <div id="as22Pop" class="asButton w22" onclick="asPop(22)">John 20</div>
+          <div id="as21Pop" class="asButton w21" onclick="asPop(21)">John 19</div>
+          <div id="as20Pop" class="asButton w20" onclick="asPop(20)">John 18</div>
+          <div id="as19Pop" class="asButton w19" onclick="asPop(19)">John 17</div>
+          <div id="as18Pop" class="asButton w18" onclick="asPop(18)">John 16</div>
+          <div id="as17Pop" class="asButton w17" onclick="asPop(17)">John 15</div>
+          <div id="as16Pop" class="asButton w16" onclick="asPop(16)">John 14</div>
+          <div id="as15Pop" class="asButton w15" onclick="asPop(15)">John 13</div>
+          <div id="as14Pop" class="asButton w14" onclick="asPop(14)">John 12</div>
+          <div id="as13Pop" class="asButton w13" onclick="asPop(13)">John 11</div>
+          <div id="as12Pop" class="asButton w12" onclick="asPop(12)">John 10</div>
+          <div id="as11Pop" class="asButton2 w11" onclick="asPop(11,6)">John 1-9<br>Review</div>
+          <div id="as10Pop" class="asButton w10" onclick="asPop(10)">John 9</div>
+          <div id="as9Pop" class="asButton w9" onclick="asPop(9)">John 8</div>
+          <div id="as8Pop" class="asButton w8" onclick="asPop(8)">John 7</div>
+          <div id="as7Pop" class="asButton w7" onclick="asPop(7)">John 6</div>
+          <div id="as6Pop" class="asButton w6" onclick="asPop(6)">John 5</div>
+          <div id="as5Pop" class="asButton w5" onclick="asPop(5)">John 4</div>
+          <div id="as4Pop" class="asButton w4" onclick="asPop(4)">John 3</div>
+          <div id="as3Pop" class="asButton w3" onclick="asPop(3)">John 2</div>
+          <div id="as2Pop" class="asButton w2" onclick="asPop(2)">John 1</div>
+          <div id="as1Pop" class="asButton2 w1" onclick="asPop(1)">John Intro</div>
+          <div id="as0Pop" class="asButton2 w0" onclick="asPop(0)">Class<br>Intro</div>
+        </div>
+        <div id="mvPop">
+          <div id="mv32Pop" class="asmvButtonFill w32"></div>
+          <div id="mv31Pop" class="mvButton4 w31" onclick="mvPop(31,31)">Eph<br>6:18<br>"praying at"</div>
+          <div id="mv30Pop" class="mvButton3 w30" onclick="mvPop(30,30)">Eph<br>6:17<br>"and take"</div>
+          <div id="mv29Pop" class="mvButton3 w29" onclick="mvPop(29,29)">Eph<br>6:16<br>"In all"</div>
+          <div id="mv28Pop" class="mvButton4 w28" onclick="mvPop(28,28,4)">Eph<br>6:14-15<br>"Stand therefore"</div>
+          <div id="mv27Pop" class="mvButton4 w27" onclick="mvPop(27,27)">Eph<br>6:13<br>"Therefore take"</div>
+          <div id="mv26Pop" class="mvButton3 w26" onclick="mvPop(26,26,4)">Eph<br>6:12<br>"For we"</div>
+          <div id="mv25Pop" class="mvButton4 w25" onclick="mvPop(25,25,4)">Eph<br>6:10-11<br>"Finally, be"</div>
+          <div id="mv24Pop" class="mvButton3 w24" onclick="mvPop(24,24,6)">Rom<br>8:38-39<br>"For I"</div>
+          <div id="mv23Pop" class="mvButton3 w23" onclick="mvPop(23,23)">Rom<br>8:37<br>"No, in"</div>
+          <div id="mv22Pop" class="mvButton3 w22" onclick="mvPop(22,22)">Rom<br>8:36<br>"As it"</div>
+          <div id="mv21Pop" class="mvButton4 w21" onclick="mvPop(21,21)">Rom<br>8:35<br>"Who shall separate"</div>
+          <div id="mv20Pop" class="mvButton3 w20" onclick="mvPop(20,20,4)">Rom<br>8:34<br>"Who is"</div>
+          <div id="mv19Pop" class="mvButton4 w19" onclick="mvPop(19,19)">Rom<br>8:33<br>"Who shall bring"</div>
+          <div id="mv18Pop" class="mvButton3 w18" onclick="mvPop(18,18,4)">Rom<br>8:32<br>"He who"</div>
+          <div id="mv17Pop" class="mvButton4 w17" onclick="mvPop(17,17)">Rom<br>8:31<br>"What then"</div>
+          <div id="mv16Pop" class="mvButton3 w16" onclick="mvPop(16,16,4)">Phil<br>2:10-11<br>"so that"</div>
+          <div id="mv15Pop" class="mvButton4 w15" onclick="mvPop(15,15)">Phil<br>2:9<br>"therefore God"</div>
+          <div id="mv14Pop" class="mvButton4 w14" onclick="mvPop(14,14)">Phil<br>2:8<br>"And being"</div>
+          <div id="mv13Pop" class="mvButton4 w13" onclick="mvPop(13,13)">Phil<br>2:7<br>"But emptied"</div>
+          <div id="mv12Pop" class="mvButton3 w12" onclick="mvPop(12,12,4)">Phil<br>2:5-6<br>"Have this"</div>
+          <div id="mv11Pop" class="mvButton3 w11" onclick="mvPop(11,11)">John<br>1:18<br>"No one"</div>
+          <div id="mv10Pop" class="mvButton3 w10" onclick="mvPop(10,10)">John<br>1:16-17<br>"For from"</div>
+          <div id="mv9Pop" class="mvButton4 w9" onclick="mvPop(9,9,4)">John<br>1:15<br>"John bore"</div>
+          <div id="mv8Pop" class="mvButton3 w8" onclick="mvPop(8,8,4)">John<br>1:14<br>"And the"</div>
+          <div id="mv7Pop" class="mvButton3 w7" onclick="mvPop(7,7,5)">John<br>1:12-13<br>"But to"</div>
+          <div id="mv6Pop" class="mvButton3 w6" onclick="mvPop(6,6,5)">John<br>1:9-11<br>"The true"</div>
+          <div id="mv5Pop" class="mvButton4 w5" onclick="mvPop(5,5,5)">John<br>1:6-8<br>"There was"</div>
+          <div id="mv4Pop" class="mvButton3 w4" onclick="mvPop(4,4)">John<br>1:4-5<br>"In him"</div>
+          <div id="mv3Pop" class="mvButton3 w3" onclick="mvPop(3,3)">John<br>1:3<br>"All things"</div>
+          <div id="mv2Pop" class="mvButton3 w2" onclick="mvPop(2,2)">John<br>1:1-2<br>"In the"</div>
+          <div id="mv1Pop" class="mvButton4 w1" onclick="mvPop(1,1,6)">John<br>20:30-31<br>"Now Jesus"</div>
+          <div id="mv0Pop" class="mvButton4 w0" onclick="mvPop(0,0,4)">Psalm<br>139:17<br>"How precious"</div>
+        </div>
       </div>
   </div>
   
