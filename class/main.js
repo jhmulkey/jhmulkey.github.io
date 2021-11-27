@@ -572,7 +572,7 @@ function infoAlert(message,idArray,focus) {
         };
         document.getElementById("infoAlertMessage").innerHTML = message;
     };
-    document.getElementById(_focus).focus();
+    if (focus) { document.getElementById(_focus).focus(); };
 };
 
 function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {

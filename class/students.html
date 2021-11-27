@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="students.css"/>
+    <link rel=”shortcut icon” href =../“favicon.ico”>
+    <title>class</title>
+</head>
+<body>
+<div id="master-wrapper">
+
+  <div id="mainPop" class="pop">
+        <input id="search" type="text" placeholder="search names" oninput="searchNames()"/>
+        <div id="nameList"></div>
+  </div>
+
+  <div id="infoAlertPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="infoAlert()"><span>f</span></div>
+    </div>
+      <p id="infoAlertTitle">!</p>
+      <p id="infoAlertMessage"></p>
+  </div>
+
+  <div id="actionAlertPop" class="pop">
+    <p id="actionAlertMessage"></p>
+    <div class="optionButtonContainer">
+      <div class="roundButton cancelButton" onclick="actionAlert(false,false,false,true)">X</div>
+      <div class="roundButton okButton" onclick="actionAlert()">V</div>
+    </div>
+  </div>
+
+  <div id="dataInputAlertPop" class="pop">
+    <p id="dataInputAlertMessage"></p>
+    <input id="dataInputTextField" type="text"/>
+    <div id="enterReasonDiv">
+      <p>Reason (required):</p>
+      <textarea id="enterReasonTextField" rows="10" cols="30"></textarea>
+    </div>
+    <div class="optionButtonContainer">
+      <div class="roundButton cancelButton" onclick="dataInputAlert(false,false,false,false,false,true)">X</div>
+      <div class="roundButton okButton" onclick="dataInputAlert()">V</div>
+    </div>
+  </div>
+
+  <div id="studentPop" class="pop">
+      <div class="navigationButtonContainer">
+        <div class="backButton" onclick="goHome()"><span>f</span></div>
+        <div class="homeButton" onclick="goHome()"><span>5</span></div>
+      </div>
+      <span id="dispRankName"></span> <span id="dispPts"></span><br>
+      <p id="dispName" onclick="attendance()"></p>
+      <div id="penContainer">
+          <div class="studentPopButtons" id="statsButton" onclick="loadStudentStats()">stats</div>
+      </div>
+  </div>
+
+  <div id="studentStatsPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop(['studentStatsPop'],['studentPop','missionsPop'])"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div id="studentStatsTopContainerDiv">
+      <div id="studentStatsInsignia" onclick="openInsignia()"></div>
+      <div id="studentStatsName">
+        <p id="statsRankName"></p>
+        <p id="statsName"></p>
+        <p id="statsClassRank"></p>
+      </div>
+    </div>
+    <div id="studentStatsBottomContainerDiv">
+      <div id=RankProgressTableDiv onclick="loadRankTable()">
+        <p id="rankProgressTableP"></p>
+        <table id="rankProgressTable" class="progressBarTable">
+          <tr>
+            <td id="rankProgressBar1"></td>
+            <td id="rankProgressBar2"></td>
+            <td id="rankProgressBar3"></td>
+            <td id="rankProgressBar4"></td>
+            <td id="rankProgressBar5"></td>
+            <td id="rankProgressBar6"></td>
+            <td id="rankProgressBar7"></td>
+            <td id="rankProgressBar8"></td>
+            <td id="rankProgressBar9"></td>
+            <td id="rankProgressBar10"></td>
+            <td id="rankProgressBar11"></td>
+            <td id="rankProgressBar12"></td>
+            <td id="rankProgressBar13"></td>
+            <td id="rankProgressBar14"></td>
+            <td id="rankProgressBar15"></td>
+            <td id="rankProgressBar16"></td>
+            <td id="rankProgressBar17"></td>
+            <td id="rankProgressBar18"></td>
+            <td id="rankProgressBar19"></td>
+            <td id="rankProgressBar20"></td>
+            <td id="rankProgressBar21"></td>
+            <td id="rankProgressBar22"></td>
+            <td id="rankProgressBar23"></td>
+            <td id="rankProgressBar24"></td>
+            <td id="rankProgressBar25"></td>
+            <td id="rankProgressBar26"></td>
+            <td id="rankProgressBar27"></td>
+            <td id="rankProgressBar28"></td>
+            <td id="rankProgressBar29"></td>
+            <td id="rankProgressBar30"></td>
+            <td id="rankProgressBar31"></td>
+            <td id="rankProgressBar32"></td>
+            <td id="rankProgressBar33"></td>
+            <td id="rankProgressBar34"></td>
+            <td id="rankProgressBar35"></td>
+            <td id="rankProgressBar36"></td>
+            <td id="rankProgressBar37"></td>
+            <td id="rankProgressBar38"></td>
+            <td id="rankProgressBar39"></td>
+            <td id="rankProgressBar40"></td>
+          </tr>
+        </table>
+      </div>
+      <p id="totalProgressTableP"></p>
+      <table id="totalProgressTable" class="progressBarTable">
+        <tr>
+          <td id="totalProgressBar1"></td>
+          <td id="totalProgressBar2"></td>
+          <td id="totalProgressBar3"></td>
+          <td id="totalProgressBar4"></td>
+          <td id="totalProgressBar5"></td>
+          <td id="totalProgressBar6"></td>
+          <td id="totalProgressBar7"></td>
+          <td id="totalProgressBar8"></td>
+          <td id="totalProgressBar9"></td>
+          <td id="totalProgressBar10"></td>
+          <td id="totalProgressBar11"></td>
+          <td id="totalProgressBar12"></td>
+          <td id="totalProgressBar13"></td>
+          <td id="totalProgressBar14"></td>
+          <td id="totalProgressBar15"></td>
+          <td id="totalProgressBar16"></td>
+          <td id="totalProgressBar17"></td>
+          <td id="totalProgressBar18"></td>
+          <td id="totalProgressBar19"></td>
+          <td id="totalProgressBar20"></td>
+          <td id="totalProgressBar21"></td>
+          <td id="totalProgressBar22"></td>
+          <td id="totalProgressBar23"></td>
+          <td id="totalProgressBar24"></td>
+          <td id="totalProgressBar25"></td>
+          <td id="totalProgressBar26"></td>
+          <td id="totalProgressBar27"></td>
+          <td id="totalProgressBar28"></td>
+          <td id="totalProgressBar29"></td>
+          <td id="totalProgressBar30"></td>
+          <td id="totalProgressBar31"></td>
+          <td id="totalProgressBar32"></td>
+          <td id="totalProgressBar33"></td>
+          <td id="totalProgressBar34"></td>
+          <td id="totalProgressBar35"></td>
+          <td id="totalProgressBar36"></td>
+          <td id="totalProgressBar37"></td>
+          <td id="totalProgressBar38"></td>
+          <td id="totalProgressBar39"></td>
+          <td id="totalProgressBar40"></td>
+        </tr>
+      </table>
+      <p id="asProgressTableP"></p>
+      <table id="asProgressTable" class="progressBarTable">
+        <tr>
+          <td id="asProgressBar1"></td>
+          <td id="asProgressBar2"></td>
+          <td id="asProgressBar3"></td>
+          <td id="asProgressBar4"></td>
+          <td id="asProgressBar5"></td>
+          <td id="asProgressBar6"></td>
+          <td id="asProgressBar7"></td>
+          <td id="asProgressBar8"></td>
+          <td id="asProgressBar9"></td>
+          <td id="asProgressBar10"></td>
+          <td id="asProgressBar11"></td>
+          <td id="asProgressBar12"></td>
+          <td id="asProgressBar13"></td>
+          <td id="asProgressBar14"></td>
+          <td id="asProgressBar15"></td>
+          <td id="asProgressBar16"></td>
+          <td id="asProgressBar17"></td>
+          <td id="asProgressBar18"></td>
+          <td id="asProgressBar19"></td>
+          <td id="asProgressBar20"></td>
+          <td id="asProgressBar21"></td>
+          <td id="asProgressBar22"></td>
+          <td id="asProgressBar23"></td>
+          <td id="asProgressBar24"></td>
+          <td id="asProgressBar25"></td>
+          <td id="asProgressBar26"></td>
+          <td id="asProgressBar27"></td>
+          <td id="asProgressBar28"></td>
+          <td id="asProgressBar29"></td>
+          <td id="asProgressBar30"></td>
+          <td id="asProgressBar31"></td>
+          <td id="asProgressBar32"></td>
+          <td id="asProgressBar33"></td>
+          <td id="asProgressBar34"></td>
+          <td id="asProgressBar35"></td>
+          <td id="asProgressBar36"></td>
+          <td id="asProgressBar37"></td>
+          <td id="asProgressBar38"></td>
+          <td id="asProgressBar39"></td>
+          <td id="asProgressBar40"></td>
+        </tr>
+      </table>
+      <p id="mvProgressTableP"></p>
+      <table id="mvProgressTable" class="progressBarTable"> 
+        <tr>
+          <td id="mvProgressBar1"></td>
+          <td id="mvProgressBar2"></td>
+          <td id="mvProgressBar3"></td>
+          <td id="mvProgressBar4"></td>
+          <td id="mvProgressBar5"></td>
+          <td id="mvProgressBar6"></td>
+          <td id="mvProgressBar7"></td>
+          <td id="mvProgressBar8"></td>
+          <td id="mvProgressBar9"></td>
+          <td id="mvProgressBar10"></td>
+          <td id="mvProgressBar11"></td>
+          <td id="mvProgressBar12"></td>
+          <td id="mvProgressBar13"></td>
+          <td id="mvProgressBar14"></td>
+          <td id="mvProgressBar15"></td>
+          <td id="mvProgressBar16"></td>
+          <td id="mvProgressBar17"></td>
+          <td id="mvProgressBar18"></td>
+          <td id="mvProgressBar19"></td>
+          <td id="mvProgressBar20"></td>
+          <td id="mvProgressBar21"></td>
+          <td id="mvProgressBar22"></td>
+          <td id="mvProgressBar23"></td>
+          <td id="mvProgressBar24"></td>
+          <td id="mvProgressBar25"></td>
+          <td id="mvProgressBar26"></td>
+          <td id="mvProgressBar27"></td>
+          <td id="mvProgressBar28"></td>
+          <td id="mvProgressBar29"></td>
+          <td id="mvProgressBar30"></td>
+          <td id="mvProgressBar31"></td>
+          <td id="mvProgressBar32"></td>
+          <td id="mvProgressBar33"></td>
+          <td id="mvProgressBar34"></td>
+          <td id="mvProgressBar35"></td>
+          <td id="mvProgressBar36"></td>
+          <td id="mvProgressBar37"></td>
+          <td id="mvProgressBar38"></td>
+          <td id="mvProgressBar39"></td>
+          <td id="mvProgressBar40"></td>
+        </tr>
+      </table>
+      <p id="attendanceProgressTableP"></p>
+      <table id="attendanceProgressTable" class="progressBarTable">
+        <tr>
+          <td id="attendanceProgressBar1"></td>
+          <td id="attendanceProgressBar2"></td>
+          <td id="attendanceProgressBar3"></td>
+          <td id="attendanceProgressBar4"></td>
+          <td id="attendanceProgressBar5"></td>
+          <td id="attendanceProgressBar6"></td>
+          <td id="attendanceProgressBar7"></td>
+          <td id="attendanceProgressBar8"></td>
+          <td id="attendanceProgressBar9"></td>
+          <td id="attendanceProgressBar10"></td>
+          <td id="attendanceProgressBar11"></td>
+          <td id="attendanceProgressBar12"></td>
+          <td id="attendanceProgressBar13"></td>
+          <td id="attendanceProgressBar14"></td>
+          <td id="attendanceProgressBar15"></td>
+          <td id="attendanceProgressBar16"></td>
+          <td id="attendanceProgressBar17"></td>
+          <td id="attendanceProgressBar18"></td>
+          <td id="attendanceProgressBar19"></td>
+          <td id="attendanceProgressBar20"></td>
+          <td id="attendanceProgressBar21"></td>
+          <td id="attendanceProgressBar22"></td>
+          <td id="attendanceProgressBar23"></td>
+          <td id="attendanceProgressBar24"></td>
+          <td id="attendanceProgressBar25"></td>
+          <td id="attendanceProgressBar26"></td>
+          <td id="attendanceProgressBar27"></td>
+          <td id="attendanceProgressBar28"></td>
+          <td id="attendanceProgressBar29"></td>
+          <td id="attendanceProgressBar30"></td>
+          <td id="attendanceProgressBar31"></td>
+          <td id="attendanceProgressBar32"></td>
+          <td id="attendanceProgressBar33"></td>
+          <td id="attendanceProgressBar34"></td>
+          <td id="attendanceProgressBar35"></td>
+          <td id="attendanceProgressBar36"></td>
+          <td id="attendanceProgressBar37"></td>
+          <td id="attendanceProgressBar38"></td>
+          <td id="attendanceProgressBar39"></td>
+          <td id="attendanceProgressBar40"></td>
+        </tr>
+      </table>
+      <p id="totalParticipationTableP"></p>
+      <table id="totalParticipationTable" class="progressBarTable">
+        <tr>
+          <td id="totalParticipationBar1"></td>
+          <td id="totalParticipationBar2"></td>
+          <td id="totalParticipationBar3"></td>
+          <td id="totalParticipationBar4"></td>
+          <td id="totalParticipationBar5"></td>
+          <td id="totalParticipationBar6"></td>
+          <td id="totalParticipationBar7"></td>
+          <td id="totalParticipationBar8"></td>
+          <td id="totalParticipationBar9"></td>
+          <td id="totalParticipationBar10"></td>
+          <td id="totalParticipationBar11"></td>
+          <td id="totalParticipationBar12"></td>
+          <td id="totalParticipationBar13"></td>
+          <td id="totalParticipationBar14"></td>
+          <td id="totalParticipationBar15"></td>
+          <td id="totalParticipationBar16"></td>
+          <td id="totalParticipationBar17"></td>
+          <td id="totalParticipationBar18"></td>
+          <td id="totalParticipationBar19"></td>
+          <td id="totalParticipationBar20"></td>
+          <td id="totalParticipationBar21"></td>
+          <td id="totalParticipationBar22"></td>
+          <td id="totalParticipationBar23"></td>
+          <td id="totalParticipationBar24"></td>
+          <td id="totalParticipationBar25"></td>
+          <td id="totalParticipationBar26"></td>
+          <td id="totalParticipationBar27"></td>
+          <td id="totalParticipationBar28"></td>
+          <td id="totalParticipationBar29"></td>
+          <td id="totalParticipationBar30"></td>
+          <td id="totalParticipationBar31"></td>
+          <td id="totalParticipationBar32"></td>
+          <td id="totalParticipationBar33"></td>
+          <td id="totalParticipationBar34"></td>
+          <td id="totalParticipationBar35"></td>
+          <td id="totalParticipationBar36"></td>
+          <td id="totalParticipationBar37"></td>
+          <td id="totalParticipationBar38"></td>
+          <td id="totalParticipationBar39"></td>
+          <td id="totalParticipationBar40"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+  <div id="missionsPop" class="pop">
+      <div id="asmvHeaderContainer">
+        <div class="asmvHeader">Activity<br>Sheets</div>
+        <div class="asmvHeader" onclick="toggleIncomplete()">Memory<br>Verses</div>
+      </div>
+      <div id=asmvPopContainer>
+        <div id="asPop">
+          <div id="as32Pop" class="asButton2 w32" onclick="asPop(32,6)">Armor<br>Review</div>
+          <div id="as31Pop" class="asButton w31" onclick="asPop(31)">Sword</div>
+          <div id="as30Pop" class="asButton w30" onclick="asPop(30)">Helmet</div>
+          <div id="as29Pop" class="asButton w29" onclick="asPop(29)">Shield</div>
+          <div id="as28Pop" class="asButton w28" onclick="asPop(28)">Shoes</div>
+          <div id="as27Pop" class="asButton2 w27" onclick="asPop(27)">Breast-<br>plate</div>
+          <div id="as26Pop" class="asButton w26" onclick="asPop(26)">Belt</div>
+          <div id="as25Pop" class="asButton2 w25" onclick="asPop(25)">Armor<br>Intro</div>
+          <div id="as24Pop" class="asButton3 w24" onclick="asPop(24,6)">John<br>10-21<br>Review</div>
+          <div id="as23Pop" class="asButton w23" onclick="asPop(23)">John 21</div>
+          <div id="as22Pop" class="asButton w22" onclick="asPop(22)">John 20</div>
+          <div id="as21Pop" class="asButton w21" onclick="asPop(21)">John 19</div>
+          <div id="as20Pop" class="asButton w20" onclick="asPop(20)">John 18</div>
+          <div id="as19Pop" class="asButton w19" onclick="asPop(19)">John 17</div>
+          <div id="as18Pop" class="asButton w18" onclick="asPop(18)">John 16</div>
+          <div id="as17Pop" class="asButton w17" onclick="asPop(17)">John 15</div>
+          <div id="as16Pop" class="asButton w16" onclick="asPop(16)">John 14</div>
+          <div id="as15Pop" class="asButton w15" onclick="asPop(15)">John 13</div>
+          <div id="as14Pop" class="asButton w14" onclick="asPop(14)">John 12</div>
+          <div id="as13Pop" class="asButton w13" onclick="asPop(13)">John 11</div>
+          <div id="as12Pop" class="asButton w12" onclick="asPop(12)">John 10</div>
+          <div id="as11Pop" class="asButton2 w11" onclick="asPop(11,6)">John 1-9<br>Review</div>
+          <div id="as10Pop" class="asButton w10" onclick="asPop(10)">John 9</div>
+          <div id="as9Pop" class="asButton w9" onclick="asPop(9)">John 8</div>
+          <div id="as8Pop" class="asButton w8" onclick="asPop(8)">John 7</div>
+          <div id="as7Pop" class="asButton w7" onclick="asPop(7)">John 6</div>
+          <div id="as6Pop" class="asButton w6" onclick="asPop(6)">John 5</div>
+          <div id="as5Pop" class="asButton w5" onclick="asPop(5)">John 4</div>
+          <div id="as4Pop" class="asButton w4" onclick="asPop(4)">John 3</div>
+          <div id="as3Pop" class="asButton w3" onclick="asPop(3)">John 2</div>
+          <div id="as2Pop" class="asButton w2" onclick="asPop(2)">John 1</div>
+          <div id="as1Pop" class="asButton2 w1" onclick="asPop(1)">John Intro</div>
+          <div id="as0Pop" class="asButton2 w0" onclick="asPop(0)">Class<br>Intro</div>
+        </div>
+        <div id="mvPop">
+          <div id="mv32Pop" class="asmvButtonFill w32"></div>
+          <div id="mv31Pop" class="mvButton4 w31" onclick="mvPop(31,31)">Eph<br>6:18<br>"praying at"</div>
+          <div id="mv30Pop" class="mvButton3 w30" onclick="mvPop(30,30)">Eph<br>6:17<br>"and take"</div>
+          <div id="mv29Pop" class="mvButton3 w29" onclick="mvPop(29,29)">Eph<br>6:16<br>"In all"</div>
+          <div id="mv28Pop" class="mvButton4 w28" onclick="mvPop(28,28,4)">Eph<br>6:14-15<br>"Stand therefore"</div>
+          <div id="mv27Pop" class="mvButton4 w27" onclick="mvPop(27,27)">Eph<br>6:13<br>"Therefore take"</div>
+          <div id="mv26Pop" class="mvButton3 w26" onclick="mvPop(26,26,4)">Eph<br>6:12<br>"For we"</div>
+          <div id="mv25Pop" class="mvButton4 w25" onclick="mvPop(25,25,4)">Eph<br>6:10-11<br>"Finally, be"</div>
+          <div id="mv24Pop" class="mvButton3 w24" onclick="mvPop(24,24,6)">Rom<br>8:38-39<br>"For I"</div>
+          <div id="mv23Pop" class="mvButton3 w23" onclick="mvPop(23,23)">Rom<br>8:37<br>"No, in"</div>
+          <div id="mv22Pop" class="mvButton3 w22" onclick="mvPop(22,22)">Rom<br>8:36<br>"As it"</div>
+          <div id="mv21Pop" class="mvButton4 w21" onclick="mvPop(21,21)">Rom<br>8:35<br>"Who shall separate"</div>
+          <div id="mv20Pop" class="mvButton3 w20" onclick="mvPop(20,20,4)">Rom<br>8:34<br>"Who is"</div>
+          <div id="mv19Pop" class="mvButton4 w19" onclick="mvPop(19,19)">Rom<br>8:33<br>"Who shall bring"</div>
+          <div id="mv18Pop" class="mvButton3 w18" onclick="mvPop(18,18,4)">Rom<br>8:32<br>"He who"</div>
+          <div id="mv17Pop" class="mvButton4 w17" onclick="mvPop(17,17)">Rom<br>8:31<br>"What then"</div>
+          <div id="mv16Pop" class="mvButton3 w16" onclick="mvPop(16,16,4)">Phil<br>2:10-11<br>"so that"</div>
+          <div id="mv15Pop" class="mvButton4 w15" onclick="mvPop(15,15)">Phil<br>2:9<br>"therefore God"</div>
+          <div id="mv14Pop" class="mvButton4 w14" onclick="mvPop(14,14)">Phil<br>2:8<br>"And being"</div>
+          <div id="mv13Pop" class="mvButton4 w13" onclick="mvPop(13,13)">Phil<br>2:7<br>"But emptied"</div>
+          <div id="mv12Pop" class="mvButton3 w12" onclick="mvPop(12,12,4)">Phil<br>2:5-6<br>"Have this"</div>
+          <div id="mv11Pop" class="mvButton3 w11" onclick="mvPop(11,11)">John<br>1:18<br>"No one"</div>
+          <div id="mv10Pop" class="mvButton3 w10" onclick="mvPop(10,10)">John<br>1:16-17<br>"For from"</div>
+          <div id="mv9Pop" class="mvButton4 w9" onclick="mvPop(9,9,4)">John<br>1:15<br>"John bore"</div>
+          <div id="mv8Pop" class="mvButton3 w8" onclick="mvPop(8,8,4)">John<br>1:14<br>"And the"</div>
+          <div id="mv7Pop" class="mvButton3 w7" onclick="mvPop(7,7,5)">John<br>1:12-13<br>"But to"</div>
+          <div id="mv6Pop" class="mvButton3 w6" onclick="mvPop(6,6,5)">John<br>1:9-11<br>"The true"</div>
+          <div id="mv5Pop" class="mvButton4 w5" onclick="mvPop(5,5,5)">John<br>1:6-8<br>"There was"</div>
+          <div id="mv4Pop" class="mvButton3 w4" onclick="mvPop(4,4)">John<br>1:4-5<br>"In him"</div>
+          <div id="mv3Pop" class="mvButton3 w3" onclick="mvPop(3,3)">John<br>1:3<br>"All things"</div>
+          <div id="mv2Pop" class="mvButton3 w2" onclick="mvPop(2,2)">John<br>1:1-2<br>"In the"</div>
+          <div id="mv1Pop" class="mvButton4 w1" onclick="mvPop(1,1,6)">John<br>20:30-31<br>"Now Jesus"</div>
+          <div id="mv0Pop" class="mvButton4 w0" onclick="mvPop(0,0,4)">Psalm<br>139:17<br>"How precious"</div>
+        </div>
+      </div>
+  </div>
+  
+  <div id="asPointsPop" class="pop">
+    <div class="lowerNavigationButtonContainer">
+      <div class="backButton" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])"><span>f</span></div>
+    </div>
+    <div class="pointButtonContainer">
+        <div id="as1Points" class="roundButton numberButton asPts">1</div>
+        <div id="as2Points" class="roundButton numberButton asPts">2</div>
+        <div id="as3Points" class="roundButton numberButton asPts">3</div>
+        <div id="as4Points" class="roundButton numberButton asPts">4</div>
+        <div id="as5Points" class="roundButton numberButton asPts">5</div>
+        <div id="as6Points" class="roundButton numberButton asPts">6</div>
+    </div>
+    <div id="asReasonContainer" >
+      <textarea id="asReasonText" rows="5" cols="25" placeholder="reason for partial credit (required)"></textarea>
+      <div class="optionButtonContainer">
+        <div class="roundButton cancelButton" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])">X</div>
+        <div class="roundButton okButton" onclick="asPoints(_asNum,_asPoints,true)">V</div>
+      </div>
+    </div>
+    <div id="asReason"></div>
+    <div>
+      <div id="asPage1" onclick="missionLinks()"></div>
+      <div id="asPage2" onclick="missionLinks()"></div>
+      <div id="asPage3" onclick="missionLinks()"></div>
+    </div>
+  </div>
+  
+  <div id="mvPointsPop" class="pop">
+    <div class="lowerNavigationButtonContainer">
+      <div class="backButton" onclick="pop(['mvPointsPop'],['missionsPop'])"><span>f</span></div>
+    </div>
+    <div class="pointButtonContainer">
+        <div class="roundButton numberButton mvPts">1</div>
+        <div class="roundButton numberButton mvPts">2</div>
+        <div class="roundButton numberButton mvPts">3</div>
+        <div id="mv4Points" class="roundButton numberButton mvPts">4</div>
+        <div id="mv5Points" class="roundButton numberButton mvPts">5</div>
+        <div id="mv6Points" class="roundButton numberButton mvPts">6</div>
+    </div>
+    <p id="mvText"></p>
+  </div>
+  
+  <div id="rankChartPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop(['rankChartPop'],['studentStatsPop'])"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+      <a href="../docs/ranks.pdf" target="_blank"><p>click here to download printable chart</p></a>
+      <div id = "rankChartContainer" class="scrollingContainer">
+      <table id="rankChartTable">
+        <tr>
+          <th>Insignia</th>
+          <th>Rank</th>
+          <th>Abbreviation</th>
+          <th>Points</th>
+        </tr>
+        <tr id="rankChartRow0">
+          <td id="rankChartInsignia0"></td>
+          <td id="rankChartRank0"></td>
+          <td id="rankChartAbbreviation0"></td>
+          <td id="rankChartPoints0"></td>
+        </tr>
+        <tr id="rankChartRow1">
+          <td id="rankChartInsignia1"></td>
+          <td id="rankChartRank1"></td>
+          <td id="rankChartAbbreviation1"></td>
+          <td id="rankChartPoints1"></td>
+        </tr>
+        <tr id="rankChartRow2">
+          <td id="rankChartInsignia2"></td>
+          <td id="rankChartRank2"></td>
+          <td id="rankChartAbbreviation2"></td>
+          <td id="rankChartPoints2"></td>
+        </tr>
+        <tr id="rankChartRow3">
+          <td id="rankChartInsignia3"></td>
+          <td id="rankChartRank3"></td>
+          <td id="rankChartAbbreviation3"></td>
+          <td id="rankChartPoints3"></td>
+        </tr>
+        <tr id="rankChartRow4">
+          <td id="rankChartInsignia4"></td>
+          <td id="rankChartRank4"></td>
+          <td id="rankChartAbbreviation4"></td>
+          <td id="rankChartPoints4"></td>
+        </tr>
+        <tr id="rankChartRow5">
+          <td id="rankChartInsignia5"></td>
+          <td id="rankChartRank5"></td>
+          <td id="rankChartAbbreviation5"></td>
+          <td id="rankChartPoints5"></td>
+        </tr>
+        <tr id="rankChartRow6">
+          <td id="rankChartInsignia6"></td>
+          <td id="rankChartRank6"></td>
+          <td id="rankChartAbbreviation6"></td>
+          <td id="rankChartPoints6"></td>
+        </tr>
+        <tr id="rankChartRow7">
+          <td id="rankChartInsignia7"></td>
+          <td id="rankChartRank7"></td>
+          <td id="rankChartAbbreviation7"></td>
+          <td id="rankChartPoints7"></td>
+        </tr>
+        <tr id="rankChartRow8">
+          <td id="rankChartInsignia8"></td>
+          <td id="rankChartRank8"></td>
+          <td id="rankChartAbbreviation8"></td>
+          <td id="rankChartPoints8"></td>
+        </tr>
+        <tr id="rankChartRow9">
+          <td id="rankChartInsignia9"></td>
+          <td id="rankChartRank9"></td>
+          <td id="rankChartAbbreviation9"></td>
+          <td id="rankChartPoints9"></td>
+        </tr>
+        <tr id="rankChartRow10">
+          <td id="rankChartInsignia10"></td>
+          <td id="rankChartRank10"></td>
+          <td id="rankChartAbbreviation10"></td>
+          <td id="rankChartPoints10"></td>
+        </tr>
+        <tr id="rankChartRow11">
+          <td id="rankChartInsignia11"></td>
+          <td id="rankChartRank11"></td>
+          <td id="rankChartAbbreviation11"></td>
+          <td id="rankChartPoints11"></td>
+        </tr>
+        <tr id="rankChartRow12">
+          <td id="rankChartInsignia12"></td>
+          <td id="rankChartRank12"></td>
+          <td id="rankChartAbbreviation12"></td>
+          <td id="rankChartPoints12"></td>
+        </tr>
+        <tr id="rankChartRow13">
+          <td id="rankChartInsignia13"></td>
+          <td id="rankChartRank13"></td>
+          <td id="rankChartAbbreviation13"></td>
+          <td id="rankChartPoints13"></td>
+        </tr>
+        <tr id="rankChartRow14">
+          <td id="rankChartInsignia14"></td>
+          <td id="rankChartRank14"></td>
+          <td id="rankChartAbbreviation14"></td>
+          <td id="rankChartPoints14"></td>
+        </tr>
+        <tr id="rankChartRow15">
+          <td id="rankChartInsignia15"></td>
+          <td id="rankChartRank15"></td>
+          <td id="rankChartAbbreviation15"></td>
+          <td id="rankChartPoints15"></td>
+        </tr>
+        <tr id="rankChartRow16">
+          <td id="rankChartInsignia16"></td>
+          <td id="rankChartRank16"></td>
+          <td id="rankChartAbbreviation16"></td>
+          <td id="rankChartPoints16"></td>
+        </tr>
+        <tr id="rankChartRow17">
+          <td id="rankChartInsignia17"></td>
+          <td id="rankChartRank17"></td>
+          <td id="rankChartAbbreviation17"></td>
+          <td id="rankChartPoints17"></td>
+        </tr>
+        <tr id="rankChartRow18">
+          <td id="rankChartInsignia18"></td>
+          <td id="rankChartRank18"></td>
+          <td id="rankChartAbbreviation18"></td>
+          <td id="rankChartPoints18"></td>
+        </tr>
+        <tr id="rankChartRow19">
+          <td id="rankChartInsignia19"></td>
+          <td id="rankChartRank19"></td>
+          <td id="rankChartAbbreviation19"></td>
+          <td id="rankChartPoints19"></td>
+        </tr>
+      </table>
+      </div>
+    </div>
+
+  <div id="openInsigniaPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop(['openInsigniaPop'],[_sharedPop])"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div>
+      <div id="displayInsignia"></div>
+    </div>
+  </div>
+
+</div> <!--end of master-wrapper-->
+<script src="backup.js"></script>
+<script src="students.js"></script>
+</body>
+</html>
