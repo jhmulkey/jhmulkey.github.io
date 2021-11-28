@@ -572,7 +572,7 @@ function infoAlert(message,idArray,focus) {
         };
         document.getElementById("infoAlertMessage").innerHTML = message;
     };
-    if (focus) { document.getElementById(_focus).focus(); };
+    if (_focus) { document.getElementById(_focus).focus(); };
 };
 
 function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
@@ -2433,6 +2433,5 @@ for (i = 0; i < .length; i++) {};
 */
 
 //*** TO DO LIST ***//
-// add warning before undoing as or mv pts
 // add links to student stats (rank chart, incomplete as and mv, etc.)
-// keep longer names from changing div size on random and drawing
+// add attendance stats for AM and PM classes

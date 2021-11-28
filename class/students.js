@@ -77,7 +77,7 @@ function loadTodaysDate() {
     document.getElementById("todaysDate").innerHTML = Date();
 }; // for top of activity log
 
-function infoAlert(message,idArray,focus) {
+function infoAlert(message,idArray,focus,noIcon) {
     if (document.getElementById("infoAlertPop").style.display == "block") {
         document.getElementById("infoAlertPop").style.display = "none";
         for (i = 0; i < _currentPops.length; i++) {
@@ -86,9 +86,15 @@ function infoAlert(message,idArray,focus) {
             };
         };
         document.getElementById("infoAlertMessage").innerHTML = "";
+        document.getElementById("nameList").innerHTML = "";
     } else if (document.getElementById("infoAlertPop").style.display != "block") {
         _currentPops = idArray;
         _focus = focus;
+        if (noIcon) {
+            document.getElementById("infoAlertTitle").style.display = "none";
+        } else {
+            document.getElementById("infoAlertTitle").style.display = "block";
+        };
         document.getElementById("infoAlertPop").style.display = "block";
         for (i = 0; i < _currentPops.length; i++) {
             if (_currentPops[i] !== null) {
@@ -97,7 +103,9 @@ function infoAlert(message,idArray,focus) {
         };
         document.getElementById("infoAlertMessage").innerHTML = message;
     };
-    if (focus) { document.getElementById(_focus).focus(); };
+    if (_focus) {
+        document.getElementById(_focus).focus();
+    };
 };
 
 function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
@@ -174,15 +182,6 @@ function capitalize(x) {
     return x.charAt(0).toUpperCase() + x.slice(1);
 };
 
-function sortStudentList() {
-    _sl.sort(function(a,b) {
-        var textA = a.lastName.toLowerCase();
-        var textB = b.lastName.toLowerCase();
-        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-    });
-    populateNames();
-};
-
 function assignClassRank() {
     var points = [];
     for (i = 0; i < _sl.length; i++) {
@@ -194,7 +193,6 @@ function assignClassRank() {
         _sl[i].classRank = pointsRanked[i];
     };
 };
-
 
 function setRankFactor() {
     if (_sl[_ci].rank == 14 || _sl[_ci].rank == 15) {
@@ -236,11 +234,6 @@ function searchNames() {
 
 function loadStudent(index) {
     _ci = index;
-    document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
-    document.getElementById("dispName").innerHTML = _sl[_ci].fullName;
-    document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
-    document.getElementById("search").value = "";
-    searchNames();
     for (i = 0; i < _asMaxPts.length; i++) {
         if (_sl[_ci].as[i] == _asMaxPts[i]) {
             document.getElementById("as"+i+"Pop").style.background = "green";
@@ -259,11 +252,15 @@ function loadStudent(index) {
             document.getElementById("mv"+i+"Pop").style.background = "black";
         };
     };
-    pop(["mainPop"],["studentPop","missionsPop"]);
+    pop([],["missionsPop"]);
 };
 
 function missionLinks() {
     window.open("docs/missions/as"+_asNum+".pdf","_blank");
+};
+
+function mvLinks() {
+    window.open("docs/memory/mv"+_mvNum+".pdf","_blank");
 };
 
 function pop(closeArray,openArray) {
@@ -283,8 +280,8 @@ function pop(closeArray,openArray) {
     };
     if (openArray.includes("mainPop")) {
         document.getElementById("search").value = "";
+        document.getElementById("multipleMatches").innerHTML = "";
         document.getElementById("search").focus();
-        sortStudentList();
     };
     if (openArray.includes("randomPop") || openArray.includes("drawingPop")) {
         document.getElementById("randomName").innerHTML = "tap here<br>to pick";
@@ -312,7 +309,6 @@ function pop(closeArray,openArray) {
     if (openArray.includes("logPop")) {
         loadTodaysDate()
     };
-    scrollTo(0,0);
 };
 
 function goHome() {
@@ -327,7 +323,6 @@ function goHome() {
     };
     document.getElementById("search").value = "";
     document.getElementById("search").focus();
-    sortStudentList();
     removePtBoxes();
 };
 
@@ -372,7 +367,7 @@ function asPop(asNum,points) {
     if (points > 3) {
         document.getElementById("asPage3").style.backgroundImage = urlStart+_asNum+urlEnd3;
     };
-    scrollTo(0,0);
+    document.getElementById("totalParticipationTable").scrollIntoView();
 };
 
 function mvPop(mvNum,index,points) {
@@ -400,33 +395,7 @@ function mvPop(mvNum,index,points) {
         document.getElementById("mv5Points").style.display = "block";
         document.getElementById("mv6Points").style.display = "block";
     };
-    scrollTo(0,0);
-};
-
-function populateNames() {
-    document.getElementById("nameList").innerHTML = "";
-    for (i = 0; i < _sl.length; i++) {
-        var elementNode = document.createElement("p");
-        if (_sl[i].attendance === true) {
-            elementNode.style.color = "lawnGreen";
-            if (_sl[i].promoted === true) {
-                elementNode.style.color = "yellow";
-            } else {
-                elementNode.style.border = "none";
-            };
-        } else {
-            elementNode.style.color = "white";
-        };
-        elementNode.classList.add("name");
-        (function(i){
-            elementNode.onclick = function () {
-                loadStudent(i);
-            };
-        })(i);
-        var textNode = document.createTextNode(_sl[i].rankName + " " + _sl[i].fullName + " " + _sl[i].points);
-        elementNode.appendChild(textNode);
-        document.getElementById("nameList").appendChild(elementNode);
-    };  
+    document.getElementById("totalParticipationTable").scrollIntoView();
 };
 
 function confirmAction(id) {
@@ -467,7 +436,44 @@ function loadBackup() {
     elapsedWeekCount();
     showMissions();
     removePtBoxes();
-    populateNames();
+};
+
+function findStudent() {
+    var x = document.getElementById("search").value.toLowerCase()
+    var matches = [];
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].lastName.toLowerCase() == x) {
+            matches.push(i);
+        };
+    };
+    if (matches.length == 0) {
+        infoAlert("No matches found.  Please try again or use contact buttons below for help.", ["mainPop"],"search");
+        document.getElementById("search").value = "";
+        document.getElementById("multipleMatches").innerHTML = "";
+    };
+    if (matches.length == 1) {
+        _ci = matches[0]; loadStudentStats(); loadStudent(_ci);
+    };
+    if (matches.length > 1) {
+        populateMatches(matches);
+        infoAlert("More than one match found.<br>Please click the correct name below",["mainPop"],"search",true);
+    };
+};
+
+function populateMatches(indexArray) {
+    for (i = 0; i < indexArray.length; i++) {
+        var elementNode = document.createElement("p");
+        elementNode.classList.add("name");
+        (function(i){
+            elementNode.onclick = function () {
+                let x = indexArray[i]; _ci = x;
+                loadStudentStats(); loadStudent(_ci);
+            };
+        })(i);
+        var textNode = document.createTextNode(_sl[indexArray[i]].fullName);
+        elementNode.appendChild(textNode);
+        document.getElementById("nameList").appendChild(elementNode);
+    };  
 };
 
 function loadStudentStats() {
@@ -586,7 +592,8 @@ function loadStudentStats() {
     document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Points: " + earnedMVpts + "/" + totalMVpts + " (" + Math.round(mvPercentage) + "%)";
     document.getElementById("attendanceProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + Math.round(attendancePercentage) + "%)";
     document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + Math.round(totalPercentage) + "%)";
-    pop(["studentPop","missionsPop"],["studentStatsPop"]);
+    pop(["mainPop","infoAlertPop"],["studentStatsPop"]);
+    document.getElementById("nameList").innerHTML = "";
 };
 
 function elapsedWeekCount() {
@@ -599,8 +606,7 @@ function elapsedWeekCount() {
 };
 
 function loadRankTable() {
-    _sharedPop = "rankChartPop";
-    pop(["studentStatsPop"],["rankChartPop"]);
+    pop(["studentStatsPop","missionsPop","asPointsPop","mvPointsPop"],["rankChartPop"]);
     for (i = 0; i < _rankNames.length; i++) {
         let x; x = i;
         document.getElementById("rankChartInsignia"+i).style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
@@ -617,14 +623,13 @@ function loadRankTable() {
             document.getElementById("rankChartRow"+i).style.border = "1px solid white";
         };
     };
-    populateNames();
     document.getElementById("rankChartContainer").scrollTop = 0;
 };
 
 function openInsignia() {
-    _sharedPop = "studentStatsPop";
+    pop(["rankChartPop"],["openInsigniaPop"]);
     document.getElementById("displayInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
-    pop(["studentStatsPop"],["openInsigniaPop"]);
+    pop(["studentStatsPop","missionsPop","asPointsPop","mvPointsPop"],["openInsigniaPop"]);
 };
 
 function toggleIncomplete() {
