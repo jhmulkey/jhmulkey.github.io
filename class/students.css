@@ -128,49 +128,18 @@ a:link, a:visited, a:hover, a:active {
     height: 50px;
     width: 100px;
     font-size: 20px;
-    margin-top: 0px;
+    margin-top: 20px;
     padding-top: 0px;
 }
 
-.asButton, .asButton2, .asButton3, .mvButton3, .mvButton4 {
-    height: 150px;
+.asButton, .mvButton {
+    height: 40px;
     width: 150px;
     border: 1px solid white;
-    border-radius: 25px;
+    border-radius: 5px;
     cursor: pointer;
-}
-
-.asButton, .asButton2, .asButton3, .mvButton3, .mvButton4 {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.asButton, .asButton2, .asButton3 {
-    font-size: 30px;
-}
-
-.mvButton3, .mvButton4 {
-    font-size: 25px;
-}
-
-.asButton {
-    padding-top: 50px;
-}
-
-.asButton2 {
-    padding-top: 35px;
-}
-
-.asButton3 {
-    padding-top: 18px;
-}
-
-.mvButton3 {
-    padding-top: 26px;
-}
-
-.mvButton4 {
-    padding-top: 13px;
+    padding-top: 7px;
+    font-size: 20px;
 }
 
 .pointButtonContainer {
@@ -212,11 +181,7 @@ a:link, a:visited, a:hover, a:active {
     justify-content: space-around;
 }
 
-#asPop {
-    width: 187px;
-}
-
-#mvPop {
+#asPop, #mvPop {
     width: 187px;
 }
 
@@ -239,7 +204,8 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #missionsPop {
-    padding-top: 0px
+    padding-top: 0px;
+    margin-top: 20px;
 }
 
 #asPointsPop, #mvPointsPop {
@@ -369,6 +335,7 @@ a:link, a:visited, a:hover, a:active {
     background-position: center;
     background-repeat: no-repeat;
     background-color: #111;
+    cursor: pointer;
 }
 
 #studentStatsName {
@@ -411,6 +378,18 @@ a:link, a:visited, a:hover, a:active {
     overflow-y: scroll;
 }
 
-#RankProgressTableDiv {
-    cursor: pointer;
+#missionsTitleDiv {
+    font-size: 30px;
+    padding: 0px 20px 20px 20px;
+}
+
+.checkbox {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+.checkboxLabel {
+    font-size: 18px;
+    color: orange;
 }

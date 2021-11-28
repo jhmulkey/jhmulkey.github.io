@@ -96,6 +96,7 @@ function infoAlert(message,idArray,focus,noIcon) {
             document.getElementById("infoAlertTitle").style.display = "block";
         };
         document.getElementById("infoAlertPop").style.display = "block";
+        scrollTo(0,0);
         for (i = 0; i < _currentPops.length; i++) {
             if (_currentPops[i] !== null) {
                 document.getElementById(_currentPops[i]).style.display = "none"
@@ -272,7 +273,6 @@ function pop(closeArray,openArray) {
     for (i = 0; i < openArray.length; i++) {
         if (openArray != []) {
             document.getElementById(openArray[i]).style.display = "block";
-            
         };    
     };
     if (closeArray.includes("asPointsPop") || closeArray.includes("mvPointsPop")) {
@@ -282,6 +282,11 @@ function pop(closeArray,openArray) {
         document.getElementById("search").value = "";
         document.getElementById("multipleMatches").innerHTML = "";
         document.getElementById("search").focus();
+        for (i = 0; i < (_elapsedWeeks - 1); i++) {
+            document.getElementById("as"+i+"Pop").style.display = "block";
+            document.getElementById("mv"+i+"Pop").style.display = "block";
+        };
+        document.getElementById("toggleIncompleteCheck").checked = false;
     };
     if (openArray.includes("randomPop") || openArray.includes("drawingPop")) {
         document.getElementById("randomName").innerHTML = "tap here<br>to pick";
@@ -323,6 +328,10 @@ function goHome() {
     };
     document.getElementById("search").value = "";
     document.getElementById("search").focus();
+    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+        document.getElementById("as"+i+"Pop").style.display = "block";
+        document.getElementById("mv"+i+"Pop").style.display = "block";
+    };
     removePtBoxes();
 };
 
