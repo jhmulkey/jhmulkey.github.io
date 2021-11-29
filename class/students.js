@@ -460,7 +460,7 @@ function findStudent() {
         };
     };
     if (matches.length == 0) {
-        infoAlert("No matches found for <span style='color:lightgreen'>" + x + "</span>.  Please try again or use the contact buttons below for help.",["mainPop"],"search");
+        infoAlert("No matches found for <span style='color:lightgreen'>" + document.getElementById("search").value + "</span>.  Please try again or use the contact buttons below for help.",["mainPop"],"search");
         document.getElementById("search").value = "";
     };
     if (matches.length == 1) {

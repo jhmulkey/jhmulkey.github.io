@@ -2391,3 +2391,4 @@ for (i = 0; i < .length; i++) {};
 //*** TO DO LIST ***//
 // add links to student stats (rank chart, incomplete as and mv, etc.)
 // add attendance stats for AM and PM classes
+// add ability to skip current player in game and move to next player in that team
