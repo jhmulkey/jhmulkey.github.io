@@ -426,15 +426,18 @@ function toggleMissions(x) {
 };
 
 function showMissions() {
+    x = 0;
     for (i = 0; i < _checkedState.length; i++) {
         if (_checkedState[i] == 1) {
             document.getElementById("as"+i+"Pop").style.display = "block";
             document.getElementById("mv"+i+"Pop").style.display = "block";
+            x++;
         } else if (_checkedState[i] == 0) {
             document.getElementById("as"+i+"Pop").style.display = "none";
             document.getElementById("mv"+i+"Pop").style.display = "none";
         };
     };
+    document.getElementById("missionsPop").style.height = 200 + (x * 65) + "px";
 };
  
 function loadBackup() {
@@ -626,3 +629,7 @@ function toggleIncomplete() {
 loadBackup();
 
 document.getElementById("search").focus();
+
+/*** NOTES ***/
+// add call/text/email buttons/links
+// add tutorial

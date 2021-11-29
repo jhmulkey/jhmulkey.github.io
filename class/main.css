@@ -1,16 +1,16 @@
 @font-face {
     font-family: Tahoma;
-    src: url(fonts/Tahoma.ttf);
+    src: url(../fonts/Tahoma.ttf);
 }
 
 @font-face {
     font-family: Font-90-Icons;
-    src: url(fonts/Font-90-Icons.ttf);
+    src: url(../fonts/Font-90-Icons.ttf);
 }
 
 @font-face {
     font-family: Byom-Icons-Trial;
-    src: url(fonts/Byom-Icons-Trial.ttf);
+    src: url(../fonts/Byom-Icons-Trial.ttf);
 }
 
 * {
