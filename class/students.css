@@ -98,7 +98,7 @@ a:link, a:visited, a:hover, a:active {
 
 #submitButton {
     background-color: dodgerblue;
-    margin-bottom: 40px;
+    margin-top: 25px;
 }
 
 #submitButton:hover {
@@ -112,6 +112,7 @@ a:link, a:visited, a:hover, a:active {
     font-size: 30px;
     text-align: center;
     border-radius: 5px;
+    border: 2px solid dodgerblue;
     margin: 20px auto;
 }
 

@@ -2093,8 +2093,8 @@ function selectText(element) {
     };
 }; //allows the div of arrays (index.html id:"backupArrays") to be selected all at once by clicking or tapping/hodling briefly in order to easily copy/paste it into an email, text document, etc.
 
-function preloadImages(pop) {
-    if (pop) { pop(["mainMenuPop"],["preloadImagesPop"]); };
+function preloadImages() {
+    pop(["mainMenuPop"],["preloadImagesPop"]);
     for (i = 0; i < 20; i++) {
         document.getElementById(i+"-rank").style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
     };
@@ -2152,77 +2152,33 @@ function loadStudentStats() {
     var totalPossible = _elapsedWeeks + totalASpts + totalMVpts;
     var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(2);
     var totalSquares = Math.round(totalPercentage / 2.50);
-    for (i = 1; i <= 40; i++) {
-        if (i <= rankSquares) {
-            document.getElementById("rankProgressBar"+i).style.backgroundColor = "dodgerblue";
-        } else {
-            document.getElementById("rankProgressBar"+i).style.backgroundColor = "black";
+    var squaresArray = [rankSquares,totalPointsSquares,asSquares,mvSquares,attendanceSquares,totalSquares];
+    var variableArray = [rankPercentage,totalPointsPercentage,asPercentage,mvPercentage,attendancePercentage,totalPercentage];
+    var idArray1 = ["rankProgressTable","totalProgressTable","asProgressTable","mvProgressTable","attendanceProgressTable","totalParticipationTable"];
+    var idArray2 = ["rankProgressBar","totalProgressBar","asProgressBar","mvProgressBar","attendanceProgressBar","totalParticipationBar"];
+    for (i = 0; i < squaresArray.length; i++) {
+        for (j = 1; j <= 40; j++) {
+            if (j <= squaresArray[i]) {
+                if (squaresArray[i] == rankSquares) {
+                    document.getElementById(idArray2[i]+j).style.backgroundColor = "dodgerblue";
+                } else {
+                    document.getElementById(idArray2[i]+j).style.backgroundColor = "lawngreen";
+                };
+            } else {
+                document.getElementById(idArray2[i]+j).style.backgroundColor = "black";
+            };
         };
     };
-    for (i = 1; i <= 40; i++) {
-        if (i <= totalPointsSquares) {
-            document.getElementById("totalProgressBar"+i).style.backgroundColor = "lawngreen";
+    for (i = 0; i < variableArray.length; i++) {
+        if (variableArray[i] == 100.00) {
+            if (variableArray[i] == rankPercentage) {
+                document.getElementById(idArray1[i]).style.backgroundColor = "dodgerblue"; break;
+            } else {
+                document.getElementById(idArray1[i]).style.backgroundColor = "lawngreen";
+            };
         } else {
-            document.getElementById("totalProgressBar"+i).style.backgroundColor = "black";
+            document.getElementById(idArray1[i]).style.backgroundColor = "black";
         };
-    };
-    for (i = 1; i <= 40; i++) {
-        if (i <= asSquares) {
-            document.getElementById("asProgressBar"+i).style.backgroundColor = "lawngreen";
-        } else {
-            document.getElementById("asProgressBar"+i).style.backgroundColor = "black";
-        };
-    };
-    for (i = 1; i <= 40; i++) {
-        if (i <= mvSquares) {
-            document.getElementById("mvProgressBar"+i).style.backgroundColor = "lawngreen";
-        } else {
-            document.getElementById("mvProgressBar"+i).style.backgroundColor = "black";
-        };
-    };
-    for (i = 1; i <= 40; i++) {
-        if (i <= attendanceSquares) {
-            document.getElementById("attendanceProgressBar"+i).style.backgroundColor = "lawngreen";
-        } else {
-            document.getElementById("attendanceProgressBar"+i).style.backgroundColor = "black";
-        };
-    };
-    for (i = 1; i <= 40; i++) {
-        if (i <= totalSquares) {
-            document.getElementById("totalParticipationBar"+i).style.backgroundColor = "lawngreen";
-        } else {
-            document.getElementById("totalParticipationBar"+i).style.backgroundColor = "black";
-        };
-    };
-    if (rankPercentage == 100.00) {
-        document.getElementById("rankProgressTable").style.backgroundColor = "dodgerblue";
-    } else {
-        document.getElementById("rankProgressTable").style.backgroundColor = "black";
-    };
-    if (totalPointsPercentage == 100.00) {
-        document.getElementById("totalProgressTable").style.backgroundColor = "lawngreen";
-    } else {
-        document.getElementById("totalProgressTable").style.backgroundColor = "black";
-    };
-    if (asPercentage == 100.00) {
-        document.getElementById("asProgressTable").style.backgroundColor = "lawngreen";
-    } else {
-        document.getElementById("asProgressTable").style.backgroundColor = "black";
-    };
-    if (mvPercentage == 100.00) {
-        document.getElementById("mvProgressTable").style.backgroundColor = "lawngreen";
-    } else {
-        document.getElementById("mvProgressTable").style.backgroundColor = "black";
-    };
-    if (attendancePercentage == 100.00) {
-        document.getElementById("attendanceProgressTable").style.backgroundColor = "lawngreen";
-    } else {
-        document.getElementById("attendanceProgressTable").style.backgroundColor = "black";
-    };
-    if (totalPercentage == 100.00) {
-        document.getElementById("totalParticipationTable").style.backgroundColor = "lawngreen";
-    } else {
-        document.getElementById("totalParticipationTable").style.backgroundColor = "black";
     };
     assignClassRank();
     document.getElementById("studentStatsInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
@@ -2415,7 +2371,7 @@ function toggleIncomplete() {
 } */
 
 //*** ONLOAD FUNCTION CALLS ***//
-whatToLoad(); preloadImages();
+whatToLoad()
 
 document.getElementById("search").focus();
 

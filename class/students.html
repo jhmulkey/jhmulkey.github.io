@@ -11,10 +11,10 @@
 <div id="master-wrapper">
 
 <div id="mainPop" class="pop">
-  <p>Please enter your child's last name below and press Enter/Return or click the Submit button to view their class progress.</p>
+  <p>Please enter your child's last name below (non-case-sensitive) and click the Submit button (or press Enter/Return on your keyboard) to view their class progress.</p>
   <input id="search" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
   <div id="submitButton" class="button" onclick="findStudent()">Submit</div>
-  <p id="multipleMatches"></p>
+  <input type="file" accept="image/*" capture="camera" />
 </div>
 
 <div id="infoAlertPop" class="pop">

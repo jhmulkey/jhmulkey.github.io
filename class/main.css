@@ -156,6 +156,12 @@ a:link, a:visited, a:hover, a:active {
     position: absolute;
 }
 
+.secretButton2 {
+    height: 50px;
+    width: 115px;
+    margin: 0px;
+}
+
 .addButton {
     font-family: Font-90-Icons;
     font-weight: bolder;
