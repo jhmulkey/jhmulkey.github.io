@@ -222,10 +222,10 @@ td {
     color: white;
 }
 
-/* .video:hover {
+.video:hover {
     background-color: hsl(356, 98%, 41%);
     cursor: pointer;
-} */
+}
 
 .no-video {
     background-color: #777777;
@@ -268,8 +268,8 @@ td {
     }
 }
 
-@media (hover: hover) {
-    .video:hover {
-        background-color: hsl(356, 98%, 41%);
+@media (hover: none) {
+    .video {
+       background-color: #FC0D1B;
     }
-}
+ }
