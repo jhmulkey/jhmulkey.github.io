@@ -13,6 +13,11 @@
     src: url(../fonts/Byom-Icons-Trial.ttf);
 }
 
+@font-face {
+    font-family: MobileIcons;
+    src: url(../fonts/MobileIcons.ttf);
+}
+
 * {
     box-sizing: border-box;
     /* border: 1px solid green; */
@@ -50,6 +55,7 @@ p {
 
 a:link, a:visited, a:hover, a:active {
     color: white;
+    text-decoration: none; 
 }
 
 *::-webkit-scrollbar { width: 0 !important }
@@ -75,13 +81,18 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .roundButton {
-    height: 50px;
-    width: 50px;
-    border: 2px solid white;
-    background-color: black;
-    border-radius: 25px;
-    font-size: 25px;
+    font-size: 100px;
     cursor: pointer;
+    font-family: MobileIcons;
+}
+
+.roundButton p {
+    font-family: Tahoma;
+    font-size: 20px;
+    color: #ddd;
+    margin: 0px;
+    padding: 0px;
+    line-height: 0;
 }
 
 .button {
@@ -392,4 +403,11 @@ a:link, a:visited, a:hover, a:active {
 .checkboxLabel {
     font-size: 18px;
     color: orange;
+}
+
+#contactButtonContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-top: 300px;
 }
