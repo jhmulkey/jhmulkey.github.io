@@ -267,9 +267,3 @@ td {
         font-size: 30px;
     }
 }
-
-@media (hover: none) {
-    .video {
-       background-color: #FC0D1B;
-    }
- }
