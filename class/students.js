@@ -452,6 +452,7 @@ function loadBackup() {
 function findStudent() {
     document.activeElement.blur();
     var x = document.getElementById("search").value.toLowerCase()
+    if (x == "") { return; };
     var matches = [];
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].lastName.toLowerCase() == x) {
@@ -459,7 +460,7 @@ function findStudent() {
         };
     };
     if (matches.length == 0) {
-        infoAlert("No matches found.  Please try again or use the contact buttons below for help.",["mainPop"],"search");
+        infoAlert("No matches found for <span style='color:lightgreen'>" + x + "</span>.  Please try again or use the contact buttons below for help.",["mainPop"],"search");
         document.getElementById("search").value = "";
     };
     if (matches.length == 1) {
