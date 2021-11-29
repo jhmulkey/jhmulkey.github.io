@@ -204,8 +204,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #missionsPop {
-    padding-top: 0px;
-    margin-top: 20px;
+    height: 168px;
 }
 
 #asPointsPop, #mvPointsPop {
@@ -380,7 +379,7 @@ a:link, a:visited, a:hover, a:active {
 
 #missionsTitleDiv {
     font-size: 30px;
-    padding: 0px 20px 20px 20px;
+    margin-bottom: 20px;
 }
 
 .checkbox {

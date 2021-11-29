@@ -2093,8 +2093,8 @@ function selectText(element) {
     };
 }; //allows the div of arrays (index.html id:"backupArrays") to be selected all at once by clicking or tapping/hodling briefly in order to easily copy/paste it into an email, text document, etc.
 
-function preloadImages() {
-    pop(["mainMenuPop"],["preloadImagesPop"]);
+function preloadImages(pop) {
+    if (pop) { pop(["mainMenuPop"],["preloadImagesPop"]); };
     for (i = 0; i < 20; i++) {
         document.getElementById(i+"-rank").style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
     };
@@ -2415,7 +2415,7 @@ function toggleIncomplete() {
 } */
 
 //*** ONLOAD FUNCTION CALLS ***//
-whatToLoad();
+whatToLoad(); preloadImages();
 
 document.getElementById("search").focus();
 
