@@ -450,6 +450,7 @@ function loadBackup() {
 };
 
 function findStudent() {
+    document.activeElement.blur();
     var x = document.getElementById("search").value.toLowerCase()
     var matches = [];
     for (i = 0; i < _sl.length; i++) {
