@@ -222,10 +222,10 @@ td {
     color: white;
 }
 
-.video:hover {
+/* .video:hover {
     background-color: hsl(356, 98%, 41%);
     cursor: pointer;
-}
+} */
 
 .no-video {
     background-color: #777777;
@@ -237,11 +237,7 @@ td {
 }
 
 /* media queries */
-@media screen and (max-width: 1875px) {
-    /*.nav {
-        margin-top: 50px;
-    }*/  
-    
+@media screen and (max-width: 1875px) {    
     header {
         font-size: 80px;
     }
@@ -256,14 +252,9 @@ td {
 @media screen and (max-width: 1147px) {
     header {
         font-size: 50px;
-]    }
+   }
 }
 
-/* @media screen and (max-width: 999px) {
-    .nav {
-        margin-top: 25px;
-    }  
-}*/
 
 @media screen and (max-width: 965px) {
     header {
@@ -274,5 +265,11 @@ td {
 @media screen and (max-width: 480px) {
     header {
         font-size: 30px;
+    }
+}
+
+@media (hover: hover) {
+    .video:hover {
+        background-color: hsl(356, 98%, 41%);
     }
 }
