@@ -142,7 +142,7 @@ a:link, a:visited, a:hover, a:active {
 .roundButton {
     height: 50px;
     width: 50px;
-    border: 2px solid white;
+    border: 2px solid #eee;
     background-color: black;
     border-radius: 25px;
     font-size: 25px;
@@ -172,8 +172,9 @@ a:link, a:visited, a:hover, a:active {
 .button {
     height: 50px;
     width: 250px;
-    padding-top: 3px;
-    border: 2px solid white;
+    font-size: 25px;
+    padding-top: 6px;
+    border: 2px solid #ddd;
     background-color: black;
     border-radius: 25px;
     margin: 20px auto;
@@ -213,6 +214,7 @@ a:link, a:visited, a:hover, a:active {
     height: 30px;
     width: 300px;
     font-size: 20px;
+    text-align: center;
 }
 
 #nameList, #nameList2 {
@@ -397,10 +399,6 @@ a:link, a:visited, a:hover, a:active {
     border-radius: 25px;
     padding: 10px;
     color: #eee;
-}
-
-.buttonArr div {
-    margin: 0px auto 20px;
 }
 
 #longVerse {
