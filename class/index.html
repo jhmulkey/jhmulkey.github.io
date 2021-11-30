@@ -10,1124 +10,1343 @@
 <body>
 <div id="master-wrapper">
 
-  <div id="mainPop" class="pop">
-        <div id="topMenuContainer">
-            <div id="mainMenuButton" class="roundButton" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
-            <div id="advancedOptionsButton" class="roundButton" onclick="pop(['mainPop'],['advancedOptionsPop'])">w</div>
-            <div id="alertButton" class="roundButton" onclick="pop(['mainPop'],['alertsPop'])">#</div>
-            <div id="attendanceCountButton" class="roundButton" onclick="loadAttendees()">0</div>
-            <div class="roundButton addButton" onclick="pop(['mainPop'],['newStudentPop'])">;</div>
-        </div>
-        <input id="search" type="text" placeholder="search names" oninput="searchNames()"/>
-        <div id="nameList"></div>
-  </div>
-
-  <div id="attendance2Pop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['attendance2Pop'],['studentPop'])"><span>f</span></div>
-    </div>
-    <input id="search2" type="text" placeholder="search names" oninput="searchNames2()"/>
-    <div id="nameList2"></div>
-  </div>
-
-  <div id="sortChoicePop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['sortChoicePop'],['mainMenuPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div class="button" onclick="sortByPoints()">Sort by Points</div>
-    <div class="button" onclick="sortByGender()">Sort by Boy/Girl</div>
-    <div class="button" onclick="sortByBday()">Sort by Birthday</div>
-  </div>
-
-  <div id="customSortListPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['customSortListPop'],['sortChoicePop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div id="nameListCustom"></div>
-    <div id="genderListContainer">
-      <div id=boysListDiv>
-        <p id="boysListP"></p>
-        <div id="boysList"></div>
+<div id="mainPop" class="pop">
+      <div id="topMenuContainer">
+          <div id="mainMenuButton" class="roundButton" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
+          <div id="advancedOptionsButton" class="roundButton" onclick="pop(['mainPop'],['advancedOptionsPop'])">w</div>
+          <div id="alertButton" class="roundButton" onclick="pop(['mainPop'],['alertsPop'])">#</div>
+          <div id="attendanceCountButton" class="roundButton" onclick="loadAttendees()">0</div>
+          <div class="roundButton addButton" onclick="pop(['mainPop'],['newStudentPop'])">;</div>
       </div>
-      <div id=girlsListDiv>
-        <p id="girlsListP"></p>
-        <div id="girlsList"></div>
+      <input id="search" type="text" placeholder="search names" oninput="searchNames()"/>
+      <div id="nameList"></div>
+</div>
+
+<div id="attendance2Pop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['attendance2Pop'],['studentPop'])"><span>f</span></div>
+  </div>
+  <input id="search2" type="text" placeholder="search names" oninput="searchNames2()"/>
+  <div id="nameList2"></div>
+</div>
+
+<div id="sortChoicePop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['sortChoicePop'],['mainMenuPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div class="button" onclick="sortByPoints()">Sort by Points</div>
+  <div class="button" onclick="sortByGender()">Sort by Boy/Girl</div>
+  <div class="button" onclick="sortByBday()">Sort by Birthday</div>
+</div>
+
+<div id="customSortListPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['customSortListPop'],['sortChoicePop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="nameListCustom"></div>
+  <div id="genderListContainer">
+    <div id=boysListDiv>
+      <p id="boysListP"></p>
+      <div id="boysList"></div>
+    </div>
+    <div id=girlsListDiv>
+      <p id="girlsListP"></p>
+      <div id="girlsList"></div>
+    </div>
+  </div>
+</div>
+
+<div id="mainMenuPop" class="pop">
+      <div class="buttonArr">
+          <div class="navigationButtonContainer">
+            <div class="backButton" onclick="goHome()"><span>f</span></div>
+            <div class="homeButton" onclick="goHome()"><span>5</span></div>
+          </div>
+          <div class="button" onclick="loadAttendanceStats()">Attend. Stats</div>
+          <div class="button" onclick="pop(['mainMenuPop'],['sortChoicePop'])">Sort Students</div>
+          <div class="button" onclick="pop(['mainMenuPop'],['drawingPop'])">Drawing</div>
+          <div class="button" onclick="pop(['mainMenuPop'],['randomPop'])">Random</div>
+          <div class="button" onclick="teams()">Teams</div>
+          <div class="button" onclick="preloadImages()">Cache Images</div>
+          <div class="button" id="teacherNotesButton" onclick="pop(['mainMenuPop'],['teacherNotesPop']); populateTeacherNotes()">Notes</div>
+          <div class="button" onclick="pop(['mainMenuPop'],['logPop'])">Log</div>
+          <div class="button" onclick="pop(['mainMenuPop'],['backupPop'])">Backup</div>
       </div>
-    </div>
-  </div>
+</div>
 
-  <div id="mainMenuPop" class="pop">
-        <div class="buttonArr">
-            <div class="navigationButtonContainer">
-              <div class="backButton" onclick="goHome()"><span>f</span></div>
-              <div class="homeButton" onclick="goHome()"><span>5</span></div>
-            </div>
-            <div class="button" onclick="pop(['mainMenuPop'],['sortChoicePop'])">Sort Students</div>
-            <div class="button" onclick="pop(['mainMenuPop'],['drawingPop'])">Drawing</div>
-            <div class="button" onclick="pop(['mainMenuPop'],['randomPop'])">Random</div>
-            <div class="button" onclick="teams()">Teams</div>
-            <div class="button" onclick="preloadImages()">Cache Images</div>
-            <div class="button" id="teacherNotesButton" onclick="pop(['mainMenuPop'],['teacherNotesPop']); populateTeacherNotes()">Notes</div>
-            <div class="button" onclick="pop(['mainMenuPop'],['logPop'])">Log</div>
-            <div class="button" onclick="pop(['mainMenuPop'],['backupPop'])">Backup</div>
-        </div>
-  </div>
-
-  <div id="alertsPop" class="pop">
-        <div class="buttonArr">
-            <div class="navigationButtonContainer">
-              <div class="backButton" onclick="goHome()"><span>f</span></div>
-              <div class="homeButton" onclick="goHome()"><span>5</span></div>
-            </div>
-            <div class="button" id="promotionButton" onclick="pop(['alertsPop'],['promoListPop'])">Promotions</div>
-            <div class="button" id="birthdayButton" onclick="pop(['alertsPop'],['bdayPop'])">Birthdays</div>
-        </div>
-  </div>
-
-  <div id="teamsListPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['teamsListPop'],['mainMenuPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div id="teamListContainer">
-      <div id=team1ListDiv>
-        <p id=team1ListP>Team1</p>
-        <div id="team1List"></div>
+<div id="alertsPop" class="pop">
+      <div class="buttonArr">
+          <div class="navigationButtonContainer">
+            <div class="backButton" onclick="goHome()"><span>f</span></div>
+            <div class="homeButton" onclick="goHome()"><span>5</span></div>
+          </div>
+          <div class="button" id="promotionButton" onclick="pop(['alertsPop'],['promoListPop'])">Promotions</div>
+          <div class="button" id="birthdayButton" onclick="pop(['alertsPop'],['bdayPop'])">Birthdays</div>
       </div>
-      <div id=team2ListDiv>
-        <p id="team1ListP">Team2</p>
-        <div id="team2List"></div>
-      </div>
-    </div>
-    <div class="button" onclick="loadGame()">Play Game</div>
-    <div class="button" onclick="actionAlert('Generate new teams and start new game?',['teamsListPop'],createTeams)">Reset Game</div>
+</div>
+
+<div id="teamsListPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['teamsListPop'],['mainMenuPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
+  <div id="teamListContainer">
+    <div id=team1ListDiv>
+      <p id=team1ListP>Team1</p>
+      <div id="team1List"></div>
+    </div>
+    <div id=team2ListDiv>
+      <p id="team1ListP">Team2</p>
+      <div id="team2List"></div>
+    </div>
+  </div>
+  <div class="button" onclick="loadGame()">Play Game</div>
+  <div class="button" onclick="actionAlert('Generate new teams and start new game?',['teamsListPop'],createTeams)">Reset Game</div>
+</div>
 
 
-  <div id="playGamePop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['playGamePop'],['teamsListPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div id="teamPointsContainer">
-      <div>
-        <p>Team 1</p>
-        <div id="team1Score" onclick="dataInputAlert('Adjust team 1 score',['playGamePop'],false,adjustGameScore,1)">0</div>
-      </div>
-      <div>
-        <p>Team 2</p>
-        <div id="team2Score" onclick="dataInputAlert('Adjust team 2 score',['playGamePop'],false,adjustGameScore,2)">0</div>
-      </div>
-    </div>
-    <p id="currentPlayer"></p>
-    <div id="gamePointButtonsContainer">
-      <div class="gamePointButton" id="gamePoint1" onclick="gameScorePoints(1)">1</div>
-      <div class="gamePointButton" id="gamePoint2" onclick="gameScorePoints(2)">2</div>
-      <div class="gamePointButton" id="gamePoint3" onclick="gameScorePoints(3)">3</div>
-      <div class="gamePointButton" id="gamePoint4" onclick="gameScorePoints(4)">4</div>
-      <div class="gamePointButton" id="gamePoint5" onclick="gameScorePoints(5)">5</div>
-      <div class="gamePointButton" id="gamePoint6" onclick="gameScorePoints(6)">6</div>
-      <div class="gamePointButton" id="gamePoint7" onclick="gameScorePoints(7)">7</div>
-      <div class="gamePointButton" id="gamePoint8" onclick="gameScorePoints(8)">8</div>
-      <div class="gamePointButton" id="gamePoint9" onclick="gameScorePoints(9)">9</div>
-      <div class="gameUndoButton" onclick="undoGameScorePoints()">b</div>
-      <div class="gamePointButton" id="gamePoint10" onclick="gameScorePoints(10)">10</div>
-      <div class="gameLogButton" onclick="pop(['playGamePop'],['gameLogPop'])">LOG</div>
-    </div>
+<div id="playGamePop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['playGamePop'],['teamsListPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
-
-  <div id="advancedOptionsPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['advancedOptionsPop'],['mainPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> Fast new student entry</label><br>
-    <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> Fast student editing</label>
-  </div>
-
-  <div id="infoAlertPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="infoAlert()"><span>f</span></div>
-    </div>
-      <p id="infoAlertTitle">!</p>
-      <p id="infoAlertMessage"></p>
-  </div>
-
-  <div id="actionAlertPop" class="pop">
-    <p id="actionAlertMessage"></p>
-    <div class="optionButtonContainer">
-      <div class="roundButton cancelButton" onclick="actionAlert(false,false,false,true)">X</div>
-      <div class="roundButton okButton" onclick="actionAlert()">V</div>
-    </div>
-  </div>
-
-  <div id="dataInputAlertPop" class="pop">
-    <p id="dataInputAlertMessage"></p>
-    <input id="dataInputTextField" type="text"/>
-    <div id="enterReasonDiv">
-      <p>Reason (required):</p>
-      <textarea id="enterReasonTextField" rows="10" cols="30"></textarea>
-    </div>
-    <div class="optionButtonContainer">
-      <div class="roundButton cancelButton" onclick="dataInputAlert(false,false,false,false,false,true)">X</div>
-      <div class="roundButton okButton" onclick="dataInputAlert()">V</div>
-    </div>
-  </div>
-
-  <div id="missionVisibilityPop" class="pop buttonArr">
-      <div class="navigationButtonContainer">
-        <div class="backButton" onclick="pop(['missionVisibilityPop'],['studentPop','missionsPop'])"><span>f</span></div>
-        <div class="homeButton" onclick="goHome()"><span>5</span></div>
-      </div>
-      <div id="missionCheckBoxDiv">
-        <label class="checkboxLabel"><input type="checkbox" id="check0" class="checkbox" onclick="toggleMissions(0)"/> Class Intro / Ps 139:17-18</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check1" class="checkbox" onclick="toggleMissions(1)"/> John Intro / Jn 20:30-31</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check2" class="checkbox" onclick="toggleMissions(2)"/> John 1 / Jn 1:1-2</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check3" class="checkbox" onclick="toggleMissions(3)"/> John 2 / Jn 1:3</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check4" class="checkbox" onclick="toggleMissions(4)"/> John 3 / Jn 1:4-5</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check5" class="checkbox" onclick="toggleMissions(5)"/> John 4 / Jn 1:6-8</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check6" class="checkbox" onclick="toggleMissions(6)"/> John 5 / Jn 1:9-11</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check7" class="checkbox" onclick="toggleMissions(7)"/> John 6 / Jn 1:12-13</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check8" class="checkbox" onclick="toggleMissions(8)"/> John 7 / Jn 1:14</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check9" class="checkbox" onclick="toggleMissions(9)"/> John 8 / Jn 1:15</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check10" class="checkbox" onclick="toggleMissions(10)"/> John 9 / Jn 1:16-17</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check11" class="checkbox" onclick="toggleMissions(11)"/> John 1-9 Review / Jn 1:18</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check12" class="checkbox" onclick="toggleMissions(12)"/> John 10 / Phil 2:5-6</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check13" class="checkbox" onclick="toggleMissions(13)"/> John 11 / Phil 2:7</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check14" class="checkbox" onclick="toggleMissions(14)"/> John 12 / Phil 2:8</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check15" class="checkbox" onclick="toggleMissions(15)"/> John 13 / Phil 2:9</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check16" class="checkbox" onclick="toggleMissions(16)"/> John 14 / Phil 2:10-11</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check17" class="checkbox" onclick="toggleMissions(17)"/> John 15 / Rom 8:31</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check18" class="checkbox" onclick="toggleMissions(18)"/> John 16 / Rom 8:32</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check19" class="checkbox" onclick="toggleMissions(19)"/> John 17 / Rom 8:33</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check20" class="checkbox" onclick="toggleMissions(20)"/> John 18 / Rom 8:34</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check21" class="checkbox" onclick="toggleMissions(21)"/> John 19 / Rom 8:35</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check22" class="checkbox" onclick="toggleMissions(22)"/> John 20 / Rom 8:36</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check23" class="checkbox" onclick="toggleMissions(23)"/> John 21 / Rom 8:37</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check24" class="checkbox" onclick="toggleMissions(24)"/> John 10-21 Review / Rom 8:38-39</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check25" class="checkbox" onclick="toggleMissions(25)"/> Armor Intro / Eph 6:10-11/</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check26" class="checkbox" onclick="toggleMissions(26)"/> Belt / Eph 6:12</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check27" class="checkbox" onclick="toggleMissions(27)"/> Breastplate / Eph 6:13</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check28" class="checkbox" onclick="toggleMissions(28)"/> Shoes / Eph 6:14-15</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check29" class="checkbox" onclick="toggleMissions(29)"/> Shield / Eph 6:16</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check30" class="checkbox" onclick="toggleMissions(30)"/> Helmet / Eph 6:17</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check31" class="checkbox" onclick="toggleMissions(31)"/> Sword / Eph 6:18</label><br>
-        <label class="checkboxLabel"><input type="checkbox" id="check32" class="checkbox" onclick="toggleMissions(32)"/> Armor Review / no verse</label><br>
-      </div>
-  </div>
-
-  <div id="wtlPop" class="pop buttonArr">
-      <p>Load localstorage or backup.js?</p>
-      <div class="button" onclick="loadLS()">localstorage</div>
-      <div class="button" onclick="actionAlert('This action may potentially overwrite more current data. Are you sure?',['wtlPop'],loadBackup)">backup.js</div>
-  </div>
-
-  <div id="logPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['logPop'],['mainPop'])"><span>f</span></div>
-      <div class="textNavigationButton" onclick="window.print()">Print</div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <p id="todaysDate"></p>
-    <input id="searchLog" type="text" placeholder="search log" oninput="searchLog()"/>
-    <div id="log"></div>
-  </div>
-
-  <div id="gameLogPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['gameLogPop'],['playGamePop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div id="gameLog"></div>
-  </div>
-
-  <div id="studentPop" class="pop">
-      <div class="navigationButtonContainer">
-        <div class="backButton" onclick="goHome()"><span>f</span></div>
-        <div class="secretButton" onclick="dataInputAlert('Set points to:',['studentPop','missionsPop'],true,setPoints)"></div>
-        <div class="homeButton" onclick="goHome()"><span>5</span></div>
-      </div>
-      <span id="dispRankName"></span> <span id="dispPts"></span><br>
-      <p id="dispName" onclick="attendance()"></p>
-      <span id="dispBday"></span><br><br>
-      <div id="penContainer">
-          <div class="studentPopButtons" id="statsButton" onclick="loadStudentStats()">stats</div>
-          <div class="studentPopButtons" id="editButton" onclick="populateStudentFields()">edit info</div>
-          <div class="studentPopButtons" id="notesButton" onclick="pop(['studentPop','missionsPop'],['notesPop','notesList']); populateNotes()">notes</div>
-          <div class="studentPopButtons" id="photoButton" onclick="loadStudentPhoto()">photo</div>
-          <div class="studentPopButtons" id="attendance2Button"></div>
-          <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields('editEmail1')">email</div>
-      </div>
-  </div>
-
-  <div id="studentPhotoPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['studentPhotoPop'],['studentPop','missionsPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div id="dispStudentPhoto" onclick="photoLinks()"></div>
-  </div>
-
-  <div id="studentStatsPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['studentStatsPop'],['studentPop','missionsPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div id="studentStatsTopContainerDiv">
-      <div id="studentStatsInsignia" onclick="openInsignia()"></div>
-      <div id="studentStatsName">
-        <p id="statsRankName"></p>
-        <p id="statsName"></p>
-        <p id="statsClassRank"></p>
-      </div>
-    </div>
-    <div id="studentStatsBottomContainerDiv">
-      <div id=RankProgressTableDiv onclick="loadRankTable()">
-        <p id="rankProgressTableP"></p>
-        <table id="rankProgressTable" class="progressBarTable">
-          <tr>
-            <td id="rankProgressBar1"></td>
-            <td id="rankProgressBar2"></td>
-            <td id="rankProgressBar3"></td>
-            <td id="rankProgressBar4"></td>
-            <td id="rankProgressBar5"></td>
-            <td id="rankProgressBar6"></td>
-            <td id="rankProgressBar7"></td>
-            <td id="rankProgressBar8"></td>
-            <td id="rankProgressBar9"></td>
-            <td id="rankProgressBar10"></td>
-            <td id="rankProgressBar11"></td>
-            <td id="rankProgressBar12"></td>
-            <td id="rankProgressBar13"></td>
-            <td id="rankProgressBar14"></td>
-            <td id="rankProgressBar15"></td>
-            <td id="rankProgressBar16"></td>
-            <td id="rankProgressBar17"></td>
-            <td id="rankProgressBar18"></td>
-            <td id="rankProgressBar19"></td>
-            <td id="rankProgressBar20"></td>
-            <td id="rankProgressBar21"></td>
-            <td id="rankProgressBar22"></td>
-            <td id="rankProgressBar23"></td>
-            <td id="rankProgressBar24"></td>
-            <td id="rankProgressBar25"></td>
-            <td id="rankProgressBar26"></td>
-            <td id="rankProgressBar27"></td>
-            <td id="rankProgressBar28"></td>
-            <td id="rankProgressBar29"></td>
-            <td id="rankProgressBar30"></td>
-            <td id="rankProgressBar31"></td>
-            <td id="rankProgressBar32"></td>
-            <td id="rankProgressBar33"></td>
-            <td id="rankProgressBar34"></td>
-            <td id="rankProgressBar35"></td>
-            <td id="rankProgressBar36"></td>
-            <td id="rankProgressBar37"></td>
-            <td id="rankProgressBar38"></td>
-            <td id="rankProgressBar39"></td>
-            <td id="rankProgressBar40"></td>
-          </tr>
-        </table>
-      </div>
-      <p id="totalProgressTableP"></p>
-      <table id="totalProgressTable" class="progressBarTable">
-        <tr>
-          <td id="totalProgressBar1"></td>
-          <td id="totalProgressBar2"></td>
-          <td id="totalProgressBar3"></td>
-          <td id="totalProgressBar4"></td>
-          <td id="totalProgressBar5"></td>
-          <td id="totalProgressBar6"></td>
-          <td id="totalProgressBar7"></td>
-          <td id="totalProgressBar8"></td>
-          <td id="totalProgressBar9"></td>
-          <td id="totalProgressBar10"></td>
-          <td id="totalProgressBar11"></td>
-          <td id="totalProgressBar12"></td>
-          <td id="totalProgressBar13"></td>
-          <td id="totalProgressBar14"></td>
-          <td id="totalProgressBar15"></td>
-          <td id="totalProgressBar16"></td>
-          <td id="totalProgressBar17"></td>
-          <td id="totalProgressBar18"></td>
-          <td id="totalProgressBar19"></td>
-          <td id="totalProgressBar20"></td>
-          <td id="totalProgressBar21"></td>
-          <td id="totalProgressBar22"></td>
-          <td id="totalProgressBar23"></td>
-          <td id="totalProgressBar24"></td>
-          <td id="totalProgressBar25"></td>
-          <td id="totalProgressBar26"></td>
-          <td id="totalProgressBar27"></td>
-          <td id="totalProgressBar28"></td>
-          <td id="totalProgressBar29"></td>
-          <td id="totalProgressBar30"></td>
-          <td id="totalProgressBar31"></td>
-          <td id="totalProgressBar32"></td>
-          <td id="totalProgressBar33"></td>
-          <td id="totalProgressBar34"></td>
-          <td id="totalProgressBar35"></td>
-          <td id="totalProgressBar36"></td>
-          <td id="totalProgressBar37"></td>
-          <td id="totalProgressBar38"></td>
-          <td id="totalProgressBar39"></td>
-          <td id="totalProgressBar40"></td>
-        </tr>
-      </table>
-      <p id="asProgressTableP"></p>
-      <table id="asProgressTable" class="progressBarTable">
-        <tr>
-          <td id="asProgressBar1"></td>
-          <td id="asProgressBar2"></td>
-          <td id="asProgressBar3"></td>
-          <td id="asProgressBar4"></td>
-          <td id="asProgressBar5"></td>
-          <td id="asProgressBar6"></td>
-          <td id="asProgressBar7"></td>
-          <td id="asProgressBar8"></td>
-          <td id="asProgressBar9"></td>
-          <td id="asProgressBar10"></td>
-          <td id="asProgressBar11"></td>
-          <td id="asProgressBar12"></td>
-          <td id="asProgressBar13"></td>
-          <td id="asProgressBar14"></td>
-          <td id="asProgressBar15"></td>
-          <td id="asProgressBar16"></td>
-          <td id="asProgressBar17"></td>
-          <td id="asProgressBar18"></td>
-          <td id="asProgressBar19"></td>
-          <td id="asProgressBar20"></td>
-          <td id="asProgressBar21"></td>
-          <td id="asProgressBar22"></td>
-          <td id="asProgressBar23"></td>
-          <td id="asProgressBar24"></td>
-          <td id="asProgressBar25"></td>
-          <td id="asProgressBar26"></td>
-          <td id="asProgressBar27"></td>
-          <td id="asProgressBar28"></td>
-          <td id="asProgressBar29"></td>
-          <td id="asProgressBar30"></td>
-          <td id="asProgressBar31"></td>
-          <td id="asProgressBar32"></td>
-          <td id="asProgressBar33"></td>
-          <td id="asProgressBar34"></td>
-          <td id="asProgressBar35"></td>
-          <td id="asProgressBar36"></td>
-          <td id="asProgressBar37"></td>
-          <td id="asProgressBar38"></td>
-          <td id="asProgressBar39"></td>
-          <td id="asProgressBar40"></td>
-        </tr>
-      </table>
-      <p id="mvProgressTableP"></p>
-      <table id="mvProgressTable" class="progressBarTable"> 
-        <tr>
-          <td id="mvProgressBar1"></td>
-          <td id="mvProgressBar2"></td>
-          <td id="mvProgressBar3"></td>
-          <td id="mvProgressBar4"></td>
-          <td id="mvProgressBar5"></td>
-          <td id="mvProgressBar6"></td>
-          <td id="mvProgressBar7"></td>
-          <td id="mvProgressBar8"></td>
-          <td id="mvProgressBar9"></td>
-          <td id="mvProgressBar10"></td>
-          <td id="mvProgressBar11"></td>
-          <td id="mvProgressBar12"></td>
-          <td id="mvProgressBar13"></td>
-          <td id="mvProgressBar14"></td>
-          <td id="mvProgressBar15"></td>
-          <td id="mvProgressBar16"></td>
-          <td id="mvProgressBar17"></td>
-          <td id="mvProgressBar18"></td>
-          <td id="mvProgressBar19"></td>
-          <td id="mvProgressBar20"></td>
-          <td id="mvProgressBar21"></td>
-          <td id="mvProgressBar22"></td>
-          <td id="mvProgressBar23"></td>
-          <td id="mvProgressBar24"></td>
-          <td id="mvProgressBar25"></td>
-          <td id="mvProgressBar26"></td>
-          <td id="mvProgressBar27"></td>
-          <td id="mvProgressBar28"></td>
-          <td id="mvProgressBar29"></td>
-          <td id="mvProgressBar30"></td>
-          <td id="mvProgressBar31"></td>
-          <td id="mvProgressBar32"></td>
-          <td id="mvProgressBar33"></td>
-          <td id="mvProgressBar34"></td>
-          <td id="mvProgressBar35"></td>
-          <td id="mvProgressBar36"></td>
-          <td id="mvProgressBar37"></td>
-          <td id="mvProgressBar38"></td>
-          <td id="mvProgressBar39"></td>
-          <td id="mvProgressBar40"></td>
-        </tr>
-      </table>
-      <p id="attendanceProgressTableP"></p>
-      <table id="attendanceProgressTable" class="progressBarTable">
-        <tr>
-          <td id="attendanceProgressBar1"></td>
-          <td id="attendanceProgressBar2"></td>
-          <td id="attendanceProgressBar3"></td>
-          <td id="attendanceProgressBar4"></td>
-          <td id="attendanceProgressBar5"></td>
-          <td id="attendanceProgressBar6"></td>
-          <td id="attendanceProgressBar7"></td>
-          <td id="attendanceProgressBar8"></td>
-          <td id="attendanceProgressBar9"></td>
-          <td id="attendanceProgressBar10"></td>
-          <td id="attendanceProgressBar11"></td>
-          <td id="attendanceProgressBar12"></td>
-          <td id="attendanceProgressBar13"></td>
-          <td id="attendanceProgressBar14"></td>
-          <td id="attendanceProgressBar15"></td>
-          <td id="attendanceProgressBar16"></td>
-          <td id="attendanceProgressBar17"></td>
-          <td id="attendanceProgressBar18"></td>
-          <td id="attendanceProgressBar19"></td>
-          <td id="attendanceProgressBar20"></td>
-          <td id="attendanceProgressBar21"></td>
-          <td id="attendanceProgressBar22"></td>
-          <td id="attendanceProgressBar23"></td>
-          <td id="attendanceProgressBar24"></td>
-          <td id="attendanceProgressBar25"></td>
-          <td id="attendanceProgressBar26"></td>
-          <td id="attendanceProgressBar27"></td>
-          <td id="attendanceProgressBar28"></td>
-          <td id="attendanceProgressBar29"></td>
-          <td id="attendanceProgressBar30"></td>
-          <td id="attendanceProgressBar31"></td>
-          <td id="attendanceProgressBar32"></td>
-          <td id="attendanceProgressBar33"></td>
-          <td id="attendanceProgressBar34"></td>
-          <td id="attendanceProgressBar35"></td>
-          <td id="attendanceProgressBar36"></td>
-          <td id="attendanceProgressBar37"></td>
-          <td id="attendanceProgressBar38"></td>
-          <td id="attendanceProgressBar39"></td>
-          <td id="attendanceProgressBar40"></td>
-        </tr>
-      </table>
-      <p id="totalParticipationTableP"></p>
-      <table id="totalParticipationTable" class="progressBarTable">
-        <tr>
-          <td id="totalParticipationBar1"></td>
-          <td id="totalParticipationBar2"></td>
-          <td id="totalParticipationBar3"></td>
-          <td id="totalParticipationBar4"></td>
-          <td id="totalParticipationBar5"></td>
-          <td id="totalParticipationBar6"></td>
-          <td id="totalParticipationBar7"></td>
-          <td id="totalParticipationBar8"></td>
-          <td id="totalParticipationBar9"></td>
-          <td id="totalParticipationBar10"></td>
-          <td id="totalParticipationBar11"></td>
-          <td id="totalParticipationBar12"></td>
-          <td id="totalParticipationBar13"></td>
-          <td id="totalParticipationBar14"></td>
-          <td id="totalParticipationBar15"></td>
-          <td id="totalParticipationBar16"></td>
-          <td id="totalParticipationBar17"></td>
-          <td id="totalParticipationBar18"></td>
-          <td id="totalParticipationBar19"></td>
-          <td id="totalParticipationBar20"></td>
-          <td id="totalParticipationBar21"></td>
-          <td id="totalParticipationBar22"></td>
-          <td id="totalParticipationBar23"></td>
-          <td id="totalParticipationBar24"></td>
-          <td id="totalParticipationBar25"></td>
-          <td id="totalParticipationBar26"></td>
-          <td id="totalParticipationBar27"></td>
-          <td id="totalParticipationBar28"></td>
-          <td id="totalParticipationBar29"></td>
-          <td id="totalParticipationBar30"></td>
-          <td id="totalParticipationBar31"></td>
-          <td id="totalParticipationBar32"></td>
-          <td id="totalParticipationBar33"></td>
-          <td id="totalParticipationBar34"></td>
-          <td id="totalParticipationBar35"></td>
-          <td id="totalParticipationBar36"></td>
-          <td id="totalParticipationBar37"></td>
-          <td id="totalParticipationBar38"></td>
-          <td id="totalParticipationBar39"></td>
-          <td id="totalParticipationBar40"></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
-  <div id="newStudentPop" class="pop">
-    <input class="textInputField1 focus" id="newFirstAndLast" type="text" placeholder="first/last"/>
-    <div class="genderAndBdayContainer">
-      <input class="textInputField2" id="newGender" type="text" placeholder="M or F"/>
-      <input class="textInputField2" id="newBday" type="text" placeholder="month/day"/>
-    </div>
-    <input class="textInputField1" id="newEmail1" type="text" placeholder="primary email"/>
-    <input class="textInputField1" id="newEmail2" type="text" placeholder="secondary email"/>
-    <input class="textInputField1" id="newParent1" type="text" placeholder="parentfirst/last/phone"/>
-    <input class="textInputField1" id="newParent2" type="text" placeholder="parentfirst/last/phone"/>
-    <textarea id="initialNote" rows="10" cols="30" placeholder="note"></textarea>
-    <div class="optionButtonContainer">
-      <div class="roundButton cancelButton" onclick="pop(['newStudentPop'],['mainPop']); clearStudentFields()">X</div>
-      <div class="roundButton okButton" onclick="newStudent()">V</div>
-    </div>
-  </div>
-
-  <div id="editStudentPop" class="pop">
-    <input class="textInputField1" id="editFirstAndLast" type="text" placeholder="first/last"/>
-    <div class="genderAndBdayContainer">
-      <input class="textInputField2 focus" id="editGender" type="text" placeholder="M or F"/>
-      <input class="textInputField2" id="editBday" type="text" placeholder="month/day"/>
-    </div>
-    <input class="textInputField1" id="editEmail1" type="text" placeholder="primary email"/>
-    <input class="textInputField1" id="editEmail2" type="text" placeholder="secondary email"/>
-    <input class="textInputField1" id="editParent1" type="text" placeholder="parentfirst/last/phone"/>
-    <input class="textInputField1" id="editParent2" type="text" placeholder="parentfirst/last/phone"/>
-    <div class="optionButtonContainer">
-      <div class="roundButton cancelButton" onclick="pop(['editStudentPop'],['studentPop','missionsPop']); clearStudentFields()">X</div>
-      <div class="roundButton deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
-      <div class="roundButton okButton" onclick="editStudent()">V</div>
-    </div>
-  </div>
-
-  <div id="notesPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['notesPop','editNotePop'],['studentPop','missionsPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-      <div class="roundButton addButton" onclick="pop(['notesPop'],['addNotePop','addNote'])">;</div>
-    </div>
-    <p id="studentNotesHeader" class="notesListHeader"></p>
-    <div id="notesList"></div>
-  </div>
-
-  <div id="teacherNotesPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['teacherNotesPop','editTeacherNotePop'],['mainMenuPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-      <div class="roundButton addButton" onclick="pop(['teacherNotesPop'],['addTeacherNotePop','addTeacherNote'])">;</div>
-    </div>
-    <p id="studentNotesHeader" class="notesListHeader">Notes</p>
-    <div id="teacherNotesList"></div>
-  </div>
-
-  <div id="addNotePop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['addNotePop'],['notesPop','notesList'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <textarea id="addNote" rows="10" cols="30"></textarea>
-    <div class="optionButtonContainer">
-      <div class="roundButton cancelButton" onclick="pop(['addNotePop'],['notesPop','notesList'])">X</div>
-      <div class="roundButton okButton" onclick="addNote()">V</div>
-    </div>
-  </div>
-
-  <div id="addTeacherNotePop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['addTeacherNotePop','addTeacherNote'],['teacherNotesPop','teacherNotesList'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <textarea id="addTeacherNote" rows="10" cols="30"></textarea>
-    <div class="optionButtonContainer">
-      <div class="roundButton cancelButton" onclick="pop(['addTeacherNotePop','addTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
-      <div class="roundButton okButton" onclick="addTeacherNote()">V</div>
-    </div>
-  </div>
-
-  <div id="editNotePop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['editNotePop','editNote'],['notesPop','notesList'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <textarea id="editNote" rows="10" cols="30"></textarea>
-    <div class="optionButtonContainer">
-      <div class="roundButton cancelButton" onclick="pop(['editNotePop','editNote'],['notesPop','notesList'])">X</div>
-      <div class="roundButton deleteButton" id="deleteNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editNotePop'],deleteNote)">U</div>
-      <div class="roundButton okButton" onclick="editNote()">V</div>
-  </div>
-  </div>
-
-  <div id="editTeacherNotePop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <textarea id="editTeacherNote" rows="10" cols="30"></textarea>
-    <div class="optionButtonContainer">
-      <div class="roundButton cancelButton" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
-      <div class="roundButton deleteButton" id="deleteTeacherNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editTeacherNotePop'],deleteTeacherNote)">U</div>
-      <div class="roundButton okButton" onclick="editTeacherNote()">V</div>
-    </div>
-  </div>
-
-  <div id="drawingPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['drawingPop'],['mainMenuPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div id="drawingNameDiv" onclick="drawing()">
-        <p id="drawingName">tap here<br>to pick</p>
-    </div>
-  </div>
-  
-  <div id="randomPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['randomPop'],['mainMenuPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div id="randomNameDiv" onclick="random()">
-        <p id="randomName">tap here<br>to pick</p>
-    </div>
-    <div id="randomFilter">
-      <form>
-        <input class="radioButton" type="radio" id="all" name="randomFilter" value="All" checked>
-        <label for="all">All</label><br>
-        <input class="radioButton" type="radio" id="boys" name="randomFilter" value="Boys">
-        <label for="boys">Boys</label><br>
-        <input class="radioButton" type="radio" id="girls" name="randomFilter" value="Girls">
-        <label for="girls">Girls</label><br><br>
-      </form> 
-    </div>
-  </div>
-  
-  <div id="missionsPop" class="pop">
-      <div id="asmvHeaderContainer">
-        <div class="asmvHeader" onclick="pop(['studentPop','missionsPop'],['missionVisibilityPop'])">Activity<br>Sheets</div>
-        <div class="secretButton" onclick="populateNames2()"></div>
-        <div class="asmvHeader" onclick="toggleIncomplete()">Memory<br>Verses</div>
-      </div>
-      <div id=asmvPopContainer>
-        <div id="asPop">
-          <div id="as32Pop" class="asButton2 w32" onclick="asPop(32,6)">Armor<br>Review</div>
-          <div id="as31Pop" class="asButton w31" onclick="asPop(31)">Sword</div>
-          <div id="as30Pop" class="asButton w30" onclick="asPop(30)">Helmet</div>
-          <div id="as29Pop" class="asButton w29" onclick="asPop(29)">Shield</div>
-          <div id="as28Pop" class="asButton w28" onclick="asPop(28)">Shoes</div>
-          <div id="as27Pop" class="asButton2 w27" onclick="asPop(27)">Breast-<br>plate</div>
-          <div id="as26Pop" class="asButton w26" onclick="asPop(26)">Belt</div>
-          <div id="as25Pop" class="asButton2 w25" onclick="asPop(25)">Armor<br>Intro</div>
-          <div id="as24Pop" class="asButton3 w24" onclick="asPop(24,6)">John<br>10-21<br>Review</div>
-          <div id="as23Pop" class="asButton w23" onclick="asPop(23)">John 21</div>
-          <div id="as22Pop" class="asButton w22" onclick="asPop(22)">John 20</div>
-          <div id="as21Pop" class="asButton w21" onclick="asPop(21)">John 19</div>
-          <div id="as20Pop" class="asButton w20" onclick="asPop(20)">John 18</div>
-          <div id="as19Pop" class="asButton w19" onclick="asPop(19)">John 17</div>
-          <div id="as18Pop" class="asButton w18" onclick="asPop(18)">John 16</div>
-          <div id="as17Pop" class="asButton w17" onclick="asPop(17)">John 15</div>
-          <div id="as16Pop" class="asButton w16" onclick="asPop(16)">John 14</div>
-          <div id="as15Pop" class="asButton w15" onclick="asPop(15)">John 13</div>
-          <div id="as14Pop" class="asButton w14" onclick="asPop(14)">John 12</div>
-          <div id="as13Pop" class="asButton w13" onclick="asPop(13)">John 11</div>
-          <div id="as12Pop" class="asButton w12" onclick="asPop(12)">John 10</div>
-          <div id="as11Pop" class="asButton2 w11" onclick="asPop(11,6)">John 1-9<br>Review</div>
-          <div id="as10Pop" class="asButton w10" onclick="asPop(10)">John 9</div>
-          <div id="as9Pop" class="asButton w9" onclick="asPop(9)">John 8</div>
-          <div id="as8Pop" class="asButton w8" onclick="asPop(8)">John 7</div>
-          <div id="as7Pop" class="asButton w7" onclick="asPop(7)">John 6</div>
-          <div id="as6Pop" class="asButton w6" onclick="asPop(6)">John 5</div>
-          <div id="as5Pop" class="asButton w5" onclick="asPop(5)">John 4</div>
-          <div id="as4Pop" class="asButton w4" onclick="asPop(4)">John 3</div>
-          <div id="as3Pop" class="asButton w3" onclick="asPop(3)">John 2</div>
-          <div id="as2Pop" class="asButton w2" onclick="asPop(2)">John 1</div>
-          <div id="as1Pop" class="asButton2 w1" onclick="asPop(1)">John Intro</div>
-          <div id="as0Pop" class="asButton2 w0" onclick="asPop(0)">Class<br>Intro</div>
-        </div>
-        <div id="mvPop">
-          <div id="mv32Pop" class="asmvButtonFill w32"></div>
-          <div id="mv31Pop" class="mvButton4 w31" onclick="mvPop(31,31)">Eph<br>6:18<br>"praying at"</div>
-          <div id="mv30Pop" class="mvButton3 w30" onclick="mvPop(30,30)">Eph<br>6:17<br>"and take"</div>
-          <div id="mv29Pop" class="mvButton3 w29" onclick="mvPop(29,29)">Eph<br>6:16<br>"In all"</div>
-          <div id="mv28Pop" class="mvButton4 w28" onclick="mvPop(28,28,4)">Eph<br>6:14-15<br>"Stand therefore"</div>
-          <div id="mv27Pop" class="mvButton4 w27" onclick="mvPop(27,27)">Eph<br>6:13<br>"Therefore take"</div>
-          <div id="mv26Pop" class="mvButton3 w26" onclick="mvPop(26,26,4)">Eph<br>6:12<br>"For we"</div>
-          <div id="mv25Pop" class="mvButton4 w25" onclick="mvPop(25,25,4)">Eph<br>6:10-11<br>"Finally, be"</div>
-          <div id="mv24Pop" class="mvButton3 w24" onclick="mvPop(24,24,6)">Rom<br>8:38-39<br>"For I"</div>
-          <div id="mv23Pop" class="mvButton3 w23" onclick="mvPop(23,23)">Rom<br>8:37<br>"No, in"</div>
-          <div id="mv22Pop" class="mvButton3 w22" onclick="mvPop(22,22)">Rom<br>8:36<br>"As it"</div>
-          <div id="mv21Pop" class="mvButton4 w21" onclick="mvPop(21,21)">Rom<br>8:35<br>"Who shall separate"</div>
-          <div id="mv20Pop" class="mvButton3 w20" onclick="mvPop(20,20,4)">Rom<br>8:34<br>"Who is"</div>
-          <div id="mv19Pop" class="mvButton4 w19" onclick="mvPop(19,19)">Rom<br>8:33<br>"Who shall bring"</div>
-          <div id="mv18Pop" class="mvButton3 w18" onclick="mvPop(18,18,4)">Rom<br>8:32<br>"He who"</div>
-          <div id="mv17Pop" class="mvButton4 w17" onclick="mvPop(17,17)">Rom<br>8:31<br>"What then"</div>
-          <div id="mv16Pop" class="mvButton3 w16" onclick="mvPop(16,16,4)">Phil<br>2:10-11<br>"so that"</div>
-          <div id="mv15Pop" class="mvButton4 w15" onclick="mvPop(15,15)">Phil<br>2:9<br>"therefore God"</div>
-          <div id="mv14Pop" class="mvButton4 w14" onclick="mvPop(14,14)">Phil<br>2:8<br>"And being"</div>
-          <div id="mv13Pop" class="mvButton4 w13" onclick="mvPop(13,13)">Phil<br>2:7<br>"But emptied"</div>
-          <div id="mv12Pop" class="mvButton3 w12" onclick="mvPop(12,12,4)">Phil<br>2:5-6<br>"Have this"</div>
-          <div id="mv11Pop" class="mvButton3 w11" onclick="mvPop(11,11)">John<br>1:18<br>"No one"</div>
-          <div id="mv10Pop" class="mvButton3 w10" onclick="mvPop(10,10)">John<br>1:16-17<br>"For from"</div>
-          <div id="mv9Pop" class="mvButton4 w9" onclick="mvPop(9,9,4)">John<br>1:15<br>"John bore"</div>
-          <div id="mv8Pop" class="mvButton3 w8" onclick="mvPop(8,8,4)">John<br>1:14<br>"And the"</div>
-          <div id="mv7Pop" class="mvButton3 w7" onclick="mvPop(7,7,5)">John<br>1:12-13<br>"But to"</div>
-          <div id="mv6Pop" class="mvButton3 w6" onclick="mvPop(6,6,5)">John<br>1:9-11<br>"The true"</div>
-          <div id="mv5Pop" class="mvButton4 w5" onclick="mvPop(5,5,5)">John<br>1:6-8<br>"There was"</div>
-          <div id="mv4Pop" class="mvButton3 w4" onclick="mvPop(4,4)">John<br>1:4-5<br>"In him"</div>
-          <div id="mv3Pop" class="mvButton3 w3" onclick="mvPop(3,3)">John<br>1:3<br>"All things"</div>
-          <div id="mv2Pop" class="mvButton3 w2" onclick="mvPop(2,2)">John<br>1:1-2<br>"In the"</div>
-          <div id="mv1Pop" class="mvButton4 w1" onclick="mvPop(1,1,6)">John<br>20:30-31<br>"Now Jesus"</div>
-          <div id="mv0Pop" class="mvButton4 w0" onclick="mvPop(0,0,4)">Psalm<br>139:17<br>"How precious"</div>
-        </div>
-      </div>
-  </div>
-  
-  <div id="asPointsPop" class="pop">
-    <div class="lowerNavigationButtonContainer">
-      <div class="secretButton2" onclick="populateNames2()"></div>
-      <div class="backButton" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])"><span>f</span></div>
-      <div class="secretButton2" onclick="populateNames2()"></div>
-    </div>
-    <div class="pointButtonContainer">
-        <div id="as1Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,1)">1</div>
-        <div id="as2Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,2)">2</div>
-        <div id="as3Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,3)">3</div>
-        <div id="as4Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,4)">4</div>
-        <div id="as5Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,5)">5</div>
-        <div id="as6Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,6)">6</div>
-    </div>
-    <div id="asReasonContainer" >
-      <textarea id="asReasonText" rows="5" cols="25" placeholder="reason for partial credit (required)"></textarea>
-      <div class="optionButtonContainer">
-        <div class="roundButton cancelButton" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])">X</div>
-        <div class="roundButton okButton" onclick="asPoints(_asNum,_asPoints,true)">V</div>
-      </div>
-    </div>
-    <div id="asReason"></div>
+  <div id="teamPointsContainer">
     <div>
-      <div id="asPage1" onclick="missionLinks()"></div>
-      <div id="asPage2" onclick="missionLinks()"></div>
-      <div id="asPage3" onclick="missionLinks()"></div>
-    </div>
-  </div>
-  
-  <div id="mvPointsPop" class="pop">
-    <div class="lowerNavigationButtonContainer">
-      <div class="secretButton2" onclick="populateNames2()"></div>
-      <div class="backButton" onclick="pop(['mvPointsPop'],['missionsPop'])"><span>f</span></div>
-      <div class="secretButton2" onclick="populateNames2()"></div>
-    </div>
-    <div class="pointButtonContainer">
-        <div class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,1)">1</div>
-        <div class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,2)">2</div>
-        <div class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,3)">3</div>
-        <div id="mv4Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,4)">4</div>
-        <div id="mv5Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,5)">5</div>
-        <div id="mv6Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,6)">6</div>
-    </div>
-    <p id="mvText"></p>
-  </div>
-  
-  <div id="promoPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['promoPop'],['missionsPop','studentPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <p>Promotion:</p>
-    <div>
-      <div id="promoInsignia"></div>
-    </div>
-    <p id="dispRankNamePromo"></p>
-  </div>
-
-  <div id="promoListPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['promoListPop'],['alertsPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div id="promoList"></div>
-    <p id="absentPromotion">Absent:</p>
-    <div id="promoListAbsent"></div>
-  </div>
-  
-  <div id="attendanceListPop" class="pop">
-      <div class="navigationButtonContainer">
-        <div class="backButton" onclick="pop(['attendanceListPop'],['mainPop'])"><span>f</span></div>
-        <div class="secretButton" onclick="actionAlert('Randomize attendance?',['attendanceListPop'],randomAttendance)"></div>
-        <div class="homeButton" onclick="goHome()"><span>5</span></div>
-      </div>
-      <p id="attendanceCount" onclick="actionAlert('Reset attendance?',['attendanceListPop'],resetAttendance)"></p>
-
-      <div id="attendanceListContainer">
-        <div id=boysListAttendanceDiv>
-          <p id="boysListAttendanceP"></p>
-          <div id="boysListAttendance"></div>
-        </div>
-        <div id=girlsListAttendanceDiv>
-          <p id="girlsListAttendanceP"></p>
-          <div id="girlsListAttendance"></div>
-        </div>
-      </div>
-  </div>
-
-  <div id="bdayPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['bdayPop'],['alertsPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div id="bdayList"></div>
-    <p id="absentBday">Absent:</p>
-    <div id="bdayListAbsent"></div>
-  </div>
-  
-  <div id="backupPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['backupPop'],['mainMenuPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div id="backupArrays" class ="select" onclick="selectText('backupArrays')">
-      <div id="slBackupArray"></div>
-      <div id="checkedStateBackupArray"></div>
-      <div id="teacherNotesBackupArray"></div>
-    </div>
-  </div>
-    
-  <div id="preloadImagesPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['preloadImagesPop'],['mainMenuPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-    <div class="scrollingContainer">
-      <div id="0-rank" class="preloadRankImageDiv"></div>
-      <div id="1-rank" class="preloadRankImageDiv"></div>
-      <div id="2-rank" class="preloadRankImageDiv"></div>
-      <div id="3-rank" class="preloadRankImageDiv"></div>
-      <div id="4-rank" class="preloadRankImageDiv"></div>
-      <div id="5-rank" class="preloadRankImageDiv"></div>
-      <div id="6-rank" class="preloadRankImageDiv"></div>
-      <div id="7-rank" class="preloadRankImageDiv"></div>
-      <div id="8-rank" class="preloadRankImageDiv"></div>
-      <div id="9-rank" class="preloadRankImageDiv"></div>
-      <div id="10-rank" class="preloadRankImageDiv"></div>
-      <div id="11-rank" class="preloadRankImageDiv"></div>
-      <div id="12-rank" class="preloadRankImageDiv"></div>
-      <div id="13-rank" class="preloadRankImageDiv"></div>
-      <div id="14-rank" class="preloadRankImageDiv"></div>
-      <div id="15-rank" class="preloadRankImageDiv"></div>
-      <div id="16-rank" class="preloadRankImageDiv"></div>
-      <div id="17-rank" class="preloadRankImageDiv"></div>
-      <div id="18-rank" class="preloadRankImageDiv"></div>
-      <div id="19-rank" class="preloadRankImageDiv"></div>
-      <div id="0a-as" class="preloadAsImageDiv"></div>
-      <div id="0b-as" class="preloadAsImageDiv"></div>
-      <div id="1a-as" class="preloadAsImageDiv"></div>
-      <div id="1b-as" class="preloadAsImageDiv"></div>
-      <div id="2a-as" class="preloadAsImageDiv"></div>
-      <div id="2b-as" class="preloadAsImageDiv"></div>
-      <div id="3a-as" class="preloadAsImageDiv"></div>
-      <div id="3b-as" class="preloadAsImageDiv"></div>
-      <div id="4a-as" class="preloadAsImageDiv"></div>
-      <div id="4b-as" class="preloadAsImageDiv"></div>
-      <div id="5a-as" class="preloadAsImageDiv"></div>
-      <div id="5b-as" class="preloadAsImageDiv"></div>
-      <div id="6a-as" class="preloadAsImageDiv"></div>
-      <div id="6b-as" class="preloadAsImageDiv"></div>
-      <div id="7a-as" class="preloadAsImageDiv"></div>
-      <div id="7b-as" class="preloadAsImageDiv"></div>
-      <div id="8a-as" class="preloadAsImageDiv"></div>
-      <div id="8b-as" class="preloadAsImageDiv"></div>
-      <div id="9a-as" class="preloadAsImageDiv"></div>
-      <div id="9b-as" class="preloadAsImageDiv"></div>
-      <div id="10a-as" class="preloadAsImageDiv"></div>
-      <div id="10b-as" class="preloadAsImageDiv"></div>
-      <div id="11a-as" class="preloadAsImageDiv"></div>
-      <div id="11b-as" class="preloadAsImageDiv"></div>
-      <div id="11c-as" class="preloadAsImageDiv"></div>
-      <div id="12a-as" class="preloadAsImageDiv"></div>
-      <div id="12b-as" class="preloadAsImageDiv"></div>
-      <div id="13a-as" class="preloadAsImageDiv"></div>
-      <div id="13b-as" class="preloadAsImageDiv"></div>
-      <div id="14a-as" class="preloadAsImageDiv"></div>
-      <div id="14b-as" class="preloadAsImageDiv"></div>
-      <div id="15a-as" class="preloadAsImageDiv"></div>
-      <div id="15b-as" class="preloadAsImageDiv"></div>
-      <div id="16a-as" class="preloadAsImageDiv"></div>
-      <div id="16b-as" class="preloadAsImageDiv"></div>
-      <div id="17a-as" class="preloadAsImageDiv"></div>
-      <div id="17b-as" class="preloadAsImageDiv"></div>
-      <div id="18a-as" class="preloadAsImageDiv"></div>
-      <div id="18b-as" class="preloadAsImageDiv"></div>
-      <div id="19a-as" class="preloadAsImageDiv"></div>
-      <div id="19b-as" class="preloadAsImageDiv"></div>
-      <div id="20a-as" class="preloadAsImageDiv"></div>
-      <div id="20b-as" class="preloadAsImageDiv"></div>
-      <div id="21a-as" class="preloadAsImageDiv"></div>
-      <div id="21b-as" class="preloadAsImageDiv"></div>
-      <div id="22a-as" class="preloadAsImageDiv"></div>
-      <div id="22b-as" class="preloadAsImageDiv"></div>
-      <div id="23a-as" class="preloadAsImageDiv"></div>
-      <div id="23b-as" class="preloadAsImageDiv"></div>
-      <div id="24a-as" class="preloadAsImageDiv"></div>
-      <div id="24b-as" class="preloadAsImageDiv"></div>
-      <div id="24c-as" class="preloadAsImageDiv"></div>
-      <div id="25a-as" class="preloadAsImageDiv"></div>
-      <div id="25b-as" class="preloadAsImageDiv"></div>
-      <div id="26a-as" class="preloadAsImageDiv"></div>
-      <div id="26b-as" class="preloadAsImageDiv"></div>
-      <div id="27a-as" class="preloadAsImageDiv"></div>
-      <div id="27b-as" class="preloadAsImageDiv"></div>
-      <div id="28a-as" class="preloadAsImageDiv"></div>
-      <div id="28b-as" class="preloadAsImageDiv"></div>
-      <div id="29a-as" class="preloadAsImageDiv"></div>
-      <div id="29b-as" class="preloadAsImageDiv"></div>
-      <div id="30a-as" class="preloadAsImageDiv"></div>
-      <div id="30b-as" class="preloadAsImageDiv"></div>
-      <div id="31a-as" class="preloadAsImageDiv"></div>
-      <div id="31b-as" class="preloadAsImageDiv"></div>
-      <div id="32a-as" class="preloadAsImageDiv"></div>
-      <div id="32b-as" class="preloadAsImageDiv"></div>
-      <div id="32c-as" class="preloadAsImageDiv"></div>
-    </div>
-  </div>
-
-  <div id="rankChartPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['rankChartPop'],['studentStatsPop'])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    </div>
-      <a href="../docs/ranks.pdf" target="_blank"><p>click here to download printable chart</p></a>
-      <div id = "rankChartContainer" class="scrollingContainer">
-      <table id="rankChartTable">
-        <tr>
-          <th>Insignia</th>
-          <th>Rank</th>
-          <th>Abbreviation</th>
-          <th>Points</th>
-        </tr>
-        <tr id="rankChartRow0">
-          <td id="rankChartInsignia0"></td>
-          <td id="rankChartRank0"></td>
-          <td id="rankChartAbbreviation0"></td>
-          <td id="rankChartPoints0"></td>
-        </tr>
-        <tr id="rankChartRow1">
-          <td id="rankChartInsignia1"></td>
-          <td id="rankChartRank1"></td>
-          <td id="rankChartAbbreviation1"></td>
-          <td id="rankChartPoints1"></td>
-        </tr>
-        <tr id="rankChartRow2">
-          <td id="rankChartInsignia2"></td>
-          <td id="rankChartRank2"></td>
-          <td id="rankChartAbbreviation2"></td>
-          <td id="rankChartPoints2"></td>
-        </tr>
-        <tr id="rankChartRow3">
-          <td id="rankChartInsignia3"></td>
-          <td id="rankChartRank3"></td>
-          <td id="rankChartAbbreviation3"></td>
-          <td id="rankChartPoints3"></td>
-        </tr>
-        <tr id="rankChartRow4">
-          <td id="rankChartInsignia4"></td>
-          <td id="rankChartRank4"></td>
-          <td id="rankChartAbbreviation4"></td>
-          <td id="rankChartPoints4"></td>
-        </tr>
-        <tr id="rankChartRow5">
-          <td id="rankChartInsignia5"></td>
-          <td id="rankChartRank5"></td>
-          <td id="rankChartAbbreviation5"></td>
-          <td id="rankChartPoints5"></td>
-        </tr>
-        <tr id="rankChartRow6">
-          <td id="rankChartInsignia6"></td>
-          <td id="rankChartRank6"></td>
-          <td id="rankChartAbbreviation6"></td>
-          <td id="rankChartPoints6"></td>
-        </tr>
-        <tr id="rankChartRow7">
-          <td id="rankChartInsignia7"></td>
-          <td id="rankChartRank7"></td>
-          <td id="rankChartAbbreviation7"></td>
-          <td id="rankChartPoints7"></td>
-        </tr>
-        <tr id="rankChartRow8">
-          <td id="rankChartInsignia8"></td>
-          <td id="rankChartRank8"></td>
-          <td id="rankChartAbbreviation8"></td>
-          <td id="rankChartPoints8"></td>
-        </tr>
-        <tr id="rankChartRow9">
-          <td id="rankChartInsignia9"></td>
-          <td id="rankChartRank9"></td>
-          <td id="rankChartAbbreviation9"></td>
-          <td id="rankChartPoints9"></td>
-        </tr>
-        <tr id="rankChartRow10">
-          <td id="rankChartInsignia10"></td>
-          <td id="rankChartRank10"></td>
-          <td id="rankChartAbbreviation10"></td>
-          <td id="rankChartPoints10"></td>
-        </tr>
-        <tr id="rankChartRow11">
-          <td id="rankChartInsignia11"></td>
-          <td id="rankChartRank11"></td>
-          <td id="rankChartAbbreviation11"></td>
-          <td id="rankChartPoints11"></td>
-        </tr>
-        <tr id="rankChartRow12">
-          <td id="rankChartInsignia12"></td>
-          <td id="rankChartRank12"></td>
-          <td id="rankChartAbbreviation12"></td>
-          <td id="rankChartPoints12"></td>
-        </tr>
-        <tr id="rankChartRow13">
-          <td id="rankChartInsignia13"></td>
-          <td id="rankChartRank13"></td>
-          <td id="rankChartAbbreviation13"></td>
-          <td id="rankChartPoints13"></td>
-        </tr>
-        <tr id="rankChartRow14">
-          <td id="rankChartInsignia14"></td>
-          <td id="rankChartRank14"></td>
-          <td id="rankChartAbbreviation14"></td>
-          <td id="rankChartPoints14"></td>
-        </tr>
-        <tr id="rankChartRow15">
-          <td id="rankChartInsignia15"></td>
-          <td id="rankChartRank15"></td>
-          <td id="rankChartAbbreviation15"></td>
-          <td id="rankChartPoints15"></td>
-        </tr>
-        <tr id="rankChartRow16">
-          <td id="rankChartInsignia16"></td>
-          <td id="rankChartRank16"></td>
-          <td id="rankChartAbbreviation16"></td>
-          <td id="rankChartPoints16"></td>
-        </tr>
-        <tr id="rankChartRow17">
-          <td id="rankChartInsignia17"></td>
-          <td id="rankChartRank17"></td>
-          <td id="rankChartAbbreviation17"></td>
-          <td id="rankChartPoints17"></td>
-        </tr>
-        <tr id="rankChartRow18">
-          <td id="rankChartInsignia18"></td>
-          <td id="rankChartRank18"></td>
-          <td id="rankChartAbbreviation18"></td>
-          <td id="rankChartPoints18"></td>
-        </tr>
-        <tr id="rankChartRow19">
-          <td id="rankChartInsignia19"></td>
-          <td id="rankChartRank19"></td>
-          <td id="rankChartAbbreviation19"></td>
-          <td id="rankChartPoints19"></td>
-        </tr>
-      </table>
-      </div>
-    </div>
-
-  <div id="openInsigniaPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton" onclick="pop(['openInsigniaPop'],[_sharedPop])"><span>f</span></div>
-      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+      <p>Team 1</p>
+      <div id="team1Score" onclick="dataInputAlert('Adjust team 1 score',['playGamePop'],false,adjustGameScore,1)">0</div>
     </div>
     <div>
-      <div id="displayInsignia"></div>
+      <p>Team 2</p>
+      <div id="team2Score" onclick="dataInputAlert('Adjust team 2 score',['playGamePop'],false,adjustGameScore,2)">0</div>
     </div>
   </div>
+  <p id="currentPlayer"></p>
+  <div id="gamePointButtonsContainer">
+    <div class="gamePointButton" id="gamePoint1" onclick="gameScorePoints(1)">1</div>
+    <div class="gamePointButton" id="gamePoint2" onclick="gameScorePoints(2)">2</div>
+    <div class="gamePointButton" id="gamePoint3" onclick="gameScorePoints(3)">3</div>
+    <div class="gamePointButton" id="gamePoint4" onclick="gameScorePoints(4)">4</div>
+    <div class="gamePointButton" id="gamePoint5" onclick="gameScorePoints(5)">5</div>
+    <div class="gamePointButton" id="gamePoint6" onclick="gameScorePoints(6)">6</div>
+    <div class="gamePointButton" id="gamePoint7" onclick="gameScorePoints(7)">7</div>
+    <div class="gamePointButton" id="gamePoint8" onclick="gameScorePoints(8)">8</div>
+    <div class="gamePointButton" id="gamePoint9" onclick="gameScorePoints(9)">9</div>
+    <div class="gameUndoButton" onclick="undoGameScorePoints()">b</div>
+    <div class="gamePointButton" id="gamePoint10" onclick="gameScorePoints(10)">10</div>
+    <div class="gameLogButton" onclick="pop(['playGamePop'],['gameLogPop'])">LOG</div>
+  </div>
+</div>
+
+<div id="advancedOptionsPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['advancedOptionsPop'],['mainPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> Fast new student entry</label><br>
+  <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> Fast student editing</label>
+</div>
+
+<div id="infoAlertPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="infoAlert()"><span>f</span></div>
+  </div>
+    <p id="infoAlertTitle">!</p>
+    <p id="infoAlertMessage"></p>
+</div>
+
+<div id="actionAlertPop" class="pop">
+  <p id="actionAlertMessage"></p>
+  <div class="optionButtonContainer">
+    <div class="roundButton cancelButton" onclick="actionAlert(false,false,false,true)">X</div>
+    <div class="roundButton okButton" onclick="actionAlert()">V</div>
+  </div>
+</div>
+
+<div id="dataInputAlertPop" class="pop">
+  <p id="dataInputAlertMessage"></p>
+  <input id="dataInputTextField" type="text"/>
+  <div id="enterReasonDiv">
+    <p>Reason (required):</p>
+    <textarea id="enterReasonTextField" rows="10" cols="30"></textarea>
+  </div>
+  <div class="optionButtonContainer">
+    <div class="roundButton cancelButton" onclick="dataInputAlert(false,false,false,false,false,true)">X</div>
+    <div class="roundButton okButton" onclick="dataInputAlert()">V</div>
+  </div>
+</div>
+
+<div id="missionVisibilityPop" class="pop buttonArr">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop(['missionVisibilityPop'],['studentPop','missionsPop'])"><span>f</span></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <div id="missionCheckBoxDiv">
+      <label class="checkboxLabel"><input type="checkbox" id="check0" class="checkbox" onclick="toggleMissions(0)"/> Class Intro / Ps 139:17-18</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check1" class="checkbox" onclick="toggleMissions(1)"/> John Intro / Jn 20:30-31</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check2" class="checkbox" onclick="toggleMissions(2)"/> John 1 / Jn 1:1-2</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check3" class="checkbox" onclick="toggleMissions(3)"/> John 2 / Jn 1:3</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check4" class="checkbox" onclick="toggleMissions(4)"/> John 3 / Jn 1:4-5</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check5" class="checkbox" onclick="toggleMissions(5)"/> John 4 / Jn 1:6-8</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check6" class="checkbox" onclick="toggleMissions(6)"/> John 5 / Jn 1:9-11</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check7" class="checkbox" onclick="toggleMissions(7)"/> John 6 / Jn 1:12-13</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check8" class="checkbox" onclick="toggleMissions(8)"/> John 7 / Jn 1:14</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check9" class="checkbox" onclick="toggleMissions(9)"/> John 8 / Jn 1:15</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check10" class="checkbox" onclick="toggleMissions(10)"/> John 9 / Jn 1:16-17</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check11" class="checkbox" onclick="toggleMissions(11)"/> John 1-9 Review / Jn 1:18</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check12" class="checkbox" onclick="toggleMissions(12)"/> John 10 / Phil 2:5-6</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check13" class="checkbox" onclick="toggleMissions(13)"/> John 11 / Phil 2:7</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check14" class="checkbox" onclick="toggleMissions(14)"/> John 12 / Phil 2:8</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check15" class="checkbox" onclick="toggleMissions(15)"/> John 13 / Phil 2:9</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check16" class="checkbox" onclick="toggleMissions(16)"/> John 14 / Phil 2:10-11</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check17" class="checkbox" onclick="toggleMissions(17)"/> John 15 / Rom 8:31</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check18" class="checkbox" onclick="toggleMissions(18)"/> John 16 / Rom 8:32</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check19" class="checkbox" onclick="toggleMissions(19)"/> John 17 / Rom 8:33</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check20" class="checkbox" onclick="toggleMissions(20)"/> John 18 / Rom 8:34</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check21" class="checkbox" onclick="toggleMissions(21)"/> John 19 / Rom 8:35</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check22" class="checkbox" onclick="toggleMissions(22)"/> John 20 / Rom 8:36</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check23" class="checkbox" onclick="toggleMissions(23)"/> John 21 / Rom 8:37</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check24" class="checkbox" onclick="toggleMissions(24)"/> John 10-21 Review / Rom 8:38-39</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check25" class="checkbox" onclick="toggleMissions(25)"/> Armor Intro / Eph 6:10-11/</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check26" class="checkbox" onclick="toggleMissions(26)"/> Belt / Eph 6:12</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check27" class="checkbox" onclick="toggleMissions(27)"/> Breastplate / Eph 6:13</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check28" class="checkbox" onclick="toggleMissions(28)"/> Shoes / Eph 6:14-15</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check29" class="checkbox" onclick="toggleMissions(29)"/> Shield / Eph 6:16</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check30" class="checkbox" onclick="toggleMissions(30)"/> Helmet / Eph 6:17</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check31" class="checkbox" onclick="toggleMissions(31)"/> Sword / Eph 6:18</label><br>
+      <label class="checkboxLabel"><input type="checkbox" id="check32" class="checkbox" onclick="toggleMissions(32)"/> Armor Review / no verse</label><br>
+    </div>
+</div>
+
+<div id="wtlPop" class="pop buttonArr">
+    <p>Load localstorage or backup.js?</p>
+    <div class="button" onclick="loadLS()">localstorage</div>
+    <div class="button" onclick="actionAlert('This action may potentially overwrite more current data. Are you sure?',['wtlPop'],loadBackup)">backup.js</div>
+</div>
+
+<div id="logPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['logPop'],['mainPop'])"><span>f</span></div>
+    <div class="textNavigationButton" onclick="window.print()">Print</div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <p id="todaysDate"></p>
+  <input id="searchLog" type="text" placeholder="search log" oninput="searchLog()"/>
+  <div id="log"></div>
+</div>
+
+<div id="gameLogPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['gameLogPop'],['playGamePop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="gameLog"></div>
+</div>
+
+<div id="studentPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="goHome()"><span>f</span></div>
+      <div class="secretButton" onclick="dataInputAlert('Set points to:',['studentPop','missionsPop'],true,setPoints)"></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <span id="dispRankName"></span> <span id="dispPts"></span><br>
+    <p id="dispName" onclick="toggleAttendance()"></p>
+    <span id="dispBday"></span><br><br>
+    <div id="penContainer">
+        <div class="studentPopButtons" id="statsButton" onclick="loadStudentStats()">stats</div>
+        <div class="studentPopButtons" id="editButton" onclick="populateStudentFields()">edit info</div>
+        <div class="studentPopButtons" id="notesButton" onclick="pop(['studentPop','missionsPop'],['notesPop','notesList']); populateNotes()">notes</div>
+        <div class="studentPopButtons" id="photoButton" onclick="loadStudentPhoto()">photo</div>
+        <div class="studentPopButtons" id="attendanceButton">Attendance</div>
+        <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields('editEmail1')">email</div>
+    </div>
+</div>
+
+<div id="studentPhotoPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['studentPhotoPop'],['studentPop','missionsPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="dispStudentPhoto" onclick="photoLinks()"></div>
+</div>
+
+<div id="studentStatsPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['studentStatsPop'],['studentPop','missionsPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="studentStatsTopContainerDiv">
+    <div id="studentStatsInsignia" onclick="openInsignia()"></div>
+    <div id="studentStatsName">
+      <p id="statsRankName"></p>
+      <p id="statsName"></p>
+      <p id="statsClassRank"></p>
+    </div>
+  </div>
+  <div id="studentStatsBottomContainerDiv">
+    <div id=RankProgressTableDiv onclick="loadRankTable()">
+      <p id="rankProgressTableP"></p>
+      <table id="rankProgressTable" class="progressBarTable">
+        <tr>
+          <td id="rankProgressBar1"></td>
+          <td id="rankProgressBar2"></td>
+          <td id="rankProgressBar3"></td>
+          <td id="rankProgressBar4"></td>
+          <td id="rankProgressBar5"></td>
+          <td id="rankProgressBar6"></td>
+          <td id="rankProgressBar7"></td>
+          <td id="rankProgressBar8"></td>
+          <td id="rankProgressBar9"></td>
+          <td id="rankProgressBar10"></td>
+          <td id="rankProgressBar11"></td>
+          <td id="rankProgressBar12"></td>
+          <td id="rankProgressBar13"></td>
+          <td id="rankProgressBar14"></td>
+          <td id="rankProgressBar15"></td>
+          <td id="rankProgressBar16"></td>
+          <td id="rankProgressBar17"></td>
+          <td id="rankProgressBar18"></td>
+          <td id="rankProgressBar19"></td>
+          <td id="rankProgressBar20"></td>
+          <td id="rankProgressBar21"></td>
+          <td id="rankProgressBar22"></td>
+          <td id="rankProgressBar23"></td>
+          <td id="rankProgressBar24"></td>
+          <td id="rankProgressBar25"></td>
+          <td id="rankProgressBar26"></td>
+          <td id="rankProgressBar27"></td>
+          <td id="rankProgressBar28"></td>
+          <td id="rankProgressBar29"></td>
+          <td id="rankProgressBar30"></td>
+          <td id="rankProgressBar31"></td>
+          <td id="rankProgressBar32"></td>
+          <td id="rankProgressBar33"></td>
+          <td id="rankProgressBar34"></td>
+          <td id="rankProgressBar35"></td>
+          <td id="rankProgressBar36"></td>
+          <td id="rankProgressBar37"></td>
+          <td id="rankProgressBar38"></td>
+          <td id="rankProgressBar39"></td>
+          <td id="rankProgressBar40"></td>
+        </tr>
+      </table>
+    </div>
+    <p id="totalProgressTableP"></p>
+    <table id="totalProgressTable" class="progressBarTable">
+      <tr>
+        <td id="totalProgressBar1"></td>
+        <td id="totalProgressBar2"></td>
+        <td id="totalProgressBar3"></td>
+        <td id="totalProgressBar4"></td>
+        <td id="totalProgressBar5"></td>
+        <td id="totalProgressBar6"></td>
+        <td id="totalProgressBar7"></td>
+        <td id="totalProgressBar8"></td>
+        <td id="totalProgressBar9"></td>
+        <td id="totalProgressBar10"></td>
+        <td id="totalProgressBar11"></td>
+        <td id="totalProgressBar12"></td>
+        <td id="totalProgressBar13"></td>
+        <td id="totalProgressBar14"></td>
+        <td id="totalProgressBar15"></td>
+        <td id="totalProgressBar16"></td>
+        <td id="totalProgressBar17"></td>
+        <td id="totalProgressBar18"></td>
+        <td id="totalProgressBar19"></td>
+        <td id="totalProgressBar20"></td>
+        <td id="totalProgressBar21"></td>
+        <td id="totalProgressBar22"></td>
+        <td id="totalProgressBar23"></td>
+        <td id="totalProgressBar24"></td>
+        <td id="totalProgressBar25"></td>
+        <td id="totalProgressBar26"></td>
+        <td id="totalProgressBar27"></td>
+        <td id="totalProgressBar28"></td>
+        <td id="totalProgressBar29"></td>
+        <td id="totalProgressBar30"></td>
+        <td id="totalProgressBar31"></td>
+        <td id="totalProgressBar32"></td>
+        <td id="totalProgressBar33"></td>
+        <td id="totalProgressBar34"></td>
+        <td id="totalProgressBar35"></td>
+        <td id="totalProgressBar36"></td>
+        <td id="totalProgressBar37"></td>
+        <td id="totalProgressBar38"></td>
+        <td id="totalProgressBar39"></td>
+        <td id="totalProgressBar40"></td>
+      </tr>
+    </table>
+    <p id="asProgressTableP"></p>
+    <table id="asProgressTable" class="progressBarTable">
+      <tr>
+        <td id="asProgressBar1"></td>
+        <td id="asProgressBar2"></td>
+        <td id="asProgressBar3"></td>
+        <td id="asProgressBar4"></td>
+        <td id="asProgressBar5"></td>
+        <td id="asProgressBar6"></td>
+        <td id="asProgressBar7"></td>
+        <td id="asProgressBar8"></td>
+        <td id="asProgressBar9"></td>
+        <td id="asProgressBar10"></td>
+        <td id="asProgressBar11"></td>
+        <td id="asProgressBar12"></td>
+        <td id="asProgressBar13"></td>
+        <td id="asProgressBar14"></td>
+        <td id="asProgressBar15"></td>
+        <td id="asProgressBar16"></td>
+        <td id="asProgressBar17"></td>
+        <td id="asProgressBar18"></td>
+        <td id="asProgressBar19"></td>
+        <td id="asProgressBar20"></td>
+        <td id="asProgressBar21"></td>
+        <td id="asProgressBar22"></td>
+        <td id="asProgressBar23"></td>
+        <td id="asProgressBar24"></td>
+        <td id="asProgressBar25"></td>
+        <td id="asProgressBar26"></td>
+        <td id="asProgressBar27"></td>
+        <td id="asProgressBar28"></td>
+        <td id="asProgressBar29"></td>
+        <td id="asProgressBar30"></td>
+        <td id="asProgressBar31"></td>
+        <td id="asProgressBar32"></td>
+        <td id="asProgressBar33"></td>
+        <td id="asProgressBar34"></td>
+        <td id="asProgressBar35"></td>
+        <td id="asProgressBar36"></td>
+        <td id="asProgressBar37"></td>
+        <td id="asProgressBar38"></td>
+        <td id="asProgressBar39"></td>
+        <td id="asProgressBar40"></td>
+      </tr>
+    </table>
+    <p id="mvProgressTableP"></p>
+    <table id="mvProgressTable" class="progressBarTable"> 
+      <tr>
+        <td id="mvProgressBar1"></td>
+        <td id="mvProgressBar2"></td>
+        <td id="mvProgressBar3"></td>
+        <td id="mvProgressBar4"></td>
+        <td id="mvProgressBar5"></td>
+        <td id="mvProgressBar6"></td>
+        <td id="mvProgressBar7"></td>
+        <td id="mvProgressBar8"></td>
+        <td id="mvProgressBar9"></td>
+        <td id="mvProgressBar10"></td>
+        <td id="mvProgressBar11"></td>
+        <td id="mvProgressBar12"></td>
+        <td id="mvProgressBar13"></td>
+        <td id="mvProgressBar14"></td>
+        <td id="mvProgressBar15"></td>
+        <td id="mvProgressBar16"></td>
+        <td id="mvProgressBar17"></td>
+        <td id="mvProgressBar18"></td>
+        <td id="mvProgressBar19"></td>
+        <td id="mvProgressBar20"></td>
+        <td id="mvProgressBar21"></td>
+        <td id="mvProgressBar22"></td>
+        <td id="mvProgressBar23"></td>
+        <td id="mvProgressBar24"></td>
+        <td id="mvProgressBar25"></td>
+        <td id="mvProgressBar26"></td>
+        <td id="mvProgressBar27"></td>
+        <td id="mvProgressBar28"></td>
+        <td id="mvProgressBar29"></td>
+        <td id="mvProgressBar30"></td>
+        <td id="mvProgressBar31"></td>
+        <td id="mvProgressBar32"></td>
+        <td id="mvProgressBar33"></td>
+        <td id="mvProgressBar34"></td>
+        <td id="mvProgressBar35"></td>
+        <td id="mvProgressBar36"></td>
+        <td id="mvProgressBar37"></td>
+        <td id="mvProgressBar38"></td>
+        <td id="mvProgressBar39"></td>
+        <td id="mvProgressBar40"></td>
+      </tr>
+    </table>
+    <p id="attendanceProgressTableP"></p>
+    <table id="attendanceProgressTable" class="progressBarTable">
+      <tr>
+        <td id="attendanceProgressBar1"></td>
+        <td id="attendanceProgressBar2"></td>
+        <td id="attendanceProgressBar3"></td>
+        <td id="attendanceProgressBar4"></td>
+        <td id="attendanceProgressBar5"></td>
+        <td id="attendanceProgressBar6"></td>
+        <td id="attendanceProgressBar7"></td>
+        <td id="attendanceProgressBar8"></td>
+        <td id="attendanceProgressBar9"></td>
+        <td id="attendanceProgressBar10"></td>
+        <td id="attendanceProgressBar11"></td>
+        <td id="attendanceProgressBar12"></td>
+        <td id="attendanceProgressBar13"></td>
+        <td id="attendanceProgressBar14"></td>
+        <td id="attendanceProgressBar15"></td>
+        <td id="attendanceProgressBar16"></td>
+        <td id="attendanceProgressBar17"></td>
+        <td id="attendanceProgressBar18"></td>
+        <td id="attendanceProgressBar19"></td>
+        <td id="attendanceProgressBar20"></td>
+        <td id="attendanceProgressBar21"></td>
+        <td id="attendanceProgressBar22"></td>
+        <td id="attendanceProgressBar23"></td>
+        <td id="attendanceProgressBar24"></td>
+        <td id="attendanceProgressBar25"></td>
+        <td id="attendanceProgressBar26"></td>
+        <td id="attendanceProgressBar27"></td>
+        <td id="attendanceProgressBar28"></td>
+        <td id="attendanceProgressBar29"></td>
+        <td id="attendanceProgressBar30"></td>
+        <td id="attendanceProgressBar31"></td>
+        <td id="attendanceProgressBar32"></td>
+        <td id="attendanceProgressBar33"></td>
+        <td id="attendanceProgressBar34"></td>
+        <td id="attendanceProgressBar35"></td>
+        <td id="attendanceProgressBar36"></td>
+        <td id="attendanceProgressBar37"></td>
+        <td id="attendanceProgressBar38"></td>
+        <td id="attendanceProgressBar39"></td>
+        <td id="attendanceProgressBar40"></td>
+      </tr>
+    </table>
+    <p id="totalParticipationTableP"></p>
+    <table id="totalParticipationTable" class="progressBarTable">
+      <tr>
+        <td id="totalParticipationBar1"></td>
+        <td id="totalParticipationBar2"></td>
+        <td id="totalParticipationBar3"></td>
+        <td id="totalParticipationBar4"></td>
+        <td id="totalParticipationBar5"></td>
+        <td id="totalParticipationBar6"></td>
+        <td id="totalParticipationBar7"></td>
+        <td id="totalParticipationBar8"></td>
+        <td id="totalParticipationBar9"></td>
+        <td id="totalParticipationBar10"></td>
+        <td id="totalParticipationBar11"></td>
+        <td id="totalParticipationBar12"></td>
+        <td id="totalParticipationBar13"></td>
+        <td id="totalParticipationBar14"></td>
+        <td id="totalParticipationBar15"></td>
+        <td id="totalParticipationBar16"></td>
+        <td id="totalParticipationBar17"></td>
+        <td id="totalParticipationBar18"></td>
+        <td id="totalParticipationBar19"></td>
+        <td id="totalParticipationBar20"></td>
+        <td id="totalParticipationBar21"></td>
+        <td id="totalParticipationBar22"></td>
+        <td id="totalParticipationBar23"></td>
+        <td id="totalParticipationBar24"></td>
+        <td id="totalParticipationBar25"></td>
+        <td id="totalParticipationBar26"></td>
+        <td id="totalParticipationBar27"></td>
+        <td id="totalParticipationBar28"></td>
+        <td id="totalParticipationBar29"></td>
+        <td id="totalParticipationBar30"></td>
+        <td id="totalParticipationBar31"></td>
+        <td id="totalParticipationBar32"></td>
+        <td id="totalParticipationBar33"></td>
+        <td id="totalParticipationBar34"></td>
+        <td id="totalParticipationBar35"></td>
+        <td id="totalParticipationBar36"></td>
+        <td id="totalParticipationBar37"></td>
+        <td id="totalParticipationBar38"></td>
+        <td id="totalParticipationBar39"></td>
+        <td id="totalParticipationBar40"></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div id="newStudentPop" class="pop">
+  <input class="textInputField1 focus" id="newFirstAndLast" type="text" placeholder="first/last"/>
+  <div class="genderAndBdayContainer">
+    <input class="textInputField2" id="newGender" type="text" placeholder="M or F"/>
+    <input class="textInputField2" id="newBday" type="text" placeholder="month/day"/>
+  </div>
+  <input class="textInputField1" id="newEmail1" type="text" placeholder="primary email"/>
+  <input class="textInputField1" id="newEmail2" type="text" placeholder="secondary email"/>
+  <input class="textInputField1" id="newParent1" type="text" placeholder="parentfirst/last/phone"/>
+  <input class="textInputField1" id="newParent2" type="text" placeholder="parentfirst/last/phone"/>
+  <textarea id="initialNote" rows="10" cols="30" placeholder="note"></textarea>
+  <div class="optionButtonContainer">
+    <div class="roundButton cancelButton" onclick="pop(['newStudentPop'],['mainPop']); clearStudentFields()">X</div>
+    <div class="roundButton okButton" onclick="newStudent()">V</div>
+  </div>
+</div>
+
+<div id="editStudentPop" class="pop">
+  <input class="textInputField1" id="editFirstAndLast" type="text" placeholder="first/last"/>
+  <div class="genderAndBdayContainer">
+    <input class="textInputField2 focus" id="editGender" type="text" placeholder="M or F"/>
+    <input class="textInputField2" id="editBday" type="text" placeholder="month/day"/>
+  </div>
+  <input class="textInputField1" id="editEmail1" type="text" placeholder="primary email"/>
+  <input class="textInputField1" id="editEmail2" type="text" placeholder="secondary email"/>
+  <input class="textInputField1" id="editParent1" type="text" placeholder="parentfirst/last/phone"/>
+  <input class="textInputField1" id="editParent2" type="text" placeholder="parentfirst/last/phone"/>
+  <div class="optionButtonContainer">
+    <div class="roundButton cancelButton" onclick="pop(['editStudentPop'],['studentPop','missionsPop']); clearStudentFields()">X</div>
+    <div class="roundButton deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
+    <div class="roundButton okButton" onclick="editStudent()">V</div>
+  </div>
+</div>
+
+<div id="notesPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['notesPop','editNotePop'],['studentPop','missionsPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    <div class="roundButton addButton" onclick="pop(['notesPop'],['addNotePop','addNote'])">;</div>
+  </div>
+  <p id="studentNotesHeader" class="notesListHeader"></p>
+  <div id="notesList"></div>
+</div>
+
+<div id="teacherNotesPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['teacherNotesPop','editTeacherNotePop'],['mainMenuPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    <div class="roundButton addButton" onclick="pop(['teacherNotesPop'],['addTeacherNotePop','addTeacherNote'])">;</div>
+  </div>
+  <p id="studentNotesHeader" class="notesListHeader">Notes</p>
+  <div id="teacherNotesList"></div>
+</div>
+
+<div id="addNotePop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['addNotePop'],['notesPop','notesList'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <textarea id="addNote" rows="10" cols="30"></textarea>
+  <div class="optionButtonContainer">
+    <div class="roundButton cancelButton" onclick="pop(['addNotePop'],['notesPop','notesList'])">X</div>
+    <div class="roundButton okButton" onclick="addNote()">V</div>
+  </div>
+</div>
+
+<div id="addTeacherNotePop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['addTeacherNotePop','addTeacherNote'],['teacherNotesPop','teacherNotesList'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <textarea id="addTeacherNote" rows="10" cols="30"></textarea>
+  <div class="optionButtonContainer">
+    <div class="roundButton cancelButton" onclick="pop(['addTeacherNotePop','addTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
+    <div class="roundButton okButton" onclick="addTeacherNote()">V</div>
+  </div>
+</div>
+
+<div id="editNotePop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['editNotePop','editNote'],['notesPop','notesList'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <textarea id="editNote" rows="10" cols="30"></textarea>
+  <div class="optionButtonContainer">
+    <div class="roundButton cancelButton" onclick="pop(['editNotePop','editNote'],['notesPop','notesList'])">X</div>
+    <div class="roundButton deleteButton" id="deleteNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editNotePop'],deleteNote)">U</div>
+    <div class="roundButton okButton" onclick="editNote()">V</div>
+</div>
+</div>
+
+<div id="editTeacherNotePop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <textarea id="editTeacherNote" rows="10" cols="30"></textarea>
+  <div class="optionButtonContainer">
+    <div class="roundButton cancelButton" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
+    <div class="roundButton deleteButton" id="deleteTeacherNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editTeacherNotePop'],deleteTeacherNote)">U</div>
+    <div class="roundButton okButton" onclick="editTeacherNote()">V</div>
+  </div>
+</div>
+
+<div id="drawingPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['drawingPop'],['mainMenuPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="drawingNameDiv" onclick="drawing()">
+      <p id="drawingName">tap here<br>to pick</p>
+  </div>
+</div>
+
+<div id="randomPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['randomPop'],['mainMenuPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="randomNameDiv" onclick="random()">
+      <p id="randomName">tap here<br>to pick</p>
+  </div>
+  <div id="randomFilter">
+    <form>
+      <input class="radioButton" type="radio" id="all" name="randomFilter" value="All" checked>
+      <label for="all">All</label><br>
+      <input class="radioButton" type="radio" id="boys" name="randomFilter" value="Boys">
+      <label for="boys">Boys</label><br>
+      <input class="radioButton" type="radio" id="girls" name="randomFilter" value="Girls">
+      <label for="girls">Girls</label><br><br>
+    </form> 
+  </div>
+</div>
+
+<div id="missionsPop" class="pop">
+    <div id="asmvHeaderContainer">
+      <div class="asmvHeader" onclick="pop(['studentPop','missionsPop'],['missionVisibilityPop'])">Activity<br>Sheets</div>
+      <div class="secretButton" onclick="populateNames2()"></div>
+      <div class="asmvHeader" onclick="toggleIncomplete()">Memory<br>Verses</div>
+    </div>
+    <div id=asmvPopContainer>
+      <div id="asPop">
+        <div id="as32Pop" class="asButton2 w32" onclick="asPop(32,6)">Armor<br>Review</div>
+        <div id="as31Pop" class="asButton w31" onclick="asPop(31)">Sword</div>
+        <div id="as30Pop" class="asButton w30" onclick="asPop(30)">Helmet</div>
+        <div id="as29Pop" class="asButton w29" onclick="asPop(29)">Shield</div>
+        <div id="as28Pop" class="asButton w28" onclick="asPop(28)">Shoes</div>
+        <div id="as27Pop" class="asButton2 w27" onclick="asPop(27)">Breast-<br>plate</div>
+        <div id="as26Pop" class="asButton w26" onclick="asPop(26)">Belt</div>
+        <div id="as25Pop" class="asButton2 w25" onclick="asPop(25)">Armor<br>Intro</div>
+        <div id="as24Pop" class="asButton3 w24" onclick="asPop(24,6)">John<br>10-21<br>Review</div>
+        <div id="as23Pop" class="asButton w23" onclick="asPop(23)">John 21</div>
+        <div id="as22Pop" class="asButton w22" onclick="asPop(22)">John 20</div>
+        <div id="as21Pop" class="asButton w21" onclick="asPop(21)">John 19</div>
+        <div id="as20Pop" class="asButton w20" onclick="asPop(20)">John 18</div>
+        <div id="as19Pop" class="asButton w19" onclick="asPop(19)">John 17</div>
+        <div id="as18Pop" class="asButton w18" onclick="asPop(18)">John 16</div>
+        <div id="as17Pop" class="asButton w17" onclick="asPop(17)">John 15</div>
+        <div id="as16Pop" class="asButton w16" onclick="asPop(16)">John 14</div>
+        <div id="as15Pop" class="asButton w15" onclick="asPop(15)">John 13</div>
+        <div id="as14Pop" class="asButton w14" onclick="asPop(14)">John 12</div>
+        <div id="as13Pop" class="asButton w13" onclick="asPop(13)">John 11</div>
+        <div id="as12Pop" class="asButton w12" onclick="asPop(12)">John 10</div>
+        <div id="as11Pop" class="asButton2 w11" onclick="asPop(11,6)">John 1-9<br>Review</div>
+        <div id="as10Pop" class="asButton w10" onclick="asPop(10)">John 9</div>
+        <div id="as9Pop" class="asButton w9" onclick="asPop(9)">John 8</div>
+        <div id="as8Pop" class="asButton w8" onclick="asPop(8)">John 7</div>
+        <div id="as7Pop" class="asButton w7" onclick="asPop(7)">John 6</div>
+        <div id="as6Pop" class="asButton w6" onclick="asPop(6)">John 5</div>
+        <div id="as5Pop" class="asButton w5" onclick="asPop(5)">John 4</div>
+        <div id="as4Pop" class="asButton w4" onclick="asPop(4)">John 3</div>
+        <div id="as3Pop" class="asButton w3" onclick="asPop(3)">John 2</div>
+        <div id="as2Pop" class="asButton w2" onclick="asPop(2)">John 1</div>
+        <div id="as1Pop" class="asButton2 w1" onclick="asPop(1)">John Intro</div>
+        <div id="as0Pop" class="asButton2 w0" onclick="asPop(0)">Class<br>Intro</div>
+      </div>
+      <div id="mvPop">
+        <div id="mv32Pop" class="asmvButtonFill w32"></div>
+        <div id="mv31Pop" class="mvButton4 w31" onclick="mvPop(31,31)">Eph<br>6:18<br>"praying at"</div>
+        <div id="mv30Pop" class="mvButton3 w30" onclick="mvPop(30,30)">Eph<br>6:17<br>"and take"</div>
+        <div id="mv29Pop" class="mvButton3 w29" onclick="mvPop(29,29)">Eph<br>6:16<br>"In all"</div>
+        <div id="mv28Pop" class="mvButton4 w28" onclick="mvPop(28,28,4)">Eph<br>6:14-15<br>"Stand therefore"</div>
+        <div id="mv27Pop" class="mvButton4 w27" onclick="mvPop(27,27)">Eph<br>6:13<br>"Therefore take"</div>
+        <div id="mv26Pop" class="mvButton3 w26" onclick="mvPop(26,26,4)">Eph<br>6:12<br>"For we"</div>
+        <div id="mv25Pop" class="mvButton4 w25" onclick="mvPop(25,25,4)">Eph<br>6:10-11<br>"Finally, be"</div>
+        <div id="mv24Pop" class="mvButton3 w24" onclick="mvPop(24,24,6)">Rom<br>8:38-39<br>"For I"</div>
+        <div id="mv23Pop" class="mvButton3 w23" onclick="mvPop(23,23)">Rom<br>8:37<br>"No, in"</div>
+        <div id="mv22Pop" class="mvButton3 w22" onclick="mvPop(22,22)">Rom<br>8:36<br>"As it"</div>
+        <div id="mv21Pop" class="mvButton4 w21" onclick="mvPop(21,21)">Rom<br>8:35<br>"Who shall separate"</div>
+        <div id="mv20Pop" class="mvButton3 w20" onclick="mvPop(20,20,4)">Rom<br>8:34<br>"Who is"</div>
+        <div id="mv19Pop" class="mvButton4 w19" onclick="mvPop(19,19)">Rom<br>8:33<br>"Who shall bring"</div>
+        <div id="mv18Pop" class="mvButton3 w18" onclick="mvPop(18,18,4)">Rom<br>8:32<br>"He who"</div>
+        <div id="mv17Pop" class="mvButton4 w17" onclick="mvPop(17,17)">Rom<br>8:31<br>"What then"</div>
+        <div id="mv16Pop" class="mvButton3 w16" onclick="mvPop(16,16,4)">Phil<br>2:10-11<br>"so that"</div>
+        <div id="mv15Pop" class="mvButton4 w15" onclick="mvPop(15,15)">Phil<br>2:9<br>"therefore God"</div>
+        <div id="mv14Pop" class="mvButton4 w14" onclick="mvPop(14,14)">Phil<br>2:8<br>"And being"</div>
+        <div id="mv13Pop" class="mvButton4 w13" onclick="mvPop(13,13)">Phil<br>2:7<br>"But emptied"</div>
+        <div id="mv12Pop" class="mvButton3 w12" onclick="mvPop(12,12,4)">Phil<br>2:5-6<br>"Have this"</div>
+        <div id="mv11Pop" class="mvButton3 w11" onclick="mvPop(11,11)">John<br>1:18<br>"No one"</div>
+        <div id="mv10Pop" class="mvButton3 w10" onclick="mvPop(10,10)">John<br>1:16-17<br>"For from"</div>
+        <div id="mv9Pop" class="mvButton4 w9" onclick="mvPop(9,9,4)">John<br>1:15<br>"John bore"</div>
+        <div id="mv8Pop" class="mvButton3 w8" onclick="mvPop(8,8,4)">John<br>1:14<br>"And the"</div>
+        <div id="mv7Pop" class="mvButton3 w7" onclick="mvPop(7,7,5)">John<br>1:12-13<br>"But to"</div>
+        <div id="mv6Pop" class="mvButton3 w6" onclick="mvPop(6,6,5)">John<br>1:9-11<br>"The true"</div>
+        <div id="mv5Pop" class="mvButton4 w5" onclick="mvPop(5,5,5)">John<br>1:6-8<br>"There was"</div>
+        <div id="mv4Pop" class="mvButton3 w4" onclick="mvPop(4,4)">John<br>1:4-5<br>"In him"</div>
+        <div id="mv3Pop" class="mvButton3 w3" onclick="mvPop(3,3)">John<br>1:3<br>"All things"</div>
+        <div id="mv2Pop" class="mvButton3 w2" onclick="mvPop(2,2)">John<br>1:1-2<br>"In the"</div>
+        <div id="mv1Pop" class="mvButton4 w1" onclick="mvPop(1,1,6)">John<br>20:30-31<br>"Now Jesus"</div>
+        <div id="mv0Pop" class="mvButton4 w0" onclick="mvPop(0,0,4)">Psalm<br>139:17<br>"How precious"</div>
+      </div>
+    </div>
+</div>
+
+<div id="asPointsPop" class="pop">
+  <div class="lowerNavigationButtonContainer">
+    <div class="secretButton2" onclick="populateNames2()"></div>
+    <div class="backButton" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])"><span>f</span></div>
+    <div class="secretButton2" onclick="populateNames2()"></div>
+  </div>
+  <div class="pointButtonContainer">
+      <div id="as1Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,1)">1</div>
+      <div id="as2Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,2)">2</div>
+      <div id="as3Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,3)">3</div>
+      <div id="as4Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,4)">4</div>
+      <div id="as5Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,5)">5</div>
+      <div id="as6Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,6)">6</div>
+  </div>
+  <div id="asReasonContainer" >
+    <textarea id="asReasonText" rows="5" cols="25" placeholder="reason for partial credit (required)"></textarea>
+    <div class="optionButtonContainer">
+      <div class="roundButton cancelButton" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])">X</div>
+      <div class="roundButton okButton" onclick="asPoints(_asNum,_asPoints,true)">V</div>
+    </div>
+  </div>
+  <div id="asReason"></div>
+  <div>
+    <div id="asPage1" onclick="missionLinks()"></div>
+    <div id="asPage2" onclick="missionLinks()"></div>
+    <div id="asPage3" onclick="missionLinks()"></div>
+  </div>
+</div>
+
+<div id="mvPointsPop" class="pop">
+  <div class="lowerNavigationButtonContainer">
+    <div class="secretButton2" onclick="populateNames2()"></div>
+    <div class="backButton" onclick="pop(['mvPointsPop'],['missionsPop'])"><span>f</span></div>
+    <div class="secretButton2" onclick="populateNames2()"></div>
+  </div>
+  <div class="pointButtonContainer">
+      <div class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,1)">1</div>
+      <div class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,2)">2</div>
+      <div class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,3)">3</div>
+      <div id="mv4Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,4)">4</div>
+      <div id="mv5Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,5)">5</div>
+      <div id="mv6Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,6)">6</div>
+  </div>
+  <p id="mvText"></p>
+</div>
+
+<div id="promoPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['promoPop'],['missionsPop','studentPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <p>Promotion:</p>
+  <div>
+    <div id="promoInsignia"></div>
+  </div>
+  <p id="dispRankNamePromo"></p>
+</div>
+
+<div id="promoListPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['promoListPop'],['alertsPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="promoList"></div>
+  <p id="absentPromotion">Absent:</p>
+  <div id="promoListAbsent"></div>
+</div>
+
+<div id="attendanceListPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop(['attendanceListPop'],['mainPop'])"><span>f</span></div>
+      <div class="secretButton" onclick="actionAlert('Randomize attendance?',['attendanceListPop'],randomAttendance)"></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+    <p id="attendanceCount" onclick="actionAlert('Reset attendance?',['attendanceListPop'],resetAttendance)"></p>
+
+    <div id="attendanceListContainer">
+      <div id=boysListAttendanceDiv>
+        <p id="boysListAttendanceP"></p>
+        <div id="boysListAttendance"></div>
+      </div>
+      <div id=girlsListAttendanceDiv>
+        <p id="girlsListAttendanceP"></p>
+        <div id="girlsListAttendance"></div>
+      </div>
+    </div>
+</div>
+
+<div id="bdayPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['bdayPop'],['alertsPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="bdayList"></div>
+  <p id="absentBday">Absent:</p>
+  <div id="bdayListAbsent"></div>
+</div>
+
+<div id="backupPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['backupPop'],['mainMenuPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="backupArrays" class ="select" onclick="selectText('backupArrays')">
+    <div id="slBackupArray"></div>
+    <div id="checkedStateBackupArray"></div>
+    <div id="amAttendanceBackupArray"></div>
+    <div id="pmAttendanceBackupArray"></div>
+    <div id="teacherNotesBackupArray"></div>
+  </div>
+</div>
+  
+<div id="preloadImagesPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['preloadImagesPop'],['mainMenuPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div class="scrollingContainer">
+    <div id="0-rank" class="preloadRankImageDiv"></div>
+    <div id="1-rank" class="preloadRankImageDiv"></div>
+    <div id="2-rank" class="preloadRankImageDiv"></div>
+    <div id="3-rank" class="preloadRankImageDiv"></div>
+    <div id="4-rank" class="preloadRankImageDiv"></div>
+    <div id="5-rank" class="preloadRankImageDiv"></div>
+    <div id="6-rank" class="preloadRankImageDiv"></div>
+    <div id="7-rank" class="preloadRankImageDiv"></div>
+    <div id="8-rank" class="preloadRankImageDiv"></div>
+    <div id="9-rank" class="preloadRankImageDiv"></div>
+    <div id="10-rank" class="preloadRankImageDiv"></div>
+    <div id="11-rank" class="preloadRankImageDiv"></div>
+    <div id="12-rank" class="preloadRankImageDiv"></div>
+    <div id="13-rank" class="preloadRankImageDiv"></div>
+    <div id="14-rank" class="preloadRankImageDiv"></div>
+    <div id="15-rank" class="preloadRankImageDiv"></div>
+    <div id="16-rank" class="preloadRankImageDiv"></div>
+    <div id="17-rank" class="preloadRankImageDiv"></div>
+    <div id="18-rank" class="preloadRankImageDiv"></div>
+    <div id="19-rank" class="preloadRankImageDiv"></div>
+    <div id="0a-as" class="preloadAsImageDiv"></div>
+    <div id="0b-as" class="preloadAsImageDiv"></div>
+    <div id="1a-as" class="preloadAsImageDiv"></div>
+    <div id="1b-as" class="preloadAsImageDiv"></div>
+    <div id="2a-as" class="preloadAsImageDiv"></div>
+    <div id="2b-as" class="preloadAsImageDiv"></div>
+    <div id="3a-as" class="preloadAsImageDiv"></div>
+    <div id="3b-as" class="preloadAsImageDiv"></div>
+    <div id="4a-as" class="preloadAsImageDiv"></div>
+    <div id="4b-as" class="preloadAsImageDiv"></div>
+    <div id="5a-as" class="preloadAsImageDiv"></div>
+    <div id="5b-as" class="preloadAsImageDiv"></div>
+    <div id="6a-as" class="preloadAsImageDiv"></div>
+    <div id="6b-as" class="preloadAsImageDiv"></div>
+    <div id="7a-as" class="preloadAsImageDiv"></div>
+    <div id="7b-as" class="preloadAsImageDiv"></div>
+    <div id="8a-as" class="preloadAsImageDiv"></div>
+    <div id="8b-as" class="preloadAsImageDiv"></div>
+    <div id="9a-as" class="preloadAsImageDiv"></div>
+    <div id="9b-as" class="preloadAsImageDiv"></div>
+    <div id="10a-as" class="preloadAsImageDiv"></div>
+    <div id="10b-as" class="preloadAsImageDiv"></div>
+    <div id="11a-as" class="preloadAsImageDiv"></div>
+    <div id="11b-as" class="preloadAsImageDiv"></div>
+    <div id="11c-as" class="preloadAsImageDiv"></div>
+    <div id="12a-as" class="preloadAsImageDiv"></div>
+    <div id="12b-as" class="preloadAsImageDiv"></div>
+    <div id="13a-as" class="preloadAsImageDiv"></div>
+    <div id="13b-as" class="preloadAsImageDiv"></div>
+    <div id="14a-as" class="preloadAsImageDiv"></div>
+    <div id="14b-as" class="preloadAsImageDiv"></div>
+    <div id="15a-as" class="preloadAsImageDiv"></div>
+    <div id="15b-as" class="preloadAsImageDiv"></div>
+    <div id="16a-as" class="preloadAsImageDiv"></div>
+    <div id="16b-as" class="preloadAsImageDiv"></div>
+    <div id="17a-as" class="preloadAsImageDiv"></div>
+    <div id="17b-as" class="preloadAsImageDiv"></div>
+    <div id="18a-as" class="preloadAsImageDiv"></div>
+    <div id="18b-as" class="preloadAsImageDiv"></div>
+    <div id="19a-as" class="preloadAsImageDiv"></div>
+    <div id="19b-as" class="preloadAsImageDiv"></div>
+    <div id="20a-as" class="preloadAsImageDiv"></div>
+    <div id="20b-as" class="preloadAsImageDiv"></div>
+    <div id="21a-as" class="preloadAsImageDiv"></div>
+    <div id="21b-as" class="preloadAsImageDiv"></div>
+    <div id="22a-as" class="preloadAsImageDiv"></div>
+    <div id="22b-as" class="preloadAsImageDiv"></div>
+    <div id="23a-as" class="preloadAsImageDiv"></div>
+    <div id="23b-as" class="preloadAsImageDiv"></div>
+    <div id="24a-as" class="preloadAsImageDiv"></div>
+    <div id="24b-as" class="preloadAsImageDiv"></div>
+    <div id="24c-as" class="preloadAsImageDiv"></div>
+    <div id="25a-as" class="preloadAsImageDiv"></div>
+    <div id="25b-as" class="preloadAsImageDiv"></div>
+    <div id="26a-as" class="preloadAsImageDiv"></div>
+    <div id="26b-as" class="preloadAsImageDiv"></div>
+    <div id="27a-as" class="preloadAsImageDiv"></div>
+    <div id="27b-as" class="preloadAsImageDiv"></div>
+    <div id="28a-as" class="preloadAsImageDiv"></div>
+    <div id="28b-as" class="preloadAsImageDiv"></div>
+    <div id="29a-as" class="preloadAsImageDiv"></div>
+    <div id="29b-as" class="preloadAsImageDiv"></div>
+    <div id="30a-as" class="preloadAsImageDiv"></div>
+    <div id="30b-as" class="preloadAsImageDiv"></div>
+    <div id="31a-as" class="preloadAsImageDiv"></div>
+    <div id="31b-as" class="preloadAsImageDiv"></div>
+    <div id="32a-as" class="preloadAsImageDiv"></div>
+    <div id="32b-as" class="preloadAsImageDiv"></div>
+    <div id="32c-as" class="preloadAsImageDiv"></div>
+  </div>
+</div>
+
+<div id="rankChartPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['rankChartPop'],['studentStatsPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+    <a href="../docs/ranks.pdf" target="_blank"><p>click here to download printable chart</p></a>
+    <div id = "rankChartContainer" class="scrollingContainer">
+    <table id="rankChartTable">
+      <tr>
+        <th>Insignia</th>
+        <th>Rank</th>
+        <th>Abbreviation</th>
+        <th>Points</th>
+      </tr>
+      <tr id="rankChartRow0">
+        <td id="rankChartInsignia0"></td>
+        <td id="rankChartRank0"></td>
+        <td id="rankChartAbbreviation0"></td>
+        <td id="rankChartPoints0"></td>
+      </tr>
+      <tr id="rankChartRow1">
+        <td id="rankChartInsignia1"></td>
+        <td id="rankChartRank1"></td>
+        <td id="rankChartAbbreviation1"></td>
+        <td id="rankChartPoints1"></td>
+      </tr>
+      <tr id="rankChartRow2">
+        <td id="rankChartInsignia2"></td>
+        <td id="rankChartRank2"></td>
+        <td id="rankChartAbbreviation2"></td>
+        <td id="rankChartPoints2"></td>
+      </tr>
+      <tr id="rankChartRow3">
+        <td id="rankChartInsignia3"></td>
+        <td id="rankChartRank3"></td>
+        <td id="rankChartAbbreviation3"></td>
+        <td id="rankChartPoints3"></td>
+      </tr>
+      <tr id="rankChartRow4">
+        <td id="rankChartInsignia4"></td>
+        <td id="rankChartRank4"></td>
+        <td id="rankChartAbbreviation4"></td>
+        <td id="rankChartPoints4"></td>
+      </tr>
+      <tr id="rankChartRow5">
+        <td id="rankChartInsignia5"></td>
+        <td id="rankChartRank5"></td>
+        <td id="rankChartAbbreviation5"></td>
+        <td id="rankChartPoints5"></td>
+      </tr>
+      <tr id="rankChartRow6">
+        <td id="rankChartInsignia6"></td>
+        <td id="rankChartRank6"></td>
+        <td id="rankChartAbbreviation6"></td>
+        <td id="rankChartPoints6"></td>
+      </tr>
+      <tr id="rankChartRow7">
+        <td id="rankChartInsignia7"></td>
+        <td id="rankChartRank7"></td>
+        <td id="rankChartAbbreviation7"></td>
+        <td id="rankChartPoints7"></td>
+      </tr>
+      <tr id="rankChartRow8">
+        <td id="rankChartInsignia8"></td>
+        <td id="rankChartRank8"></td>
+        <td id="rankChartAbbreviation8"></td>
+        <td id="rankChartPoints8"></td>
+      </tr>
+      <tr id="rankChartRow9">
+        <td id="rankChartInsignia9"></td>
+        <td id="rankChartRank9"></td>
+        <td id="rankChartAbbreviation9"></td>
+        <td id="rankChartPoints9"></td>
+      </tr>
+      <tr id="rankChartRow10">
+        <td id="rankChartInsignia10"></td>
+        <td id="rankChartRank10"></td>
+        <td id="rankChartAbbreviation10"></td>
+        <td id="rankChartPoints10"></td>
+      </tr>
+      <tr id="rankChartRow11">
+        <td id="rankChartInsignia11"></td>
+        <td id="rankChartRank11"></td>
+        <td id="rankChartAbbreviation11"></td>
+        <td id="rankChartPoints11"></td>
+      </tr>
+      <tr id="rankChartRow12">
+        <td id="rankChartInsignia12"></td>
+        <td id="rankChartRank12"></td>
+        <td id="rankChartAbbreviation12"></td>
+        <td id="rankChartPoints12"></td>
+      </tr>
+      <tr id="rankChartRow13">
+        <td id="rankChartInsignia13"></td>
+        <td id="rankChartRank13"></td>
+        <td id="rankChartAbbreviation13"></td>
+        <td id="rankChartPoints13"></td>
+      </tr>
+      <tr id="rankChartRow14">
+        <td id="rankChartInsignia14"></td>
+        <td id="rankChartRank14"></td>
+        <td id="rankChartAbbreviation14"></td>
+        <td id="rankChartPoints14"></td>
+      </tr>
+      <tr id="rankChartRow15">
+        <td id="rankChartInsignia15"></td>
+        <td id="rankChartRank15"></td>
+        <td id="rankChartAbbreviation15"></td>
+        <td id="rankChartPoints15"></td>
+      </tr>
+      <tr id="rankChartRow16">
+        <td id="rankChartInsignia16"></td>
+        <td id="rankChartRank16"></td>
+        <td id="rankChartAbbreviation16"></td>
+        <td id="rankChartPoints16"></td>
+      </tr>
+      <tr id="rankChartRow17">
+        <td id="rankChartInsignia17"></td>
+        <td id="rankChartRank17"></td>
+        <td id="rankChartAbbreviation17"></td>
+        <td id="rankChartPoints17"></td>
+      </tr>
+      <tr id="rankChartRow18">
+        <td id="rankChartInsignia18"></td>
+        <td id="rankChartRank18"></td>
+        <td id="rankChartAbbreviation18"></td>
+        <td id="rankChartPoints18"></td>
+      </tr>
+      <tr id="rankChartRow19">
+        <td id="rankChartInsignia19"></td>
+        <td id="rankChartRank19"></td>
+        <td id="rankChartAbbreviation19"></td>
+        <td id="rankChartPoints19"></td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+<div id="openInsigniaPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['openInsigniaPop'],[_sharedPop])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div>
+    <div id="displayInsignia"></div>
+  </div>
+</div>
+
+<div id="attendanceStatsPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['attendanceStatsPop'],['mainMenuPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="attendanceStatsTableDiv">
+    <table id="attendanceStatsTable">
+      <tr class="tableHeaderRow">
+        <td></td>
+        <td>AM</td>
+        <td>PM</td>
+        <td>Both</td>
+      </tr>
+      <tr>
+        <td>Average</td>
+        <td id="amAvg"></td>
+        <td id="pmAvg"></td>
+        <td id="bothAvg"></td>
+      </tr>
+      <tr>
+        <td>Max</td>
+        <td id="amMax"></td>
+        <td id="pmMax"></td>
+        <td id="bothMax"></td>
+      </tr>
+      <tr>
+        <td>Min</td>
+        <td id="amMin"></td>
+        <td id="pmMin"></td>
+        <td id="bothMin"></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="attendanceListTableDiv">
+    <table id="attendanceListTable">
+      <tr class="tableHeaderRow">
+        <td>Date</td>
+        <td>AM</td>
+        <td>PM</td>
+      </tr>
+      <tr>
+        <td id="attDate0"></td>
+        <td id="attAM0"></td>
+        <td id="attPM0"></td>
+      </tr>
+      <tr>
+        <td id="attDate1"></td>
+        <td id="attAM1"></td>
+        <td id="attPM1"></td>
+      </tr>
+      <tr>
+        <td id="attDate2"></td>
+        <td id="attAM2"></td>
+        <td id="attPM2"></td>
+      </tr>
+      <tr>
+        <td id="attDate3"></td>
+        <td id="attAM3"></td>
+        <td id="attPM3"></td>
+      </tr>
+      <tr>
+        <td id="attDate4"></td>
+        <td id="attAM4"></td>
+        <td id="attPM4"></td>
+      </tr>
+      <tr>
+        <td id="attDate5"></td>
+        <td id="attAM5"></td>
+        <td id="attPM5"></td>
+      </tr>
+      <tr>
+        <td id="attDate6"></td>
+        <td id="attAM6"></td>
+        <td id="attPM6"></td>
+      </tr>
+      <tr>
+        <td id="attDate7"></td>
+        <td id="attAM7"></td>
+        <td id="attPM7"></td>
+      </tr>
+      <tr>
+        <td id="attDate8"></td>
+        <td id="attAM8"></td>
+        <td id="attPM8"></td>
+      </tr>
+      <tr>
+        <td id="attDate9"></td>
+        <td id="attAM9"></td>
+        <td id="attPM9"></td>
+      </tr>
+      <tr>
+        <td id="attDate10"></td>
+        <td id="attAM10"></td>
+        <td id="attPM10"></td>
+      </tr>
+      <tr>
+        <td id="attDate11"></td>
+        <td id="attAM11"></td>
+        <td id="attPM11"></td>
+      </tr>
+      <tr>
+        <td id="attDate12"></td>
+        <td id="attAM12"></td>
+        <td id="attPM12"></td>
+      </tr>
+      <tr>
+        <td id="attDate13"></td>
+        <td id="attAM13"></td>
+        <td id="attPM13"></td>
+      </tr>
+      <tr>
+        <td id="attDate14"></td>
+        <td id="attAM14"></td>
+        <td id="attPM14"></td>
+      </tr>
+      <tr>
+        <td id="attDate15"></td>
+        <td id="attAM15"></td>
+        <td id="attPM15"></td>
+      </tr>
+      <tr>
+        <td id="attDate16"></td>
+        <td id="attAM16"></td>
+        <td id="attPM16"></td>
+      </tr>
+      <tr>
+        <td id="attDate17"></td>
+        <td id="attAM17"></td>
+        <td id="attPM17"></td>
+      </tr>
+      <tr>
+        <td id="attDate18"></td>
+        <td id="attAM18"></td>
+        <td id="attPM18"></td>
+      </tr>
+      <tr>
+        <td id="attDate19"></td>
+        <td id="attAM19"></td>
+        <td id="attPM19"></td>
+      </tr>
+      <tr>
+        <td id="attDate20"></td>
+        <td id="attAM20"></td>
+        <td id="attPM20"></td>
+      </tr>
+      <tr>
+        <td id="attDate21"></td>
+        <td id="attAM21"></td>
+        <td id="attPM21"></td>
+      </tr>
+      <tr>
+        <td id="attDate22"></td>
+        <td id="attAM22"></td>
+        <td id="attPM22"></td>
+      </tr>
+      <tr>
+        <td id="attDate23"></td>
+        <td id="attAM23"></td>
+        <td id="attPM23"></td>
+      </tr>
+      <tr>
+        <td id="attDate24"></td>
+        <td id="attAM24"></td>
+        <td id="attPM24"></td>
+      </tr>
+      <tr>
+        <td id="attDate25"></td>
+        <td id="attAM25"></td>
+        <td id="attPM25"></td>
+      </tr>
+      <tr>
+        <td id="attDate26"></td>
+        <td id="attAM26"></td>
+        <td id="attPM26"></td>
+      </tr>
+      <tr>
+        <td id="attDate27"></td>
+        <td id="attAM27"></td>
+        <td id="attPM27"></td>
+      </tr>
+      <tr>
+        <td id="attDate28"></td>
+        <td id="attAM28"></td>
+        <td id="attPM28"></td>
+      </tr>
+      <tr>
+        <td id="attDate29"></td>
+        <td id="attAM29"></td>
+        <td id="attPM29"></td>
+      </tr>
+      <tr>
+        <td id="attDate30"></td>
+        <td id="attAM30"></td>
+        <td id="attPM30"></td>
+      </tr>
+      <tr>
+        <td id="attDate31"></td>
+        <td id="attAM31"></td>
+        <td id="attPM31"></td>
+      </tr>
+      <tr>
+        <td id="attDate32"></td>
+        <td id="attAM32"></td>
+        <td id="attPM32"></td>
+      </tr>
+      <tr>
+        <td id="attDate33"></td>
+        <td id="attAM33"></td>
+        <td id="attPM33"></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
 
 </div> <!--end of master-wrapper-->
 <script src="backup.js"></script>
