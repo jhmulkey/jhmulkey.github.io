@@ -21,7 +21,7 @@ var _currentFunction; // used to store a function so various other functions can
 var _eligibleRandom; // used to store an array of eligble names for random selection
 var _teams = []; // an array containing a single team object with key/value pairs (rather than defining individual global variables)
 var _dataInputParameter; // if dataInputAlert() needs to pass a parameter to the formula it calls when user clicks OK, it is stored here
-var _checkedState = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
+var _checkedState = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
 var _amAttendance = [];
 var _pmAttendance = [];
 var _elapsedWeeks = 1; // number of class sessions to date
@@ -116,6 +116,8 @@ class Student {
         this.rankName = "PVT"
         this.attendance = false; // student is in attendance today
         this.attendanceCount = [];
+        this.amAttendanceCount = [];
+        this.pmAttendanceCount = [];
         this.promoted = false; // student has earned a promotion
         this.promotionNum = 0; // number of promotions accumulated (in case student is absent for promotion ceremony)
         this.drawing = false; // has been picked in drawing (if true, then inelligble to be picked again until stats are reset)
@@ -489,15 +491,14 @@ function attendanceCount() {
 };
 
 function ampmAttendance() {
-    var x = new Date();
-    var hour = x.getHours;
+    var today = new Date();
     var attendanceCount = 0;
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].attendance === true) {
             attendanceCount++
         };
     };
-    if (hour < 14) {
+    if (today.getHours() < 14) {
         _amAttendance[_elapsedWeeks - 1] = attendanceCount;
     } else {
         _pmAttendance[_elapsedWeeks - 1] = attendanceCount;
@@ -549,9 +550,14 @@ function attendanceList(log) {
 
 function resetAttendance() {
     for (i = 0; i < _sl.length; i++) {
-        _sl[i].attendance = false;
-        if (_isClassDay === true) {
-            _sl[i].attendanceCount[_elapsedWeeks-1] = 0;  
+        if (_isClassDay === false) {
+            _sl[i].attendance = false;
+        } else {
+            if (_sl[i].attendance === true && _sl[i].amAttendanceCount[_elapsedWeeks-1] == 1) {
+                _sl[i].amAttendanceCount[_elapsedWeeks-1] = 0; _sl[i].attendance = false;
+            } else if (_sl[i].attendance === true && _sl[i].pmAttendanceCount[_elapsedWeeks-1] == 1) {
+                _sl[i].pmAttendanceCount[_elapsedWeeks-1] = 0;  _sl[i].attendance = false;
+            };
         };
     };
     attendanceCount();
@@ -697,12 +703,16 @@ function newStudent() {
     };
     var newStudent = new Student(first,last,month,date,email1,email2,gender,note);
     newStudent.attendance = true;
-    for (i = 0; i <= _checkedState.length; i++) {
-        if (_checkedState[i] == 1) {
-            newStudent.attendanceCount.push(0);
-        };
+    for (i = 0; i < _elapsedWeeks; i++) {
+        newStudent.amAttendanceCount.push(0);
+        newStudent.pmAttendanceCount.push(0);
     };
-    newStudent.attendanceCount.push(1);
+    var today = new Date();
+    if (today.getHours() < 14) {
+        newStudent.amAttendanceCount[_elapsedWeeks - 1] = 1;
+    } else if (today.getHours() >= 14) {
+        newStudent.pmAttendanceCount[_elapsedWeeks - 1] = 1;
+    };
     _sl.push(newStudent);
     assignBdayNumber(_sl.length-1);
     sortStudentList();
@@ -1170,10 +1180,13 @@ function searchLog() {
 
 function loadStudent(index) {
     _ci = index;
+    var today = new Date();
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
-        if (_isClassDay === true) {
-            _sl[_ci].attendanceCount[_elapsedWeeks-1] = 1;
+        if (_isClassDay === true && today.getHours() < 14) {
+            _sl[_ci].amAttendanceCount[_elapsedWeeks-1] = 1;
+        } else if (_isClassDay === true && today.getHours() >= 14) {
+            _sl[_ci].pmAttendanceCount[_elapsedWeeks-1] = 1;
         };
     };
     attendanceCount();
@@ -1589,15 +1602,20 @@ function populateTeacherNotes() {
 };
 
 function attendance2(i) {
+    var today = new Date();
     if (_sl[i].attendance === false) {
         _sl[i].attendance = true;
-        if (_isClassDay === true) {
-            _sl[i].attendanceCount[_elapsedWeeks-1] = 1;
+        if (_isClassDay === true && today.getHours() < 14) {
+            _sl[i].amAttendanceCount[_elapsedWeeks-1] = 1;
+        } else if (_isClassDay === true && today.getHours() >= 14) {
+            _sl[i].pmAttendanceCount[_elapsedWeeks-1] = 1;
         };
     } else {
         _sl[i].attendance = false;
-        if (_isClassDay === true) {
-            _sl[i].attendanceCount[_elapsedWeeks-1] = 0;
+        if (_isClassDay === true && today.getHours() < 14) {
+            _sl[i].amAttendanceCount[_elapsedWeeks-1] = 0;
+        } else if (_isClassDay === true && today.getHours() >= 14) {
+            _sl[i].pmAttendanceCount[_elapsedWeeks-1] = 0;
         };
     };
     attendanceCount();
@@ -1605,16 +1623,21 @@ function attendance2(i) {
 };
 
 function toggleAttendance() {
+    var today = new Date();
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
-        if (_isClassDay === true) {
-            _sl[_ci].attendanceCount[_elapsedWeeks-1] = 1;
+        if (_isClassDay === true && today.getHours() < 14) {
+            _sl[_ci].amAttendanceCount[_elapsedWeeks-1] = 1;
+        } else if (_isClassDay === true && today.getHours() >= 14) {
+            _sl[_ci].pmAttendanceCount[_elapsedWeeks-1] = 1;
         };
         document.getElementById("dispName").style.color = "lawngreen";
     } else {
         _sl[_ci].attendance = false;
-        if (_isClassDay === true) {
-            _sl[_ci].attendanceCount[_elapsedWeeks-1] = 0;
+        if (_isClassDay === true && today.getHours() < 14) {
+            _sl[_ci].amAttendanceCount[_elapsedWeeks-1] = 0;
+        } else if (_isClassDay === true && today.getHours() >= 14) {
+            _sl[_ci].pmAttendanceCount[_elapsedWeeks-1] = 0;
         };
         document.getElementById("dispName").style.color = "white";
     };
@@ -1635,7 +1658,6 @@ function toggleMissions(x) {
         mv.style.display = "none";
         _checkedState[x] = 0;
     };
-    storeAndBackup();
 };
 
 function showMissions() {
@@ -1936,7 +1958,6 @@ function whatToLoad() {
     if (!localStorage.getItem("sl")) { //A
         if (JSON.parse(localStorage.getItem("slBackup"))) { //A1
             _sl = JSON.parse(localStorage.getItem("slBackup"));
-            _checkedState = JSON.parse(localStorage.getItem("checkedStateBackup"));
             _amAttendance = JSON.parse(localStorage.getItem("amAttendanceBackup"));
             _pmAttendance = JSON.parse(localStorage.getItem("pmAttendanceBackup"));
             _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
@@ -1963,7 +1984,6 @@ function loadBackup() {
         infoAlert("backup.js not available",["wtlPop"]); return;
     } else {
         _sl = JSON.parse(localStorage.getItem("slBackup"));
-        _checkedState = JSON.parse(localStorage.getItem("checkedStateBackup"));
         _amAttendance = JSON.parse(localStorage.getItem("amAttendanceBackup"));
         _pmAttendance = JSON.parse(localStorage.getItem("pmAttendanceBackup"));
         _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
@@ -1972,6 +1992,12 @@ function loadBackup() {
         for (i = 0; i < _sl.length; i++) {
             _sl[i].attendance = false;
             _sl[i].random = false;
+        };
+        if (_isClassDay === true) {
+            for (i = 0; i < _sl.length; i++) {
+                _sl[i].amAttendanceCount.push(0);
+                _sl[i].pmAttendanceCount.push(0);
+            };
         };
         findBday();
         removePtBoxes();
@@ -1982,7 +2008,6 @@ function loadBackup() {
 
 function loadLS() {
     _sl = JSON.parse(localStorage.getItem("sl"));
-    _checkedState = JSON.parse(localStorage.getItem("checkedState"));
     _amAttendance = JSON.parse(localStorage.getItem("amAttendance"));
     _pmAttendance = JSON.parse(localStorage.getItem("pmAttendance"));
     _log = localStorage.getItem("log");
@@ -1992,9 +2017,7 @@ function loadLS() {
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotes"));
     _teams = JSON.parse(localStorage.getItem("teams"));
     loadCheckedStates();
-    if (_checkedState != null) {
-        showMissions();
-    };
+    showMissions();
     attendanceCount();
     removePtBoxes();
     findBday();
@@ -2005,19 +2028,16 @@ function loadLS() {
 
 function storeNewData() {
     localStorage.setItem("sl",JSON.stringify(_sl));
-    localStorage.setItem("checkedState",JSON.stringify(_checkedState));
     localStorage.setItem("amAttendance",JSON.stringify(_amAttendance));
     localStorage.setItem("pmAttendance",JSON.stringify(_pmAttendance));
     localStorage.setItem("teacherNotes",JSON.stringify(_teacherNotes));
     localStorage.setItem("log",_log);
     localStorage.setItem("gameLog",_gameLog);
     localStorage.setItem("teams",JSON.stringify(_teams));
-
 };
 
 function backupNewData() {
     document.getElementById("slBackupArray").innerHTML = "var _slBackup = "+localStorage.getItem("sl")+";";
-    document.getElementById("checkedStateBackupArray").innerHTML = "var _checkedStateBackup = "+localStorage.getItem("checkedState")+";";
     document.getElementById("amAttendanceBackupArray").innerHTML = "var _amAttendanceBackup = "+localStorage.getItem("amAttendance")+";";
     document.getElementById("pmAttendanceBackupArray").innerHTML = "var _pmAttendanceBackup = "+localStorage.getItem("pmAttendance")+";";
     document.getElementById("teacherNotesBackupArray").innerHTML = "var _teacherNotesBackup = "+localStorage.getItem("teacherNotes")+";";
@@ -2180,8 +2200,8 @@ function assignDateNumber() {
 function loadCheckedStates() {
     leapYear();
     var today = new Date();
-    var todaysMonth = today.getMonth() + 1;
-    var todaysDate = today.getDate();
+    var todaysMonth = 12//today.getMonth() + 1;
+    var todaysDate = 5//today.getDate();
     var todaysDateNumber;
     var cumulative = [0,0,31,59,90,120,151,181,212,243,273,304,334];
     var cumulativeLeap = [0,0,31,60,91,121,152,182,213,244,274,305,335];
@@ -2320,9 +2340,9 @@ function averageArray(x) {
 };
 
 function loadAttendanceStats() {
-    var today = new Date(); var hour = today.getHours;
+    var today = new Date();
     var amArray = _amAttendance; var pmArray = _pmAttendance;
-    if (_isClassDay === true && hour < 18) {
+    if (_isClassDay === true && today.getHours() < 18) {
         amArray.pop(); pmArray.pop();
     };
     var bothArray = [];
@@ -2376,5 +2396,4 @@ for (i = 0; i < .length; i++) {};
 
 //*** TO DO LIST ***//
 // add links to student stats (rank chart, incomplete as and mv, etc.)
-// add attendance stats for AM and PM classes
 // add ability to skip current player in game and move to next player in that team
