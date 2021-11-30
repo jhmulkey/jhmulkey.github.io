@@ -94,7 +94,7 @@ var _mvText = [
 */
 
 class Student {
-    constructor(first,last,month,date,email1,email2,parent1First,parent1Last,parent1Phone,parent2First,parent2Last,parent2Phone,gender,note) {
+    constructor(first,last,month,date,email1,email2,gender,note) {
         this.firstName = first;
         this.lastName = last;
         this.fullName = first + " " + last;
@@ -106,15 +106,8 @@ class Student {
         this.hasBirthday = false; // has birthday today or before next class
         this.birthdayDone = false; // birthday has been announced in class (and thus will no longer be indicated anywhere in the UI)
         this.birthdayLogged = false;
-        this.photo = false; // photo has been taken for bulletin board
         this.email1 = email1; // primary parent email
         this.email2 = email2; // secondary parent email
-        this.parent1First = parent1First;
-        this.parent1Last = parent1Last;
-        this.parent1Phone = parent1Phone;
-        this.parent2First = parent2First;
-        this.parent2Last = parent2Last;
-        this.parent2Phone = parent2Phone;
         this.notes = note;
         this.points = 0; // total, cumulative points earned year to date
         this.classRank = 0;
@@ -690,42 +683,6 @@ function newStudent() {
     } else {
         var email2 = document.getElementById("newEmail2").value.toLowerCase();
     };
-    var parent1Array = document.getElementById("newParent1").value.split("/");
-    var parent2Array = document.getElementById("newParent2").value.split("/");
-    if (document.getElementById("newParent1").value == "") {
-        var parent1First = "";
-        var parent1Last = "";
-        var parent1Phone = "";
-    } else if (parent1Array.length == 1) {
-        var parent1First = capitalize(parent1Array[0]);
-        var parent1Last = "";
-        var parent1Phone = "";
-    } else if (parent1Array.length == 2) {
-        var parent1First = capitalize(parent1Array[0]);
-        var parent1Last = capitalize(parent1Array[1]);
-        var parent1Phone = "";
-    } else if (parent1Array.length == 3) {
-        var parent1First = capitalize(parent1Array[0]);
-        var parent1Last = capitalize(parent1Array[1]);
-        var parent1Phone = parseInt(parent1Array[2]);;
-    };
-    if (document.getElementById("newParent2").value == "") {
-        var parent2First = "";
-        var parent2Last = "";
-        var parent2Phone = "";
-    } else if (parent2Array.length == 1) {
-        var parent2First = capitalize(parent2Array[0]);
-        var parent2Last = "";
-        var parent2Phone = "";
-    } else if (parent2Array.length == 2) {
-        var parent2First = capitalize(parent2Array[0]);
-        var parent2Last = capitalize(parent2Array[1]);
-        var parent2Phone = "";
-    } else if (parent2Array.length == 3) {
-        var parent2First = capitalize(parent2Array[0]);
-        var parent2Last = capitalize(parent2Array[1]);
-        var parent2Phone = parseInt(parent2Array[2]);;
-    };
     if (document.getElementById("newGender").value.toLowerCase() == "m") {
         var gender = "M";
     } else if (document.getElementById("newGender").value.toLowerCase() == "f") {
@@ -738,7 +695,7 @@ function newStudent() {
     } else {
         var note = [document.getElementById("initialNote").value];
     };
-    var newStudent = new Student(first,last,month,date,email1,email2,parent1First,parent1Last,parent1Phone,parent2First,parent2Last,parent2Phone,gender,note);
+    var newStudent = new Student(first,last,month,date,email1,email2,gender,note);
     newStudent.attendance = true;
     for (i = 0; i <= _checkedState.length; i++) {
         if (_checkedState[i] == 1) {
@@ -816,42 +773,6 @@ function editStudent() {
         _sl[_ci].email2 = document.getElementById("editEmail2").value;
     } else {
         _sl[_ci].email2 = document.getElementById("editEmail2").value.toLowerCase();
-    };
-    var parent1Array = document.getElementById("editParent1").value.split("/");
-    var parent2Array = document.getElementById("editParent2").value.split("/");
-    if (document.getElementById("editParent1").value == "") {
-        _sl[_ci].parent1First = "";
-        _sl[_ci].parent1Last = "";
-        _sl[_ci].parent1Phone = "";
-    } else if (parent1Array.length == 1) {
-        _sl[_ci].parent1First = capitalize(parent1Array[0]);
-        _sl[_ci].parent1Last = "";
-        _sl[_ci].parent1Phone = "";
-    } else if (parent1Array.length == 2) {
-        _sl[_ci].parent1First = capitalize(parent1Array[0]);
-        _sl[_ci].parent1Last = capitalize(parent1Array[1]);
-        _sl[_ci].parent1Phone = "";
-    } else if (parent1Array.length == 3) {
-        _sl[_ci].parent1First = capitalize(parent1Array[0]);
-        _sl[_ci].parent1Last = capitalize(parent1Array[1]);
-        _sl[_ci].parent1Phone = parseInt(parent1Array[2]);;
-    };
-    if (document.getElementById("editParent2").value == "") {
-        _sl[_ci].parent2First = "";
-        _sl[_ci].parent2Last = "";
-        _sl[_ci].parent2Phone = "";
-    } else if (parent2Array.length == 1) {
-        _sl[_ci].parent2First = capitalize(parent2Array[0]);
-        _sl[_ci].parent2Last = "";
-        _sl[_ci].parent2Phone = "";
-    } else if (parent2Array.length == 2) {
-        _sl[_ci].parent2First = capitalize(parent2Array[0]);
-        _sl[_ci].parent2Last = capitalize(parent2Array[1]);
-        _sl[_ci].parent2Phone = "";
-    } else if (parent2Array.length == 3) {
-        _sl[_ci].parent2First = capitalize(parent2Array[0]);
-        _sl[_ci].parent2Last = capitalize(parent2Array[1]);
-        _sl[_ci].parent2Phone = parseInt(parent2Array[2]);;
     };
     if (document.getElementById("editGender").value.toLowerCase() == "m") {
         _sl[_ci].gender = "M";
@@ -932,18 +853,11 @@ function populateStudentFields(id) {
     document.getElementById("editBday").value = _sl[_ci].birthdayMonth.toString() + "/" + _sl[_ci].birthdayDate.toString();
     document.getElementById("editEmail1").value = _sl[_ci].email1;
     document.getElementById("editEmail2").value = _sl[_ci].email2;
-    if (_sl[_ci].parent1First) {
-        document.getElementById("editParent1").value = _sl[_ci].parent1First + "/" + _sl[_ci].parent1Last + "/" + _sl[_ci].parent1Phone.toString();
-        document.getElementById("editParent2").value = _sl[_ci].parent2First + "/" + _sl[_ci].parent2Last + "/" + _sl[_ci].parent2Phone.toString();
-    } else {
-        document.getElementById("editParent1").value = "";
-        document.getElementById("editParent2").value = "";
-    };
     document.getElementById("editGender").value = _sl[_ci].gender;
 };
 
 function clearStudentFields() {
-    var ids = ["newFirstAndLast","newGender","newBday","newEmail1","newEmail2","newParent1","newParent2","initialNote"];
+    var ids = ["newFirstAndLast","newGender","newBday","newEmail1","newEmail2","initialNote"];
     for (i = 0; i < ids.length; i++) {
         document.getElementById(ids[i]).value = "";
     };
@@ -2424,8 +2338,6 @@ function loadAttendanceStats() {
     document.getElementById("amMin").innerHTML = Math.min(...amArray);
     document.getElementById("pmMin").innerHTML = Math.min(...pmArray);
     document.getElementById("bothMin").innerHTML = Math.min(...bothArray);
-
-
     for (i = 0; i < 34; i++) {
         if (i < amArray.length) {
             document.getElementById("attDate"+i).innerHTML = _classDates[i];
