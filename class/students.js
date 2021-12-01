@@ -529,8 +529,8 @@ function loadStudentStats() {
     var totalPointsSquares = Math.round(totalPointsPercentage / 2.50);
     var weeksAttended = 0;
     for (i = 0; i < _elapsedWeeks; i++) {
-        weeksAttended += _sl[_ci].amAttendanceCount[i];
-        weeksAttended += _sl[_ci].pmAttendanceCount[i];
+        weeksAttended += _sl[_ci].amAttCount[i];
+        weeksAttended += _sl[_ci].pmAttCount[i];
     };
     var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(2);
     var attendanceSquares = Math.round(attendancePercentage / 2.50);
