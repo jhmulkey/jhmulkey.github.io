@@ -235,6 +235,7 @@ a:link, a:visited, a:hover, a:active {
     border: 1px solid white;
     border-radius: 25px;
     cursor: pointer;
+    display: none;
 }
 
 .asButton, .asButton2, .asButton3, .mvButton3, .mvButton4 {
@@ -332,6 +333,7 @@ a:link, a:visited, a:hover, a:active {
     height: 150px;
     width: 150px;
     border: 1px solid transparent;
+    background-color: #111 !important;
 }
 
 #asPop div, #mvPop div {
@@ -350,12 +352,9 @@ a:link, a:visited, a:hover, a:active {
     justify-content: space-around;
 }
 
-#asPop {
+#asPop, #mvPop {
     width: 187px;
-}
 
-#mvPop {
-    width: 187px;
 }
 
 #infoAlertTitle {
@@ -774,13 +773,14 @@ a:link, a:visited, a:hover, a:active {
     width: 9.5px;
 }
 
-#rankChartTable, #attendanceStatsTable, #attendanceListTable {
+#rankChartTable, #attendanceStatsTable, #attendanceListTable, #studentAttTable {
     width: 100%
 }
 
 #rankChartTable, #rankChartTable th, #rankChartTable td,
 #attendanceStatsTable, #attendanceStatsTable th, #attendanceStatsTable td,
-#attendanceListTable, #attendanceListTable th, #attendanceListTable td {
+#attendanceListTable, #attendanceListTable td,
+#studentAttTable, #studentAttTable td {
     border: 1px solid white;
     border-collapse: collapse;
 }

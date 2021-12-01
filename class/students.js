@@ -7,7 +7,7 @@ var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3
 var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3,0]; // max points possible for each memory verse
 var _leapYear = false; // used to determine whether Feb has 29 or 29 days for purposes of upcoming birthday alerts
 var _weeksOff = 0; // used to determine when alerts for upcoming birthdays appear if kidstuff will not meet for 1-2 weeks
-var _checkedState = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
+var _checkedState = []; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
 var _currentPops; // used to store an array of which Pop divs are visible when infoAlert() is called
 var _currentPops2; // used to store an array of which Pop divs are visible when dataInputAlert() is called
 var _sharedPop; // used if the back button may one of two or more Pops
@@ -281,7 +281,7 @@ function pop(closeArray,openArray) {
     if (openArray.includes("mainPop")) {
         document.getElementById("search").value = "";
         document.getElementById("search").focus();
-        for (i = 0; i < (_elapsedWeeks - 1); i++) {
+        for (i = 0; i < _checkedState.length; i++) {
             document.getElementById("as"+i+"Pop").style.display = "block";
             document.getElementById("mv"+i+"Pop").style.display = "block";
         };
@@ -321,16 +321,12 @@ function goHome() {
         pops[i].style.display = "none";
         document.getElementById("mainPop").style.display = "block";
     };
-    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+    for (i = 0; i < _checkedState.length; i++) {
         document.getElementById("as"+i+"Pop").style.display = "block";
         document.getElementById("mv"+i+"Pop").style.display = "block";
     };
     document.getElementById("search").value = "";
     document.getElementById("search").focus();
-    for (i = 0; i < (_elapsedWeeks - 1); i++) {
-        document.getElementById("as"+i+"Pop").style.display = "block";
-        document.getElementById("mv"+i+"Pop").style.display = "block";
-    };
     removePtBoxes();
 };
 
@@ -406,23 +402,48 @@ function mvPop(mvNum,index,points) {
     document.getElementById("totalParticipationTable").scrollIntoView();
 };
 
-function confirmAction(id) {
-    document.getElementById(id).style.display = "block"
-}
-
-function toggleMissions(x) {
-    var as = document.getElementById("as"+x+"Pop");
-    var mv = document.getElementById("mv"+x+"Pop")
-    if (as.style.display != "block") {
-        as.style.display = "block";
-        mv.style.display = "block";
-        _checkedState[x] = 1;
+function leapYear() {
+    var today = new Date();
+    var todaysYear = today.getFullYear();
+    if ((todaysYear % 4 == 0) && (todaysYear % 100 != 0) || (todaysYear % 400 == 0)) {
+        _leapYear = true;
     } else {
-        as.style.display = "none";
-        mv.style.display = "none";
-        _checkedState[x] = 0;
+        _leapYear = false;
     };
-    storeAndBackup();
+};
+
+function loadCheckedStates() {
+    leapYear();
+    var today = new Date();
+    var todaysMonth = today.getMonth() + 1;
+    var todaysDate = today.getDate();
+    var todaysDateNumber;
+    var cumulative = [0,0,31,59,90,120,151,181,212,243,273,304,334];
+    var cumulativeLeap = [0,0,31,60,91,121,152,182,213,244,274,305,335];
+    if (_leapYear) {
+        if (todaysMonth >= 8) {
+            todaysDateNumber = cumulativeLeap[todaysMonth] + todaysDate;
+        } else {
+            todaysDateNumber = cumulativeLeap[todaysMonth] + todaysDate + 1000;
+        };
+    } else {
+        if (todaysMonth >= 8) {
+            todaysDateNumber = cumulative[todaysMonth] + todaysDate;
+        } else {
+            todaysDateNumber = cumulative[todaysMonth] + todaysDate + 1000;
+        };
+    };
+    for (i = 1; i < _dateNumbers.length; i++) {
+        if (todaysDateNumber >= _dateNumbers[i]) {
+            _checkedState[i-1] = 1;
+        };
+        if (todaysDateNumber == _dateNumbers[i]) {
+            _isClassDay = true; break;
+        } else {
+            _isClassDay = false;
+        };
+    };
+    _elapsedWeeks = _checkedState.length + 1;
 };
 
 function showMissions() {
@@ -432,19 +453,14 @@ function showMissions() {
             document.getElementById("as"+i+"Pop").style.display = "block";
             document.getElementById("mv"+i+"Pop").style.display = "block";
             x++;
-        } else if (_checkedState[i] == 0) {
-            document.getElementById("as"+i+"Pop").style.display = "none";
-            document.getElementById("mv"+i+"Pop").style.display = "none";
         };
     };
     document.getElementById("missionsPop").style.height = 200 + (x * 65) + "px";
 };
- 
+
 function loadBackup() {
-    _sl = []; _checkedState = [];
     _sl = JSON.parse(localStorage.getItem("slBackup"));
-    _checkedState = JSON.parse(localStorage.getItem("checkedStateBackup"));
-    elapsedWeekCount();
+    loadCheckedStates();
     showMissions();
     removePtBoxes();
 };
@@ -495,11 +511,11 @@ function loadStudentStats() {
     var earnedASpts = 0;   
     var totalMVpts = 0;
     var earnedMVpts = 0;
-    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+    for (i = 0; i < _checkedState.length; i++) {
         totalASpts += _asMaxPts[i];
         totalMVpts += _mvMaxPts[i];
     };
-    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+    for (i = 0; i < _checkedState.length; i++) {
         earnedASpts += Object.values(_sl[_ci].as)[i];
         earnedMVpts += Object.values(_sl[_ci].mv)[i];
     };
@@ -512,8 +528,9 @@ function loadStudentStats() {
     var totalPointsPercentage = ((totalEarnedPoints / totalPoints) * 100).toFixed(2);
     var totalPointsSquares = Math.round(totalPointsPercentage / 2.50);
     var weeksAttended = 0;
-    for (i = 0; i < _sl[_ci].attendanceCount.length; i++) {
-        weeksAttended += _sl[_ci].attendanceCount[i];
+    for (i = 0; i < _elapsedWeeks; i++) {
+        weeksAttended += _sl[_ci].amAttendanceCount[i];
+        weeksAttended += _sl[_ci].pmAttendanceCount[i];
     };
     var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(2);
     var attendanceSquares = Math.round(attendancePercentage / 2.50);
@@ -602,13 +619,13 @@ function openInsignia() {
 
 function toggleIncomplete() {
     var noneHidden = true;
-    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+    for (i = 0; i < _checkedState.length; i++) {
         if (document.getElementById("as"+i+"Pop").style.display == "none" || document.getElementById("mv"+i+"Pop").style.display == "none") {
             noneHidden = false; break;
         };
     };
     if (noneHidden) {
-        for (i = 0; i < (_elapsedWeeks - 1); i++) {
+        for (i = 0; i < _checkedState.length; i++) {
             if (_sl[_ci].as[i] < _asMaxPts[i]) {
                 document.getElementById("as"+i+"Pop").style.display = "block"
             } else {
@@ -621,7 +638,7 @@ function toggleIncomplete() {
             };
         };
     } else {
-        for (i = 0; i < (_elapsedWeeks - 1); i++) {
+        for (i = 0; i < _checkedState.length; i++) {
             document.getElementById("as"+i+"Pop").style.display = "block";
             document.getElementById("mv"+i+"Pop").style.display = "block";
         };

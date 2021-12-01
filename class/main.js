@@ -21,7 +21,7 @@ var _currentFunction; // used to store a function so various other functions can
 var _eligibleRandom; // used to store an array of eligble names for random selection
 var _teams = []; // an array containing a single team object with key/value pairs (rather than defining individual global variables)
 var _dataInputParameter; // if dataInputAlert() needs to pass a parameter to the formula it calls when user clicks OK, it is stored here
-var _checkedState = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
+var _checkedState = []; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
 var _amAttendance = [];
 var _pmAttendance = [];
 var _elapsedWeeks = 1; // number of class sessions to date
@@ -499,9 +499,9 @@ function ampmAttendance() {
         };
     };
     if (today.getHours() < 14) {
-        _amAttendance[_elapsedWeeks - 1] = attendanceCount;
+        _amAttendance[_checkedState.length] = attendanceCount;
     } else {
-        _pmAttendance[_elapsedWeeks - 1] = attendanceCount;
+        _pmAttendance[_checkedState.length] = attendanceCount;
     };
     storeAndBackup();
 };
@@ -553,10 +553,10 @@ function resetAttendance() {
         if (_isClassDay === false) {
             _sl[i].attendance = false;
         } else {
-            if (_sl[i].attendance === true && _sl[i].amAttendanceCount[_elapsedWeeks-1] == 1) {
-                _sl[i].amAttendanceCount[_elapsedWeeks-1] = 0; _sl[i].attendance = false;
-            } else if (_sl[i].attendance === true && _sl[i].pmAttendanceCount[_elapsedWeeks-1] == 1) {
-                _sl[i].pmAttendanceCount[_elapsedWeeks-1] = 0;  _sl[i].attendance = false;
+            if (_sl[i].attendance === true && _sl[i].amAttendanceCount[_checkedState.length] == 1) {
+                _sl[i].amAttendanceCount[_checkedState.length] = 0; _sl[i].attendance = false;
+            } else if (_sl[i].attendance === true && _sl[i].pmAttendanceCount[_checkedState.length] == 1) {
+                _sl[i].pmAttendanceCount[_checkedState.length] = 0;  _sl[i].attendance = false;
             };
         };
     };
@@ -709,9 +709,9 @@ function newStudent() {
     };
     var today = new Date();
     if (today.getHours() < 14) {
-        newStudent.amAttendanceCount[_elapsedWeeks - 1] = 1;
+        newStudent.amAttendanceCount[_checkedState.length] = 1;
     } else if (today.getHours() >= 14) {
-        newStudent.pmAttendanceCount[_elapsedWeeks - 1] = 1;
+        newStudent.pmAttendanceCount[_checkedState.length] = 1;
     };
     _sl.push(newStudent);
     assignBdayNumber(_sl.length-1);
@@ -1184,9 +1184,9 @@ function loadStudent(index) {
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
         if (_isClassDay === true && today.getHours() < 14) {
-            _sl[_ci].amAttendanceCount[_elapsedWeeks-1] = 1;
+            _sl[_ci].amAttendanceCount[_checkedState.length] = 1;
         } else if (_isClassDay === true && today.getHours() >= 14) {
-            _sl[_ci].pmAttendanceCount[_elapsedWeeks-1] = 1;
+            _sl[_ci].pmAttendanceCount[_checkedState.length] = 1;
         };
     };
     attendanceCount();
@@ -1282,7 +1282,7 @@ function goHome() {
         pops[i].style.display = "none";
         document.getElementById("mainPop").style.display = "block";
     };
-    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+    for (i = 0; i < (_checkedState.length); i++) {
         document.getElementById("as"+i+"Pop").style.display = "block";
         document.getElementById("mv"+i+"Pop").style.display = "block";
     };
@@ -1606,16 +1606,16 @@ function attendance2(i) {
     if (_sl[i].attendance === false) {
         _sl[i].attendance = true;
         if (_isClassDay === true && today.getHours() < 14) {
-            _sl[i].amAttendanceCount[_elapsedWeeks-1] = 1;
+            _sl[i].amAttendanceCount[_checkedState.length] = 1;
         } else if (_isClassDay === true && today.getHours() >= 14) {
-            _sl[i].pmAttendanceCount[_elapsedWeeks-1] = 1;
+            _sl[i].pmAttendanceCount[_checkedState.length] = 1;
         };
     } else {
         _sl[i].attendance = false;
         if (_isClassDay === true && today.getHours() < 14) {
-            _sl[i].amAttendanceCount[_elapsedWeeks-1] = 0;
+            _sl[i].amAttendanceCount[_checkedState.length] = 0;
         } else if (_isClassDay === true && today.getHours() >= 14) {
-            _sl[i].pmAttendanceCount[_elapsedWeeks-1] = 0;
+            _sl[i].pmAttendanceCount[_checkedState.length] = 0;
         };
     };
     attendanceCount();
@@ -1627,17 +1627,17 @@ function toggleAttendance() {
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
         if (_isClassDay === true && today.getHours() < 14) {
-            _sl[_ci].amAttendanceCount[_elapsedWeeks-1] = 1;
+            _sl[_ci].amAttendanceCount[_checkedState.length] = 1;
         } else if (_isClassDay === true && today.getHours() >= 14) {
-            _sl[_ci].pmAttendanceCount[_elapsedWeeks-1] = 1;
+            _sl[_ci].pmAttendanceCount[_checkedState.length] = 1;
         };
         document.getElementById("dispName").style.color = "lawngreen";
     } else {
         _sl[_ci].attendance = false;
         if (_isClassDay === true && today.getHours() < 14) {
-            _sl[_ci].amAttendanceCount[_elapsedWeeks-1] = 0;
+            _sl[_ci].amAttendanceCount[_checkedState.length] = 0;
         } else if (_isClassDay === true && today.getHours() >= 14) {
-            _sl[_ci].pmAttendanceCount[_elapsedWeeks-1] = 0;
+            _sl[_ci].pmAttendanceCount[_checkedState.length] = 0;
         };
         document.getElementById("dispName").style.color = "white";
     };
@@ -1657,20 +1657,6 @@ function toggleMissions(x) {
         as.style.display = "none";
         mv.style.display = "none";
         _checkedState[x] = 0;
-    };
-};
-
-function showMissions() {
-    for (i = 0; i < _checkedState.length; i++) {
-        if (_checkedState[i] == 1) {
-            document.getElementById("check"+i).checked = true;
-            document.getElementById("as"+i+"Pop").style.display = "block";
-            document.getElementById("mv"+i+"Pop").style.display = "block";
-        } else if (_checkedState[i] == 0) {
-            document.getElementById("check"+i).checked = false;
-            document.getElementById("as"+i+"Pop").style.display = "none";
-            document.getElementById("mv"+i+"Pop").style.display = "none";
-        };
     };
 };
  
@@ -1765,7 +1751,7 @@ function leapYear() {
     } else {
         _leapYear = false;
     };
-};
+}; //determines whether current year is a leap year or not
 
 function findBday() {
     leapYear();
@@ -1953,79 +1939,6 @@ function storeAndBackup() {
     backupNewData();
 };
 
-//***ONLOAD FUNCTIONS***//
-function whatToLoad() {
-    if (!localStorage.getItem("sl")) { //A
-        if (JSON.parse(localStorage.getItem("slBackup"))) { //A1
-            _sl = JSON.parse(localStorage.getItem("slBackup"));
-            _amAttendance = JSON.parse(localStorage.getItem("amAttendanceBackup"));
-            _pmAttendance = JSON.parse(localStorage.getItem("pmAttendanceBackup"));
-            _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
-            loadCheckedStates();
-            removePtBoxes();
-            showMissions();
-            sortStudentList();
-            for (i = 0; i < _sl.length; i++) {
-                _sl[i].attendance = false;
-                _sl[i].random = false;
-            };
-            findBday();
-        } else { //A2
-            return;
-        };
-    } else { //B
-        pop(["mainPop"],["wtlPop"]);
-    };
-}; // if (A) no localStorage data exists, then if (A1) backup.js exists, backup.js will be loaded, else (A2) blank/default data will be loaded
-// else (B) if localStorage data exists, you are given the choice to load it or backup.js */
-
-function loadBackup() {
-    if (!JSON.parse(localStorage.getItem("slBackup"))) {
-        infoAlert("backup.js not available",["wtlPop"]); return;
-    } else {
-        _sl = JSON.parse(localStorage.getItem("slBackup"));
-        _amAttendance = JSON.parse(localStorage.getItem("amAttendanceBackup"));
-        _pmAttendance = JSON.parse(localStorage.getItem("pmAttendanceBackup"));
-        _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
-        loadCheckedStates();
-        showMissions();
-        for (i = 0; i < _sl.length; i++) {
-            _sl[i].attendance = false;
-            _sl[i].random = false;
-        };
-        if (_isClassDay === true) {
-            for (i = 0; i < _sl.length; i++) {
-                _sl[i].amAttendanceCount.push(0);
-                _sl[i].pmAttendanceCount.push(0);
-            };
-        };
-        findBday();
-        removePtBoxes();
-        populateTeacherNotes();
-        pop(["wtlPop"],["mainPop"]);
-    };
-};
-
-function loadLS() {
-    _sl = JSON.parse(localStorage.getItem("sl"));
-    _amAttendance = JSON.parse(localStorage.getItem("amAttendance"));
-    _pmAttendance = JSON.parse(localStorage.getItem("pmAttendance"));
-    _log = localStorage.getItem("log");
-    _gameLog = localStorage.getItem("gameLog");
-    document.getElementById("log").innerHTML = _log;
-    document.getElementById("gameLog").innerHTML = _gameLog;
-    _teacherNotes = JSON.parse(localStorage.getItem("teacherNotes"));
-    _teams = JSON.parse(localStorage.getItem("teams"));
-    loadCheckedStates();
-    showMissions();
-    attendanceCount();
-    removePtBoxes();
-    findBday();
-    backupNewData();
-    populateTeacherNotes();
-    pop(["wtlPop"],["mainPop"]);
-};
-
 function storeNewData() {
     localStorage.setItem("sl",JSON.stringify(_sl));
     localStorage.setItem("amAttendance",JSON.stringify(_amAttendance));
@@ -2092,11 +2005,11 @@ function loadStudentStats() {
     var earnedASpts = 0;   
     var totalMVpts = 0;
     var earnedMVpts = 0;
-    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+    for (i = 0; i < (_checkedState.length); i++) {
         totalASpts += _asMaxPts[i];
         totalMVpts += _mvMaxPts[i];
     };
-    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+    for (i = 0; i < (_checkedState.length); i++) {
         earnedASpts += Object.values(_sl[_ci].as)[i];
         earnedMVpts += Object.values(_sl[_ci].mv)[i];
     };
@@ -2109,8 +2022,9 @@ function loadStudentStats() {
     var totalPointsPercentage = ((totalEarnedPoints / totalPoints) * 100).toFixed(2);
     var totalPointsSquares = Math.round(totalPointsPercentage / 2.50);
     var weeksAttended = 0;
-    for (i = 0; i < _sl[_ci].attendanceCount.length; i++) {
-        weeksAttended += _sl[_ci].attendanceCount[i];
+    for (i = 0; i < _elapsedWeeks; i++) {
+        weeksAttended += _sl[_ci].amAttendanceCount[i];
+        weeksAttended += _sl[_ci].pmAttendanceCount[i];
     };
     var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(2);
     var attendanceSquares = Math.round(attendancePercentage / 2.50);
@@ -2160,22 +2074,14 @@ function loadStudentStats() {
     pop(["studentPop","missionsPop"],["studentStatsPop"]);
 };
 
-function elapsedWeekCount() {
-    _elapsedWeeks = 1;
-    for (i = 0; i < _checkedState.length; i++) {
-        if (_checkedState[i] == 1) {
-            _elapsedWeeks++;
-        };
-    };
-};
-
-function assignDateNumber() {
+function assignDateNumbers() {
     leapYear();
-    var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
-    var dates = [22,29,12,19,26,3,10,17,24,31,7,14,5,12,19,9,16,23,30,6,13,20,27,6,13,20,27,3,10,24,1,8,15,22];
-    var monthsAndDates = [];
+    var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5]; //mm of each mm/dd class date
+    var dates = [22,29,12,19,26,3,10,17,24,31,7,14,5,12,19,9,16,23,30,6,13,20,27,6,13,20,27,3,10,24,1,8,15,22]; //dd of each mm/dd class date
+    var monthsAndDates = []; //combines corresponding indexes of months and date arrays into mm/dd strings
     var cumulative = [0,0,31,59,90,120,151,181,212,243,273,304,334];
     var cumulativeLeap = [0,0,31,60,91,121,152,182,213,244,274,305,335];
+    //number of elapsed days at start of each month in non-leap and leap years (January is index 1. Index 0 is a placeholder since there is no "0" month)
     for (i = 0; i < months.length; i++) {
         monthsAndDates.push(months[i]+"/"+dates[i]);
     };
@@ -2194,14 +2100,15 @@ function assignDateNumber() {
             };
         };
     };
+    console.log(_dateNumbers);
     console.log(monthsAndDates);
 }; //assigns number to each calendar date that class meets and adds 1000 to dates after December to make them order higher than the Sept-Dec dates even though the day of the year they represent is lower
 
 function loadCheckedStates() {
     leapYear();
     var today = new Date();
-    var todaysMonth = 12//today.getMonth() + 1;
-    var todaysDate = 5//today.getDate();
+    var todaysMonth = today.getMonth() + 1;
+    var todaysDate = today.getDate();
     var todaysDateNumber;
     var cumulative = [0,0,31,59,90,120,151,181,212,243,273,304,334];
     var cumulativeLeap = [0,0,31,60,91,121,152,182,213,244,274,305,335];
@@ -2218,11 +2125,9 @@ function loadCheckedStates() {
             todaysDateNumber = cumulative[todaysMonth] + todaysDate + 1000;
         };
     };
-    for (i = 0; i < _dateNumbers.length; i++) {
-        if (i > 0 && todaysDateNumber >= _dateNumbers[i]) {
-            _checkedState[(i-1)] = 1;
-        } else if (i > 0) {
-            _checkedState[(i-1)] = 0;
+    for (i = 1; i < _dateNumbers.length; i++) {
+        if (todaysDateNumber >= _dateNumbers[i]) {
+            _checkedState[i-1] = 1;
         };
         if (todaysDateNumber == _dateNumbers[i]) {
             _isClassDay = true; break;
@@ -2230,7 +2135,17 @@ function loadCheckedStates() {
             _isClassDay = false;
         };
     };
-    elapsedWeekCount();
+    _elapsedWeeks = _checkedState.length + 1;
+}; // assigns a 1 ("show") to each index of the _checkedState array corresponding with a class date that is today or past and a 0 ("hide") for future class dates - this array determines which missions will be visible in the missionsPop
+
+function showMissions() {
+    for (i = 0; i < _checkedState.length; i++) {
+        if (_checkedState[i] == 1) {
+            document.getElementById("check"+i).checked = true;
+            document.getElementById("as"+i+"Pop").style.display = "block";
+            document.getElementById("mv"+i+"Pop").style.display = "block";
+        };
+    };
 };
 
 function loadStudentPhoto() {
@@ -2306,13 +2221,13 @@ function openInsignia() {
 
 function toggleIncomplete() {
     var noneHidden = true;
-    for (i = 0; i < (_elapsedWeeks - 1); i++) {
+    for (i = 0; i < (_checkedState.length); i++) {
         if (document.getElementById("as"+i+"Pop").style.display == "none" || document.getElementById("mv"+i+"Pop").style.display == "none") {
             noneHidden = false; break;
         };
     };
     if (noneHidden) {
-        for (i = 0; i < (_elapsedWeeks - 1); i++) {
+        for (i = 0; i < (_checkedState.length); i++) {
             if (_sl[_ci].as[i] < _asMaxPts[i]) {
                 document.getElementById("as"+i+"Pop").style.display = "block"
             } else {
@@ -2325,7 +2240,7 @@ function toggleIncomplete() {
             };
         };
     } else {
-        for (i = 0; i < (_elapsedWeeks - 1); i++) {
+        for (i = 0; i < (_checkedState.length); i++) {
             document.getElementById("as"+i+"Pop").style.display = "block";
             document.getElementById("mv"+i+"Pop").style.display = "block";
         };
@@ -2337,6 +2252,13 @@ function averageArray(x) {
         return a + b;
     };
     return Math.round(x.reduce(sumArray)/x.length);
+};
+
+function sumArray(array) {
+    function sum(a,b) {
+        return a + b;
+    };
+    return array.reduce(sum);
 };
 
 function loadAttendanceStats() {
@@ -2372,9 +2294,98 @@ function loadAttendanceStats() {
     pop(["mainMenuPop"],["attendanceStatsPop"]);
 };
 
-/* function largerRankInsignia() {
-    window.open("img/insignia-darkgray/"+i+"-rank.jpg","_blank");
-} */
+function loadStudentAttStats() {
+    for (i = 0; i < 34; i++) {
+        document.getElementById("studentAttDate"+i).innerHTML = _classDates[i];
+        if (_sl[_ci].amAttendanceCount[i] == 1) {
+            document.getElementById("studentAttAM"+i).innerHTML = "X";
+        } else {
+            document.getElementById("studentAttAM"+i).innerHTML = "";
+        };
+        if (_sl[_ci].pmAttendanceCount[i] == 1) {
+            document.getElementById("studentAttPM"+i).innerHTML = "X";
+        } else {
+            document.getElementById("studentAttPM"+i).innerHTML = "";
+        };
+        if (_sl[_ci].amAttendanceCount[i] == 0 && _sl[_ci].pmAttendanceCount[i] == 0) {
+            document.getElementById("studentAttDate"+i).style.backgroundColor = "firebrick";
+        } else {
+            document.getElementById("studentAttDate"+i).style.backgroundColor = "black";
+        };
+    };
+};
+
+function whatToLoad() {
+    if (!localStorage.getItem("sl")) { //A
+        if (JSON.parse(localStorage.getItem("slBackup"))) { //A1
+            _sl = JSON.parse(localStorage.getItem("slBackup"));
+            _amAttendance = JSON.parse(localStorage.getItem("amAttendanceBackup"));
+            _pmAttendance = JSON.parse(localStorage.getItem("pmAttendanceBackup"));
+            _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
+            loadCheckedStates();
+            removePtBoxes();
+            showMissions();
+            sortStudentList();
+            for (i = 0; i < _sl.length; i++) {
+                _sl[i].attendance = false;
+                _sl[i].random = false;
+            };
+            findBday();
+        } else { //A2
+            return;
+        };
+    } else { //B
+        pop(["mainPop"],["wtlPop"]);
+    };
+}; // if (A) no localStorage data exists, then if (A1) backup.js exists, backup.js will be loaded, else (A2) blank/default data will be loaded
+// else (B) if localStorage data exists, you are given the choice to load it or backup.js */
+
+function loadBackup() {
+    if (!JSON.parse(localStorage.getItem("slBackup"))) {
+        infoAlert("backup.js not available",["wtlPop"]); return;
+    } else {
+        _sl = JSON.parse(localStorage.getItem("slBackup"));
+        _amAttendance = JSON.parse(localStorage.getItem("amAttendanceBackup"));
+        _pmAttendance = JSON.parse(localStorage.getItem("pmAttendanceBackup"));
+        _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
+        loadCheckedStates();
+        showMissions();
+        for (i = 0; i < _sl.length; i++) {
+            _sl[i].attendance = false;
+            _sl[i].random = false;
+        };
+        if (_isClassDay === true) {
+            for (i = 0; i < _sl.length; i++) {
+                _sl[i].amAttendanceCount.push(0);
+                _sl[i].pmAttendanceCount.push(0);
+            };
+        };
+        findBday();
+        removePtBoxes();
+        populateTeacherNotes();
+        pop(["wtlPop"],["mainPop"]);
+    };
+};
+
+function loadLS() {
+    _sl = JSON.parse(localStorage.getItem("sl"));
+    _amAttendance = JSON.parse(localStorage.getItem("amAttendance"));
+    _pmAttendance = JSON.parse(localStorage.getItem("pmAttendance"));
+    _log = localStorage.getItem("log");
+    _gameLog = localStorage.getItem("gameLog");
+    document.getElementById("log").innerHTML = _log;
+    document.getElementById("gameLog").innerHTML = _gameLog;
+    _teacherNotes = JSON.parse(localStorage.getItem("teacherNotes"));
+    _teams = JSON.parse(localStorage.getItem("teams"));
+    loadCheckedStates();
+    showMissions();
+    attendanceCount();
+    removePtBoxes();
+    findBday();
+    backupNewData();
+    populateTeacherNotes();
+    pop(["wtlPop"],["mainPop"]);
+};
 
 //*** ONLOAD FUNCTION CALLS ***//
 whatToLoad()
@@ -2382,7 +2393,7 @@ whatToLoad()
 document.getElementById("search").focus();
 
 //*** NOTES ***//
-/*Math.random() returns a random number greater than 0 and less than 1
+/* Math.random() returns a random number greater than 0 and less than 1
 multiply Math.random() by one more than the maximum random number you want to generate
 use Math.floor(Math.random()) to be sure the randomly-generated number is rounded down to the ones place
 e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random() * 11)

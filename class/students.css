@@ -162,6 +162,7 @@ a:link, a:visited, a:hover, a:active {
     cursor: pointer;
     padding-top: 7px;
     font-size: 20px;
+    display: none;
 }
 
 .pointButtonContainer {
@@ -181,10 +182,12 @@ a:link, a:visited, a:hover, a:active {
     cursor: default !important;
 }
 
-.asmvButtonFill {
-    height: 150px;
+#mv32Pop {
+    height: 40px;
     width: 150px;
     border: 1px solid transparent;
+    background-color: #111 !important;
+    display: none;
 }
 
 #asPop div, #mvPop div {
