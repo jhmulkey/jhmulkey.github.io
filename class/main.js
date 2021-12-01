@@ -2313,6 +2313,7 @@ function loadStudentAttStats() {
             document.getElementById("studentAttDate"+i).style.backgroundColor = "black";
         };
     };
+    pop(["studentPop","missionsPop"],["studentAttStatsPop"]);
 };
 
 function whatToLoad() {

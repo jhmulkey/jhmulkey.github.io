@@ -256,7 +256,7 @@
         <div class="studentPopButtons" id="editButton" onclick="populateStudentFields()">edit info</div>
         <div class="studentPopButtons" id="notesButton" onclick="pop(['studentPop','missionsPop'],['notesPop','notesList']); populateNotes()">notes</div>
         <div class="studentPopButtons" id="photoButton" onclick="loadStudentPhoto()">photo</div>
-        <div class="studentPopButtons" id="attendanceButton">Attendance</div>
+        <div class="studentPopButtons" id="attendanceButton" onclick="loadStudentAttStats()">Attendance</div>
         <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields('editEmail1')">email</div>
     </div>
 </div>
@@ -1343,7 +1343,7 @@
 
 <div id="studentAttStatsPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['studentAttendanceStatsPop'],['studentPop,missionsPop'])"><span>f</span></div>
+    <div class="backButton" onclick="pop(['studentAttStatsPop'],['studentPop','missionsPop'])"><span>f</span></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="studentAttTableDiv">
