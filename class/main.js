@@ -211,6 +211,22 @@ class Teams {
     };
 };
 
+function skipPlayer() {
+    if (_teams[0].currentTeam == 1) {
+        var log = _teams[0].team1[0].fullName + " skipped";
+        _teams[0].team1.shift();
+        _teams[0].currentPlayer = _teams[0].team1[0].fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
+    } else {
+        var log = _teams[0].team2[0].fullName + " skipped";
+        _teams[0].team2.shift();
+        _teams[0].currentPlayer = _teams[0].team2[0].fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
+    };
+    gameActivityLog(log,false,"red");
+    storeNewData();
+};
+
 function gameScorePoints(x) {
     _teams[0].undoGamePts = x;
     _teams[0].undoLimit = false;
@@ -813,6 +829,35 @@ function randomAtt() {
     populateNames();
     storeNewData();
     pop(["attListPop"],["mainPop"]);
+};
+
+
+function randomAtt2(x) {
+    today = new Date();
+    for (i = 0; i < _sl.length; i++) {
+        _sl[i].attendance = false;
+    };
+    for (i = 0; i < x; i++) {
+        _sl[Math.floor(Math.random() * _sl.length)].attendance = true;
+    };
+    if (_isClassDay === true && today.getHours() < 14) {
+        for (i = 0; i < _sl.length; i++) {
+            if (_sl[i].attendance === true) {
+                _amAtt[_checkedState.length] += 1;
+                _sl[i].amAttCount[_checkedState.length] = 1;
+            };
+        }; 
+    } else if (_isClassDay === true && today.getHours() >= 14) {
+        for (i = 0; i < _sl.length; i++) {
+            if (_sl[i].attendance === true) {
+                _pmAtt[_checkedState.length] += 1;
+                _sl[i].pmAttCount[_checkedState.length] = 1;
+            };
+        }; 
+    };
+    attCount();
+    populateNames();
+    storeNewData();
 };
 
 function allAtt() {
@@ -2569,5 +2614,4 @@ to copy an existing array to a new one: var newArray = originalArray.slice(0,ori
 */
 
 //*** TO DO LIST ***//
-// add links to student stats (rank chart, incomplete as and mv, etc.)
 // add ability to skip current player in game and move to next player in that team
