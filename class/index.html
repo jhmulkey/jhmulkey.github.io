@@ -856,9 +856,10 @@
 
 <div id="attArchiveListPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['attArchiveListPop'],['attListTableDiv'])"><span>f</span></div>
+    <div class="backButton" onclick="pop(['attArchiveListPop'],['attStatsPop'])"><span>f</span></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
+  <p id="attArchiveDate"></p>
   <p id="attArchiveCount"></p>
   <div id="attArchiveListContainer">
     <div id="boysArchiveListAttDiv">
@@ -1172,6 +1173,18 @@
         <td id="amMin"></td>
         <td id="pmMin"></td>
         <td id="bothMin"></td>
+      </tr>
+      <tr>
+        <td>Boys Avg</td>
+        <td id="amBoysAvg"></td>
+        <td id="pmBoysAvg"></td>
+        <td id="bothBoysAvg"></td>
+      </tr>
+      <tr>
+        <td>Girls Avg</td>
+        <td id="amGirlsAvg"></td>
+        <td id="pmGirlsAvg"></td>
+        <td id="bothGirlsAvg"></td>
       </tr>
     </table>
   </div>

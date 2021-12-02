@@ -22,8 +22,8 @@ var _eligibleRandom; // used to store an array of eligble names for random selec
 var _teams = []; // an array containing a single team object with key/value pairs (rather than defining individual global variables)
 var _dataInputParameter; // if dataInputAlert() needs to pass a parameter to the formula it calls when user clicks OK, it is stored here
 var _checkedState = []; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
-var _amAtt = [];
-var _pmAtt = [];
+var _amAtt = []; //stores total AM attendance number for each week
+var _pmAtt = []; //stores total PM attendance number for each week
 var _elapsedWeeks = 1; // number of class sessions to date
 var _classDates = ["8/22", "8/29", "9/12", "9/19", "9/26", "10/3", "10/10", "10/17", "10/24", "10/31", "11/7", "11/14", "12/5", "12/12", "12/19", "1/9", "1/16", "1/23", "1/30", "2/6", "2/13", "2/20", "2/27", "3/6", "3/13", "3/20", "3/27", "4/3", "4/10", "4/24", "5/1", "5/8", "5/15", "5/22"];
 var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 1009, 1016, 1023, 1030, 1037, 1044, 1051, 1058, 1065, 1072, 1079, 1086, 1093, 1100, 1114, 1121, 1128, 1135, 1142]; // unique numbers assinged to each class date
@@ -547,19 +547,19 @@ function loadArchiveAttendees(index,time) {
     document.getElementById("girlsArchiveListAttP").innerHTML = "";
     var boys = [];
     var girls = [];
-    if (time == "am") {
+    if (time == "AM") {
         for (i = 0; i < _sl.length; i++) {
-            if (_sl[i].gender == "M" && _sl[i].amAttCount == 1) {
+            if (_sl[i].gender == "M" && _sl[i].amAttCount[index] == 1) {
                 boys.push(_sl[i].fullName);
-            } else if (_sl[i].gender == "F" && _sl[i].amAttCount == 1) {
+            } else if (_sl[i].gender == "F" && _sl[i].amAttCount[index] == 1) {
                 girls.push(_sl[i].fullName);
             };
         };
     } else {
         for (i = 0; i < _sl.length; i++) {
-            if (_sl[i].gender == "M" && _sl[i].pmAttCount == 1) {
+            if (_sl[i].gender == "M" && _sl[i].pmAttCount[index] == 1) {
                 boys.push(_sl[i].fullName);
-            } else if (_sl[i].gender == "F" && _sl[i].pmAttCount == 1) {
+            } else if (_sl[i].gender == "F" && _sl[i].pmAttCount[index] == 1) {
                 girls.push(_sl[i].fullName);
             };
         };
@@ -580,7 +580,9 @@ function loadArchiveAttendees(index,time) {
     };  
     document.getElementById("boysArchiveListAttP").innerHTML = "Boys (" + boys.length + ")";
     document.getElementById("girlsArchiveListAttP").innerHTML = "Girls (" + girls.length + ")";
-    pop(["attListTableDiv"],["attArchiveListPop"]);
+    document.getElementById("attArchiveCount").innerHTML = boys.length + girls.length;
+    document.getElementById("attArchiveDate").innerHTML = _classDates[index] + " " + time + " Attendance";
+    pop(["attStatsPop"],["attArchiveListPop"]);
 };
 
 function attendanceList(log) {
@@ -785,16 +787,53 @@ function capitalize(x) {
 };
 
 function randomAtt() {
+    today = new Date();
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
     };
     for (i = 0; i < Math.floor(_sl.length / 2); i++) {
         _sl[Math.floor(Math.random() * _sl.length)].attendance = true;
     };
+    if (_isClassDay === true && today.getHours() < 14) {
+        for (i = 0; i < _sl.length; i++) {
+            if (_sl[i].attendance === true) {
+                _amAtt[_checkedState.length] += 1;
+                _sl[i].amAttCount[_checkedState.length] = 1;
+            };
+        }; 
+    } else if (_isClassDay === true && today.getHours() >= 14) {
+        for (i = 0; i < _sl.length; i++) {
+            if (_sl[i].attendance === true) {
+                _pmAtt[_checkedState.length] += 1;
+                _sl[i].pmAttCount[_checkedState.length] = 1;
+            };
+        }; 
+    };
     attCount();
     populateNames();
     storeNewData();
     pop(["attListPop"],["mainPop"]);
+};
+
+function allAtt() {
+    today = new Date();
+    for (i = 0; i < _sl.length; i++) {
+        _sl[i].attendance = true;
+    };
+    if (_isClassDay === true && today.getHours() < 14) {
+        for (i = 0; i < _sl.length; i++) {
+            _amAtt[_checkedState.length] += 1;
+            _sl[i].amAttCount[_checkedState.length] = 1;
+        }; 
+    } else if (_isClassDay === true && today.getHours() >= 14) {
+        for (i = 0; i < _sl.length; i++) {
+            _pmAtt[_checkedState.length] += 1;
+            _sl[i].pmAttCount[_checkedState.length] = 1;
+        }; 
+    };
+    attCount();
+    populateNames();
+    storeNewData();
 };
 
 function editStudent() {
@@ -1988,8 +2027,8 @@ function storeAndBackup() {
 
 function storeNewData() {
     localStorage.setItem("sl",JSON.stringify(_sl));
-    localStorage.setItem("amAttendance",JSON.stringify(_amAtt));
-    localStorage.setItem("pmAttendance",JSON.stringify(_pmAtt));
+    localStorage.setItem("amAtt",JSON.stringify(_amAtt));
+    localStorage.setItem("pmAtt",JSON.stringify(_pmAtt));
     localStorage.setItem("teacherNotes",JSON.stringify(_teacherNotes));
     localStorage.setItem("log",_log);
     localStorage.setItem("gameLog",_gameLog);
@@ -1998,8 +2037,8 @@ function storeNewData() {
 
 function backupNewData() {
     document.getElementById("slBackupArray").innerHTML = "var _slBackup = "+localStorage.getItem("sl")+";";
-    document.getElementById("amAttBackupArray").innerHTML = "var _amAttBackup = "+localStorage.getItem("amAttendance")+";";
-    document.getElementById("pmAttBackupArray").innerHTML = "var _pmAttBackup = "+localStorage.getItem("pmAttendance")+";";
+    document.getElementById("amAttBackupArray").innerHTML = "var _amAttBackup = "+localStorage.getItem("amAtt")+";";
+    document.getElementById("pmAttBackupArray").innerHTML = "var _pmAttBackup = "+localStorage.getItem("pmAtt")+";";
     document.getElementById("teacherNotesBackupArray").innerHTML = "var _teacherNotesBackup = "+localStorage.getItem("teacherNotes")+";";
 }; // overwrites (index.html id:"slBackupArray" and id:"checkedStateBackupArray") any time their values change
 
@@ -2072,6 +2111,9 @@ function loadStudentStats() {
     for (i = 0; i < _elapsedWeeks; i++) {
         weeksAttended += _sl[_ci].amAttCount[i];
         weeksAttended += _sl[_ci].pmAttCount[i];
+        if (_sl[_ci].amAttCount[i] == 1 && _sl[_ci].pmAttCount[i] == 1) {
+            weeksAttended--;
+        };
     };
     var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(2);
     var attendanceSquares = Math.round(attendancePercentage / 2.50);
@@ -2247,10 +2289,11 @@ function loadRankTable() {
         document.getElementById("rankChartRank"+i).innerHTML = _rankNames[i];
         document.getElementById("rankChartAbbreviation"+i).innerHTML = _rankNamesAbbr[i];
         document.getElementById("rankChartPoints"+i).innerHTML = _rankPts[i];
-        document.getElementById("rankChartInsignia"+i).onclick = function() {
-            pop(["rankChartPop"],["openInsigniaPop"]);
-            document.getElementById("displayInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+x+"-rank.jpg)";
-        };
+        (function(i){
+            document.getElementById("rankChartInsignia"+i).onclick = function () {
+                pop(["rankChartPop"],["openInsigniaPop"]);
+                document.getElementById("displayInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";            };
+        })(i);
         if (i == _sl[_ci].rank) {
             document.getElementById("rankChartRow"+i).style.border = "3px solid lawngreen";
         } else {
@@ -2310,14 +2353,54 @@ function sumArray(array) {
 
 function loadAttStats() {
     var today = new Date();
-    var amArray = _amAtt; var pmArray = _pmAtt;
+    var amArray = _amAtt.slice(0,_amAtt.length); var pmArray = _pmAtt.slice(0,_pmAtt.length);
+    var amBoysArray = []; var pmBoysArray = []; var amGirlsArray = []; var pmGirlsArray = [];
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].gender == "M") {
+            amBoysArray.push(_sl[i].amAttCount.slice(0,_sl[i].amAttCount.length));
+            pmBoysArray.push(_sl[i].pmAttCount.slice(0,_sl[i].pmAttCount.length));
+        } else {
+            amGirlsArray.push(_sl[i].amAttCount.slice(0,_sl[i].amAttCount.length));
+            pmGirlsArray.push(_sl[i].pmAttCount.slice(0,_sl[i].pmAttCount.length));
+        };
+    };
     if (_isClassDay === true && today.getHours() < 18) {
         amArray.pop(); pmArray.pop();
+        for (i = 0; i < _sl.length; i++) {
+            if (i < amBoysArray.length) { amBoysArray[i].pop(); };
+            if (i < pmBoysArray.length) { pmBoysArray[i].pop(); };
+            if (i < amGirlsArray.length) { amGirlsArray[i].pop(); };
+            if (i < pmGirlsArray.length) { pmGirlsArray[i].pop(); };
+        };
+    };
+    amBoysCount = 0; pmBoysCount = 0; amGirlsCount = 0; pmGirlsCount = 0;
+    for (i = 0; i < _sl.length; i++) {
+        if (i < amBoysArray.length) { amBoysCount += sumArray(amBoysArray[i]); };
+        if (i < pmBoysArray.length) { pmBoysCount += sumArray(pmBoysArray[i]); };
+        if (i < amGirlsArray.length) { amGirlsCount += sumArray(amGirlsArray[i]); };
+        if (i < pmGirlsArray.length) { pmGirlsCount += sumArray(pmGirlsArray[i]); };
     };
     var bothArray = [];
     for (i = 0; i < amArray.length; i++) {
         bothArray.push(amArray[i] + pmArray[i]);
     };
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].gender == "M") {
+            amBoysArray.push(sumArray(_sl[i].amAttCount));
+            pmBoysArray.push(sumArray(_sl[i].pmAttCount));
+        } else {
+            amGirlsArray.push(sumArray(_sl[i].amAttCount));
+            pmGirlsArray.push(sumArray(_sl[i].pmAttCount));
+        };
+    };
+    var bothBoysArray = []; var bothGirlsArray = [];
+    for (i = 0; i < amBoysArray.length; i++) {
+        bothBoysArray.push(amBoysArray[i] + pmBoysArray[i]);
+    };
+    for (i = 0; i < amGirlsArray.length; i++) {
+        bothGirlsArray.push(amGirlsArray[i] + pmGirlsArray[i]);
+    };
+    var divisor = amArray.length;
     document.getElementById("amAvg").innerHTML = averageArray(amArray);
     document.getElementById("pmAvg").innerHTML = averageArray(pmArray);
     document.getElementById("bothAvg").innerHTML = averageArray(bothArray);
@@ -2327,12 +2410,26 @@ function loadAttStats() {
     document.getElementById("amMin").innerHTML = Math.min(...amArray);
     document.getElementById("pmMin").innerHTML = Math.min(...pmArray);
     document.getElementById("bothMin").innerHTML = Math.min(...bothArray);
-    for (i = 0; i < _elapsedWeeks; i++) {
+    document.getElementById("amBoysAvg").innerHTML = Math.round(amBoysCount/divisor);
+    document.getElementById("pmBoysAvg").innerHTML = Math.round(pmBoysCount/divisor);
+    document.getElementById("bothBoysAvg").innerHTML = Math.round((amBoysCount+pmBoysCount)/divisor);
+    document.getElementById("amGirlsAvg").innerHTML = Math.round(amGirlsCount/divisor);
+    document.getElementById("pmGirlsAvg").innerHTML = Math.round(pmGirlsCount/divisor);
+    document.getElementById("bothGirlsAvg").innerHTML = Math.round((amGirlsCount+pmGirlsCount)/divisor);
+    for (i = 0; i < amArray.length; i++) {
         document.getElementById("attDate"+i).innerHTML = _classDates[i];
         document.getElementById("attAM"+i).innerHTML = _amAtt[i];
         document.getElementById("attPM"+i).innerHTML = _pmAtt[i];
+        (function(i){
+            document.getElementById("attAM"+i).onclick = function () {
+                loadArchiveAttendees(i,"AM");
+            };
+            document.getElementById("attPM"+i).onclick = function () {
+                loadArchiveAttendees(i,"PM");
+            };
+        })(i);
     };
-    for (i = _elapsedWeeks; i < 34; i++) {
+    for (i = amArray.length; i < 34; i++) {
         document.getElementById("attRow"+i).style.display = "none";
     };
     pop(["mainMenuPop"],["attStatsPop"]);
@@ -2404,9 +2501,9 @@ function loadBackup() {
         };
         if (_isClassDay === true) {
             for (i = 0; i < _sl.length; i++) {
-                _sl[i].amAttCount.push(0);
-                _sl[i].pmAttCount.push(0);
+                _sl[i].amAttCount.push(0); _sl[i].pmAttCount.push(0);
             };
+            _amAtt.push(0); _pmAtt.push(0);
         };
         findBday();
         removePtBoxes();
@@ -2449,7 +2546,25 @@ e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random(
 .sort(function(a,b){return a - b}); returns new array sorted A-Z or 0-10
 .sort(function(a,b){return b - a}); returns new array sorted Z-A or 10-0
 
-for (i = 0; i < .length; i++) {};
+to add an onclick function to a series of elements with a for loop, use:
+
+    //to add an onclick function to elements you're about to write to the DOM
+    (function(i){
+        elementNode.onclick = function () {
+            functionName(i);
+        };
+    })(i);
+
+    //to add an onclick function to elements already in the DOM
+    (function(i){
+        document.getElementById("idName").onclick = function () {
+            functionName(i);
+        };
+    })(i);
+
+    The final (i) allows the function to be called (with i as the parameter) when you click on the elements in the DOM.  If you leave this out, nothing will happen when you click on the elements.
+
+to copy an existing array to a new one: var newArray = originalArray.slice(0,originalArray.length)
 
 */
 

@@ -887,3 +887,9 @@ a:link, a:visited, a:hover, a:active {
 #attStatsTableDiv, #attListTableDiv {
     margin-top: 40px;
 }
+
+#attArchiveDate {
+    font-size: 20px;
+    color: orange;
+    margin: 15px auto;
+}
