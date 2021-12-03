@@ -1,41 +1,41 @@
-var _sl = [];
-var _ci;
-var _asNum;
-var _mvNum;
-var _asPoints;
-var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,6];
+var _sl = []; //student list - array where all student objects are stored and accessed
+var _ci; //current index of _sl array
+var _asNum; //activity sheet number
+var _mvNum; //memory verse number
+var _asPoints; //asPoints() stores the point value here if less than max points for when the function is called again after entering a reason
+var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,6]; //max points possible for each activity sheet
 var _asReasons = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
-var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3,0];
-var _leapYear = false;
-var _weeksOff = 0;
-var _noteIndex;
-var _teacherNotes = [];
-var _teacherNoteIndex;
-var _log = "";
+var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3,0]; //max points possible for each memory verse
+var _leapYear = false; //used to determine whether Feb has 29 or 29 days for purposes of upcoming birthday alerts
+var _weeksOff = 0; //used to determine when alerts for upcoming birthdays appear if class will not meet for 1-2 weeks
+var _noteIndex; //selected note index of notes array
+var _teacherNotes = []; //array where teacher notes are stored
+var _teacherNoteIndex; //selected note index of teacherNotes array
+var _log = ""; //activity log
 var _gameLog = ""; 
-var _currentPops;
-var _currentPops2;
-var _sharedPop;
-var _populateNotesID = [];
-var _focus;
-var _currentFunction;
-var _eligibleRandom;
-var _teams = [];
-var _dataInputParameter;
-var _checkedState = [];
-var _amAtt = [];
-var _pmAtt = [];
-var _elapsedWeeks = 1;
+var _currentPops; //used to store an array of which Pop divs are visible when infoAlert() is called
+var _currentPops2; //used to store an array of which Pop divs are visible when dataInputAlert() is called
+var _sharedPop; //used if the back button may one of two or more Pops
+var _populateNotesID = []; //used to determine which pops to return to after notesPop back button is clicked
+var _focus; //stores text field id that focus() is called on when infoAlertPop is dismissed with the back button
+var _currentFunction; //used to store a function so various other functions can use it
+var _eligibleRandom; //used to store an array of eligble names for random selection
+var _teams = []; //an array containing a single team object with key/value pairs (rather than defining individual global variables)
+var _dataInputParameter; //if dataInputAlert() needs to pass a parameter to the formula it calls when user clicks OK, it is stored here
+var _checkedState = []; //array where checkbox value for each mission's visibility is stored
+var _amAtt = []; //stores total AM attendance number for each week
+var _pmAtt = []; //stores total PM attendance number for each week
+var _elapsedWeeks = 1; //number of class sessions to date
 var _classDates = ["8/22", "8/29", "9/12", "9/19", "9/26", "10/3", "10/10", "10/17", "10/24", "10/31", "11/7", "11/14", "12/5", "12/12", "12/19", "1/9", "1/16", "1/23", "1/30", "2/6", "2/13", "2/20", "2/27", "3/6", "3/13", "3/20", "3/27", "4/3", "4/10", "4/24", "5/1", "5/8", "5/15", "5/22"];
-var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 1009, 1016, 1023, 1030, 1037, 1044, 1051, 1058, 1065, 1072, 1079, 1086, 1093, 1100, 1114, 1121, 1128, 1135, 1142];
-var _isClassDay;
-var _studentPhotoExists;
+var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 1009, 1016, 1023, 1030, 1037, 1044, 1051, 1058, 1065, 1072, 1079, 1086, 1093, 1100, 1114, 1121, 1128, 1135, 1142]; //unique numbers assinged to each class date
+var _isClassDay; //if false, attendance-related functions will not alter the student's attCount array values
+var _studentPhotoExists; //if true, Photo button displays green on StudentPop, otherwise it displays red
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
-var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14","jn-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword","armor-review"];
+var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14","jn-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword","armor-review"]; //activity sheet names
 var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8",
-"phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"];
+"phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"]; //memory verse names
 var _mvText = [
     "<span style='color: dodgerblue'>Psalm 139:17-18</span><br>How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
     "<span style='color: dodgerblue'>John 20:30-31</span><br>Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
@@ -100,30 +100,30 @@ class Student {
         this.lastName = last;
         this.fullName = first + " " + last;
         this.gender = gender;
-        this.birthdayMonth = month;
-        this.birthdayDate = date;
+        this.birthdayMonth = month; //1-12 or 0 if birthday unknown
+        this.birthdayDate = date; //1-31 or 0 if birthday unknown
         this.birthdayNumber = month + date;
         this.birthday = month + "/" + date;
-        this.hasBirthday = false;
-        this.birthdayDone = false;
+        this.hasBirthday = false; //has birthday today or before next class
+        this.birthdayDone = false; //birthday has been announced in class (and thus will no longer be indicated anywhere in the UI)
         this.birthdayLogged = false;
-        this.email1 = email1;
-        this.email2 = email2;
-        this.notes = note;
-        this.points = 0;
-        this.classRank = 0;
-        this.rank = 0;
-        this.rankFactor = 0;
+        this.email1 = email1; //primary email
+        this.email2 = email2; //secondary email
+        this.notes = note; //array where student notes are stored
+        this.points = 0; //total, cumulative points earned year to date
+        this.classRank = 0; //rank in class based on total points
+        this.rank = 0; //0 is PVT; 19 is GOA
+        this.rankFactor = 0; //compensates for 20 point promotions in asPoints and mvPoints functions
         this.rankName = "PVT"
-        this.attendance = false;
-        this.amAttCount = [];
-        this.pmAttCount = [];
-        this.promoted = false;
-        this.promotionNum = 0;
-        this.drawing = false;
-        this.random = false;
+        this.attendance = false; //student is in attendance today
+        this.amAttCount = []; //AM attendance per week (0 = absent; 1 = present)
+        this.pmAttCount = []; //PM attendance per week (0 = absent; 1 = present)
+        this.promoted = false; //student has earned a promotion
+        this.promotionNum = 0; //number of promotions accumulated (in case student is absent for promotion ceremony)
+        this.drawing = false; //has been picked in drawing (if true, then inelligble to be picked again until stats are reset)
+        this.random = false; //has been picked using random name selector (will not be picked again until all other names have been picked)
         this.asReasons = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
-        this.as = {
+        this.as = { //activity sheet number: points
             0: 0, //class-intro
             1: 0, //john-intro
             2: 0, //john-1
@@ -158,7 +158,7 @@ class Student {
             31: 0, //sword
             32: 0, //armor-review
         };
-        this.mv = {
+        this.mv = { //memory verse number: points
             0: 0, //ps-139-17-18
             1: 0, //jn-20-30-31
             2: 0, //jn-1-1-2
@@ -640,7 +640,7 @@ function resetAtt() {
 function loadTodaysDate() {
     document.getElementById("todaysDate").style.fontSize = "15px";
     document.getElementById("todaysDate").innerHTML = Date();
-};
+}; // for top of activity log
 
 function infoAlert(message,idArray,focus) {
     if (document.getElementById("infoAlertPop").style.display == "block") {
@@ -711,29 +711,29 @@ function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
 };
 
 function actionAlert(message,popsArray,func,bypass) {
-    if (document.getElementById("actionAlertPop").style.display != "block") {
-        _currentPops = popsArray;
-        _currentFunction = func;
-        document.getElementById("actionAlertPop").style.display = "block";
-        for (i = 0; i < _currentPops.length; i++) {
+    if (document.getElementById("actionAlertPop").style.display != "block") { //A
+        _currentPops = popsArray; //A1
+        _currentFunction = func; //A1
+        document.getElementById("actionAlertPop").style.display = "block"; //A2
+        for (i = 0; i < _currentPops.length; i++) { //A3
             if (_currentPops[i] !== undefined) {
                 document.getElementById(_currentPops[i]).style.display = "none"
             };
         };
-        document.getElementById("actionAlertMessage").innerHTML = message;
-    } else if (document.getElementById("actionAlertPop").style.display == "block") {
-        document.getElementById("actionAlertPop").style.display = "none";
-        for (i = 0; i < _currentPops.length; i++) {
+        document.getElementById("actionAlertMessage").innerHTML = message; //A4
+    } else if (document.getElementById("actionAlertPop").style.display == "block") { //B
+        document.getElementById("actionAlertPop").style.display = "none"; //B1
+        for (i = 0; i < _currentPops.length; i++) { //B2
             if (_currentPops[i] !== undefined) {
                 document.getElementById(_currentPops[i]).style.display = "block"
             };
         };
-        document.getElementById("actionAlertMessage").innerHTML = "";
-        if (!bypass) {
+        document.getElementById("actionAlertMessage").innerHTML = ""; //B3
+        if (!bypass) { //B4
             _currentFunction();
         };
     }; 
-};
+}; // Before a function which resets data is invoked, it is first channeled through the actionAlert function, which serves as a confirmation dialogue.  e.g. user clicks the <p> id="attCount" to reset attendance back to 0.  This invokes the actionAlert function the first time (A) with the following parameters: 1. a *message* (to display in the actionAlertPop), 2. an *id* (of the Pop that needs to disappear when the actionAlertPop appears), and 3. a func(tion) (which will be executed when the user clicks the "OK" button on the actionAlertPop).  A1: The id (and a second, optional id) is assigned to the global _currentPops array, and the function is assigned to the global _currentFunction.  A2: The actionAlertPop appears and the other pop(s) (id1 and id2) disappear.  A4 The message is assigned to the actionAlertPop.  The actionAlert function is called a second time when the user clicks on either the "OK" or "CANCEL" buttons on the actoinAlertPop.  If "OK" is clicked, then B1: the actionAlertPop disappears.  B2: the other pop(s) (id1 and id2) appear again (though they may not be seen if the function that is called next makes them disappear, but they will always be seen if the user clicks "CANCEL", since that bypasses the function call).  B3: the actionAlerPop message is cleared.  B4: the function is called (unless the bypass parameter is present, which it is when the actionAlert function is called from the "CANCEL" button).
 
 function newStudent() {
     var firstLastArray = document.getElementById("newFirstAndLast").value.split("/");
@@ -1693,6 +1693,29 @@ for (i = 0; i < _sl.length; i++) {
     };
 };
 
+/* function sortByNotes() {
+    document.getElementById("nameListCustom").innerHTML = "";
+    document.getElementById("nameListCustom").style.display = "block";
+    document.getElementById("genderListContainer").style.display = "none";
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].notes.length != 0) {
+            var p1 = document.createElement("p");
+            var br = document.createElement("br");
+            var p2 = document.createElement("p");
+            p1.classList.add("name3");
+            p2.classList.add("noteText");
+            var fullName = document.createTextNode(_sl[i].fullName);
+            var notes = document.createTextNode(_sl[i].notes);
+            p2.appendChild(notes);
+            p1.appendChild(fullName);
+            p1.appendChild(br);
+            p1.appendChild(p2);
+            document.getElementById("nameListCustom").appendChild(p1);
+        };
+    };  
+    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
+}; */
+
 function populateNotes(id) {
     _populateNotesID = id;
     document.getElementById("notesList").innerHTML = "";
@@ -1958,7 +1981,7 @@ function leapYear() {
     } else {
         _leapYear = false;
     };
-};
+}; //determines whether current year is a leap year or not
 
 function findBday() {
     leapYear();
@@ -2161,7 +2184,7 @@ function backupNewData() {
     document.getElementById("amAttBackupArray").innerHTML = "var _amAttBackup = "+localStorage.getItem("amAtt")+";";
     document.getElementById("pmAttBackupArray").innerHTML = "var _pmAttBackup = "+localStorage.getItem("pmAtt")+";";
     document.getElementById("teacherNotesBackupArray").innerHTML = "var _teacherNotesBackup = "+localStorage.getItem("teacherNotes")+";";
-};
+}; // overwrites (index.html id:"slBackupArray" and id:"checkedStateBackupArray") any time their values change
 
 function selectText(element) {
     var text = document.getElementById(element);
@@ -2177,7 +2200,7 @@ function selectText(element) {
         selection.removeAllRanges();
         selection.addRange(range);
     };
-};
+}; //allows the div of arrays (index.html id:"backupArrays") to be selected all at once by clicking or tapping/hodling briefly in order to easily copy/paste it into an email, text document, etc.
 
 function preloadImages() {
     pop(["mainMenuPop"],["preloadImagesPop"]);
@@ -2286,11 +2309,12 @@ function loadStudentStats() {
 
 function assignDateNumbers() {
     leapYear();
-    var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
-    var dates = [22,29,12,19,26,3,10,17,24,31,7,14,5,12,19,9,16,23,30,6,13,20,27,6,13,20,27,3,10,24,1,8,15,22];
-    var monthsAndDates = [];
+    var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5]; //mm of each mm/dd class date
+    var dates = [22,29,12,19,26,3,10,17,24,31,7,14,5,12,19,9,16,23,30,6,13,20,27,6,13,20,27,3,10,24,1,8,15,22]; //dd of each mm/dd class date
+    var monthsAndDates = []; //combines corresponding indexes of months and date arrays into mm/dd strings
     var cumulative = [0,0,31,59,90,120,151,181,212,243,273,304,334];
     var cumulativeLeap = [0,0,31,60,91,121,152,182,213,244,274,305,335];
+    //number of elapsed days at start of each month in non-leap and leap years (January is index 1. Index 0 is a placeholder since there is no "0" month)
     for (i = 0; i < months.length; i++) {
         monthsAndDates.push(months[i]+"/"+dates[i]);
     };
@@ -2311,7 +2335,7 @@ function assignDateNumbers() {
     };
     console.log(_dateNumbers);
     console.log(monthsAndDates);
-};
+}; //assigns number to each calendar date that class meets and adds 1000 to dates after December to make them order higher than the Sept-Dec dates even though the day of the year they represent is lower
 
 function loadCheckedStates() {
     leapYear();
@@ -2345,7 +2369,7 @@ function loadCheckedStates() {
         };
     };
     _elapsedWeeks = _checkedState.length + 1;
-};
+}; // assigns a 1 ("show") to each index of the _checkedState array corresponding with a class date that is today or past and a 0 ("hide") for future class dates - this array determines which missions will be visible in the missionsPop
 
 function showMissions() {
     for (i = 0; i < _checkedState.length; i++) {
@@ -2581,8 +2605,8 @@ function loadStudentAttStats() {
 };
 
 function whatToLoad() {
-    if (!localStorage.getItem("sl")) {
-        if (JSON.parse(localStorage.getItem("slBackup"))) {
+    if (!localStorage.getItem("sl")) { //A
+        if (JSON.parse(localStorage.getItem("slBackup"))) { //A1
             _sl = JSON.parse(localStorage.getItem("slBackup"));
             _amAtt = JSON.parse(localStorage.getItem("amAttBackup"));
             _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
@@ -2596,13 +2620,14 @@ function whatToLoad() {
                 _sl[i].random = false;
             };
             findBday();
-        } else {
+        } else { //A2
             return;
         };
-    } else {
+    } else { //B
         pop(["mainPop"],["wtlPop"]);
     };
-};
+}; // if (A) no localStorage data exists, then if (A1) backup.js exists, backup.js will be loaded, else (A2) blank/default data will be loaded
+// else (B) if localStorage data exists, you are given the choice to load it or backup.js */
 
 function loadBackup() {
     if (!JSON.parse(localStorage.getItem("slBackup"))) {
@@ -2651,6 +2676,41 @@ function loadLS() {
     pop(["wtlPop"],["mainPop"]);
 };
 
+//*** ONLOAD FUNCTION CALLS ***//
 whatToLoad()
 
 document.getElementById("search").focus();
+
+//*** NOTES ***//
+/* Math.random() returns a random number greater than 0 and less than 1
+multiply Math.random() by one more than the maximum random number you want to generate
+use Math.floor(Math.random()) to be sure the randomly-generated number is rounded down to the ones place
+e.g. if you want to generate a number from 0-10, then do Math.floor(Math.random() * 11)
+
+.sort(function(a,b){return a - b}); returns new array sorted A-Z or 0-10
+.sort(function(a,b){return b - a}); returns new array sorted Z-A or 10-0
+
+to add an onclick function to a series of elements with a for loop, use:
+
+    //to add an onclick function to elements you're about to write to the DOM
+    (function(i){
+        elementNode.onclick = function () {
+            functionName(i);
+        };
+    })(i);
+
+    //to add an onclick function to elements already in the DOM
+    (function(i){
+        document.getElementById("idName").onclick = function () {
+            functionName(i);
+        };
+    })(i);
+
+    The final (i) allows the function to be called (with i as the parameter) when you click on the elements in the DOM.  If you leave this out, nothing will happen when you click on the elements.
+
+to copy an existing array to a new one: var newArray = originalArray.slice(0,originalArray.length)
+
+*/
+
+//*** TO DO LIST ***//
+// add ability to skip current player in game and move to next player in that team
