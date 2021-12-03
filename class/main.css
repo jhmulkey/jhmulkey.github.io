@@ -536,6 +536,12 @@ a:link, a:visited, a:hover, a:active {
     text-align: left;
 }
 
+.noteText {
+    margin: 0px 0px 20px 0px;
+    font-size: 16px;
+    color: orange;
+}
+
 #teamListContainer, #genderListContainer, #attListContainer, #attArchiveListContainer {
     display: flex;
     flex-wrap: nowrap;

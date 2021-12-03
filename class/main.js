@@ -16,6 +16,7 @@ var _gameLog = "";
 var _currentPops; //used to store an array of which Pop divs are visible when infoAlert() is called
 var _currentPops2; //used to store an array of which Pop divs are visible when dataInputAlert() is called
 var _sharedPop; //used if the back button may one of two or more Pops
+var _populateNotesID = []; //used to determine which pops to return to after notesPop back button is clicked
 var _focus; //stores text field id that focus() is called on when infoAlertPop is dismissed with the back button
 var _currentFunction; //used to store a function so various other functions can use it
 var _eligibleRandom; //used to store an array of eligble names for random selection
@@ -1400,7 +1401,7 @@ function pop(closeArray,openArray) {
     };
     if (openArray.includes("randomPop") || openArray.includes("drawingPop")) {
         document.getElementById("randomName").innerHTML = "tap here<br>to pick";
-        document.getElementById("winnerName").innerHTML = "tap here<br>to pick";
+        document.getElementById("drawingName").innerHTML = "tap here<br>to pick";
     };
     if (openArray.includes("logPop")) {
         document.getElementById("searchLog").value = "";
@@ -1423,6 +1424,9 @@ function pop(closeArray,openArray) {
     };
     if (openArray.includes("logPop")) {
         loadTodaysDate()
+    };
+    if (openArray.includes("customSortListPop") && _populateNotesID.includes("customSortListPop")) {
+        sortByNotes(true);
     };
     alerts();
     scrollTo(0,0);
@@ -1643,7 +1647,77 @@ function sortByBday() {
     pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
 };
 
-function populateNotes() {
+function sortByNotes(bypass) {
+    document.getElementById("nameListCustom").innerHTML = "";
+    document.getElementById("nameListCustom").style.display = "block";
+    document.getElementById("genderListContainer").style.display = "none";
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].notes.length != 0) {
+            var p1 = document.createElement("p");
+            (function(i){
+                p1.onclick = function () {
+                    _ci = i; populateNotes(["customSortListPop"]);
+                    pop(["customSortListPop"],["notesPop","notesList"]);
+                };
+            })(i);
+            var br = document.createElement("br");
+            var p2 = document.createElement("p");
+            p1.classList.add("name3");
+            p2.classList.add("noteText");
+            var fullName = document.createTextNode(_sl[i].fullName);
+            var notesString = "";
+            for (j = 0; j < _sl[i].notes.length; j++) {
+                if (j < (_sl[i].notes.length-1)) {
+                    notesString += (j+1) + ". " + _sl[i].notes[j] + "<br>"
+                } else {
+                    notesString += (j+1) + ". " + _sl[i].notes[j];
+                };
+            };
+            p1.appendChild(fullName);
+            p1.appendChild(br);
+            p2.innerHTML = notesString;
+            p1.appendChild(p2);
+            document.getElementById("nameListCustom").appendChild(p1);
+        };
+    };  
+    if (!bypass) { pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]); };
+};
+
+for (i = 0; i < _sl.length; i++) {
+    if (_sl[i].notes.length != 0) {
+        for (j = 0; j < _sl[i].notes.length; j++) {
+            var x;
+            x += j;
+            console.log(x);
+        };
+    };
+};
+
+/* function sortByNotes() {
+    document.getElementById("nameListCustom").innerHTML = "";
+    document.getElementById("nameListCustom").style.display = "block";
+    document.getElementById("genderListContainer").style.display = "none";
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].notes.length != 0) {
+            var p1 = document.createElement("p");
+            var br = document.createElement("br");
+            var p2 = document.createElement("p");
+            p1.classList.add("name3");
+            p2.classList.add("noteText");
+            var fullName = document.createTextNode(_sl[i].fullName);
+            var notes = document.createTextNode(_sl[i].notes);
+            p2.appendChild(notes);
+            p1.appendChild(fullName);
+            p1.appendChild(br);
+            p1.appendChild(p2);
+            document.getElementById("nameListCustom").appendChild(p1);
+        };
+    };  
+    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
+}; */
+
+function populateNotes(id) {
+    _populateNotesID = id;
     document.getElementById("notesList").innerHTML = "";
     for (i = 0; i < _sl[_ci].notes.length; i++) {
         var elementNode = document.createElement("p");
@@ -1674,7 +1748,7 @@ function addNote() {
         };
         document.getElementById("addNote").value = "";
         storeAndBackup();
-        populateNotes();
+        populateNotes(_populateNotesID);
         pop(["addNotePop","addNote"],["notesPop","notesList"]);
     };
 };
@@ -1698,7 +1772,7 @@ function deleteNote() {
         document.getElementById("notesButton").style.background = "black";
     };
     storeAndBackup();
-    populateNotes();
+    populateNotes(_populateNotesID);
     pop(["editNotePop"],["notesPop"]);
 };
 
@@ -1712,7 +1786,7 @@ function editNote() {
         _sl[_ci].notes[_noteIndex] = document.getElementById("editNote").value;
     };
     storeAndBackup();
-    populateNotes();
+    populateNotes(_populateNotesID);
     pop(["editNotePop"],["notesPop"]);
 };
 
@@ -1830,11 +1904,11 @@ function drawing() {
         var winner = eligibleNames[x];
         winner.drawing = true;
         if (winner.firstName.length > 9 || winner.lastName.length > 9) {
-            document.getElementById("winnerName").style.fontSize = "65px"; 
+            document.getElementById("drawingName").style.fontSize = "65px"; 
         } else {
-            document.getElementById("winnerName").style.fontSize = "75px"; 
+            document.getElementById("drawingName").style.fontSize = "75px"; 
         };
-        document.getElementById("winnerName").innerHTML = winner.firstName + "<br>" + winner.lastName;
+        document.getElementById("drawingName").innerHTML = winner.firstName + "<br>" + winner.lastName;
         storeAndBackup();
     };
 };
@@ -1843,7 +1917,7 @@ function resetDrawing() {
     for (i = 0; i < _sl.length; i++) {
         _sl[i].drawing = false;
     };
-    document.getElementById("winnerName").innerHTML = "tap here<br>to pick";
+    document.getElementById("drawingName").innerHTML = "tap here<br>to pick";
     storeAndBackup();
 };
 
