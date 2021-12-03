@@ -117,24 +117,39 @@ a:link, a:visited, a:hover, a:active {
     cursor: pointer;
 }
 
+#searchFieldContainerDiv {
+    margin: 20px auto;
+    text-align: center;
+}
+
 #submitButton {
+    height: 50px;
+    width: 60px;
     background-color: dodgerblue;
-    margin-top: 25px;
+    border-radius: 0px 5px 5px 0px;
+    float: left;
+    font-family: Byom-Icons-Trial;
+    font-size: 30px;
+    padding-top: 8px;
+    cursor: pointer;
 }
 
 #submitButton:hover {
     background-color: #0077eb;
-    margin-bottom: 40px;
 }
 
 #search {
     height: 50px;
-    width: 384px;
+    width: 328px;
     font-size: 30px;
     text-align: center;
-    border-radius: 5px;
-    border: 2px solid dodgerblue;
-    margin: 20px auto;
+    border-radius: 5px 0px 0px 5px;
+    border: none;
+    float: left;
+}
+
+#search:focus{
+    outline: none;
 }
 
 ::placeholder {

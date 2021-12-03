@@ -12,8 +12,10 @@
 
 <div id="mainPop" class="pop">
   <p>Please enter your child's last name below (non-case-sensitive) and click the Submit button (or press Enter/Return on your keyboard) to view their class progress.</p>
-  <input id="search" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
-  <div id="submitButton" class="button" onclick="findStudent()">Submit</div>
+  <div id="searchFieldContainerDiv">
+    <input id="search" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
+    <div id="submitButton" onclick="findStudent()">S</div>
+  </div>
 </div>
 
 <div id="infoAlertPop" class="pop">
