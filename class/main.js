@@ -1,40 +1,40 @@
 var _sl = []; //student list - array where all student objects are stored and accessed
 var _ci; //current index of _sl array
-var _asNum; // activity sheet number
-var _mvNum; // memory verse number
-var _asPoints; // asPoints() stores the point value here if less than max points for when the function is called again after entering a reason
-var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,6]; // max points possible for each activity sheet
+var _asNum; //activity sheet number
+var _mvNum; //memory verse number
+var _asPoints; //asPoints() stores the point value here if less than max points for when the function is called again after entering a reason
+var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,6]; //max points possible for each activity sheet
 var _asReasons = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
-var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3,0]; // max points possible for each memory verse
-var _leapYear = false; // used to determine whether Feb has 29 or 29 days for purposes of upcoming birthday alerts
-var _weeksOff = 0; // used to determine when alerts for upcoming birthdays appear if kidstuff will not meet for 1-2 weeks
-var _noteIndex; // selected note index of notes array
+var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3,0]; //max points possible for each memory verse
+var _leapYear = false; //used to determine whether Feb has 29 or 29 days for purposes of upcoming birthday alerts
+var _weeksOff = 0; //used to determine when alerts for upcoming birthdays appear if class will not meet for 1-2 weeks
+var _noteIndex; //selected note index of notes array
 var _teacherNotes = []; //array where teacher notes are stored
-var _teacherNoteIndex; // selected note index of teacherNotes array
-var _log = ""; // activity log
+var _teacherNoteIndex; //selected note index of teacherNotes array
+var _log = ""; //activity log
 var _gameLog = ""; 
-var _currentPops; // used to store an array of which Pop divs are visible when infoAlert() is called
-var _currentPops2; // used to store an array of which Pop divs are visible when dataInputAlert() is called
-var _sharedPop; // used if the back button may one of two or more Pops
-var _focus; // stores text field id that focus() is called on when infoAlertPop is dismissed with the back button
-var _currentFunction; // used to store a function so various other functions can use it
-var _eligibleRandom; // used to store an array of eligble names for random selection
-var _teams = []; // an array containing a single team object with key/value pairs (rather than defining individual global variables)
-var _dataInputParameter; // if dataInputAlert() needs to pass a parameter to the formula it calls when user clicks OK, it is stored here
-var _checkedState = []; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
+var _currentPops; //used to store an array of which Pop divs are visible when infoAlert() is called
+var _currentPops2; //used to store an array of which Pop divs are visible when dataInputAlert() is called
+var _sharedPop; //used if the back button may one of two or more Pops
+var _focus; //stores text field id that focus() is called on when infoAlertPop is dismissed with the back button
+var _currentFunction; //used to store a function so various other functions can use it
+var _eligibleRandom; //used to store an array of eligble names for random selection
+var _teams = []; //an array containing a single team object with key/value pairs (rather than defining individual global variables)
+var _dataInputParameter; //if dataInputAlert() needs to pass a parameter to the formula it calls when user clicks OK, it is stored here
+var _checkedState = []; //array where checkbox value for each mission's visibility is stored
 var _amAtt = []; //stores total AM attendance number for each week
 var _pmAtt = []; //stores total PM attendance number for each week
-var _elapsedWeeks = 1; // number of class sessions to date
+var _elapsedWeeks = 1; //number of class sessions to date
 var _classDates = ["8/22", "8/29", "9/12", "9/19", "9/26", "10/3", "10/10", "10/17", "10/24", "10/31", "11/7", "11/14", "12/5", "12/12", "12/19", "1/9", "1/16", "1/23", "1/30", "2/6", "2/13", "2/20", "2/27", "3/6", "3/13", "3/20", "3/27", "4/3", "4/10", "4/24", "5/1", "5/8", "5/15", "5/22"];
-var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 1009, 1016, 1023, 1030, 1037, 1044, 1051, 1058, 1065, 1072, 1079, 1086, 1093, 1100, 1114, 1121, 1128, 1135, 1142]; // unique numbers assinged to each class date
-var _isClassDay; // if false, attendance-related functions will not alter the student's attCount array values
-var _studentPhotoExists; // if true, Photo button displays green on StudentPop, otherwise it displays red
+var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 1009, 1016, 1023, 1030, 1037, 1044, 1051, 1058, 1065, 1072, 1079, 1086, 1093, 1100, 1114, 1121, 1128, 1135, 1142]; //unique numbers assinged to each class date
+var _isClassDay; //if false, attendance-related functions will not alter the student's attCount array values
+var _studentPhotoExists; //if true, Photo button displays green on StudentPop, otherwise it displays red
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
-var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14","jn-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword","armor-review"]; // activity sheet names
+var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14","jn-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword","armor-review"]; //activity sheet names
 var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8",
-"phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"]; // memory verse names
+"phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"]; //memory verse names
 var _mvText = [
     "<span style='color: dodgerblue'>Psalm 139:17-18</span><br>How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
     "<span style='color: dodgerblue'>John 20:30-31</span><br>Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
@@ -99,31 +99,30 @@ class Student {
         this.lastName = last;
         this.fullName = first + " " + last;
         this.gender = gender;
-        this.birthdayMonth = month; // 1-12 or 0 if birthday unknown
-        this.birthdayDate = date; // 1-31 or 0 if birthday unknown
+        this.birthdayMonth = month; //1-12 or 0 if birthday unknown
+        this.birthdayDate = date; //1-31 or 0 if birthday unknown
         this.birthdayNumber = month + date;
         this.birthday = month + "/" + date;
-        this.hasBirthday = false; // has birthday today or before next class
-        this.birthdayDone = false; // birthday has been announced in class (and thus will no longer be indicated anywhere in the UI)
+        this.hasBirthday = false; //has birthday today or before next class
+        this.birthdayDone = false; //birthday has been announced in class (and thus will no longer be indicated anywhere in the UI)
         this.birthdayLogged = false;
-        this.email1 = email1; // primary parent email
-        this.email2 = email2; // secondary parent email
-        this.notes = note;
-        this.points = 0; // total, cumulative points earned year to date
-        this.classRank = 0;
-        this.rank = 0; // 0 is PVT; 19 is GOA
-        this.rankFactor = 0; // compensates for 20 point promotions in asPoints and mvPoints functions
+        this.email1 = email1; //primary email
+        this.email2 = email2; //secondary email
+        this.notes = note; //array where student notes are stored
+        this.points = 0; //total, cumulative points earned year to date
+        this.classRank = 0; //rank in class based on total points
+        this.rank = 0; //0 is PVT; 19 is GOA
+        this.rankFactor = 0; //compensates for 20 point promotions in asPoints and mvPoints functions
         this.rankName = "PVT"
-        this.attendance = false; // student is in attendance today
-        this.attCount = [];
-        this.amAttCount = [];
-        this.pmAttCount = [];
-        this.promoted = false; // student has earned a promotion
-        this.promotionNum = 0; // number of promotions accumulated (in case student is absent for promotion ceremony)
-        this.drawing = false; // has been picked in drawing (if true, then inelligble to be picked again until stats are reset)
-        this.random = false; // has been picked using random name selector (will not be picked again until all other names have been picked)
+        this.attendance = false; //student is in attendance today
+        this.amAttCount = []; //AM attendance per week (0 = absent; 1 = present)
+        this.pmAttCount = []; //PM attendance per week (0 = absent; 1 = present)
+        this.promoted = false; //student has earned a promotion
+        this.promotionNum = 0; //number of promotions accumulated (in case student is absent for promotion ceremony)
+        this.drawing = false; //has been picked in drawing (if true, then inelligble to be picked again until stats are reset)
+        this.random = false; //has been picked using random name selector (will not be picked again until all other names have been picked)
         this.asReasons = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
-        this.as = {
+        this.as = { //activity sheet number: points
             0: 0, //class-intro
             1: 0, //john-intro
             2: 0, //john-1
@@ -158,7 +157,7 @@ class Student {
             31: 0, //sword
             32: 0, //armor-review
         };
-        this.mv = {
+        this.mv = { //memory verse number: points
             0: 0, //ps-139-17-18
             1: 0, //jn-20-30-31
             2: 0, //jn-1-1-2
@@ -215,11 +214,21 @@ function skipPlayer() {
     if (_teams[0].currentTeam == 1) {
         var log = _teams[0].team1[0].fullName + " skipped";
         _teams[0].team1.shift();
+        if (_teams[0].team1.length == 0) {
+            for (i = 0; i < _teams[0].team1Reset.length; i++) {
+                _teams[0].team1.push(_teams[0].team1Reset[i])
+            };
+        };
         _teams[0].currentPlayer = _teams[0].team1[0].fullName;
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
     } else {
         var log = _teams[0].team2[0].fullName + " skipped";
         _teams[0].team2.shift();
+        if (_teams[0].team2.length == 0) {
+            for (i = 0; i < _teams[0].team2Reset.length; i++) {
+                _teams[0].team2.push(_teams[0].team2Reset[i])
+            };
+        };
         _teams[0].currentPlayer = _teams[0].team2[0].fullName;
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
     };
@@ -807,8 +816,14 @@ function randomAtt() {
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
     };
-    for (i = 0; i < Math.floor(_sl.length / 2); i++) {
-        _sl[Math.floor(Math.random() * _sl.length)].attendance = true;
+    randomIndex = Math.floor(Math.random()*(25-10)+10);
+    for (i = 0; i < randomIndex; i++) {
+        let x = Math.floor(Math.random() * _sl.length);
+        if (_sl[x].attendance === false) {
+            _sl[x].attendance = true;
+        } else {
+            i--
+        };    
     };
     if (_isClassDay === true && today.getHours() < 14) {
         for (i = 0; i < _sl.length; i++) {
@@ -831,14 +846,18 @@ function randomAtt() {
     pop(["attListPop"],["mainPop"]);
 };
 
-
 function randomAtt2(x) {
     today = new Date();
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
     };
     for (i = 0; i < x; i++) {
-        _sl[Math.floor(Math.random() * _sl.length)].attendance = true;
+        let x = Math.floor(Math.random() * _sl.length);
+        if (_sl[x].attendance === false) {
+            _sl[x].attendance = true;
+        } else {
+            i--
+        };
     };
     if (_isClassDay === true && today.getHours() < 14) {
         for (i = 0; i < _sl.length; i++) {
@@ -858,6 +877,12 @@ function randomAtt2(x) {
     attCount();
     populateNames();
     storeNewData();
+}
+
+function quickTeams(x) {
+    randomAtt2(x);
+    createTeams();
+    pop(["mainPop"],["teamsListPop"]);
 };
 
 function allAtt() {
