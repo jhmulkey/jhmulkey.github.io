@@ -11,11 +11,17 @@
 <div id="master-wrapper">
 
 <div id="mainPop" class="pop">
-  <p>Please enter your child's last name below (non-case-sensitive) and click the Submit button (or press Enter/Return on your keyboard) to view their class progress.</p>
+  <div id="contactButtonContainer">
+    <a href="tel:8645694879"><div class="contactButton">x<p>Call</p></div></a>
+    <a href="sms:8645694879"><div class="contactButton">d<p>Text</p></div></a>
+    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton">v<p>Email</p></div></a>
+  </div>
+  <p>Please enter your child's last name below (non-case-sensitive) and click search (or press Enter/Return on your keyboard) to view their class progress.</p>
   <div id="searchFieldContainerDiv">
     <input id="search" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
     <div id="submitButton" onclick="findStudent()">S</div>
   </div>
+
 </div>
 
 <div id="infoAlertPop" class="pop">
@@ -25,11 +31,6 @@
     <p id="infoAlertTitle">!</p>
     <p id="infoAlertMessage"></p>
     <div id="nameList"></div>
-    <div id="contactButtonContainer">
-      <a href="tel:8645694879"><div class="contactButton">x</a><p>Call</p></div>
-      <a href="sms:8645694879"><div class="contactButton">d</a><p>Text</p></div>
-      <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton">v</a><p>Email</p></div>
-    </div>
 </div>
 
 <div id="studentStatsPop" class="pop">
