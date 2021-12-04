@@ -408,7 +408,7 @@ function loadStudentStats() {
     for (i = 0; i < squaresArray.length; i++) {
         for (j = 1; j <= 40; j++) {
             if (j <= squaresArray[i]) {
-                if (squaresArray[i] == rankSquares) {
+                if (i == 0) {
                     document.getElementById(idArray2[i]+j).style.backgroundColor = "dodgerblue";
                 } else {
                     document.getElementById(idArray2[i]+j).style.backgroundColor = "lawngreen";
@@ -420,7 +420,7 @@ function loadStudentStats() {
     };
     for (i = 0; i < variableArray.length; i++) {
         if (variableArray[i] == 100.00) {
-            if (variableArray[i] == rankPercentage) {
+            if (i == 0) {
                 document.getElementById(idArray1[i]).style.backgroundColor = "dodgerblue"; break;
             } else {
                 document.getElementById(idArray1[i]).style.backgroundColor = "lawngreen";

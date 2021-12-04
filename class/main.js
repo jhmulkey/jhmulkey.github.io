@@ -455,27 +455,17 @@ function setWeeksOff() {
     }
 };
 
-function activityLog(log1,log2,color,background) {
+function activityLog(log,color,background) {
     var paragraph = document.createElement("p");
-    var lineBreak = document.createElement("br");
+    paragraph.innerHTML = log;
+    paragraph.classList.add("logEntry");
     if (color) {
         paragraph.style.color = color;
     };
     if (background) {
         paragraph.style.background = background;
     };
-    paragraph.classList.add("logEntry");
-    var textNode1 = document.createTextNode(log1);
-    var textNode2 = document.createTextNode(log2);
-    if (log2) {
-        paragraph.appendChild(textNode1);
-        paragraph.appendChild(lineBreak);
-        paragraph.appendChild(textNode2);
-        document.getElementById("log").appendChild(paragraph);
-    } else {
-        paragraph.appendChild(textNode1);
-        document.getElementById("log").appendChild(paragraph);
-    };
+    document.getElementById("log").appendChild(paragraph);
     _log = document.getElementById("log").innerHTML;
     storeNewData();
 };
@@ -789,7 +779,7 @@ function newStudent() {
     sortStudentList();
     findBday();
     var log = "new student " + first + " " + last;
-    activityLog(log,"","aqua");
+    activityLog(log,"aqua");
     storeAndBackup();
     clearStudentFields()
     if (document.getElementById("rapidEntryCheck").checked === true) {
@@ -1068,9 +1058,8 @@ function setPoints(parameter,data,reason) {
     populateNames();
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
     document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
-    var log1 = _sl[_ci].fullName + " points set " + original + "-->" + y;
-    var log2 = "(reason: " + reason + ")";
-    activityLog(log1,log2,"orange");
+    var log = _sl[_ci].fullName + " points set " + original + "-->" + y  + "<br>" + "(reason: " + reason + ")";
+    activityLog(log,"orange");
     storeAndBackup();
 };
 
@@ -1094,8 +1083,8 @@ function promotion() {
     document.getElementById("dispRankNamePromo").innerHTML = _sl[_ci].rankName;
     storeAndBackup();
     document.getElementById("promoInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
-    var logPromo = _sl[_ci].fullName + " promoted to " + _sl[_ci].rankName;
-    activityLog(logPromo,"","black","lawnGreen");
+    var log = _sl[_ci].fullName + " promoted to " + _sl[_ci].rankName;
+    activityLog(log,"black","lawnGreen");
     setTimeout(function() {
         pop(["studentPop","missionsPop"],["promoPop"])
     },10);
@@ -1109,8 +1098,8 @@ function demotion() {
     _sl[_ci].promotionNum--;
     setRankFactor();
     setRankName();
-    var logDemo = _sl[_ci].fullName + " demoted to " + _sl[_ci].rankName;
-    activityLog(logDemo,"","black","fireBrick");
+    var log = _sl[_ci].fullName + " demoted to " + _sl[_ci].rankName;
+    activityLog(log,"black","fireBrick");
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
     storeAndBackup();
 };
@@ -1202,11 +1191,11 @@ function asPoints(_asNum,x,secondCall) {
             };
         };
         var plusSign = ""; if (netPts > 0) {plusSign = "+"};
-        var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _asNames[_asNum] + " sheet " + "(" + asPts + "-->" + _sl[_ci].as[_asNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")";
+        var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _asNames[_asNum] + " sheet " + "<br>" + "(" + asPts + "-->" + _sl[_ci].as[_asNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")";
         if (asPts < x) {
-            activityLog(log,"","lawnGreen");
+            activityLog(log,"lawnGreen");
         } else {
-            activityLog(log,"","red");
+            activityLog(log,"red");
         };
         document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
         document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
@@ -1269,11 +1258,11 @@ function mvPoints(_mvNum,x) {
         };
     };
     var plusSign = ""; if (netPts > 0) {plusSign = "+"};
-    var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _mvNames[_mvNum] + " verse " + "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")";
+    var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _mvNames[_mvNum] + " verse "  + "<br>" +  "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")";
     if (mvPts < x) {
-        activityLog(log,"","lawnGreen");
+        activityLog(log,"lawnGreen");
     } else {
-        activityLog(log,"","red");
+        activityLog(log,"red");
     };
     document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
@@ -2014,7 +2003,7 @@ function findBday() {
     };
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].hasBirthday === true && _sl[i].birthdayLogged === false) {
-            activityLog("birthday found: " + _sl[i].fullName + " " + _sl[i].birthday,false,"darkgoldenrod");
+            activityLog("birthday found: " + _sl[i].fullName + " " + _sl[i].birthday,"darkgoldenrod");
             _sl[i].birthdayLogged = true;
         };
     };
@@ -2253,7 +2242,7 @@ function loadStudentStats() {
     for (i = 0; i < squaresArray.length; i++) {
         for (j = 1; j <= 40; j++) {
             if (j <= squaresArray[i]) {
-                if (squaresArray[i] == rankSquares) {
+                if (i == 0) {
                     document.getElementById(idArray2[i]+j).style.backgroundColor = "dodgerblue";
                 } else {
                     document.getElementById(idArray2[i]+j).style.backgroundColor = "lawngreen";
@@ -2265,7 +2254,7 @@ function loadStudentStats() {
     };
     for (i = 0; i < variableArray.length; i++) {
         if (variableArray[i] == 100.00) {
-            if (variableArray[i] == rankPercentage) {
+            if (i == 0) {
                 document.getElementById(idArray1[i]).style.backgroundColor = "dodgerblue"; break;
             } else {
                 document.getElementById(idArray1[i]).style.backgroundColor = "lawngreen";

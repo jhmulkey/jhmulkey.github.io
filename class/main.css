@@ -729,7 +729,7 @@ a:link, a:visited, a:hover, a:active {
 
 #promoInsignia {
     width: 350px;
-    max-height: 350px;
+    height: 350px;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
