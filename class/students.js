@@ -148,7 +148,7 @@ function loadStudent(index) {
         } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
             document.getElementById("as"+i+"Pop").style.background = "darkorange";
         } else {
-            document.getElementById("as"+i+"Pop").style.background = "black";
+            document.getElementById("as"+i+"Pop").style.background = "red";
         };
     };
     for (i = 0; i < _mvMaxPts.length; i++) {
@@ -157,7 +157,7 @@ function loadStudent(index) {
         } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
             document.getElementById("mv"+i+"Pop").style.background = "darkorange";
         } else {
-            document.getElementById("mv"+i+"Pop").style.background = "black";
+            document.getElementById("mv"+i+"Pop").style.background = "red";
         };
     };
     pop([],["missionsPop"]);
@@ -555,7 +555,7 @@ function loadMissionsList(id) {
         p1.classList.add("pointer"); p2.classList.add("pointer");
         p1.innerHTML = _asNamesFull[i] + " (" + _sl[_ci].as[i] + "/" + _asMaxPts[i] + ")";
         if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
-            p1.style.color = "orange";
+            p1.style.color = "darkorange";
             p1.innerHTML = _asNamesFull[i] + " (" + _sl[_ci].as[i] + "/" + _asMaxPts[i] + ")" + "<br>" + "<span style='font-size: 15px'>" + "Reason for partial credit: " + _sl[_ci].asReasons[i] + "</span>";
         } else if (_sl[_ci].as[i] == 0) {
             p1.style.color = "red";
@@ -564,7 +564,7 @@ function loadMissionsList(id) {
         };
         var mv = document.createTextNode(_mvNamesFull[i] + " (" + _sl[_ci].mv[i] + "/" + _mvMaxPts[i] + ")");
         if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
-            p2.style.color = "orange";
+            p2.style.color = "darkorange";
         } else if (_sl[_ci].mv[i] == 0) {
             p2.style.color = "red";
         } else {
