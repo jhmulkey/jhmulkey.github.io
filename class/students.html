@@ -11,34 +11,47 @@
 <div id="master-wrapper">
 
 <div id="mainPop" class="pop">
-  <div id="contactButtonContainer">
-    <a href="tel:8645694879"><div class="contactButton">x<p>Call</p></div></a>
-    <a href="sms:8645694879"><div class="contactButton">d<p>Text</p></div></a>
-    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton">v<p>Email</p></div></a>
-  </div>
-  <p>Please enter your child's last name below (non-case-sensitive) and click search (or press Enter/Return on your keyboard) to view their class progress.</p>
+  <p>Please enter your child's last name below (non-case-sensitive) and click search (or press Enter/Return) to view their class progress.</p>
   <div id="searchFieldContainerDiv">
-    <input id="search" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
+    <input id="searchField" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
     <div id="submitButton" onclick="findStudent()">S</div>
   </div>
-
 </div>
 
 <div id="infoAlertPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="infoAlert()"><span>f</span></div>
+    <a href="tel:8645694879"><div class="contactButton2">x</div></a>
+    <a href="sms:8645694879"><div class="contactButton2">d</div></a>
+    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton2">v</div></a>
   </div>
     <p id="infoAlertTitle">!</p>
     <p id="infoAlertMessage"></p>
     <div id="nameList"></div>
 </div>
 
+<div id="listMissionPointsPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['listMissionPointsPop'],['studentStatsPop','missionsPop'])"><span>f</span></div>
+    <a href="tel:8645694879"><div class="contactButton2">x</div></a>
+    <a href="sms:8645694879"><div class="contactButton2">d</div></a>
+    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton2">v</div></a>
+  </div>
+  <p id="asHeading"></p>
+  <div id="listAS"></div>
+  <p id="mvHeading"></p>
+  <div id="listMV"></div>
+</div>
+
 <div id="studentStatsPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['studentStatsPop','missionsPop','asPointsPop','mvPointsPop'],['mainPop'])"><span>f</span></div>
+    <a href="tel:8645694879"><div class="contactButton2">x</div></a>
+    <a href="sms:8645694879"><div class="contactButton2">d</div></a>
+    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton2">v</div></a>
   </div>
   <div id="studentStatsTopContainerDiv">
-    <div id="studentStatsInsignia" onclick="loadRankTable()"></div>
+    <div id="studentStatsInsignia"></div>
     <div id="studentStatsName">
       <p id="statsRankName"></p>
       <p id="statsName"></p>
@@ -46,7 +59,7 @@
     </div>
   </div>
   <div id="studentStatsBottomContainerDiv">
-    <div id="RankProgressTableDiv">
+    <div class="tableContainer" onclick="loadRankTable()">
       <p id="rankProgressTableP"></p>
       <table id="rankProgressTable" class="progressBarTable">
         <tr>
@@ -93,6 +106,7 @@
         </tr>
       </table>
     </div>
+    <div class="tableContainer" onclick="loadMissionsList()">
     <p id="totalProgressTableP"></p>
     <table id="totalProgressTable" class="progressBarTable">
       <tr>
@@ -138,6 +152,8 @@
         <td id="totalProgressBar40"></td>
       </tr>
     </table>
+    </div>
+    <div class="tableContainer" onclick="loadMissionsList()">
     <p id="asProgressTableP"></p>
     <table id="asProgressTable" class="progressBarTable">
       <tr>
@@ -183,6 +199,8 @@
         <td id="asProgressBar40"></td>
       </tr>
     </table>
+    </div>
+    <div class="tableContainer" onclick="loadMissionsList()">
     <p id="mvProgressTableP"></p>
     <table id="mvProgressTable" class="progressBarTable"> 
       <tr>
@@ -228,6 +246,8 @@
         <td id="mvProgressBar40"></td>
       </tr>
     </table>
+    </div>
+    <div class="tableContainer" onclick="loadStudentAttStats()">
     <p id="attendanceProgressTableP"></p>
     <table id="attendanceProgressTable" class="progressBarTable">
       <tr>
@@ -273,6 +293,7 @@
         <td id="attendanceProgressBar40"></td>
       </tr>
     </table>
+    </div>
     <p id="totalParticipationTableP"></p>
     <table id="totalParticipationTable" class="progressBarTable">
       <tr>
@@ -580,6 +601,191 @@
     </div>
     <div>
       <div id="displayInsignia"></div>
+    </div>
+  </div>
+
+  <div id="studentAttStatsPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="pop(['studentAttStatsPop'],['studentStatsPop','missionsPop'])"><span>f</span></div>
+    </div>
+    <div id="studentAttTableDiv">
+      <table id="studentAttTable">
+        <tr class="tableHeaderRow">
+          <td>Date</td>
+          <td>AM</td>
+          <td>PM</td>
+        </tr>
+        <tr id="studentAttRow0">
+          <td id="studentAttDate0"></td>
+          <td id="studentAttAM0"></td>
+          <td id="studentAttPM0"></td>
+        </tr>
+        <tr id="studentAttRow1">
+          <td id="studentAttDate1"></td>
+          <td id="studentAttAM1"></td>
+          <td id="studentAttPM1"></td>
+        </tr>
+        <tr id="studentAttRow2">
+          <td id="studentAttDate2"></td>
+          <td id="studentAttAM2"></td>
+          <td id="studentAttPM2"></td>
+        </tr>
+        <tr id="studentAttRow3">
+          <td id="studentAttDate3"></td>
+          <td id="studentAttAM3"></td>
+          <td id="studentAttPM3"></td>
+        </tr>
+        <tr id="studentAttRow4">
+          <td id="studentAttDate4"></td>
+          <td id="studentAttAM4"></td>
+          <td id="studentAttPM4"></td>
+        </tr>
+        <tr id="studentAttRow5">
+          <td id="studentAttDate5"></td>
+          <td id="studentAttAM5"></td>
+          <td id="studentAttPM5"></td>
+        </tr>
+        <tr id="studentAttRow6">
+          <td id="studentAttDate6"></td>
+          <td id="studentAttAM6"></td>
+          <td id="studentAttPM6"></td>
+        </tr>
+        <tr id="studentAttRow7">
+          <td id="studentAttDate7"></td>
+          <td id="studentAttAM7"></td>
+          <td id="studentAttPM7"></td>
+        </tr>
+        <tr id="studentAttRow8">
+          <td id="studentAttDate8"></td>
+          <td id="studentAttAM8"></td>
+          <td id="studentAttPM8"></td>
+        </tr>
+        <tr id="studentAttRow9">
+          <td id="studentAttDate9"></td>
+          <td id="studentAttAM9"></td>
+          <td id="studentAttPM9"></td>
+        </tr>
+        <tr id="studentAttRow10">
+          <td id="studentAttDate10"></td>
+          <td id="studentAttAM10"></td>
+          <td id="studentAttPM10"></td>
+        </tr>
+        <tr id="studentAttRow11">
+          <td id="studentAttDate11"></td>
+          <td id="studentAttAM11"></td>
+          <td id="studentAttPM11"></td>
+        </tr>
+        <tr id="studentAttRow12">
+          <td id="studentAttDate12"></td>
+          <td id="studentAttAM12"></td>
+          <td id="studentAttPM12"></td>
+        </tr>
+        <tr id="studentAttRow13">
+          <td id="studentAttDate13"></td>
+          <td id="studentAttAM13"></td>
+          <td id="studentAttPM13"></td>
+        </tr>
+        <tr id="studentAttRow14">
+          <td id="studentAttDate14"></td>
+          <td id="studentAttAM14"></td>
+          <td id="studentAttPM14"></td>
+        </tr>
+        <tr id="studentAttRow15">
+          <td id="studentAttDate15"></td>
+          <td id="studentAttAM15"></td>
+          <td id="studentAttPM15"></td>
+        </tr>
+        <tr id="studentAttRow16">
+          <td id="studentAttDate16"></td>
+          <td id="studentAttAM16"></td>
+          <td id="studentAttPM16"></td>
+        </tr>
+        <tr id="studentAttRow17">
+          <td id="studentAttDate17"></td>
+          <td id="studentAttAM17"></td>
+          <td id="studentAttPM17"></td>
+        </tr>
+        <tr id="studentAttRow18">
+          <td id="studentAttDate18"></td>
+          <td id="studentAttAM18"></td>
+          <td id="studentAttPM18"></td>
+        </tr>
+        <tr id="studentAttRow19">
+          <td id="studentAttDate19"></td>
+          <td id="studentAttAM19"></td>
+          <td id="studentAttPM19"></td>
+        </tr>
+        <tr id="studentAttRow20">
+          <td id="studentAttDate20"></td>
+          <td id="studentAttAM20"></td>
+          <td id="studentAttPM20"></td>
+        </tr>
+        <tr id="studentAttRow21">
+          <td id="studentAttDate21"></td>
+          <td id="studentAttAM21"></td>
+          <td id="studentAttPM21"></td>
+        </tr>
+        <tr id="studentAttRow22">
+          <td id="studentAttDate22"></td>
+          <td id="studentAttAM22"></td>
+          <td id="studentAttPM22"></td>
+        </tr>
+        <tr id="studentAttRow23">
+          <td id="studentAttDate23"></td>
+          <td id="studentAttAM23"></td>
+          <td id="studentAttPM23"></td>
+        </tr>
+        <tr id="studentAttRow24">
+          <td id="studentAttDate24"></td>
+          <td id="studentAttAM24"></td>
+          <td id="studentAttPM24"></td>
+        </tr>
+        <tr id="studentAttRow25">
+          <td id="studentAttDate25"></td>
+          <td id="studentAttAM25"></td>
+          <td id="studentAttPM25"></td>
+        </tr>
+        <tr id="studentAttRow26">
+          <td id="studentAttDate26"></td>
+          <td id="studentAttAM26"></td>
+          <td id="studentAttPM26"></td>
+        </tr>
+        <tr id="studentAttRow27">
+          <td id="studentAttDate27"></td>
+          <td id="studentAttAM27"></td>
+          <td id="studentAttPM27"></td>
+        </tr>
+        <tr id="studentAttRow28">
+          <td id="studentAttDate28"></td>
+          <td id="studentAttAM28"></td>
+          <td id="studentAttPM28"></td>
+        </tr>
+        <tr id="studentAttRow29">
+          <td id="studentAttDate29"></td>
+          <td id="studentAttAM29"></td>
+          <td id="studentAttPM29"></td>
+        </tr>
+        <tr id="studentAttRow30">
+          <td id="studentAttDate30"></td>
+          <td id="studentAttAM30"></td>
+          <td id="studentAttPM30"></td>
+        </tr>
+        <tr id="studentAttRow31">
+          <td id="studentAttDate31"></td>
+          <td id="studentAttAM31"></td>
+          <td id="studentAttPM31"></td>
+        </tr>
+        <tr id="studentAttRow32">
+          <td id="studentAttDate32"></td>
+          <td id="studentAttAM32"></td>
+          <td id="studentAttPM32"></td>
+        </tr>
+        <tr id="studentAttRow33">
+          <td id="studentAttDate33"></td>
+          <td id="studentAttAM33"></td>
+          <td id="studentAttPM33"></td>
+        </tr>
+      </table>
     </div>
   </div>
 

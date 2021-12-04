@@ -397,6 +397,7 @@ a:link, a:visited, a:hover, a:active {
     border-radius: 25px;
     padding: 10px;
     color: #eee;
+    cursor: pointer;
 }
 
 #longVerse {
@@ -705,6 +706,7 @@ a:link, a:visited, a:hover, a:active {
     background-position: center;
     background-repeat: no-repeat;
     background-color: white;
+    cursor: pointer;
 }
 
 #asPage1, #asPage2 {

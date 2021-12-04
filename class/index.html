@@ -256,7 +256,7 @@
         <div class="studentPopButtons" onclick="populateStudentFields()">edit info</div>
         <div class="studentPopButtons" id="notesButton" onclick="pop(['studentPop','missionsPop'],['notesPop','notesList']); populateNotes(['studentPop','missionsPop'])">notes</div>
         <div class="studentPopButtons" id="photoButton" onclick="loadStudentPhoto()">photo</div>
-        <div class="studentPopButtons" onclick="loadStudentAttStats()">Attendance</div>
+        <div class="studentPopButtons" onclick="loadStudentAttStats()">attendance</div>
         <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields('editEmail1')">email</div>
     </div>
 </div>
@@ -791,9 +791,9 @@
   </div>
   <div id="asReason"></div>
   <div>
-    <div id="asPage1" onclick="missionLinks()"></div>
-    <div id="asPage2" onclick="missionLinks()"></div>
-    <div id="asPage3" onclick="missionLinks()"></div>
+    <div id="asPage1" onclick="asLinks()"></div>
+    <div id="asPage2" onclick="asLinks()"></div>
+    <div id="asPage3" onclick="asLinks()"></div>
   </div>
 </div>
 
@@ -811,7 +811,7 @@
       <div id="mv5Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,5)">5</div>
       <div id="mv6Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,6)">6</div>
   </div>
-  <p id="mvText"></p>
+  <p id="mvText" onclick="mvLinks()"></p>
 </div>
 
 <div id="promoPop" class="pop">

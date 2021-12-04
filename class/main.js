@@ -1375,8 +1375,12 @@ function loadStudent(index) {
     };
 };
 
-function missionLinks() {
+function asLinks() {
     window.open("docs/missions/as"+_asNum+".pdf","_blank");
+};
+
+function mvLinks() {
+    window.open("docs/memory/mv"+_mvNum+".pdf","_blank");
 };
 
 function pop(closeArray,openArray) {

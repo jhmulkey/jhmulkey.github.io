@@ -1,29 +1,24 @@
-var _sl = []; //student list - array where all student objects are stored and accessed
-var _ci; //current index of _sl array
-var _asNum; // activity sheet number
-var _mvNum; // memory verse number
-var _asPoints; // asPoints() stores the point value here if less than max points for when the function is called again after entering a reason
-var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,6]; // max points possible for each activity sheet
-var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3,0]; // max points possible for each memory verse
-var _leapYear = false; // used to determine whether Feb has 29 or 29 days for purposes of upcoming birthday alerts
-var _weeksOff = 0; // used to determine when alerts for upcoming birthdays appear if kidstuff will not meet for 1-2 weeks
-var _checkedState = []; // array where checkbox value for each mission's visibility is stored (default is to show the first mission only)
-var _currentPops; // used to store an array of which Pop divs are visible when infoAlert() is called
-var _currentPops2; // used to store an array of which Pop divs are visible when dataInputAlert() is called
-var _sharedPop; // used if the back button may one of two or more Pops
-var _focus; // stores text field id that focus() is called on when infoAlertPop is dismissed with the back button
-var _currentFunction; // used to store a function so various other functions can use it
-var _dataInputParameter; // if dataInputAlert() needs to pass a parameter to the formula it calls when user clicks OK, it is stored here
-var _elapsedWeeks = 1; // number of class sessions to date
+var _sl = [];
+var _asNum;
+var _mvNum;
+var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,6];
+var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3,0];
+var _currentPops;
+var _currentPops2;
+var _focus;
+var _elapsedWeeks = 1;
 var _classDates = ["8/22", "8/29", "9/12", "9/19", "9/26", "10/3", "10/10", "10/17", "10/24", "10/31", "11/7", "11/14", "12/5", "12/12", "12/19", "1/9", "1/16", "1/23", "1/30", "2/6", "2/13", "2/20", "2/27", "3/6", "3/13", "3/20", "3/27", "4/3", "4/10", "4/24", "5/1", "5/8", "5/15", "5/22"];
-var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 1009, 1016, 1023, 1030, 1037, 1044, 1051, 1058, 1065, 1072, 1079, 1086, 1093, 1100, 1114, 1121, 1128, 1135, 1142]; // unique numbers assinged to each class date
-var _isClassDay; // if false, attendance-related functions will not alter the student's attendanceCount array values
+var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 1009, 1016, 1023, 1030, 1037, 1044, 1051, 1058, 1065, 1072, 1079, 1086, 1093, 1100, 1114, 1121, 1128, 1135, 1142];
+var _isClassDay;
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
-var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14","jn-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword","armor-review"]; // activity sheet names
+var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14","jn-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword","armor-review"];
+var _asNamesFull = ["Class Intro","John Intro","John 1","John 2","John 3","John 4","John 5","John 6","John 7","John 8","John 9","John 1-9-review","John 10","John 11","John 12","John 13","John 14","John 15","John 16","John 17","John 18","John 19","John 20","John 21","John 10-21 Review","Armor Intro","Belt","Breastplate","Shoes","Shield","Helmet","Sword","Armor Review"];
 var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8",
-"phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"]; // memory verse names
+"phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"];
+var _mvNamesFull = ["Psalm 139:17-18","John 20-30-31","John 1:1-2","John 1:3","John 1:4-5","John 1:6-8","John 1:9-11","John 1:12-13","John 1:14","John 1:15","John 1:16-17","John 1:18","Philippians 2:5-6","Philippians 2:7","Philippians 2:8",
+"Philippians 2:9","Philippians 2:10-11","Romans 8:31","Romans 8:32","Romans 8:33","Romans 8:34","Romans 8:35","Romans 8:36","Romans 8:37","Romans 8:38-39","Ephesians 6:10-11","Ephesians 6:12","Ephesians 6:13","Ephesians 6:14-15","Ephesians 6:16","Ephesians 6:17","Ephesians 6:18"];
 var _mvText = [
     "<span style='color: dodgerblue'>Psalm 139:17-18</span><br>How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
     "<span style='color: dodgerblue'>John 20:30-31</span><br>Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
@@ -59,24 +54,6 @@ var _mvText = [
     "<span style='color: dodgerblue'>Ephesians 6:18</span><br>praying at all times in the Spirit, with all prayer and supplication. To that end, keep alert with all perseverance, making supplication for all the saints," 
 ];
 
-function setWeeksOff() {
-    var today = new Date()
-    var todaysMonth = today.getMonth() + 1;
-    var todaysDate = today.getDate();
-    if ((todaysMonth == 8 && todaysDate == 29) || (todaysMonth == 4 && todaysDate == 10)) {
-        _weeksOff = 1;
-    } else if ((todaysMonth == 11 && todaysDate == 14) || (todaysMonth == 12 && todaysDate == 19)) {
-        _weeksOff = 2;
-    } else {
-        _weeksOff = 0;
-    }
-};
-
-function loadTodaysDate() {
-    document.getElementById("todaysDate").style.fontSize = "15px";
-    document.getElementById("todaysDate").innerHTML = Date();
-}; // for top of activity log
-
 function infoAlert(message,idArray,focus,noIcon) {
     if (document.getElementById("infoAlertPop").style.display == "block") {
         document.getElementById("infoAlertPop").style.display = "none";
@@ -107,76 +84,6 @@ function infoAlert(message,idArray,focus,noIcon) {
     if (_focus) {
         document.getElementById(_focus).focus();
     };
-};
-
-function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
-    if (document.getElementById("dataInputAlertPop").style.display != "block") {
-        _dataInputParameter = parameter;
-        _currentPops2 = popArray;
-        _currentFunction = func;
-        document.getElementById("dataInputAlertPop").style.display = "block";
-        document.getElementById("dataInputTextField").value = "";
-        for (i = 0; i < _currentPops2.length; i++) {
-            document.getElementById(_currentPops2[i]).style.display = "none"
-        };
-        document.getElementById("dataInputAlertMessage").innerHTML = message;
-        if (reasonRequired === true) {
-            document.getElementById("enterReasonDiv").style.display = "block";
-            document.getElementById("enterReasonTextField").value = "";
-        } else {
-            document.getElementById("enterReasonDiv").style.display = "none";
-        };
-        document.getElementById("dataInputTextField").focus();
-    } else if (document.getElementById("dataInputAlertPop").style.display == "block") {
-        if (!bypass) {
-            if (isNaN(parseInt(document.getElementById("dataInputTextField").value))) {
-                infoAlert("Please enter a number",["dataInputAlertPop"],"dataInputTextField"); return;
-            }
-            if (!bypass && document.getElementById("enterReasonDiv").style.display == "block" && document.getElementById("enterReasonTextField").value == "") {
-                infoAlert("Reason required",["dataInputAlertPop"],"enterReasonTextField"); return;
-            };
-            var data = parseInt(document.getElementById("dataInputTextField").value);
-            var reason = document.getElementById("enterReasonTextField").value;
-            _currentFunction(_dataInputParameter,data,reason);
-            for (i = 0; i < _currentPops2.length; i++) {
-                document.getElementById(_currentPops2[i]).style.display = "block"
-            };
-            document.getElementById("enterReasonDiv").style.display = "none";
-            document.getElementById("dataInputAlertMessage").innerHTML = "";
-            document.getElementById("enterReasonTextField").value = "";
-            document.getElementById("dataInputAlertPop").style.display = "none";
-        } else {
-            document.getElementById("dataInputAlertPop").style.display = "none";
-            for (i = 0; i < _currentPops2.length; i++) {
-                document.getElementById(_currentPops2[i]).style.display = "block"
-            };
-        };
-    };
-};
-
-function actionAlert(message,popsArray,func,bypass) {
-    if (document.getElementById("actionAlertPop").style.display != "block") { //A
-        _currentPops = popsArray; //A1
-        _currentFunction = func; //A1
-        document.getElementById("actionAlertPop").style.display = "block"; //A2
-        for (i = 0; i < _currentPops.length; i++) { //A3
-            if (_currentPops[i] !== undefined) {
-                document.getElementById(_currentPops[i]).style.display = "none"
-            };
-        };
-        document.getElementById("actionAlertMessage").innerHTML = message; //A4
-    } else if (document.getElementById("actionAlertPop").style.display == "block") { //B
-        document.getElementById("actionAlertPop").style.display = "none"; //B1
-        for (i = 0; i < _currentPops.length; i++) { //B2
-            if (_currentPops[i] !== undefined) {
-                document.getElementById(_currentPops[i]).style.display = "block"
-            };
-        };
-        document.getElementById("actionAlertMessage").innerHTML = ""; //B3
-        if (!bypass) { //B4
-            _currentFunction();
-        };
-    }; 
 };
 
 function capitalize(x) {
@@ -222,7 +129,7 @@ function removePtBoxes() {
 };
 
 function searchNames() {
-    var inputVal = document.getElementById("search").value.toLowerCase();
+    var inputVal = document.getElementById("searchField").value.toLowerCase();
     var names = document.getElementsByClassName("name");
     for (i = 0; i < names.length; i++) {
         if (names[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
@@ -256,7 +163,7 @@ function loadStudent(index) {
     pop([],["missionsPop"]);
 };
 
-function missionLinks() {
+function asLinks() {
     window.open("docs/missions/as"+_asNum+".pdf","_blank");
 };
 
@@ -279,9 +186,9 @@ function pop(closeArray,openArray) {
         removePtBoxes();
     };
     if (openArray.includes("mainPop")) {
-        document.getElementById("search").value = "";
-        document.getElementById("search").focus();
-        for (i = 0; i < _checkedState.length; i++) {
+        document.getElementById("searchField").value = "";
+        document.getElementById("searchField").focus();
+        for (i = 0; i < _elapsedWeeks-1; i++) {
             document.getElementById("as"+i+"Pop").style.display = "block";
             document.getElementById("mv"+i+"Pop").style.display = "block";
         };
@@ -321,12 +228,12 @@ function goHome() {
         pops[i].style.display = "none";
         document.getElementById("mainPop").style.display = "block";
     };
-    for (i = 0; i < _checkedState.length; i++) {
+    for (i = 0; i < _elapsedWeeks-1; i++) {
         document.getElementById("as"+i+"Pop").style.display = "block";
         document.getElementById("mv"+i+"Pop").style.display = "block";
     };
-    document.getElementById("search").value = "";
-    document.getElementById("search").focus();
+    document.getElementById("searchField").value = "";
+    document.getElementById("searchField").focus();
     removePtBoxes();
 };
 
@@ -402,54 +309,10 @@ function mvPop(mvNum,index,points) {
     document.getElementById("totalParticipationTable").scrollIntoView();
 };
 
-function leapYear() {
-    var today = new Date();
-    var todaysYear = today.getFullYear();
-    if ((todaysYear % 4 == 0) && (todaysYear % 100 != 0) || (todaysYear % 400 == 0)) {
-        _leapYear = true;
-    } else {
-        _leapYear = false;
-    };
-};
-
-function loadCheckedStates() {
-    leapYear();
-    var today = new Date();
-    var todaysMonth = today.getMonth() + 1;
-    var todaysDate = today.getDate();
-    var todaysDateNumber;
-    var cumulative = [0,0,31,59,90,120,151,181,212,243,273,304,334];
-    var cumulativeLeap = [0,0,31,60,91,121,152,182,213,244,274,305,335];
-    if (_leapYear) {
-        if (todaysMonth >= 8) {
-            todaysDateNumber = cumulativeLeap[todaysMonth] + todaysDate;
-        } else {
-            todaysDateNumber = cumulativeLeap[todaysMonth] + todaysDate + 1000;
-        };
-    } else {
-        if (todaysMonth >= 8) {
-            todaysDateNumber = cumulative[todaysMonth] + todaysDate;
-        } else {
-            todaysDateNumber = cumulative[todaysMonth] + todaysDate + 1000;
-        };
-    };
-    for (i = 1; i < _dateNumbers.length; i++) {
-        if (todaysDateNumber >= _dateNumbers[i]) {
-            _checkedState[i-1] = 1;
-        };
-        if (todaysDateNumber == _dateNumbers[i]) {
-            _isClassDay = true; break;
-        } else {
-            _isClassDay = false;
-        };
-    };
-    _elapsedWeeks = _checkedState.length + 1;
-};
-
 function showMissions() {
     x = 0;
-    for (i = 0; i < _checkedState.length; i++) {
-        if (_checkedState[i] == 1) {
+    for (i = 0; i < _elapsedWeeks-1; i++) {
+        if (_sl[0].amAttCount[i] == 0 || _sl[0].amAttCount[i] == 1) {
             document.getElementById("as"+i+"Pop").style.display = "block";
             document.getElementById("mv"+i+"Pop").style.display = "block";
             x++;
@@ -460,14 +323,14 @@ function showMissions() {
 
 function loadBackup() {
     _sl = JSON.parse(localStorage.getItem("slBackup"));
-    loadCheckedStates();
+    _elapsedWeeks = _sl[0].amAttCount.length;
     showMissions();
     removePtBoxes();
 };
 
 function findStudent() {
     document.activeElement.blur();
-    var x = document.getElementById("search").value.toLowerCase()
+    var x = document.getElementById("searchField").value.toLowerCase()
     if (x == "") { return; };
     var matches = [];
     for (i = 0; i < _sl.length; i++) {
@@ -476,15 +339,15 @@ function findStudent() {
         };
     };
     if (matches.length == 0) {
-        infoAlert("No matches found for <span style='color:lightgreen'>" + document.getElementById("search").value + "</span>.  Please try again or use the contact buttons for help.",["mainPop"],"search");
-        document.getElementById("search").value = "";
+        infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + document.getElementById("searchField").value + "</span>.  Please try again or use the contact buttons above for help.",["mainPop"],"searchField");
+        document.getElementById("searchField").value = "";
     };
     if (matches.length == 1) {
         _ci = matches[0]; loadStudentStats(); loadStudent(_ci);
     };
     if (matches.length > 1) {
         populateMatches(matches);
-        infoAlert("More than one match found.<br>Please click the correct name below",["mainPop"],"search",true);
+        infoAlert("More than one match found.<br>Please click the correct name below",["mainPop"],"searchField",true);
     };
 };
 
@@ -511,11 +374,11 @@ function loadStudentStats() {
     var earnedASpts = 0;   
     var totalMVpts = 0;
     var earnedMVpts = 0;
-    for (i = 0; i < _checkedState.length; i++) {
+    for (i = 0; i < _elapsedWeeks-1; i++) {
         totalASpts += _asMaxPts[i];
         totalMVpts += _mvMaxPts[i];
     };
-    for (i = 0; i < _checkedState.length; i++) {
+    for (i = 0; i < _elapsedWeeks-1; i++) {
         earnedASpts += Object.values(_sl[_ci].as)[i];
         earnedMVpts += Object.values(_sl[_ci].mv)[i];
     };
@@ -581,15 +444,6 @@ function loadStudentStats() {
     document.getElementById("nameList").innerHTML = "";
 };
 
-function elapsedWeekCount() {
-    _elapsedWeeks = 1;
-    for (i = 0; i < _checkedState.length; i++) {
-        if (_checkedState[i] == 1) {
-            _elapsedWeeks++;
-        };
-    };
-};
-
 function loadRankTable() {
     pop(["studentStatsPop","missionsPop","asPointsPop","mvPointsPop"],["rankChartPop"]);
     for (i = 0; i < _rankNames.length; i++) {
@@ -619,13 +473,13 @@ function openInsignia() {
 
 function toggleIncomplete() {
     var noneHidden = true;
-    for (i = 0; i < _checkedState.length; i++) {
+    for (i = 0; i < _elapsedWeeks-1; i++) {
         if (document.getElementById("as"+i+"Pop").style.display == "none" || document.getElementById("mv"+i+"Pop").style.display == "none") {
             noneHidden = false; break;
         };
     };
     if (noneHidden) {
-        for (i = 0; i < _checkedState.length; i++) {
+        for (i = 0; i < _elapsedWeeks-1; i++) {
             if (_sl[_ci].as[i] < _asMaxPts[i]) {
                 document.getElementById("as"+i+"Pop").style.display = "block"
             } else {
@@ -638,17 +492,96 @@ function toggleIncomplete() {
             };
         };
     } else {
-        for (i = 0; i < _checkedState.length; i++) {
+        for (i = 0; i < _elapsedWeeks-1; i++) {
             document.getElementById("as"+i+"Pop").style.display = "block";
             document.getElementById("mv"+i+"Pop").style.display = "block";
         };
     };
 };
 
+function loadStudentAttStats() {
+    for (i = 0; i < _elapsedWeeks; i++) {
+        document.getElementById("studentAttDate"+i).innerHTML = _classDates[i];
+        if (_sl[_ci].amAttCount[i] == 1) {
+            document.getElementById("studentAttAM"+i).innerHTML = "X";
+        } else {
+            document.getElementById("studentAttAM"+i).innerHTML = "";
+        };
+        if (_sl[_ci].pmAttCount[i] == 1) {
+            document.getElementById("studentAttPM"+i).innerHTML = "X";
+        } else {
+            document.getElementById("studentAttPM"+i).innerHTML = "";
+        };
+        if (_sl[_ci].amAttCount[i] == 0 && _sl[_ci].pmAttCount[i] == 0) {
+            document.getElementById("studentAttDate"+i).style.color = "red";
+        } else {
+            document.getElementById("studentAttDate"+i).style.color = "lawngreen";
+        };
+    };
+    for (i = _elapsedWeeks; i < 34; i++) {
+        document.getElementById("studentAttRow"+i).style.display = "none";
+    };
+    pop(["studentStatsPop","missionsPop"],["studentAttStatsPop"]);
+};
+
+
+function loadMissionsList() {
+    document.getElementById("listAS").innerHTML = "";
+    document.getElementById("listMV").innerHTML = "";
+    document.getElementById("asHeading").innerHTML = "";
+    document.getElementById("mvHeading").innerHTML = "";
+    var totalASpts = 0;
+    var earnedASpts = 0;   
+    var totalMVpts = 0;
+    var earnedMVpts = 0;
+    for (i = 0; i < _elapsedWeeks-1; i++) {
+        totalASpts += _asMaxPts[i];
+        totalMVpts += _mvMaxPts[i];
+    };
+    for (i = 0; i < _elapsedWeeks-1; i++) {
+        earnedASpts += Object.values(_sl[_ci].as)[i];
+        earnedMVpts += Object.values(_sl[_ci].mv)[i];
+    };
+    document.getElementById("asHeading").innerHTML = " Activity Sheets " + "(" + earnedASpts + "/" + totalASpts + ")";
+    document.getElementById("mvHeading").innerHTML = " Memory Verses " + "(" + earnedMVpts + "/" + totalMVpts + ")";
+    for (i = 0; i < _elapsedWeeks-1; i++) {
+        var p1 = document.createElement("p");
+        var p2 = document.createElement("p");
+        p1.classList.add("pointer"); p2.classList.add("pointer");
+        p1.innerHTML = _asNamesFull[i] + " (" + _sl[_ci].as[i] + "/" + _asMaxPts[i] + ")";
+        if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
+            p1.style.color = "orange";
+            p1.innerHTML = _asNamesFull[i] + " (" + _sl[_ci].as[i] + "/" + _asMaxPts[i] + ")" + "<br>" + "<span style='font-size: 15px'>" + "Reason for partial credit: " + _sl[_ci].asReasons[i] + "</span>";
+        } else if (_sl[_ci].as[i] == 0) {
+            p1.style.color = "red";
+        } else {
+            p1.style.color = "lawngreen";
+        };
+        var mv = document.createTextNode(_mvNamesFull[i] + " (" + _sl[_ci].mv[i] + "/" + _mvMaxPts[i] + ")");
+        if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
+            p2.style.color = "orange";
+        } else if (_sl[_ci].mv[i] == 0) {
+            p2.style.color = "red";
+        } else {
+            p2.style.color = "lawngreen";
+        };
+        (function(i){
+            p1.onclick = function () {
+                _asNum = i; asLinks();
+            };
+        })(i);
+        (function(i){
+            p2.onclick = function () {
+                _mvNum = i; mvLinks();
+            };
+        })(i);
+        p2.appendChild(mv);
+        document.getElementById("listAS").appendChild(p1);
+        document.getElementById("listMV").appendChild(p2);
+    };
+    pop(["studentStatsPop","missionsPop"],["listMissionPointsPop"]);
+};
+
 loadBackup();
 
-document.getElementById("search").focus();
-
-/*** NOTES ***/
-// add call/text/email buttons/links
-// add tutorial
+document.getElementById("searchField").focus();
