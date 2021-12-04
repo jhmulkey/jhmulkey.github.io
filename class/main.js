@@ -102,7 +102,7 @@ class Student {
         this.gender = gender;
         this.birthdayMonth = month;
         this.birthdayDate = date;
-        this.birthdayNumber = month + date;
+        this.birthdayNumber;
         this.birthday = month + "/" + date;
         this.hasBirthday = false;
         this.birthdayDone = false;

@@ -432,6 +432,11 @@ function loadStudentStats() {
     assignClassRank();
     document.getElementById("studentStatsInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
     document.getElementById("statsRankName").innerHTML = _rankNames[_sl[_ci].rank];
+    if (_rankNames[_sl[_ci].rank].length > 20) {
+        document.getElementById("statsRankName").style.fontSize = "15px";
+    } else {
+        document.getElementById("statsRankName").style.fontSize = "18px";
+    };
     document.getElementById("statsName").innerHTML = _sl[_ci].fullName;
     document.getElementById("statsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
     document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + Math.round(rankPercentage) + "%)";
@@ -525,7 +530,7 @@ function loadStudentAttStats() {
 };
 
 
-function loadMissionsList() {
+function loadMissionsList(id) {
     document.getElementById("listAS").innerHTML = "";
     document.getElementById("listMV").innerHTML = "";
     document.getElementById("asHeading").innerHTML = "";
@@ -580,8 +585,11 @@ function loadMissionsList() {
         document.getElementById("listMV").appendChild(p2);
     };
     pop(["studentStatsPop","missionsPop"],["listMissionPointsPop"]);
+    scrollTo(0,0);
 };
 
 loadBackup();
 
 document.getElementById("searchField").focus();
+
+window.onbeforeunload = function() { return "Please use the back button at the top of the page"; };
