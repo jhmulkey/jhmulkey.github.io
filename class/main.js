@@ -2602,8 +2602,8 @@ function loadBackup() {
         infoAlert("backup.js not available",["wtlPop"]); return;
     } else {
         _sl = JSON.parse(localStorage.getItem("slBackup"));
-        _amAtt = JSON.parse(localStorage.getItem("amAttendanceBackup"));
-        _pmAtt = JSON.parse(localStorage.getItem("pmAttendanceBackup"));
+        _amAtt = JSON.parse(localStorage.getItem("amAttBackup"));
+        _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
         _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
         loadCheckedStates();
         showMissions();
