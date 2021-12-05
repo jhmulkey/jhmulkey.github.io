@@ -2576,19 +2576,7 @@ function loadStudentAttStats() {
 function whatToLoad() {
     if (!localStorage.getItem("sl")) {
         if (JSON.parse(localStorage.getItem("slBackup"))) {
-            _sl = JSON.parse(localStorage.getItem("slBackup"));
-            _amAtt = JSON.parse(localStorage.getItem("amAttBackup"));
-            _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
-            _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
-            loadCheckedStates();
-            removePtBoxes();
-            showMissions();
-            sortStudentList();
-            for (i = 0; i < _sl.length; i++) {
-                _sl[i].attendance = false;
-                _sl[i].random = false;
-            };
-            findBday();
+            loadBackup();
         } else {
             return;
         };
