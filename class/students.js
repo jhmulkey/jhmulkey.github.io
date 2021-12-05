@@ -148,7 +148,7 @@ function loadStudent(index) {
         } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
             document.getElementById("as"+i+"Pop").style.background = "darkorange";
         } else {
-            document.getElementById("as"+i+"Pop").style.background = "red";
+            document.getElementById("as"+i+"Pop").style.background = "firebrick";
         };
     };
     for (i = 0; i < _mvMaxPts.length; i++) {
@@ -157,7 +157,7 @@ function loadStudent(index) {
         } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
             document.getElementById("mv"+i+"Pop").style.background = "darkorange";
         } else {
-            document.getElementById("mv"+i+"Pop").style.background = "red";
+            document.getElementById("mv"+i+"Pop").style.background = "firebrick";
         };
     };
     pop([],["missionsPop"]);
@@ -518,7 +518,7 @@ function loadStudentAttStats() {
             document.getElementById("studentAttPM"+i).innerHTML = "";
         };
         if (_sl[_ci].amAttCount[i] == 0 && _sl[_ci].pmAttCount[i] == 0) {
-            document.getElementById("studentAttDate"+i).style.color = "red";
+            document.getElementById("studentAttDate"+i).style.color = "firebrick";
         } else {
             document.getElementById("studentAttDate"+i).style.color = "lawngreen";
         };
@@ -558,7 +558,7 @@ function loadMissionsList(id) {
             p1.style.color = "darkorange";
             p1.innerHTML = _asNamesFull[i] + " (" + _sl[_ci].as[i] + "/" + _asMaxPts[i] + ")" + "<br>" + "<span style='font-size: 15px'>" + "Reason for partial credit: " + _sl[_ci].asReasons[i] + "</span>";
         } else if (_sl[_ci].as[i] == 0) {
-            p1.style.color = "red";
+            p1.style.color = "firebrick";
         } else {
             p1.style.color = "lawngreen";
         };
@@ -566,7 +566,7 @@ function loadMissionsList(id) {
         if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
             p2.style.color = "darkorange";
         } else if (_sl[_ci].mv[i] == 0) {
-            p2.style.color = "red";
+            p2.style.color = "firebrick";
         } else {
             p2.style.color = "lawngreen";
         };
@@ -593,3 +593,10 @@ loadBackup();
 document.getElementById("searchField").focus();
 
 window.onbeforeunload = function() { return "Please use the back button at the top of the page"; };
+
+for (i = 0; i < _sl.length; i++) {
+    for (j = 0; j < 32; j++)
+    if (_sl[i].as[j] > 0 && _sl[i].as[j] < _asMaxPts[j]) {
+        console.log (_sl[i].fullName + " " + _asNamesFull[j]);
+    };
+};

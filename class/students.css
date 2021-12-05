@@ -436,7 +436,7 @@ a:link, a:visited, a:hover, a:active {
 
 #missionsTitleDiv {
     font-size: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .checkboxes label {
@@ -475,3 +475,41 @@ a:link, a:visited, a:hover, a:active {
 .pointer {
     cursor: pointer;
 }
+
+.missionsKeyTable {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.complete, .incomplete, .missing {
+    width: 20px;
+    border: 1px solid white;
+}
+
+.complete {
+    background-color: green;
+}
+
+.incomplete {
+    background-color: darkorange;
+}
+
+.missing {
+    background-color: firebrick;
+}
+
+.equalSign {
+    text-align: right !important;
+}
+
+.keyLabel {
+    text-align: left !important;
+    padding-left: 3px;
+}
+
+/* #missionsKeyTable, #missionsKeyTable td{
+    border: 1px solid white;
+    border-spacing: 1px;
+    border-collapse: collapse;
+    background-color: black;
+} */

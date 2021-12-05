@@ -1350,7 +1350,7 @@ function loadStudent(index) {
         } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
             document.getElementById("as"+i+"Pop").style.background = "darkorange";
         } else {
-            document.getElementById("as"+i+"Pop").style.background = "black";
+            document.getElementById("as"+i+"Pop").style.background = "firebrick";
         };
     };
     for (i = 0; i < _mvMaxPts.length; i++) {
@@ -1359,7 +1359,7 @@ function loadStudent(index) {
         } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
             document.getElementById("mv"+i+"Pop").style.background = "darkorange";
         } else {
-            document.getElementById("mv"+i+"Pop").style.background = "black";
+            document.getElementById("mv"+i+"Pop").style.background = "firebrick";
         };
     };
 };
@@ -2562,7 +2562,7 @@ function loadStudentAttStats() {
             document.getElementById("studentAttPM"+i).innerHTML = "";
         };
         if (_sl[_ci].amAttCount[i] == 0 && _sl[_ci].pmAttCount[i] == 0) {
-            document.getElementById("studentAttDate"+i).style.color = "red";
+            document.getElementById("studentAttDate"+i).style.color = "firebrick";
         } else {
             document.getElementById("studentAttDate"+i).style.color = "lawngreen";
         };
