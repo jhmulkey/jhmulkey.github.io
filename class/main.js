@@ -2577,8 +2577,6 @@ function whatToLoad() {
     if (!localStorage.getItem("sl")) {
         if (JSON.parse(localStorage.getItem("slBackup"))) {
             loadBackup();
-        } else {
-            return;
         };
     } else {
         pop(["mainPop"],["wtlPop"]);
