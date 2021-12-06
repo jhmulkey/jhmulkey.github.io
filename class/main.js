@@ -2597,7 +2597,7 @@ function loadBackup() {
             _sl[i].attendance = false;
             _sl[i].random = false;
         };
-        if (_isClassDay === true) {
+        if (_isClassDay === true && _amAtt.length < _elapsedWeeks) {
             for (i = 0; i < _sl.length; i++) {
                 _sl[i].amAttCount.push(0); _sl[i].pmAttCount.push(0);
             };
