@@ -211,7 +211,7 @@ class Teams {
     };
 };
 
-////////////////////////////////////////////////// TEAM FUNCTIONS START //////////////////////////////////////////////////
+//////////////////////////////////////// TEAM FUNCTIONS START ////////////////////////////////////////
 
 function teams() {
     var attCount = 0;
@@ -314,10 +314,9 @@ function loadGame() {
 };
 
 function gameScorePoints(x) {
-    _teams[0].undoGamePts = x;
-    _teams[0].undoLimit = false;
+    _teams[0].undoGamePts = x; _teams[0].undoLimit = false; var log;
     if (_teams[0].currentTeam == 1) {
-        var log1 = _teams[0].team1[0].fullName + " +" + x + " pts team 1 (" + _teams[0].team1Score + "-->" + (_teams[0].team1Score + x) + ")";
+        log = _teams[0].team1[0].fullName + " +" + x + " pts team 1" + "<br>" +  "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score + x) + ")";
         _teams[0].team1Score += x;
         document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
         _teams[0].currentTeam ++;
@@ -333,10 +332,10 @@ function gameScorePoints(x) {
                 _teams[0].team1.push(_teams[0].team1Reset[i])
             };
         };
-        gameActivityLog(log1,false,"lawngreen");
+        gameActivityLog(log,"lawngreen");
         storeNewData();
     } else {
-        var log2 = _teams[0].team2[0].fullName + " +" + x + " pts team 2 (" + _teams[0].team2Score + "-->" + (_teams[0].team2Score + x) + ")";
+        log = _teams[0].team2[0].fullName + " +" + x + " pts team 2" + "<br>" +  "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score + x) + ")";
         _teams[0].team2Score += x;
         document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
         _teams[0].currentTeam --;
@@ -352,7 +351,7 @@ function gameScorePoints(x) {
                 _teams[0].team2.push(_teams[0].team2Reset[i])
             };
         };
-        gameActivityLog(log2,false,"yellow");
+        gameActivityLog(log,"yellow");
         storeNewData();
     };
     for (i = 1; i < 11; i++) {
@@ -365,13 +364,14 @@ function gameScorePoints(x) {
 };
 
 function undoGameScorePoints() {
+    var log;
     if (_teams[0].undoLimit === true) {
         infoAlert("Cannot undo more than one score in a row",["playGamePop"]); return;
     } else {
         _teams[0].undoLimit = true;
     };
     if (_teams[0].currentTeam == 1) {
-        var log1 = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " -" + _teams[0].undoGamePts + " pts team 2 " + "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score - _teams[0].undoGamePts) + ")";
+        log = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " -" + _teams[0].undoGamePts + " pts team 2 " + "<br>" + "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score - _teams[0].undoGamePts) + ")";
         _teams[0].currentTeam = 2;
         _teams[0].team2Score -= _teams[0].undoGamePts;
         document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
@@ -379,9 +379,9 @@ function undoGameScorePoints() {
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
         document.getElementById("team2Score").style.backgroundColor = "yellow";
         document.getElementById("team1Score").style.backgroundColor = "#eee";
-        gameActivityLog(log1,false,"red");
+        gameActivityLog(log,"red");
     } else if (_teams[0].currentTeam == 2) {
-        var log2 = _teams[0].undoCurrentPlayer.fullName + " -" + _teams[0].undoGamePts + " pts team 1 " + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
+        log = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " -" + _teams[0].undoGamePts + " pts team 1 " + "<br>" + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
         _teams[0].currentTeam = 1;
         _teams[0].team1Score -= _teams[0].undoGamePts;
         document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
@@ -389,7 +389,7 @@ function undoGameScorePoints() {
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
         document.getElementById("team1Score").style.backgroundColor = "yellow";
         document.getElementById("team2Score").style.backgroundColor = "#eee";
-        gameActivityLog(log2,false,"red");
+        gameActivityLog(log,"red");
     };
     storeNewData();
 };
@@ -404,39 +404,30 @@ function adjustGameScore(parameter,data) {
         _teams[0].team2Score = data;
     };
     document.getElementById("team"+parameter+"Score").innerHTML = data;
-    var log1 = "Team " + parameter.toString() + " points set " + original + "-->" + data;
-    gameActivityLog(log1,false,"orange");
+    var log = "Team " + parameter.toString() + " points set " + "<br>" + original + "-->" + data;
+    gameActivityLog(log,"orange");
     storeAndBackup();
 };
 
-function gameActivityLog(log1,log2,color,background) {
+function gameActivityLog(log,color,background) {
     var paragraph = document.createElement("p");
-    var lineBreak = document.createElement("br");
+    paragraph.innerHTML = log;
+    paragraph.classList.add("logEntry");
     if (color) {
         paragraph.style.color = color;
     };
     if (background) {
         paragraph.style.background = background;
     };
-    paragraph.classList.add("logEntry");
-    var textNode1 = document.createTextNode(log1);
-    var textNode2 = document.createTextNode(log2);
-    if (log2) {
-        paragraph.appendChild(textNode1);
-        paragraph.appendChild(lineBreak);
-        paragraph.appendChild(textNode2);
-        document.getElementById("gameLog").appendChild(paragraph);
-    } else {
-        paragraph.appendChild(textNode1);
-        document.getElementById("gameLog").appendChild(paragraph);
-    };
-    _gameLog = document.getElementById("gameLog").innerHTML;
+    document.getElementById("gameLog").appendChild(paragraph);
+    _log = document.getElementById("gameLog").innerHTML;
     storeNewData();
 };
 
 function skipPlayer() {
+    var log;
     if (_teams[0].currentTeam == 1) {
-        var log = _teams[0].team1[0].fullName + " skipped";
+        log = "SKIPPED " + _teams[0].team1[0].fullName;
         _teams[0].team1.shift();
         if (_teams[0].team1.length == 0) {
             for (i = 0; i < _teams[0].team1Reset.length; i++) {
@@ -446,7 +437,7 @@ function skipPlayer() {
         _teams[0].currentPlayer = _teams[0].team1[0].fullName;
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
     } else {
-        var log = _teams[0].team2[0].fullName + " skipped";
+        log = "SKIPPED " + _teams[0].team2[0].fullName;
         _teams[0].team2.shift();
         if (_teams[0].team2.length == 0) {
             for (i = 0; i < _teams[0].team2Reset.length; i++) {
@@ -456,7 +447,36 @@ function skipPlayer() {
         _teams[0].currentPlayer = _teams[0].team2[0].fullName;
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
     };
-    gameActivityLog(log,false,"red");
+    gameActivityLog(log,"darkorange");
+    storeNewData();
+};
+
+function deletePlayer() {
+    var log;
+    if (_teams[0].currentTeam == 1) {
+        log = "DELETED " + _teams[0].team1[0].fullName;
+        _teams[0].team1.shift();
+        _teams[0].team1Reset.splice(_teams[0].team1Reset.length - _teams[0].team1.length - 1,1);
+        if (_teams[0].team1.length == 0) {
+            for (i = 0; i < _teams[0].team1Reset.length; i++) {
+                _teams[0].team1.push(_teams[0].team1Reset[i])
+            };
+        };
+        _teams[0].currentPlayer = _teams[0].team1[0].fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
+    } else {
+        log = "DELETED " + _teams[0].team2[0].fullName;
+        _teams[0].team2.shift();
+        _teams[0].team2Reset.splice(_teams[0].team2Reset.length - _teams[0].team2.length - 1,1);
+        if (_teams[0].team2.length == 0) {
+            for (i = 0; i < _teams[0].team2Reset.length; i++) {
+                _teams[0].team2.push(_teams[0].team2Reset[i])
+            };
+        };
+        _teams[0].currentPlayer = _teams[0].team2[0].fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
+    };
+    gameActivityLog(log,"red");
     storeNewData();
 };
 
@@ -466,7 +486,7 @@ function quickTeams(x) {
     pop(["mainPop"],["teamsListPop"]);
 };
 
-////////////////////////////////////////////////// TEAMS FUNCTIONS END //////////////////////////////////////////////////
+//////////////////////////////////////// TEAMS FUNCTIONS END ////////////////////////////////////////
 
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {

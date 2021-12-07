@@ -108,6 +108,7 @@
 <div id="playGamePop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['playGamePop'],['teamsListPop'])"><span>f</span></div>
+    <div class="secretButton"></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="teamPointsContainer">
@@ -120,7 +121,11 @@
       <div id="team2Score" onclick="dataInputAlert('Adjust team 2 score',['playGamePop'],false,adjustGameScore,2)">0</div>
     </div>
   </div>
-  <p id="currentPlayer" onclick="actionAlert('Skip this player?',['playGamePop'],skipPlayer)"></p>
+  <div id="currentPlayerContainer">
+    <div class="secretButton2" onclick="actionAlert('Delete this player?',['playGamePop'],deletePlayer)"></div>
+    <p id="currentPlayer"></p>
+    <div class="secretButton2" onclick="actionAlert('Skip this player?',['playGamePop'],skipPlayer)"></div>
+  </div>
   <div id="gamePointButtonsContainer">
     <div class="gamePointButton" id="gamePoint1" onclick="gameScorePoints(1)">1</div>
     <div class="gamePointButton" id="gamePoint2" onclick="gameScorePoints(2)">2</div>
