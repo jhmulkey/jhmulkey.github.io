@@ -1421,6 +1421,9 @@ function pop(closeArray,openArray) {
     if (openArray.includes("customSortListPop") && _populateNotesID.includes("customSortListPop")) {
         sortByNotes(true);
     };
+    if (openArray.includes("sortChoicePop")) {
+        _populateNotesID = [];
+    };
     alerts();
     scrollTo(0,0);
 };

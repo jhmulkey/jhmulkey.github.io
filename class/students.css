@@ -58,6 +58,10 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none; 
 }
 
+#rankChartLink {
+    text-decoration: underline;
+}
+
 *::-webkit-scrollbar { width: 0 !important }
 
 .invisible-scrollbar::-webkit-scrollbar {
@@ -145,7 +149,7 @@ a:link, a:visited, a:hover, a:active {
     font-size: 30px;
     text-align: center;
     border-radius: 5px 0px 0px 5px;
-    border: none;
+    border: 1px solid dodgerblue;
 }
 
 #searchField:focus{

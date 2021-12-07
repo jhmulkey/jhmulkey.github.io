@@ -593,10 +593,3 @@ loadBackup();
 document.getElementById("searchField").focus();
 
 window.onbeforeunload = function() { return "Please use the back button at the top of the page"; };
-
-for (i = 0; i < _sl.length; i++) {
-    for (j = 0; j < 32; j++)
-    if (_sl[i].as[j] > 0 && _sl[i].as[j] < _asMaxPts[j]) {
-        console.log (_sl[i].fullName + " " + _asNamesFull[j]);
-    };
-};
