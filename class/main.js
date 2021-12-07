@@ -211,30 +211,106 @@ class Teams {
     };
 };
 
-function skipPlayer() {
-    if (_teams[0].currentTeam == 1) {
-        var log = _teams[0].team1[0].fullName + " skipped";
-        _teams[0].team1.shift();
-        if (_teams[0].team1.length == 0) {
-            for (i = 0; i < _teams[0].team1Reset.length; i++) {
-                _teams[0].team1.push(_teams[0].team1Reset[i])
-            };
+////////////////////////////////////////////////// TEAM FUNCTIONS START //////////////////////////////////////////////////
+
+function teams() {
+    var attCount = 0;
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].attendance === true) {
+            attCount++
         };
-        _teams[0].currentPlayer = _teams[0].team1[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
-    } else {
-        var log = _teams[0].team2[0].fullName + " skipped";
-        _teams[0].team2.shift();
-        if (_teams[0].team2.length == 0) {
-            for (i = 0; i < _teams[0].team2Reset.length; i++) {
-                _teams[0].team2.push(_teams[0].team2Reset[i])
-            };
-        };
-        _teams[0].currentPlayer = _teams[0].team2[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
     };
-    gameActivityLog(log,false,"red");
+    if (_teams != "") {
+        populateTeams();
+        pop(["mainMenuPop"],["teamsListPop"]);
+    } else if (attCount < 2) {
+        infoAlert("At least two students must be in attendance to create teams",["mainMenuPop"]);
+    } else {
+        createTeams();
+        populateTeams();
+        pop(["mainMenuPop"],["teamsListPop"]);
+    };
+};
+
+function createTeams() {
+    _teams.pop();
+    var teamObject = new Teams; _teams.push(teamObject);
+    _teams[0].team1Reset = []; _teams[0].team2Reset = [];
+    _teams[0].team1Score = 0; _teams[0].team2Score = 0
+    document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
+    document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
+    var attendees = [];
+    for (i = 0; i <_sl.length; i++) {
+        if (_sl[i].attendance === true) {
+            attendees.push(_sl[i])
+        };
+    };
+    shuffleArray(attendees);
+    if (attendees.length % 2 == 0) {
+        for (i = 0; i < attendees.length; i++) {
+            if (i < (attendees.length / 2)) {
+                teamObject.team1.push(attendees[i]);
+                teamObject.team1Reset.push(attendees[i]);
+            } else {
+                teamObject.team2.push(attendees[i]);
+                teamObject.team2Reset.push(attendees[i]);           
+            };
+        };
+    } else if (attendees.length % 2 == 1) {
+        for (i = 0; i < attendees.length; i++) {
+            if (i < ((attendees.length - 1) / 2)) {
+                teamObject.team1.push(attendees[i]);
+                teamObject.team1Reset.push(attendees[i]);
+             } else {
+                teamObject.team2.push(attendees[i]);
+                teamObject.team2Reset.push(attendees[i]);
+            };
+        };
+    };
+    _teams[0].currentPlayer = _teams[0].team1[0].fullName;
+    for (i = 1; i < 11; i++) {
+        document.getElementById("gamePoint"+i).style.backgroundColor = "black";
+    };
+    document.getElementById("gameLog").innerHTML = "";
+    populateTeams();
     storeNewData();
+};
+
+function populateTeams() {
+    document.getElementById("team1List").innerHTML = "";
+    document.getElementById("team2List").innerHTML = "";
+    for (i = 0; i < _teams[0].team1Reset.length; i++) {
+        var elementNode = document.createElement("p");
+        elementNode.classList.add("name2");
+        var textNode = document.createTextNode(_teams[0].team1Reset[i].fullName);
+        elementNode.appendChild(textNode);
+        document.getElementById("team1List").appendChild(elementNode);
+    };  
+    for (i = 0; i < _teams[0].team2Reset.length; i++) {
+        var elementNode = document.createElement("p");
+        elementNode.classList.add("name2");
+        var textNode = document.createTextNode(_teams[0].team2Reset[i].fullName);
+        elementNode.appendChild(textNode);
+        document.getElementById("team2List").appendChild(elementNode);
+    };
+};
+
+function loadGame() {
+    if (_teams[0].currentTeam == 1) {
+        document.getElementById("team1Score").style.backgroundColor = "yellow";
+        document.getElementById("team2Score").style.backgroundColor = "#eee";
+    } else {
+        document.getElementById("team2Score").style.backgroundColor = "yellow";
+        document.getElementById("team1Score").style.backgroundColor = "#eee";
+    };
+    document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
+    document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
+    if (_teams[0].undoTeam != _teams[0].currentTeam) {
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].currentPlayer + "</span>";
+    } else {
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].undoCurrentPlayer.fullName + "</span>";
+    };
+    pop(["teamsListPop"],["playGamePop"]);
 };
 
 function gameScorePoints(x) {
@@ -318,115 +394,6 @@ function undoGameScorePoints() {
     storeNewData();
 };
 
-function teams() {
-    var attCount = 0;
-    for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true) {
-            attCount++
-        };
-    };
-    if (_teams != "") {
-        populateTeams();
-        pop(["mainMenuPop"],["teamsListPop"]);
-    } else if (attCount < 2) {
-        infoAlert("At least two students must be in attendance to create teams",["mainMenuPop"]);
-    } else {
-        createTeams();
-        populateTeams();
-        pop(["mainMenuPop"],["teamsListPop"]);
-    };
-};
-
-function createTeams() {
-    _teams.pop();
-    var teamObject = new Teams; _teams.push(teamObject);
-    _teams[0].team1Reset = []; _teams[0].team2Reset = [];
-    _teams[0].team1Score = 0; _teams[0].team2Score = 0
-    document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
-    document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
-    var attendees = [];
-    for (i = 0; i <_sl.length; i++) {
-        if (_sl[i].attendance === true) {
-            attendees.push(_sl[i])
-        };
-    };
-    shuffleArray(attendees);
-    if (attendees.length % 2 == 0) {
-        for (i = 0; i < attendees.length; i++) {
-            if (i < (attendees.length / 2)) {
-                teamObject.team1.push(attendees[i]);
-                teamObject.team1Reset.push(attendees[i]);
-            } else {
-                teamObject.team2.push(attendees[i]);
-                teamObject.team2Reset.push(attendees[i]);           
-            };
-        };
-    } else if (attendees.length % 2 == 1) {
-        for (i = 0; i < attendees.length; i++) {
-            if (i < ((attendees.length - 1) / 2)) {
-                teamObject.team1.push(attendees[i]);
-                teamObject.team1Reset.push(attendees[i]);
-             } else {
-                teamObject.team2.push(attendees[i]);
-                teamObject.team2Reset.push(attendees[i]);
-            };
-        };
-    };
-    _teams[0].currentPlayer = _teams[0].team1[0].fullName;
-    for (i = 1; i < 11; i++) {
-        document.getElementById("gamePoint"+i).style.backgroundColor = "black";
-    };
-    document.getElementById("gameLog").innerHTML = "";
-    populateTeams();
-    storeNewData();
-};
-
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    };
-};
-
-function populateTeams() {
-    document.getElementById("team1List").innerHTML = "";
-    document.getElementById("team2List").innerHTML = "";
-    for (i = 0; i < _teams[0].team1Reset.length; i++) {
-        var elementNode = document.createElement("p");
-        elementNode.classList.add("name2");
-        var textNode = document.createTextNode(_teams[0].team1Reset[i].fullName);
-        elementNode.appendChild(textNode);
-        document.getElementById("team1List").appendChild(elementNode);
-    };  
-    for (i = 0; i < _teams[0].team2Reset.length; i++) {
-        var elementNode = document.createElement("p");
-        elementNode.classList.add("name2");
-        var textNode = document.createTextNode(_teams[0].team2Reset[i].fullName);
-        elementNode.appendChild(textNode);
-        document.getElementById("team2List").appendChild(elementNode);
-    };
-};
-
-function loadGame() {
-    if (_teams[0].currentTeam == 1) {
-        document.getElementById("team1Score").style.backgroundColor = "yellow";
-        document.getElementById("team2Score").style.backgroundColor = "#eee";
-    } else {
-        document.getElementById("team2Score").style.backgroundColor = "yellow";
-        document.getElementById("team1Score").style.backgroundColor = "#eee";
-    };
-    document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
-    document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
-    if (_teams[0].undoTeam != _teams[0].currentTeam) {
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].currentPlayer + "</span>";
-    } else {
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].undoCurrentPlayer.fullName + "</span>";
-    };
-    pop(["teamsListPop"],["playGamePop"]);
-};
-
 function adjustGameScore(parameter,data) {
     var original
     if (parameter == 1) { 
@@ -440,6 +407,74 @@ function adjustGameScore(parameter,data) {
     var log1 = "Team " + parameter.toString() + " points set " + original + "-->" + data;
     gameActivityLog(log1,false,"orange");
     storeAndBackup();
+};
+
+function gameActivityLog(log1,log2,color,background) {
+    var paragraph = document.createElement("p");
+    var lineBreak = document.createElement("br");
+    if (color) {
+        paragraph.style.color = color;
+    };
+    if (background) {
+        paragraph.style.background = background;
+    };
+    paragraph.classList.add("logEntry");
+    var textNode1 = document.createTextNode(log1);
+    var textNode2 = document.createTextNode(log2);
+    if (log2) {
+        paragraph.appendChild(textNode1);
+        paragraph.appendChild(lineBreak);
+        paragraph.appendChild(textNode2);
+        document.getElementById("gameLog").appendChild(paragraph);
+    } else {
+        paragraph.appendChild(textNode1);
+        document.getElementById("gameLog").appendChild(paragraph);
+    };
+    _gameLog = document.getElementById("gameLog").innerHTML;
+    storeNewData();
+};
+
+function skipPlayer() {
+    if (_teams[0].currentTeam == 1) {
+        var log = _teams[0].team1[0].fullName + " skipped";
+        _teams[0].team1.shift();
+        if (_teams[0].team1.length == 0) {
+            for (i = 0; i < _teams[0].team1Reset.length; i++) {
+                _teams[0].team1.push(_teams[0].team1Reset[i])
+            };
+        };
+        _teams[0].currentPlayer = _teams[0].team1[0].fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
+    } else {
+        var log = _teams[0].team2[0].fullName + " skipped";
+        _teams[0].team2.shift();
+        if (_teams[0].team2.length == 0) {
+            for (i = 0; i < _teams[0].team2Reset.length; i++) {
+                _teams[0].team2.push(_teams[0].team2Reset[i])
+            };
+        };
+        _teams[0].currentPlayer = _teams[0].team2[0].fullName;
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
+    };
+    gameActivityLog(log,false,"red");
+    storeNewData();
+};
+
+function quickTeams(x) {
+    randomAtt2(x);
+    createTeams();
+    pop(["mainPop"],["teamsListPop"]);
+};
+
+////////////////////////////////////////////////// TEAMS FUNCTIONS END //////////////////////////////////////////////////
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    };
 };
 
 function setWeeksOff() {
@@ -467,31 +502,6 @@ function activityLog(log,color,background) {
     };
     document.getElementById("log").appendChild(paragraph);
     _log = document.getElementById("log").innerHTML;
-    storeNewData();
-};
-
-function gameActivityLog(log1,log2,color,background) {
-    var paragraph = document.createElement("p");
-    var lineBreak = document.createElement("br");
-    if (color) {
-        paragraph.style.color = color;
-    };
-    if (background) {
-        paragraph.style.background = background;
-    };
-    paragraph.classList.add("logEntry");
-    var textNode1 = document.createTextNode(log1);
-    var textNode2 = document.createTextNode(log2);
-    if (log2) {
-        paragraph.appendChild(textNode1);
-        paragraph.appendChild(lineBreak);
-        paragraph.appendChild(textNode2);
-        document.getElementById("gameLog").appendChild(paragraph);
-    } else {
-        paragraph.appendChild(textNode1);
-        document.getElementById("gameLog").appendChild(paragraph);
-    };
-    _gameLog = document.getElementById("gameLog").innerHTML;
     storeNewData();
 };
 
@@ -599,14 +609,6 @@ function loadArchiveAttendees(index,time) {
     document.getElementById("attArchiveCount").innerHTML = boys.length + girls.length;
     document.getElementById("attArchiveDate").innerHTML = _classDates[index] + " " + time + " Attendance";
     pop(["attStatsPop"],["attArchiveListPop"]);
-};
-
-function attendanceList(log) {
-    var elementNode = document.createElement("p");
-    var textNode = document.createTextNode(log);
-    elementNode.appendChild(textNode);
-    elementNode.classList.add("name");
-    document.getElementById("attendanceList").appendChild(elementNode);
 };
 
 function resetAtt() {
@@ -802,42 +804,10 @@ function capitalize(x) {
     return x.charAt(0).toUpperCase() + x.slice(1);
 };
 
-function randomAtt() {
-    today = new Date();
-    for (i = 0; i < _sl.length; i++) {
-        _sl[i].attendance = false;
+function randomAtt(blank,x) {
+    if (x > _sl.length) {
+        x = _sl.length;
     };
-    randomIndex = Math.floor(Math.random()*(25-10)+10);
-    for (i = 0; i < randomIndex; i++) {
-        let x = Math.floor(Math.random() * _sl.length);
-        if (_sl[x].attendance === false) {
-            _sl[x].attendance = true;
-        } else {
-            i--
-        };    
-    };
-    if (_isClassDay === true && today.getHours() < 16) {
-        for (i = 0; i < _sl.length; i++) {
-            if (_sl[i].attendance === true) {
-                _amAtt[_checkedState.length] += 1;
-                _sl[i].amAttCount[_checkedState.length] = 1;
-            };
-        }; 
-    } else if (_isClassDay === true && today.getHours() >= 16) {
-        for (i = 0; i < _sl.length; i++) {
-            if (_sl[i].attendance === true) {
-                _pmAtt[_checkedState.length] += 1;
-                _sl[i].pmAttCount[_checkedState.length] = 1;
-            };
-        }; 
-    };
-    attCount();
-    populateNames();
-    storeNewData();
-    pop(["attListPop"],["mainPop"]);
-};
-
-function randomAtt2(x) {
     today = new Date();
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
@@ -865,15 +835,10 @@ function randomAtt2(x) {
             };
         }; 
     };
+    loadAttendees();
     attCount();
     populateNames();
     storeNewData();
-}
-
-function quickTeams(x) {
-    randomAtt2(x);
-    createTeams();
-    pop(["mainPop"],["teamsListPop"]);
 };
 
 function allAtt() {
@@ -2636,3 +2601,7 @@ function loadLS() {
 whatToLoad()
 
 document.getElementById("search").focus();
+
+//keep students.html from loading backup.js until after certain time
+//update gameActivityLog() to use innerHTML instead of createTextNode
+//add labels to student info fields

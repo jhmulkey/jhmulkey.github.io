@@ -839,7 +839,7 @@
 <div id="attListPop" class="pop">
     <div class="navigationButtonContainer">
       <div class="backButton" onclick="pop(['attListPop'],['mainPop'])"><span>f</span></div>
-      <div class="secretButton" onclick="actionAlert('Randomize attendance?',['attListPop'],randomAtt)"></div>
+      <div class="secretButton" onclick="dataInputAlert('Number of students for random attendance',['attListPop'],false,randomAtt)"></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <p id="attCount" onclick="actionAlert('Reset attendance?',['attListPop'],resetAtt)"></p>
