@@ -477,6 +477,7 @@ function deletePlayer() {
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
     };
     gameActivityLog(log,"red");
+    populateTeams();
     storeNewData();
 };
 
@@ -1439,37 +1440,25 @@ function asPop(asNum,points) {
     };
     document.getElementById("missionsPop").style.display = "none";
     document.getElementById("asPointsPop").style.display = "block";
-    var asPts = document.getElementsByClassName("asPts");
-    for (i = 0; i < asPts.length; i++) {
-        if (asPts[i].innerHTML == _sl[_ci].as[_asNum]) {
-            asPts[i].style.background = "blue";
+    for (i = 1; i <= 6; i++) {
+        if (document.getElementById("as"+i+"Points").innerHTML == _sl[_ci].as[_asNum]) {
+            document.getElementById("as"+i+"Points").style.background = "blue";
         } else {
-            asPts[i].style.background = "black";
+            document.getElementById("as"+i+"Points").style.background = "black";
         };
     };
-    if (points == 4) {
-        document.getElementById("as4Points").style.display = "block";
-    };
-    if (points == 5) {
-        document.getElementById("as4Points").style.display = "block";
-        document.getElementById("as5Points").style.display = "block";
-    };
-    if (points == 6) {
-        document.getElementById("as4Points").style.display = "block";
-        document.getElementById("as5Points").style.display = "block";
-        document.getElementById("as6Points").style.display = "block";
-    };
-    if (points > 3) {
-        document.getElementById("asPage3").style.display = "block";
-    } else {
-        document.getElementById("asPage3").style.display = "none";
+    for (i = 1; i <= points; i++) {
+        document.getElementById("as"+i+"Points").style.display = "block";
     };
     var urlStart = "url(img/missions/as";
     var urlEnd1 = "a.jpg)"; var urlEnd2 = "b.jpg)"; var urlEnd3 = "c.jpg)"
     document.getElementById("asPage1").style.backgroundImage = urlStart+_asNum+urlEnd1;
     document.getElementById("asPage2").style.backgroundImage = urlStart+_asNum+urlEnd2;
     if (points > 3) {
+        document.getElementById("asPage3").style.display = "block";
         document.getElementById("asPage3").style.backgroundImage = urlStart+_asNum+urlEnd3;
+    } else {
+        document.getElementById("asPage3").style.display = "none";
     };
     scrollTo(0,0);
 };
@@ -1479,25 +1468,15 @@ function mvPop(mvNum,index,points) {
     document.getElementById("mvPointsPop").style.display = "block";
     _mvNum = mvNum;
     document.getElementById("mvText").innerHTML = _mvText[index];
-    var mvPts = document.getElementsByClassName("mvPts");
-    for (i = 0; i < mvPts.length; i++) {
-        if (mvPts[i].innerHTML == _sl[_ci].mv[_mvNum]) {
-            mvPts[i].style.background = "blue";
+    for (i = 1; i <= 6; i++) {
+        if (document.getElementById("mv"+i+"Points").innerHTML == _sl[_ci].mv[_mvNum]) {
+            document.getElementById("mv"+i+"Points").style.background = "blue";
         } else {
-            mvPts[i].style.background = "black";
+            document.getElementById("mv"+i+"Points").style.background = "black";
         };
     };
-    if (points == 4) {
-        document.getElementById("mv4Points").style.display = "block";
-    };
-    if (points == 5) {
-        document.getElementById("mv4Points").style.display = "block";
-        document.getElementById("mv5Points").style.display = "block";
-    };
-    if (points == 6) {
-        document.getElementById("mv4Points").style.display = "block";
-        document.getElementById("mv5Points").style.display = "block";
-        document.getElementById("mv6Points").style.display = "block";
+    for (i = 1; i <= points; i++) {
+        document.getElementById("mv"+i+"Points").style.display = "block";
     };
     scrollTo(0,0);
 };
