@@ -312,7 +312,7 @@ function mvPop(mvNum,index,points) {
 function showMissions() {
     x = 0;
     for (i = 0; i < _elapsedWeeks-1; i++) {
-        if (_sl[0].amAttCount[i] == 0 || _sl[0].amAttCount[i] == 1) {
+        if (_sl[0].amAtt[i] == 0 || _sl[0].amAtt[i] == 1) {
             document.getElementById("as"+i+"Pop").style.display = "block";
             document.getElementById("mv"+i+"Pop").style.display = "block";
             x++;
@@ -323,7 +323,7 @@ function showMissions() {
 
 function loadBackup() {
     _sl = JSON.parse(localStorage.getItem("slBackup"));
-    _elapsedWeeks = _sl[0].amAttCount.length;
+    _elapsedWeeks = _sl[0].amAtt.length;
     showMissions();
     removePtBoxes();
 };
@@ -392,8 +392,8 @@ function loadStudentStats() {
     var totalPointsSquares = Math.round(totalPointsPercentage / 2.50);
     var weeksAttended = 0;
     for (i = 0; i < _elapsedWeeks; i++) {
-        weeksAttended += _sl[_ci].amAttCount[i];
-        weeksAttended += _sl[_ci].pmAttCount[i];
+        weeksAttended += _sl[_ci].amAtt[i];
+        weeksAttended += _sl[_ci].pmAtt[i];
     };
     var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(2);
     var attendanceSquares = Math.round(attendancePercentage / 2.50);
@@ -507,17 +507,17 @@ function toggleIncomplete() {
 function loadStudentAttStats() {
     for (i = 0; i < _elapsedWeeks; i++) {
         document.getElementById("studentAttDate"+i).innerHTML = _classDates[i];
-        if (_sl[_ci].amAttCount[i] == 1) {
+        if (_sl[_ci].amAtt[i] == 1) {
             document.getElementById("studentAttAM"+i).innerHTML = "X";
         } else {
             document.getElementById("studentAttAM"+i).innerHTML = "";
         };
-        if (_sl[_ci].pmAttCount[i] == 1) {
+        if (_sl[_ci].pmAtt[i] == 1) {
             document.getElementById("studentAttPM"+i).innerHTML = "X";
         } else {
             document.getElementById("studentAttPM"+i).innerHTML = "";
         };
-        if (_sl[_ci].amAttCount[i] == 0 && _sl[_ci].pmAttCount[i] == 0) {
+        if (_sl[_ci].amAtt[i] == 0 && _sl[_ci].pmAtt[i] == 0) {
             document.getElementById("studentAttDate"+i).style.color = "firebrick";
         } else {
             document.getElementById("studentAttDate"+i).style.color = "lawngreen";
