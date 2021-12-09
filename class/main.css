@@ -448,12 +448,9 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .genderAndBdayContainer {
-    height: 50px;
     width: 375px;
-    margin: 10px auto;
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .studentPopButtons {
@@ -669,15 +666,16 @@ a:link, a:visited, a:hover, a:active {
     height: 150px;
     font-size: 25px;
     resize: none;
-    margin: 10px 0px;
     font-family: Tahoma;
+    border-radius: 20px;
+    padding: 15px;
 }
 
 #notesList, #teacherNotesList {
     text-align: left !important;
 }
 
-#email1, #email2 {
+#email {
     height: 35px;
     width: 300px;
     font-size: 20px;
@@ -686,26 +684,25 @@ a:link, a:visited, a:hover, a:active {
 .textInputField1 {
     height: 50px;
     width: 375px;
+    border-radius: 25px;
     font-size: 25px;
-    margin: 10px auto;
     font-family: Tahoma;
+    text-align: center;
 }
 
 .textInputField2 {
     height: 50px;
     width: 150px;
+    border-radius: 25px;
     font-size: 25px;
     font-family: Tahoma;
+    text-align: center;
 }
 
-#newStudentPop p, #editStudentPop p {
+#editStudentPop p, #newStudentPop p {
     font-size: 16px;
-    margin-top: 20px;
-}
-
-#newStudentPop input, #editStudentPop input {
-    text-align: left;
-    margin-left: 0 !important;
+    color: darkorange;
+    margin: 20px auto 10px auto;
 }
 
 #asPage1, #asPage2, #asPage3 {
@@ -720,10 +717,6 @@ a:link, a:visited, a:hover, a:active {
 
 #asPage1, #asPage2 {
     margin-bottom: 10px;
-}
-
-#newFirstAndLast, #newGender, #newBday, #editFirstAndLast, #editGender, #editBday{
-    text-align: center !important;
 }
 
 #randomFilter {

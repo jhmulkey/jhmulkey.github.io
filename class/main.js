@@ -89,7 +89,7 @@ var _mvText = [
 */
 
 class Student {
-    constructor(first,last,month,date,email1,email2,gender,note) {
+    constructor(first,last,month,date,email,gender,note) {
         this.firstName = first;
         this.lastName = last;
         this.fullName = first + " " + last;
@@ -100,8 +100,7 @@ class Student {
         this.birthday = month + "/" + date;
         this.hasBirthday = false;
         this.birthdayDone = false;
-        this.email1 = email1;
-        this.email2 = email2;
+        this.email = email;
         this.notes = note;
         this.points = 0;
         this.classRank = 0;
@@ -1228,28 +1227,9 @@ function actionAlert(message,popsArray,func,bypass) {
 
 function newStudent() {
     var firstLastArray = document.getElementById("newFirstAndLast").value.split("/");
+    var newBdayArray = document.getElementById("newBday").value.split("/");
     if (firstLastArray.length < 2) {
         infoAlert("Please enter first and last names separated by a &#47;",["newStudentPop"]); return;
-    }
-    var first = capitalize(firstLastArray[0]);
-    var last = capitalize(firstLastArray[1]);
-    var newBdayArray = document.getElementById("newBday").value.split("/");
-    if (newBdayArray.length < 2) {
-        var month = 0
-        var date = 0
-    } else {
-        var month = parseInt(newBdayArray[0]);
-        var date = parseInt(newBdayArray[1]);
-    }
-    if (document.getElementById("newEmail1").value == "") {
-        var email1 = document.getElementById("newEmail1").value;
-    } else {
-        var email1 = document.getElementById("newEmail1").value.toLowerCase();
-    }
-    if (document.getElementById("newEmail1").value == "") {
-        var email2 = document.getElementById("newEmail2").value;
-    } else {
-        var email2 = document.getElementById("newEmail2").value.toLowerCase();
     }
     if (document.getElementById("newGender").value.toLowerCase() == "m") {
         var gender = "M";
@@ -1258,12 +1238,27 @@ function newStudent() {
     } else {
         infoAlert("Please enter 'M' or 'F' for gender",["newStudentPop"]); return;
     }
+    var first = capitalize(firstLastArray[0]);
+    var last = capitalize(firstLastArray[1]);
+    if (newBdayArray.length < 2) {
+        var month = 0
+        var date = 0
+    } else {
+        var month = parseInt(newBdayArray[0]);
+        var date = parseInt(newBdayArray[1]);
+    }
+    if (document.getElementById("newEmail").value == "") {
+        var email = document.getElementById("newEmail").value;
+    } else {
+        var email = document.getElementById("newEmail").value.toLowerCase();
+    }
+
     if (document.getElementById("initialNote").value == "") {
         var note = [];
     } else {
         var note = [document.getElementById("initialNote").value];
     }
-    var newStudent = new Student(first,last,month,date,email1,email2,gender,note);
+    var newStudent = new Student(first,last,month,date,email,gender,note);
     newStudent.attendance = true;
     for (i = 0; i < _elapsedWeeks; i++) {
         newStudent.amAtt.push(0);
@@ -1319,15 +1314,10 @@ function editStudent() {
         _sl[_ci].birthday = newBdayArray[0] + "/" + newBdayArray[1];
     }
     assignBdayNumber();
-    if (document.getElementById("editEmail1").value == "") {
-        _sl[_ci].email1 = document.getElementById("editEmail1").value;
+    if (document.getElementById("editEmail").value == "") {
+        _sl[_ci].email = document.getElementById("editEmail").value;
     } else {
-        _sl[_ci].email1 = document.getElementById("editEmail1").value.toLowerCase();
-    }
-    if (document.getElementById("editEmail1").value == "") {
-        _sl[_ci].email2 = document.getElementById("editEmail2").value;
-    } else {
-        _sl[_ci].email2 = document.getElementById("editEmail2").value.toLowerCase();
+        _sl[_ci].email = document.getElementById("editEmail").value.toLowerCase();
     }
     if (document.getElementById("editGender").value.toLowerCase() == "m") {
         _sl[_ci].gender = "M";
@@ -1374,7 +1364,7 @@ function refreshStudentPop() {
     } else {
         doesFileExist("https://ksgrade2.com/class/img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
     }
-    if (_sl[_ci].email1 == false && _sl[_ci].email2 == false) {
+    if (_sl[_ci].email == false) {
         document.getElementById("emailButton").style.background = "fireBrick";
     } else {
         document.getElementById("emailButton").style.background = "green";
@@ -1393,13 +1383,12 @@ function populateStudentFields(id) {
     }
     document.getElementById("editFirstAndLast").value = _sl[_ci].firstName + "/" + _sl[_ci].lastName;
     document.getElementById("editBday").value = _sl[_ci].birthdayMonth.toString() + "/" + _sl[_ci].birthdayDate.toString();
-    document.getElementById("editEmail1").value = _sl[_ci].email1;
-    document.getElementById("editEmail2").value = _sl[_ci].email2;
+    document.getElementById("editEmail").value = _sl[_ci].email;
     document.getElementById("editGender").value = _sl[_ci].gender;
 }
 
 function clearStudentFields() {
-    var ids = ["newFirstAndLast","newGender","newBday","newEmail1","newEmail2","initialNote"];
+    var ids = ["newFirstAndLast","newGender","newBday","newEmail","initialNote"];
     for (i = 0; i < ids.length; i++) {
         document.getElementById(ids[i]).value = "";
     }
