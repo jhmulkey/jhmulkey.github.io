@@ -21,7 +21,7 @@ var _checkedState = [];
 var _amAtt = []; var _pmAtt = [];
 var _elapsedWeeks;
 var _classDates = ["8/22", "8/29", "9/12", "9/19", "9/26", "10/3", "10/10", "10/17", "10/24", "10/31", "11/7", "11/14", "12/5", "12/12", "12/19", "1/9", "1/16", "1/23", "1/30", "2/6", "2/13", "2/20", "2/27", "3/6", "3/13", "3/20", "3/27", "4/3", "4/10", "4/24", "5/1", "5/8", "5/15", "5/22"];
-var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 374, 381, 388, 395, 402, 409, 416, 423, 430, 437, 444, 451, 458, 465, 479, 486, 493, 500, 507];
+var _dateNumbers = [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 169, 176, 183, 190, 197, 204, 211, 219, 226, 233, 240, 247, 254, 268, 275, 282, 289, 296];
 var _isClassDay;
 var _studentPhotoExists;
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
@@ -564,8 +564,10 @@ function setWeeksOff() {
 function assignBdayNumber(x) {
     checkForLeapYear();
     if (x) { _ci = x; }
-    var cumulative = [0,365,396,424,455,485,516,546,212,243,273,304,334];
-    var cumulativeLeap = [0,365,396,425,456,486,517,547,212,243,273,304,334];
+/*     var cumulative = [0,365,396,424,455,485,516,546,212,243,273,304,334];
+    var cumulativeLeap = [0,365,396,425,456,486,517,547,212,243,273,304,334]; */
+    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     if (_leapYears[1] == 1) {
         _sl[_ci].birthdayNumber = cumulativeLeap[_sl[_ci].birthdayMonth] + _sl[_ci].birthdayDate;
     } else {
@@ -587,8 +589,8 @@ function assignClassRank() {
 
 function assignDateNumber(month,date) {
     if (month == 0 || date == 0) { return 1000 } checkForLeapYear();
-    var cumulative = [0,365,396,424,455,485,516,546,212,243,273,304,334];
-    var cumulativeLeap = [0,365,396,425,456,486,517,547,212,243,273,304,334];
+    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var dateNumber;
     if (_leapYears[1] == 1) {
         dateNumber = cumulativeLeap[month] + date;
@@ -601,8 +603,8 @@ function assignDateNumber(month,date) {
 function assignTodaysDateNumber() {
     checkForLeapYear();
     var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
-    var cumulative = [0,365,396,424,455,485,516,546,212,243,273,304,334];
-    var cumulativeLeap = [0,365,396,425,456,486,517,547,212,243,273,304,334];
+    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var dateNumber;
     if (_leapYears[1] == 1) {
         dateNumber = cumulativeLeap[todaysMonth] + todaysDate;
@@ -614,8 +616,8 @@ function assignTodaysDateNumber() {
 
 function assignClassDateNumbers() {
     checkForLeapYear();
-    var cumulative = [0,365,396,424,455,485,516,546,212,243,273,304,334];
-    var cumulativeLeap = [0,365,396,425,456,486,517,547,212,243,273,304,334];
+    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
     var dates = [22,29,12,19,26,3,10,17,24,31,7,14,5,12,19,9,16,23,30,6,13,20,27,6,13,20,27,3,10,24,1,8,15,22];
     var dateNumbers = []; var monthsAndDates = [];
