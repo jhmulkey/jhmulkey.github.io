@@ -12,12 +12,12 @@
 .main-wrapper-div {
     max-width: 414px;
 }
-.tile-button, .tile-button-no-border, #tap-to-roll, #silver-img, #silver-count, #worker-img, #worker-count, #roll-1-div, #roll-2-div, #roll-3-div, #dice-1, #dice-2 {
+.tile-button, .tile-button-main, .tile-button-no-border, #tap-to-roll, #silver-img, #silver-count, #worker-img, #worker-count, #roll-1-div, #roll-2-div, #roll-3-div, #dice-1, #dice-2 {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 }
-input[type="checkbox"], input[type="range"], .board-button, .board-button-skip, .tile-button, .tile-button-no-border, .click-to-hide-div, .click-to-roll-div, .goods-bonus-turn-flex-div p, #silver, #workers {
+input[type="checkbox"], input[type="range"], .board-button, .board-button-skip, .tile-button, .tile-button-main, .tile-button-no-border, .click-to-hide-div, .click-to-roll-div, .goods-bonus-turn-flex-div p, #silver, #workers {
     cursor: pointer;
 }
 .pu-flex-div, .upper-flex-div, #rolled-dice-flex-div, .goods-bonus-turn-flex-div, #unsold-sold, #bonus-turn, #pu-b, #pu-k {
@@ -35,12 +35,14 @@ input, a, div, p, img {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 html {
-    background: url(images/background.jpg);
+    background: #111;
+    /* background: url(images/background.jpg); */
 }
 body {
     font-family: Tahoma, serif;
     margin: 0;
     padding: 0;
+    color: white
 }
 div {
     text-align: center;
@@ -61,7 +63,7 @@ li {
     text-align: left;
 }
 table, tr, th, td {
-    border: 1px solid black;
+    border: 1px solid white;
     border-collapse: collapse;
     font-size: 20px;
 }
@@ -93,25 +95,40 @@ input[type="range"] {
     font-size: 30px;
     font-weight: bold;
     padding-top: 7.5px;
-    border: 2px solid black;
+    border: 2px solid white;
+    border-radius: 30px;
     display: inline-block;
-}
-.board-button {
-    background-color: rgba(255,255,255,0.8);
-    color: darkred;
-}
-.board-button-skip {
-    background-color: darkred;
-    color: white;
 }
 .tile-button {
     height: 75px;
     width: 75px;
-    border: 2px solid black;
-    background-color: rgba(255,255,255,0.5);
+    border: 2px solid white;
+    border-radius: 37.5px;
+}
+.tile-button-main {
+    height: 75px;
+    width: 75px;
+    border: 2px solid white;
+    border-radius: 37.5px;
+    margin-bottom: 15px !important;
+}
+.number {
+    font-size: 30px;
+    padding-top: 15px;
+}
+.numberLarge {
+    font-size: 60px;
+    line-height: 1;
+    padding-top: 3px;
+}
+.numberLarge2 {
+    font-size: 50px;
+    line-height: 1;
+    padding-top: 7px;
 }
 .no-border {
     border: 2px solid transparent;
+    border-radius: 37.5px;
     background-color: transparent;
 }
 #k_add_remove {
@@ -165,19 +182,19 @@ input[type="range"] {
 #silver-count, #worker-count {       
     float: right;
     font-size: 30px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
     background: rgba(255,255,255,0.35);
 }
 #silver-img {
     background-image: url(images/silverling.png);
     background-color: #C6B4B1;
-    border: 1px solid black;
+    border: 1px solid white;
 }
 #worker-img {
     background-image: url(images/worker.jpg);
-    border: 1px solid black;
+    border: 1px solid white;
 }
 #rolled-dice-flex-div {
     margin: 10px 0;
@@ -186,7 +203,7 @@ input[type="range"] {
     height: 95px;
     width: 95px;
     margin: 10px;
-    outline: 1px dashed gray;
+    outline: 1px dashed white;
 }
 .click-to-roll-div {
     margin: 10px;
@@ -203,7 +220,6 @@ input[type="range"] {
 /***INDEX.HTML > MIDDLE SECTION***/
 .latest-activity-div {
     height: 20px;
-    background-color: rgba(255,255,255,0.5);
     font-weight: bold;
     cursor: pointer;
 }
@@ -319,9 +335,7 @@ input[type="range"] {
 }
 
 /***INDEX.HTML > KNOWLEDGE***/
-#knowledge,#k1,#k2,#k3,#k4,#k5,#k6,#k7,#k8,#k9,#k10,#k11,#k12,#k13,#k14,#k15,#k16_23,#k24,#k25,#k26,#ke2a,#ke2b,#ke5,#pu-km-tile {
-    background-color: #E0D537;
-}
+
 #k1 {
     background-image: url(images/k1.png);
 }
@@ -442,51 +456,6 @@ input[type="range"] {
 }
 
 /***BACKGROUND-IMAGES***/
-.first {
-    background-image: url(images/1st.png);
-}
-.second {
-    background-image: url(images/2nd.png);
-}
-.third {
-    background-image: url(images/3rd.png);
-}
-.fourth {
-    background-image: url(images/4th.png);
-}
-.zero {
-    background-image: url(images/0.png);
-}
-.one {
-    background-image: url(images/1.png);
-}
-.two {
-    background-image: url(images/2.png);
-}
-.three {
-    background-image: url(images/3.png);
-}
-.four {
-    background-image: url(images/4.png);
-}
-.five {
-    background-image: url(images/5.png);
-}
-.six {
-    background-image: url(images/6.png);
-}
-.seven {
-    background-image: url(images/7.png);
-}
-.eight {
-    background-image: url(images/8.png);
-}
-.nine {
-    background-image: url(images/9.png);
-}
-.ten {
-    background-image: url(images/10.png);
-}
 .a {
     background-image: url(images/a.png);
 }
