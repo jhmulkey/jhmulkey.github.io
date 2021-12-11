@@ -490,7 +490,7 @@ function gameActivityLog(log,color,background) {
         paragraph.style.background = background;
     }
     document.getElementById("gameLog").appendChild(paragraph);
-    _log = document.getElementById("gameLog").innerHTML;
+    _gameLog = document.getElementById("gameLog").innerHTML;
     storeNewData();
 }
 
@@ -524,6 +524,9 @@ function skipPlayer() {
 function deleteCurrentPlayer() {
     var log;
     if (_teams[0].currentTeam == 1) {
+        if (_teams[0].team1Reset.length == 1) { 
+            infoAlert("There must be at least one player on a team",["playGamePop"]); return;
+        }
         log = "DELETED " + _teams[0].team1[0].fullName;
         _teams[0].team1.shift();
         _teams[0].team1Reset.splice(_teams[0].team1Reset.length - _teams[0].team1.length - 1,1);
@@ -535,6 +538,9 @@ function deleteCurrentPlayer() {
         _teams[0].currentPlayer = _teams[0].team1[0].fullName;
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
     } else {
+        if (_teams[0].team2Reset.length == 1) { 
+            infoAlert("There must be at least one player on a team",["playGamePop"]); return;
+        }
         log = "DELETED " + _teams[0].team2[0].fullName;
         _teams[0].team2.shift();
         _teams[0].team2Reset.splice(_teams[0].team2Reset.length - _teams[0].team2.length - 1,1);
@@ -1332,6 +1338,7 @@ function newStudent() {
     findBday();
     var log = "new student " + first + " " + last;
     activityLog(log,"aqua");
+    assignID();
     storeAndBackup();
     clearStudentFields()
     if (document.getElementById("rapidEntryCheck").checked === true) {
@@ -1382,6 +1389,7 @@ function editStudent() {
     document.getElementById("dispName").innerHTML = _sl[_ci].fullName;
     document.getElementById("dispBday").innerHTML = "Birthday: "+_sl[_ci].birthday;
     refreshStudentPop();
+    assignID();
     storeAndBackup();
     if (document.getElementById("rapidEditCheck").checked === true) {
         _ci++;
