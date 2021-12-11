@@ -521,7 +521,7 @@ function skipPlayer() {
     storeNewData();
 }
 
-function deletePlayer() {
+function deleteCurrentPlayer() {
     var log;
     if (_teams[0].currentTeam == 1) {
         log = "DELETED " + _teams[0].team1[0].fullName;
@@ -597,6 +597,12 @@ function assignClassRank() {
     var pointsRanked = points.map(function(v){return pointsSorted.indexOf(v)+1});
     for (i = 0; i < _sl.length; i++) {
         _sl[i].classRank = pointsRanked[i];
+    }
+}
+
+function assignID() {
+    for (i = 0; i < _sl.length; i++) {
+        _sl[i].id = i+1;
     }
 }
 
@@ -932,7 +938,7 @@ function sortByAttendance() {
         var lastElementNode;
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
-        if (_sl[i].totalWksAtt < lastElementNode) {
+        if (_sl[i].totalWksAtt != lastElementNode) {
             elementNode.style.borderTop = "1px solid orange";
         }
         var textNode = document.createTextNode(_sl[i].fullName + " (" + _sl[i].totalWksAtt + "/" + _elapsedWeeks + ")");
@@ -984,11 +990,16 @@ function sortByBday() {
     document.getElementById("genderListContainer").style.display = "none";
     var birthdayNumberOrder = _sl.sort(function(a,b){return a.birthdayNumber - b.birthdayNumber});
     for (i = 0; i < _sl.length; i++) {
+        var lastElementNode;
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
+        if (_sl[i].birthdayMonth != lastElementNode) {
+            elementNode.style.borderTop = "1px solid orange";
+        }
         var textNode = document.createTextNode(birthdayNumberOrder[i].birthday + " " + birthdayNumberOrder[i].fullName);
         elementNode.appendChild(textNode);
         document.getElementById("nameListCustom").appendChild(elementNode);
+        lastElementNode = _sl[i].birthdayMonth;
     }  
     pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
 }
@@ -1333,10 +1344,7 @@ function newStudent() {
 
 function deleteStudent() {
     _sl.splice(_ci,1);
-    attCount();
-    storeAndBackup();
-    sortStudentList();
-    goHome();
+    assignID(); attCount(); storeAndBackup(); sortStudentList(); goHome();
 }
 
 function editStudent() {
@@ -1670,21 +1678,23 @@ function searchLog() {
     }
 }
 
-function loadStudent(index) {
+function loadStudent(index,bypass) {
     _ci = index;
     var today = new Date();
-    if (_sl[_ci].attendance === false) {
-        _sl[_ci].attendance = true;
-        if (_isClassDay === true && today.getHours() < 16) {
-            _sl[_ci].amAtt[_checkedState.length] = 1;
-        } else if (_isClassDay === true && today.getHours() >= 16) {
-            _sl[_ci].pmAtt[_checkedState.length] = 1;
+    if (!bypass) {
+        if (_sl[_ci].attendance === false) {
+            _sl[_ci].attendance = true;
+            if (_isClassDay === true && today.getHours() < 16) {
+                _sl[_ci].amAtt[_checkedState.length] = 1;
+            } else if (_isClassDay === true && today.getHours() >= 16) {
+                _sl[_ci].pmAtt[_checkedState.length] = 1;
+            }
         }
+        attCount();
+        if (_isClassDay === true) { ampmAttendance(); }
+        storeNewData();
+        refreshStudentPop();
     }
-    attCount();
-    if (_isClassDay === true) { ampmAttendance(); }
-    storeNewData();
-    refreshStudentPop();
     if (document.getElementById("editStudentPop").style.display != "block") {
         pop(["mainPop"],["studentPop","missionsPop"]);
     }
@@ -1693,7 +1703,6 @@ function loadStudent(index) {
     document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
     document.getElementById("dispBday").innerHTML = "Birthday: "+_sl[_ci].birthday;
     document.getElementById("search").value = "";
-    // searchNames();
     for (i = 0; i < _asMaxPts.length; i++) {
         if (_sl[_ci].as[i] == _asMaxPts[i]) {
             document.getElementById("as"+i+"Pop").style.background = "green";
@@ -1754,7 +1763,10 @@ function pop(closeArray,openArray) {
     if (openArray.includes("att2Pop")) {
         document.getElementById("search2").value = "";
         document.getElementById("search2").focus();
-        document.getElementById("log").innerHTML = _log;
+    }
+    if (openArray.includes("att3Pop")) {
+        document.getElementById("search3").value = "";
+        document.getElementById("search3").focus();
     }
     if (openArray.includes("newStudentPop")) {
         document.getElementById("newFirstAndLast").focus();
@@ -1767,6 +1779,10 @@ function pop(closeArray,openArray) {
     }
     if (openArray.includes("logPop")) {
         loadTodaysDate()
+    }
+    if (openArray.includes("teamsListPop")) {
+        document.getElementById("teamsListNav").style.display = "flex";
+        document.getElementById("teamsListButtons").style.display = "block";
     }
     if (openArray.includes("customSortListPop") && _populateNotesID.includes("customSortListPop")) {
         sortByNotes(true);
@@ -1860,11 +1876,19 @@ function populateNames() {
             elementNode.style.color = "white";
         }
         elementNode.classList.add("name");
-        (function(i){
-            elementNode.onclick = function () {
-                loadStudent(i);
-            }
-        })(i);
+        if (document.getElementById("rapidAttCheck").checked == true) {
+            (function(i){
+                elementNode.onclick = function () {
+                    _ci = i; toggleAtt2(i); populateNames();
+                }
+            })(i);
+        } else {
+            (function(i){
+                elementNode.onclick = function () {
+                    loadStudent(i);
+                }
+            })(i);
+        }
         var textNode = document.createTextNode(_sl[i].rankName + " " + _sl[i].fullName + " " + _sl[i].points);
         elementNode.appendChild(textNode);
         document.getElementById("nameList").appendChild(elementNode);
@@ -1904,11 +1928,9 @@ function populateNames2() {
 }
 
 function populateNames3(x) {
-    if (document.getElementById("att3Pop").style.display == "block") {
-        pop(["att3Pop"],["teamsListPop"]);
-    } else {
-        pop(["att3Pop"],["att3Pop"]);
-    }
+    document.getElementById("att3Pop").style.display = "block"
+    document.getElementById("teamsListNav").style.display = "none";
+    document.getElementById("teamsListButtons").style.display = "none";
     document.getElementById("nameList3").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
         var elementNode = document.createElement("p");
@@ -2004,6 +2026,26 @@ function toggleAtt() {
         }
         document.getElementById("dispName").style.color = "white";
     }
+    attCount();
+    if (_isClassDay === true) { ampmAttendance(); }
+    storeNewData();
+}
+
+function toggleAtt2(i) {
+    var today = new Date();
+    if (_sl[_ci].attendance === false) {
+        _sl[_ci].attendance = true;
+        if (_isClassDay === true && today.getHours() < 16) {
+            _sl[_ci].amAtt[_checkedState.length] = 1;
+        } else if (_isClassDay === true && today.getHours() >= 16) {
+            _sl[_ci].pmAtt[_checkedState.length] = 1;
+        }
+        document.getElementById("dispName").style.color = "lawngreen";
+    } else {
+        loadStudent(i,true);
+    }
+    document.getElementById("search").value = "";
+    document.getElementById("search").focus();
     attCount();
     if (_isClassDay === true) { ampmAttendance(); }
     storeNewData();

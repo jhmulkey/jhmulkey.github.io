@@ -71,7 +71,6 @@
 <div id="mainMenuPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="goHome()"><span>f</span></div>
-    <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div class="button" onclick="loadAttStats()">Attendance Stats</div>
   <div class="button" onclick="pop(['mainMenuPop'],['sortChoicePop'])">Sort Students</div>
@@ -88,7 +87,6 @@
       <div class="buttonArr">
           <div class="navigationButtonContainer">
             <div class="backButton" onclick="goHome()"><span>f</span></div>
-            <div class="homeButton" onclick="goHome()"><span>5</span></div>
           </div>
           <div class="button" id="promotionButton" onclick="pop(['alertsPop'],['promoListPop'])">Promotions</div>
           <div class="button" id="birthdayButton" onclick="pop(['alertsPop'],['bdayPop'])">Birthdays</div>
@@ -96,22 +94,24 @@
 </div>
 
 <div id="teamsListPop" class="pop">
-  <div class="navigationButtonContainer">
+  <div class="navigationButtonContainer" id="teamsListNav">
     <div class="backButton" onclick="pop(['teamsListPop'],['mainMenuPop'])"><span>f</span></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="teamListContainer">
-    <div id="team1ListDiv" onclick="populateNames3(1)">
-      <p id="team1ListP">Team1</p>
+    <div id="team1ListDiv">
+      <p id="team1ListP" onclick="populateNames3(1)">Team1</p>
       <div id="team1List"></div>
     </div>
-    <div id="team2ListDiv" onclick="populateNames3(2)">
-      <p id="team1ListP">Team2</p>
+    <div id="team2ListDiv">
+      <p id="team1ListP" onclick="populateNames3(2)">Team2</p>
       <div id="team2List"></div>
     </div>
   </div>
-  <div class="button" onclick="loadGame()">Play Game</div>
-  <div class="button" onclick="actionAlert('Generate new teams and start new game?',['teamsListPop'],createTeams)">Reset Game</div>
+  <div id="teamsListButtons">
+    <div class="button" onclick="loadGame()">Play Game</div>
+    <div class="button" onclick="actionAlert('Generate new teams and start new game?',['teamsListPop'],createTeams)">Reset Game</div>
+  </div>
 </div>
 
 <div id="playGamePop" class="pop">
@@ -131,7 +131,7 @@
     </div>
   </div>
   <div id="currentPlayerContainer">
-    <div class="secretButton2" onclick="actionAlert('Delete this player?',['playGamePop'],deletePlayer)"></div>
+    <div class="secretButton2" onclick="actionAlert('Delete this player?',['playGamePop'],deleteCurrentPlayer)"></div>
     <p id="currentPlayer"></p>
     <div class="secretButton2" onclick="actionAlert('Skip this player?',['playGamePop'],skipPlayer)"></div>
   </div>
@@ -154,10 +154,10 @@
 <div id="advancedOptionsPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['advancedOptionsPop'],['mainPop'])"><span>f</span></div>
-    <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
-  <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> Fast new student entry</label><br>
-  <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> Fast student editing</label>
+  <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> Quick new student entry</label><br>
+  <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> Quick student editing</label><br>
+  <label class="checkboxLabel"><input type="checkbox" id="rapidAttCheck" class="checkbox"> Quick attendance</label>
 </div>
 
 <div id="infoAlertPop" class="pop">
