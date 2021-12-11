@@ -2280,6 +2280,11 @@ function loadStudentStats() {
     assignClassRank();
     document.getElementById("studentStatsInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
     document.getElementById("statsRankName").innerHTML = _rankNames[_sl[_ci].rank];
+    if (_rankNames[_sl[_ci].rank].length > 20) {
+        document.getElementById("statsRankName").style.fontSize = "15px";
+    } else {
+        document.getElementById("statsRankName").style.fontSize = "18px";
+    }
     document.getElementById("statsName").innerHTML = _sl[_ci].fullName;
     document.getElementById("statsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
     document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + Math.round(rankPercentage) + "%)";
@@ -2350,6 +2355,7 @@ function loadRankTable() {
     for (i = 0; i < _rankNames.length; i++) {
         let x; x = i;
         document.getElementById("rankChartInsignia"+i).style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
+        document.getElementById("rankChartInsignia"+i).style.cursor = "pointer";
         document.getElementById("rankChartRank"+i).innerHTML = _rankNames[i];
         document.getElementById("rankChartAbbreviation"+i).innerHTML = _rankNamesAbbr[i];
         document.getElementById("rankChartPoints"+i).innerHTML = _rankPts[i];
