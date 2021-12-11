@@ -90,6 +90,7 @@ var _mvText = [
 
 class Student {
     constructor(first,last,month,date,email,gender,note) {
+        this.id;
         this.firstName = first;
         this.lastName = last;
         this.fullName = first + " " + last;
@@ -550,11 +551,8 @@ function deletePlayer() {
     storeNewData();
 }
 
-function addPlayer(i,parameter) {
-    console.log(i);
-    console.log(_sl[i].fullName);
-    var teamNumber = parameter;
-    if (teamNumber == 1) {
+function addPlayer(x,i) {
+    if (x == 1) {
         _teams[0].team1.push(_sl[i]);
         _teams[0].team1Reset.push(_sl[i]);
     } else {
@@ -838,6 +836,7 @@ function att2(i) {
         }
     }
     attCount();
+    if (_isClassDay === true) { ampmAttendance(); }
     storeNewData();
 }
 
@@ -1647,20 +1646,8 @@ function removePtBoxes() {
     }
 }
 
-function searchNames() {
-    var inputVal = document.getElementById("search").value.toLowerCase();
-    var names = document.getElementsByClassName("name");
-    for (i = 0; i < names.length; i++) {
-        if (names[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
-            names[i].style.display = "block";
-        } else {
-            names[i].style.display = "none";
-        }
-    }
-}
-
-function searchNames2() {
-    var inputVal = document.getElementById("search2").value.toLowerCase();
+function searchNames(id) {
+    var inputVal = document.getElementById(id).value.toLowerCase();
     var names = document.getElementsByClassName("name");
     for (i = 0; i < names.length; i++) {
         if (names[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
@@ -1706,7 +1693,7 @@ function loadStudent(index) {
     document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
     document.getElementById("dispBday").innerHTML = "Birthday: "+_sl[_ci].birthday;
     document.getElementById("search").value = "";
-    searchNames();
+    // searchNames();
     for (i = 0; i < _asMaxPts.length; i++) {
         if (_sl[_ci].as[i] == _asMaxPts[i]) {
             document.getElementById("as"+i+"Pop").style.background = "green";
@@ -1884,19 +1871,11 @@ function populateNames() {
     }  
 }
 
-function populateNames2(id,parameter) {
-    if (id == "studentPop") {
-        if (document.getElementById("studentPop").style.display == "block") {
-            pop(["studentPop"],["att2Pop"]);
-        } else {
-            pop(["att2Pop"],["studentPop"]);
-        }
-    } else if (id == "teamsListPop") {
-        if (document.getElementById("att2Pop").style.display == "block") {
-            pop(["att2Pop"],["teamsListPop"]);
-        } else {
-            pop(["studentPop"],["att2Pop"]);
-        }
+function populateNames2() {
+    if (document.getElementById("studentPop").style.display == "block") {
+        pop(["studentPop"],["att2Pop"]);
+    } else {
+        pop(["att2Pop"],["studentPop"]);
     }
     document.getElementById("nameList2").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
@@ -1905,41 +1884,64 @@ function populateNames2(id,parameter) {
             elementNode.style.color = "lawnGreen";
             if (_sl[i].promoted === true) {
                 elementNode.style.color = "yellow";
-            } else {
-                elementNode.style.border = "none";
             }
         } else {
             elementNode.style.color = "white";
         }
-        if (id == "teamsListPop" && (_teams[0].team1.includes(_sl[i]) || _teams[0].team2.includes(_sl[i]))) {
-            elementNode.style.display = "none";
-        }
         elementNode.classList.add("name");
-        if (id == "studentPop") {
-            (function(i){
-                elementNode.onclick = function () {
-                    att2(i);
-                    pop(["att2Pop"],["studentPop"]);
-                    document.getElementById("search2").value = "";
-                }
-            })(i);
-        } else if (id == "teamsListPop") {
-            (function(i){
-                elementNode.onclick = function () {
-                    if (_teams[0].team1.includes(_sl[i]) || _teams[0].team2.includes(_sl[i])) {
-                        infoAlert("Student is already on a team",["att2Pop","teamsListPop"]); return;
-                    }
-                    addPlayer(i,parameter);
-                    pop(["att2Pop"],["teamsListPop"]);
-                    document.getElementById("search2").value = "";
-                }
-            })(i);
-        }
+        (function(i){
+            elementNode.onclick = function () {
+                att2(i);
+                pop(["att2Pop"],["studentPop"]);
+                document.getElementById("search2").value = "";
+            }
+        })(i);
         var textNode = document.createTextNode(_sl[i].rankName + " " + _sl[i].fullName + " " + _sl[i].points);
         elementNode.appendChild(textNode);
         document.getElementById("nameList2").appendChild(elementNode);
         document.getElementById("search2").focus();
     }  
+}
+
+function populateNames3(x) {
+    if (document.getElementById("att3Pop").style.display == "block") {
+        pop(["att3Pop"],["teamsListPop"]);
+    } else {
+        pop(["att3Pop"],["att3Pop"]);
+    }
+    document.getElementById("nameList3").innerHTML = "";
+    for (i = 0; i < _sl.length; i++) {
+        var elementNode = document.createElement("p");
+        if (_sl[i].attendance === true) {
+            elementNode.style.color = "lawnGreen";
+            if (_sl[i].promoted === true) {
+                elementNode.style.color = "yellow";
+            }
+        } else {
+            elementNode.style.color = "white";
+        }
+        elementNode.classList.add("name");
+        (function(i){
+            elementNode.onclick = function () {
+                if (checkID(i) === true) {
+                    infoAlert("Student is already on a team",["att3Pop","teamsListPop"]); return;
+                } else {
+                    att2(i);
+                    addPlayer(x,i);
+                    pop(["att3Pop"],["teamsListPop"]);
+                    document.getElementById("search3").value = "";
+                }
+            }
+        })(i);
+        var textNode = document.createTextNode(_sl[i].rankName + " " + _sl[i].fullName + " " + _sl[i].points);
+        elementNode.appendChild(textNode);
+        document.getElementById("nameList3").appendChild(elementNode);
+        document.getElementById("search3").focus();
+    }  
+}
+
+function checkID(i) {
+    if(_teams[0].team1.some(e => e.id === _sl[i].id) || _teams[0].team2.some(e => e.id === _sl[i].id)) { return true } else { return false };
 }
 
 function confirmAction(id) {

@@ -18,7 +18,7 @@
           <div id="attCountButton" class="roundButton" onclick="loadAttendees()">0</div>
           <div class="roundButton addButton" onclick="pop(['mainPop'],['newStudentPop'])">;</div>
       </div>
-      <input id="search" type="text" placeholder="search names" oninput="searchNames()"/>
+      <input id="search" type="text" placeholder="search names" oninput="searchNames('search')"/>
       <div id="nameList"></div>
 </div>
 
@@ -26,8 +26,16 @@
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['att2Pop'],['studentPop'])"><span>f</span></div>
   </div>
-  <input id="search2" type="text" placeholder="search names" oninput="searchNames2()"/>
+  <input id="search2" type="text" placeholder="search names" oninput="searchNames('search2')"/>
   <div id="nameList2"></div>
+</div>
+
+<div id="att3Pop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['att3Pop'],['teamsListPop'])"><span>f</span></div>
+  </div>
+  <input id="search3" type="text" placeholder="search names" oninput="searchNames('search3')"/>
+  <div id="nameList3"></div>
 </div>
 
 <div id="sortChoicePop" class="pop">
@@ -93,11 +101,11 @@
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="teamListContainer">
-    <div id="team1ListDiv" onclick="populateNames2('teamsListPop',1)">
+    <div id="team1ListDiv" onclick="populateNames3(1)">
       <p id="team1ListP">Team1</p>
       <div id="team1List"></div>
     </div>
-    <div id="team2ListDiv" onclick="populateNames2('teamsListPop',2)">
+    <div id="team2ListDiv" onclick="populateNames3(2)">
       <p id="team1ListP">Team2</p>
       <div id="team2List"></div>
     </div>
@@ -725,7 +733,7 @@
 <div id="missionsPop" class="pop">
     <div id="asmvHeaderContainer">
       <div class="asmvHeader" onclick="pop(['studentPop','missionsPop'],['missionVisibilityPop'])">Activity<br>Sheets</div>
-      <div class="secretButton" onclick="populatenames2('studentPop')"></div>
+      <div class="secretButton" onclick="populateNames2()"></div>
       <div class="asmvHeader" onclick="toggleIncomplete()">Memory<br>Verses</div>
     </div>
     <div id="asmvPopContainer">
@@ -804,9 +812,9 @@
 
 <div id="asPointsPop" class="pop">
   <div class="lowerNavigationButtonContainer">
-    <div class="secretButton2" onclick="populatenames2('studentPop')"></div>
+    <div class="secretButton3" onclick="populateNames2()"></div>
     <div class="backButton" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])"><span>f</span></div>
-    <div class="secretButton2" onclick="populatenames2('studentPop')"></div>
+    <div class="secretButton3" onclick="populateNames2()"></div>
   </div>
   <div class="pointButtonContainer">
       <div id="as1Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,1)">1</div>
@@ -833,9 +841,9 @@
 
 <div id="mvPointsPop" class="pop">
   <div class="lowerNavigationButtonContainer">
-    <div class="secretButton2" onclick="populatenames2('studentPop')"></div>
+    <div class="secretButton3" onclick="populateNames2()"></div>
     <div class="backButton" onclick="pop(['mvPointsPop'],['missionsPop'])"><span>f</span></div>
-    <div class="secretButton2" onclick="populatenames2('studentPop')"></div>
+    <div class="secretButton3" onclick="populateNames2()"></div>
   </div>
   <div class="pointButtonContainer">
       <div id="mv1Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,1)">1</div>
