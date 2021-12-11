@@ -36,6 +36,7 @@
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div class="button" onclick="sortByPoints()">Sort by Points</div>
+  <div class="button" onclick="sortByAttendance()">Sort by Attendance</div>
   <div class="button" onclick="sortByGender()">Sort by Boy/Girl</div>
   <div class="button" onclick="sortByBday()">Sort by Birthday</div>
   <div class="button" onclick="sortByNotes()">Sort by Notes</div>
@@ -92,11 +93,11 @@
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="teamListContainer">
-    <div id="team1ListDiv">
+    <div id="team1ListDiv" onclick="populateNames2('teamsListPop',1)">
       <p id="team1ListP">Team1</p>
       <div id="team1List"></div>
     </div>
-    <div id="team2ListDiv">
+    <div id="team2ListDiv" onclick="populateNames2('teamsListPop',2)">
       <p id="team1ListP">Team2</p>
       <div id="team2List"></div>
     </div>
@@ -724,7 +725,7 @@
 <div id="missionsPop" class="pop">
     <div id="asmvHeaderContainer">
       <div class="asmvHeader" onclick="pop(['studentPop','missionsPop'],['missionVisibilityPop'])">Activity<br>Sheets</div>
-      <div class="secretButton" onclick="populateNames2()"></div>
+      <div class="secretButton" onclick="populatenames2('studentPop')"></div>
       <div class="asmvHeader" onclick="toggleIncomplete()">Memory<br>Verses</div>
     </div>
     <div id="asmvPopContainer">
@@ -803,9 +804,9 @@
 
 <div id="asPointsPop" class="pop">
   <div class="lowerNavigationButtonContainer">
-    <div class="secretButton2" onclick="populateNames2()"></div>
+    <div class="secretButton2" onclick="populatenames2('studentPop')"></div>
     <div class="backButton" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])"><span>f</span></div>
-    <div class="secretButton2" onclick="populateNames2()"></div>
+    <div class="secretButton2" onclick="populatenames2('studentPop')"></div>
   </div>
   <div class="pointButtonContainer">
       <div id="as1Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,1)">1</div>
@@ -832,9 +833,9 @@
 
 <div id="mvPointsPop" class="pop">
   <div class="lowerNavigationButtonContainer">
-    <div class="secretButton2" onclick="populateNames2()"></div>
+    <div class="secretButton2" onclick="populatenames2('studentPop')"></div>
     <div class="backButton" onclick="pop(['mvPointsPop'],['missionsPop'])"><span>f</span></div>
-    <div class="secretButton2" onclick="populateNames2()"></div>
+    <div class="secretButton2" onclick="populatenames2('studentPop')"></div>
   </div>
   <div class="pointButtonContainer">
       <div id="mv1Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,1)">1</div>
@@ -1229,177 +1230,212 @@
         <td>Date</td>
         <td>AM</td>
         <td>PM</td>
+        <td>BOTH</td>
       </tr>
       <tr id="attRow0">
         <td id="attDate0"></td>
         <td id="attAM0"></td>
         <td id="attPM0"></td>
-      </tr>
+        <td id="attBoth0"></td>
+        </tr>
         <tr id="attRow1">
         <td id="attDate1"></td>
         <td id="attAM1"></td>
         <td id="attPM1"></td>
-      </tr>
+        <td id="attBoth1"></td>
+        </tr>
         <tr id="attRow2">
         <td id="attDate2"></td>
         <td id="attAM2"></td>
         <td id="attPM2"></td>
-      </tr>
+        <td id="attBoth2"></td>
+        </tr>
         <tr id="attRow3">
         <td id="attDate3"></td>
         <td id="attAM3"></td>
         <td id="attPM3"></td>
-      </tr>
+        <td id="attBoth3"></td>
+        </tr>
         <tr id="attRow4">
         <td id="attDate4"></td>
         <td id="attAM4"></td>
         <td id="attPM4"></td>
-      </tr>
+        <td id="attBoth4"></td>
+        </tr>
         <tr id="attRow5">
         <td id="attDate5"></td>
         <td id="attAM5"></td>
         <td id="attPM5"></td>
-      </tr>
+        <td id="attBoth5"></td>
+        </tr>
         <tr id="attRow6">
         <td id="attDate6"></td>
         <td id="attAM6"></td>
         <td id="attPM6"></td>
-      </tr>
+        <td id="attBoth6"></td>
+        </tr>
         <tr id="attRow7">
         <td id="attDate7"></td>
         <td id="attAM7"></td>
         <td id="attPM7"></td>
-      </tr>
+        <td id="attBoth7"></td>
+        </tr>
         <tr id="attRow8">
         <td id="attDate8"></td>
         <td id="attAM8"></td>
         <td id="attPM8"></td>
-      </tr>
+        <td id="attBoth8"></td>
+        </tr>
         <tr id="attRow9">
         <td id="attDate9"></td>
         <td id="attAM9"></td>
         <td id="attPM9"></td>
-      </tr>
+        <td id="attBoth9"></td>
+        </tr>
         <tr id="attRow10">
         <td id="attDate10"></td>
         <td id="attAM10"></td>
         <td id="attPM10"></td>
-      </tr>
+        <td id="attBoth10"></td>
+        </tr>
         <tr id="attRow11">
         <td id="attDate11"></td>
         <td id="attAM11"></td>
         <td id="attPM11"></td>
-      </tr>
+        <td id="attBoth11"></td>
+        </tr>
         <tr id="attRow12">
         <td id="attDate12"></td>
         <td id="attAM12"></td>
         <td id="attPM12"></td>
-      </tr>
+        <td id="attBoth12"></td>
+        </tr>
         <tr id="attRow13">
         <td id="attDate13"></td>
         <td id="attAM13"></td>
         <td id="attPM13"></td>
-      </tr>
+        <td id="attBoth13"></td>
+        </tr>
         <tr id="attRow14">
         <td id="attDate14"></td>
         <td id="attAM14"></td>
         <td id="attPM14"></td>
-      </tr>
+        <td id="attBoth14"></td>
+        </tr>
         <tr id="attRow15">
         <td id="attDate15"></td>
         <td id="attAM15"></td>
         <td id="attPM15"></td>
-      </tr>
+        <td id="attBoth15"></td>
+        </tr>
         <tr id="attRow16">
         <td id="attDate16"></td>
         <td id="attAM16"></td>
         <td id="attPM16"></td>
-      </tr>
+        <td id="attBoth16"></td>
+        </tr>
         <tr id="attRow17">
         <td id="attDate17"></td>
         <td id="attAM17"></td>
         <td id="attPM17"></td>
-      </tr>
+        <td id="attBoth17"></td>
+        </tr>
         <tr id="attRow18">
         <td id="attDate18"></td>
         <td id="attAM18"></td>
         <td id="attPM18"></td>
-      </tr>
+        <td id="attBoth18"></td>
+        </tr>
         <tr id="attRow19">
         <td id="attDate19"></td>
         <td id="attAM19"></td>
         <td id="attPM19"></td>
-      </tr>
+        <td id="attBoth19"></td>
+        </tr>
         <tr id="attRow20">
         <td id="attDate20"></td>
         <td id="attAM20"></td>
         <td id="attPM20"></td>
-      </tr>
+        <td id="attBoth20"></td>
+        </tr>
         <tr id="attRow21">
         <td id="attDate21"></td>
         <td id="attAM21"></td>
         <td id="attPM21"></td>
-      </tr>
+        <td id="attBoth21"></td>
+        </tr>
         <tr id="attRow22">
         <td id="attDate22"></td>
         <td id="attAM22"></td>
         <td id="attPM22"></td>
-      </tr>
+        <td id="attBoth22"></td>
+        </tr>
         <tr id="attRow23">
         <td id="attDate23"></td>
         <td id="attAM23"></td>
         <td id="attPM23"></td>
-      </tr>
+        <td id="attBoth23"></td>
+        </tr>
         <tr id="attRow24">
         <td id="attDate24"></td>
         <td id="attAM24"></td>
         <td id="attPM24"></td>
-      </tr>
+        <td id="attBoth24"></td>
+        </tr>
         <tr id="attRow25">
         <td id="attDate25"></td>
         <td id="attAM25"></td>
         <td id="attPM25"></td>
-      </tr>
+        <td id="attBoth25"></td>
+        </tr>
         <tr id="attRow26">
         <td id="attDate26"></td>
         <td id="attAM26"></td>
         <td id="attPM26"></td>
-      </tr>
+        <td id="attBoth26"></td>
+        </tr>
         <tr id="attRow27">
         <td id="attDate27"></td>
         <td id="attAM27"></td>
         <td id="attPM27"></td>
-      </tr>
+        <td id="attBoth27"></td>
+        </tr>
         <tr id="attRow28">
         <td id="attDate28"></td>
         <td id="attAM28"></td>
         <td id="attPM28"></td>
-      </tr>
+        <td id="attBoth28"></td>
+        </tr>
         <tr id="attRow29">
         <td id="attDate29"></td>
         <td id="attAM29"></td>
         <td id="attPM29"></td>
-      </tr>
+        <td id="attBoth29"></td>
+        </tr>
         <tr id="attRow30">
         <td id="attDate30"></td>
         <td id="attAM30"></td>
         <td id="attPM30"></td>
-      </tr>
+        <td id="attBoth30"></td>
+        </tr>
         <tr id="attRow31">
         <td id="attDate31"></td>
         <td id="attAM31"></td>
         <td id="attPM31"></td>
-      </tr>
+        <td id="attBoth31"></td>
+        </tr>
         <tr id="attRow32">
         <td id="attDate32"></td>
         <td id="attAM32"></td>
         <td id="attPM32"></td>
-      </tr>
+        <td id="attBoth32"></td>
+        </tr>
         <tr id="attRow33">
         <td id="attDate33"></td>
         <td id="attAM33"></td>
         <td id="attPM33"></td>
-      </tr>
+        <td id="attBoth33"></td>
+        </tr>
     </table>
   </div>
 </div>

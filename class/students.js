@@ -7,8 +7,9 @@ var _currentPops;
 var _currentPops2;
 var _focus;
 var _elapsedWeeks = 1;
+var _leapYears = [];
 var _classDates = ["8/22", "8/29", "9/12", "9/19", "9/26", "10/3", "10/10", "10/17", "10/24", "10/31", "11/7", "11/14", "12/5", "12/12", "12/19", "1/9", "1/16", "1/23", "1/30", "2/6", "2/13", "2/20", "2/27", "3/6", "3/13", "3/20", "3/27", "4/3", "4/10", "4/24", "5/1", "5/8", "5/15", "5/22"];
-var _dateNumbers = [234, 241, 255, 262, 269, 276, 283, 290, 297, 304, 311, 318, 339, 346, 353, 1009, 1016, 1023, 1030, 1037, 1044, 1051, 1058, 1065, 1072, 1079, 1086, 1093, 1100, 1114, 1121, 1128, 1135, 1142];
+var _dateNumbers = [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 169, 176, 183, 190, 197, 204, 211, 219, 226, 233, 240, 247, 254, 268, 275, 282, 289, 296];
 var _isClassDay;
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
@@ -321,11 +322,45 @@ function showMissions() {
     document.getElementById("missionsPop").style.height = 200 + (x * 65) + "px";
 }
 
+function checkForLeapYear() {
+    var today = new Date();
+    var todaysYear = today.getFullYear();
+    var nextYear = todaysYear + 1;
+    if ((todaysYear % 4 == 0) && (todaysYear % 100 != 0) || (todaysYear % 400 == 0)) {
+        _leapYears[0] = 1; } else { _leapYears[0] = 0; }
+    if ((nextYear % 4 == 0) && (nextYear % 100 != 0) || (nextYear % 400 == 0)) {
+        _leapYears[1] = 1; } else { _leapYears[1] = 0; }
+}
+
+function assignTodaysDateNumber() {
+    checkForLeapYear();
+    var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
+    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
+    var dateNumber;
+    if (_leapYears[1] == 1) {
+        dateNumber = cumulativeLeap[todaysMonth] + todaysDate;
+    } else {
+        dateNumber = cumulative[todaysMonth] + todaysDate;
+    }
+    return dateNumber;
+}
+
+function isClassDay() {
+    var todaysDateNumber = assignTodaysDateNumber();
+    for (i = 1; i < _dateNumbers.length; i++) {
+        if (todaysDateNumber == _dateNumbers[i]) {
+            _isClassDay = true; break;
+        } else {
+            _isClassDay = false;
+        }
+    }
+}
+
 function loadBackup() {
     _sl = JSON.parse(localStorage.getItem("slBackup"));
     _elapsedWeeks = _sl[0].amAtt.length;
-    showMissions();
-    removePtBoxes();
+    isClassDay(); showMissions(); removePtBoxes();
 }
 
 function findStudent() {

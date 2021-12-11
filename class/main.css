@@ -55,6 +55,10 @@ a:link, a:visited, a:hover, a:active {
     display: none;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 #log p, #promoList p, #bdayList p, #notesList p, #teacherNotesList p {
     margin-top: 20px !important;
 }
@@ -122,10 +126,6 @@ a:link, a:visited, a:hover, a:active {
     margin: 20px auto;
 }
 
-.name {
-    cursor: pointer;
-}
-
 #advancedOptionsPop, #missionVisibilityPop {
     text-align: left;
 }
@@ -158,7 +158,7 @@ a:link, a:visited, a:hover, a:active {
 
 .secretButton2 {
     height: 50px;
-    width: 115px;
+    width: 50px;
     margin: 0px;
 }
 
@@ -529,6 +529,7 @@ a:link, a:visited, a:hover, a:active {
 
 .name {
     margin: 0px 0px 20px;
+    cursor: pointer;
 }
 
 .name2 {

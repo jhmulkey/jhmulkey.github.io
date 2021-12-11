@@ -550,6 +550,21 @@ function deletePlayer() {
     storeNewData();
 }
 
+function addPlayer(i,parameter) {
+    console.log(i);
+    console.log(_sl[i].fullName);
+    var teamNumber = parameter;
+    if (teamNumber == 1) {
+        _teams[0].team1.push(_sl[i]);
+        _teams[0].team1Reset.push(_sl[i]);
+    } else {
+        _teams[0].team2.push(_sl[i]);
+        _teams[0].team2Reset.push(_sl[i]);
+    }
+    populateTeams();
+    storeNewData();
+}
+
 function setWeeksOff() {
     var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
     if ((todaysMonth == 8 && todaysDate == 29) || (todaysMonth == 4 && todaysDate == 10)) {
@@ -896,6 +911,35 @@ function sortByPoints() {
         var textNode = document.createTextNode(_sl[i].classRank + ". " + _sl[i].fullName + " (" + _sl[i].points + ")");
         elementNode.appendChild(textNode);
         document.getElementById("nameListCustom").appendChild(elementNode);
+    }  
+    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
+}
+
+function sortByAttendance() {
+    document.getElementById("nameListCustom").style.display = "block";
+    document.getElementById("genderListContainer").style.display = "none";
+    for (i = 0; i < _sl.length; i++) {
+        var total = sumArrays([_sl[i].amAtt,_sl[i].pmAtt]);
+        for (j = 0; j < _sl[i].amAtt.length; j++) {
+            if (_sl[i].amAtt[j] == 1 && _sl[i].pmAtt[j] == 1) {
+                total--
+            }
+        }
+        _sl[i].totalWksAtt = total;
+    }
+    _sl.sort(function(a,b){return b.totalWksAtt - a.totalWksAtt});
+    document.getElementById("nameListCustom").innerHTML = "";
+    for (i = 0; i < _sl.length; i++) {
+        var lastElementNode;
+        var elementNode = document.createElement("p");
+        elementNode.classList.add("name3");
+        if (_sl[i].totalWksAtt < lastElementNode) {
+            elementNode.style.borderTop = "1px solid orange";
+        }
+        var textNode = document.createTextNode(_sl[i].fullName + " (" + _sl[i].totalWksAtt + "/" + _elapsedWeeks + ")");
+        elementNode.appendChild(textNode);
+        document.getElementById("nameListCustom").appendChild(elementNode);
+        lastElementNode = _sl[i].totalWksAtt;
     }  
     pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
 }
@@ -1840,11 +1884,19 @@ function populateNames() {
     }  
 }
 
-function populateNames2() {
-    if (document.getElementById("studentPop").style.display == "block") {
-        pop(["studentPop"],["att2Pop"]);
-    } else {
-        pop(["att2Pop"],["studentPop"]);
+function populateNames2(id,parameter) {
+    if (id == "studentPop") {
+        if (document.getElementById("studentPop").style.display == "block") {
+            pop(["studentPop"],["att2Pop"]);
+        } else {
+            pop(["att2Pop"],["studentPop"]);
+        }
+    } else if (id == "teamsListPop") {
+        if (document.getElementById("att2Pop").style.display == "block") {
+            pop(["att2Pop"],["teamsListPop"]);
+        } else {
+            pop(["studentPop"],["att2Pop"]);
+        }
     }
     document.getElementById("nameList2").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
@@ -1859,14 +1911,30 @@ function populateNames2() {
         } else {
             elementNode.style.color = "white";
         }
+        if (id == "teamsListPop" && (_teams[0].team1.includes(_sl[i]) || _teams[0].team2.includes(_sl[i]))) {
+            elementNode.style.display = "none";
+        }
         elementNode.classList.add("name");
-        (function(i){
-            elementNode.onclick = function () {
-                att2(i);
-                pop(["att2Pop"],["studentPop"]);
-                document.getElementById("search2").value = "";
-            }
-        })(i);
+        if (id == "studentPop") {
+            (function(i){
+                elementNode.onclick = function () {
+                    att2(i);
+                    pop(["att2Pop"],["studentPop"]);
+                    document.getElementById("search2").value = "";
+                }
+            })(i);
+        } else if (id == "teamsListPop") {
+            (function(i){
+                elementNode.onclick = function () {
+                    if (_teams[0].team1.includes(_sl[i]) || _teams[0].team2.includes(_sl[i])) {
+                        infoAlert("Student is already on a team",["att2Pop","teamsListPop"]); return;
+                    }
+                    addPlayer(i,parameter);
+                    pop(["att2Pop"],["teamsListPop"]);
+                    document.getElementById("search2").value = "";
+                }
+            })(i);
+        }
         var textNode = document.createTextNode(_sl[i].rankName + " " + _sl[i].fullName + " " + _sl[i].points);
         elementNode.appendChild(textNode);
         document.getElementById("nameList2").appendChild(elementNode);
@@ -2421,6 +2489,14 @@ function sumArray(array) {
     return array.reduce(sum);
 }
 
+function sumArrays(arrays) {
+    var sum = 0;
+    for (k = 0; k < arrays.length; k++) {
+        sum += sumArray(arrays[k])
+    }
+    return sum;
+}
+
 function loadAttStats() {
     var today = new Date();
     var amArray = _amAtt.slice(0,_amAtt.length); var pmArray = _pmAtt.slice(0,_pmAtt.length);
@@ -2490,6 +2566,9 @@ function loadAttStats() {
         document.getElementById("attDate"+i).innerHTML = _classDates[i];
         document.getElementById("attAM"+i).innerHTML = _amAtt[i];
         document.getElementById("attPM"+i).innerHTML = _pmAtt[i];
+        document.getElementById("attBoth"+i).innerHTML = _amAtt[i] + _pmAtt[i];
+        document.getElementById("attAM"+i).classList.add("pointer");
+        document.getElementById("attPM"+i).classList.add("pointer");
         (function(i){
             document.getElementById("attAM"+i).onclick = function () {
                 loadArchiveAttendees(i,"AM");
