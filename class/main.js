@@ -1704,23 +1704,9 @@ function searchLog() {
     }
 }
 
-function loadStudent(index,bypass) {
+function loadStudent(index) {
     _ci = index;
-    var today = new Date();
-    if (!bypass) {
-        if (_sl[_ci].attendance === false) {
-            _sl[_ci].attendance = true;
-            if (_isClassDay === true && today.getHours() < 16) {
-                _sl[_ci].amAtt[_elapsedWeeks-1] = 1;
-            } else if (_isClassDay === true && today.getHours() >= 16) {
-                _sl[_ci].pmAtt[_elapsedWeeks-1] = 1;
-            }
-        }
-        attCount();
-        if (_isClassDay === true) { ampmAttendance(); }
-        storeNewData();
-        refreshStudentPop();
-    }
+    refreshStudentPop();
     if (document.getElementById("editStudentPop").style.display != "block") {
         pop(["mainPop"],["studentPop","missionsPop"]);
     }
@@ -2068,7 +2054,7 @@ function toggleAtt2(i) {
         }
         document.getElementById("dispName").style.color = "lawngreen";
     } else {
-        loadStudent(i,true);
+        loadStudent(i);
     }
     document.getElementById("search").value = "";
     document.getElementById("search").focus();
