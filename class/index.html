@@ -18,12 +18,12 @@
           <div id="attCountButton" class="roundButton" onclick="loadAttendees()">0</div>
           <div class="roundButton addButton" onclick="pop(['mainPop'],['newStudentPop'])">;</div>
       </div>
-      <input id="search" type="text" placeholder="search names" oninput="searchNames('search')"/>
+      <input id="search" class="textInputField1" type="text" placeholder="search names" oninput="searchNames('search')"/>
       <div id="nameList"></div>
 </div>
 
 <div id="att2Pop" class="pop">
-  <div class="navigationButtonContainer">
+  <div class="navigationButtonContainer" style="margin-bottom: 0px">
     <div class="backButton" onclick="pop(['att2Pop'],['studentPop'])"><span>f</span></div>
   </div>
   <input id="search2" type="text" placeholder="search names" oninput="searchNames('search2')"/>
@@ -31,7 +31,7 @@
 </div>
 
 <div id="att3Pop" class="pop">
-  <div class="navigationButtonContainer">
+  <div class="navigationButtonContainer" style="margin-bottom: 0px">
     <div class="backButton" onclick="pop(['att3Pop'],['teamsListPop'])"><span>f</span></div>
   </div>
   <input id="search3" type="text" placeholder="search names" oninput="searchNames('search3')"/>
@@ -99,12 +99,12 @@
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="teamListContainer">
-    <div id="team1ListDiv">
-      <p id="team1ListP" onclick="populateNames3(1)">Team1</p>
+    <div id="team1ListDiv" class="pointer" onclick="populateNames3(1)">
+      <p id="team1ListP">Team1</p>
       <div id="team1List"></div>
     </div>
-    <div id="team2ListDiv">
-      <p id="team1ListP" onclick="populateNames3(2)">Team2</p>
+    <div id="team2ListDiv" class="pointer" onclick="populateNames3(2)">
+      <p id="team1ListP">Team2</p>
       <div id="team2List"></div>
     </div>
   </div>
