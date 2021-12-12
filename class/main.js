@@ -726,9 +726,9 @@ function ampmAttendance() {
         }
     }
     if (today.getHours() < 16) {
-        _amAtt[_checkedState.length] = attCount;
+        _amAtt[_elapsedWeeks-1] = attCount;
     } else {
-        _pmAtt[_checkedState.length] = attCount;
+        _pmAtt[_elapsedWeeks-1] = attCount;
     }
     storeAndBackup();
 }
@@ -817,10 +817,10 @@ function resetAtt() {
         if (_isClassDay === false) {
             _sl[i].attendance = false;
         } else {
-            if (_sl[i].attendance === true && _sl[i].amAtt[_checkedState.length] == 1) {
-                _sl[i].amAtt[_checkedState.length] = 0; _sl[i].attendance = false;
-            } else if (_sl[i].attendance === true && _sl[i].pmAtt[_checkedState.length] == 1) {
-                _sl[i].pmAtt[_checkedState.length] = 0;  _sl[i].attendance = false;
+            if (_sl[i].attendance === true && _sl[i].amAtt[_elapsedWeeks-1] == 1) {
+                _sl[i].amAtt[_elapsedWeeks-1] = 0; _sl[i].attendance = false;
+            } else if (_sl[i].attendance === true && _sl[i].pmAtt[_elapsedWeeks-1] == 1) {
+                _sl[i].pmAtt[_elapsedWeeks-1] = 0;  _sl[i].attendance = false;
             }
         }
     }
@@ -835,16 +835,16 @@ function att2(i) {
     if (_sl[i].attendance === false) {
         _sl[i].attendance = true;
         if (_isClassDay === true && today.getHours() < 16) {
-            _sl[i].amAtt[_checkedState.length] = 1;
+            _sl[i].amAtt[_elapsedWeeks-1] = 1;
         } else if (_isClassDay === true && today.getHours() >= 16) {
-            _sl[i].pmAtt[_checkedState.length] = 1;
+            _sl[i].pmAtt[_elapsedWeeks-1] = 1;
         }
     } else {
         _sl[i].attendance = false;
         if (_isClassDay === true && today.getHours() < 16) {
-            _sl[i].amAtt[_checkedState.length] = 0;
+            _sl[i].amAtt[_elapsedWeeks-1] = 0;
         } else if (_isClassDay === true && today.getHours() >= 16) {
-            _sl[i].pmAtt[_checkedState.length] = 0;
+            _sl[i].pmAtt[_elapsedWeeks-1] = 0;
         }
     }
     attCount();
@@ -871,15 +871,15 @@ function randomAtt(blank,x) {
     if (_isClassDay === true && today.getHours() < 16) {
         for (i = 0; i < _sl.length; i++) {
             if (_sl[i].attendance === true) {
-                _amAtt[_checkedState.length] += 1;
-                _sl[i].amAtt[_checkedState.length] = 1;
+                _amAtt[_elapsedWeeks-1] += 1;
+                _sl[i].amAtt[_elapsedWeeks-1] = 1;
             }
         } 
     } else if (_isClassDay === true && today.getHours() >= 16) {
         for (i = 0; i < _sl.length; i++) {
             if (_sl[i].attendance === true) {
-                _pmAtt[_checkedState.length] += 1;
-                _sl[i].pmAtt[_checkedState.length] = 1;
+                _pmAtt[_elapsedWeeks-1] += 1;
+                _sl[i].pmAtt[_elapsedWeeks-1] = 1;
             }
         } 
     }
@@ -896,13 +896,13 @@ function allAtt() {
     }
     if (_isClassDay === true && today.getHours() < 16) {
         for (i = 0; i < _sl.length; i++) {
-            _amAtt[_checkedState.length] += 1;
-            _sl[i].amAtt[_checkedState.length] = 1;
+            _amAtt[_elapsedWeeks-1] += 1;
+            _sl[i].amAtt[_elapsedWeeks-1] = 1;
         } 
     } else if (_isClassDay === true && today.getHours() >= 16) {
         for (i = 0; i < _sl.length; i++) {
-            _pmAtt[_checkedState.length] += 1;
-            _sl[i].pmAtt[_checkedState.length] = 1;
+            _pmAtt[_elapsedWeeks-1] += 1;
+            _sl[i].pmAtt[_elapsedWeeks-1] = 1;
         } 
     }
     attCount();
@@ -1328,9 +1328,9 @@ function newStudent() {
     }
     var today = new Date();
     if (today.getHours() < 16) {
-        newStudent.amAtt[_checkedState.length] = 1;
+        newStudent.amAtt[_elapsedWeeks-1] = 1;
     } else if (today.getHours() >= 16) {
-        newStudent.pmAtt[_checkedState.length] = 1;
+        newStudent.pmAtt[_elapsedWeeks-1] = 1;
     }
     _sl.push(newStudent);
     assignBdayNumber(_sl.length-1);
@@ -1693,9 +1693,9 @@ function loadStudent(index,bypass) {
         if (_sl[_ci].attendance === false) {
             _sl[_ci].attendance = true;
             if (_isClassDay === true && today.getHours() < 16) {
-                _sl[_ci].amAtt[_checkedState.length] = 1;
+                _sl[_ci].amAtt[_elapsedWeeks-1] = 1;
             } else if (_isClassDay === true && today.getHours() >= 16) {
-                _sl[_ci].pmAtt[_checkedState.length] = 1;
+                _sl[_ci].pmAtt[_elapsedWeeks-1] = 1;
             }
         }
         attCount();
@@ -2020,17 +2020,17 @@ function toggleAtt() {
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
         if (_isClassDay === true && today.getHours() < 16) {
-            _sl[_ci].amAtt[_checkedState.length] = 1;
+            _sl[_ci].amAtt[_elapsedWeeks-1] = 1;
         } else if (_isClassDay === true && today.getHours() >= 16) {
-            _sl[_ci].pmAtt[_checkedState.length] = 1;
+            _sl[_ci].pmAtt[_elapsedWeeks-1] = 1;
         }
         document.getElementById("dispName").style.color = "lawngreen";
     } else {
         _sl[_ci].attendance = false;
         if (_isClassDay === true && today.getHours() < 16) {
-            _sl[_ci].amAtt[_checkedState.length] = 0;
+            _sl[_ci].amAtt[_elapsedWeeks-1] = 0;
         } else if (_isClassDay === true && today.getHours() >= 16) {
-            _sl[_ci].pmAtt[_checkedState.length] = 0;
+            _sl[_ci].pmAtt[_elapsedWeeks-1] = 0;
         }
         document.getElementById("dispName").style.color = "white";
     }
@@ -2044,9 +2044,9 @@ function toggleAtt2(i) {
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
         if (_isClassDay === true && today.getHours() < 16) {
-            _sl[_ci].amAtt[_checkedState.length] = 1;
+            _sl[_ci].amAtt[_elapsedWeeks-1] = 1;
         } else if (_isClassDay === true && today.getHours() >= 16) {
-            _sl[_ci].pmAtt[_checkedState.length] = 1;
+            _sl[_ci].pmAtt[_elapsedWeeks-1] = 1;
         }
         document.getElementById("dispName").style.color = "lawngreen";
     } else {
@@ -2339,11 +2339,11 @@ function loadStudentStats() {
     var earnedASpts = 0;   
     var totalMVpts = 0;
     var earnedMVpts = 0;
-    for (i = 0; i < (_checkedState.length); i++) {
+    for (i = 0; i < (_elapsedWeeks-1); i++) {
         totalASpts += _asMaxPts[i];
         totalMVpts += _mvMaxPts[i];
     }
-    for (i = 0; i < (_checkedState.length); i++) {
+    for (i = 0; i < (_elapsedWeeks-1); i++) {
         earnedASpts += Object.values(_sl[_ci].as)[i];
         earnedMVpts += Object.values(_sl[_ci].mv)[i];
     }
@@ -2664,7 +2664,3 @@ function loadStudentAttStats() {
 whatToLoad()
 
 document.getElementById("search").focus();
-
-//keep students.html from loading backup.js until after certain time
-//update gameActivityLog() to use innerHTML instead of createTextNode
-//add labels to student info fields
