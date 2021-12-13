@@ -619,7 +619,7 @@ function loadMissionsList(id) {
         document.getElementById("listAS").appendChild(p1);
         document.getElementById("listMV").appendChild(p2);
     }
-    pop(["studentStatsPop","missionsPop"],["listMissionPointsPop"]);
+    pop(["studentStatsPop","missionsPop","asPointsPop","mvPointsPop"],["listMissionPointsPop"]);
     scrollTo(0,0);
 }
 
