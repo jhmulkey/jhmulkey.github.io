@@ -367,10 +367,20 @@ function findStudent() {
     document.activeElement.blur();
     var x = document.getElementById("searchField").value.toLowerCase()
     if (x == "") { return; }
+    if (x.includes(" ")) {
+        var y = x.split(" ")[0];
+        x = x.split(" ")[1];
+    }
     var matches = [];
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].lastName.toLowerCase() == x) {
-            matches.push(i);
+        if (y) {
+            if (_sl[i].lastName.toLowerCase() == x && _sl[i].firstName.toLowerCase() == y) {
+                matches.push(i);
+            }
+        } else {
+            if (_sl[i].lastName.toLowerCase() == x) {
+                matches.push(i);
+            }
         }
     }
     if (matches.length == 0) {

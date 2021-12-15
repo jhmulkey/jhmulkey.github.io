@@ -80,10 +80,6 @@ a:link, a:visited, a:hover, a:active {
     padding: 20px;
 }
 
-.name {
-    cursor: pointer;
-}
-
 .roundButton {
     height: 50px;
     width: 50px;
@@ -295,7 +291,8 @@ a:link, a:visited, a:hover, a:active {
     font-size: 30px;
     margin: 0px 0px 20px;
     padding: 5px;
-    color: dodgerblue;
+    color: lawngreen;
+    cursor: pointer;
 }
 
 .name:hover {

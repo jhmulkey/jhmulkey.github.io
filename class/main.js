@@ -1448,7 +1448,7 @@ function refreshStudentPop() {
 }
 
 function populateStudentFields(id) {
-    pop(["studentPop","missionsPop"],["editStudentPop"]);
+    pop(["studentPop","missionsPop","asPointsPop","mvPointsPop"],["editStudentPop"]);
     if (id) {
         document.getElementById(id).focus();
     }
@@ -2417,7 +2417,7 @@ function loadStudentStats() {
     document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Points: " + earnedMVpts + "/" + totalMVpts + " (" + Math.round(mvPercentage) + "%)";
     document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + Math.round(attendancePercentage) + "%)";
     document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + Math.round(totalPercentage) + "%)";
-    pop(["studentPop","missionsPop"],["studentStatsPop"]);
+    pop(["studentPop","missionsPop","asPointsPop","mvPointsPop"],["studentStatsPop"]);
 }
 
 function showMissions() {
