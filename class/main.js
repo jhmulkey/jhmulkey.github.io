@@ -223,7 +223,7 @@ function loadBackup() {
         _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
         _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
         assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions();
-        findBday(); removePtBoxes(); populateTeacherNotes();
+        findAllBday(); removePtBoxes(); populateTeacherNotes();
         for (i = 0; i < _sl.length; i++) {
             _sl[i].attendance = false;
             _sl[i].random = false;
@@ -249,7 +249,7 @@ function loadLS() {
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotes"));
     _teams = JSON.parse(localStorage.getItem("teams"));
     assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions();
-    findBday(); removePtBoxes(); populateTeacherNotes(); attCount();
+    removePtBoxes(); populateTeacherNotes(); attCount();
     backupNewData();
     pop(["wtlPop"],["mainPop"]);
 }
@@ -587,8 +587,9 @@ function setWeeksOff() {
 function assignBdayNumber(x) {
     checkForLeapYear();
     if (x) { _ci = x; }
-/*     var cumulative = [0,365,396,424,455,485,516,546,212,243,273,304,334];
-    var cumulativeLeap = [0,365,396,425,456,486,517,547,212,243,273,304,334]; */
+    if (_sl[_ci].birthdayMonth == 0 || _sl[_ci].birthdayDate == 0) { 
+        _sl[_ci].birthdayNumber = 1000; return;
+    }
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     if (_leapYears[1] == 1) {
@@ -1143,7 +1144,7 @@ function notesAlert() {
     }
 }
 
-function findBday() {
+function findAllBday() {
     var todaysDateNumber = assignTodaysDateNumber();
     checkForLeapYear(); setWeeksOff();
     var today = new Date();
@@ -1157,6 +1158,21 @@ function findBday() {
         if (_sl[i].hasBirthday === true) {
             activityLog("birthday found: " + _sl[i].fullName + " " + _sl[i].birthday,"darkgoldenrod") + "<br>" + dateAndTime;
         }
+    }
+}
+
+function findBday(x) {
+    var todaysDateNumber = assignTodaysDateNumber();
+    checkForLeapYear(); setWeeksOff();
+    var today = new Date();
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    if (_sl[x].birthdayNumber >= todaysDateNumber && _sl[x].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff)))) {
+        _sl[x].hasBirthday = true;
+    } else {
+        _sl[x].hasBirthday = false;
+    }
+    if (_sl[x].hasBirthday === true) {
+        activityLog("birthday found: " + _sl[x].fullName + " " + _sl[x].birthday,"darkgoldenrod") + "<br>" + dateAndTime;
     }
 }
 
@@ -1342,8 +1358,8 @@ function newStudent() {
     }
     _sl.push(newStudent);
     assignBdayNumber(_sl.length-1);
+    findBday(_sl.length-1);
     sortStudentList();
-    findBday();
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     var log = "new student " + first + " " + last + "<br>" + dateAndTime;
@@ -1372,6 +1388,7 @@ function editStudent() {
     _sl[_ci].firstName = capitalize(firstLastArray[0]);
     _sl[_ci].lastName = capitalize(firstLastArray[1]);
     _sl[_ci].fullName = capitalize(firstLastArray[0]) + " " + capitalize(firstLastArray[1]);
+    var previousBdayNumber = _sl[_ci].birthdayNumber;
     var newBdayArray = document.getElementById("editBday").value.split("/");
     if (newBdayArray.length < 2) {
         _sl[_ci].birthdayMonth = 0;
@@ -1383,7 +1400,8 @@ function editStudent() {
         _sl[_ci].birthdayDate = parseInt(newBdayArray[1]);
         _sl[_ci].birthday = newBdayArray[0] + "/" + newBdayArray[1];
     }
-    assignBdayNumber();
+    assignBdayNumber(); 
+    if (_sl[_ci].birthdayNumber != previousBdayNumber) { findBday(_ci) }
     if (document.getElementById("editEmail").value == "") {
         _sl[_ci].email = document.getElementById("editEmail").value;
     } else {
@@ -1414,7 +1432,6 @@ function editStudent() {
 }
 
 function refreshStudentPop() {
-    findBday();
     if (_sl[_ci].attendance === true && _sl[_ci].promoted === false) {
         document.getElementById("dispName").style.color = "lawngreen";
     } else if (_sl[_ci].attendance === true && _sl[_ci].promoted === true) {
