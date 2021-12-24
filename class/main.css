@@ -609,12 +609,13 @@ a:link, a:visited, a:hover, a:active {
 #dataInputTextField {
     height: 100px;
     width: 150px;
-    border: 3px solid #555;
+    outline: none;
     color: black;
     font-size: 50px;
     text-align: center;
     line-height: 1;
     border-radius: 25px;
+    border: 1px solid transparent;
     padding-top: 7px;
     margin-bottom: 20px;
 }
@@ -671,7 +672,9 @@ a:link, a:visited, a:hover, a:active {
     width: 375px;
     height: 150px;
     font-size: 20px;
+    border: 1px solid transparent;
     resize: none;
+    margin: 0px auto;
 }
 
 #initialNote {
@@ -714,7 +717,7 @@ a:link, a:visited, a:hover, a:active {
     text-align: center;
 }
 
-.textInputField1:focus, .textInputField2:focus, #search:focus, #search2:focus, #search3:focus, #initialNote:focus {
+.textInputField1:focus, .textInputField2:focus, #search:focus, #search2:focus, #search3:focus, #initialNote:focus, #dataInputTextField:focus, #enterReasonTextField:focus, #addNote:focus, #editNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
     outline: none;
     border: 2px solid dodgerblue;
 }

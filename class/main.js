@@ -205,37 +205,35 @@ class Teams {
 }
 
 function whatToLoad() {
-    if (!localStorage.getItem("sl")) {
-        if (JSON.parse(localStorage.getItem("slBackup"))) {
-            loadBackup();
-        }
-    } else {
+    if (!localStorage.getItem("sl") && !JSON.parse(localStorage.getItem("slBackup"))) {
+        infoAlert("No data",["mainPop"]);
+    } else if (localStorage.getItem("sl") && JSON.parse(localStorage.getItem("slBackup"))) {
         pop(["mainPop"],["wtlPop"]);
+    } else if (!localStorage.getItem("sl") && JSON.parse(localStorage.getItem("slBackup"))) {
+        loadBackup();
+    } else {
+        loadLS();
     }
 }
 
 function loadBackup() {
-    if (!JSON.parse(localStorage.getItem("slBackup"))) {
-        infoAlert("backup.js not available",["wtlPop"]); return;
-    } else {
-        _sl = JSON.parse(localStorage.getItem("slBackup"));
-        _amAtt = JSON.parse(localStorage.getItem("amAttBackup"));
-        _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
-        _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
-        assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions();
-        findAllBday(); removePtBoxes(); populateTeacherNotes();
-        for (i = 0; i < _sl.length; i++) {
-            _sl[i].attendance = false;
-            _sl[i].random = false;
-        }
-        if (_isClassDay === true && _amAtt.length < _elapsedWeeks) {
-            for (i = 0; i < _sl.length; i++) {
-                _sl[i].amAtt.push(0); _sl[i].pmAtt.push(0);
-            }
-            _amAtt.push(0); _pmAtt.push(0);
-        }
-        pop(["wtlPop"],["mainPop"]);
+    _sl = JSON.parse(localStorage.getItem("slBackup"));
+    _amAtt = JSON.parse(localStorage.getItem("amAttBackup"));
+    _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
+    _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
+    assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions();
+    findAllBday(); removePtBoxes(); populateTeacherNotes();
+    for (i = 0; i < _sl.length; i++) {
+        _sl[i].attendance = false;
+        _sl[i].random = false;
     }
+    if (_isClassDay === true && _amAtt.length < _elapsedWeeks) {
+        for (i = 0; i < _sl.length; i++) {
+            _sl[i].amAtt.push(0); _sl[i].pmAtt.push(0);
+        }
+        _amAtt.push(0); _pmAtt.push(0);
+    }
+    pop(["wtlPop"],["mainPop"]);
 }
 
 function loadLS() {
@@ -584,9 +582,8 @@ function setWeeksOff() {
     }
 }
 
-function assignBdayNumber(x) {
+function assignBdayNumber() {
     checkForLeapYear();
-    if (x) { _ci = x; }
     if (_sl[_ci].birthdayMonth == 0 || _sl[_ci].birthdayDate == 0) { 
         _sl[_ci].birthdayNumber = 1000; return;
     }
@@ -1161,18 +1158,18 @@ function findAllBday() {
     }
 }
 
-function findBday(x) {
+function findBday() {
     var todaysDateNumber = assignTodaysDateNumber();
     checkForLeapYear(); setWeeksOff();
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    if (_sl[x].birthdayNumber >= todaysDateNumber && _sl[x].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff)))) {
-        _sl[x].hasBirthday = true;
+    if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff)))) {
+        _sl[_ci].hasBirthday = true;
     } else {
-        _sl[x].hasBirthday = false;
+        _sl[_ci].hasBirthday = false;
     }
-    if (_sl[x].hasBirthday === true) {
-        activityLog("birthday found: " + _sl[x].fullName + " " + _sl[x].birthday,"darkgoldenrod") + "<br>" + dateAndTime;
+    if (_sl[_ci].hasBirthday === true) {
+        activityLog("birthday found: " + _sl[_ci].fullName + " " + _sl[_ci].birthday,"darkgoldenrod") + "<br>" + dateAndTime;
     }
 }
 
@@ -1312,10 +1309,10 @@ function actionAlert(message,popsArray,func,bypass) {
 }
 
 function newStudent() {
-    var firstLastArray = document.getElementById("newFirstAndLast").value.split("/");
+    var firstLastArray = document.getElementById("newFirstAndLast").value.split(" ");
     var newBdayArray = document.getElementById("newBday").value.split("/");
     if (firstLastArray.length < 2) {
-        infoAlert("Please enter first and last names separated by a &#47;",["newStudentPop"]); return;
+        infoAlert("Please enter first and last names separated by a space",["newStudentPop"]); return;
     }
     if (document.getElementById("newGender").value.toLowerCase() == "m") {
         var gender = "M";
@@ -1350,15 +1347,17 @@ function newStudent() {
         newStudent.amAtt.push(0);
         newStudent.pmAtt.push(0);
     }
-    var today = new Date();
-    if (today.getHours() < 16) {
-        newStudent.amAtt[_elapsedWeeks-1] = 1;
-    } else if (today.getHours() >= 16) {
-        newStudent.pmAtt[_elapsedWeeks-1] = 1;
+    if (_isClassDay === true) {
+        var today = new Date();
+        if (today.getHours() < 16) {
+            newStudent.amAtt[_elapsedWeeks-1] = 1;
+        } else if (today.getHours() >= 16) {
+            newStudent.pmAtt[_elapsedWeeks-1] = 1;
+        }
     }
-    _sl.push(newStudent);
-    assignBdayNumber(_sl.length-1);
-    findBday(_sl.length-1);
+    _sl.push(newStudent); _ci = _sl.length-1;
+    assignBdayNumber();
+    findBday();
     sortStudentList();
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
@@ -1381,9 +1380,9 @@ function deleteStudent() {
 }
 
 function editStudent() {
-    var firstLastArray = document.getElementById("editFirstAndLast").value.split("/");
+    var firstLastArray = document.getElementById("editFirstAndLast").value.split(" ");
     if (firstLastArray.length < 2) {
-        infoAlert("Please enter first and last names separated by a &#47;",["editStudentPop"]); return;
+        infoAlert("Please enter first and last names separated by a space",["editStudentPop"]); return;
     }
     _sl[_ci].firstName = capitalize(firstLastArray[0]);
     _sl[_ci].lastName = capitalize(firstLastArray[1]);
@@ -1401,7 +1400,7 @@ function editStudent() {
         _sl[_ci].birthday = newBdayArray[0] + "/" + newBdayArray[1];
     }
     assignBdayNumber(); 
-    if (_sl[_ci].birthdayNumber != previousBdayNumber) { findBday(_ci) }
+    if (_sl[_ci].birthdayNumber != previousBdayNumber) { findBday() }
     if (document.getElementById("editEmail").value == "") {
         _sl[_ci].email = document.getElementById("editEmail").value;
     } else {
@@ -1469,7 +1468,7 @@ function populateStudentFields(id) {
     if (id) {
         document.getElementById(id).focus();
     }
-    document.getElementById("editFirstAndLast").value = _sl[_ci].firstName + "/" + _sl[_ci].lastName;
+    document.getElementById("editFirstAndLast").value = _sl[_ci].firstName + " " + _sl[_ci].lastName;
     document.getElementById("editBday").value = _sl[_ci].birthdayMonth.toString() + "/" + _sl[_ci].birthdayDate.toString();
     document.getElementById("editEmail").value = _sl[_ci].email;
     document.getElementById("editGender").value = _sl[_ci].gender;
