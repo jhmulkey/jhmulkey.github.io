@@ -689,10 +689,12 @@ function setPoints(parameter,data,reason) {
 }
 
 function setRankFactor() {
-    if (_sl[_ci].rank == 14 || _sl[_ci].rank == 15) {
+    if (_sl[_ci].rank >= 9 || _sl[_ci].rank < 15) {
         _sl[_ci].rankFactor = 1;
-    } else if (_sl[_ci].rank == 18 || _sl[_ci].rank == 19) {
+    } else if (_sl[_ci].rank >= 15 || _sl[_ci].rank < 19) {
         _sl[_ci].rankFactor = 2;
+    } else if (_sl[_ci].rank >= 19) {
+        _sl[_ci].rankFactor = 3;
     } else {
         _sl[_ci].rankFactor = 0;
     }
@@ -1354,6 +1356,7 @@ function newStudent() {
         }
     }
     _sl.push(newStudent); _ci = _sl.length-1;
+    attCount();
     assignBdayNumber();
     findBday();
     sortStudentList();
@@ -1551,21 +1554,21 @@ function asPoints(_asNum,x,secondCall) {
         var netPts = x - _sl[_ci].as[_asNum];
         if (_sl[_ci].rank != 8 && _sl[_ci].rank != 14 && _sl[_ci].rank != 18) {
             if (asPts == 0 || asPts < x) {
-                if ((totalPts - (rankNum * 10)) + netPts >= 10 && totalPts < 200) {
+                if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 200) {
                     promotion();
                 }
                 _sl[_ci].points += netPts;
                 _sl[_ci].as[_asNum] = x;
             }
             if (asPts > x) {
-                if ((totalPts + netPts < (rankNum * 10))) {
+                if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                     demotion();
                 }
                 _sl[_ci].points += netPts;
                 _sl[_ci].as[_asNum] = x;
             }
             if (asPts == x) {
-                if ((totalPts - (rankNum * 10)) - x < 0) {
+                if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                     demotion();
                 }
                 _sl[_ci].points -= x; netPts = -x;
@@ -1622,21 +1625,21 @@ function mvPoints(_mvNum,x) {
     var netPts = x - _sl[_ci].mv[_mvNum];
     if (_sl[_ci].rank != 8 && _sl[_ci].rank != 14 && _sl[_ci].rank != 18) {
         if (mvPts == 0 || mvPts < x) {
-            if ((totalPts - (rankNum * 10)) + netPts >= 10 && totalPts < 200) {
+            if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 220) {
                 promotion();
             }
             _sl[_ci].points += netPts;
             _sl[_ci].mv[_mvNum] = x;
         }
         if (mvPts > x) {
-            if ((totalPts + netPts < (rankNum * 10))) {
+            if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 demotion();
             }
             _sl[_ci].points += netPts;
             _sl[_ci].mv[_mvNum] = x;
         }
         if (mvPts == x) {
-            if ((totalPts - (rankNum * 10)) - x < 0) {
+            if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 demotion();
             }
             _sl[_ci].points -= x; netPts = -x;
