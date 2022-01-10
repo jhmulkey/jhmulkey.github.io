@@ -75,17 +75,17 @@ var _mvText = [
 6 MSG / 60
 7 SGM / 70
 8 CSM / 80
-9 2LT / 100
+9 2LT / 100 / 1
 10 1LT / 110
 11 CPT / 120
 12 MAJ / 130
 13 LTC / 140
-14 COL / 150 / 1
-15 BG / 170 / 1
+14 COL / 150 
+15 BG / 170 / 2
 16 MG / 180
 17 LTG / 190
-18 GEN / 200 / 2
-19 GOA / 220 / 2
+18 GEN / 200 
+19 GOA / 220 / 3
 */
 
 class Student {
