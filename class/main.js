@@ -26,9 +26,9 @@ var _studentPhotoExists;
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
-var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14","jn-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword","armor-review"];
+var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword","armor-review"];
 var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8",
-"phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"];
+"phil-2-9","phil-2-10-11","rom-8-31-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"];
 var _mvText = [
     "<span style='color: dodgerblue'>Psalm 139:17-18</span><br>How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
     "<span style='color: dodgerblue'>John 20:30-31</span><br>Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
@@ -47,8 +47,7 @@ var _mvText = [
     "<span style='color: dodgerblue'>Philippians 2:8</span><br>And being found in human form, he humbled himself by becoming obedient to the point of death, even death on a cross.",
     "<span style='color: dodgerblue'>Philippians 2:9</span><br>Therefore God has highly exalted him and bestowed on him the name that is above every name,",
     "<span style='color: dodgerblue'>Philippians 2:10-11</span><br>so that at the name of Jesus every knee should bow, in heaven and on earth and under the earth, and every tongue confess that Jesus Christ is Lord, to the glory of God the Father.",
-    "<span style='color: dodgerblue'>Romans 8:31</span><br>What then shall we say to these things? If God is for us, who can be against us?",
-    "<span style='color: dodgerblue'>Romans 8:32</span><br>He who did not spare his own Son but gave him up for us all, how will he not also with him graciously give us all things?",
+    "<span style='color: dodgerblue'>Romans 8:31-32</span><br>What then shall we say to these things? If God is for us, who can be against us?  He who did not spare his own Son but gave him up for us all, how will he not also with him graciously give us all things?",
     "<span style='color: dodgerblue'>Romans 8:33</span><br>Who shall bring any charge against God's elect? It is God who justifies.",
     "<span style='color: dodgerblue'>Romans 8:34</span><br>Who is to condemn?  Christ Jesus is the one who died—more than that, who was raised—who is at the right hand of God, who indeed is interceding for us.",
     "<span style='color: dodgerblue'>Romans 8:35</span><br>Who shall separate us from the love of Christ? Shall tribulation, or distress, or persecution, or famine, or nakedness, or danger, or sword?",
@@ -114,7 +113,7 @@ class Student {
         this.promotionNum = 0;
         this.drawing = false;
         this.random = false;
-        this.asReasons = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
+        this.asReasons = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
         this.as = {
             0: 0, //class-intro
             1: 0, //john-intro
@@ -132,23 +131,22 @@ class Student {
             13: 0, //john-11
             14: 0, //john-12
             15: 0, //john-13
-            16: 0, //john-14
-            17: 0, //john-15
-            18: 0, //john-16
-            19: 0, //john-17
-            20: 0, //john-18
-            21: 0, //john-19
-            22: 0, //john-20
-            23: 0, //john-21
-            24: 0, //john-10-21-review
-            25: 0, //armor-intro
-            26: 0, //belt
-            27: 0, //breastplate
-            28: 0, //shoes
-            29: 0, //shield
-            30: 0, //helmet
-            31: 0, //sword
-            32: 0, //armor-review
+            16: 0, //john-14-15
+            17: 0, //john-16
+            18: 0, //john-17
+            19: 0, //john-18
+            20: 0, //john-19
+            21: 0, //john-20
+            22: 0, //john-21
+            23: 0, //john-10-21-review
+            24: 0, //armor-intro
+            25: 0, //belt
+            26: 0, //breastplate
+            27: 0, //shoes
+            28: 0, //shield
+            29: 0, //helmet
+            30: 0, //sword
+            31: 0, //armor-review
         }
         this.mv = {
             0: 0, //ps-139-17-18
@@ -168,21 +166,20 @@ class Student {
             14: 0, //phil-2-8
             15: 0, //phil-2-9
             16: 0, //phil-2-10-11
-            17: 0, //rom-8-31
-            18: 0, //rom-8-32
-            19: 0, //rom-8-33
-            20: 0, //rom-8-34
-            21: 0, //rom-8-35
-            22: 0, //rom-8-36
-            23: 0, //rom-8-37
-            24: 0, //rom-8-38-39
-            25: 0, //eph-6-10-11
-            26: 0, //eph-6-12
-            27: 0, //eph-6-13
-            28: 0, //eph-6-14-15
-            29: 0, //eph-6-16
-            30: 0, //eph-6-17
-            31: 0, //eph-6-18
+            17: 0, //rom-8-31-21
+            18: 0, //rom-8-33
+            19: 0, //rom-8-34
+            20: 0, //rom-8-35
+            21: 0, //rom-8-36
+            22: 0, //rom-8-37
+            23: 0, //rom-8-38-39
+            24: 0, //eph-6-10-11
+            25: 0, //eph-6-12
+            26: 0, //eph-6-13
+            27: 0, //eph-6-14-15
+            28: 0, //eph-6-16
+            29: 0, //eph-6-17
+            30: 0, //eph-6-18
         }
     }
 }
@@ -1686,7 +1683,7 @@ function mvPoints(_mvNum,x) {
 
 function removePtBoxes() {
     pops = ["asPointsPop","mvPointsPop"];
-    buttons = ["as4Points","as5Points","as6Points","mv4Points","mv5Points","mv6Points"];
+    buttons = ["as4Points","as5Points","as6Points","mv4Points","mv5Points","mv6Points","mv7Points"];
     for (i = 0; i <pops.length; i++) {
         if (document.getElementById(pops[i]).style.display != "block") {
             for (i = 0; i <buttons.length; i++) {
@@ -1876,7 +1873,7 @@ function mvPop(mvNum,index,points) {
     document.getElementById("mvPointsPop").style.display = "block";
     _mvNum = mvNum;
     document.getElementById("mvText").innerHTML = _mvText[index];
-    for (i = 1; i <= 6; i++) {
+    for (i = 1; i <= 7; i++) {
         if (document.getElementById("mv"+i+"Points").innerHTML == _sl[_ci].mv[_mvNum]) {
             document.getElementById("mv"+i+"Points").style.background = "blue";
         } else {
