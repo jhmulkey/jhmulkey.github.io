@@ -1145,9 +1145,7 @@ function findAllBday() {
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff)))) {
             _sl[i].hasBirthday = true;
-        } else {
-            _sl[i].hasBirthday = false;
-        }
+        } 
         if (_sl[i].hasBirthday === true) {
             activityLog("birthday found: " + _sl[i].fullName + " " + _sl[i].birthday,"darkgoldenrod") + "<br>" + dateAndTime;
         }
@@ -1161,8 +1159,6 @@ function findBday() {
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff)))) {
         _sl[_ci].hasBirthday = true;
-    } else {
-        _sl[_ci].hasBirthday = false;
     }
     if (_sl[_ci].hasBirthday === true) {
         activityLog("birthday found: " + _sl[_ci].fullName + " " + _sl[_ci].birthday,"darkgoldenrod") + "<br>" + dateAndTime;
@@ -1831,7 +1827,7 @@ function goHome() {
     }
     document.getElementById("search").value = "";
     document.getElementById("search").focus();
-    anyAlert();
+    alerts();
     sortStudentList();
     removePtBoxes();
 }
