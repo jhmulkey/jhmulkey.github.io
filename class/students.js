@@ -116,7 +116,7 @@ function setRankName() {
 
 function removePtBoxes() {
     pops = ["asPointsPop","mvPointsPop"];
-    buttons = ["as4Points","as5Points","as6Points","mv4Points","mv5Points","mv6Points"];
+    buttons = ["as4Points","as5Points","as6Points","mv4Points","mv5Points","mv6Points","mv7Points"];
     for (i = 0; i <pops.length; i++) {
         if (document.getElementById(pops[i]).style.display != "block") {
             for (i = 0; i <buttons.length; i++) {
