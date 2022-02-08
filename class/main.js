@@ -696,12 +696,6 @@ function setRankFactor() {
     }
 }
 
-function showRankFactors() {
-    for (i = 0; i < _sl.length; i++) {
-        console.log(_sl[i].points + " " + _sl[i].rank + " " + _sl[i].rankFactor)
-    }
-}
-
 function setRankName() {
     _sl[_ci].rankName = _rankNamesAbbr[_sl[_ci].rank];
 }
