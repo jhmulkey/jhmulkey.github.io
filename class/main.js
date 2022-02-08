@@ -69,7 +69,7 @@ var _mvText = [
 2 CPL / 20
 3 SGT / 30
 4 SSG / 40
-5 SFG / 50
+5 SFC / 50
 6 MSG / 60
 7 SGM / 70
 8 CSM / 80
@@ -685,14 +685,20 @@ function setPoints(parameter,data,reason) {
 }
 
 function setRankFactor() {
-    if (_sl[_ci].rank >= 9 || _sl[_ci].rank < 15) {
+    if (_sl[_ci].rank >= 9 && _sl[_ci].rank < 15) {
         _sl[_ci].rankFactor = 1;
-    } else if (_sl[_ci].rank >= 15 || _sl[_ci].rank < 19) {
+    } else if (_sl[_ci].rank >= 15 && _sl[_ci].rank < 19) {
         _sl[_ci].rankFactor = 2;
     } else if (_sl[_ci].rank >= 19) {
         _sl[_ci].rankFactor = 3;
     } else {
         _sl[_ci].rankFactor = 0;
+    }
+}
+
+function showRankFactors() {
+    for (i = 0; i < _sl.length; i++) {
+        console.log(_sl[i].points + " " + _sl[i].rank + " " + _sl[i].rankFactor)
     }
 }
 
