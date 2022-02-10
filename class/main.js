@@ -2097,9 +2097,9 @@ function toggleMissions(x) {
         mv.style.display = "block";
         _checkedState[x] = 1;
     } else {
-        as.style.display = "none";
-        mv.style.display = "none";
-        _checkedState[x] = 0;
+        as.style.display = "";
+        mv.style.display = "";
+        _checkedState.splice(x,1);
     }
 }
  
