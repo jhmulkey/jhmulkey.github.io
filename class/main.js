@@ -1157,7 +1157,7 @@ function findBday() {
     checkForLeapYear(); setWeeksOff();
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff)))) {
+    if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[_ci].birthdayDone === false) {
         _sl[_ci].hasBirthday = true;
     }
     if (_sl[_ci].hasBirthday === true) {
