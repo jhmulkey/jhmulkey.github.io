@@ -2363,7 +2363,7 @@ function preloadImages() {
 }
 
 function loadStudentStats() {
-    var rankPercentage = (((_sl[_ci].rank + 1) / 20) * 100).toFixed(2);
+    var rankPercentage = (((_sl[_ci].rank + 1) / 20) * 100).toFixed(1);
     var rankSquares = Math.round(rankPercentage / 2.50);
     var totalASpts = 0;
     var earnedASpts = 0;   
@@ -2377,13 +2377,13 @@ function loadStudentStats() {
         earnedASpts += Object.values(_sl[_ci].as)[i];
         earnedMVpts += Object.values(_sl[_ci].mv)[i];
     }
-    var asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(2);
+    var asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
     var asSquares = Math.round(asPercentage / 2.50);
-    var mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(2);
+    var mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
     var mvSquares = Math.round(mvPercentage / 2.50);
     var totalPoints = totalASpts + totalMVpts;
     var totalEarnedPoints = earnedASpts + earnedMVpts;
-    var totalPointsPercentage = ((totalEarnedPoints / totalPoints) * 100).toFixed(2);
+    var totalPointsPercentage = ((totalEarnedPoints / totalPoints) * 100).toFixed(1);
     var totalPointsSquares = Math.round(totalPointsPercentage / 2.50);
     var weeksAttended = 0;
     for (i = 0; i < _elapsedWeeks; i++) {
@@ -2393,11 +2393,11 @@ function loadStudentStats() {
             weeksAttended--;
         }
     }
-    var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(2);
+    var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(1);
     var attendanceSquares = Math.round(attendancePercentage / 2.50);
     var totalEarned = weeksAttended + earnedASpts + earnedMVpts;
     var totalPossible = _elapsedWeeks + totalASpts + totalMVpts;
-    var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(2);
+    var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(1);
     var totalSquares = Math.round(totalPercentage / 2.50);
     var squaresArray = [rankSquares,totalPointsSquares,asSquares,mvSquares,attendanceSquares,totalSquares];
     var variableArray = [rankPercentage,totalPointsPercentage,asPercentage,mvPercentage,attendancePercentage,totalPercentage];
@@ -2437,12 +2437,12 @@ function loadStudentStats() {
     }
     document.getElementById("statsName").innerHTML = _sl[_ci].fullName;
     document.getElementById("statsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
-    document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + Math.round(rankPercentage) + "%)";
-    document.getElementById("totalProgressTableP").innerHTML = "Total Points: " + totalEarnedPoints + "/" + totalPoints + " (" + Math.round(totalPointsPercentage) + "%)";
-    document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Points: " + earnedASpts + "/" + totalASpts + " (" + Math.round(asPercentage) + "%)";
-    document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Points: " + earnedMVpts + "/" + totalMVpts + " (" + Math.round(mvPercentage) + "%)";
-    document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + Math.round(attendancePercentage) + "%)";
-    document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + Math.round(totalPercentage) + "%)";
+    document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + rankPercentage + "%)";
+    document.getElementById("totalProgressTableP").innerHTML = "Total Points: " + totalEarnedPoints + "/" + totalPoints + " (" + totalPointsPercentage + "%)";
+    document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Points: " + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)";
+    document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Points: " + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)";
+    document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + attendancePercentage + "%)";
+    document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)";
     pop(["studentPop","missionsPop","asPointsPop","mvPointsPop"],["studentStatsPop"]);
 }
 
