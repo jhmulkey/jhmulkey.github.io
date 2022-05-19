@@ -468,7 +468,7 @@ function loadStudentStats() {
     for (i = 0; i < variableArray.length; i++) {
         if (variableArray[i] == 100.00) {
             if (i == 0) {
-                document.getElementById(idArray1[i]).style.backgroundColor = "dodgerblue"; break;
+                document.getElementById(idArray1[i]).style.backgroundColor = "dodgerblue";
             } else {
                 document.getElementById(idArray1[i]).style.backgroundColor = "lawngreen";
             }

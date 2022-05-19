@@ -1302,7 +1302,7 @@ function actionAlert(message,popsArray,func,bypass) {
 
 function newStudent() {
     var firstLastArray = document.getElementById("newFirstAndLast").value.split(" ");
-    var newBdayArray = document.getElementById("newBday").value.split("/");
+    var newBdayArray = document.getElementById("newBday").value.split(" ");
     if (firstLastArray.length < 2) {
         infoAlert("Please enter first and last names separated by a space",["newStudentPop"]); return;
     }
@@ -1381,7 +1381,7 @@ function editStudent() {
     _sl[_ci].lastName = capitalize(firstLastArray[1]);
     _sl[_ci].fullName = capitalize(firstLastArray[0]) + " " + capitalize(firstLastArray[1]);
     var previousBdayNumber = _sl[_ci].birthdayNumber;
-    var newBdayArray = document.getElementById("editBday").value.split("/");
+    var newBdayArray = document.getElementById("editBday").value.split(" ");
     if (newBdayArray.length < 2) {
         _sl[_ci].birthdayMonth = 0;
         _sl[_ci].birthdayDate = 0;
@@ -2419,7 +2419,7 @@ function loadStudentStats() {
     for (i = 0; i < variableArray.length; i++) {
         if (variableArray[i] == 100.00) {
             if (i == 0) {
-                document.getElementById(idArray1[i]).style.backgroundColor = "dodgerblue"; break;
+                document.getElementById(idArray1[i]).style.backgroundColor = "dodgerblue";
             } else {
                 document.getElementById(idArray1[i]).style.backgroundColor = "lawngreen";
             }
