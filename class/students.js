@@ -358,7 +358,7 @@ function isClassDay() {
 
 function loadBackup() {
     _sl = JSON.parse(localStorage.getItem("slBackup"));
-    _elapsedWeeks = _sl[0].amAtt.length;
+    _elapsedWeeks = 32 //_sl[0].amAtt.length;
     isClassDay(); showMissions(); removePtBoxes();
 }
 

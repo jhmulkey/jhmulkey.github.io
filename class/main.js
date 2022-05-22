@@ -267,12 +267,13 @@ function isClassDay() {
 }
 
 function setElapsedWeeks() {
-    var todaysDateNumber = assignTodaysDateNumber();
+    _elapsedWeeks = 32
+    /*var todaysDateNumber = assignTodaysDateNumber();
     for (i = 1; i < _dateNumbers.length; i++) {
         if (todaysDateNumber < _dateNumbers[i]) {
             _elapsedWeeks = i; break;
         }
-    }
+    }*/
 }
 
 function teams() {
@@ -2377,6 +2378,7 @@ function loadStudentStats() {
         earnedASpts += Object.values(_sl[_ci].as)[i];
         earnedMVpts += Object.values(_sl[_ci].mv)[i];
     }
+    console.log(earnedASpts);
     var asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
     var asSquares = Math.round(asPercentage / 2.50);
     var mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
