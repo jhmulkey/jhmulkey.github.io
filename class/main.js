@@ -1,7 +1,7 @@
 var _sl = []; var _ci;
 var _asNum; var _mvNum;
 var _asPoints;
-var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,6,3,3,3,3,3,3,6,3,3,3,3,3,3,3,6];
+var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,6,3,3,3,3,3,3,6,3,3,3,3,3,3,3,0];
 var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,7,3,4,3,3,3,6,4,4,3,4,3,3,3,0];
 var _leapYears = [];
 var _weeksOff = 0;
@@ -267,7 +267,7 @@ function isClassDay() {
 }
 
 function setElapsedWeeks() {
-    _elapsedWeeks = 32
+    _elapsedWeeks = 33
     /*var todaysDateNumber = assignTodaysDateNumber();
     for (i = 1; i < _dateNumbers.length; i++) {
         if (todaysDateNumber < _dateNumbers[i]) {
@@ -2378,7 +2378,6 @@ function loadStudentStats() {
         earnedASpts += Object.values(_sl[_ci].as)[i];
         earnedMVpts += Object.values(_sl[_ci].mv)[i];
     }
-    console.log(earnedASpts);
     var asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
     var asSquares = Math.round(asPercentage / 2.50);
     var mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
