@@ -3,7 +3,7 @@ var _asNum; var _mvNum;
 var _asPoints;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,6,3,3,3,3,3,3,6,3,3,3,3,3,3,3,0];
 var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,7,3,4,3,3,3,6,4,4,3,4,3,3,3,0];
-var _leapYears = [];
+var _leapYears = [0,0]; // 0 = not a leap year; 1 = is a leap year
 var _weeksOff = 0;
 var _noteIndex;
 var _teacherNotes = [];
@@ -579,7 +579,6 @@ function setWeeksOff() {
 }
 
 function assignBdayNumber() {
-    checkForLeapYear();
     if (_sl[_ci].birthdayMonth == 0 || _sl[_ci].birthdayDate == 0) { 
         _sl[_ci].birthdayNumber = 1000; return;
     }
@@ -611,7 +610,7 @@ function assignID() {
 }
 
 function assignDateNumber(month,date) {
-    if (month == 0 || date == 0) { return 1000 } checkForLeapYear();
+    if (month == 0 || date == 0) { return 1000 }
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var dateNumber;
@@ -624,7 +623,6 @@ function assignDateNumber(month,date) {
 }
 
 function assignTodaysDateNumber() {
-    checkForLeapYear();
     var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
@@ -638,7 +636,6 @@ function assignTodaysDateNumber() {
 }
 
 function assignClassDateNumbers() {
-    checkForLeapYear();
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
@@ -1141,13 +1138,15 @@ function notesAlert() {
 
 function findAllBday() {
     var todaysDateNumber = assignTodaysDateNumber();
-    checkForLeapYear(); setWeeksOff();
+    setWeeksOff();
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff)))) {
+        if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[i].birthdayDone === false) {
             _sl[i].hasBirthday = true;
-        } 
+        } else {
+            _sl[i].hasBirthday = false;
+        }
         if (_sl[i].hasBirthday === true) {
             activityLog("birthday found: " + _sl[i].fullName + " " + _sl[i].birthday,"darkgoldenrod") + "<br>" + dateAndTime;
         }
@@ -1156,7 +1155,7 @@ function findAllBday() {
 
 function findBday() {
     var todaysDateNumber = assignTodaysDateNumber();
-    checkForLeapYear(); setWeeksOff();
+    setWeeksOff();
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[_ci].birthdayDone === false) {
@@ -2182,7 +2181,7 @@ function clearEligibleRandom() {
     _eligibleRandom = []; return;
 }
 
-function checkForLeapYear() {
+/* function checkForLeapYear() {
     var today = new Date();
     var todaysYear = today.getFullYear();
     var nextYear = todaysYear + 1;
@@ -2190,7 +2189,7 @@ function checkForLeapYear() {
         _leapYears[0] = 1; } else { _leapYears[0] = 0; }
     if ((nextYear % 4 == 0) && (nextYear % 100 != 0) || (nextYear % 400 == 0)) {
         _leapYears[1] = 1; } else { _leapYears[1] = 0; }
-}
+} */
   
 function promotionList(log) {
     var elementNode = document.createElement("p");
