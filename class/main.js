@@ -88,6 +88,7 @@ var _mvText = [
 
 class Student {
     constructor(first,last,month,date,email,gender,note) {
+        this.dateAdded = assignTodaysDateNumber();
         this.id;
         this.firstName = first;
         this.lastName = last;
@@ -2354,6 +2355,13 @@ function preloadImages() {
             document.getElementById(i+"c-as").style.backgroundImage = "url(img/missions/as32c.jpg)";
         }
     }
+}
+
+function loadStudentData() {
+    document.getElementById("dateAdded").innerHTML = "Date Added: " + _sl[_ci].dateAdded;
+    document.getElementById("firstName").innerHTML = "First Name: " + _sl[_ci].firstName;
+    document.getElementById("lastName").innerHTML = "Last Name: " + _sl[_ci].lastName;
+    document.getElementById("fullName").innerHTML = "Full Name: " + _sl[_ci].fullName;
 }
 
 function loadStudentStats() {
