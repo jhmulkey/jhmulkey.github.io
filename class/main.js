@@ -2358,10 +2358,24 @@ function preloadImages() {
 }
 
 function loadStudentData() {
-    document.getElementById("dateAdded").innerHTML = "Date Added: " + _sl[_ci].dateAdded;
-    document.getElementById("firstName").innerHTML = "First Name: " + _sl[_ci].firstName;
-    document.getElementById("lastName").innerHTML = "Last Name: " + _sl[_ci].lastName;
-    document.getElementById("fullName").innerHTML = "Full Name: " + _sl[_ci].fullName;
+    document.getElementById("dateAdded").innerHTML = _sl[_ci].dateAdded;
+    document.getElementById("studentID").innerHTML = _sl[_ci].id;
+    document.getElementById("firstName").innerHTML = _sl[_ci].firstName;
+    document.getElementById("lastName").innerHTML = _sl[_ci].lastName;
+    document.getElementById("birthdayMonth").innerHTML = _sl[_ci].birthdayMonth;
+    document.getElementById("birthdayDate").innerHTML = _sl[_ci].birthdayDate;
+    document.getElementById("birthdayNumber").innerHTML = _sl[_ci].birthdayNumber;
+    document.getElementById("hasBirthday").innerHTML = _sl[_ci].hasBirthday;
+    document.getElementById("birthdayDone").innerHTML = _sl[_ci].birthdayDone;
+    document.getElementById("classRank").innerHTML = _sl[_ci].classRank;
+    document.getElementById("rank").innerHTML = _sl[_ci].rank;
+    document.getElementById("rankFactor").innerHTML = _sl[_ci].rankFactor;
+    document.getElementById("amAtt").innerHTML = JSON.stringify(_sl[_ci].amAtt);
+    document.getElementById("pmAtt").innerHTML = JSON.stringify(_sl[_ci].pmAtt);
+    document.getElementById("promoted").innerHTML = _sl[_ci].promoted;
+    document.getElementById("promotionNum").innerHTML = _sl[_ci].promotionNum;
+    document.getElementById("as").innerHTML = JSON.stringify(_sl[_ci].as);
+    document.getElementById("mv").innerHTML = JSON.stringify(_sl[_ci].mv);
 }
 
 function loadStudentStats() {

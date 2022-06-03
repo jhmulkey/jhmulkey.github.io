@@ -944,5 +944,6 @@ a:link, a:visited, a:hover, a:active {
 
 #studentData {
     text-align: left;
-    font-size: 10px;
+    font-size: 20px;
+    color: #99DCFE;
 }
