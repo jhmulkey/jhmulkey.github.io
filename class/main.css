@@ -945,5 +945,12 @@ a:link, a:visited, a:hover, a:active {
 #studentData {
     text-align: left;
     font-size: 20px;
-    color: #99DCFE;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: dodgerblue;
+}
+
+#studentData p {
+    margin-bottom: 1px;
+    margin-top: 1px;
 }
