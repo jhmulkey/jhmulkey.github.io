@@ -100,7 +100,8 @@ class Student {
         this.birthday = month + "/" + date;
         this.hasBirthday = false;
         this.birthdayDone = false;
-        this.email = email;
+        this.email = "";
+        this.photo = false;
         this.notes = note;
         this.points = 0;
         this.classRank = 0;
@@ -1172,6 +1173,15 @@ function birthdayAlert() {
     }
 }
 
+function photosAlert() {
+    loadNeededPhotos();
+    if (document.getElementById("photosNeededList").innerHTML != "") {
+        document.getElementById("photosNeededButton").style.backgroundColor = "darkgoldenrod";
+    } else {
+        document.getElementById("photosNeededButton").style.backgroundColor = "black";
+    }
+}
+
 function capitalize(x) {
     return x.charAt(0).toUpperCase() + x.slice(1);
 }
@@ -1439,11 +1449,10 @@ function refreshStudentPop() {
     } else {
         document.getElementById("dispBday").style.backgroundColor = "fireBrick";
     }
-    if (_sl[_ci].firstName.includes(" ")) {
-        var firstNameArray = _sl[_ci].firstName.split(" ");
-        doesFileExist("https://ksgrade2.com/class/img/student-thumbnails/"+firstNameArray[0].toLowerCase()+"-"+firstNameArray[1].toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
+    if (_sl[_ci].photo === false) {
+        document.getElementById("photoButton").style.background = "fireBrick";
     } else {
-        doesFileExist("https://ksgrade2.com/class/img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
+        document.getElementById("photoButton").style.background = "green";
     }
     if (_sl[_ci].email == false) {
         document.getElementById("emailButton").style.background = "fireBrick";
@@ -1463,7 +1472,7 @@ function populateStudentFields(id) {
         document.getElementById(id).focus();
     }
     document.getElementById("editFirstAndLast").value = _sl[_ci].firstName + " " + _sl[_ci].lastName;
-    document.getElementById("editBday").value = _sl[_ci].birthdayMonth.toString() + "/" + _sl[_ci].birthdayDate.toString();
+    document.getElementById("editBday").value = _sl[_ci].birthdayMonth.toString() + " " + _sl[_ci].birthdayDate.toString();
     document.getElementById("editEmail").value = _sl[_ci].email;
     document.getElementById("editGender").value = _sl[_ci].gender;
 }
@@ -2261,6 +2270,18 @@ function loadBdays() {
     }
 }
 
+function loadNeededPhotos() {
+    document.getElementById("photosNeededList").innerHTML = "";
+    document.getElementById("photosNeededListAbsent").innerHTML = "";
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].photo === true && _sl[i].birthdayDone === false && _sl[i].attendance === true) {
+            bdayList(_sl[i].fullName+" ",_sl[i].birthday);
+        } else if (_sl[i].hasBirthday === true && _sl[i].birthdayDone === false && _sl[i].attendance === false) {
+            bdayListAbsent(_sl[i].fullName+" ",_sl[i].birthday);
+        }
+    }
+}
+
 function completePromotion(x) {
     _sl[x].promoted = false;
     _sl[x].promotionNum = 0;
@@ -2328,32 +2349,6 @@ function selectText(element) {
         range.selectNodeContents(text);
         selection.removeAllRanges();
         selection.addRange(range);
-    }
-}
-
-function preloadImages() {
-    pop(["mainMenuPop"],["preloadImagesPop"]);
-    for (i = 0; i < 20; i++) {
-        document.getElementById(i+"-rank").style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
-    }
-    var iLimit = 0
-    for (i = 0; i < 34; i++) {
-        if (_checkedState[i] == 1) {
-            iLimit++
-        }
-    }
-    for (i = 0; i < (iLimit); i++) {
-        document.getElementById(i+"a-as").style.backgroundImage = "url(img/missions/as"+i+"a.jpg)";
-        document.getElementById(i+"b-as").style.backgroundImage = "url(img/missions/as"+i+"b.jpg)";
-        if (i == 11) {
-            document.getElementById(i+"c-as").style.backgroundImage = "url(img/missions/as11c.jpg)";
-        }
-        if (i == 24) {
-            document.getElementById(i+"c-as").style.backgroundImage = "url(img/missions/as24c.jpg)";
-        }
-        if (i == 32) {
-            document.getElementById(i+"c-as").style.backgroundImage = "url(img/missions/as32c.jpg)";
-        }
     }
 }
 
@@ -2484,16 +2479,16 @@ function showMissions() {
 }
 
 function loadStudentPhoto() {
-    if (_studentPhotoExists === true) {
+
+    if (_sl[_ci].photo === true) {
         if (_sl[_ci].firstName.includes(" ")) {
             var firstNameArray = _sl[_ci].firstName.split(" ");
             document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+firstNameArray[0].toLowerCase()+"-"+firstNameArray[1].toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg";
         } else {
             document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg)";
         }
-        pop(["studentPop","missionsPop","asPointsPop","mvPointsPop"],["studentPhotoPop"]);
     } else {
-        infoAlert("No photo exists for this student",["studentPop","missionsPop"]);
+        document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/no-photo.jpeg";
     }
 }
 
@@ -2506,7 +2501,25 @@ function photoLinks() {
     }
 }
 
-function doesFileExist(url) {
+function togglePhoto() {
+    if (_sl[_ci].photo === false) {
+        _sl[_ci].photo = true;
+    } else {
+        _sl[_ci].photo = false;
+    }
+    refreshStudentPop();
+}
+
+function toggleEmail() {
+    if (_sl[_ci].email === false) {
+        _sl[_ci].email = true;
+    } else {
+        _sl[_ci].email = false;
+    }
+    refreshStudentPop();
+}
+
+/* function doesFileExist(url) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET",url,true);
     xhr.onload = function (e) {
@@ -2524,7 +2537,7 @@ function doesFileExist(url) {
       console.error(xhr.statusText);
     }
     xhr.send(null);
-}
+} */
 
 function loadRankTable() {
     _sharedPop = "rankChartPop";

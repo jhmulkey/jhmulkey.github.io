@@ -77,7 +77,6 @@
   <div class="button" onclick="pop(['mainMenuPop'],['drawingPop'])">Drawing</div>
   <div class="button" onclick="pop(['mainMenuPop'],['randomPop'])">Random</div>
   <div class="button" onclick="teams()">Teams</div>
-  <div class="button" onclick="preloadImages()">Cache Images</div>
   <div class="button" id="teacherNotesButton" onclick="pop(['mainMenuPop'],['teacherNotesPop']); populateTeacherNotes()">Notes</div>
   <div class="button" onclick="pop(['mainMenuPop'],['logPop'])">Log</div>
   <div class="button" onclick="pop(['mainMenuPop'],['backupPop'])">Backup</div>
@@ -90,6 +89,8 @@
           </div>
           <div class="button" id="promotionButton" onclick="pop(['alertsPop'],['promoListPop'])">Promotions</div>
           <div class="button" id="birthdayButton" onclick="pop(['alertsPop'],['bdayPop'])">Birthdays</div>
+          <div class="button" id="photosNeededButton" onclick="pop(['alertsPop'],['photosNeededPop'])">Photos</div>
+          <div class="button" id="emailsNeededButton" onclick="pop(['alertsPop'],['emailsNeededPop'])">Emails</div>
       </div>
 </div>
 
@@ -267,21 +268,21 @@
     <span id="dispBday"></span><br><br>
     <div id="penContainer">
         <div class="studentPopButtons" onclick="loadStudentStats()">stats</div>
-        <div class="studentPopButtons" onclick="populateStudentFields()">edit info</div>
+        <div class="studentPopButtons" onclick="populateStudentFields(); loadStudentPhoto()">edit info</div>
         <div class="studentPopButtons" id="notesButton" onclick="pop(['studentPop','missionsPop','asPointsPop','mvPointsPop'],['notesPop','notesList']); populateNotes(['studentPop','missionsPop'])">notes</div>
-        <div class="studentPopButtons" id="photoButton" onclick="loadStudentPhoto()">photo</div>
+        <div class="studentPopButtons" id="photoButton" onclick="togglePhoto()">photo</div>
         <div class="studentPopButtons" onclick="loadStudentAttStats()">attendance</div>
         <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields('editEmail')">email</div>
     </div>
 </div>
 
-<div id="studentPhotoPop" class="pop">
+<!-- <div id="studentPhotoPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['studentPhotoPop'],['studentPop','missionsPop'])"><span>f</span></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="dispStudentPhoto" onclick="photoLinks()"></div>
-</div>
+</div> -->
 
 <div id="studentStatsPop" class="pop">
   <div class="navigationButtonContainer">
@@ -623,6 +624,7 @@
     <p>Email Address</p>
     <input class="textInputField1" id="editEmail" type="text" placeholder="email address"/>
   </div>
+  <div id="dispStudentPhoto" onclick="photoLinks()"></div>
   <div class="optionButtonContainer">
     <div class="roundButton cancelButton" onclick="pop(['editStudentPop'],['studentPop','missionsPop']); clearStudentFields()">X</div>
     <div class="roundButton deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
@@ -925,6 +927,26 @@
   <div id="bdayListAbsent"></div>
 </div>
 
+<div id="photosNeededPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['photosNeededPop'],['alertsPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="photosNeededList"></div>
+  <p id="absentPhotosNeeded">Absent:</p>
+  <div id="photosNeededListAbsent"></div>
+</div>
+
+<div id="emailsNeededPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['emailsNeededPop'],['alertsPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
+  </div>
+  <div id="emailsNeededList"></div>
+  <p id="absentEmailsNeeded">Absent:</p>
+  <div id="emailsNeededAbsent"></div>
+</div>
+
 <div id="dataPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['dataPop'],['studentPop','missionsPop'])"><span>f</span></div>
@@ -976,104 +998,6 @@
   </div>
 </div>
   
-<div id="preloadImagesPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['preloadImagesPop'],['mainMenuPop'])"><span>f</span></div>
-    <div class="homeButton" onclick="goHome()"><span>5</span></div>
-  </div>
-  <div class="scrollingContainer">
-    <div id="0-rank" class="preloadRankImageDiv"></div>
-    <div id="1-rank" class="preloadRankImageDiv"></div>
-    <div id="2-rank" class="preloadRankImageDiv"></div>
-    <div id="3-rank" class="preloadRankImageDiv"></div>
-    <div id="4-rank" class="preloadRankImageDiv"></div>
-    <div id="5-rank" class="preloadRankImageDiv"></div>
-    <div id="6-rank" class="preloadRankImageDiv"></div>
-    <div id="7-rank" class="preloadRankImageDiv"></div>
-    <div id="8-rank" class="preloadRankImageDiv"></div>
-    <div id="9-rank" class="preloadRankImageDiv"></div>
-    <div id="10-rank" class="preloadRankImageDiv"></div>
-    <div id="11-rank" class="preloadRankImageDiv"></div>
-    <div id="12-rank" class="preloadRankImageDiv"></div>
-    <div id="13-rank" class="preloadRankImageDiv"></div>
-    <div id="14-rank" class="preloadRankImageDiv"></div>
-    <div id="15-rank" class="preloadRankImageDiv"></div>
-    <div id="16-rank" class="preloadRankImageDiv"></div>
-    <div id="17-rank" class="preloadRankImageDiv"></div>
-    <div id="18-rank" class="preloadRankImageDiv"></div>
-    <div id="19-rank" class="preloadRankImageDiv"></div>
-    <div id="0a-as" class="preloadAsImageDiv"></div>
-    <div id="0b-as" class="preloadAsImageDiv"></div>
-    <div id="1a-as" class="preloadAsImageDiv"></div>
-    <div id="1b-as" class="preloadAsImageDiv"></div>
-    <div id="2a-as" class="preloadAsImageDiv"></div>
-    <div id="2b-as" class="preloadAsImageDiv"></div>
-    <div id="3a-as" class="preloadAsImageDiv"></div>
-    <div id="3b-as" class="preloadAsImageDiv"></div>
-    <div id="4a-as" class="preloadAsImageDiv"></div>
-    <div id="4b-as" class="preloadAsImageDiv"></div>
-    <div id="5a-as" class="preloadAsImageDiv"></div>
-    <div id="5b-as" class="preloadAsImageDiv"></div>
-    <div id="6a-as" class="preloadAsImageDiv"></div>
-    <div id="6b-as" class="preloadAsImageDiv"></div>
-    <div id="7a-as" class="preloadAsImageDiv"></div>
-    <div id="7b-as" class="preloadAsImageDiv"></div>
-    <div id="8a-as" class="preloadAsImageDiv"></div>
-    <div id="8b-as" class="preloadAsImageDiv"></div>
-    <div id="9a-as" class="preloadAsImageDiv"></div>
-    <div id="9b-as" class="preloadAsImageDiv"></div>
-    <div id="10a-as" class="preloadAsImageDiv"></div>
-    <div id="10b-as" class="preloadAsImageDiv"></div>
-    <div id="11a-as" class="preloadAsImageDiv"></div>
-    <div id="11b-as" class="preloadAsImageDiv"></div>
-    <div id="11c-as" class="preloadAsImageDiv"></div>
-    <div id="12a-as" class="preloadAsImageDiv"></div>
-    <div id="12b-as" class="preloadAsImageDiv"></div>
-    <div id="13a-as" class="preloadAsImageDiv"></div>
-    <div id="13b-as" class="preloadAsImageDiv"></div>
-    <div id="14a-as" class="preloadAsImageDiv"></div>
-    <div id="14b-as" class="preloadAsImageDiv"></div>
-    <div id="15a-as" class="preloadAsImageDiv"></div>
-    <div id="15b-as" class="preloadAsImageDiv"></div>
-    <div id="16a-as" class="preloadAsImageDiv"></div>
-    <div id="16b-as" class="preloadAsImageDiv"></div>
-    <div id="17a-as" class="preloadAsImageDiv"></div>
-    <div id="17b-as" class="preloadAsImageDiv"></div>
-    <div id="18a-as" class="preloadAsImageDiv"></div>
-    <div id="18b-as" class="preloadAsImageDiv"></div>
-    <div id="19a-as" class="preloadAsImageDiv"></div>
-    <div id="19b-as" class="preloadAsImageDiv"></div>
-    <div id="20a-as" class="preloadAsImageDiv"></div>
-    <div id="20b-as" class="preloadAsImageDiv"></div>
-    <div id="21a-as" class="preloadAsImageDiv"></div>
-    <div id="21b-as" class="preloadAsImageDiv"></div>
-    <div id="22a-as" class="preloadAsImageDiv"></div>
-    <div id="22b-as" class="preloadAsImageDiv"></div>
-    <div id="23a-as" class="preloadAsImageDiv"></div>
-    <div id="23b-as" class="preloadAsImageDiv"></div>
-    <div id="24a-as" class="preloadAsImageDiv"></div>
-    <div id="24b-as" class="preloadAsImageDiv"></div>
-    <div id="24c-as" class="preloadAsImageDiv"></div>
-    <div id="25a-as" class="preloadAsImageDiv"></div>
-    <div id="25b-as" class="preloadAsImageDiv"></div>
-    <div id="26a-as" class="preloadAsImageDiv"></div>
-    <div id="26b-as" class="preloadAsImageDiv"></div>
-    <div id="27a-as" class="preloadAsImageDiv"></div>
-    <div id="27b-as" class="preloadAsImageDiv"></div>
-    <div id="28a-as" class="preloadAsImageDiv"></div>
-    <div id="28b-as" class="preloadAsImageDiv"></div>
-    <div id="29a-as" class="preloadAsImageDiv"></div>
-    <div id="29b-as" class="preloadAsImageDiv"></div>
-    <div id="30a-as" class="preloadAsImageDiv"></div>
-    <div id="30b-as" class="preloadAsImageDiv"></div>
-    <div id="31a-as" class="preloadAsImageDiv"></div>
-    <div id="31b-as" class="preloadAsImageDiv"></div>
-    <div id="32a-as" class="preloadAsImageDiv"></div>
-    <div id="32b-as" class="preloadAsImageDiv"></div>
-    <div id="32c-as" class="preloadAsImageDiv"></div>
-  </div>
-</div>
-
 <div id="rankChartPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['rankChartPop'],['studentStatsPop'])"><span>f</span></div>
