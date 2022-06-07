@@ -112,7 +112,7 @@ a:link, a:visited, a:hover, a:active {
     color: darkorange;
 }
 
-#promoListAbsent p, #bdayListAbsent p {
+#promoListAbsent p, #bdayListAbsent p, #photosNeededListAbsent p, #emailsNeededListAbsent p {
     color: gray;
 }
 
@@ -946,7 +946,6 @@ a:link, a:visited, a:hover, a:active {
     text-align: left;
     font-size: 20px;
     font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
     color: #72AED3;
 }
 

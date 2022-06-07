@@ -1,9 +1,10 @@
 var _sl = []; var _ci;
+var _flag = false;
 var _asNum; var _mvNum;
 var _asPoints;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,6,3,3,3,3,3,3,6,3,3,3,3,3,3,3,0];
 var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,7,3,4,3,3,3,6,4,4,3,4,3,3,3,0];
-var _leapYears = [0,0]; // 0 = not a leap year; 1 = is a leap year
+var _leapYears = [0,0]; // 0 = not a leap year; 1 = is a leap year; [August-December,January-May]
 var _weeksOff = 0;
 var _noteIndex;
 var _teacherNotes = [];
@@ -637,7 +638,7 @@ function assignTodaysDateNumber() {
     return dateNumber;
 }
 
-function assignClassDateNumbers() {
+/* function assignClassDateNumbers() {
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
@@ -654,6 +655,40 @@ function assignClassDateNumbers() {
         monthsAndDates.push(months[i]+"/"+dates[i]);
     }
     console.log(dateNumbers);
+    console.log(monthsAndDates);
+} */
+
+function assignClassDateNumbers() {
+    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
+    var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
+    var dates = [22,29,12,19,26,3,10,17,24,31,7,14,5,12,19,9,16,23,30,6,13,20,27,6,13,20,27,3,10,24,1,8,15,22];
+    var dateNumbers1 = []; var dateNumbers2 = []; var monthsAndDates = [];
+    for (i = 0; i < months.length; i++) {
+        if (months[i] < 8) {
+            continue;
+        }
+        if (_leapYears[0] == 1) {
+            dateNumbers1.push(cumulativeLeap[months[i]] + dates[i])
+        } else {
+            dateNumbers1.push(cumulative[months[i]] + dates[i])
+        }
+    }
+    for (i = 0; i < months.length; i++) {
+        if (months[i] >= 8) {
+            continue;
+        }
+        if (_leapYears[1] == 1) {
+            dateNumbers2.push(cumulativeLeap[months[i]] + dates[i])
+        } else {
+            dateNumbers2.push(cumulative[months[i]] + dates[i])
+        }
+    }
+    var dateNumbersCombined = dateNumbers1.concat(dateNumbers2);
+    for (i = 0; i < months.length; i++) {
+        monthsAndDates.push(months[i]+"/"+dates[i]);
+    }
+    console.log(dateNumbersCombined);
     console.log(monthsAndDates);
 }
 
@@ -1173,12 +1208,21 @@ function birthdayAlert() {
     }
 }
 
-function photosAlert() {
+function photosNeededAlert() {
     loadNeededPhotos();
     if (document.getElementById("photosNeededList").innerHTML != "") {
         document.getElementById("photosNeededButton").style.backgroundColor = "darkgoldenrod";
     } else {
         document.getElementById("photosNeededButton").style.backgroundColor = "black";
+    }
+}
+
+function emailsNeededAlert() {
+    loadNeededEmails();
+    if (document.getElementById("emailsNeededList").innerHTML != "") {
+        document.getElementById("emailsNeededButton").style.backgroundColor = "darkgoldenrod";
+    } else {
+        document.getElementById("emailsNeededButton").style.backgroundColor = "black";
     }
 }
 
@@ -1429,6 +1473,8 @@ function editStudent() {
         } else {
             pop(["editStudentPop","missionsPop"],["studentPop"]);
         }
+    } else if (_flag === true) {
+        pop(["editStudentPop"],["emailsNeededPop"]); _flag = false;
     } else {
         pop(["editStudentPop"],["studentPop","missionsPop"]);
     }
@@ -1467,7 +1513,11 @@ function refreshStudentPop() {
 }
 
 function populateStudentFields(id) {
-    pop(["studentPop","missionsPop","asPointsPop","mvPointsPop"],["editStudentPop"]);
+    if (_flag) {
+        pop(["emailsNeededPop"],["editStudentPop"]);
+    } else {
+        pop(["studentPop","missionsPop","asPointsPop","mvPointsPop"],["editStudentPop"]);
+    }
     if (id) {
         document.getElementById(id).focus();
     }
@@ -2224,6 +2274,45 @@ function bdayList(log1,log2) {
     document.getElementById("bdayList").appendChild(elementNode1);
 }
 
+function photosNeededList(log) {
+    var elementNode1 = document.createElement("p");
+    var textNode1 = document.createTextNode(log);
+    elementNode1.appendChild(textNode1);
+    (function(i){
+        elementNode1.onclick = function () {
+            completePhoto(i);
+        }
+    })(i);
+    document.getElementById("photosNeededList").appendChild(elementNode1);
+}
+
+function photosNeededListAbsent(log) {
+    var elementNode = document.createElement("p");
+    var textNode = document.createTextNode(log);
+    elementNode.appendChild(textNode);
+    document.getElementById("photosNeededListAbsent").appendChild(elementNode);
+}
+
+function emailsNeededList(log) {
+    var elementNode1 = document.createElement("p");
+    var textNode1 = document.createTextNode(log);
+    elementNode1.appendChild(textNode1);
+    (function(i){
+        elementNode1.onclick = function () {
+            _ci = i; _flag = true;
+            populateStudentFields("editEmail");
+        }
+    })(i);
+    document.getElementById("emailsNeededList").appendChild(elementNode1);
+}
+
+function emailsNeededListAbsent(log) {
+    var elementNode = document.createElement("p");
+    var textNode = document.createTextNode(log);
+    elementNode.appendChild(textNode);
+    document.getElementById("emailsNeededListAbsent").appendChild(elementNode);
+}
+
 function promotionListAbsent(log) {
     var elementNode = document.createElement("p");
     var textNode = document.createTextNode(log);
@@ -2274,10 +2363,22 @@ function loadNeededPhotos() {
     document.getElementById("photosNeededList").innerHTML = "";
     document.getElementById("photosNeededListAbsent").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].photo === true && _sl[i].birthdayDone === false && _sl[i].attendance === true) {
-            bdayList(_sl[i].fullName+" ",_sl[i].birthday);
-        } else if (_sl[i].hasBirthday === true && _sl[i].birthdayDone === false && _sl[i].attendance === false) {
-            bdayListAbsent(_sl[i].fullName+" ",_sl[i].birthday);
+        if (_sl[i].photo === false && _sl[i].attendance === true) {
+            photosNeededList(_sl[i].fullName);
+        } else if (_sl[i].photo === false && _sl[i].attendance === false) {
+            photosNeededListAbsent(_sl[i].fullName);
+        }
+    }
+}
+
+function loadNeededEmails() {
+    document.getElementById("emailsNeededList").innerHTML = "";
+    document.getElementById("emailsNeededListAbsent").innerHTML = "";
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].email == "" && _sl[i].attendance === true) {
+            emailsNeededList(_sl[i].fullName);
+        } else if (_sl[i].email == "" && _sl[i].attendance === false) {
+            emailsNeededListAbsent(_sl[i].fullName);
         }
     }
 }
@@ -2293,12 +2394,16 @@ function completeBday(x) {
     _sl[x].birthdayDone = true; loadBdays(); storeAndBackup();
 }
 
+function completePhoto(x) {
+    _sl[x].photo = true; loadNeededPhotos(); storeAndBackup();
+}
+
 function alerts() {
-    promotionAlert(); birthdayAlert(); notesAlert(); anyAlert();
+    promotionAlert(); birthdayAlert(); photosNeededAlert(); emailsNeededAlert(); notesAlert(); anyAlert();
 }
 
 function anyAlert() {
-    if (document.getElementById("promoList").innerHTML != "" || document.getElementById("bdayList").innerHTML != "") {
+    if (document.getElementById("promoList").innerHTML != "" || document.getElementById("bdayList").innerHTML != "" || document.getElementById("photosNeededList").innerHTML != "" || document.getElementById("emailsNeededList").innerHTML != "") {
         document.getElementById("alertButton").style.backgroundColor = "darkgoldenrod";
     } else {
         document.getElementById("alertButton").style.backgroundColor = "black";
@@ -2366,6 +2471,7 @@ function loadStudentData() {
     document.getElementById("hasBirthday").innerHTML = _sl[_ci].hasBirthday;
     document.getElementById("birthdayDone").innerHTML = _sl[_ci].birthdayDone;
     document.getElementById("email").innerHTML = _sl[_ci].email;
+    document.getElementById("photo").innerHTML = _sl[_ci].photo;
     document.getElementById("notes").innerHTML = _sl[_ci].notes;
     document.getElementById("points").innerHTML = _sl[_ci].points;
     document.getElementById("classRank").innerHTML = _sl[_ci].classRank;
