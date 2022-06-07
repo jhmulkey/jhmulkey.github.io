@@ -2507,16 +2507,7 @@ function togglePhoto() {
     } else {
         _sl[_ci].photo = false;
     }
-    refreshStudentPop();
-}
-
-function toggleEmail() {
-    if (_sl[_ci].email === false) {
-        _sl[_ci].email = true;
-    } else {
-        _sl[_ci].email = false;
-    }
-    refreshStudentPop();
+    refreshStudentPop(); storeAndBackup();
 }
 
 /* function doesFileExist(url) {
