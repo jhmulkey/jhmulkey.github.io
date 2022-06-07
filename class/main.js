@@ -612,19 +612,6 @@ function assignID() {
     }
 }
 
-function assignDateNumber(month,date) {
-    if (month == 0 || date == 0) { return 1000 }
-    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
-    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
-    var dateNumber;
-    if (_leapYears[1] == 1) {
-        dateNumber = cumulativeLeap[month] + date;
-    } else {
-        dateNumber = cumulative[month] + date;
-    }
-    return dateNumber;
-}
-
 function assignTodaysDateNumber() {
     var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
@@ -636,60 +623,6 @@ function assignTodaysDateNumber() {
         dateNumber = cumulative[todaysMonth] + todaysDate;
     }
     return dateNumber;
-}
-
-/* function assignClassDateNumbers() {
-    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
-    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
-    var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
-    var dates = [22,29,12,19,26,3,10,17,24,31,7,14,5,12,19,9,16,23,30,6,13,20,27,6,13,20,27,3,10,24,1,8,15,22];
-    var dateNumbers = []; var monthsAndDates = [];
-    for (i = 0; i < months.length; i++) {
-        if (_leapYears[1] == 1) {
-            dateNumbers.push(cumulativeLeap[months[i]] + dates[i])
-        } else {
-            dateNumbers.push(cumulative[months[i]] + dates[i])
-        }
-    }
-    for (i = 0; i < months.length; i++) {
-        monthsAndDates.push(months[i]+"/"+dates[i]);
-    }
-    console.log(dateNumbers);
-    console.log(monthsAndDates);
-} */
-
-function assignClassDateNumbers() {
-    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
-    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
-    var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
-    var dates = [22,29,12,19,26,3,10,17,24,31,7,14,5,12,19,9,16,23,30,6,13,20,27,6,13,20,27,3,10,24,1,8,15,22];
-    var dateNumbers1 = []; var dateNumbers2 = []; var monthsAndDates = [];
-    for (i = 0; i < months.length; i++) {
-        if (months[i] < 8) {
-            continue;
-        }
-        if (_leapYears[0] == 1) {
-            dateNumbers1.push(cumulativeLeap[months[i]] + dates[i])
-        } else {
-            dateNumbers1.push(cumulative[months[i]] + dates[i])
-        }
-    }
-    for (i = 0; i < months.length; i++) {
-        if (months[i] >= 8) {
-            continue;
-        }
-        if (_leapYears[1] == 1) {
-            dateNumbers2.push(cumulativeLeap[months[i]] + dates[i])
-        } else {
-            dateNumbers2.push(cumulative[months[i]] + dates[i])
-        }
-    }
-    var dateNumbersCombined = dateNumbers1.concat(dateNumbers2);
-    for (i = 0; i < months.length; i++) {
-        monthsAndDates.push(months[i]+"/"+dates[i]);
-    }
-    console.log(dateNumbersCombined);
-    console.log(monthsAndDates);
 }
 
 function setPoints(parameter,data,reason) {
@@ -2105,6 +2038,10 @@ function checkInAtt() {
     storeNewData();
 }
 
+function flagOff() {
+    _flag = false;
+}
+
 function toggleAtt() {
     var today = new Date();
     if (_sl[_ci].attendance === false) {
@@ -2239,16 +2176,6 @@ function random() {
 function clearEligibleRandom() {
     _eligibleRandom = []; return;
 }
-
-/* function checkForLeapYear() {
-    var today = new Date();
-    var todaysYear = today.getFullYear();
-    var nextYear = todaysYear + 1;
-    if ((todaysYear % 4 == 0) && (todaysYear % 100 != 0) || (todaysYear % 400 == 0)) {
-        _leapYears[0] = 1; } else { _leapYears[0] = 0; }
-    if ((nextYear % 4 == 0) && (nextYear % 100 != 0) || (nextYear % 400 == 0)) {
-        _leapYears[1] = 1; } else { _leapYears[1] = 0; }
-} */
   
 function promotionList(log) {
     var elementNode = document.createElement("p");
@@ -2286,13 +2213,6 @@ function photosNeededList(log) {
     document.getElementById("photosNeededList").appendChild(elementNode1);
 }
 
-function photosNeededListAbsent(log) {
-    var elementNode = document.createElement("p");
-    var textNode = document.createTextNode(log);
-    elementNode.appendChild(textNode);
-    document.getElementById("photosNeededListAbsent").appendChild(elementNode);
-}
-
 function emailsNeededList(log) {
     var elementNode1 = document.createElement("p");
     var textNode1 = document.createTextNode(log);
@@ -2304,13 +2224,6 @@ function emailsNeededList(log) {
         }
     })(i);
     document.getElementById("emailsNeededList").appendChild(elementNode1);
-}
-
-function emailsNeededListAbsent(log) {
-    var elementNode = document.createElement("p");
-    var textNode = document.createTextNode(log);
-    elementNode.appendChild(textNode);
-    document.getElementById("emailsNeededListAbsent").appendChild(elementNode);
 }
 
 function promotionListAbsent(log) {
@@ -2325,6 +2238,20 @@ function bdayListAbsent(log1,log2) {
     var textNode1 = document.createTextNode(log1+log2);
     elementNode1.appendChild(textNode1);
     document.getElementById("bdayListAbsent").appendChild(elementNode1);
+}
+
+function photosNeededListAbsent(log) {
+    var elementNode = document.createElement("p");
+    var textNode = document.createTextNode(log);
+    elementNode.appendChild(textNode);
+    document.getElementById("photosNeededListAbsent").appendChild(elementNode);
+}
+
+function emailsNeededListAbsent(log) {
+    var elementNode = document.createElement("p");
+    var textNode = document.createTextNode(log);
+    elementNode.appendChild(textNode);
+    document.getElementById("emailsNeededListAbsent").appendChild(elementNode);
 }
 
 function loadPromotions() {
@@ -2831,3 +2758,68 @@ function loadStudentAttStats() {
 whatToLoad()
 
 document.getElementById("search").focus();
+
+/// FUNCTIONS TO RUN IN CONSOLE ///
+
+function assignDateNumber(month,date) {
+    if (month == 0 || date == 0) { return 1000 }
+    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
+    var dateNumber;
+    if (_leapYears[1] == 1) {
+        dateNumber = cumulativeLeap[month] + date;
+    } else {
+        dateNumber = cumulative[month] + date;
+    }
+    return dateNumber;
+}
+
+function assignClassDateNumbers() {
+    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
+    var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
+    var dates = [22,29,12,19,26,3,10,17,24,31,7,14,5,12,19,9,16,23,30,6,13,20,27,6,13,20,27,3,10,24,1,8,15,22];
+    var dateNumbers1 = []; var dateNumbers2 = []; var monthsAndDates = [];
+    for (i = 0; i < months.length; i++) {
+        if (months[i] < 8) {
+            continue;
+        }
+        if (_leapYears[0] == 1) {
+            dateNumbers1.push(cumulativeLeap[months[i]] + dates[i])
+        } else {
+            dateNumbers1.push(cumulative[months[i]] + dates[i])
+        }
+    }
+    for (i = 0; i < months.length; i++) {
+        if (months[i] >= 8) {
+            continue;
+        }
+        if (_leapYears[1] == 1) {
+            dateNumbers2.push(cumulativeLeap[months[i]] + dates[i])
+        } else {
+            dateNumbers2.push(cumulative[months[i]] + dates[i])
+        }
+    }
+    var dateNumbersCombined = dateNumbers1.concat(dateNumbers2);
+    for (i = 0; i < months.length; i++) {
+        monthsAndDates.push(months[i]+"/"+dates[i]);
+    }
+    console.log(dateNumbersCombined);
+    console.log(monthsAndDates);
+}
+
+function allPhotosTrue() {
+    if (confirm("Confirm batch action") == true) {
+        for (i = 0; i < _sl.length; i++) {
+            _sl[i].photo = true;
+        }
+      } 
+}
+
+function allEmailsOnFile() {
+    if (confirm("Confirm batch action") == true) {
+        for (i = 0; i < _sl.length; i++) {
+            _sl[i].email = "on file";
+        }
+      } 
+}
