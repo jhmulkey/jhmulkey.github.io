@@ -6,6 +6,16 @@ var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,6,3,3,3,3,3,3,6,3,3,3,3,3,3,3,0
 var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,7,3,4,3,3,3,6,4,4,3,4,3,3,3,0];
 var _leapYears = [0,0]; // 0 = not a leap year; 1 = is a leap year; [August-December,January-May]
 var _weeksOff = 0;
+    function setWeeksOff() {
+        var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
+        if ((todaysMonth == 8 && todaysDate == 29) || (todaysMonth == 4 && todaysDate == 10)) {
+            _weeksOff = 1;
+        } else if ((todaysMonth == 11 && todaysDate == 14) || (todaysMonth == 12 && todaysDate == 19)) {
+            _weeksOff = 2;
+        } else {
+            _weeksOff = 0;
+        }
+    }
 var _noteIndex;
 var _teacherNotes = [];
 var _teacherNoteIndex;
@@ -568,17 +578,6 @@ function addPlayer(x,i) {
     gameActivityLog(log,"aqua");
     populateTeams();
     storeNewData();
-}
-
-function setWeeksOff() {
-    var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
-    if ((todaysMonth == 8 && todaysDate == 29) || (todaysMonth == 4 && todaysDate == 10)) {
-        _weeksOff = 1;
-    } else if ((todaysMonth == 11 && todaysDate == 14) || (todaysMonth == 12 && todaysDate == 19)) {
-        _weeksOff = 2;
-    } else {
-        _weeksOff = 0;
-    }
 }
 
 function assignBdayNumber() {
@@ -2811,7 +2810,7 @@ function assignClassDateNumbers() {
 function allPhotosTrue() {
     if (confirm("Confirm batch action") == true) {
         for (i = 0; i < _sl.length; i++) {
-            _sl[i].photo = true;
+            _sl[i].photo = true; storeAndBackup();
         }
       } 
 }
@@ -2819,7 +2818,7 @@ function allPhotosTrue() {
 function allEmailsOnFile() {
     if (confirm("Confirm batch action") == true) {
         for (i = 0; i < _sl.length; i++) {
-            _sl[i].email = "on file";
+            _sl[i].email = "on file"; storeAndBackup();
         }
       } 
 }
