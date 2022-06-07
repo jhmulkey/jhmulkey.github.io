@@ -195,6 +195,11 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 8px;
 }
 
+#addTeacherNoteButton {
+    font-family: Byom-Icons-Trial;
+    padding-top: 8px;
+}
+
 #advancedOptionsButton {
     padding-top: 9px;
     font-family: Font-90-Icons;

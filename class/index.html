@@ -13,7 +13,7 @@
 <div id="mainPop" class="pop">
       <div id="topMenuContainer">
           <div id="mainMenuButton" class="roundButton" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
-          <div id="advancedOptionsButton" class="roundButton" onclick="pop(['mainPop'],['advancedOptionsPop'])">w</div>
+          <div id="addTeacherNoteButton" class="roundButton" onclick="pop(['mainPop'],['addTeacherNotePop'])">E</div>
           <div id="alertButton" class="roundButton" onclick="pop(['mainPop'],['alertsPop'])">#</div>
           <div id="attCountButton" class="roundButton" onclick="loadAttendees()">0</div>
           <div class="roundButton addButton" onclick="pop(['mainPop'],['newStudentPop'])">;</div>
@@ -71,6 +71,7 @@
 <div id="mainMenuPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="goHome()"><span>f</span></div>
+    <div id="advancedOptionsButton" class="roundButton" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">w</div>
   </div>
   <div class="button" onclick="loadAttStats()">Attendance Stats</div>
   <div class="button" onclick="pop(['mainMenuPop'],['sortChoicePop'])">Sort Students</div>
@@ -154,7 +155,8 @@
 
 <div id="advancedOptionsPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['advancedOptionsPop'],['mainPop'])"><span>f</span></div>
+    <div class="backButton" onclick="pop(['advancedOptionsPop'],['mainMenuPop'])"><span>f</span></div>
+    <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> Quick new student entry</label><br>
   <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> Quick student editing</label><br>
@@ -567,7 +569,7 @@
 
 <div id="newStudentPop" class="pop">
   <div>
-    <p>First/Last Name</p>
+    <p>Full Name</p>
     <input class="textInputField1" id="newFirstAndLast" type="text" placeholder="first last"/>
   </div>
   <div class="genderAndBdayContainer">
@@ -578,7 +580,7 @@
     <div style="width:75px; margin:0px"></div>
     <div>
       <p>Birthday</p>
-      <input class="textInputField2" id="newBday" type="text" placeholder="month/day"/>
+      <input class="textInputField2" id="newBday" type="text" placeholder="month day"/>
     </div>
   </div>
   <div>
@@ -595,10 +597,9 @@
   </div>
 </div>
 
-
 <div id="editStudentPop" class="pop">
   <div>
-    <p>First/Last Name</p>
+    <p>Full Name</p>
     <input class="textInputField1" id="editFirstAndLast" type="text" placeholder="first last"/>
   </div>
   <div class="genderAndBdayContainer">
@@ -609,7 +610,7 @@
     <div style="width:75px; margin:0px"></div>
     <div>
       <p>Birthday</p>
-      <input class="textInputField2" id="editBday" type="text" placeholder="month/day"/>
+      <input class="textInputField2" id="editBday" type="text" placeholder="month day"/>
     </div>
   </div>
   <div>
