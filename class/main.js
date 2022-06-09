@@ -4,7 +4,7 @@ var _asNum; var _mvNum;
 var _asPoints;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,6,3,3,3,3,3,3,6,3,3,3,3,3,3,3,0];
 var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,7,3,4,3,3,3,6,4,4,3,4,3,3,3,0];
-var _leapYears = [0,0]; // 0 = not a leap year; 1 = is a leap year; [August-December,January-May]
+var _leapYear = false; // Jan-July falls within a leap year
 var _weeksOff = 0;
     function setWeeksOff() {
         var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
@@ -127,6 +127,8 @@ class Student {
         this.drawing = false;
         this.random = false;
         this.asReasons = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
+        this.asDates = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        this.mvDates = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         this.as = {
             0: 0, //class-intro
             1: 0, //john-intro
@@ -586,7 +588,7 @@ function assignBdayNumber() {
     }
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
-    if (_leapYears[1] == 1) {
+    if (_leapYear === true) {
         _sl[_ci].birthdayNumber = cumulativeLeap[_sl[_ci].birthdayMonth] + _sl[_ci].birthdayDate;
     } else {
         _sl[_ci].birthdayNumber = cumulative[_sl[_ci].birthdayMonth] + _sl[_ci].birthdayDate;
@@ -616,7 +618,7 @@ function assignTodaysDateNumber() {
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var dateNumber;
-    if (_leapYears[1] == 1) {
+    if (_leapYear === true) {
         dateNumber = cumulativeLeap[todaysMonth] + todaysDate;
     } else {
         dateNumber = cumulative[todaysMonth] + todaysDate;
@@ -969,6 +971,9 @@ function sortByBday() {
         elementNode.classList.add("name3");
         if (_sl[i].birthdayMonth != lastElementNode) {
             elementNode.style.borderTop = "1px solid orange";
+        }
+        if (_sl[i].birthdayDone === true) {
+            elementNode.style.color = "gray";
         }
         var textNode = document.createTextNode(birthdayNumberOrder[i].birthday + " " + birthdayNumberOrder[i].fullName);
         elementNode.appendChild(textNode);
@@ -2765,10 +2770,15 @@ function assignDateNumber(month,date) {
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var dateNumber;
-    if (_leapYears[1] == 1) {
-        dateNumber = cumulativeLeap[month] + date;
-    } else {
+    if (month >= 8) {
         dateNumber = cumulative[month] + date;
+    }
+    if (month < 8) {
+        if (_leapYear === true) {
+            dateNumber = cumulativeLeap[month] + date;
+        } else {
+            dateNumber = cumulative[month] + date;
+        }
     }
     return dateNumber;
 }
@@ -2782,9 +2792,6 @@ function assignClassDateNumbers() {
     for (i = 0; i < months.length; i++) {
         if (months[i] < 8) {
             continue;
-        }
-        if (_leapYears[0] == 1) {
-            dateNumbers1.push(cumulativeLeap[months[i]] + dates[i])
         } else {
             dateNumbers1.push(cumulative[months[i]] + dates[i])
         }
@@ -2793,7 +2800,7 @@ function assignClassDateNumbers() {
         if (months[i] >= 8) {
             continue;
         }
-        if (_leapYears[1] == 1) {
+        if (_leapYear === true) {
             dateNumbers2.push(cumulativeLeap[months[i]] + dates[i])
         } else {
             dateNumbers2.push(cumulative[months[i]] + dates[i])
