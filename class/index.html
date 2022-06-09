@@ -641,7 +641,7 @@
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
     <div class="roundButton addButton" onclick="pop(['teacherNotesPop'],['addTeacherNotePop','addTeacherNote'])">;</div>
   </div>
-  <p id="studentNotesHeader" class="notesListHeader">Notes</p>
+  <p class="notesListHeader">Teacher Notes</p>
   <div id="teacherNotesList"></div>
 </div>
 
@@ -824,11 +824,47 @@
       <div class="roundButton okButton" onclick="asPoints(_asNum,_asPoints,true)">V</div>
     </div>
   </div>
-  <div id="asReason"></div>
-  <div>
+  <!-- <div id="asReason"></div> -->
+<!--   <div>
     <div id="asPage1" onclick="asLinks()"></div>
     <div id="asPage2" onclick="asLinks()"></div>
     <div id="asPage3" onclick="asLinks()"></div>
+  </div> -->
+  <div>
+    <table class="asmvInfoTable">
+
+      <tr>
+        <td class="tableSider">Sheet Name</td>
+        <td id="asSheetName"></td>
+      </tr>
+
+      <tr>
+        <td class="tableSider">Date Assigned</td>
+        <td id="asDateAssigned"></td>
+      </tr>
+
+      <tr>
+        <td class="tableSider">Date Turned In</td>
+        <td id="asDateTurnedIn"></td>
+      </tr>
+
+      <tr>
+        <td colspan="2" id="asCompletionStatus"></td>
+      </tr>
+
+      <tr>
+        <td colspan="2" id="asReason"></td>
+      </tr>
+
+      <tr>
+        <td colspan="2" id="scannedImage" class="pointer" onclick="scanLinks()">VIEW SCAN</td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="downloadOrPrint pointer" onclick="asLinks()">DOWNLOAD OR PRINT</td>
+      </tr>
+
+    </table>
   </div>
 </div>
 

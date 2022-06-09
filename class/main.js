@@ -1507,6 +1507,9 @@ function demotion() {
 }
 
 function asPoints(_asNum,x,secondCall) {
+    if (_sl[_ci].asDates[_asNum] == 0) {
+        _sl[_ci].asDates[_asNum] = assignTodaysDateNumber();
+    };
     if (x < _asMaxPts[_asNum] && x != _sl[_ci].as[_asNum] && !secondCall) {
         _asPoints = x;
         var buttons = ["as1Points","as2Points","as3Points","as4Points","as5Points","as6Points"];
@@ -1557,6 +1560,7 @@ function asPoints(_asNum,x,secondCall) {
                 _sl[_ci].as[_asNum] = x;
             }
             if (asPts == x) {
+                _sl[_ci].asDates[_asNum] = 0;
                 if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                     demotion();
                 }
@@ -1580,6 +1584,7 @@ function asPoints(_asNum,x,secondCall) {
                 _sl[_ci].as[_asNum] = x;
             }
             if (asPts == x) {
+                _sl[_ci].asDates[_asNum] = 0;
                 if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                     demotion();
                 }
@@ -1607,6 +1612,9 @@ function asPoints(_asNum,x,secondCall) {
 }
 
 function mvPoints(_mvNum,x) {
+    if (_sl[_ci].mvDates[_mvNum] == 0) {
+        _sl[_ci].mvDates[_mvNum] = assignTodaysDateNumber();
+    };
     var rankNum = _sl[_ci].rank;
     var rankFactor = _sl[_ci].rankFactor;
     var totalPts = _sl[_ci].points;
@@ -1628,6 +1636,7 @@ function mvPoints(_mvNum,x) {
             _sl[_ci].mv[_mvNum] = x;
         }
         if (mvPts == x) {
+            _sl[_ci].mvDates[_mvNum] = 0;
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 demotion();
             }
@@ -1650,6 +1659,7 @@ function mvPoints(_mvNum,x) {
             _sl[_ci].mv[_mvNum] = x;
         }
         if (mvPts == x) {
+            _sl[_ci].mvDates[_mvNum] = 0;
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 demotion();
             }
@@ -1746,6 +1756,10 @@ function asLinks() {
     window.open("docs/missions/as"+_asNum+".pdf","_blank");
 }
 
+function scanLinks() {
+    window.open("docs/as-scans/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+"-as"+_asNum+".pdf","_blank");
+}
+
 function mvLinks() {
     window.open("docs/memory/mv"+_mvNum+".pdf","_blank");
 }
@@ -1832,8 +1846,35 @@ function goHome() {
 
 function asPop(asNum,points) {
     _asNum = asNum;
+    document.getElementById("asSheetName").innerHTML = _asNames[_asNum];
+    document.getElementById("asDateAssigned").innerHTML = _classDates[_asNum]
+    if (_sl[_ci].as[_asNum] == _asMaxPts[_asNum]) {
+        document.getElementById("asCompletionStatus").innerHTML = "COMPLETED";
+        document.getElementById("asCompletionStatus").style.backgroundColor = "green";
+    } else if (_sl[_ci].as[_asNum] == 0) {
+        document.getElementById("asCompletionStatus").innerHTML = "INCOMPLETE";
+        document.getElementById("asCompletionStatus").style.backgroundColor = "red";
+    } else {
+        document.getElementById("asCompletionStatus").innerHTML = "PARTIAL CREDIT";
+        document.getElementById("asCompletionStatus").style.backgroundColor = "orange";
+    }
     if (_sl[_ci].asReasons[_asNum] != "") {
-        document.getElementById("asReason").innerHTML = "Reason for partial credit:<br><span style='color:white'>" + _sl[_ci].asReasons[_asNum] + "</span>";
+        document.getElementById("asReason").style.display = "table-cell";
+    } else {
+        document.getElementById("asReason").style.display = "none";
+    }
+    if (_sl[_ci].as[_asNum] >0) {
+        document.getElementById("scannedImage").style.display = "table-cell";
+    } else {
+        document.getElementById("scannedImage").style.display = "none";
+    }
+    if (_sl[_ci].asDates[_asNum] == 0) {
+        document.getElementById("asDateTurnedIn").innerHTML = "-"
+    } else {
+        document.getElementById("asDateTurnedIn").innerHTML = convertDateNumber(_sl[_ci].asDates[_asNum]);
+    }
+    if (_sl[_ci].asReasons[_asNum] != "") {
+        document.getElementById("asReason").innerHTML = "Reason for partial credit: <span style='color:white'>" + _sl[_ci].asReasons[_asNum] + "</span>";
     } else {
         document.getElementById("asReason").innerHTML = ""
     }
@@ -1848,16 +1889,6 @@ function asPop(asNum,points) {
     }
     for (i = 1; i <= points; i++) {
         document.getElementById("as"+i+"Points").style.display = "block";
-    }
-    var urlStart = "url(img/missions/as";
-    var urlEnd1 = "a.jpg)"; var urlEnd2 = "b.jpg)"; var urlEnd3 = "c.jpg)"
-    document.getElementById("asPage1").style.backgroundImage = urlStart+_asNum+urlEnd1;
-    document.getElementById("asPage2").style.backgroundImage = urlStart+_asNum+urlEnd2;
-    if (points > 3) {
-        document.getElementById("asPage3").style.display = "block";
-        document.getElementById("asPage3").style.backgroundImage = urlStart+_asNum+urlEnd3;
-    } else {
-        document.getElementById("asPage3").style.display = "none";
     }
     scrollTo(0,0);
 }
@@ -2781,6 +2812,26 @@ function assignDateNumber(month,date) {
         }
     }
     return dateNumber;
+}
+
+function convertDateNumber(dateNumber) {
+    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
+    var month; var date;
+    if (_leapYear === false) {
+        for (i = 1; i < cumulative.length; i++) {
+            if (dateNumber >= cumulative[i] && dateNumber <= cumulative[i+1]) {
+                month = i; date = dateNumber - cumulative[i]; break;
+            }
+        }
+    } else {
+        for (i = 1; i < cumulative.length; i++) {
+            if (dateNumber >= cumulativeLeap[i] && dateNumber <= cumulativeLeap[i+1]) {
+                month = i; date = dateNumber - cumulativeLeap[i]; break;
+            }
+        }
+    }
+    return month.toString() + "/" + date.toString();
 }
 
 function assignClassDateNumbers() {

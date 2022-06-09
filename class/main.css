@@ -774,26 +774,6 @@ a:link, a:visited, a:hover, a:active {
     background-color: #111;
 }
 
-.preloadRankImageDiv {
-    width: 350px;
-    height: 350px;
-    border: 1px solid white;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #111;
-}
-
-.preloadAsImageDiv {
-    width: 297.5px;
-    height: 385px;
-    border: 1px solid black;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: white;
-}
-
 #currentPlayer {
     margin: 0px;
     font-size: 20px;
@@ -809,10 +789,11 @@ a:link, a:visited, a:hover, a:active {
     width: 9.5px;
 }
 
-#rankChartTable, #attStatsTable, #attListTable, #studentAttTable {
+.asmvInfoTable, #rankChartTable, #attStatsTable, #attListTable, #studentAttTable {
     width: 100%
 }
 
+.asmvInfoTable, .asmvInfoTable th, .asmvInfoTable td,
 #rankChartTable, #rankChartTable th, #rankChartTable td,
 #attStatsTable, #attStatsTable th, #attStatsTable td,
 #attListTable, #attListTable td,
@@ -957,4 +938,30 @@ a:link, a:visited, a:hover, a:active {
 #studentData p {
     margin-bottom: 1px;
     margin-top: 1px;
+}
+
+.asmvInfoTable {
+    font-size: 20px;
+}
+
+.asmvInfoTable td {
+    padding: 5px;
+}
+
+.tableSider {
+    background-color: #555555 !important;
+}
+
+#asCompletionStatus {
+    font-size: 30px;
+}
+
+.downloadOrPrint {
+    font-size: 20px;
+    background-color: blue !important;
+}
+
+#scannedImage {
+    font-size: 20px;
+    background-color: blue !important;
 }
