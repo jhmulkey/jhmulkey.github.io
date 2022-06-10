@@ -292,8 +292,7 @@ a:link, a:visited, a:hover, a:active {
 .pointButtonContainer {
     display: flex;
     flex-wrap: nowrap;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin: 30px auto;
     justify-content: space-around;
 }
 
@@ -946,6 +945,8 @@ a:link, a:visited, a:hover, a:active {
 
 .asmvInfoTable td {
     padding: 5px;
+    width: 50%;
+    height: 50px;
 }
 
 .tableSider {
@@ -956,12 +957,15 @@ a:link, a:visited, a:hover, a:active {
     font-size: 30px;
 }
 
-.downloadOrPrint {
+.downloadOrPrint, #scannedImage {
     font-size: 20px;
-    background-color: blue !important;
+    background-color: #3478F6 !important;
 }
 
-#scannedImage {
-    font-size: 20px;
-    background-color: blue !important;
+#scanIcon {
+    font-family: Byom-Icons-Trial;
+}
+
+.downloadIcon {
+    font-family: Font-90-Icons;
 }

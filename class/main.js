@@ -1242,7 +1242,7 @@ function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
             if (isNaN(parseInt(document.getElementById("dataInputTextField").value))) {
                 infoAlert("Please enter a number",["dataInputAlertPop"],"dataInputTextField"); return;
             }
-            if (!bypass && document.getElementById("enterReasonDiv").style.display == "block" && document.getElementById("enterReasonTextField").value == "") {
+            if (document.getElementById("enterReasonDiv").style.display == "block" && document.getElementById("enterReasonTextField").value == "") {
                 infoAlert("Reason required",["dataInputAlertPop"],"enterReasonTextField"); return;
             }
             var data = parseInt(document.getElementById("dataInputTextField").value);
@@ -1308,7 +1308,7 @@ function newStudent() {
         var month = 0
         var date = 0
     } else if (newBdayArray.length < 2) {
-        infoAlert("Please enter month and date with space in between",["newStudentPop"]); return;
+        infoAlert("Please enter month and date separated by a space",["newStudentPop"]); return;
     } else {
         var month = parseInt(newBdayArray[0]);
         var date = parseInt(newBdayArray[1]);
@@ -1378,7 +1378,7 @@ function editStudent() {
         _sl[_ci].birthday = "0/0";
         _sl[_ci].hasBirthday = false;
     } else if (newBdayArray.length < 2) {
-        infoAlert("Please enter month and date with space in between",["editStudentPop"]); return;
+        infoAlert("Please enter month and date separated by a space",["editStudentPop"]); return;
     } else {
         _sl[_ci].birthdayMonth = parseInt(newBdayArray[0]);
         _sl[_ci].birthdayDate = parseInt(newBdayArray[1]);
@@ -1515,12 +1515,12 @@ function asPoints(_asNum,x,secondCall) {
         var buttons = ["as1Points","as2Points","as3Points","as4Points","as5Points","as6Points"];
         for (i = 0; i < buttons.length; i++) {
             if (i == (x-1)) {
-                document.getElementById(buttons[i]).style.backgroundColor = "blue";
+                document.getElementById(buttons[i]).style.backgroundColor = "#3478F6";
             } else {
                 document.getElementById(buttons[i]).style.backgroundColor = "black";
             }
         }
-        document.getElementById("as"+x+"Points").style.backgroundColor = "blue";
+        document.getElementById("as"+x+"Points").style.backgroundColor = "#3478F6";
         document.getElementById("asReasonContainer").style.display = "block";
         document.getElementById("asReasonText").value = "";
         document.getElementById("asReasonText").focus();
@@ -1882,7 +1882,7 @@ function asPop(asNum,points) {
     document.getElementById("asPointsPop").style.display = "block";
     for (i = 1; i <= 6; i++) {
         if (document.getElementById("as"+i+"Points").innerHTML == _sl[_ci].as[_asNum]) {
-            document.getElementById("as"+i+"Points").style.background = "blue";
+            document.getElementById("as"+i+"Points").style.background = "#3478F6";
         } else {
             document.getElementById("as"+i+"Points").style.background = "black";
         }
@@ -1900,7 +1900,7 @@ function mvPop(mvNum,index,points) {
     document.getElementById("mvText").innerHTML = _mvText[index];
     for (i = 1; i <= 7; i++) {
         if (document.getElementById("mv"+i+"Points").innerHTML == _sl[_ci].mv[_mvNum]) {
-            document.getElementById("mv"+i+"Points").style.background = "blue";
+            document.getElementById("mv"+i+"Points").style.background = "#3478F6";
         } else {
             document.getElementById("mv"+i+"Points").style.background = "black";
         }
