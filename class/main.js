@@ -2547,8 +2547,8 @@ function showMissions() {
 }
 
 function loadStudentPhoto() {
-
     if (_sl[_ci].photo === true) {
+        document.getElementById("dispStudentPhoto").style.display = "block";
         if (_sl[_ci].firstName.includes(" ")) {
             var firstNameArray = _sl[_ci].firstName.split(" ");
             document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+firstNameArray[0].toLowerCase()+"-"+firstNameArray[1].toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg";
@@ -2556,7 +2556,7 @@ function loadStudentPhoto() {
             document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg)";
         }
     } else {
-        document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/no-photo.jpeg";
+        document.getElementById("dispStudentPhoto").style.display = "none";
     }
 }
 
