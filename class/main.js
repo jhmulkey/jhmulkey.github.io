@@ -1846,7 +1846,7 @@ function goHome() {
 
 function asPop(asNum,points) {
     _asNum = asNum;
-    document.getElementById("asSheetName").innerHTML = _asNames[_asNum];
+    document.getElementById("asSheetName").innerHTML = _asNames[_asNum].toUpperCase();
     document.getElementById("asDateAssigned").innerHTML = _classDates[_asNum]
     if (_sl[_ci].as[_asNum] == _asMaxPts[_asNum]) {
         document.getElementById("asCompletionStatus").innerHTML = "COMPLETED";
@@ -1874,7 +1874,7 @@ function asPop(asNum,points) {
         document.getElementById("asDateTurnedIn").innerHTML = convertDateNumber(_sl[_ci].asDates[_asNum]);
     }
     if (_sl[_ci].asReasons[_asNum] != "") {
-        document.getElementById("asReason").innerHTML = "Reason for partial credit: <span style='color:white'>" + _sl[_ci].asReasons[_asNum] + "</span>";
+        document.getElementById("asReason").innerHTML = "Reason for partial credit:<br> <span style='color:white'>" + _sl[_ci].asReasons[_asNum] + "</span>";
     } else {
         document.getElementById("asReason").innerHTML = ""
     }

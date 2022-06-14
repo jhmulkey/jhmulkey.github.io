@@ -126,7 +126,7 @@ a:link, a:visited, a:hover, a:active {
 #submitButton {
     height: 50px;
     width: 60px;
-    background-color: dodgerblue;
+    background-color: #3478F6;
     border-radius: 0px 5px 5px 0px;
     font-family: Byom-Icons-Trial;
     font-size: 30px;
@@ -136,7 +136,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #submitButton:hover {
-    background-color: #0077eb;
+    background-color: #094fd3;
 }
 
 #searchField {
@@ -145,7 +145,7 @@ a:link, a:visited, a:hover, a:active {
     font-size: 30px;
     text-align: center;
     border-radius: 5px 0px 0px 5px;
-    border: 1px solid dodgerblue;
+    border: 1px solid #3478F6;
 }
 
 #searchField:focus{
@@ -362,7 +362,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .tableHeaderRow td {
-    background-color: cornflowerblue !important;
+    background-color: #3478F6 !important;
 }
 
 #rankChartTable th, #rankChartTable td {

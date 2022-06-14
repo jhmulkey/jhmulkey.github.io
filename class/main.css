@@ -950,7 +950,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .tableSider {
-    background-color: #555555 !important;
+    background-color: #333 !important;
 }
 
 #asCompletionStatus {
@@ -958,7 +958,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .downloadOrPrint, #scannedImage {
-    font-size: 20px;
+    font-size: 25px;
     background-color: #3478F6 !important;
 }
 
