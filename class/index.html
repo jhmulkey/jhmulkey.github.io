@@ -247,7 +247,7 @@
   </div>
   <p id="todaysDate"></p>
   <input id="searchLog" type="text" placeholder="search log" oninput="searchLog()"/>
-  <div id="log"></div>
+  <div id="log" onclick="selectText('log')"></div>
 </div>
 
 <div id="gameLogPop" class="pop">
@@ -1045,7 +1045,7 @@
     <div class="backButton" onclick="pop(['backupPop'],['mainMenuPop'])"><span>f</span></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
-  <div id="backupArrays" class ="select" onclick="selectText('backupArrays')">
+  <div id="backupArrays" onclick="selectText('backupArrays')">
     <div id="slBackupArray"></div>
     <div id="amAttBackupArray"></div>
     <div id="pmAttBackupArray"></div>

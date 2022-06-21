@@ -411,7 +411,7 @@ function gameScorePoints(x) {
                 _teams[0].team1.push(_teams[0].team1Reset[i])
             }
         }
-        gameActivityLog(log,"lawngreen");
+        gameActivityLog(log);
         storeNewData();
     } else {
         log = _teams[0].team2[0].fullName + " +" + x + " pts team 2" + "<br>" +  "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score + x) + ")";
@@ -430,7 +430,7 @@ function gameScorePoints(x) {
                 _teams[0].team2.push(_teams[0].team2Reset[i])
             }
         }
-        gameActivityLog(log,"yellow");
+        gameActivityLog(log);
         storeNewData();
     }
     for (i = 1; i < 11; i++) {
@@ -458,7 +458,7 @@ function undoGameScorePoints() {
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
         document.getElementById("team2Score").style.backgroundColor = "yellow";
         document.getElementById("team1Score").style.backgroundColor = "#eee";
-        gameActivityLog(log,"red");
+        gameActivityLog(log);
     } else if (_teams[0].currentTeam == 2) {
         log = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " -" + _teams[0].undoGamePts + " pts team 1 " + "<br>" + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
         _teams[0].currentTeam = 1;
@@ -468,7 +468,7 @@ function undoGameScorePoints() {
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
         document.getElementById("team1Score").style.backgroundColor = "yellow";
         document.getElementById("team2Score").style.backgroundColor = "#eee";
-        gameActivityLog(log,"red");
+        gameActivityLog(log);
     }
     storeNewData();
 }
@@ -484,7 +484,7 @@ function adjustGameScore(parameter,data) {
     }
     document.getElementById("team"+parameter+"Score").innerHTML = data;
     var log = "Team " + parameter.toString() + " points set " + "<br>" + original + "-->" + data;
-    gameActivityLog(log,"orange");
+    gameActivityLog(log);
     storeAndBackup();
 }
 
@@ -526,7 +526,7 @@ function skipPlayer() {
         _teams[0].currentPlayer = _teams[0].team2[0].fullName;
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
     }
-    gameActivityLog(log,"darkorange");
+    gameActivityLog(log);
     storeNewData();
 }
 
@@ -561,7 +561,7 @@ function deleteCurrentPlayer() {
         _teams[0].currentPlayer = _teams[0].team2[0].fullName;
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
     }
-    gameActivityLog(log,"red");
+    gameActivityLog(log);
     populateTeams();
     storeNewData();
 }
@@ -577,7 +577,7 @@ function addPlayer(x,i) {
         _teams[0].team2Reset.push(_sl[i]);
         log = "ADDED " + _sl[i].fullName + " to Team 2";
     }
-    gameActivityLog(log,"aqua");
+    gameActivityLog(log);
     populateTeams();
     storeNewData();
 }
@@ -650,7 +650,7 @@ function setPoints(parameter,data,reason) {
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     var log = _sl[_ci].fullName + " points set " + original + "-->" + y  + "<br>" + "(reason: " + reason + ")" + "<br>" + dateAndTime;
-    activityLog(log,"orange");
+    activityLog(log);
     storeAndBackup();
 }
 
@@ -794,6 +794,10 @@ function resetAtt() {
             }
         }
     }
+    var today = new Date();
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    var log = "removed all attendees" + "<br>" + dateAndTime;
+    activityLog(log);
     attCount();
     if (_isClassDay === true) { ampmAttendance(); }
     pop(["attListPop"],["mainPop"]);
@@ -817,6 +821,13 @@ function att2(i) {
             _sl[i].pmAtt[_elapsedWeeks-1] = 0;
         }
     }
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    if (_sl[i].attendance === true) {
+        var log = "added attendee " + _sl[i].firstName + " " + _sl[i].lastName + "<br>" + dateAndTime;
+    } else {
+        var log = "removed attendee " + _sl[i].firstName + " " + _sl[i].lastName + "<br>" + dateAndTime;
+    }
+    activityLog(log);
     attCount();
     if (_isClassDay === true) { ampmAttendance(); }
     storeNewData();
@@ -1118,7 +1129,7 @@ function findAllBday() {
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[i].hasBirthday === false && _sl[i].birthdayDone === false) {
             _sl[i].hasBirthday = true;
-            activityLog("birthday found: " + _sl[i].fullName + " " + _sl[i].birthday,"darkgoldenrod") + "<br>" + dateAndTime;
+            activityLog("birthday found: " + _sl[i].fullName + " " + _sl[i].birthday) + "<br>" + dateAndTime;
         }
     }
 }
@@ -1132,7 +1143,7 @@ function findBday() {
         _sl[_ci].hasBirthday = true;
     }
     if (_sl[_ci].hasBirthday === true && _sl[_ci].birthdayDone === false) {
-        activityLog("birthday found: " + _sl[_ci].fullName + " " + _sl[_ci].birthday,"darkgoldenrod") + "<br>" + dateAndTime;
+        activityLog("birthday found: " + _sl[_ci].fullName + " " + _sl[_ci].birthday) + "<br>" + dateAndTime;
     }
 }
 
@@ -1345,7 +1356,7 @@ function newStudent() {
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     var log = "new student " + first + " " + last + "<br>" + dateAndTime;
-    activityLog(log,"aqua");
+    activityLog(log);
     assignID();
     storeAndBackup();
     clearStudentFields()
@@ -1484,7 +1495,7 @@ function promotion() {
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     var log = _sl[_ci].fullName + " promoted to " + _sl[_ci].rankName + "<br>" + dateAndTime;
-    activityLog(log,"black","lawnGreen");
+    activityLog(log);
     setTimeout(function() {
         pop(["studentPop","missionsPop"],["promoPop"])
     },10);
@@ -1501,7 +1512,7 @@ function demotion() {
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     var log = _sl[_ci].fullName + " demoted to " + _sl[_ci].rankName + "<br>" + dateAndTime;
-    activityLog(log,"black","fireBrick");
+    activityLog(log);
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
     storeAndBackup();
 }
@@ -1597,11 +1608,7 @@ function asPoints(_asNum,x,secondCall) {
         var today = new Date();
         var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
         var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _asNames[_asNum] + " sheet " + "<br>" + "(" + asPts + "-->" + _sl[_ci].as[_asNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")" + "<br>" + dateAndTime;
-        if (asPts < x) {
-            activityLog(log,"lawnGreen");
-        } else {
-            activityLog(log,"red");
-        }
+        activityLog(log);
         document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
         document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
         assignClassRank();
@@ -1671,11 +1678,7 @@ function mvPoints(_mvNum,x) {
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _mvNames[_mvNum] + " verse "  + "<br>" +  "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")" + "<br>" + dateAndTime;;
-    if (mvPts < x) {
-        activityLog(log,"lawnGreen");
-    } else {
-        activityLog(log,"red");
-    }
+    activityLog(log);
     document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
     assignClassRank();
@@ -2078,6 +2081,9 @@ function checkInAtt() {
     var today = new Date();
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
+        var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+        var log = "added attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime;
+        activityLog(log);
         if (_isClassDay === true && today.getHours() < 16) {
             _sl[_ci].amAtt[_elapsedWeeks-1] = 1;
         } else if (_isClassDay === true && today.getHours() >= 16) {
@@ -2113,6 +2119,13 @@ function toggleAtt() {
         }
         document.getElementById("dispName").style.color = "white";
     }
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    if (_sl[_ci].attendance === true) {
+        var log = "added attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime;
+    } else {
+        var log = "removed attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime;
+    }
+    activityLog(log);
     attCount();
     if (_isClassDay === true) { ampmAttendance(); }
     storeNewData();
@@ -2131,6 +2144,13 @@ function toggleAtt2(i) {
     } else {
         loadStudent(i);
     }
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    if (_sl[_ci].attendance === true) {
+        var log = "added attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime;
+    } else {
+        var log = "removed attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime;
+    }
+    activityLog(log);
     document.getElementById("search").value = "";
     document.getElementById("search").focus();
     attCount();
