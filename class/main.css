@@ -882,6 +882,7 @@ a:link, a:visited, a:hover, a:active {
 
 #asReason {
     font-size: 20px;
+    text-align: left;
     margin: 20px auto;
     color: orange;
 }
@@ -942,7 +943,7 @@ a:link, a:visited, a:hover, a:active {
     background-color: #333 !important;
 }
 
-#asCompletionStatus {
+#asCompletionStatus, #mvCompletionStatus {
     font-size: 30px;
 }
 
@@ -957,4 +958,8 @@ a:link, a:visited, a:hover, a:active {
 
 .downloadIcon {
     font-family: Font-90-Icons;
+}
+
+#mvText {
+    text-align: left;
 }

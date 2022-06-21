@@ -1852,7 +1852,7 @@ function asPop(asNum,points) {
         document.getElementById("asCompletionStatus").innerHTML = "COMPLETED";
         document.getElementById("asCompletionStatus").style.backgroundColor = "green";
     } else if (_sl[_ci].as[_asNum] == 0) {
-        document.getElementById("asCompletionStatus").innerHTML = "PARTIAL";
+        document.getElementById("asCompletionStatus").innerHTML = "NOT TURNED IN";
         document.getElementById("asCompletionStatus").style.backgroundColor = "red";
     } else {
         document.getElementById("asCompletionStatus").innerHTML = "PARTIAL CREDIT";
@@ -1863,7 +1863,7 @@ function asPop(asNum,points) {
     } else {
         document.getElementById("asReason").style.display = "none";
     }
-    if (_sl[_ci].as[_asNum] >0) {
+    if (_sl[_ci].as[_asNum] > 0) {
         document.getElementById("scannedImage").style.display = "table-cell";
     } else {
         document.getElementById("scannedImage").style.display = "none";
@@ -1897,6 +1897,23 @@ function mvPop(mvNum,index,points) {
     document.getElementById("missionsPop").style.display = "none";
     document.getElementById("mvPointsPop").style.display = "block";
     _mvNum = mvNum;
+    document.getElementById("mvVerseName").innerHTML = _mvNames[_mvNum].toUpperCase();
+    document.getElementById("mvDateAssigned").innerHTML = _classDates[_mvNum]
+    if (_sl[_ci].mv[_mvNum] == _mvMaxPts[_mvNum]) {
+        document.getElementById("mvCompletionStatus").innerHTML = "COMPLETED";
+        document.getElementById("mvCompletionStatus").style.backgroundColor = "green";
+    } else if (_sl[_ci].mv[_mvNum] == 0) {
+        document.getElementById("mvCompletionStatus").innerHTML = "NOT RECITED";
+        document.getElementById("mvCompletionStatus").style.backgroundColor = "red";
+    } else {
+        document.getElementById("mvCompletionStatus").innerHTML = "PARTIAL CREDIT";
+        document.getElementById("mvCompletionStatus").style.backgroundColor = "orange";
+    }
+    if (_sl[_ci].mvDates[_mvNum] == 0) {
+        document.getElementById("mvDateRecited").innerHTML = "-"
+    } else {
+        document.getElementById("mvDateRecited").innerHTML = convertDateNumber(_sl[_ci].mvDates[_mvNum]);
+    }
     document.getElementById("mvText").innerHTML = _mvText[index];
     for (i = 1; i <= 7; i++) {
         if (document.getElementById("mv"+i+"Points").innerHTML == _sl[_ci].mv[_mvNum]) {
