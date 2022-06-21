@@ -1852,7 +1852,7 @@ function asPop(asNum,points) {
         document.getElementById("asCompletionStatus").innerHTML = "COMPLETED";
         document.getElementById("asCompletionStatus").style.backgroundColor = "green";
     } else if (_sl[_ci].as[_asNum] == 0) {
-        document.getElementById("asCompletionStatus").innerHTML = "INCOMPLETE";
+        document.getElementById("asCompletionStatus").innerHTML = "PARTIAL";
         document.getElementById("asCompletionStatus").style.backgroundColor = "red";
     } else {
         document.getElementById("asCompletionStatus").innerHTML = "PARTIAL CREDIT";

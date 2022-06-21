@@ -855,7 +855,7 @@
       </tr>
 
       <tr>
-        <td colspan="2" class="downloadOrPrint pointer" onclick="asLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>DOWNLOAD</td>
+        <td colspan="2" class="downloadOrPrint pointer" onclick="asLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
       </tr>
 
     </table>
@@ -877,7 +877,35 @@
       <div id="mv6Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,6)">6</div>
       <div id="mv7Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,7)">7</div>
   </div>
-  <p id="mvText" onclick="mvLinks()"></p>
+  <div>
+    <table class="asmvInfoTable">
+
+      <tr>
+        <td class="tableSider">Verse Name</td>
+        <td id="mvVerseName"></td>
+      </tr>
+
+      <tr>
+        <td class="tableSider">Date Assigned</td>
+        <td id="mvDateAssigned"></td>
+      </tr>
+
+      <tr>
+        <td class="tableSider">Date Recited</td>
+        <td id="mvDateRecited"></td>
+      </tr>
+
+      <tr>
+        <td colspan="2" id="mvCompletionStatus"></td>
+      </tr>
+
+      <tr>
+        <td colspan="2" class="downloadOrPrint pointer" onclick="mvLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
+      </tr>
+
+    </table>
+  </div>
+  <!-- <p id="mvText" onclick="mvLinks()"></p> -->
 </div>
 
 <div id="promoPop" class="pop">
