@@ -415,17 +415,6 @@ a:link, a:visited, a:hover, a:active {
     margin: 10px auto;
 }
 
-#mvText {
-    margin-top: 20px;
-    font-size: 25px;
-    background-color: black;
-    border: 2px solid #222;
-    border-radius: 25px;
-    padding: 10px;
-    color: #eee;
-    cursor: pointer;
-}
-
 #longVerse {
     display: none;
 }
