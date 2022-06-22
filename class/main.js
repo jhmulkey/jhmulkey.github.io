@@ -2,8 +2,8 @@ var _sl = []; var _ci;
 var _flag = false;
 var _asNum; var _mvNum;
 var _asPoints;
-var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,6,3,3,3,3,3,3,6,3,3,3,3,3,3,3,0];
-var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,7,3,4,3,3,3,6,4,4,3,4,3,3,3,0];
+var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,6,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
+var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,7,3,4,3,3,3,6,4,4,3,4,3,3,3];
 var _leapYear = false; // Jan-July falls within a leap year
 var _weeksOff = 0;
     function setWeeksOff() {
@@ -37,7 +37,7 @@ var _studentPhotoExists;
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
-var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword","armor-review"];
+var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword"];
 var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8",
 "phil-2-9","phil-2-10-11","rom-8-31-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"];
 var _mvText = [
@@ -222,7 +222,9 @@ function whatToLoad() {
     } else if (localStorage.getItem("sl") && JSON.parse(localStorage.getItem("slBackup"))) {
         pop(["mainPop"],["wtlPop"]);
     } else if (!localStorage.getItem("sl") && JSON.parse(localStorage.getItem("slBackup"))) {
-        loadBackup();
+        var today = new Date();
+        var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+        loadBackup(); activityLog("backup loaded" + "<br>" + dateAndTime);
     }
 }
 
@@ -243,6 +245,9 @@ function loadBackup() {
         }
         _amAtt.push(0); _pmAtt.push(0);
     }
+    var today = new Date();
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    activityLog("backup loaded" + "<br>" + dateAndTime);
     pop(["wtlPop"],["mainPop"]);
 }
 
@@ -259,12 +264,15 @@ function loadLS() {
     assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions();
     removePtBoxes(); populateTeacherNotes(); attCount();
     backupNewData();
+    var today = new Date();
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    activityLog("localstorage loaded" + "<br>" + dateAndTime);
     pop(["wtlPop"],["mainPop"]);
 }
 
 function assignCheckedStates() {
     var todaysDateNumber = assignTodaysDateNumber();
-    for (i = 1; i < _dateNumbers.length; i++) {
+    for (i = 1; i < _dateNumbers.length - 1; i++) {
         if (todaysDateNumber >= _dateNumbers[i]) {
             _checkedState[i-1] = 1;
         }
