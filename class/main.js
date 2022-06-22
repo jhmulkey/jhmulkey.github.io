@@ -1129,7 +1129,6 @@ function findAllBday() {
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[i].hasBirthday === false && _sl[i].birthdayDone === false) {
             _sl[i].hasBirthday = true;
-            activityLog("birthday found: " + _sl[i].fullName + " " + _sl[i].birthday) + "<br>" + dateAndTime;
         }
     }
 }
@@ -1143,7 +1142,6 @@ function findBday() {
         _sl[_ci].hasBirthday = true;
     }
     if (_sl[_ci].hasBirthday === true && _sl[_ci].birthdayDone === false) {
-        activityLog("birthday found: " + _sl[_ci].fullName + " " + _sl[_ci].birthday) + "<br>" + dateAndTime;
     }
 }
 
@@ -1185,11 +1183,6 @@ function shuffleArray(array) {
         array[i] = array[j];
         array[j] = temp;
     }
-}
-
-function loadTodaysDate() {
-    document.getElementById("todaysDate").style.fontSize = "15px";
-    document.getElementById("todaysDate").innerHTML = Date();
 }
 
 function activityLog(log,color,background) {
@@ -1812,9 +1805,6 @@ function pop(closeArray,openArray) {
     }
     if (openArray.includes("addTeacherNotePop")) {
         document.getElementById("addTeacherNote").focus();
-    }
-    if (openArray.includes("logPop")) {
-        loadTodaysDate()
     }
     if (openArray.includes("teamsListPop")) {
         document.getElementById("teamsListNav").style.display = "flex";

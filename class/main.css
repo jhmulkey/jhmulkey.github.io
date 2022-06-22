@@ -657,10 +657,6 @@ a:link, a:visited, a:hover, a:active {
     cursor: pointer;
 }
 
-#todaysDate {
-    font-size: 12px !important;
-}
-
 #enterReasonTextField, #addNote, #editNote, #addTeacherNote, #editTeacherNote {
     width: 375px;
     height: 150px;

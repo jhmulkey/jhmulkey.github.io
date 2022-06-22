@@ -242,10 +242,8 @@
 <div id="logPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['logPop'],['mainPop'])"><span>f</span></div>
-    <div class="textNavigationButton" onclick="window.print()">Print</div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
-  <p id="todaysDate"></p>
   <input id="searchLog" type="text" placeholder="search log" oninput="searchLog()"/>
   <div id="log" onclick="selectText('log')"></div>
 </div>
@@ -253,10 +251,9 @@
 <div id="gameLogPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['gameLogPop'],['playGamePop'])"><span>f</span></div>
-    <div class="textNavigationButton" onclick="window.print()">Print</div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
-  <div id="gameLog"></div>
+  <div id="gameLog" onclick="selectText('gameLog')"></div>
 </div>
 
 <div id="studentPop" class="pop">
