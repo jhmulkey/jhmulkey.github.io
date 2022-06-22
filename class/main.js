@@ -1132,8 +1132,6 @@ function notesAlert() {
 function findAllBday() {
     var todaysDateNumber = assignTodaysDateNumber();
     setWeeksOff();
-    var today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[i].hasBirthday === false && _sl[i].birthdayDone === false) {
             _sl[i].hasBirthday = true;
@@ -1144,8 +1142,6 @@ function findAllBday() {
 function findBday() {
     var todaysDateNumber = assignTodaysDateNumber();
     setWeeksOff();
-    var today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[_ci].hasBirthday === false && _sl[_ci].birthdayDone === false) {
         _sl[_ci].hasBirthday = true;
     }
@@ -2914,4 +2910,10 @@ function allEmailsOnFile() {
             _sl[i].email = "on file"; storeAndBackup();
         }
       } 
+}
+
+function batchEditSL(property,value) {
+    for (i = 0; i < _sl.length; i++) {
+        _sl[property] = value;
+    }
 }
