@@ -294,8 +294,8 @@ function isClassDay() {
 }
 
 function setElapsedWeeks() {
-    //_elapsedWeeks = 33
-    var todaysDateNumber = assignTodaysDateNumber();
+    _elapsedWeeks = 33
+/*     var todaysDateNumber = assignTodaysDateNumber();
     for (i = 0; i < _dateNumbers.length; i++) {
         if (todaysDateNumber == _dateNumbers[i]) {
             _elapsedWeeks = i + 1; break;
@@ -303,12 +303,12 @@ function setElapsedWeeks() {
         if (todaysDateNumber < _dateNumbers[i]) {
             _elapsedWeeks = i; break;
         }
-    }
+    } */
 }
 
 function assignTodaysDateNumber() {
-    return 295;
-/*     var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
+    //return 295;
+    var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var dateNumber;
@@ -317,7 +317,7 @@ function assignTodaysDateNumber() {
     } else {
         dateNumber = cumulative[todaysMonth] + todaysDate;
     }
-    return dateNumber; */
+    return dateNumber;
 }
 
 function teams() {
@@ -1141,7 +1141,7 @@ function findAllBday() {
     setWeeksOff();
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[i].hasBirthday === false && _sl[i].birthdayDone === false) {
-            _sl[i].hasBirthday = true;
+            _sl[i].hasBirthday = true; storeAndBackup();
         }
     }
 }
@@ -1150,10 +1150,7 @@ function findBday() {
     var todaysDateNumber = assignTodaysDateNumber();
     setWeeksOff();
     if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[_ci].hasBirthday === false && _sl[_ci].birthdayDone === false) {
-        _sl[_ci].hasBirthday = true;
-    }
-    if (_sl[_ci].hasBirthday === true && _sl[_ci].birthdayDone === false) {
-
+        _sl[_ci].hasBirthday = true; storeAndBackup();
     }
 }
 
