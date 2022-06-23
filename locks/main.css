@@ -1,0 +1,54 @@
+@font-face {
+    font-family: Tahoma;
+    src: url(../fonts/Tahoma.ttf);
+}
+
+* {
+    box-sizing: border-box;
+    /* border: 1px solid green; */
+};
+
+html {
+    background-color: #111;
+}
+
+body {
+    padding-top: 30px;
+    margin: 0px;
+    font-family: Tahoma, serif;
+    font-size: 30px;
+    color: white;
+    background-color: #111;
+}
+
+input, textarea {
+    font-size: 20px;
+}
+
+div {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: white;
+}
+
+::placeholder {
+    font-size: 20px;
+    color: #aaa
+}
+
+*::-webkit-scrollbar { width: 0 !important }
+
+.textInputField {
+    height: 50px;
+    width: 200px;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    font-size: 25px;
+    font-family: Tahoma;
+    text-align: center;
+}
