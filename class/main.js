@@ -31,7 +31,7 @@ var _checkedState = [];
 var _amAtt = []; var _pmAtt = [];
 var _elapsedWeeks;
 var _classDates = ["8/22", "8/29", "9/12", "9/19", "9/26", "10/3", "10/10", "10/17", "10/24", "10/31", "11/7", "11/14", "12/5", "12/12", "12/19", "1/9", "1/23", "1/30", "2/6", "2/13", "2/20", "2/27", "3/6", "3/13", "3/20", "3/27", "4/3", "4/10", "4/24", "5/1", "5/8", "5/15", "5/22"];
-var _dateNumbers = [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 176, 183, 190, 197, 204, 211, 218, 225, 232, 239, 246, 253, 267, 274, 281, 288, 295]
+var _dateNumbers = [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 176, 183, 190, 197, 204, 211, 218, 225, 232, 239, 246, 253, 267, 274, 281, 288, 295];
 var _isClassDay;
 var _studentPhotoExists;
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
@@ -248,6 +248,7 @@ function loadBackup() {
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     activityLog("backup loaded" + "<br>" + dateAndTime);
+    backupNewData();
     pop(["wtlPop"],["mainPop"]);
 }
 
@@ -263,10 +264,10 @@ function loadLS() {
     _teams = JSON.parse(localStorage.getItem("teams"));
     assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions();
     removePtBoxes(); populateTeacherNotes(); attCount();
-    backupNewData();
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     activityLog("localstorage loaded" + "<br>" + dateAndTime);
+    backupNewData();
     pop(["wtlPop"],["mainPop"]);
 }
 
@@ -283,7 +284,9 @@ function isClassDay() {
     var todaysDateNumber = assignTodaysDateNumber();
     for (i = 1; i < _dateNumbers.length; i++) {
         if (todaysDateNumber == _dateNumbers[i]) {
-            _isClassDay = true; break;
+            _isClassDay = true; 
+            document.getElementById("nameList").style.borderColor = "#3478F6";
+            break;
         } else {
             _isClassDay = false;
         }
@@ -291,13 +294,30 @@ function isClassDay() {
 }
 
 function setElapsedWeeks() {
-    _elapsedWeeks = 33
-    /*var todaysDateNumber = assignTodaysDateNumber();
-    for (i = 1; i < _dateNumbers.length; i++) {
+    //_elapsedWeeks = 33
+    var todaysDateNumber = assignTodaysDateNumber();
+    for (i = 0; i < _dateNumbers.length; i++) {
+        if (todaysDateNumber == _dateNumbers[i]) {
+            _elapsedWeeks = i + 1; break;
+        }
         if (todaysDateNumber < _dateNumbers[i]) {
             _elapsedWeeks = i; break;
         }
-    }*/
+    }
+}
+
+function assignTodaysDateNumber() {
+    return 295;
+/*     var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
+    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
+    var dateNumber;
+    if (_leapYear === true) {
+        dateNumber = cumulativeLeap[todaysMonth] + todaysDate;
+    } else {
+        dateNumber = cumulative[todaysMonth] + todaysDate;
+    }
+    return dateNumber; */
 }
 
 function teams() {
@@ -619,19 +639,6 @@ function assignID() {
     for (i = 0; i < _sl.length; i++) {
         _sl[i].id = i+1;
     }
-}
-
-function assignTodaysDateNumber() {
-    var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
-    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
-    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
-    var dateNumber;
-    if (_leapYear === true) {
-        dateNumber = cumulativeLeap[todaysMonth] + todaysDate;
-    } else {
-        dateNumber = cumulative[todaysMonth] + todaysDate;
-    }
-    return dateNumber;
 }
 
 function setPoints(parameter,data,reason) {
@@ -1146,6 +1153,7 @@ function findBday() {
         _sl[_ci].hasBirthday = true;
     }
     if (_sl[_ci].hasBirthday === true && _sl[_ci].birthdayDone === false) {
+
     }
 }
 
@@ -1552,17 +1560,18 @@ function asPoints(_asNum,x,secondCall) {
         var totalPts = _sl[_ci].points;
         var asPts = _sl[_ci].as[_asNum];
         var netPts = x - _sl[_ci].as[_asNum];
+        var promotionStatus = 0;
         if (_sl[_ci].rank != 8 && _sl[_ci].rank != 14 && _sl[_ci].rank != 18) {
             if (asPts == 0 || asPts < x) {
                 if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 200) {
-                    promotion();
+                    promotionStatus = 1;
                 }
                 _sl[_ci].points += netPts;
                 _sl[_ci].as[_asNum] = x;
             }
             if (asPts > x) {
                 if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
-                    demotion();
+                    promotionStatus = -1;
                 }
                 _sl[_ci].points += netPts;
                 _sl[_ci].as[_asNum] = x;
@@ -1570,7 +1579,7 @@ function asPoints(_asNum,x,secondCall) {
             if (asPts == x) {
                 _sl[_ci].asDates[_asNum] = 0;
                 if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
-                    demotion();
+                    promotionStatus = -1;
                 }
                 _sl[_ci].points -= x; netPts = -x;
                 _sl[_ci].as[_asNum] = 0;
@@ -1579,14 +1588,14 @@ function asPoints(_asNum,x,secondCall) {
         } else if (_sl[_ci].rank == 8 || _sl[_ci].rank == 14 || _sl[_ci].rank == 18) {
             if (asPts == 0 || asPts < x) {
                 if ((totalPts - ((rankNum + rankFactor) * 10)) + x >= 20) {
-                    promotion();
+                    promotionStatus = 1;
                 }
                 _sl[_ci].points += netPts;
                 _sl[_ci].as[_asNum] = x;
             }
             if (asPts > x) {
                 if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
-                    demotion();
+                    promotionStatus = -1;
                 }
                 _sl[_ci].points += netPts;
                 _sl[_ci].as[_asNum] = x;
@@ -1594,7 +1603,7 @@ function asPoints(_asNum,x,secondCall) {
             if (asPts == x) {
                 _sl[_ci].asDates[_asNum] = 0;
                 if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
-                    demotion();
+                    promotionStatus = -1;
                 }
                 _sl[_ci].points -= x;; netPts = -x;
                 _sl[_ci].as[_asNum] = 0;
@@ -1606,6 +1615,11 @@ function asPoints(_asNum,x,secondCall) {
         var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
         var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _asNames[_asNum] + " sheet " + "<br>" + "(" + asPts + "-->" + _sl[_ci].as[_asNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")" + "<br>" + dateAndTime;
         activityLog(log);
+        if (promotionStatus > 0) {
+            promotion();
+        } else if (promotionStatus < 0) {
+            demotion();
+        }
         document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
         document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
         assignClassRank();
@@ -1624,17 +1638,18 @@ function mvPoints(_mvNum,x) {
     var totalPts = _sl[_ci].points;
     var mvPts = _sl[_ci].mv[_mvNum];
     var netPts = x - _sl[_ci].mv[_mvNum];
+    var promotionStatus = 0;
     if (_sl[_ci].rank != 8 && _sl[_ci].rank != 14 && _sl[_ci].rank != 18) {
         if (mvPts == 0 || mvPts < x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 220) {
-                promotion();
+                promotionStatus = 1;
             }
             _sl[_ci].points += netPts;
             _sl[_ci].mv[_mvNum] = x;
         }
         if (mvPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
-                demotion();
+                promotionStatus = -1;
             }
             _sl[_ci].points += netPts;
             _sl[_ci].mv[_mvNum] = x;
@@ -1642,7 +1657,7 @@ function mvPoints(_mvNum,x) {
         if (mvPts == x) {
             _sl[_ci].mvDates[_mvNum] = 0;
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
-                demotion();
+                promotionStatus = -1;
             }
             _sl[_ci].points -= x; netPts = -x;
             _sl[_ci].mv[_mvNum] = 0;
@@ -1650,14 +1665,14 @@ function mvPoints(_mvNum,x) {
     } else if (_sl[_ci].rank == 8 || _sl[_ci].rank == 14 || _sl[_ci].rank == 18) {
         if (mvPts == 0 || mvPts < x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + x >= 20) {
-                promotion();
+                promotionStatus = 1;
             }
             _sl[_ci].points += netPts;
             _sl[_ci].mv[_mvNum] = x;
         }
         if (mvPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
-                demotion();
+                promotionStatus = -1;
             }
             _sl[_ci].points += netPts;
             _sl[_ci].mv[_mvNum] = x;
@@ -1665,7 +1680,7 @@ function mvPoints(_mvNum,x) {
         if (mvPts == x) {
             _sl[_ci].mvDates[_mvNum] = 0;
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
-                demotion();
+                promotionStatus = -1;
             }
             _sl[_ci].points -= x; netPts = -x;
             _sl[_ci].mv[_mvNum] = 0;
@@ -1676,6 +1691,11 @@ function mvPoints(_mvNum,x) {
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _mvNames[_mvNum] + " verse "  + "<br>" +  "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")" + "<br>" + dateAndTime;;
     activityLog(log);
+    if (promotionStatus > 0) {
+        promotion();
+    } else if (promotionStatus < 0) {
+        demotion();
+    }
     document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
     assignClassRank();
@@ -2481,6 +2501,7 @@ function loadStudentData() {
     document.getElementById("asReasons").innerHTML = JSON.stringify(_sl[_ci].asReasons);
     document.getElementById("as").innerHTML = JSON.stringify(_sl[_ci].as);
     document.getElementById("mv").innerHTML = JSON.stringify(_sl[_ci].mv);
+    pop(["studentPop","missionsPop"],["dataPop"]);
 }
 
 function loadStudentStats() {
@@ -2491,10 +2512,12 @@ function loadStudentStats() {
     var totalMVpts = 0;
     var earnedMVpts = 0;
     for (i = 0; i < (_elapsedWeeks-1); i++) {
+        if (i > 30) { break; };
         totalASpts += _asMaxPts[i];
         totalMVpts += _mvMaxPts[i];
     }
     for (i = 0; i < (_elapsedWeeks-1); i++) {
+        if (i > 30) { break; };
         earnedASpts += Object.values(_sl[_ci].as)[i];
         earnedMVpts += Object.values(_sl[_ci].mv)[i];
     }
@@ -2818,7 +2841,7 @@ function loadStudentAttStats() {
     for (i = _elapsedWeeks; i < 34; i++) {
         document.getElementById("studentAttRow"+i).style.display = "none";
     }
-    pop(["studentPop","missionsPop","asPointsPop","mvPointsPop"],["studentAttStatsPop"]);
+    pop(["studentStatsPop"],["studentAttStatsPop"]);
 }
 
 whatToLoad()
@@ -2914,6 +2937,37 @@ function allEmailsOnFile() {
 
 function batchEditSL(property,value) {
     for (i = 0; i < _sl.length; i++) {
-        _sl[property] = value;
+        _sl[i][property] = value; storeAndBackup();
     }
+}
+
+function batchPrintSL(property) {
+    for (i = 0; i < _sl.length; i++) {
+        console.log(_sl[i].fullName + " " + _sl[i][property]);
+    }
+}
+
+function batchFilterSL(property,value) {
+    var count = 0;
+    for (i = 0; i < _sl.length; i++) {
+        if(_sl[i][property] == value) {
+            console.log(_sl[i].fullName); count++;
+        } 
+    }
+    if (count == 0) { 
+        console.log("no results");
+    } else { 
+        console.log("(TOTAL MATCHES: " + count + ")");
+    }
+}
+
+function displayStudentProperties(fullName) {
+    var count = 0;
+    for (i = 0; i < _sl.length; i++) {
+        if(_sl[i]["fullName"] == fullName) {
+            console.log(_sl[i]); count++;
+            break;
+        } 
+    }
+    if (count == 0) { console.log("no results"); }
 }

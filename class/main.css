@@ -769,7 +769,8 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .progressBarTable td {
-    height: 9.5px;
+    /* height: 9.5px; */
+    height: 19px;
     width: 9.5px;
 }
 
@@ -850,7 +851,7 @@ a:link, a:visited, a:hover, a:active {
     margin-bottom: 5px;
 }
 
-#rankProgressTableDiv { 
+#rankProgressTableDiv, #attProgressTableDiv { 
     cursor: pointer;
 }
 

@@ -258,7 +258,7 @@
 <div id="studentPop" class="pop">
     <div class="navigationButtonContainer">
       <div class="backButton" onclick="goHome()"><span>f</span></div>
-      <div class="secretButton" onclick="pop(['studentPop','missionsPop'],['dataPop']); loadStudentData()"></div>
+      <div class="secretButton"></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
     <span id="dispRankName"></span> <span id="dispPts"></span><br>
@@ -269,7 +269,7 @@
         <div class="studentPopButtons" onclick="populateStudentFields(); loadStudentPhoto()">edit info</div>
         <div class="studentPopButtons" id="notesButton" onclick="pop(['studentPop','missionsPop','asPointsPop','mvPointsPop'],['notesPop','notesList']); populateNotes(['studentPop','missionsPop'])">notes</div>
         <div class="studentPopButtons" id="photoButton" onclick="togglePhoto()">photo</div>
-        <div class="studentPopButtons" onclick="loadStudentAttStats()">attendance</div>
+        <div class="studentPopButtons" onclick="loadStudentData()">properties</div>
         <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields('editEmail')">email</div>
     </div>
 </div>
@@ -470,51 +470,53 @@
         <td id="mvProgressBar40"></td>
       </tr>
     </table>
-    <p id="attProgressTableP"></p>
-    <table id="attProgressTable" class="progressBarTable">
-      <tr>
-        <td id="attProgressBar1"></td>
-        <td id="attProgressBar2"></td>
-        <td id="attProgressBar3"></td>
-        <td id="attProgressBar4"></td>
-        <td id="attProgressBar5"></td>
-        <td id="attProgressBar6"></td>
-        <td id="attProgressBar7"></td>
-        <td id="attProgressBar8"></td>
-        <td id="attProgressBar9"></td>
-        <td id="attProgressBar10"></td>
-        <td id="attProgressBar11"></td>
-        <td id="attProgressBar12"></td>
-        <td id="attProgressBar13"></td>
-        <td id="attProgressBar14"></td>
-        <td id="attProgressBar15"></td>
-        <td id="attProgressBar16"></td>
-        <td id="attProgressBar17"></td>
-        <td id="attProgressBar18"></td>
-        <td id="attProgressBar19"></td>
-        <td id="attProgressBar20"></td>
-        <td id="attProgressBar21"></td>
-        <td id="attProgressBar22"></td>
-        <td id="attProgressBar23"></td>
-        <td id="attProgressBar24"></td>
-        <td id="attProgressBar25"></td>
-        <td id="attProgressBar26"></td>
-        <td id="attProgressBar27"></td>
-        <td id="attProgressBar28"></td>
-        <td id="attProgressBar29"></td>
-        <td id="attProgressBar30"></td>
-        <td id="attProgressBar31"></td>
-        <td id="attProgressBar32"></td>
-        <td id="attProgressBar33"></td>
-        <td id="attProgressBar34"></td>
-        <td id="attProgressBar35"></td>
-        <td id="attProgressBar36"></td>
-        <td id="attProgressBar37"></td>
-        <td id="attProgressBar38"></td>
-        <td id="attProgressBar39"></td>
-        <td id="attProgressBar40"></td>
-      </tr>
-    </table>
+    <div id="attProgressTableDiv" onclick="loadStudentAttStats()">
+      <p id="attProgressTableP"></p>
+      <table id="attProgressTable" class="progressBarTable">
+        <tr>
+          <td id="attProgressBar1"></td>
+          <td id="attProgressBar2"></td>
+          <td id="attProgressBar3"></td>
+          <td id="attProgressBar4"></td>
+          <td id="attProgressBar5"></td>
+          <td id="attProgressBar6"></td>
+          <td id="attProgressBar7"></td>
+          <td id="attProgressBar8"></td>
+          <td id="attProgressBar9"></td>
+          <td id="attProgressBar10"></td>
+          <td id="attProgressBar11"></td>
+          <td id="attProgressBar12"></td>
+          <td id="attProgressBar13"></td>
+          <td id="attProgressBar14"></td>
+          <td id="attProgressBar15"></td>
+          <td id="attProgressBar16"></td>
+          <td id="attProgressBar17"></td>
+          <td id="attProgressBar18"></td>
+          <td id="attProgressBar19"></td>
+          <td id="attProgressBar20"></td>
+          <td id="attProgressBar21"></td>
+          <td id="attProgressBar22"></td>
+          <td id="attProgressBar23"></td>
+          <td id="attProgressBar24"></td>
+          <td id="attProgressBar25"></td>
+          <td id="attProgressBar26"></td>
+          <td id="attProgressBar27"></td>
+          <td id="attProgressBar28"></td>
+          <td id="attProgressBar29"></td>
+          <td id="attProgressBar30"></td>
+          <td id="attProgressBar31"></td>
+          <td id="attProgressBar32"></td>
+          <td id="attProgressBar33"></td>
+          <td id="attProgressBar34"></td>
+          <td id="attProgressBar35"></td>
+          <td id="attProgressBar36"></td>
+          <td id="attProgressBar37"></td>
+          <td id="attProgressBar38"></td>
+          <td id="attProgressBar39"></td>
+          <td id="attProgressBar40"></td>
+        </tr>
+      </table>
+    </div>
     <p id="totalParticipationTableP"></p>
     <table id="totalParticipationTable" class="progressBarTable">
       <tr>
@@ -1460,7 +1462,7 @@
 
 <div id="studentAttStatsPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['studentAttStatsPop'],['studentPop','missionsPop'])"><span>f</span></div>
+    <div class="backButton" onclick="pop(['studentAttStatsPop'],['studentStatsPop'])"><span>f</span></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="studentAttTableDiv">
