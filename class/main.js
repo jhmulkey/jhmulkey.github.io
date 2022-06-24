@@ -1431,19 +1431,15 @@ function editStudent() {
 }
 
 function refreshStudentPop() {
-    if (_sl[_ci].attendance === true && _sl[_ci].promoted === false) {
+    if (_sl[_ci].attendance === true) {
         document.getElementById("dispName").style.color = "lawngreen";
-    } else if (_sl[_ci].attendance === true && _sl[_ci].promoted === true) {
-        document.getElementById("dispName").style.color = "yellow";
     } else {
         document.getElementById("dispName").style.color = "white";
     }
-    if (_sl[_ci].hasBirthday === true) {
-        document.getElementById("dispBday").style.backgroundColor = "darkgoldenrod";
-    } else if (_sl[_ci].hasBirthday === false && _sl[_ci].birthdayMonth != 0 && _sl[_ci].birthdayDate != 0) {
-        document.getElementById("dispBday").style.backgroundColor = "#111";
-    } else {
+    if (_sl[_ci].birthdayMonth == 0 || _sl[_ci].birthdayDate == 0) {
         document.getElementById("dispBday").style.backgroundColor = "fireBrick";
+    } else {
+        document.getElementById("dispBday").style.backgroundColor = "#111";
     }
     if (_sl[_ci].photo === false) {
         document.getElementById("photoButton").style.background = "fireBrick";
@@ -1755,7 +1751,7 @@ function loadStudent(index) {
         } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
             document.getElementById("as"+i+"Pop").style.background = "darkorange";
         } else {
-            document.getElementById("as"+i+"Pop").style.background = "firebrick";
+            document.getElementById("as"+i+"Pop").style.background = "black";
         }
     }
     for (i = 0; i < _mvMaxPts.length; i++) {
@@ -1764,7 +1760,7 @@ function loadStudent(index) {
         } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
             document.getElementById("mv"+i+"Pop").style.background = "darkorange";
         } else {
-            document.getElementById("mv"+i+"Pop").style.background = "firebrick";
+            document.getElementById("mv"+i+"Pop").style.background = "black";
         }
     }
 }
@@ -2956,6 +2952,27 @@ function batchFilterSL(property,value) {
     } else { 
         console.log("(TOTAL MATCHES: " + count + ")");
     }
+}
+
+function batchFilterSL(property,value) {
+    var count = 0;
+    for (i = 0; i < _sl.length; i++) {
+        if(_sl[i][property] == value) {
+            console.log(_sl[i].fullName); count++;
+        } 
+    }
+    if (count == 0) { 
+        console.log("no results");
+    } else { 
+        console.log(count + " MATCHES / " + (_sl.length - count) + " NON-MATCHES");
+        //console.log(count + " MATCHES" + "/" + _sl.length - count + " NON-MATCHES");
+    }
+}
+
+function batchDisplaySL(property) {
+    for (i = 0; i < _sl.length; i++) {
+        console.log(_sl[i].fullName + ": " + _sl[i][property]);
+    } 
 }
 
 function displayStudentProperties(fullName) {

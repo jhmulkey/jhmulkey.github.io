@@ -247,46 +247,14 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 0px;
 }
 
-.asButton, .asButton2, .asButton3, .mvButton3, .mvButton4 {
-    height: 150px;
+.asButton, .mvButton {
+    height: 50px;
     width: 150px;
+    font-size: 15px;
     border: 1px solid white;
-    border-radius: 25px;
+    border-radius: 10px;
     cursor: pointer;
     display: none;
-}
-
-.asButton, .asButton2, .asButton3, .mvButton3, .mvButton4 {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.asButton, .asButton2, .asButton3 {
-    font-size: 30px;
-}
-
-.mvButton3, .mvButton4 {
-    font-size: 25px;
-}
-
-.asButton {
-    padding-top: 50px;
-}
-
-.asButton2 {
-    padding-top: 35px;
-}
-
-.asButton3 {
-    padding-top: 18px;
-}
-
-.mvButton3 {
-    padding-top: 26px;
-}
-
-.mvButton4 {
-    padding-top: 13px;
 }
 
 .pointButtonContainer {
