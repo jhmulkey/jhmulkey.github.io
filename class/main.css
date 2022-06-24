@@ -257,6 +257,14 @@ a:link, a:visited, a:hover, a:active {
     display: none;
 }
 
+.asButton {
+    padding-top: 15px;
+}
+
+.mvButton {
+    padding-top: 5px;
+}
+
 .pointButtonContainer {
     display: flex;
     flex-wrap: nowrap;
@@ -847,7 +855,7 @@ a:link, a:visited, a:hover, a:active {
 
 #asReason {
     font-size: 20px;
-    text-align: leftr;
+    text-align: left;
     margin: 20px auto;
     color: orange;
 }
@@ -901,15 +909,11 @@ a:link, a:visited, a:hover, a:active {
 .asmvInfoTable td {
     padding: 5px;
     width: 50%;
-    height: 65px;
+    height: 50px;
 }
 
 .tableSider {
     background-color: #333 !important;
-}
-
-#asCompletionStatus, #mvCompletionStatus {
-    font-size: 30px;
 }
 
 .downloadOrPrint, #scannedImage {

@@ -99,12 +99,12 @@ var _mvText = [
 
 class Student {
     constructor(first,last,month,date,email,gender,note) {
-        this.dateAdded = assignTodaysDateNumber();
-        this.id;
         this.firstName = first;
         this.lastName = last;
         this.fullName = first + " " + last;
         this.gender = gender;
+        this.dateAdded = assignTodaysDateNumber();
+        this.id;
         this.birthdayMonth = month;
         this.birthdayDate = date;
         this.birthdayNumber;
@@ -248,7 +248,7 @@ function loadBackup() {
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     activityLog("backup loaded" + "<br>" + dateAndTime);
-    backupNewData();
+    storeAndBackup();
     pop(["wtlPop"],["mainPop"]);
 }
 
@@ -1141,7 +1141,7 @@ function findAllBday() {
     setWeeksOff();
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[i].hasBirthday === false && _sl[i].birthdayDone === false) {
-            _sl[i].hasBirthday = true; storeAndBackup();
+            _sl[i].hasBirthday = true;
         }
     }
 }
@@ -1150,7 +1150,7 @@ function findBday() {
     var todaysDateNumber = assignTodaysDateNumber();
     setWeeksOff();
     if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[_ci].hasBirthday === false && _sl[_ci].birthdayDone === false) {
-        _sl[_ci].hasBirthday = true; storeAndBackup();
+        _sl[_ci].hasBirthday = true;
     }
 }
 
@@ -1863,7 +1863,7 @@ function asPop(asNum,points) {
         document.getElementById("asCompletionStatus").style.backgroundColor = "green";
     } else if (_sl[_ci].as[_asNum] == 0) {
         document.getElementById("asCompletionStatus").innerHTML = "NOT TURNED IN";
-        document.getElementById("asCompletionStatus").style.backgroundColor = "red";
+        document.getElementById("asCompletionStatus").style.backgroundColor = "fireBrick";
     } else {
         document.getElementById("asCompletionStatus").innerHTML = "PARTIAL CREDIT";
         document.getElementById("asCompletionStatus").style.backgroundColor = "orange";
@@ -1914,7 +1914,7 @@ function mvPop(mvNum,index,points) {
         document.getElementById("mvCompletionStatus").style.backgroundColor = "green";
     } else if (_sl[_ci].mv[_mvNum] == 0) {
         document.getElementById("mvCompletionStatus").innerHTML = "NOT RECITED";
-        document.getElementById("mvCompletionStatus").style.backgroundColor = "red";
+        document.getElementById("mvCompletionStatus").style.backgroundColor = "fireBrick";
     } else {
         document.getElementById("mvCompletionStatus").innerHTML = "PARTIAL CREDIT";
         document.getElementById("mvCompletionStatus").style.backgroundColor = "orange";
@@ -2236,7 +2236,7 @@ function random() {
     }
     if (_eligibleRandom.length == 0) {
         setRandomFalse();
-        document.getElementById("randomName").style.color = "red";
+        document.getElementById("randomName").style.color = "fireBrick";
         document.getElementById("randomName").innerHTML = "all names picked";
         return;
     }
@@ -2492,6 +2492,8 @@ function loadStudentData() {
     document.getElementById("drawing").innerHTML = _sl[_ci].drawing;
     document.getElementById("random").innerHTML = _sl[_ci].random;
     document.getElementById("asReasons").innerHTML = JSON.stringify(_sl[_ci].asReasons);
+    document.getElementById("asDates").innerHTML = JSON.stringify(_sl[_ci].asDates);
+    document.getElementById("mvDates").innerHTML = JSON.stringify(_sl[_ci].mvDates);
     document.getElementById("as").innerHTML = JSON.stringify(_sl[_ci].as);
     document.getElementById("mv").innerHTML = JSON.stringify(_sl[_ci].mv);
     pop(["studentPop","missionsPop"],["dataPop"]);

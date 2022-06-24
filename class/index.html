@@ -823,38 +823,31 @@
   </div>
   <div>
     <table class="asmvInfoTable">
-
       <tr>
         <td class="tableSider">Sheet Name</td>
         <td id="asSheetName"></td>
       </tr>
-
       <tr>
         <td class="tableSider">Date Assigned</td>
         <td id="asDateAssigned"></td>
       </tr>
-
       <tr>
         <td class="tableSider">Date Turned In</td>
         <td id="asDateTurnedIn"></td>
       </tr>
-
       <tr>
-        <td colspan="2" id="asCompletionStatus"></td>
+        <td class="tableSider">Status</td>
+        <td id="asCompletionStatus"></td>
       </tr>
-
       <tr>
         <td colspan="2" id="asReason"></td>
       </tr>
-
       <tr>
         <td colspan="2" id="scannedImage" class="pointer" onclick="scanLinks()"><span id="scanIcon">C &nbsp;&nbsp;&nbsp;</span>VIEW SCAN</td>
       </tr>
-
       <tr>
         <td colspan="2" class="downloadOrPrint pointer" onclick="asLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
       </tr>
-
     </table>
   </div>
 </div>
@@ -876,34 +869,28 @@
   </div>
   <div>
     <table class="asmvInfoTable">
-
       <tr>
         <td class="tableSider">Verse Name</td>
         <td id="mvVerseName"></td>
       </tr>
-
       <tr>
         <td class="tableSider">Date Assigned</td>
         <td id="mvDateAssigned"></td>
       </tr>
-
       <tr>
         <td class="tableSider">Date Recited</td>
         <td id="mvDateRecited"></td>
       </tr>
-
       <tr>
-        <td colspan="2" id="mvCompletionStatus"></td>
+        <td class="tableSider">Status</td>
+        <td id="mvCompletionStatus"></td>
       </tr>
-
       <tr>
         <td colspan="2" id="mvText"></td>
       </tr>
-
       <tr>
         <td colspan="2" class="downloadOrPrint pointer" onclick="mvLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
       </tr>
-
     </table>
   </div>
 </div>
@@ -1004,12 +991,12 @@
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="studentData">
-    <p>dateAdded: <span id="dateAdded" style="color:white"></span></p>
-    <p>id: <span id="studentID" style="color:white"></span></p>
     <p>firstName: <span id="firstName" style="color:white"></span></p>
     <p>lastName: <span id="lastName" style="color:white"></span></p>
     <p>fullName: <span id="fullName" style="color:white"></span></p>
     <p>gender: <span id="gender" style="color:white"></span></p>
+    <p>dateAdded: <span id="dateAdded" style="color:white"></span></p>
+    <p>id: <span id="studentID" style="color:white"></span></p>
     <p>birthdayMonth: <span id="birthdayMonth" style="color:white"></span></p>
     <p>birthdayDate: <span id="birthdayDate" style="color:white"></span></p>
     <p>birthdayNumber: <span id="birthdayNumber" style="color:white"></span></p>
@@ -1032,6 +1019,8 @@
     <p>drawing: <span id="drawing" style="color:white"></span></p>
     <p>random: <span id="random" style="color:white"></span></p>
     <p>asReasons: <span id="asReasons" style="color:white"></span></p>
+    <p>asDates: <span id="asDates" style="color:white"></span></p>
+    <p>mvDates: <span id="mvDates" style="color:white"></span></p>
     <p>as: <span id="as" style="color:white"></span></p>
     <p>mv: <span id="mv" style="color:white"></span></p>
   </div>
