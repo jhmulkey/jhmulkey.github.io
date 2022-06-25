@@ -16,6 +16,7 @@ var _weeksOff = 0;
             _weeksOff = 0;
         }
     }
+var _birthdayList = []; var _promotionList = [];
 var _noteIndex;
 var _teacherNotes = [];
 var _teacherNoteIndex;
@@ -23,7 +24,7 @@ var _log = ""; var _gameLog = "";
 var _currentPops; var _currentPops2; var _sharedPop;
 var _populateNotesID = [];
 var _focus;
-var _currentFunction;
+var _currentFunction; var _currentParameter;
 var _eligibleRandom;
 var _teams = [];
 var _dataInputParameter;
@@ -222,9 +223,7 @@ function whatToLoad() {
     } else if (localStorage.getItem("sl") && JSON.parse(localStorage.getItem("slBackup"))) {
         pop(["mainPop"],["wtlPop"]);
     } else if (!localStorage.getItem("sl") && JSON.parse(localStorage.getItem("slBackup"))) {
-        var today = new Date();
-        var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-        loadBackup(); activityLog("backup loaded" + "<br>" + dateAndTime);
+        loadBackup();
     }
 }
 
@@ -233,6 +232,7 @@ function loadBackup() {
     _amAtt = JSON.parse(localStorage.getItem("amAttBackup"));
     _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
+    _promotionList = []; _birthdayList = [];
     assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions();
     findAllBday(); removePtBoxes(); populateTeacherNotes();
     for (i = 0; i < _sl.length; i++) {
@@ -256,6 +256,8 @@ function loadLS() {
     _sl = JSON.parse(localStorage.getItem("sl"));
     _amAtt = JSON.parse(localStorage.getItem("amAtt"));
     _pmAtt = JSON.parse(localStorage.getItem("pmAtt"));
+    _promotionList = JSON.parse(localStorage.getItem("promotionList"));
+    _birthdayList = JSON.parse(localStorage.getItem("birthdayList"));
     _log = localStorage.getItem("log");
     _gameLog = localStorage.getItem("gameLog");
     document.getElementById("log").innerHTML = _log;
@@ -738,6 +740,12 @@ function loadAttendees() {
         elementNode1.classList.add("name2");
         var textNode1 = document.createTextNode(boys[i]);
         elementNode1.appendChild(textNode1);
+        if (_promotionList.indexOf(boys[i]) !== -1) {
+            elementNode1.style.color = "yellow";
+        }
+        if (_birthdayList.indexOf(boys[i]) !== -1) {
+            elementNode1.style.border = "1px solid fuchsia";
+        }
         document.getElementById("boysListAtt").appendChild(elementNode1);
     }  
     for (i = 0; i < girls.length; i++) {
@@ -745,6 +753,12 @@ function loadAttendees() {
         elementNode2.classList.add("name2");
         var textNode2 = document.createTextNode(girls[i]);
         elementNode2.appendChild(textNode2);
+        if (_promotionList.indexOf(girls[i]) !== -1) {
+            elementNode2.style.color = "yellow";
+        }
+        if (_birthdayList.indexOf(girls[i]) !== -1) {
+            elementNode2.style.border = "1px solid fuchsia";
+        }
         document.getElementById("girlsListAtt").appendChild(elementNode2);
     }  
     document.getElementById("boysListAttP").innerHTML = "Boys (" + boys.length + ")";
@@ -1141,7 +1155,7 @@ function findAllBday() {
     setWeeksOff();
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[i].hasBirthday === false && _sl[i].birthdayDone === false) {
-            _sl[i].hasBirthday = true;
+            _sl[i].hasBirthday = true; _birthdayList.push(_sl[i].fullName);
         }
     }
 }
@@ -1150,7 +1164,7 @@ function findBday() {
     var todaysDateNumber = assignTodaysDateNumber();
     setWeeksOff();
     if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[_ci].hasBirthday === false && _sl[_ci].birthdayDone === false) {
-        _sl[_ci].hasBirthday = true;
+        _sl[_ci].hasBirthday = true; _birthdayList.push(_sl[_ci].fullName);
     }
 }
 
@@ -1277,10 +1291,9 @@ function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
     }
 }
 
-function actionAlert(message,popsArray,func,bypass) {
+function actionAlert(message,popsArray,func,bypass,parameter) {
     if (document.getElementById("actionAlertPop").style.display != "block") {
-        _currentPops = popsArray;
-        _currentFunction = func;
+        _currentPops = popsArray; _currentFunction = func; _currentParameter= parameter;
         document.getElementById("actionAlertPop").style.display = "block";
         for (i = 0; i < _currentPops.length; i++) {
             if (_currentPops[i] !== undefined) {
@@ -1297,7 +1310,7 @@ function actionAlert(message,popsArray,func,bypass) {
         }
         document.getElementById("actionAlertMessage").innerHTML = "";
         if (!bypass) {
-            _currentFunction();
+            _currentFunction(_currentParameter);
         }
     } 
 }
@@ -1483,7 +1496,7 @@ function clearStudentFields() {
 function promotion() {
     _sl[_ci].rank++;
     _sl[_ci].promoted = true;
-    _sl[_ci].promotionNum++;
+    _sl[_ci].promotionNum++; _promotionList.push(_sl[_ci].fullName);
     setRankFactor();
     setRankName();
     document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
@@ -1786,7 +1799,6 @@ function pop(closeArray,openArray) {
     for (i = 0; i < openArray.length; i++) {
         if (openArray != []) {
             document.getElementById(openArray[i]).style.display = "block";
-            
         }    
     }
     if (closeArray.includes("asPointsPop") || closeArray.includes("mvPointsPop")) {
@@ -1944,11 +1956,6 @@ function populateNames() {
         var elementNode = document.createElement("p");
         if (_sl[i].attendance === true) {
             elementNode.style.color = "lawnGreen";
-            if (_sl[i].promoted === true) {
-                elementNode.style.color = "yellow";
-            } else {
-                elementNode.style.border = "none";
-            }
         } else {
             elementNode.style.color = "white";
         }
@@ -2262,10 +2269,17 @@ function promotionList(log) {
     elementNode.appendChild(textNode);
     (function(i){
         elementNode.onclick = function () {
-            completePromotion(i);
+            actionAlert("Complete promotion for " + _sl[i].fullName + "?",["promoListPop"],completePromotion,false,i);
         }
     })(i);
     document.getElementById("promoList").appendChild(elementNode);
+}
+
+function completePromotion(x) {
+    _sl[x].promoted = false;
+    _sl[x].promotionNum = 0;
+    loadPromotions();
+    storeAndBackup();
 }
 
 function bdayList(log1,log2) {
@@ -2274,7 +2288,7 @@ function bdayList(log1,log2) {
     elementNode1.appendChild(textNode1);
     (function(i){
         elementNode1.onclick = function () {
-            completeBday(i);
+            actionAlert("Complete birthday for " + _sl[i].fullName + "?",["bdayListPop"],completeBday,false,i);
         }
     })(i);
     document.getElementById("bdayList").appendChild(elementNode1);
@@ -2286,7 +2300,8 @@ function photosNeededList(log) {
     elementNode1.appendChild(textNode1);
     (function(i){
         elementNode1.onclick = function () {
-            completePhoto(i);
+            //completePhoto(i);
+            actionAlert("Take photo for " + _sl[i].fullName + "?",["photosNeededPop"],completePhoto,false,i);
         }
     })(i);
     document.getElementById("photosNeededList").appendChild(elementNode1);
@@ -2389,13 +2404,6 @@ function loadNeededEmails() {
     }
 }
 
-function completePromotion(x) {
-    _sl[x].promoted = false;
-    _sl[x].promotionNum = 0;
-    loadPromotions();
-    storeAndBackup();
-}
-
 function completeBday(x) {
     _sl[x].birthdayDone = true; loadBdays(); storeAndBackup();
 }
@@ -2436,6 +2444,8 @@ function storeNewData() {
     localStorage.setItem("pmAtt",JSON.stringify(_pmAtt));
     localStorage.setItem("teacherNotes",JSON.stringify(_teacherNotes));
     localStorage.setItem("log",_log);
+    localStorage.setItem("promotionList",JSON.stringify(_promotionList));
+    localStorage.setItem("birthdayList",JSON.stringify(_birthdayList));
     localStorage.setItem("gameLog",_gameLog);
     localStorage.setItem("teams",JSON.stringify(_teams));
 }
