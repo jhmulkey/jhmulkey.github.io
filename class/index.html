@@ -565,36 +565,6 @@
   </div>
 </div>
 
-<!-- <div id="newStudentPop" class="pop">
-  <div>
-    <p>Full Name</p>
-    <input class="textInputField1" id="newFirstAndLast" type="text" placeholder="first last"/>
-  </div>
-  <div class="genderAndBdayContainer">
-    <div>
-      <p>Gender</p>
-      <input class="textInputField2 focus" id="newGender" type="text" placeholder="M or F"/>
-    </div>
-    <div style="width:75px; margin:0px"></div>
-    <div>
-      <p>Birthday</p>
-      <input class="textInputField2" id="newBday" type="text" placeholder="month day"/>
-    </div>
-  </div>
-  <div>
-    <p>Email Address</p>
-    <input class="textInputField1" id="newEmail" type="text" placeholder="email address"/>
-  </div>
-  <div>
-    <p>Note</p>
-    <textarea id="initialNote" rows="10" cols="30" placeholder="note"></textarea>
-  </div>
-  <div class="optionButtonContainer">
-    <div class="roundButton cancelButton" onclick="pop(['newStudentPop'],['mainPop']); clearStudentFields()">X</div>
-    <div class="roundButton okButton" onclick="newStudent()">V</div>
-  </div>
-</div> -->
-
 <div id="newStudentPop" class="pop">
   <div class="genderAndBdayContainer">
     <div>
@@ -610,12 +580,19 @@
   <div class="genderAndBdayContainer">
     <div>
       <p>Gender</p>
-      <input class="textInputField2 focus" id="newGender" type="text" placeholder="M or F"/>
+      <input class="textInputField2" id="newGender" type="text" placeholder="M or F"/>
     </div>
-    <div style="width:75px; margin:0px"></div>
+    <div style="width:42px; margin:0px"></div>
     <div>
       <p>Birthday</p>
-      <input class="textInputField2" id="newBday" type="text" placeholder="month day"/>
+      <div class="flexContainer">
+        <div>
+          <input class="textInputField4" id="newBdayMonth" type="text" placeholder="Month" style="margin-right:10px">
+        </div>
+        <div>
+          <input class="textInputField4" id="newBdayDate" type="text" placeholder="Day"/>
+        </div>
+      </div>
     </div>
   </div>
   <div>
@@ -634,30 +611,46 @@
 
 <div id="editStudentPop" class="pop">
   <div>
-    <p>Full Name</p>
-    <input class="textInputField1" id="editFirstAndLast" type="text" placeholder="first last"/>
-  </div>
-  <div class="genderAndBdayContainer">
-    <div>
-      <p>Gender</p>
-      <input class="textInputField2 focus" id="editGender" type="text" placeholder="M or F"/>
+    <div class="genderAndBdayContainer">
+      <div>
+        <p>First Name</p>
+        <input class="textInputField3" id="editFirstName" type="text" placeholder="First Name"/>
+      </div>
+      <div style="width:24px; margin:0px"></div>
+      <div>
+        <p>Last Name</p>
+        <input class="textInputField3" id="editLastName" type="text" placeholder="Last Name"/>
+      </div>
     </div>
-    <div style="width:75px; margin:0px"></div>
-    <div>
-      <p>Birthday</p>
-      <input class="textInputField2" id="editBday" type="text" placeholder="month day"/>
+    <div class="genderAndBdayContainer">
+      <div>
+        <p>Gender</p>
+        <input class="textInputField2" id="editGender" type="text" placeholder="M or F"/>
+      </div>
+      <div style="width:42px; margin:0px"></div>
+      <div>
+        <p>Birthday</p>
+        <div class="flexContainer">
+          <div>
+            <input class="textInputField4" id="editBdayMonth" type="text" placeholder="Month" style="margin-right:10px">
+          </div>
+          <div>
+            <input class="textInputField4" id="editBdayDate" type="text" placeholder="Day"/>
+          </div>
+        </div>
+      </div>
     </div>
+    <div>
+      <p>Email Address</p>
+      <input class="textInputField1" id="editEmail" type="text" placeholder="email address"/>
+    </div>
+    <div class="optionButtonContainer">
+      <div class="roundButton cancelButton" onclick="pop(['editStudentPop'],['studentPop','missionsPop']); flagOff(); clearStudentFields()">X</div>
+      <div class="roundButton deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
+      <div class="roundButton okButton" onclick="editStudent()">V</div>
+    </div>
+    <div id="dispStudentPhoto" onclick="photoLinks()"></div>
   </div>
-  <div>
-    <p>Email Address</p>
-    <input class="textInputField1" id="editEmail" type="text" placeholder="email address"/>
-  </div>
-  <div class="optionButtonContainer">
-    <div class="roundButton cancelButton" onclick="pop(['editStudentPop'],['studentPop','missionsPop']); flagOff(); clearStudentFields()">X</div>
-    <div class="roundButton deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
-    <div class="roundButton okButton" onclick="editStudent()">V</div>
-  </div>
-  <div id="dispStudentPhoto" onclick="photoLinks()"></div>
 </div>
 
 <div id="notesPop" class="pop">

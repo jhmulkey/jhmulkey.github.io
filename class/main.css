@@ -435,6 +435,11 @@ a:link, a:visited, a:hover, a:active {
     justify-content: space-evenly;
 }
 
+.flexContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
 .studentPopButtons {
     border-radius: 10px;
     height: 30px;
@@ -662,7 +667,7 @@ a:link, a:visited, a:hover, a:active {
     font-size: 20px;
 }
 
-.textInputField1, .textInputField2, .textInputField3 {
+.textInputField1, .textInputField2, .textInputField3, .textInputField4 {
     border-radius: 15px;
     border: 1px solid transparent;
     font-size: 25px;
@@ -683,6 +688,11 @@ a:link, a:visited, a:hover, a:active {
 .textInputField3 {
     height: 50px;
     width: 175px;
+}
+
+.textInputField4 {
+    height: 50px;
+    width: 85px;
 }
 
 .textInputField1:focus, .textInputField2:focus, .textInputField3:focus, #search:focus, #search2:focus, #search3:focus, #initialNote:focus, #dataInputTextField:focus, #enterReasonTextField:focus, #addNote:focus, #editNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {

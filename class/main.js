@@ -112,7 +112,7 @@ class Student {
         this.birthday = month + "/" + date;
         this.hasBirthday = false;
         this.birthdayDone = false;
-        this.email = "";
+        this.email = email;
         this.photo = false;
         this.notes = note;
         this.points = 0;
@@ -1316,38 +1316,31 @@ function actionAlert(message,popsArray,func,bypass,parameter) {
 }
 
 function newStudent() {
-    var firstLastArray = document.getElementById("newFirstAndLast").value.split(" ");
-    var newBdayArray = document.getElementById("newBday").value.split(" ");
-    if (firstLastArray.length < 2) {
-        infoAlert("Please enter first and last names separated by a space",["newStudentPop"]); return;
+    var newFirstName = document.getElementById("newFirstName").value
+    var newLastName = document.getElementById("newLastName").value
+    var newGender = document.getElementById("newGender").value
+    var newBdayMonth = document.getElementById("newBdayMonth").value
+    var newBdayDate = document.getElementById("newBdayDate").value
+    var email = document.getElementById("newEmail").value.toLowerCase();
+    var note = [document.getElementById("initialNote").value];
+    if (newFirstName == "" || newLastName == "") {
+        infoAlert("First and last name required",["newStudentPop"]); return;
+    } else {
+        var first = capitalize(newFirstName);
+        var last = capitalize(newLastName);
     }
-    if (document.getElementById("newGender").value.toLowerCase() == "m") {
+    if (newGender.toLowerCase() == "m") {
         var gender = "M";
-    } else if (document.getElementById("newGender").value.toLowerCase() == "f") {
+    } else if (newGender.toLowerCase() == "f") {
         var gender = "F";
     } else {
         infoAlert("Please enter 'M' or 'F' for gender",["newStudentPop"]); return;
     }
-    var first = capitalize(firstLastArray[0]);
-    var last = capitalize(firstLastArray[1]);
-    if (document.getElementById("newBday").value == "") {
-        var month = 0
-        var date = 0
-    } else if (newBdayArray.length < 2) {
-        infoAlert("Please enter month and date separated by a space",["newStudentPop"]); return;
+    if (newBdayMonth == "" || newBdayDate == "") {
+        var month = 0; var date = 0;
     } else {
-        var month = parseInt(newBdayArray[0]);
-        var date = parseInt(newBdayArray[1]);
-    }
-    if (document.getElementById("newEmail").value == "") {
-        var email = document.getElementById("newEmail").value;
-    } else {
-        var email = document.getElementById("newEmail").value.toLowerCase();
-    }
-    if (document.getElementById("initialNote").value == "") {
-        var note = [];
-    } else {
-        var note = [document.getElementById("initialNote").value];
+        var month = parseInt(newBdayMonth);
+        var date = parseInt(newBdayDate);
     }
     var newStudent = new Student(first,last,month,date,email,gender,note);
     newStudent.attendance = true;
@@ -1376,7 +1369,7 @@ function newStudent() {
     storeAndBackup();
     clearStudentFields()
     if (document.getElementById("rapidEntryCheck").checked === true) {
-        document.getElementById("newFirstAndLast").focus();
+        document.getElementById("newFirstName").focus();
         return;
     } else {
         pop(["newStudentPop"],["mainPop"]);
@@ -1389,41 +1382,39 @@ function deleteStudent() {
 }
 
 function editStudent() {
-    var firstLastArray = document.getElementById("editFirstAndLast").value.split(" ");
-    if (firstLastArray.length < 2) {
-        infoAlert("Please enter first and last names separated by a space",["editStudentPop"]); return;
-    }
-    _sl[_ci].firstName = capitalize(firstLastArray[0]);
-    _sl[_ci].lastName = capitalize(firstLastArray[1]);
-    _sl[_ci].fullName = capitalize(firstLastArray[0]) + " " + capitalize(firstLastArray[1]);
-    var previousBdayNumber = _sl[_ci].birthdayNumber;
-    var newBdayArray = document.getElementById("editBday").value.split(" ");
-    if (document.getElementById("editBday").value == "") {
-        _sl[_ci].birthdayMonth = 0;
-        _sl[_ci].birthdayDate = 0;
-        _sl[_ci].birthday = "0/0";
-        _sl[_ci].hasBirthday = false;
-    } else if (newBdayArray.length < 2) {
-        infoAlert("Please enter month and date separated by a space",["editStudentPop"]); return;
+    var editFirstName = document.getElementById("editFirstName").value
+    var editLastName = document.getElementById("editLastName").value
+    var editGender = document.getElementById("editGender").value
+    var editBdayMonth = document.getElementById("editBdayMonth").value
+    var editBdayDate = document.getElementById("editBdayDate").value
+    _sl[_ci].email = document.getElementById("editEmail").value.toLowerCase();
+    if (editFirstName == "" || editLastName == "") {
+        infoAlert("First and last name required",["editStudentPop"]); return;
     } else {
-        _sl[_ci].birthdayMonth = parseInt(newBdayArray[0]);
-        _sl[_ci].birthdayDate = parseInt(newBdayArray[1]);
-        _sl[_ci].birthday = newBdayArray[0] + "/" + newBdayArray[1];
+        _sl[_ci].firstName = capitalize(editFirstName);
+        _sl[_ci].lastName = capitalize(editLastName);
+        _sl[_ci].fullName = capitalize(editFirstName) + " " + capitalize(editLastName);
     }
-    assignBdayNumber(); 
-    if (_sl[_ci].birthdayNumber != previousBdayNumber) { findBday() }
-    if (document.getElementById("editEmail").value == "") {
-        _sl[_ci].email = document.getElementById("editEmail").value;
-    } else {
-        _sl[_ci].email = document.getElementById("editEmail").value.toLowerCase();
-    }
-    if (document.getElementById("editGender").value.toLowerCase() == "m") {
+    if (editGender.toLowerCase() == "m") {
         _sl[_ci].gender = "M";
-    } else if (document.getElementById("editGender").value.toLowerCase() == "f") {
+    } else if (editGender.toLowerCase() == "f") {
         _sl[_ci].gender = "F";
     } else {
         infoAlert("Please enter 'M' or 'F' for gender",["editStudentPop"]); return;
     }
+    if (editBdayMonth == "" || editBdayDate == "") {
+        _sl[_ci].birthdayMonth = 0;
+        _sl[_ci].birthdayDate = 0;
+        _sl[_ci].birthday = "0/0";
+        _sl[_ci].hasBirthday = false;
+    } else {
+        _sl[_ci].birthdayMonth = parseInt(editBdayMonth);
+        _sl[_ci].birthdayDate = parseInt(editBdayDate);
+        _sl[_ci].birthday = _sl[_ci].birthdayMonth + "/" + _sl[_ci].birthdayDate
+    }
+    var previousBdayNumber = _sl[_ci].birthdayNumber;
+    assignBdayNumber(); 
+    if (_sl[_ci].birthdayNumber != previousBdayNumber) { findBday() }
     document.getElementById("dispName").innerHTML = _sl[_ci].fullName;
     document.getElementById("dispBday").innerHTML = "Birthday: "+_sl[_ci].birthday;
     refreshStudentPop();
@@ -1480,14 +1471,16 @@ function populateStudentFields(id) {
     if (id) {
         document.getElementById(id).focus();
     }
-    document.getElementById("editFirstAndLast").value = _sl[_ci].firstName + " " + _sl[_ci].lastName;
-    document.getElementById("editBday").value = _sl[_ci].birthdayMonth.toString() + " " + _sl[_ci].birthdayDate.toString();
+    document.getElementById("editFirstName").value = _sl[_ci].firstName
+    document.getElementById("editLastName").value = _sl[_ci].lastName
+    document.getElementById("editBdayMonth").value = _sl[_ci].birthdayMonth.toString();
+    document.getElementById("editBdayDate").value = _sl[_ci].birthdayDate.toString();
     document.getElementById("editEmail").value = _sl[_ci].email;
     document.getElementById("editGender").value = _sl[_ci].gender;
 }
 
 function clearStudentFields() {
-    var ids = ["newFirstAndLast","newGender","newBday","newEmail","initialNote"];
+    var ids = ["newFirstName","newLastName","newGender","newBdayMonth","newBdayDate","newEmail","initialNote"];
     for (i = 0; i < ids.length; i++) {
         document.getElementById(ids[i]).value = "";
     }
@@ -1827,7 +1820,7 @@ function pop(closeArray,openArray) {
         document.getElementById("search3").focus();
     }
     if (openArray.includes("newStudentPop")) {
-        document.getElementById("newFirstAndLast").focus();
+        document.getElementById("newFirstName").focus();
     }
     if (openArray.includes("addNotePop")) {
         document.getElementById("addNote").focus()
