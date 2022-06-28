@@ -2284,7 +2284,7 @@ function promotionList(log) {
     elementNode.appendChild(textNode);
     (function(i){
         elementNode.onclick = function () {
-            actionAlert("Complete promotion for " + _sl[i].fullName + "?",["promoListPop"],completePromotion,false,i);
+            actionAlert("Complete promotion for " + _sl[i].fullName + " (" + _sl[i].rankName + ")?",["promoListPop"],completePromotion,false,i);
         }
     })(i);
     document.getElementById("promoList").appendChild(elementNode);

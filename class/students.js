@@ -586,65 +586,6 @@ function loadStudentAttStats() {
     pop(["studentStatsPop","missionsPop"],["studentAttStatsPop"]);
 }
 
-
-function loadMissionsList(id) {
-    document.getElementById("listAS").innerHTML = "";
-    document.getElementById("listMV").innerHTML = "";
-    document.getElementById("asHeading").innerHTML = "";
-    document.getElementById("mvHeading").innerHTML = "";
-    var totalASpts = 0;
-    var earnedASpts = 0;   
-    var totalMVpts = 0;
-    var earnedMVpts = 0;
-    for (i = 0; i < _elapsedWeeks-1; i++) {
-        totalASpts += _asMaxPts[i];
-        totalMVpts += _mvMaxPts[i];
-    }
-    for (i = 0; i < _elapsedWeeks-1; i++) {
-        earnedASpts += Object.values(_sl[_ci].as)[i];
-        earnedMVpts += Object.values(_sl[_ci].mv)[i];
-    }
-    document.getElementById("asHeading").innerHTML = " Activity Sheets " + "(" + earnedASpts + "/" + totalASpts + ")";
-    document.getElementById("mvHeading").innerHTML = " Memory Verses " + "(" + earnedMVpts + "/" + totalMVpts + ")";
-    for (i = 0; i < _elapsedWeeks-1; i++) {
-        var p1 = document.createElement("p");
-        var p2 = document.createElement("p");
-        p1.classList.add("pointer"); p2.classList.add("pointer");
-        p1.innerHTML = _asNamesFull[i] + " (" + _sl[_ci].as[i] + "/" + _asMaxPts[i] + ")";
-        if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
-            p1.style.color = "darkorange";
-            p1.innerHTML = _asNamesFull[i] + " (" + _sl[_ci].as[i] + "/" + _asMaxPts[i] + ")" + "<br>" + "<span style='font-size: 15px'>" + "Reason for partial credit: " + _sl[_ci].asReasons[i] + "</span>";
-        } else if (_sl[_ci].as[i] == 0) {
-            p1.style.color = "firebrick";
-        } else {
-            p1.style.color = "lawngreen";
-        }
-        var mv = document.createTextNode(_mvNamesFull[i] + " (" + _sl[_ci].mv[i] + "/" + _mvMaxPts[i] + ")");
-        if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
-            p2.style.color = "darkorange";
-        } else if (_sl[_ci].mv[i] == 0) {
-            p2.style.color = "firebrick";
-        } else {
-            p2.style.color = "lawngreen";
-        }
-        (function(i){
-            p1.onclick = function () {
-                _asNum = i; asLinks();
-            }
-        })(i);
-        (function(i){
-            p2.onclick = function () {
-                _mvNum = i; mvLinks();
-            }
-        })(i);
-        p2.appendChild(mv);
-        document.getElementById("listAS").appendChild(p1);
-        document.getElementById("listMV").appendChild(p2);
-    }
-    pop(["studentStatsPop","missionsPop","asPointsPop","mvPointsPop"],["listMissionPointsPop"]);
-    scrollTo(0,0);
-}
-
 loadBackup();
 
 document.getElementById("searchField").focus();
