@@ -395,10 +395,6 @@ function findStudent() {
             x.splice(i,1); i = 0; continue;
         }
     }
-    for (i = 0; i < x.length; i++) {
-        x[i] = x[i][0].toUpperCase() + x[i].substr(1);
-    }
-    var string = x.join(" ");
     var matches = [];
     if (x.length == 1) {
         for (i = 0; i < _sl.length; i++) {
@@ -422,6 +418,10 @@ function findStudent() {
         }
     }
     if (matches.length == 0) {
+        for (i = 0; i < x.length; i++) {
+            x[i] = x[i][0].toUpperCase() + x[i].substr(1);
+        }
+        var string = x.join(" ");
         infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + string + "</span>.  Please check the spelling and be sure you're typing your child's last name by itsself or their first and last name together.  Please try again or use the contact buttons above for help.",["mainPop"],"searchField");
         document.getElementById("searchField").value = "";
     }
