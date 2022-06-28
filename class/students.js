@@ -422,7 +422,7 @@ function findStudent() {
             x[i] = x[i][0].toUpperCase() + x[i].substr(1);
         }
         var string = x.join(" ");
-        infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + string + "</span>.  Please check the spelling and be sure you're typing your child's last name by itsself or their first and last name together.  Please try again or use the contact buttons above for help.",["mainPop"],"searchField");
+        infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + string + "</span>.  Please check the spelling and be sure you're typing your child's last name by itself or their first and last name together.  Please try again or use the contact buttons above for help.",["mainPop"],"searchField");
         document.getElementById("searchField").value = "";
     }
     if (matches.length == 1) {
