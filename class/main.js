@@ -233,8 +233,10 @@ function loadBackup() {
     _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
     _promotionList = []; _birthdayList = [];
-    assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions();
-    findAllBday(); removePtBoxes(); populateTeacherNotes();
+    var today = new Date();
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    activityLog("backup loaded" + "<br>" + dateAndTime);
+    assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions(); findAllBday(); removePtBoxes(); populateTeacherNotes();
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
         _sl[i].random = false;
@@ -245,9 +247,6 @@ function loadBackup() {
         }
         _amAtt.push(0); _pmAtt.push(0);
     }
-    var today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    activityLog("backup loaded" + "<br>" + dateAndTime);
     storeAndBackup();
     pop(["wtlPop"],["mainPop"]);
 }
@@ -1152,10 +1151,13 @@ function notesAlert() {
 
 function findAllBday() {
     var todaysDateNumber = assignTodaysDateNumber();
+    today = new Date();
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     setWeeksOff();
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[i].hasBirthday === false && _sl[i].birthdayDone === false) {
             _sl[i].hasBirthday = true; _birthdayList.push(_sl[i].fullName);
+            activityLog(_sl[i].fullName + " birthday found (" + _sl[i].birthday + ")<br>" + dateAndTime);
         }
     }
 }
@@ -1165,6 +1167,9 @@ function findBday() {
     setWeeksOff();
     if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[_ci].hasBirthday === false && _sl[_ci].birthdayDone === false) {
         _sl[_ci].hasBirthday = true; _birthdayList.push(_sl[_ci].fullName);
+        today = new Date();
+        var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+        activityLog(_sl[_ci].fullName + " birthday found (" + _sl[_ci].birthday + ")<br>" + dateAndTime);
     }
 }
 
@@ -1382,6 +1387,11 @@ function deleteStudent() {
 }
 
 function editStudent() {
+    var originalFirstName = _sl[_ci].firstName;
+    var originalLastName = _sl[_ci].lastName;
+    var originalGender = _sl[_ci].gender;
+    var originalBday = _sl[_ci].birthday;
+    var originalEmail = _sl[_ci].email;
     var editFirstName = document.getElementById("editFirstName").value
     var editLastName = document.getElementById("editLastName").value
     var editGender = document.getElementById("editGender").value
@@ -1417,6 +1427,18 @@ function editStudent() {
     if (_sl[_ci].birthdayNumber != previousBdayNumber) { findBday() }
     document.getElementById("dispName").innerHTML = _sl[_ci].fullName;
     document.getElementById("dispBday").innerHTML = "Birthday: "+_sl[_ci].birthday;
+    today = new Date();
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    var original = [originalFirstName,originalLastName,originalGender,originalBday,originalEmail];
+    var edit = [editFirstName,editLastName,editGender,_sl[_ci].birthday,_sl[_ci].email];
+    var labels = ["first name","last name","gender","birthday","email"];
+    for (i = 0; i < original.length; i++) {
+        if (original[i] != edit[i]) {
+            activityLog(originalFirstName + " " + originalLastName + " " + labels[i] + " edited<br>" + original[i] + "-->" + edit[i] + "<br>" + dateAndTime);
+        }
+    }
+
+
     refreshStudentPop();
     assignID();
     storeAndBackup();
@@ -2271,6 +2293,9 @@ function promotionList(log) {
 function completePromotion(x) {
     _sl[x].promoted = false;
     _sl[x].promotionNum = 0;
+    today = new Date();
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    activityLog(_sl[x].fullName + " promotion complete<br>" + dateAndTime);
     loadPromotions();
     storeAndBackup();
 }
@@ -2398,7 +2423,11 @@ function loadNeededEmails() {
 }
 
 function completeBday(x) {
-    _sl[x].birthdayDone = true; loadBdays(); storeAndBackup();
+    _sl[x].birthdayDone = true; 
+    today = new Date();
+    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    activityLog(_sl[x].fullName + " birthday complete<br>" + dateAndTime);
+    loadBdays(); storeAndBackup();
 }
 
 function completePhoto(x) {

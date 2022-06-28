@@ -496,7 +496,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .missing {
-    background-color: firebrick;
+    background-color: black;
 }
 
 .equalSign {

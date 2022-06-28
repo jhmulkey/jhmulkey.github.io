@@ -148,7 +148,7 @@ function loadStudent(index) {
         } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
             document.getElementById("as"+i+"Pop").style.background = "darkorange";
         } else {
-            document.getElementById("as"+i+"Pop").style.background = "firebrick";
+            document.getElementById("as"+i+"Pop").style.background = "black";
         }
     }
     for (i = 0; i < _mvMaxPts.length; i++) {
@@ -157,7 +157,7 @@ function loadStudent(index) {
         } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
             document.getElementById("mv"+i+"Pop").style.background = "darkorange";
         } else {
-            document.getElementById("mv"+i+"Pop").style.background = "firebrick";
+            document.getElementById("mv"+i+"Pop").style.background = "black";
         }
     }
     pop([],["missionsPop"]);
@@ -228,9 +228,16 @@ function goHome() {
         pops[i].style.display = "none";
         document.getElementById("mainPop").style.display = "block";
     }
-    for (i = 0; i < _elapsedWeeks-1; i++) {
-        document.getElementById("as"+i+"Pop").style.display = "block";
-        document.getElementById("mv"+i+"Pop").style.display = "block";
+    if (_elapsedWeeks < 33) {
+        for (i = 0; i < _elapsedWeeks-1; i++) {
+            document.getElementById("as"+i+"Pop").style.display = "block";
+            document.getElementById("mv"+i+"Pop").style.display = "block";
+        }
+    } else {
+        for (i = 0; i < 31; i++) {
+            document.getElementById("as"+i+"Pop").style.display = "block";
+            document.getElementById("mv"+i+"Pop").style.display = "block";
+        }
     }
     document.getElementById("searchField").value = "";
     document.getElementById("searchField").focus();
@@ -526,12 +533,14 @@ function openInsignia() {
 function toggleIncomplete() {
     var noneHidden = true;
     for (i = 0; i < _elapsedWeeks-1; i++) {
+        if (i > 30) { break; }
         if (document.getElementById("as"+i+"Pop").style.display == "none" || document.getElementById("mv"+i+"Pop").style.display == "none") {
             noneHidden = false; break;
         }
     }
     if (noneHidden) {
         for (i = 0; i < _elapsedWeeks-1; i++) {
+            if (i > 30) { break; }
             if (_sl[_ci].as[i] < _asMaxPts[i]) {
                 document.getElementById("as"+i+"Pop").style.display = "block"
             } else {
@@ -545,6 +554,7 @@ function toggleIncomplete() {
         }
     } else {
         for (i = 0; i < _elapsedWeeks-1; i++) {
+            if (i > 30) { break; }
             document.getElementById("as"+i+"Pop").style.display = "block";
             document.getElementById("mv"+i+"Pop").style.display = "block";
         }
