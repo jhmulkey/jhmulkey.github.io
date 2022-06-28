@@ -345,7 +345,7 @@
         <td class="keyLabel">missing</td>
       </tr>
     </table>
-    <div class="checkboxes"><label><input type="checkbox" id="toggleIncompleteCheck" class="checkbox" onclick="toggleIncomplete()"><span> Show incomplete/missing missions only</span></label><br></div>
+    <div class="checkboxes"><label><input type="checkbox" id="toggleIncompleteCheck" class="checkbox" onclick="toggleIncomplete()"><span> Hide completed missions</span></label><br></div>
     <div id="asmvHeaderContainer">
       <div class="asmvHeader">Activity Sheets</div>
       <div class="asmvHeader">Memory Verses</div>
@@ -432,11 +432,34 @@
       <div id="as5Points" class="roundButton numberButton asPts">5</div>
       <div id="as6Points" class="roundButton numberButton asPts">6</div>
   </div>
-  <div id="asReason"></div>
   <div>
-    <div id="asPage1" onclick="asLinks()"></div>
-    <div id="asPage2" onclick="asLinks()"></div>
-    <div id="asPage3" onclick="asLinks()"></div>
+    <table class="asmvInfoTable">
+      <tr>
+        <td class="tableSider">Sheet Name</td>
+        <td id="asSheetName"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Date Assigned</td>
+        <td id="asDateAssigned"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Date Turned In</td>
+        <td id="asDateTurnedIn"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Status</td>
+        <td id="asCompletionStatus"></td>
+      </tr>
+      <tr>
+        <td colspan="2" id="asReason"></td>
+      </tr>
+      <tr>
+        <td colspan="2" id="scannedImage" class="pointer" onclick="scanLinks()"><span id="scanIcon">C &nbsp;&nbsp;&nbsp;</span>VIEW SCAN</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="downloadOrPrint pointer" onclick="asLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
+      </tr>
+    </table>
   </div>
 </div>
 
@@ -453,7 +476,32 @@
       <div id="mv6Points" class="roundButton numberButton mvPts">6</div>
       <div id="mv7Points" class="roundButton numberButton mvPts">7</div>
   </div>
-  <p id="mvText" onclick="mvLinks()"></p>
+  <div>
+    <table class="asmvInfoTable">
+      <tr>
+        <td class="tableSider">Verse Name</td>
+        <td id="mvVerseName"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Date Assigned</td>
+        <td id="mvDateAssigned"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Date Recited</td>
+        <td id="mvDateRecited"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Status</td>
+        <td id="mvCompletionStatus"></td>
+      </tr>
+      <tr>
+        <td colspan="2" id="mvText"></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="downloadOrPrint pointer" onclick="mvLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
+      </tr>
+    </table>
+  </div>
 </div>
 
 <div id="rankChartPop" class="pop">

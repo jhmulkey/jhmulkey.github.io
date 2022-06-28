@@ -102,20 +102,6 @@ function assignClassRank() {
     }
 }
 
-function setRankFactor() {
-    if (_sl[_ci].rank == 14 || _sl[_ci].rank == 15) {
-        _sl[_ci].rankFactor = 1;
-    } else if (_sl[_ci].rank == 18 || _sl[_ci].rank == 19) {
-        _sl[_ci].rankFactor = 2;
-    } else {
-        _sl[_ci].rankFactor = 0;
-    }
-}
-
-function setRankName() {
-    _sl[_ci].rankName = _rankNamesAbbr[_sl[_ci].rank];
-}
-
 function removePtBoxes() {
     pops = ["asPointsPop","mvPointsPop"];
     buttons = ["as4Points","as5Points","as6Points","mv4Points","mv5Points","mv6Points","mv7Points"];
@@ -124,18 +110,6 @@ function removePtBoxes() {
             for (i = 0; i <buttons.length; i++) {
                 document.getElementById(buttons[i]).style.display = "none";
             }
-        }
-    }
-}
-
-function searchNames() {
-    var inputVal = document.getElementById("searchField").value.toLowerCase();
-    var names = document.getElementsByClassName("name");
-    for (i = 0; i < names.length; i++) {
-        if (names[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
-            names[i].style.display = "block";
-        } else {
-            names[i].style.display = "none";
         }
     }
 }
@@ -167,6 +141,10 @@ function asLinks() {
     window.open("docs/missions/as"+_asNum+".pdf","_blank");
 }
 
+function scanLinks() {
+    window.open("docs/as-scans/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+"-as"+_asNum+".pdf","_blank");
+}
+
 function mvLinks() {
     window.open("docs/memory/mv"+_mvNum+".pdf","_blank");
 }
@@ -194,32 +172,6 @@ function pop(closeArray,openArray) {
         }
         document.getElementById("toggleIncompleteCheck").checked = false;
     }
-    if (openArray.includes("randomPop") || openArray.includes("drawingPop")) {
-        document.getElementById("randomName").innerHTML = "tap here<br>to pick";
-        document.getElementById("winnerName").innerHTML = "tap here<br>to pick";
-    }
-    if (openArray.includes("logPop")) {
-        document.getElementById("searchLog").value = "";
-        document.getElementById("searchLog").focus();
-        document.getElementById("log").innerHTML = _log;
-    }
-    if (openArray.includes("attendance2Pop")) {
-        document.getElementById("search2").value = "";
-        document.getElementById("search2").focus();
-        document.getElementById("log").innerHTML = _log;
-    }
-    if (openArray.includes("newStudentPop")) {
-        document.getElementById("newFirstAndLast").focus();
-    }
-    if (openArray.includes("addNotePop")) {
-        document.getElementById("addNote").focus()
-    }
-    if (openArray.includes("addTeacherNotePop")) {
-        document.getElementById("addTeacherNote").focus();
-    }
-    if (openArray.includes("logPop")) {
-        loadTodaysDate()
-    }
 }
 
 function goHome() {
@@ -246,8 +198,35 @@ function goHome() {
 
 function asPop(asNum,points) {
     _asNum = asNum;
+    document.getElementById("asSheetName").innerHTML = _asNames[_asNum].toUpperCase();
+    document.getElementById("asDateAssigned").innerHTML = _classDates[_asNum]
+    if (_sl[_ci].as[_asNum] == _asMaxPts[_asNum]) {
+        document.getElementById("asCompletionStatus").innerHTML = "COMPLETED";
+        document.getElementById("asCompletionStatus").style.backgroundColor = "green";
+    } else if (_sl[_ci].as[_asNum] == 0) {
+        document.getElementById("asCompletionStatus").innerHTML = "NOT TURNED IN";
+        document.getElementById("asCompletionStatus").style.backgroundColor = "fireBrick";
+    } else {
+        document.getElementById("asCompletionStatus").innerHTML = "PARTIAL CREDIT";
+        document.getElementById("asCompletionStatus").style.backgroundColor = "orange";
+    }
     if (_sl[_ci].asReasons[_asNum] != "") {
-        document.getElementById("asReason").innerHTML = "Reason for partial credit:<br><span style='color:white'>" + _sl[_ci].asReasons[_asNum] + "</span>";
+        document.getElementById("asReason").style.display = "table-cell";
+    } else {
+        document.getElementById("asReason").style.display = "none";
+    }
+    if (_sl[_ci].as[_asNum] > 0) {
+        document.getElementById("scannedImage").style.display = "table-cell";
+    } else {
+        document.getElementById("scannedImage").style.display = "none";
+    }
+    if (_sl[_ci].asDates[_asNum] == 0) {
+        document.getElementById("asDateTurnedIn").innerHTML = "-"
+    } else {
+        document.getElementById("asDateTurnedIn").innerHTML = convertDateNumber(_sl[_ci].asDates[_asNum]);
+    }
+    if (_sl[_ci].asReasons[_asNum] != "") {
+        document.getElementById("asReason").innerHTML = "Reason for partial credit:<br> <span style='color:white'>" + _sl[_ci].asReasons[_asNum] + "</span>";
     } else {
         document.getElementById("asReason").innerHTML = ""
     }
@@ -273,18 +252,6 @@ function asPop(asNum,points) {
         document.getElementById("as5Points").style.display = "block";
         document.getElementById("as6Points").style.display = "block";
     }
-    if (points > 3) {
-        document.getElementById("asPage3").style.display = "block";
-    } else {
-        document.getElementById("asPage3").style.display = "none";
-    }
-    var urlStart = "url(img/missions/as";
-    var urlEnd1 = "a.jpg)"; var urlEnd2 = "b.jpg)"; var urlEnd3 = "c.jpg)"
-    document.getElementById("asPage1").style.backgroundImage = urlStart+_asNum+urlEnd1;
-    document.getElementById("asPage2").style.backgroundImage = urlStart+_asNum+urlEnd2;
-    if (points > 3) {
-        document.getElementById("asPage3").style.backgroundImage = urlStart+_asNum+urlEnd3;
-    }
     document.getElementById("totalParticipationTable").scrollIntoView();
 }
 
@@ -292,6 +259,23 @@ function mvPop(mvNum,index,points) {
     document.getElementById("missionsPop").style.display = "none";
     document.getElementById("mvPointsPop").style.display = "block";
     _mvNum = mvNum;
+    document.getElementById("mvVerseName").innerHTML = _mvNames[_mvNum].toUpperCase();
+    document.getElementById("mvDateAssigned").innerHTML = _classDates[_mvNum]
+    if (_sl[_ci].mv[_mvNum] == _mvMaxPts[_mvNum]) {
+        document.getElementById("mvCompletionStatus").innerHTML = "COMPLETED";
+        document.getElementById("mvCompletionStatus").style.backgroundColor = "green";
+    } else if (_sl[_ci].mv[_mvNum] == 0) {
+        document.getElementById("mvCompletionStatus").innerHTML = "NOT RECITED";
+        document.getElementById("mvCompletionStatus").style.backgroundColor = "fireBrick";
+    } else {
+        document.getElementById("mvCompletionStatus").innerHTML = "PARTIAL CREDIT";
+        document.getElementById("mvCompletionStatus").style.backgroundColor = "orange";
+    }
+    if (_sl[_ci].mvDates[_mvNum] == 0) {
+        document.getElementById("mvDateRecited").innerHTML = "-"
+    } else {
+        document.getElementById("mvDateRecited").innerHTML = convertDateNumber(_sl[_ci].mvDates[_mvNum]);
+    }
     document.getElementById("mvText").innerHTML = _mvText[index];
     var mvPts = document.getElementsByClassName("mvPts");
     for (i = 0; i < mvPts.length; i++) {
@@ -369,7 +353,7 @@ function loadBackup() {
     isClassDay(); showMissions(); removePtBoxes();
 }
 
-function findStudent() {
+/* function findStudent() {
     document.activeElement.blur();
     var x = document.getElementById("searchField").value.toLowerCase()
     if (x == "") { return; }
@@ -391,6 +375,54 @@ function findStudent() {
     }
     if (matches.length == 0) {
         infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + document.getElementById("searchField").value + "</span>.  Please check the spelling and be sure you're typing your child's LAST name only.  Please try again or use the contact buttons above for help.",["mainPop"],"searchField");
+        document.getElementById("searchField").value = "";
+    }
+    if (matches.length == 1) {
+        _ci = matches[0]; loadStudentStats(); loadStudent(_ci);
+    }
+    if (matches.length > 1) {
+        populateMatches(matches);
+        infoAlert("More than one match found.<br>Please click the correct name below",["mainPop"],"searchField",true);
+    }
+} */
+
+function findStudent() {
+    document.activeElement.blur();
+    var x = (document.getElementById("searchField").value.trim().toLowerCase()).split(" ");
+    if (x == false) { return; }
+    for (i = 0; i < x.length; i++) {
+        if (x[i] == false) {
+            x.splice(i,1); i = 0; continue;
+        }
+    }
+    for (i = 0; i < x.length; i++) {
+        x[i] = x[i][0].toUpperCase() + x[i].substr(1);
+    }
+    var string = x.join(" ");
+    var matches = [];
+    if (x.length == 1) {
+        for (i = 0; i < _sl.length; i++) {
+            if (x[0] == _sl[i].lastName.toLowerCase()) {
+                matches.push(i);
+            }
+        }
+    }
+    if (x.length == 2) {
+        for (i = 0; i < _sl.length; i++) {
+            if (x[0] == _sl[i].firstName.toLowerCase() && x[1] == _sl[i].lastName.toLowerCase()) {
+                matches.push(i);
+            }
+        }
+    }
+    if (x.length == 3) {
+        for (i = 0; i < _sl.length; i++) {
+            if (x[0] + " " + x[1] == _sl[i].firstName.toLowerCase() && x[2] == _sl[i].lastName.toLowerCase()) {
+                matches.push(i);
+            }
+        }
+    }
+    if (matches.length == 0) {
+        infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + string + "</span>.  Please check the spelling and be sure you're typing your child's last name by itsself or their first and last name together.  Please try again or use the contact buttons above for help.",["mainPop"],"searchField");
         document.getElementById("searchField").value = "";
     }
     if (matches.length == 1) {

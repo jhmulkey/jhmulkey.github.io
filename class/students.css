@@ -232,17 +232,6 @@ a:link, a:visited, a:hover, a:active {
     margin: 30px auto;
 }
 
-#mvText {
-    margin-top: 20px;
-    font-size: 25px;
-    background-color: black;
-    border: 2px solid #222;
-    border-radius: 25px;
-    padding: 10px;
-    color: #eee;
-    cursor: pointer;
-}
-
 #missionsPop {
     height: 168px;
 }
@@ -339,10 +328,11 @@ a:link, a:visited, a:hover, a:active {
     width: 9.5px;
 }
 
-#rankChartTable, #studentAttTable {
+.asmvInfoTable, #rankChartTable, #studentAttTable {
     width: 100%
 }
 
+.asmvInfoTable, .asmvInfoTable th, .asmvInfoTable td,
 #rankChartTable, #rankChartTable th, #rankChartTable td,
 #studentAttTable, #studentAttTable td {
     border: 1px solid white;
@@ -422,6 +412,7 @@ a:link, a:visited, a:hover, a:active {
 
 #asReason {
     font-size: 20px;
+    text-align: left;
     margin: 20px auto;
     color: orange;
 }
@@ -506,6 +497,37 @@ a:link, a:visited, a:hover, a:active {
 .keyLabel {
     text-align: left !important;
     padding-left: 3px;
+}
+
+.asmvInfoTable {
+    font-size: 20px;
+}
+
+.asmvInfoTable td {
+    padding: 5px;
+    width: 50%;
+    height: 50px;
+}
+
+.tableSider {
+    background-color: #333 !important;
+}
+
+.downloadOrPrint, #scannedImage {
+    font-size: 25px;
+    background-color: #3478F6 !important;
+}
+
+#scanIcon {
+    font-family: Byom-Icons-Trial;
+}
+
+.downloadIcon {
+    font-family: Font-90-Icons;
+}
+
+#mvText {
+    text-align: left;
 }
 
 /* #missionsKeyTable, #missionsKeyTable td{
