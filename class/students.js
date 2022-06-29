@@ -172,6 +172,9 @@ function pop(closeArray,openArray) {
         }
         document.getElementById("toggleIncompleteCheck").checked = false;
     }
+    if (closeArray.includes("mvPointsPop") || closeArray.includes("asPointsPop")) {
+        document.getElementById("missionsPop").scrollIntoView();
+    }
 }
 
 function goHome() {
