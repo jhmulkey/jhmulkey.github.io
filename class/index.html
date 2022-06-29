@@ -261,9 +261,15 @@
       <div class="secretButton"></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
-    <span id="dispRankName"></span> <span id="dispPts"></span><br>
-    <p id="dispName" onclick="toggleAtt()"></p>
-    <span id="dispBday"></span><br><br>
+
+    <div id="studentStatsTopContainerDiv">
+      <div id="studentStatsInsignia"></div>
+      <div id="studentStatsName">
+        <p id="dispRankName"></p>
+        <p id="dispName" onclick="toggleAtt()"></p>
+        <p id="statsClassRank"></p>
+      </div>
+    </div>
     <div id="penContainer">
         <div class="studentPopButtons" onclick="loadStudentStats()">stats</div>
         <div class="studentPopButtons" onclick="populateStudentFields(); loadStudentPhoto()">edit info</div>
@@ -840,7 +846,7 @@
       <div id="as1Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,1)">1</div>
       <div id="as2Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,2)">2</div>
       <div id="as3Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,3)">3</div>
-      <div id="as4Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,4)">4</div>
+      <div id="as4Points" class="roundButton numberButton asPts" style="padding-right:3px" onclick="asPoints(_asNum,4)">4</div>
       <div id="as5Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,5)">5</div>
       <div id="as6Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,6)">6</div>
   </div>
@@ -892,7 +898,7 @@
       <div id="mv1Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,1)">1</div>
       <div id="mv2Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,2)">2</div>
       <div id="mv3Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,3)">3</div>
-      <div id="mv4Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,4)">4</div>
+      <div id="mv4Points" class="roundButton numberButton mvPts" style="padding-right:3px" onclick="mvPoints(_mvNum,4)">4</div>
       <div id="mv5Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,5)">5</div>
       <div id="mv6Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,6)">6</div>
       <div id="mv7Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,7)">7</div>

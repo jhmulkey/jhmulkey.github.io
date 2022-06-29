@@ -124,11 +124,6 @@ a:link, a:visited, a:hover, a:active {
     font-size: 18px;
 }
 
-#dispName {
-    font-size: 40px;
-    margin: 20px auto;
-}
-
 #advancedOptionsPop, #missionVisibilityPop {
     text-align: left;
 }
@@ -249,7 +244,7 @@ a:link, a:visited, a:hover, a:active {
 
 .asButton, .mvButton {
     height: 50px;
-    width: 150px;
+    width: 180px;
     font-size: 15px;
     border: 1px solid white;
     border-radius: 10px;
@@ -338,7 +333,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #asPop div, #mvPop div {
-    margin: 25px auto;
+    margin: 14px auto;
 }
 
 #asmvPopContainer {
@@ -416,6 +411,7 @@ a:link, a:visited, a:hover, a:active {
     justify-content: space-between;
     flex-wrap: wrap;
     flex-direction: row;
+    margin-top: 25px;
 }
 
 .notesListHeader {
@@ -445,7 +441,7 @@ a:link, a:visited, a:hover, a:active {
     height: 30px;
     width: 115px;
     border: 1px solid white;
-    margin-bottom: 25px;
+    margin-bottom: 14.5px;
     font-size: 20px;
     background-color: black;
     cursor: pointer;
@@ -514,7 +510,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .name {
-    margin: 0px 0px 20px;
+    margin: 0px 0px 15px;
     cursor: pointer;
 }
 
@@ -817,17 +813,12 @@ a:link, a:visited, a:hover, a:active {
     text-align: center !important;
 }
 
-#statsRankName, #statsName, #statsClassRank {
+#dispRankName, #dispName, #statsClassRank {
     margin: 10px 0px 10px 0px;
 }
 
 #statsClassRank {
     font-size: 18px !important;
-}
-
-#statsName {
-    font-size: 25px !important;
-    color: orange;
 }
 
 #studentStatsPop p {
@@ -944,4 +935,36 @@ a:link, a:visited, a:hover, a:active {
 
 #mvText {
     text-align: left;
+}
+
+#studentStatsTopContainerDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#studentStatsInsignia {
+    width: 150px;
+    height: 150px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #111;
+}
+
+#studentStatsName {
+    width: 200px;
+    height: 150px;
+}
+
+#studentStatsName p {
+    text-align: center !important;
+}
+
+#dispRankName, #statsName, #statsClassRank {
+    margin: 10px 0px 10px 0px;
+}
+
+#statsClassRank {
+    font-size: 18px !important;
 }

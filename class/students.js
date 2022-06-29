@@ -207,13 +207,13 @@ function asPop(asNum,points) {
     document.getElementById("asDateAssigned").innerHTML = _classDates[_asNum]
     if (_sl[_ci].as[_asNum] == _asMaxPts[_asNum]) {
         document.getElementById("asCompletionStatus").innerHTML = "COMPLETED";
-        document.getElementById("asCompletionStatus").style.backgroundColor = "green";
+        document.getElementById("asCompletionStatus").style.color = "lawnGreen";
     } else if (_sl[_ci].as[_asNum] == 0) {
         document.getElementById("asCompletionStatus").innerHTML = "NOT TURNED IN";
-        document.getElementById("asCompletionStatus").style.backgroundColor = "fireBrick";
+        document.getElementById("asCompletionStatus").style.color = "red";
     } else {
         document.getElementById("asCompletionStatus").innerHTML = "PARTIAL CREDIT";
-        document.getElementById("asCompletionStatus").style.backgroundColor = "orange";
+        document.getElementById("asCompletionStatus").style.color = "darkOrange";
     }
     if (_sl[_ci].asReasons[_asNum] != "") {
         document.getElementById("asReason").style.display = "table-cell";
@@ -239,7 +239,7 @@ function asPop(asNum,points) {
     var asPts = document.getElementsByClassName("asPts");
     for (i = 0; i < asPts.length; i++) {
         if (asPts[i].innerHTML == _sl[_ci].as[_asNum]) {
-            asPts[i].style.background = "blue";
+            asPts[i].style.background = "#3478F6";
         } else {
             asPts[i].style.background = "black";
         }
@@ -265,13 +265,13 @@ function mvPop(mvNum,index,points) {
     document.getElementById("mvDateAssigned").innerHTML = _classDates[_mvNum]
     if (_sl[_ci].mv[_mvNum] == _mvMaxPts[_mvNum]) {
         document.getElementById("mvCompletionStatus").innerHTML = "COMPLETED";
-        document.getElementById("mvCompletionStatus").style.backgroundColor = "green";
+        document.getElementById("mvCompletionStatus").style.color = "lawnGreen";
     } else if (_sl[_ci].mv[_mvNum] == 0) {
         document.getElementById("mvCompletionStatus").innerHTML = "NOT RECITED";
-        document.getElementById("mvCompletionStatus").style.backgroundColor = "fireBrick";
+        document.getElementById("mvCompletionStatus").style.color = "red";
     } else {
         document.getElementById("mvCompletionStatus").innerHTML = "PARTIAL CREDIT";
-        document.getElementById("mvCompletionStatus").style.backgroundColor = "orange";
+        document.getElementById("mvCompletionStatus").style.color = "darkOrange";
     }
     if (_sl[_ci].mvDates[_mvNum] == 0) {
         document.getElementById("mvDateRecited").innerHTML = "-"
@@ -282,7 +282,7 @@ function mvPop(mvNum,index,points) {
     var mvPts = document.getElementsByClassName("mvPts");
     for (i = 0; i < mvPts.length; i++) {
         if (mvPts[i].innerHTML == _sl[_ci].mv[_mvNum]) {
-            mvPts[i].style.background = "blue";
+            mvPts[i].style.background = "#3478F6";
         } else {
             mvPts[i].style.background = "black";
         }
@@ -463,7 +463,7 @@ function loadStudentStats() {
         for (j = 1; j <= 40; j++) {
             if (j <= squaresArray[i]) {
                 if (i == 0) {
-                    document.getElementById(idArray2[i]+j).style.backgroundColor = "dodgerblue";
+                    document.getElementById(idArray2[i]+j).style.backgroundColor = "#3478F6";
                 } else {
                     document.getElementById(idArray2[i]+j).style.backgroundColor = "lawngreen";
                 }
@@ -475,7 +475,7 @@ function loadStudentStats() {
     for (i = 0; i < variableArray.length; i++) {
         if (variableArray[i] == 100.00) {
             if (i == 0) {
-                document.getElementById(idArray1[i]).style.backgroundColor = "dodgerblue";
+                document.getElementById(idArray1[i]).style.backgroundColor = "#3478F6";
             } else {
                 document.getElementById(idArray1[i]).style.backgroundColor = "lawngreen";
             }
@@ -490,6 +490,11 @@ function loadStudentStats() {
         document.getElementById("statsRankName").style.fontSize = "15px";
     } else {
         document.getElementById("statsRankName").style.fontSize = "18px";
+    }
+    if (_rankNames[_sl[_ci].fullName].length > 17) {
+        document.getElementById("statsName").style.fontSize = "22px";
+    } else {
+        document.getElementById("statsName").style.fontSize = "25px";
     }
     document.getElementById("statsName").innerHTML = _sl[_ci].fullName;
     document.getElementById("statsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
