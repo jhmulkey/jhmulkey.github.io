@@ -174,6 +174,8 @@ function pop(closeArray,openArray) {
     }
     if (closeArray.includes("mvPointsPop") || closeArray.includes("asPointsPop")) {
         document.getElementById("missionsPop").scrollIntoView();
+    } else {
+        scrollTo(0,0);
     }
 }
 
@@ -515,7 +517,7 @@ function loadRankTable() {
             document.getElementById("rankChartRow"+i).style.border = "1px solid white";
         }
     }
-    document.getElementById("rankChartContainer").scrollTop = 0;
+    scrollTo(0,0);
 }
 
 function toggleIncomplete() {
