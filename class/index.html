@@ -52,7 +52,7 @@
 
 <div id="customSortListPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['customSortListPop'],['sortChoicePop'])"><span>f</span></div>
+    <div class="backButton" onclick="pop(['customSortListPop'],_array)"><span>f</span></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="nameListCustom"></div>
@@ -101,11 +101,11 @@
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="teamListContainer">
-    <div id="team1ListDiv" class="pointer" onclick="populateNames3(1)">
+    <div id="team1ListDiv" onclick="populateNames3(1)">
       <p id="team1ListP">Team1</p>
       <div id="team1List"></div>
     </div>
-    <div id="team2ListDiv" class="pointer" onclick="populateNames3(2)">
+    <div id="team2ListDiv" onclick="populateNames3(2)">
       <p id="team1ListP">Team2</p>
       <div id="team2List"></div>
     </div>
@@ -267,16 +267,16 @@
       <div id="studentStatsName">
         <p id="dispRankName"></p>
         <p id="dispName" onclick="toggleAtt()"></p>
-        <p id="statsClassRank"></p>
+        <p id="statsClassRank" onclick="sortByPoints(['studentPop','missionsPop'])"></p>
       </div>
     </div>
     <div id="penContainer">
         <div class="studentPopButtons" onclick="loadStudentStats()">stats</div>
-        <div class="studentPopButtons" onclick="populateStudentFields(); loadStudentPhoto()">edit info</div>
+        <div class="studentPopButtons" id="editInfoButton" onclick="populateStudentFields(); loadStudentPhoto()">edit info</div>
         <div class="studentPopButtons" id="notesButton" onclick="pop(['studentPop','missionsPop','asPointsPop','mvPointsPop'],['notesPop','notesList']); populateNotes(['studentPop','missionsPop'])">notes</div>
-        <div class="studentPopButtons" id="photoButton" onclick="actionAlert('Toggle photo on/off?',['studentPop','missionsPop'],togglePhoto)">photo</div>
+        <div class="studentPopButtons"></div>
         <div class="studentPopButtons" onclick="loadStudentData()">properties</div>
-        <div class="studentPopButtons" id="emailButton" onclick="populateStudentFields('editEmail')">email</div>
+        <div class="studentPopButtons"></div>
     </div>
 </div>
 
@@ -879,7 +879,7 @@
         <td colspan="2" id="asReason"></td>
       </tr>
       <tr>
-        <td colspan="2" id="scannedImage" class="pointer" onclick="scanLinks()"><span id="scanIcon">C &nbsp;&nbsp;&nbsp;</span>VIEW SCAN</td>
+        <td colspan="2" id="scannedImage" onclick="scanLinks()"><span id="scanIcon">C &nbsp;&nbsp;&nbsp;</span>VIEW SCAN</td>
       </tr>
       <tr>
         <td colspan="2" class="downloadOrPrint pointer" onclick="asLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>

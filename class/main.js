@@ -21,7 +21,7 @@ var _noteIndex;
 var _teacherNotes = [];
 var _teacherNoteIndex;
 var _log = ""; var _gameLog = ""; 
-var _currentPops; var _currentPops2; var _sharedPop;
+var _currentPops; var _currentPops2; var _sharedPop; var _array;
 var _populateNotesID = [];
 var _focus;
 var _currentFunction; var _currentParameter;
@@ -919,7 +919,7 @@ function allAtt() {
     storeNewData();
 }
 
-function sortByPoints() {
+function sortByPoints(array) {
     assignClassRank();
     document.getElementById("nameListCustom").style.display = "block";
     document.getElementById("genderListContainer").style.display = "none";
@@ -931,8 +931,13 @@ function sortByPoints() {
         var textNode = document.createTextNode(_sl[i].classRank + ". " + _sl[i].fullName + " (" + _sl[i].points + ")");
         elementNode.appendChild(textNode);
         document.getElementById("nameListCustom").appendChild(elementNode);
-    }  
-    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
+    }
+    if (array) {
+        _array = array;
+    } else {
+        _array = ["sortChoicePop"];
+    }
+    pop(_array,["customSortListPop"]);
 }
 
 function sortByAttendance() {
@@ -1459,16 +1464,6 @@ function refreshStudentPop() {
     } else {
         document.getElementById("dispName").style.color = "white";
     }
-    if (_sl[_ci].photo === false) {
-        document.getElementById("photoButton").style.background = "fireBrick";
-    } else {
-        document.getElementById("photoButton").style.background = "green";
-    }
-    if (_sl[_ci].email == false) {
-        document.getElementById("emailButton").style.background = "fireBrick";
-    } else {
-        document.getElementById("emailButton").style.background = "green";
-    }
     if (_sl[_ci].notes == false) {
         document.getElementById("notesButton").style.background = "black";
     } else {
@@ -1483,6 +1478,14 @@ function refreshStudentPop() {
         document.getElementById("dispName").style.fontSize = "22px";
     } else {
         document.getElementById("dispName").style.fontSize = "25px";
+    }
+    var properties = ["firstName","lastName","gender","birthdayMonth","birthdayDate","email","photo"];
+    for (i = 0; i < properties.length; i++) {
+        if (_sl[_ci][properties[i]] == false) {
+            document.getElementById("editInfoButton").style.background = "red"; break;
+        } else {
+            document.getElementById("editInfoButton").style.background = "black";
+        }
     }
 }
 
@@ -2637,24 +2640,28 @@ function showMissions() {
 
 function loadStudentPhoto() {
     if (_sl[_ci].photo === true) {
-        document.getElementById("dispStudentPhoto").style.display = "block";
         if (_sl[_ci].firstName.includes(" ")) {
             var firstNameArray = _sl[_ci].firstName.split(" ");
             document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+firstNameArray[0].toLowerCase()+"-"+firstNameArray[1].toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg";
         } else {
             document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg)";
         }
+        document.getElementById("dispStudentPhoto").innerHTML = "";
     } else {
-        document.getElementById("dispStudentPhoto").style.display = "none";
+        document.getElementById("dispStudentPhoto").innerHTML = "click here to add photo";
     }
 }
 
 function photoLinks() {
-    if (_sl[_ci].firstName.includes(" ")) {
-        var firstNameArray = _sl[_ci].firstName.split(" ");
-        window.open("img/students/"+firstNameArray[0].toLowerCase()+"-"+firstNameArray[1].toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
+    if (_sl[_ci].photo === false) {
+        actionAlert("Toggle photo on/off?",["editStudentPop"],togglePhoto);
     } else {
-        window.open("img/students/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
+        if (_sl[_ci].firstName.includes(" ")) {
+            var firstNameArray = _sl[_ci].firstName.split(" ");
+            window.open("img/students/"+firstNameArray[0].toLowerCase()+"-"+firstNameArray[1].toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
+        } else {
+            window.open("img/students/"+_sl[_ci].firstName.toLowerCase()+"-"+_sl[_ci].lastName.toLowerCase()+".jpeg");
+        }
     }
 }
 
@@ -2664,7 +2671,7 @@ function togglePhoto() {
     } else {
         _sl[_ci].photo = false;
     }
-    refreshStudentPop(); storeAndBackup();
+    loadStudentPhoto(); refreshStudentPop(); storeAndBackup();         
 }
 
 /* function doesFileExist(url) {
