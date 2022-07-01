@@ -1036,7 +1036,7 @@ function sortByNotes(bypass) {
             (function(i){
                 p1.onclick = function () {
                     _ci = i; populateNotes(["customSortListPop"]);
-                    pop(["customSortListPop"],["notesPop","notesList"]);
+                    pop(["customSortListPop"],["studentNotesPop","notesList"]);
                 }
             })(i);
             var br = document.createElement("br");
@@ -1079,7 +1079,7 @@ function populateNotes(id) {
         elementNode.classList.add("note");
         (function(i){
             elementNode.onclick = function () {
-                pop(["notesPop"],["editNotePop","editNote"]);
+                pop(["studentNotesPop"],["editNotePop","editNote"]);
                 document.getElementById("editNote").focus();
                 _noteIndex = i;
                 document.getElementById("editNote").value = _sl[_ci].notes[_noteIndex];
@@ -1104,7 +1104,7 @@ function addNote() {
         document.getElementById("addNote").value = "";
         storeAndBackup();
         populateNotes(_populateNotesID);
-        pop(["addNotePop","addNote"],["notesPop","notesList"]);
+        pop(["addNotePop","addNote"],["studentNotesPop","notesList"]);
     }
 }
 
@@ -1142,7 +1142,7 @@ function editNote() {
     }
     storeAndBackup();
     populateNotes(_populateNotesID);
-    pop(["editNotePop"],["notesPop"]);
+    pop(["editNotePop"],["studentNotesPop"]);
 }
 
 function notesAlert() {
@@ -1463,11 +1463,6 @@ function refreshStudentPop() {
     } else {
         document.getElementById("studentPopName").style.color = "white";
     }
-    if (_sl[_ci].notes == false) {
-        document.getElementById("notesButton").style.background = "black";
-    } else {
-        document.getElementById("notesButton").style.background = "darkgoldenrod";
-    }
     if (_rankNames[_sl[_ci].rank].length > 20) {
         document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
@@ -1479,13 +1474,13 @@ function refreshStudentPop() {
         document.getElementById("studentPopName").style.fontSize = "25px";
     }
     var properties = ["firstName","lastName","gender","birthdayMonth","birthdayDate","email","photo"];
-    for (i = 0; i < properties.length; i++) {
+    /* for (i = 0; i < properties.length; i++) {
         if (_sl[_ci][properties[i]] == false) {
             document.getElementById("editInfoButton").style.background = "red"; break;
         } else {
             document.getElementById("editInfoButton").style.background = "black";
         }
-    }
+    } */
 }
 
 function populateStudentFields(id) {
@@ -1803,6 +1798,17 @@ function loadStudent(index) {
             document.getElementById("mv"+i+"Pop").style.background = "darkorange";
         } else {
             document.getElementById("mv"+i+"Pop").style.background = "black";
+        }
+    }
+}
+
+function studentMenuSwitch(x) {
+    var pops = ["missionsPop","studentStatsPop","editStudentPop","studentNotesPop"];
+    for (i = 0; i < pops.length; i++) {
+        if (i == x) {
+            document.getElementById("studentMenu"+i).style.backgroundColor = "#777";
+        } else {
+            document.getElementById("studentMenu"+i).style.backgroundColor = "black";
         }
     }
 }

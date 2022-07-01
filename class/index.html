@@ -281,11 +281,22 @@
         <p id="studentPopClassRank" onclick="sortByPoints(['studentPop','missionsPop'])"></p>
       </div>
     </div>
-    <div id="penContainer">
+
+    <div>
+      <table id="studentMenuTable">
+        <tr>
+          <td id="studentMenu0" onclick="studentMenuSwitch(0)" style="background-color: #777">MISSIONS</td>
+          <td id="studentMenu1" onclick="studentMenuSwitch(1)">STATS</td>
+          <td id="studentMenu2" onclick="studentMenuSwitch(2)">INFO</td>
+          <td id="studentMenu3" onclick="studentMenuSwitch(3)">NOTES</td>
+        </tr>
+      </table>
+    </div>
+    <!-- <div id="penContainer">
         <div class="studentPopButtons" onclick="loadStudentStats()">stats</div>
         <div class="studentPopButtons" id="editInfoButton" onclick="populateStudentFields(); loadStudentPhoto()">edit info</div>
         <div class="studentPopButtons" id="notesButton" onclick="pop(['studentPop','missionsPop','asPointsPop','mvPointsPop'],['notesPop','notesList']); populateNotes(['studentPop','missionsPop'])">notes</div>
-    </div>
+    </div> -->
 </div>
 
 <div id="studentStatsPop" class="pop">
@@ -668,7 +679,7 @@
   </div>
 </div>
 
-<div id="notesPop" class="pop">
+<div id="studentNotesPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['notesPop','editNotePop'],_populateNotesID)"><span>f</span></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
@@ -780,7 +791,7 @@
         <div id="as29Pop" class="asButton w29" onclick="asPop(29)">Helmet</div>
         <div id="as28Pop" class="asButton w28" onclick="asPop(28)">Shield</div>
         <div id="as27Pop" class="asButton w27" onclick="asPop(27)">Shoes</div>
-        <div id="as26Pop" class="asButton w26" onclick="asPop(26)">Breast- plate</div>
+        <div id="as26Pop" class="asButton w26" onclick="asPop(26)">Breastplate</div>
         <div id="as25Pop" class="asButton w25" onclick="asPop(25)">Belt</div>
         <div id="as24Pop" class="asButton w24" onclick="asPop(24)">Armor Intro</div>
         <div id="as23Pop" class="asButton w23" onclick="asPop(23,6)">John 10-21 Review</div>
