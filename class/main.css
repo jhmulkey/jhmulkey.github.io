@@ -782,20 +782,11 @@ a:link, a:visited, a:hover, a:active {
     background-color: #111;
 }
 
-#studentStatsName {
-    width: 200px;
-    height: 150px;
-}
-
-#studentStatsName p {
-    text-align: center !important;
-}
-
-#dispRankName, #dispName, #statsClassRank {
+#dispRankName, #dispName, #studentStatsClassRank {
     margin: 10px 0px 10px 0px;
 }
 
-#statsClassRank {
+#studentStatsClassRank {
     font-size: 18px !important;
 }
 
@@ -809,7 +800,7 @@ a:link, a:visited, a:hover, a:active {
     margin-bottom: 5px;
 }
 
-#studentStatsTopContainerDiv {
+#studentPopTopContainerDiv, #studentStatsTopContainerDiv {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -911,13 +902,7 @@ a:link, a:visited, a:hover, a:active {
     text-align: left;
 }
 
-#studentStatsTopContainerDiv {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-#studentStatsInsignia {
+#studentPopInsignia, #studentStatsInsignia {
     width: 150px;
     height: 150px;
     background-size: contain;
@@ -926,23 +911,32 @@ a:link, a:visited, a:hover, a:active {
     background-color: #111;
 }
 
-#studentStatsName {
+#studentPopInfo, #studentStatsInfo {
     width: 200px;
     height: 150px;
 }
 
-#studentStatsName p {
+#studentPopInfo p, #studentStatsInfo p {
     text-align: center !important;
 }
 
-#dispRankName, #statsName, #statsClassRank {
+#studentPopRankName, #studentPopClassRank, #studentStatsRankName, #studentStatsClassRank {
     margin: 10px 0px 10px 0px;
 }
 
-#statsClassRank {
+#studentPopClassRank, #studentStatsClassRank {
     font-size: 18px !important;
 }
 
-#dispStudentPhoto, .roundButton, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage {
+#dispStudentPhoto, .roundButton, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, #studentPopClassRank {
     cursor: pointer;
+}
+
+#displayInsignia {
+    width: 350px;
+    height: 600px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #111;
 }

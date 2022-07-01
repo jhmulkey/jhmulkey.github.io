@@ -34,7 +34,6 @@ var _elapsedWeeks;
 var _classDates = ["8/22", "8/29", "9/12", "9/19", "9/26", "10/3", "10/10", "10/17", "10/24", "10/31", "11/7", "11/14", "12/5", "12/12", "12/19", "1/9", "1/23", "1/30", "2/6", "2/13", "2/20", "2/27", "3/6", "3/13", "3/20", "3/27", "4/3", "4/10", "4/24", "5/1", "5/8", "5/15", "5/22"];
 var _dateNumbers = [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 176, 183, 190, 197, 204, 211, 218, 225, 232, 239, 246, 253, 267, 274, 281, 288, 295];
 var _isClassDay;
-var _studentPhotoExists;
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
@@ -661,7 +660,7 @@ function setPoints(parameter,data,reason) {
     setRankFactor();
     assignClassRank();
     populateNames();
-    document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
+    document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
     document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
     var today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
@@ -1430,7 +1429,7 @@ function editStudent() {
     var previousBdayNumber = _sl[_ci].birthdayNumber;
     assignBdayNumber(); 
     if (_sl[_ci].birthdayNumber != previousBdayNumber) { findBday() }
-    document.getElementById("dispName").innerHTML = _sl[_ci].fullName;
+    document.getElementById("studentPopName").innerHTML = _sl[_ci].fullName;
     today = new Date();
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     var original = [originalFirstName,originalLastName,originalGender,originalBday,originalEmail];
@@ -1460,9 +1459,9 @@ function editStudent() {
 
 function refreshStudentPop() {
     if (_sl[_ci].attendance === true) {
-        document.getElementById("dispName").style.color = "lawngreen";
+        document.getElementById("studentPopName").style.color = "lawngreen";
     } else {
-        document.getElementById("dispName").style.color = "white";
+        document.getElementById("studentPopName").style.color = "white";
     }
     if (_sl[_ci].notes == false) {
         document.getElementById("notesButton").style.background = "black";
@@ -1470,14 +1469,14 @@ function refreshStudentPop() {
         document.getElementById("notesButton").style.background = "darkgoldenrod";
     }
     if (_rankNames[_sl[_ci].rank].length > 20) {
-        document.getElementById("dispRankName").style.fontSize = "15px";
+        document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
-        document.getElementById("dispRankName").style.fontSize = "18px";
+        document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
     if (_sl[_ci].fullName.length > 17) {
-        document.getElementById("dispName").style.fontSize = "22px";
+        document.getElementById("studentPopName").style.fontSize = "22px";
     } else {
-        document.getElementById("dispName").style.fontSize = "25px";
+        document.getElementById("studentPopName").style.fontSize = "25px";
     }
     var properties = ["firstName","lastName","gender","birthdayMonth","birthdayDate","email","photo"];
     for (i = 0; i < properties.length; i++) {
@@ -1519,7 +1518,7 @@ function promotion() {
     _sl[_ci].promotionNum++; _promotionList.push(_sl[_ci].fullName);
     setRankFactor();
     setRankName();
-    document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
+    document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
     document.getElementById("dispRankNamePromo").innerHTML = _sl[_ci].rankName;
     storeAndBackup();
     document.getElementById("promoInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
@@ -1544,7 +1543,7 @@ function demotion() {
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     var log = _sl[_ci].fullName + " demoted to " + _sl[_ci].rankName + "<br>" + dateAndTime;
     activityLog(log);
-    document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
+    document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
     storeAndBackup();
 }
 
@@ -1646,8 +1645,9 @@ function asPoints(_asNum,x,secondCall) {
         } else if (promotionStatus < 0) {
             demotion();
         }
-        document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
-        document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
+        document.getElementById("currentPoints").innerHTML = _sl[_ci].points;
+        document.getElementById("neededPoints").innerHTML = _rankPts[_sl[_ci].rank+1] - _sl[_ci].points;
+        document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
         assignClassRank();
         storeAndBackup();
         loadStudent(_ci);
@@ -1722,8 +1722,9 @@ function mvPoints(_mvNum,x) {
     } else if (promotionStatus < 0) {
         demotion();
     }
-    document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
-    document.getElementById("dispRankName").innerHTML = _sl[_ci].rankName;
+    document.getElementById("currentPoints").innerHTML = _sl[_ci].points;
+    document.getElementById("neededPoints").innerHTML = _rankPts[_sl[_ci].rank+1] - _sl[_ci].points;
+    document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
     assignClassRank();
     storeAndBackup();
     loadStudent(_ci);
@@ -1775,15 +1776,18 @@ function loadStudent(index) {
     }
     document.getElementById("search").value = "";
     assignClassRank();
-    document.getElementById("studentStatsInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
-    document.getElementById("dispRankName").innerHTML = _rankNames[_sl[_ci].rank];
-    document.getElementById("dispName").innerHTML = _sl[_ci].fullName;
+    document.getElementById("studentPopInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
+    document.getElementById("studentPopRankName").innerHTML = _rankNames[_sl[_ci].rank];
+    document.getElementById("studentPopName").innerHTML = _sl[_ci].fullName;
+    document.getElementById("currentPoints").innerHTML = _sl[_ci].points;
+    document.getElementById("neededPoints").innerHTML = _rankPts[_sl[_ci].rank+1] - _sl[_ci].points;
     if (_rankNames[_sl[_ci].rank].length > 20) {
-        document.getElementById("dispRankName").style.fontSize = "15px";
+        document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
-        document.getElementById("dispRankName").style.fontSize = "18px";
+        document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
-    document.getElementById("statsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
+
+    document.getElementById("studentPopClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
     for (i = 0; i < _asMaxPts.length; i++) {
         if (_sl[_ci].as[i] == _asMaxPts[i]) {
             document.getElementById("as"+i+"Pop").style.background = "green";
@@ -2129,7 +2133,7 @@ function checkInAtt() {
         } else if (_isClassDay === true && today.getHours() >= 16) {
             _sl[_ci].pmAtt[_elapsedWeeks-1] = 1;
         }
-        document.getElementById("dispName").style.color = "lawngreen";
+        document.getElementById("studentPopName").style.color = "lawngreen";
     }
     attCount();
     if (_isClassDay === true) { ampmAttendance(); }
@@ -2149,7 +2153,7 @@ function toggleAtt() {
         } else if (_isClassDay === true && today.getHours() >= 16) {
             _sl[_ci].pmAtt[_elapsedWeeks-1] = 1;
         }
-        document.getElementById("dispName").style.color = "lawngreen";
+        document.getElementById("studentPopName").style.color = "lawngreen";
     } else {
         _sl[_ci].attendance = false;
         if (_isClassDay === true && today.getHours() < 16) {
@@ -2157,7 +2161,7 @@ function toggleAtt() {
         } else if (_isClassDay === true && today.getHours() >= 16) {
             _sl[_ci].pmAtt[_elapsedWeeks-1] = 0;
         }
-        document.getElementById("dispName").style.color = "white";
+        document.getElementById("studentPopName").style.color = "white";
     }
     var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     if (_sl[_ci].attendance === true) {
@@ -2180,7 +2184,7 @@ function toggleAtt2(i) {
         } else if (_isClassDay === true && today.getHours() >= 16) {
             _sl[_ci].pmAtt[_elapsedWeeks-1] = 1;
         }
-        document.getElementById("dispName").style.color = "lawngreen";
+        document.getElementById("studentPopName").style.color = "lawngreen";
     } else {
         loadStudent(i);
     }
@@ -2611,14 +2615,19 @@ function loadStudentStats() {
     }
     assignClassRank();
     document.getElementById("studentStatsInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
-    document.getElementById("dispRankName").innerHTML = _rankNames[_sl[_ci].rank];
+    document.getElementById("studentStatsRankName").innerHTML = _rankNames[_sl[_ci].rank];
     if (_rankNames[_sl[_ci].rank].length > 20) {
-        document.getElementById("dispRankName").style.fontSize = "15px";
+        document.getElementById("studentStatsRankName").style.fontSize = "15px";
     } else {
-        document.getElementById("dispRankName").style.fontSize = "18px";
+        document.getElementById("studentStatsRankName").style.fontSize = "18px";
     }
-    document.getElementById("dispName").innerHTML = _sl[_ci].fullName;
-    document.getElementById("statsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
+    if (_sl[_ci].fullName.length > 17) {
+        document.getElementById("studentStatsName").style.fontSize = "22px";
+    } else {
+        document.getElementById("studentStatsName").style.fontSize = "25px";
+    }
+    document.getElementById("studentStatsName").innerHTML = _sl[_ci].fullName;
+    document.getElementById("studentStatsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
     document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + rankPercentage + "%)";
     document.getElementById("totalProgressTableP").innerHTML = "Total Points: " + totalEarnedPoints + "/" + totalPoints + " (" + totalPointsPercentage + "%)";
     document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Points: " + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)";
@@ -2680,11 +2689,9 @@ function togglePhoto() {
     xhr.onload = function (e) {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-            _studentPhotoExists = true;
-            document.getElementById("photoButton").style.background = "green";
+            return true;
         } else {
-            _studentPhotoExists = false;
-            document.getElementById("photoButton").style.background = "firebrick";
+            return false;
         }
       }
     }
@@ -2892,7 +2899,7 @@ document.getElementById("search").focus();
 
 /// FUNCTIONS TO RUN IN CONSOLE ///
 
-function assignDateNumber(month,date) {
+function consoleAssignDateNumber(month,date) {
     if (month == 0 || date == 0) { return 1000 }
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
@@ -2910,7 +2917,7 @@ function assignDateNumber(month,date) {
     return dateNumber;
 }
 
-function convertDateNumber(dateNumber) {
+function consoleConvertDateNumber(dateNumber) {
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var month; var date;
@@ -2930,7 +2937,7 @@ function convertDateNumber(dateNumber) {
     return month.toString() + "/" + date.toString();
 }
 
-function assignClassDateNumbers() {
+function consoleAssignClassDateNumbers() {
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var months = [8,8,9,9,9,10,10,10,10,10,11,11,12,12,12,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5,5];
@@ -2961,49 +2968,31 @@ function assignClassDateNumbers() {
     console.log(monthsAndDates);
 }
 
-function allPhotosTrue() {
+function consoleAllPhotosTrue() {
     if (confirm("Confirm batch action") == true) {
         for (i = 0; i < _sl.length; i++) {
             _sl[i].photo = true; storeAndBackup();
         }
-      } 
+    } 
 }
 
-function allEmailsOnFile() {
+function consoleAllEmailsOnFile() {
     if (confirm("Confirm batch action") == true) {
         for (i = 0; i < _sl.length; i++) {
             _sl[i].email = "on file"; storeAndBackup();
         }
-      } 
+    } 
 }
 
-function batchEditSL(property,value) {
-    for (i = 0; i < _sl.length; i++) {
-        _sl[i][property] = value; storeAndBackup();
-    }
+function consoleBatchEditSL(property,value) {
+    if (confirm("Confirm batch action") == true) {
+        for (i = 0; i < _sl.length; i++) {
+            _sl[i][property] = value; storeAndBackup();
+        }
+    } 
 }
 
-function batchPrintSL(property) {
-    for (i = 0; i < _sl.length; i++) {
-        console.log(_sl[i].fullName + " " + _sl[i][property]);
-    }
-}
-
-function batchFilterSL(property,value) {
-    var count = 0;
-    for (i = 0; i < _sl.length; i++) {
-        if(_sl[i][property] == value) {
-            console.log(_sl[i].fullName); count++;
-        } 
-    }
-    if (count == 0) { 
-        console.log("no results");
-    } else { 
-        console.log("(TOTAL MATCHES: " + count + ")");
-    }
-}
-
-function batchFilterSL(property,value) {
+function consoleBatchFilterSL(property,value) {
     var count = 0;
     for (i = 0; i < _sl.length; i++) {
         if(_sl[i][property] == value) {
@@ -3014,17 +3003,16 @@ function batchFilterSL(property,value) {
         console.log("no results");
     } else { 
         console.log(count + " MATCHES / " + (_sl.length - count) + " NON-MATCHES");
-        //console.log(count + " MATCHES" + "/" + _sl.length - count + " NON-MATCHES");
     }
 }
 
-function batchDisplaySL(property) {
+function consoleBatchDisplaySL(property) {
     for (i = 0; i < _sl.length; i++) {
         console.log(_sl[i].fullName + ": " + _sl[i][property]);
     } 
 }
 
-function displayStudentProperties(fullName) {
+function consoleDisplayStudentProperties(fullName) {
     var count = 0;
     for (i = 0; i < _sl.length; i++) {
         if(_sl[i]["fullName"] == fullName) {
