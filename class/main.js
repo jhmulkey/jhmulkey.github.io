@@ -1779,8 +1779,7 @@ function loadStudent(index) {
     document.getElementById("studentPopInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
     document.getElementById("studentPopRankName").innerHTML = _rankNames[_sl[_ci].rank];
     document.getElementById("studentPopName").innerHTML = _sl[_ci].fullName;
-    document.getElementById("currentPoints").innerHTML = _sl[_ci].points;
-    document.getElementById("neededPoints").innerHTML = _rankPts[_sl[_ci].rank+1] - _sl[_ci].points;
+    document.getElementById("studentPopPts").innerHTML = _sl[_ci].points + " | <span style='color: #999'>" + (_rankPts[_sl[_ci].rank+1] - _sl[_ci].points)+"</span>";
     if (_rankNames[_sl[_ci].rank].length > 20) {
         document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
@@ -2627,6 +2626,7 @@ function loadStudentStats() {
         document.getElementById("studentStatsName").style.fontSize = "25px";
     }
     document.getElementById("studentStatsName").innerHTML = _sl[_ci].fullName;
+    document.getElementById("studentStatsPts").innerHTML = _sl[_ci].points + " | " + (_rankPts[_sl[_ci].rank+1] - _sl[_ci].points);
     document.getElementById("studentStatsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
     document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + rankPercentage + "%)";
     document.getElementById("totalProgressTableP").innerHTML = "Total Points: " + totalEarnedPoints + "/" + totalPoints + " (" + totalPointsPercentage + "%)";

@@ -23,7 +23,7 @@
 </div>
 
 <div id="att2Pop" class="pop">
-  <div class="navigationButtonContainer" style="margin-bottom: 0px">
+  <div class="navigationButtonContainer" style="margin-bottom:0px">
     <div class="backButton" onclick="pop(['att2Pop'],['studentPop'])"><span>f</span></div>
   </div>
   <input id="search2" type="text" placeholder="search names" oninput="searchNames('search2')"/>
@@ -31,7 +31,7 @@
 </div>
 
 <div id="att3Pop" class="pop">
-  <div class="navigationButtonContainer" style="margin-bottom: 0px">
+  <div class="navigationButtonContainer" style="margin-bottom:0px">
     <div class="backButton" onclick="pop(['att3Pop'],['teamsListPop'])"><span>f</span></div>
   </div>
   <input id="search3" type="text" placeholder="search names" oninput="searchNames('search3')"/>
@@ -268,7 +268,7 @@
 <div id="studentPop" class="pop">
     <div class="navigationButtonContainer">
       <div class="backButton" onclick="goHome()"><span>f</span></div>
-      <div class="secretButton"></div>
+      <div class="secretButton" onclick="loadStudentData()"></div>
       <div class="homeButton" onclick="goHome()"><span>5</span></div>
     </div>
 
@@ -277,6 +277,7 @@
       <div id="studentPopInfo">
         <p id="studentPopRankName"></p>
         <p id="studentPopName" onclick="toggleAtt()"></p>
+        <p id="studentPopPts"></p>
         <p id="studentPopClassRank" onclick="sortByPoints(['studentPop','missionsPop'])"></p>
       </div>
     </div>
@@ -284,9 +285,6 @@
         <div class="studentPopButtons" onclick="loadStudentStats()">stats</div>
         <div class="studentPopButtons" id="editInfoButton" onclick="populateStudentFields(); loadStudentPhoto()">edit info</div>
         <div class="studentPopButtons" id="notesButton" onclick="pop(['studentPop','missionsPop','asPointsPop','mvPointsPop'],['notesPop','notesList']); populateNotes(['studentPop','missionsPop'])">notes</div>
-        <div class="studentPopButtons" id="currentPoints"></div>
-        <div class="studentPopButtons" onclick="loadStudentData()">properties</div>
-        <div class="studentPopButtons" id="neededPoints"></div>
     </div>
 </div>
 
@@ -300,6 +298,7 @@
     <div id="studentStatsInfo">
       <p id="studentStatsRankName"></p>
       <p id="studentStatsName"></p>
+      <p id="studentStatsPts"></p>
       <p id="studentStatsClassRank"></p>
     </div>
   </div>
@@ -1037,38 +1036,38 @@
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="studentData">
-    <p>firstName: <span id="firstName" style="color:white"></span></p>
-    <p>lastName: <span id="lastName" style="color:white"></span></p>
-    <p>fullName: <span id="fullName" style="color:white"></span></p>
-    <p>gender: <span id="gender" style="color:white"></span></p>
-    <p>dateAdded: <span id="dateAdded" style="color:white"></span></p>
-    <p>id: <span id="studentID" style="color:white"></span></p>
-    <p>birthdayMonth: <span id="birthdayMonth" style="color:white"></span></p>
-    <p>birthdayDate: <span id="birthdayDate" style="color:white"></span></p>
-    <p>birthdayNumber: <span id="birthdayNumber" style="color:white"></span></p>
-    <p>birthday: <span id="birthday" style="color:white"></span></p>
-    <p>hasBirthday: <span id="hasBirthday" style="color:white"></span></p>
-    <p>birthdayDone: <span id="birthdayDone" style="color:white"></span></p>
-    <p>email: <span id="email" style="color:white"></span></p>
-    <p>photo: <span id="photo" style="color:white"></span></p>
-    <p>notes: <span id="notes" style="color:white"></span></p>
-    <p>points: <span id="points" style="color:white"></span></p>
-    <p>classRank: <span id="classRank" style="color:white"></span></p>
-    <p>rank: <span id="rank" style="color:white"></span></p>
-    <p>rankFactor: <span id="rankFactor" style="color:white"></span></p>
-    <p>rankName: <span id="rankName" style="color:white"></span></p>
-    <p>attendance: <span id="attendance" style="color:white"></span></p>
-    <p>amAtt: <span id="amAtt" style="color:white"></span></p>
-    <p>pmAtt: <span id="pmAtt" style="color:white"></span></p>
-    <p>promoted: <span id="promoted" style="color:white"></span></p>
-    <p>promotionNum: <span id="promotionNum" style="color:white"></span></p>
-    <p>drawing: <span id="drawing" style="color:white"></span></p>
-    <p>random: <span id="random" style="color:white"></span></p>
-    <p>asReasons: <span id="asReasons" style="color:white"></span></p>
-    <p>asDates: <span id="asDates" style="color:white"></span></p>
-    <p>mvDates: <span id="mvDates" style="color:white"></span></p>
-    <p>as: <span id="as" style="color:white"></span></p>
-    <p>mv: <span id="mv" style="color:white"></span></p>
+    <p>firstName: <span id="firstName"></span></p>
+    <p>lastName: <span id="lastName"></span></p>
+    <p>fullName: <span id="fullName"></span></p>
+    <p>gender: <span id="gender"></span></p>
+    <p>dateAdded: <span id="dateAdded"></span></p>
+    <p>id: <span id="studentID"></span></p>
+    <p>birthdayMonth: <span id="birthdayMonth"></span></p>
+    <p>birthdayDate: <span id="birthdayDate"></span></p>
+    <p>birthdayNumber: <span id="birthdayNumber"></span></p>
+    <p>birthday: <span id="birthday"></span></p>
+    <p>hasBirthday: <span id="hasBirthday"></span></p>
+    <p>birthdayDone: <span id="birthdayDone"></span></p>
+    <p>email: <span id="email"></span></p>
+    <p>photo: <span id="photo"></span></p>
+    <p>notes: <span id="notes"></span></p>
+    <p>points: <span id="points"></span></p>
+    <p>classRank: <span id="classRank"></span></p>
+    <p>rank: <span id="rank"></span></p>
+    <p>rankFactor: <span id="rankFactor"></span></p>
+    <p>rankName: <span id="rankName"></span></p>
+    <p>attendance: <span id="attendance"></span></p>
+    <p>amAtt: <span id="amAtt"></span></p>
+    <p>pmAtt: <span id="pmAtt"></span></p>
+    <p>promoted: <span id="promoted"></span></p>
+    <p>promotionNum: <span id="promotionNum"></span></p>
+    <p>drawing: <span id="drawing"></span></p>
+    <p>random: <span id="random"></span></p>
+    <p>asReasons: <span id="asReasons"></span></p>
+    <p>asDates: <span id="asDates"></span></p>
+    <p>mvDates: <span id="mvDates"></span></p>
+    <p>as: <span id="as"></span></p>
+    <p>mv: <span id="mv"></span></p>
   </div>
 </div>
 

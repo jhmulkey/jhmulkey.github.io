@@ -786,11 +786,7 @@ a:link, a:visited, a:hover, a:active {
     margin: 10px 0px 10px 0px;
 }
 
-#studentStatsClassRank {
-    font-size: 18px !important;
-}
-
-#studentStatsPop p {
+#studentStatsBottomContainerDiv p {
     font-size: 18px;
     text-align: left;
 }
@@ -920,14 +916,6 @@ a:link, a:visited, a:hover, a:active {
     text-align: center !important;
 }
 
-#studentPopRankName, #studentPopClassRank, #studentStatsRankName, #studentStatsClassRank {
-    margin: 10px 0px 10px 0px;
-}
-
-#studentPopClassRank, #studentStatsClassRank {
-    font-size: 18px !important;
-}
-
 #dispStudentPhoto, .roundButton, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, #studentPopClassRank {
     cursor: pointer;
 }
@@ -941,6 +929,27 @@ a:link, a:visited, a:hover, a:active {
     background-color: #111;
 }
 
-#studentPopName {
-    margin: 20px auto;
+#studentPopClassRank, #studentStatsClassRank {
+    margin: 15px auto;
+}
+
+#studentPopRankName, #studentStatsRankName {
+    margin: 0px 0px 15px 0px;
+}
+
+#studentPopClassRank, #studentStatsClassRank {
+    font-size: 18px !important;
+}
+
+#studentPopName, #studentStatsName {
+    margin: 15px auto;
+}
+
+#studentPopPts, #studentStatsPts {
+    font-size: 25px;
+    margin: 15px auto;
+}
+
+#studentData span {
+    color: white;
 }
