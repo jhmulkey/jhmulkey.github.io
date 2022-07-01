@@ -391,7 +391,8 @@ a:link, a:visited, a:hover, a:active {
 
 #statsName {
     font-size: 25px !important;
-    color: orange;
+    color: lawngreen;
+    margin: 20px auto;
 }
 
 #studentStatsPop p {

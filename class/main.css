@@ -940,3 +940,7 @@ a:link, a:visited, a:hover, a:active {
     background-repeat: no-repeat;
     background-color: #111;
 }
+
+#studentPopName {
+    margin: 20px auto;
+}

@@ -491,7 +491,7 @@ function loadStudentStats() {
     } else {
         document.getElementById("statsRankName").style.fontSize = "18px";
     }
-    if (_rankNames[_sl[_ci].fullName].length > 17) {
+    if (_sl[_ci].fullName.length > 17) {
         document.getElementById("statsName").style.fontSize = "22px";
     } else {
         document.getElementById("statsName").style.fontSize = "25px";
