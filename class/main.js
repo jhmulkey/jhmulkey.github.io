@@ -1810,27 +1810,6 @@ function resetStudentMenu() {
     }
 }
 
-/* function studentMenuSwitch(x) {
-    var pops = ["missionsPop","studentStatsPop","editStudentPop","studentNotesPop"];
-    var funcs = [false,loadStudentStats(),populateStudentFields(),populateStudentNotes()]
-    for (i = 0; i < pops.length; i++) {
-        if (i == x) {
-            document.getElementById("studentMenu"+i).style.backgroundColor = "#777";
-        } else {
-            document.getElementById("studentMenu"+i).style.backgroundColor = "black";
-        }
-    }
-    for (i = 0; i < pops.length; i++) {
-        if (i == x) {
-            document.getElementById(pops[i]).style.display = "block";
-            if (i != 0) { funcs[i]; }
-            
-        } else {
-            document.getElementById(pops[i]).style.display = "none";
-        }
-    }
-} */
-
 function studentMenuSwitch(x) {
     var allPops = document.getElementsByClassName("pop");
     var pops = ["missionsPop","studentStatsPop","editStudentPop","studentNotesPop"];
@@ -1854,15 +1833,6 @@ function studentMenuSwitch(x) {
         }
     }
 }
-
-/* function goHomeStudent() {
-
-    for (i = 0; i < (_checkedState.length); i++) {
-        document.getElementById("as"+i+"Pop").style.display = "block";
-        document.getElementById("mv"+i+"Pop").style.display = "block";
-    }
-    removePtBoxes();
-} */
 
 function asLinks() {
     window.open("docs/missions/as"+_asNum+".pdf","_blank");
