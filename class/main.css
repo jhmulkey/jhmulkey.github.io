@@ -56,7 +56,7 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#photosNeededPop, #emailsNeededPop, #dataPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #asReasonContainer, #studentPhotoPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #sortByPop, #gameLogPop, #preloadImagesPop, #dataInputAlertPop, #enterReasonDiv, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #resetDrawingPop, #addTeacherNotePop, #addNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #emailPop, #editNotePop, #editTeacherNotePop, #modifyNotesPop, #studentNotesPop, #bdayListPop, #missionVisibilityPop, #logPop, #missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawingPop, #randomPop, #studentPop, .w01, .w02, .w03, .w04, .w05, .w06, .w07, .w08, .w09, .w10, .w11, .w12, .w13, .w14, .w15, .w16, .w17, .w18, .w19, .w20, .w21, .w22, .w23, .w24, .w25, .w26, .w27, .w28, .w29, .w30, .w31, .w32, .w33 {
+#photosNeededPop, #emailsNeededPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #asReasonContainer, #studentPhotoPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #sortByPop, #gameLogPop, #preloadImagesPop, #dataInputAlertPop, #enterReasonDiv, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #resetDrawingPop, #addTeacherNotePop, #addStudentNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #emailPop, #editStudentNotePop, #editTeacherNotePop, #modifyNotesPop, #studentNotesPop, #bdayListPop, #missionVisibilityPop, #logPop, #missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawingPop, #randomPop, #studentPop, .w01, .w02, .w03, .w04, .w05, .w06, .w07, .w08, .w09, .w10, .w11, .w12, .w13, .w14, .w15, .w16, .w17, .w18, .w19, .w20, .w21, .w22, .w23, .w24, .w25, .w26, .w27, .w28, .w29, .w30, .w31, .w32, .w33 {
     display: none;
 }
 
@@ -64,7 +64,7 @@ a:link, a:visited, a:hover, a:active {
     cursor: pointer;
 }
 
-#log p, #promoList p, #bdayList p, #notesList p, #teacherNotesList p {
+#log p, #promoList p, #bdayList p, #studentNotesList p, #teacherNotesList p {
     margin-top: 20px !important;
 }
 
@@ -86,7 +86,7 @@ a:link, a:visited, a:hover, a:active {
     border-radius: 25px;
 }
 
-#missionCheckBoxDiv, #notesList, #teacherNotesList {
+#missionCheckBoxDiv, #studentNotesList, #teacherNotesList {
     height: 600px;
     overflow-y: auto;
     text-align: left;
@@ -96,7 +96,7 @@ a:link, a:visited, a:hover, a:active {
     padding: 10px;
 }
 
-#notesList, #teacherNotesList {
+#studentNotesList, #teacherNotesList {
     margin-top: 20px;
 }
 
@@ -161,7 +161,7 @@ a:link, a:visited, a:hover, a:active {
 
 .secretButton3 {
     height: 50px;
-    width: 130px;
+    width: 388px;
     margin: 0px;
 }
 
@@ -194,7 +194,13 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #advancedOptionsButton {
-    padding-top: 9px;
+    height: 35px;
+    width: 35px;
+    border: 2px solid #eee;
+    background-color: black;
+    border-radius: 25px;
+    font-size: 18px;
+    padding-top: 5px;
     font-family: Font-90-Icons;
 }
 
@@ -471,36 +477,22 @@ a:link, a:visited, a:hover, a:active {
 
 .backButton, .homeButton {
     border-radius: 25px;
-    height: 50px;
-    width: 115px;
+    height: 35px;
+    width: 75px;
     border: 2px solid white;
     font-weight: bold;
     font-family: Font-90-Icons;
     color: white;
     background-color: #333;
-    font-size: 35px;
-}
-
-.textNavigationButton {
-    border-radius: 25px;
-    height: 50px;
-    width: 115px;
-    border: 2px solid white;
-    background-color: black;
-    font-weight: bold;
-    font-family: Tahoma;
-    color: white;
-    background-color: #333;
-    font-size: 30px;
-    padding-top: 3px;
+    font-size: 20px;
 }
 
 .backButton {
-    padding-top: 3px;
+    padding-top: 4px;
 }
 
 .homeButton {
-    padding-top: 2px;
+    padding-top: 3px;
 }
 
 .name {
@@ -626,7 +618,7 @@ a:link, a:visited, a:hover, a:active {
     font-size: 20px;
 }
 
-#enterReasonTextField, #addNote, #editNote, #addTeacherNote, #editTeacherNote {
+#enterReasonTextField, #addStudentNote, #editStudentNote, #addTeacherNote, #editTeacherNote {
     width: 375px;
     height: 150px;
     font-size: 20px;
@@ -645,7 +637,7 @@ a:link, a:visited, a:hover, a:active {
     padding: 15px;
 }
 
-#notesList, #teacherNotesList {
+#studentNotesList, #teacherNotesList {
     text-align: left !important;
 }
 
@@ -683,7 +675,7 @@ a:link, a:visited, a:hover, a:active {
     width: 85px;
 }
 
-.textInputField1:focus, .textInputField2:focus, .textInputField3:focus, #search:focus, #search2:focus, #search3:focus, #initialNote:focus, #dataInputTextField:focus, #enterReasonTextField:focus, #addNote:focus, #editNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
+.textInputField1:focus, .textInputField2:focus, .textInputField3:focus, #search:focus, #search2:focus, #search3:focus, #initialNote:focus, #dataInputTextField:focus, #enterReasonTextField:focus, #addStudentNote:focus, #editStudentNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
     outline: none;
     border: 2px solid dodgerblue;
 }
@@ -774,19 +766,6 @@ a:link, a:visited, a:hover, a:active {
     background-repeat: no-repeat;
 }
 
-#studentStatsInsignia {
-    width: 150px;
-    height: 150px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #111;
-}
-
-#dispRankName, #dispName, #studentStatsClassRank {
-    margin: 10px 0px 10px 0px;
-}
-
 #studentStatsBottomContainerDiv p {
     font-size: 18px;
     text-align: left;
@@ -797,7 +776,7 @@ a:link, a:visited, a:hover, a:active {
     margin-bottom: 5px;
 }
 
-#studentPopTopContainerDiv, #studentStatsTopContainerDiv {
+#studentPopTopContainerDiv {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -899,7 +878,7 @@ a:link, a:visited, a:hover, a:active {
     text-align: left;
 }
 
-#studentPopInsignia, #studentStatsInsignia {
+#studentPopInsignia {
     width: 150px;
     height: 150px;
     background-size: contain;
@@ -908,16 +887,16 @@ a:link, a:visited, a:hover, a:active {
     background-color: #111;
 }
 
-#studentPopInfo, #studentStatsInfo {
+#studentPopInfo {
     width: 200px;
     height: 150px;
 }
 
-#studentPopInfo p, #studentStatsInfo p {
+#studentPopInfo p {
     text-align: center !important;
 }
 
-#dispStudentPhoto, .roundButton, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, #studentPopClassRank {
+#dispStudentPhoto, .roundButton, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, .secretButton, .secretButton2, .secretButton3, #advancedOptionsButton {
     cursor: pointer;
 }
 
@@ -930,23 +909,23 @@ a:link, a:visited, a:hover, a:active {
     background-color: #111;
 }
 
-#studentPopClassRank, #studentStatsClassRank {
+#studentPopClassRank {
     margin: 15px auto;
 }
 
-#studentPopRankName, #studentStatsRankName {
+#studentPopRankName {
     margin: 0px 0px 15px 0px;
 }
 
-#studentPopClassRank, #studentStatsClassRank {
+#studentPopClassRank {
     font-size: 18px !important;
 }
 
-#studentPopName, #studentStatsName {
+#studentPopName {
     margin: 15px auto;
 }
 
-#studentPopPts, #studentStatsPts {
+#studentPopPts {
     font-size: 25px;
     margin: 15px auto;
 }
