@@ -38,16 +38,6 @@
   <div id="nameList3"></div>
 </div>
 
-<div id="openInsigniaPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['openInsigniaPop'],[_sharedPop])"><span>f</span></div>
-    <div class="homeButton" onclick="goHome()"><span>5</span></div>
-  </div>
-  <div>
-    <div id="displayInsignia"></div>
-  </div>
-</div>
-
 <div id="sortChoicePop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['sortChoicePop'],['mainMenuPop'])"><span>f</span></div>
@@ -181,14 +171,6 @@
     <p id="infoAlertMessage"></p>
 </div>
 
-<div id="actionAlertPop" class="pop">
-  <p id="actionAlertMessage"></p>
-  <div class="optionButtonContainer">
-    <div class="roundButton cancelButton" onclick="actionAlert(false,false,false,true)">X</div>
-    <div class="roundButton okButton" onclick="actionAlert()">V</div>
-  </div>
-</div>
-
 <div id="dataInputAlertPop" class="pop">
   <p id="dataInputAlertMessage"></p>
   <input id="dataInputTextField" type="text"/>
@@ -299,23 +281,24 @@
     </div> -->
 </div>
 
+<div id="actionAlertPop" class="pop">
+  <p id="actionAlertMessage"></p>
+  <div class="optionButtonContainer">
+    <div class="roundButton cancelButton" onclick="actionAlert(false,false,false,true)">X</div>
+    <div class="roundButton okButton" onclick="actionAlert()">V</div>
+  </div>
+</div>
+
+<div id="openInsigniaPop" class="pop">
+  <div>
+    <div id="displayInsignia" onclick="pop(['openInsigniaPop'],[_sharedPop])"></div>
+  </div>
+</div>
+
 <div id="studentStatsPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['studentStatsPop'],['studentPop','missionsPop'])"><span>f</span></div>
-    <div class="homeButton" onclick="goHome()"><span>5</span></div>
-  </div>
-  <div id="studentStatsTopContainerDiv">
-    <div id="studentStatsInsignia"></div>
-    <div id="studentStatsInfo">
-      <p id="studentStatsRankName"></p>
-      <p id="studentStatsName"></p>
-      <p id="studentStatsPts"></p>
-      <p id="studentStatsClassRank"></p>
-    </div>
-  </div>
   <div id="studentStatsBottomContainerDiv">
     <div id="rankProgressTableDiv" onclick="loadRankTable()">
-      <p id="rankProgressTableP"></p>
+      <p id="rankProgressTableP" style="margin-top:0px"></p>
       <table id="rankProgressTable" class="progressBarTable">
         <tr>
           <td id="rankProgressBar1"></td>
@@ -639,12 +622,12 @@
   <div>
     <div class="genderAndBdayContainer">
       <div>
-        <p>First Name</p>
+        <p style="margin-top:0px">First Name</p>
         <input class="textInputField3" id="editFirstName" type="text" placeholder="First Name"/>
       </div>
       <div style="width:24px; margin:0px"></div>
       <div>
-        <p>Last Name</p>
+        <p style="margin-top:0px">Last Name</p>
         <input class="textInputField3" id="editLastName" type="text" placeholder="Last Name"/>
       </div>
     </div>
@@ -680,11 +663,6 @@
 </div>
 
 <div id="studentNotesPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['notesPop','editNotePop'],_populateNotesID)"><span>f</span></div>
-    <div class="homeButton" onclick="goHome()"><span>5</span></div>
-    <div class="roundButton addButton" onclick="pop(['notesPop'],['addNotePop','addNote'])">;</div>
-  </div>
   <p id="studentNotesHeader" class="notesListHeader"></p>
   <div id="notesList"></div>
 </div>
@@ -1094,11 +1072,10 @@
     <div id="teacherNotesBackupArray"></div>
   </div>
 </div>
-  
+
 <div id="rankChartPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['rankChartPop'],['studentStatsPop'])"><span>f</span></div>
-    <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
     <a href="../docs/ranks.pdf" target="_blank"><p>click here to download printable chart</p></a>
     <div id = "rankChartContainer">
@@ -1232,16 +1209,6 @@
     </table>
     </div>
   </div>
-
-<div id="openInsigniaPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['openInsigniaPop'],[_sharedPop])"><span>f</span></div>
-    <div class="homeButton" onclick="goHome()"><span>5</span></div>
-  </div>
-  <div>
-    <div id="displayInsignia"></div>
-  </div>
-</div>
 
 <div id="attStatsPop" class="pop">
   <div class="navigationButtonContainer">
@@ -1508,7 +1475,6 @@
 <div id="studentAttStatsPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['studentAttStatsPop'],['studentStatsPop'])"><span>f</span></div>
-    <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="studentAttTableDiv">
     <table id="studentAttTable">

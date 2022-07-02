@@ -1035,7 +1035,7 @@ function sortByNotes(bypass) {
             var p1 = document.createElement("p");
             (function(i){
                 p1.onclick = function () {
-                    _ci = i; populateNotes(["customSortListPop"]);
+                    _ci = i; populateStudentNotes(["customSortListPop"]);
                     pop(["customSortListPop"],["studentNotesPop","notesList"]);
                 }
             })(i);
@@ -1071,7 +1071,7 @@ function sortStudentList() {
     populateNames();
 }
 
-function populateNotes(id) {
+function populateStudentNotes(id) {
     _populateNotesID = id;
     document.getElementById("notesList").innerHTML = "";
     for (i = 0; i < _sl[_ci].notes.length; i++) {
@@ -1089,7 +1089,6 @@ function populateNotes(id) {
         elementNode.appendChild(textNode);
         document.getElementById("notesList").appendChild(elementNode);
     }
-    document.getElementById("studentNotesHeader").innerHTML = _sl[_ci].fullName + " Notes";
 }
 
 function addNote() {
@@ -1103,7 +1102,7 @@ function addNote() {
         }
         document.getElementById("addNote").value = "";
         storeAndBackup();
-        populateNotes(_populateNotesID);
+        populateStudentNotes(_populateNotesID);
         pop(["addNotePop","addNote"],["studentNotesPop","notesList"]);
     }
 }
@@ -1141,7 +1140,7 @@ function editNote() {
         _sl[_ci].notes[_noteIndex] = document.getElementById("editNote").value;
     }
     storeAndBackup();
-    populateNotes(_populateNotesID);
+    populateStudentNotes(_populateNotesID);
     pop(["editNotePop"],["studentNotesPop"]);
 }
 
@@ -1453,6 +1452,7 @@ function editStudent() {
     } else if (_flag === true) {
         pop(["editStudentPop"],["emailsNeededPop"]); _flag = false;
     } else {
+        resetStudentMenu();
         pop(["editStudentPop"],["studentPop","missionsPop"]);
     }
 }
@@ -1486,8 +1486,6 @@ function refreshStudentPop() {
 function populateStudentFields(id) {
     if (_flag) {
         pop(["emailsNeededPop"],["editStudentPop"]);
-    } else {
-        pop(["studentPop","missionsPop","asPointsPop","mvPointsPop"],["editStudentPop"]);
     }
     if (id) {
         document.getElementById(id).focus();
@@ -1780,8 +1778,8 @@ function loadStudent(index) {
     } else {
         document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
-
     document.getElementById("studentPopClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
+    resetStudentMenu();
     for (i = 0; i < _asMaxPts.length; i++) {
         if (_sl[_ci].as[i] == _asMaxPts[i]) {
             document.getElementById("as"+i+"Pop").style.background = "green";
@@ -1802,8 +1800,19 @@ function loadStudent(index) {
     }
 }
 
-function studentMenuSwitch(x) {
+function resetStudentMenu() {
+    for (i = 0; i < 4; i++) {
+        if (i == 0) {
+            document.getElementById("studentMenu"+i).style.backgroundColor = "#777";
+        } else {
+            document.getElementById("studentMenu"+i).style.backgroundColor = "black";
+        }
+    }
+}
+
+/* function studentMenuSwitch(x) {
     var pops = ["missionsPop","studentStatsPop","editStudentPop","studentNotesPop"];
+    var funcs = [false,loadStudentStats(),populateStudentFields(),populateStudentNotes()]
     for (i = 0; i < pops.length; i++) {
         if (i == x) {
             document.getElementById("studentMenu"+i).style.backgroundColor = "#777";
@@ -1811,7 +1820,49 @@ function studentMenuSwitch(x) {
             document.getElementById("studentMenu"+i).style.backgroundColor = "black";
         }
     }
+    for (i = 0; i < pops.length; i++) {
+        if (i == x) {
+            document.getElementById(pops[i]).style.display = "block";
+            if (i != 0) { funcs[i]; }
+            
+        } else {
+            document.getElementById(pops[i]).style.display = "none";
+        }
+    }
+} */
+
+function studentMenuSwitch(x) {
+    var allPops = document.getElementsByClassName("pop");
+    var pops = ["missionsPop","studentStatsPop","editStudentPop","studentNotesPop"];
+    var funcs = [false,loadStudentStats(),populateStudentFields(),populateStudentNotes()]
+    for (i = 0; i < pops.length; i++) {
+        if (i == x) {
+            document.getElementById("studentMenu"+i).style.backgroundColor = "#777";
+        } else {
+            document.getElementById("studentMenu"+i).style.backgroundColor = "black";
+        }
+    }
+    for (i = 0; i < pops.length; i++) {
+        if (i == x) {
+            document.getElementById(pops[i]).style.display = "block";
+            if (i != 0) { funcs[i]; }
+        }
+    }
+    for (i = 0; i < allPops.length; i++) {
+        if (allPops[i].id != pops[x] && allPops[i].id != "studentPop") {
+            allPops[i].style.display = "none";
+        }
+    }
 }
+
+/* function goHomeStudent() {
+
+    for (i = 0; i < (_checkedState.length); i++) {
+        document.getElementById("as"+i+"Pop").style.display = "block";
+        document.getElementById("mv"+i+"Pop").style.display = "block";
+    }
+    removePtBoxes();
+} */
 
 function asLinks() {
     window.open("docs/missions/as"+_asNum+".pdf","_blank");
@@ -2618,29 +2669,12 @@ function loadStudentStats() {
             document.getElementById(idArray1[i]).style.backgroundColor = "black";
         }
     }
-    assignClassRank();
-    document.getElementById("studentStatsInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
-    document.getElementById("studentStatsRankName").innerHTML = _rankNames[_sl[_ci].rank];
-    if (_rankNames[_sl[_ci].rank].length > 20) {
-        document.getElementById("studentStatsRankName").style.fontSize = "15px";
-    } else {
-        document.getElementById("studentStatsRankName").style.fontSize = "18px";
-    }
-    if (_sl[_ci].fullName.length > 17) {
-        document.getElementById("studentStatsName").style.fontSize = "22px";
-    } else {
-        document.getElementById("studentStatsName").style.fontSize = "25px";
-    }
-    document.getElementById("studentStatsName").innerHTML = _sl[_ci].fullName;
-    document.getElementById("studentStatsPts").innerHTML = _sl[_ci].points + " | " + (_rankPts[_sl[_ci].rank+1] - _sl[_ci].points);
-    document.getElementById("studentStatsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
     document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + rankPercentage + "%)";
     document.getElementById("totalProgressTableP").innerHTML = "Total Points: " + totalEarnedPoints + "/" + totalPoints + " (" + totalPointsPercentage + "%)";
     document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Points: " + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)";
     document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Points: " + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)";
     document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + attendancePercentage + "%)";
     document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)";
-    pop(["studentPop","missionsPop","asPointsPop","mvPointsPop"],["studentStatsPop"]);
 }
 
 function showMissions() {
