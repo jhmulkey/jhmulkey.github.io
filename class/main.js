@@ -1819,12 +1819,10 @@ function studentMenuSwitch(x) {
             document.getElementById("studentMenu"+i).style.backgroundColor = "black";
         }
     }
-    for (i = 0; i < 5; i++) {
-        if (i == x) {
-            console.log(i);
-            console.log(i);
-            document.getElementById(pops[i]).style.display = "block";
-            if (i > 0) { funcs[i](); }
+    for (j = 0; j < 5; j++) {
+        if (j == x) {
+            document.getElementById(pops[j]).style.display = "block";
+            if (j > 0 && j < 4) { funcs[j](); }
         }
     }
     for (i = 0; i < allPops.length; i++) {
