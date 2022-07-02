@@ -1473,8 +1473,8 @@ function refreshStudentPop() {
     } else {
         document.getElementById("studentPopName").style.fontSize = "25px";
     }
-    var properties = ["firstName","lastName","gender","birthdayMonth","birthdayDate","email","photo"];
-    /* for (i = 0; i < properties.length; i++) {
+    /* var properties = ["firstName","lastName","gender","birthdayMonth","birthdayDate","email","photo"];
+    for (i = 0; i < properties.length; i++) {
         if (_sl[_ci][properties[i]] == false) {
             document.getElementById("editInfoButton").style.background = "red"; break;
         } else {
