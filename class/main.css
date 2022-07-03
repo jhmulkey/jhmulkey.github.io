@@ -97,7 +97,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #studentNotesList, #teacherNotesList {
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 
@@ -239,10 +239,8 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .asmvHeader {
-    height: 50px;
-    width: 100px;
-    font-size: 20px;
-    margin-top: 0px;
+    font-size: 18px;
+    margin-top: 10px;
     padding-top: 0px;
 }
 
@@ -415,12 +413,6 @@ a:link, a:visited, a:hover, a:active {
     flex-wrap: wrap;
     flex-direction: row;
     margin-top: 25px;
-}
-
-.notesListHeader {
-    margin: 0px;
-    font-size: 18px;
-    color: orange;
 }
 
 #boysListAttP, #girlsListAttP, #boysArchiveListAttP, #girlsArchiveListAttP, #team1ListP, #team2ListP {
@@ -618,6 +610,17 @@ a:link, a:visited, a:hover, a:active {
     font-size: 20px;
 }
 
+.addNote {
+    font-size: 20px;
+    color: lawngreen;
+    text-align: center;
+    border: 1px solid green;
+    border-radius: 10px;
+    padding: 5px;
+    width: 150px;
+    margin: 20px auto;
+}
+
 #enterReasonTextField, #addStudentNote, #editStudentNote, #addTeacherNote, #editTeacherNote {
     width: 375px;
     height: 150px;
@@ -790,6 +793,7 @@ a:link, a:visited, a:hover, a:active {
 #dispStudentPhoto {
     width: 375px;
     height: 500px;
+    padding-top: 25px;
     border: 2px solid #222;
     border-radius: 25px;
     background-size: contain;
@@ -896,7 +900,7 @@ a:link, a:visited, a:hover, a:active {
     text-align: center !important;
 }
 
-#dispStudentPhoto, .roundButton, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, .secretButton, .secretButton2, .secretButton3, #advancedOptionsButton {
+.addNote, #dispStudentPhoto, .roundButton, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, .secretButton, .secretButton2, .secretButton3, #advancedOptionsButton {
     cursor: pointer;
 }
 

@@ -1066,7 +1066,6 @@ function sortStudentList() {
 }
 
 function populateStudentNotes(id) {
-    console.log("ran populateStudentNotes");
     _populateNotesID = id;
     document.getElementById("studentNotesList").innerHTML = "";
     for (i = 0; i < _sl[_ci].notes.length; i++) {
@@ -1084,6 +1083,15 @@ function populateStudentNotes(id) {
         elementNode.appendChild(textNode);
         document.getElementById("studentNotesList").appendChild(elementNode);
     }
+    var elementNode2 = document.createElement("p");
+    elementNode2.classList.add("addNote");
+    elementNode2.onclick = function () {
+        pop(["studentNotesPop"],["addStudentNotePop","addStudentNote"]);
+        document.getElementById("addStudentNote").focus();
+    }
+    var textNode2 = document.createTextNode("Add New Note");
+    elementNode2.appendChild(textNode2);
+    document.getElementById("studentNotesList").appendChild(elementNode2);
 }
 
 function addStudentNote() {
@@ -1134,7 +1142,7 @@ function editStudentNote() {
 }
 
 function notesAlert() {
-    if (document.getElementById("teacherNotesList").innerHTML != "") {
+    if (_teacherNotes != false) {
         document.getElementById("teacherNotesButton").style.backgroundColor = "darkgoldenrod";
     } else {
         document.getElementById("teacherNotesButton").style.backgroundColor = "black";
@@ -1480,9 +1488,6 @@ function refreshStudentPop() {
 }
 
 function populateStudentFields(id) {
-    if (id) {
-        document.getElementById(id).focus();
-    }
     document.getElementById("editFirstName").value = _sl[_ci].firstName
     document.getElementById("editLastName").value = _sl[_ci].lastName
     document.getElementById("editBdayMonth").value = _sl[_ci].birthdayMonth.toString();
@@ -1491,6 +1496,9 @@ function populateStudentFields(id) {
     document.getElementById("editGender").value = _sl[_ci].gender;
     loadStudentPhoto();
     pop(_array,["editStudentPop"]);
+    if (id) {
+        document.getElementById(id).focus();
+    }
 }
 
 function clearStudentFields() {
@@ -2143,6 +2151,15 @@ function populateTeacherNotes() {
         elementNode.appendChild(textNode);
         document.getElementById("teacherNotesList").appendChild(elementNode);
     }
+    var elementNode2 = document.createElement("p");
+    elementNode2.classList.add("addNote");
+    elementNode2.onclick = function () {
+        pop(["teacherNotesPop"],["addTeacherNotePop","addTeacherNote"]);
+        document.getElementById("addTeacherNote").focus();
+    }
+    var textNode2 = document.createTextNode("Add New Note");
+    elementNode2.appendChild(textNode2);
+    document.getElementById("teacherNotesList").appendChild(elementNode2);
 }
 
 function checkInAtt() {
@@ -2576,7 +2593,7 @@ function loadStudentData() {
     document.getElementById("birthdayDone").innerHTML = _sl[_ci].birthdayDone;
     document.getElementById("email").innerHTML = _sl[_ci].email;
     document.getElementById("photo").innerHTML = _sl[_ci].photo;
-    document.getElementById("notes").innerHTML = _sl[_ci].notes;
+    document.getElementById("notes").innerHTML = JSON.stringify(_sl[_ci].notes);
     document.getElementById("points").innerHTML = _sl[_ci].points;
     document.getElementById("classRank").innerHTML = _sl[_ci].classRank;
     document.getElementById("rank").innerHTML = _sl[_ci].rank;
@@ -2597,7 +2614,6 @@ function loadStudentData() {
 }
 
 function loadStudentStats() {
-    console.log("ran loadStudentStats");
     var rankPercentage = (((_sl[_ci].rank + 1) / 20) * 100).toFixed(1);
     var rankSquares = Math.round(rankPercentage / 2.50);
     var totalASpts = 0;
@@ -2683,7 +2699,6 @@ function showMissions() {
 }
 
 function loadStudentPhoto() {
-    console.log("ran loadStudentPhoto");
     document.getElementById("dispStudentPhoto").style.backgroundImage = "none";
     if (_sl[_ci].photo === true) {
         if (_sl[_ci].firstName.includes(" ")) {
