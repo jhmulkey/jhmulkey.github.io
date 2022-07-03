@@ -915,14 +915,11 @@ a:link, a:visited, a:hover, a:active {
 
 #studentPopClassRank {
     margin: 15px auto;
+    font-size: 15px !important;
 }
 
 #studentPopRankName {
     margin: 0px 0px 15px 0px;
-}
-
-#studentPopClassRank {
-    font-size: 18px !important;
 }
 
 #studentPopName {
