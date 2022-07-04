@@ -6,7 +6,7 @@ var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,7,3,4,3,3,3,6,4,4,3,4,3,3,3];
 var _leapYear = false; // Jan-July falls within a leap year
 var _weeksOff = 0;
     function setWeeksOff() {
-        var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
+        var todaysMonth = dateAndTime("month"); var todaysDate = dateAndTime("date")
         if ((todaysMonth == 8 && todaysDate == 29) || (todaysMonth == 4 && todaysDate == 10)) {
             _weeksOff = 1;
         } else if ((todaysMonth == 11 && todaysDate == 14) || (todaysMonth == 12 && todaysDate == 19)) {
@@ -215,6 +215,284 @@ class Teams {
     }
 }
 
+function teams() {
+    var attCount = 0;
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].attendance === true) {
+            attCount++
+        }
+    }
+    if (_teams != "") {
+        populateTeams();
+        pop(["mainMenuPop"],["teamsListPop"]);
+    } else if (attCount < 2) {
+        infoAlert("At least two students must be in attendance to create teams",["mainMenuPop"]);
+    } else {
+        createTeams();
+        populateTeams();
+        pop(["mainMenuPop"],["teamsListPop"]);
+    }
+}
+
+function createTeams() {
+    _teams.pop();
+    var teamObject = new Teams; _teams.push(teamObject);
+    document.getElementById("team1Score").innerHTML = 0
+    document.getElementById("team2Score").innerHTML = 0
+    var attendees = [];
+    for (i = 0; i <_sl.length; i++) {
+        if (_sl[i].attendance === true) {
+            attendees.push(_sl[i].fullName)
+        }
+    }
+    shuffleArray(attendees);
+    var remainder = 0
+    if (attendees.length % 2 == 1) { remainder = 1 }
+    for (i = 0; i < attendees.length; i++) {
+        if (i < ((attendees.length - remainder) / 2)) {
+            _teams[0].team1.push(attendees[i]);
+            _teams[0].team1Reset.push(attendees[i]);
+        } else {
+            _teams[0].team2.push(attendees[i]);
+            _teams[0].team2Reset.push(attendees[i]);           
+        }
+    }
+    _teams[0].currentPlayer = _teams[0].team1[0];
+    for (i = 1; i < 11; i++) {
+        document.getElementById("gamePoint"+i).style.backgroundColor = "black";
+    }
+    document.getElementById("gameLog").innerHTML = "";
+    populateTeams();
+    storeNewData();
+}
+
+function populateTeams() {
+    document.getElementById("team1List").innerHTML = "";
+    document.getElementById("team2List").innerHTML = "";
+    for (i = 0; i < _teams[0].team1Reset.length; i++) {
+        var elementNode = document.createElement("p");
+        elementNode.classList.add("name2");
+        var textNode = document.createTextNode(_teams[0].team1Reset[i]);
+        elementNode.appendChild(textNode);
+        document.getElementById("team1List").appendChild(elementNode);
+    }  
+    for (i = 0; i < _teams[0].team2Reset.length; i++) {
+        var elementNode = document.createElement("p");
+        elementNode.classList.add("name2");
+        var textNode = document.createTextNode(_teams[0].team2Reset[i]);
+        elementNode.appendChild(textNode);
+        document.getElementById("team2List").appendChild(elementNode);
+    }
+}
+
+function loadGame() {
+    if (_teams[0].currentTeam == 1) {
+        document.getElementById("team1Score").style.backgroundColor = "yellow";
+        document.getElementById("team2Score").style.backgroundColor = "#eee";
+    } else {
+        document.getElementById("team2Score").style.backgroundColor = "yellow";
+        document.getElementById("team1Score").style.backgroundColor = "#eee";
+    }
+    document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
+    document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
+    if (_teams[0].undoTeam != _teams[0].currentTeam) {
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].currentPlayer + "</span>";
+    } else {
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].undoCurrentPlayer + "</span>";
+    }
+    pop(["teamsListPop"],["playGamePop"]);
+}
+
+function gameScorePoints(x) {
+    _teams[0].undoGamePts = x; _teams[0].undoLimit = false; var log;
+    if (_teams[0].currentTeam == 1) {
+        log = _teams[0].team1[0] + " +" + x + " pts team 1" + "<br>" +  "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score + x) + ")";
+        _teams[0].team1Score += x;
+        document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
+        _teams[0].currentTeam ++;
+        _teams[0].undoCurrentPlayer = _teams[0].team1[0];
+        _teams[0].undoTeam = 1;
+        _teams[0].team1.shift();
+        _teams[0].currentPlayer = _teams[0].team2[0];
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0] + "</span>";
+        document.getElementById("team2Score").style.backgroundColor = "yellow";
+        document.getElementById("team1Score").style.backgroundColor = "#eee";
+        if (_teams[0].team1.length == 0) {
+            for (i = 0; i < _teams[0].team1Reset.length; i++) {
+                _teams[0].team1.push(_teams[0].team1Reset[i])
+            }
+        }
+        gameActivityLog(log);
+        storeNewData();
+    } else {
+        log = _teams[0].team2[0] + " +" + x + " pts team 2" + "<br>" +  "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score + x) + ")";
+        _teams[0].team2Score += x;
+        document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
+        _teams[0].currentTeam --;
+        _teams[0].undoCurrentPlayer = _teams[0].team2[0];
+        _teams[0].undoTeam = 2;
+        _teams[0].team2.shift();
+        _teams[0].currentPlayer = _teams[0].team1[0];
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0] + "</span>";
+        document.getElementById("team1Score").style.backgroundColor = "yellow";
+        document.getElementById("team2Score").style.backgroundColor = "#eee";
+        if (_teams[0].team2.length == 0) {
+            for (i = 0; i < _teams[0].team2Reset.length; i++) {
+                _teams[0].team2.push(_teams[0].team2Reset[i])
+            }
+        }
+        gameActivityLog(log);
+        storeNewData();
+    }
+    for (i = 1; i < 11; i++) {
+        if (i == x) {
+            document.getElementById("gamePoint"+i).style.backgroundColor = "midnightblue";
+        } else {
+            document.getElementById("gamePoint"+i).style.backgroundColor = "black";
+        }
+    }
+}
+
+function undoGameScorePoints() {
+    var log;
+    if (_teams[0].undoLimit === true) {
+        infoAlert("Cannot undo more than one score in a row",["playGamePop"]); return;
+    } else {
+        _teams[0].undoLimit = true;
+    }
+    if (_teams[0].currentTeam == 1) {
+        log = "UNDO " + _teams[0].undoCurrentPlayer + " -" + _teams[0].undoGamePts + " pts team 2 " + "<br>" + "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score - _teams[0].undoGamePts) + ")";
+        _teams[0].currentTeam = 2;
+        _teams[0].team2Score -= _teams[0].undoGamePts;
+        document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
+        _teams[0].team2.unshift(_teams[0].undoCurrentPlayer);
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0] + "</span>";
+        document.getElementById("team2Score").style.backgroundColor = "yellow";
+        document.getElementById("team1Score").style.backgroundColor = "#eee";
+        gameActivityLog(log);
+    } else if (_teams[0].currentTeam == 2) {
+        log = "UNDO " + _teams[0].undoCurrentPlayer + " -" + _teams[0].undoGamePts + " pts team 1 " + "<br>" + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
+        _teams[0].currentTeam = 1;
+        _teams[0].team1Score -= _teams[0].undoGamePts;
+        document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
+        _teams[0].team1.unshift(_teams[0].undoCurrentPlayer);
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0] + "</span>";
+        document.getElementById("team1Score").style.backgroundColor = "yellow";
+        document.getElementById("team2Score").style.backgroundColor = "#eee";
+        gameActivityLog(log);
+    }
+    storeNewData();
+}
+
+function adjustGameScore(parameter,data) {
+    var original
+    if (parameter == 1) { 
+        original = _teams[0].team1Score;
+        _teams[0].team1Score = data;
+    } else { 
+        original = _teams[0].team2Score
+        _teams[0].team2Score = data;
+    }
+    document.getElementById("team"+parameter+"Score").innerHTML = data;
+    var log = "Team " + parameter.toString() + " points set " + "<br>" + original + "-->" + data;
+    gameActivityLog(log);
+    storeAndBackup();
+}
+
+function gameActivityLog(log,color,background) {
+    var paragraph = document.createElement("p");
+    paragraph.innerHTML = log;
+    paragraph.classList.add("logEntry");
+    if (color) {
+        paragraph.style.color = color;
+    }
+    if (background) {
+        paragraph.style.background = background;
+    }
+    document.getElementById("gameLog").appendChild(paragraph);
+    _gameLog = document.getElementById("gameLog").innerHTML;
+    storeNewData();
+}
+
+function skipPlayer() {
+    var log;
+    if (_teams[0].currentTeam == 1) {
+        log = "SKIPPED " + _teams[0].team1[0];
+        _teams[0].team1.shift();
+        if (_teams[0].team1.length == 0) {
+            for (i = 0; i < _teams[0].team1Reset.length; i++) {
+                _teams[0].team1.push(_teams[0].team1Reset[i])
+            }
+        }
+        _teams[0].currentPlayer = _teams[0].team1[0];
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0] + "</span>";
+    } else {
+        log = "SKIPPED " + _teams[0].team2[0];
+        _teams[0].team2.shift();
+        if (_teams[0].team2.length == 0) {
+            for (i = 0; i < _teams[0].team2Reset.length; i++) {
+                _teams[0].team2.push(_teams[0].team2Reset[i])
+            }
+        }
+        _teams[0].currentPlayer = _teams[0].team2[0];
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0] + "</span>";
+    }
+    gameActivityLog(log);
+    storeNewData();
+}
+
+function deleteCurrentPlayer() {
+    var log;
+    if (_teams[0].currentTeam == 1) {
+        if (_teams[0].team1Reset.length == 1) { 
+            infoAlert("There must be at least one player on a team",["playGamePop"]); return;
+        }
+        log = "DELETED " + _teams[0].team1[0] + " from Team 1";
+        _teams[0].team1.shift();
+        _teams[0].team1Reset.splice(_teams[0].team1Reset.length - _teams[0].team1.length - 1,1);
+        if (_teams[0].team1.length == 0) {
+            for (i = 0; i < _teams[0].team1Reset.length; i++) {
+                _teams[0].team1.push(_teams[0].team1Reset[i])
+            }
+        }
+        _teams[0].currentPlayer = _teams[0].team1[0];
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0] + "</span>";
+    } else {
+        if (_teams[0].team2Reset.length == 1) { 
+            infoAlert("There must be at least one player on a team",["playGamePop"]); return;
+        }
+        log = "DELETED " + _teams[0].team2[0] + " from Team 2";
+        _teams[0].team2.shift();
+        _teams[0].team2Reset.splice(_teams[0].team2Reset.length - _teams[0].team2.length - 1,1);
+        if (_teams[0].team2.length == 0) {
+            for (i = 0; i < _teams[0].team2Reset.length; i++) {
+                _teams[0].team2.push(_teams[0].team2Reset[i])
+            }
+        }
+        _teams[0].currentPlayer = _teams[0].team2[0];
+        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0] + "</span>";
+    }
+    gameActivityLog(log);
+    populateTeams();
+    storeNewData();
+}
+
+function addPlayer(x,i) {
+    if (x == 1) {
+        _teams[0].team1.push(_sl[i]);
+        _teams[0].team1Reset.push(_sl[i]);
+        log = "ADDED " + _sl[i] + " to Team 1";
+
+    } else {
+        _teams[0].team2.push(_sl[i]);
+        _teams[0].team2Reset.push(_sl[i]);
+        log = "ADDED " + _sl[i] + " to Team 2";
+    }
+    gameActivityLog(log);
+    populateTeams();
+    storeNewData();
+}
+
 function whatToLoad() {
     if (!localStorage.getItem("sl") && !JSON.parse(localStorage.getItem("slBackup"))) {
         infoAlert("No data",["mainPop"]);
@@ -231,9 +509,7 @@ function loadBackup() {
     _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
     _promotionList = []; _birthdayList = [];
-    var today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    activityLog("backup loaded" + "<br>" + dateAndTime);
+    activityLog("backup loaded" + "<br>" + dateAndTime("log"));
     assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions(); findAllBday(); removePtBoxes(); populateTeacherNotes();
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
@@ -263,9 +539,7 @@ function loadLS() {
     _teams = JSON.parse(localStorage.getItem("teams"));
     assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions();
     removePtBoxes(); populateTeacherNotes(); attCount();
-    var today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    activityLog("localstorage loaded" + "<br>" + dateAndTime);
+    activityLog("localstorage loaded" + "<br>" + dateAndTime("log"));
     backupNewData();
     pop(["wtlPop"],["mainPop"]);
 }
@@ -307,7 +581,7 @@ function setElapsedWeeks() {
 
 function assignTodaysDateNumber() {
     //return 295;
-    var today = new Date(); var todaysMonth = today.getMonth() + 1; var todaysDate = today.getDate();
+    var todaysMonth = dateAndTime("month"); var todaysDate = dateAndTime("date")
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var dateNumber;
@@ -319,294 +593,13 @@ function assignTodaysDateNumber() {
     return dateNumber;
 }
 
-function teams() {
-    var attCount = 0;
-    for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true) {
-            attCount++
-        }
-    }
-    if (_teams != "") {
-        populateTeams();
-        pop(["mainMenuPop"],["teamsListPop"]);
-    } else if (attCount < 2) {
-        infoAlert("At least two students must be in attendance to create teams",["mainMenuPop"]);
-    } else {
-        createTeams();
-        populateTeams();
-        pop(["mainMenuPop"],["teamsListPop"]);
-    }
-}
-
-function createTeams() {
-    _teams.pop();
-    var teamObject = new Teams; _teams.push(teamObject);
-    _teams[0].team1Reset = []; _teams[0].team2Reset = [];
-    _teams[0].team1Score = 0; _teams[0].team2Score = 0
-    document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
-    document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
-    var attendees = [];
-    for (i = 0; i <_sl.length; i++) {
-        if (_sl[i].attendance === true) {
-            attendees.push(_sl[i])
-        }
-    }
-    shuffleArray(attendees);
-    if (attendees.length % 2 == 0) {
-        for (i = 0; i < attendees.length; i++) {
-            if (i < (attendees.length / 2)) {
-                teamObject.team1.push(attendees[i]);
-                teamObject.team1Reset.push(attendees[i]);
-            } else {
-                teamObject.team2.push(attendees[i]);
-                teamObject.team2Reset.push(attendees[i]);           
-            }
-        }
-    } else if (attendees.length % 2 == 1) {
-        for (i = 0; i < attendees.length; i++) {
-            if (i < ((attendees.length - 1) / 2)) {
-                teamObject.team1.push(attendees[i]);
-                teamObject.team1Reset.push(attendees[i]);
-             } else {
-                teamObject.team2.push(attendees[i]);
-                teamObject.team2Reset.push(attendees[i]);
-            }
-        }
-    }
-    _teams[0].currentPlayer = _teams[0].team1[0].fullName;
-    for (i = 1; i < 11; i++) {
-        document.getElementById("gamePoint"+i).style.backgroundColor = "black";
-    }
-    document.getElementById("gameLog").innerHTML = "";
-    populateTeams();
-    storeNewData();
-}
-
-function populateTeams() {
-    document.getElementById("team1List").innerHTML = "";
-    document.getElementById("team2List").innerHTML = "";
-    for (i = 0; i < _teams[0].team1Reset.length; i++) {
-        var elementNode = document.createElement("p");
-        elementNode.classList.add("name2");
-        var textNode = document.createTextNode(_teams[0].team1Reset[i].fullName);
-        elementNode.appendChild(textNode);
-        document.getElementById("team1List").appendChild(elementNode);
-    }  
-    for (i = 0; i < _teams[0].team2Reset.length; i++) {
-        var elementNode = document.createElement("p");
-        elementNode.classList.add("name2");
-        var textNode = document.createTextNode(_teams[0].team2Reset[i].fullName);
-        elementNode.appendChild(textNode);
-        document.getElementById("team2List").appendChild(elementNode);
-    }
-}
-
-function loadGame() {
-    if (_teams[0].currentTeam == 1) {
-        document.getElementById("team1Score").style.backgroundColor = "yellow";
-        document.getElementById("team2Score").style.backgroundColor = "#eee";
-    } else {
-        document.getElementById("team2Score").style.backgroundColor = "yellow";
-        document.getElementById("team1Score").style.backgroundColor = "#eee";
-    }
-    document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
-    document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
-    if (_teams[0].undoTeam != _teams[0].currentTeam) {
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].currentPlayer + "</span>";
-    } else {
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].undoCurrentPlayer.fullName + "</span>";
-    }
-    pop(["teamsListPop"],["playGamePop"]);
-}
-
-function gameScorePoints(x) {
-    _teams[0].undoGamePts = x; _teams[0].undoLimit = false; var log;
-    if (_teams[0].currentTeam == 1) {
-        log = _teams[0].team1[0].fullName + " +" + x + " pts team 1" + "<br>" +  "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score + x) + ")";
-        _teams[0].team1Score += x;
-        document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
-        _teams[0].currentTeam ++;
-        _teams[0].undoCurrentPlayer = _teams[0].team1[0];
-        _teams[0].undoTeam = 1;
-        _teams[0].team1.shift();
-        _teams[0].currentPlayer = _teams[0].team2[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
-        document.getElementById("team2Score").style.backgroundColor = "yellow";
-        document.getElementById("team1Score").style.backgroundColor = "#eee";
-        if (_teams[0].team1.length == 0) {
-            for (i = 0; i < _teams[0].team1Reset.length; i++) {
-                _teams[0].team1.push(_teams[0].team1Reset[i])
-            }
-        }
-        gameActivityLog(log);
-        storeNewData();
-    } else {
-        log = _teams[0].team2[0].fullName + " +" + x + " pts team 2" + "<br>" +  "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score + x) + ")";
-        _teams[0].team2Score += x;
-        document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
-        _teams[0].currentTeam --;
-        _teams[0].undoCurrentPlayer = _teams[0].team2[0];
-        _teams[0].undoTeam = 2;
-        _teams[0].team2.shift();
-        _teams[0].currentPlayer = _teams[0].team1[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
-        document.getElementById("team1Score").style.backgroundColor = "yellow";
-        document.getElementById("team2Score").style.backgroundColor = "#eee";
-        if (_teams[0].team2.length == 0) {
-            for (i = 0; i < _teams[0].team2Reset.length; i++) {
-                _teams[0].team2.push(_teams[0].team2Reset[i])
-            }
-        }
-        gameActivityLog(log);
-        storeNewData();
-    }
-    for (i = 1; i < 11; i++) {
-        if (i == x) {
-            document.getElementById("gamePoint"+i).style.backgroundColor = "midnightblue";
-        } else {
-            document.getElementById("gamePoint"+i).style.backgroundColor = "black";
-        }
-    }
-}
-
-function undoGameScorePoints() {
-    var log;
-    if (_teams[0].undoLimit === true) {
-        infoAlert("Cannot undo more than one score in a row",["playGamePop"]); return;
-    } else {
-        _teams[0].undoLimit = true;
-    }
-    if (_teams[0].currentTeam == 1) {
-        log = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " -" + _teams[0].undoGamePts + " pts team 2 " + "<br>" + "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score - _teams[0].undoGamePts) + ")";
-        _teams[0].currentTeam = 2;
-        _teams[0].team2Score -= _teams[0].undoGamePts;
-        document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
-        _teams[0].team2.unshift(_teams[0].undoCurrentPlayer);
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
-        document.getElementById("team2Score").style.backgroundColor = "yellow";
-        document.getElementById("team1Score").style.backgroundColor = "#eee";
-        gameActivityLog(log);
-    } else if (_teams[0].currentTeam == 2) {
-        log = "UNDO " + _teams[0].undoCurrentPlayer.fullName + " -" + _teams[0].undoGamePts + " pts team 1 " + "<br>" + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
-        _teams[0].currentTeam = 1;
-        _teams[0].team1Score -= _teams[0].undoGamePts;
-        document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
-        _teams[0].team1.unshift(_teams[0].undoCurrentPlayer);
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
-        document.getElementById("team1Score").style.backgroundColor = "yellow";
-        document.getElementById("team2Score").style.backgroundColor = "#eee";
-        gameActivityLog(log);
-    }
-    storeNewData();
-}
-
-function adjustGameScore(parameter,data) {
-    var original
-    if (parameter == 1) { 
-        original = _teams[0].team1Score;
-        _teams[0].team1Score = data;
-    } else { 
-        original = _teams[0].team2Score
-        _teams[0].team2Score = data;
-    }
-    document.getElementById("team"+parameter+"Score").innerHTML = data;
-    var log = "Team " + parameter.toString() + " points set " + "<br>" + original + "-->" + data;
-    gameActivityLog(log);
-    storeAndBackup();
-}
-
-function gameActivityLog(log,color,background) {
-    var paragraph = document.createElement("p");
-    paragraph.innerHTML = log;
-    paragraph.classList.add("logEntry");
-    if (color) {
-        paragraph.style.color = color;
-    }
-    if (background) {
-        paragraph.style.background = background;
-    }
-    document.getElementById("gameLog").appendChild(paragraph);
-    _gameLog = document.getElementById("gameLog").innerHTML;
-    storeNewData();
-}
-
-function skipPlayer() {
-    var log;
-    if (_teams[0].currentTeam == 1) {
-        log = "SKIPPED " + _teams[0].team1[0].fullName;
-        _teams[0].team1.shift();
-        if (_teams[0].team1.length == 0) {
-            for (i = 0; i < _teams[0].team1Reset.length; i++) {
-                _teams[0].team1.push(_teams[0].team1Reset[i])
-            }
-        }
-        _teams[0].currentPlayer = _teams[0].team1[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
-    } else {
-        log = "SKIPPED " + _teams[0].team2[0].fullName;
-        _teams[0].team2.shift();
-        if (_teams[0].team2.length == 0) {
-            for (i = 0; i < _teams[0].team2Reset.length; i++) {
-                _teams[0].team2.push(_teams[0].team2Reset[i])
-            }
-        }
-        _teams[0].currentPlayer = _teams[0].team2[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
-    }
-    gameActivityLog(log);
-    storeNewData();
-}
-
-function deleteCurrentPlayer() {
-    var log;
-    if (_teams[0].currentTeam == 1) {
-        if (_teams[0].team1Reset.length == 1) { 
-            infoAlert("There must be at least one player on a team",["playGamePop"]); return;
-        }
-        log = "DELETED " + _teams[0].team1[0].fullName + " from Team 1";
-        _teams[0].team1.shift();
-        _teams[0].team1Reset.splice(_teams[0].team1Reset.length - _teams[0].team1.length - 1,1);
-        if (_teams[0].team1.length == 0) {
-            for (i = 0; i < _teams[0].team1Reset.length; i++) {
-                _teams[0].team1.push(_teams[0].team1Reset[i])
-            }
-        }
-        _teams[0].currentPlayer = _teams[0].team1[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0].fullName + "</span>";
-    } else {
-        if (_teams[0].team2Reset.length == 1) { 
-            infoAlert("There must be at least one player on a team",["playGamePop"]); return;
-        }
-        log = "DELETED " + _teams[0].team2[0].fullName + " from Team 2";
-        _teams[0].team2.shift();
-        _teams[0].team2Reset.splice(_teams[0].team2Reset.length - _teams[0].team2.length - 1,1);
-        if (_teams[0].team2.length == 0) {
-            for (i = 0; i < _teams[0].team2Reset.length; i++) {
-                _teams[0].team2.push(_teams[0].team2Reset[i])
-            }
-        }
-        _teams[0].currentPlayer = _teams[0].team2[0].fullName;
-        document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0].fullName + "</span>";
-    }
-    gameActivityLog(log);
-    populateTeams();
-    storeNewData();
-}
-
-function addPlayer(x,i) {
-    if (x == 1) {
-        _teams[0].team1.push(_sl[i]);
-        _teams[0].team1Reset.push(_sl[i]);
-        log = "ADDED " + _sl[i].fullName + " to Team 1";
-
-    } else {
-        _teams[0].team2.push(_sl[i]);
-        _teams[0].team2Reset.push(_sl[i]);
-        log = "ADDED " + _sl[i].fullName + " to Team 2";
-    }
-    gameActivityLog(log);
-    populateTeams();
-    storeNewData();
+function dateAndTime(x) {
+    var today = new Date();
+    if (x == "month") { return today.getMonth() + 1 }
+    if (x == "date") { return today.getDate() }
+    if (x == "hour") { return today.getHours() }
+    if (x == "full") { return (today.getMonth() + 1) + "/" + today.getDate() }
+    if (x == "log") { return (today.getMonth() + 1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds() }
 }
 
 function assignBdayNumber() {
@@ -661,9 +654,7 @@ function setPoints(parameter,data,reason) {
     populateNames();
     document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
     document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
-    var today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    var log = _sl[_ci].fullName + " points set " + original + "-->" + y  + "<br>" + "(reason: " + reason + ")" + "<br>" + dateAndTime;
+    var log = _sl[_ci].fullName + " points set " + original + "-->" + y  + "<br>" + "(reason: " + reason + ")" + "<br>" + dateAndTime("log");
     activityLog(log);
     storeAndBackup();
 }
@@ -702,14 +693,13 @@ function attCount() {
 }
 
 function ampmAttendance() {
-    var today = new Date();
     var attCount = 0;
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].attendance === true) {
             attCount++
         }
     }
-    if (today.getHours() < 16) {
+    if (dateAndTime("hours") < 16) {
         _amAtt[_elapsedWeeks-1] = attCount;
     } else {
         _pmAtt[_elapsedWeeks-1] = attCount;
@@ -820,9 +810,7 @@ function resetAtt() {
             }
         }
     }
-    var today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    var log = "removed all attendees" + "<br>" + dateAndTime;
+    var log = "removed all attendees" + "<br>" + dateAndTime("log");
     activityLog(log);
     attCount();
     if (_isClassDay === true) { ampmAttendance(); }
@@ -831,27 +819,25 @@ function resetAtt() {
 }
 
 function att2(i) {
-    var today = new Date();
     if (_sl[i].attendance === false) {
         _sl[i].attendance = true;
-        if (_isClassDay === true && today.getHours() < 16) {
+        if (_isClassDay === true && dateAndTime("hours") < 16) {
             _sl[i].amAtt[_elapsedWeeks-1] = 1;
-        } else if (_isClassDay === true && today.getHours() >= 16) {
+        } else if (_isClassDay === true && dateAndTime("hours") >= 16) {
             _sl[i].pmAtt[_elapsedWeeks-1] = 1;
         }
     } else {
         _sl[i].attendance = false;
-        if (_isClassDay === true && today.getHours() < 16) {
+        if (_isClassDay === true && dateAndTime("hours") < 16) {
             _sl[i].amAtt[_elapsedWeeks-1] = 0;
-        } else if (_isClassDay === true && today.getHours() >= 16) {
+        } else if (_isClassDay === true && dateAndTime("hours") >= 16) {
             _sl[i].pmAtt[_elapsedWeeks-1] = 0;
         }
     }
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     if (_sl[i].attendance === true) {
-        var log = "added attendee " + _sl[i].firstName + " " + _sl[i].lastName + "<br>" + dateAndTime;
+        var log = "added attendee " + _sl[i].firstName + " " + _sl[i].lastName + "<br>" + dateAndTime("log");
     } else {
-        var log = "removed attendee " + _sl[i].firstName + " " + _sl[i].lastName + "<br>" + dateAndTime;
+        var log = "removed attendee " + _sl[i].firstName + " " + _sl[i].lastName + "<br>" + dateAndTime("log");
     }
     activityLog(log);
     attCount();
@@ -863,7 +849,6 @@ function randomAtt(blank,x) {
     if (x > _sl.length) {
         x = _sl.length;
     }
-    today = new Date();
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
     }
@@ -875,14 +860,14 @@ function randomAtt(blank,x) {
             i--
         }
     }
-    if (_isClassDay === true && today.getHours() < 16) {
+    if (_isClassDay === true && dateAndTime("hours") < 16) {
         for (i = 0; i < _sl.length; i++) {
             if (_sl[i].attendance === true) {
                 _amAtt[_elapsedWeeks-1] += 1;
                 _sl[i].amAtt[_elapsedWeeks-1] = 1;
             }
         } 
-    } else if (_isClassDay === true && today.getHours() >= 16) {
+    } else if (_isClassDay === true && dateAndTime("hours") >= 16) {
         for (i = 0; i < _sl.length; i++) {
             if (_sl[i].attendance === true) {
                 _pmAtt[_elapsedWeeks-1] += 1;
@@ -897,16 +882,15 @@ function randomAtt(blank,x) {
 }
 
 function allAtt() {
-    today = new Date();
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = true;
     }
-    if (_isClassDay === true && today.getHours() < 16) {
+    if (_isClassDay === true && dateAndTime("hours") < 16) {
         for (i = 0; i < _sl.length; i++) {
             _amAtt[_elapsedWeeks-1] += 1;
             _sl[i].amAtt[_elapsedWeeks-1] = 1;
         } 
-    } else if (_isClassDay === true && today.getHours() >= 16) {
+    } else if (_isClassDay === true && dateAndTime("hours") >= 16) {
         for (i = 0; i < _sl.length; i++) {
             _pmAtt[_elapsedWeeks-1] += 1;
             _sl[i].pmAtt[_elapsedWeeks-1] = 1;
@@ -1151,13 +1135,11 @@ function notesAlert() {
 
 function findAllBday() {
     var todaysDateNumber = assignTodaysDateNumber();
-    today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     setWeeksOff();
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[i].hasBirthday === false && _sl[i].birthdayDone === false) {
             _sl[i].hasBirthday = true; _birthdayList.push(_sl[i].fullName);
-            activityLog(_sl[i].fullName + " birthday found (" + _sl[i].birthday + ")<br>" + dateAndTime);
+            activityLog(_sl[i].fullName + " birthday found (" + _sl[i].birthday + ")<br>" + dateAndTime("log"));
         }
     }
 }
@@ -1167,9 +1149,7 @@ function findBday() {
     setWeeksOff();
     if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[_ci].hasBirthday === false && _sl[_ci].birthdayDone === false) {
         _sl[_ci].hasBirthday = true; _birthdayList.push(_sl[_ci].fullName);
-        today = new Date();
-        var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-        activityLog(_sl[_ci].fullName + " birthday found (" + _sl[_ci].birthday + ")<br>" + dateAndTime);
+        activityLog(_sl[_ci].fullName + " birthday found (" + _sl[_ci].birthday + ")<br>" + dateAndTime("log"));
     }
 }
 
@@ -1363,10 +1343,9 @@ function newStudent() {
         newStudent.pmAtt.push(0);
     }
     if (_isClassDay === true) {
-        var today = new Date();
-        if (today.getHours() < 16) {
+        if (dateAndTime("hours") < 16) {
             newStudent.amAtt[_elapsedWeeks-1] = 1;
-        } else if (today.getHours() >= 16) {
+        } else if (dateAndTime("hours") >= 16) {
             newStudent.pmAtt[_elapsedWeeks-1] = 1;
         }
     }
@@ -1375,9 +1354,7 @@ function newStudent() {
     assignBdayNumber();
     findBday();
     sortStudentList();
-    var today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    var log = "new student " + first + " " + last + "<br>" + dateAndTime;
+    var log = "new student " + first + " " + last + "<br>" + dateAndTime("log");
     activityLog(log);
     assignID();
     storeAndBackup();
@@ -1435,14 +1412,12 @@ function editStudent() {
     assignBdayNumber(); 
     if (_sl[_ci].birthdayNumber != previousBdayNumber) { findBday() }
     document.getElementById("studentPopName").innerHTML = _sl[_ci].fullName;
-    today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     var original = [originalFirstName,originalLastName,originalGender,originalBday,originalEmail];
     var edit = [editFirstName,editLastName,editGender,_sl[_ci].birthday,_sl[_ci].email];
     var labels = ["first name","last name","gender","birthday","email"];
     for (i = 0; i < original.length; i++) {
         if (original[i] != edit[i]) {
-            activityLog(originalFirstName + " " + originalLastName + " " + labels[i] + " edited<br>" + original[i] + "-->" + edit[i] + "<br>" + dateAndTime);
+            activityLog(originalFirstName + " " + originalLastName + " " + labels[i] + " edited<br>" + original[i] + "-->" + edit[i] + "<br>" + dateAndTime("log"));
         }
     }
     refreshStudentPop();
@@ -1518,9 +1493,7 @@ function promotion() {
     document.getElementById("dispRankNamePromo").innerHTML = _sl[_ci].rankName;
     storeAndBackup();
     document.getElementById("promoInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
-    var today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    var log = _sl[_ci].fullName + " promoted to " + _sl[_ci].rankName + "<br>" + dateAndTime;
+    var log = _sl[_ci].fullName + " promoted to " + _sl[_ci].rankName + "<br>" + dateAndTime("log");
     activityLog(log);
     setTimeout(function() {
         pop(["studentPop","missionsPop"],["promoPop"])
@@ -1535,9 +1508,7 @@ function demotion() {
     _sl[_ci].promotionNum--;
     setRankFactor();
     setRankName();
-    var today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    var log = _sl[_ci].fullName + " demoted to " + _sl[_ci].rankName + "<br>" + dateAndTime;
+    var log = _sl[_ci].fullName + " demoted to " + _sl[_ci].rankName + "<br>" + dateAndTime("log");
     activityLog(log);
     document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
     storeAndBackup();
@@ -1632,9 +1603,7 @@ function asPoints(_asNum,x,secondCall) {
             }
         }
         var plusSign = ""; if (netPts > 0) {plusSign = "+"}
-        var today = new Date();
-        var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-        var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _asNames[_asNum] + " sheet " + "<br>" + "(" + asPts + "-->" + _sl[_ci].as[_asNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")" + "<br>" + dateAndTime;
+        var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _asNames[_asNum] + " sheet " + "<br>" + "(" + asPts + "-->" + _sl[_ci].as[_asNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")" + "<br>" + dateAndTime("log");
         activityLog(log);
         if (promotionStatus > 0) {
             promotion();
@@ -1707,9 +1676,7 @@ function mvPoints(_mvNum,x) {
         }
     }
     var plusSign = ""; if (netPts > 0) {plusSign = "+"}
-    var today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _mvNames[_mvNum] + " verse "  + "<br>" +  "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")" + "<br>" + dateAndTime;;
+    var log = _sl[_ci].fullName + " " + plusSign + netPts + " pts " + _mvNames[_mvNum] + " verse "  + "<br>" +  "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")" + "<br>" + dateAndTime("log");
     activityLog(log);
     if (promotionStatus > 0) {
         promotion();
@@ -2012,6 +1979,35 @@ function mvPop(mvNum,index,points) {
     scrollTo(0,0);
 }
 
+/* function populateNames() {
+    document.getElementById("nameList").innerHTML = "";
+    for (i = 0; i < _sl.length; i++) {
+        var elementNode = document.createElement("p");
+        if (_sl[i].attendance === true) {
+            elementNode.style.color = "lawnGreen";
+        } else {
+            elementNode.style.color = "white";
+        }
+        elementNode.classList.add("name");
+        if (document.getElementById("rapidAttCheck").checked == true) {
+            (function(i){
+                elementNode.onclick = function () {
+                    _ci = i; toggleAtt2(i); populateNames();
+                }
+            })(i);
+        } else {
+            (function(i){
+                elementNode.onclick = function () {
+                    loadStudent(i);
+                }
+            })(i);
+        }
+        var textNode = document.createTextNode(_sl[i].rankName + " " + _sl[i].fullName + " " + _sl[i].points);
+        elementNode.appendChild(textNode);
+        document.getElementById("nameList").appendChild(elementNode);
+    }  
+} */
+
 function populateNames() {
     document.getElementById("nameList").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
@@ -2163,15 +2159,13 @@ function populateTeacherNotes() {
 }
 
 function checkInAtt() {
-    var today = new Date();
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
-        var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-        var log = "added attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime;
+        var log = "added attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime("log");
         activityLog(log);
-        if (_isClassDay === true && today.getHours() < 16) {
+        if (_isClassDay === true && dateAndTime("hours") < 16) {
             _sl[_ci].amAtt[_elapsedWeeks-1] = 1;
-        } else if (_isClassDay === true && today.getHours() >= 16) {
+        } else if (_isClassDay === true && dateAndTime("hours") >= 16) {
             _sl[_ci].pmAtt[_elapsedWeeks-1] = 1;
         }
         document.getElementById("studentPopName").style.color = "lawngreen";
@@ -2182,29 +2176,27 @@ function checkInAtt() {
 }
 
 function toggleAtt() {
-    var today = new Date();
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
-        if (_isClassDay === true && today.getHours() < 16) {
+        if (_isClassDay === true && dateAndTime("hours") < 16) {
             _sl[_ci].amAtt[_elapsedWeeks-1] = 1;
-        } else if (_isClassDay === true && today.getHours() >= 16) {
+        } else if (_isClassDay === true && dateAndTime("hours") >= 16) {
             _sl[_ci].pmAtt[_elapsedWeeks-1] = 1;
         }
         document.getElementById("studentPopName").style.color = "lawngreen";
     } else {
         _sl[_ci].attendance = false;
-        if (_isClassDay === true && today.getHours() < 16) {
+        if (_isClassDay === true && dateAndTime("hours") < 16) {
             _sl[_ci].amAtt[_elapsedWeeks-1] = 0;
-        } else if (_isClassDay === true && today.getHours() >= 16) {
+        } else if (_isClassDay === true && dateAndTime("hours") >= 16) {
             _sl[_ci].pmAtt[_elapsedWeeks-1] = 0;
         }
         document.getElementById("studentPopName").style.color = "white";
     }
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     if (_sl[_ci].attendance === true) {
-        var log = "added attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime;
+        var log = "added attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime("log");
     } else {
-        var log = "removed attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime;
+        var log = "removed attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime("log");
     }
     activityLog(log);
     attCount();
@@ -2213,23 +2205,21 @@ function toggleAtt() {
 }
 
 function toggleAtt2(i) {
-    var today = new Date();
     if (_sl[_ci].attendance === false) {
         _sl[_ci].attendance = true;
-        if (_isClassDay === true && today.getHours() < 16) {
+        if (_isClassDay === true && dateAndTime("hours") < 16) {
             _sl[_ci].amAtt[_elapsedWeeks-1] = 1;
-        } else if (_isClassDay === true && today.getHours() >= 16) {
+        } else if (_isClassDay === true && dateAndTime("hours") >= 16) {
             _sl[_ci].pmAtt[_elapsedWeeks-1] = 1;
         }
         document.getElementById("studentPopName").style.color = "lawngreen";
     } else {
         loadStudent(i);
     }
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     if (_sl[_ci].attendance === true) {
-        var log = "added attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime;
+        var log = "added attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime("log");
     } else {
-        var log = "removed attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime;
+        var log = "removed attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime("log");
     }
     activityLog(log);
     document.getElementById("search").value = "";
@@ -2345,9 +2335,7 @@ function promotionList(log) {
 function completePromotion(x) {
     _sl[x].promoted = false;
     _sl[x].promotionNum = 0;
-    today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    activityLog(_sl[x].fullName + " promotion complete<br>" + dateAndTime);
+    activityLog(_sl[x].fullName + " promotion complete<br>" + dateAndTime("log"));
     loadPromotions();
     storeAndBackup();
 }
@@ -2507,9 +2495,7 @@ function loadNeededBirthdays() {
 
 function completeBday(x) {
     _sl[x].birthdayDone = true; 
-    today = new Date();
-    var dateAndTime = (today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-    activityLog(_sl[x].fullName + " birthday complete<br>" + dateAndTime);
+    activityLog(_sl[x].fullName + " birthday complete<br>" + dateAndTime("log"));
     loadBdays(); storeAndBackup();
 }
 
@@ -2834,7 +2820,6 @@ function sumArrays(arrays) {
 }
 
 function loadAttStats() {
-    var today = new Date();
     var amArray = _amAtt.slice(0,_amAtt.length); var pmArray = _pmAtt.slice(0,_pmAtt.length);
     var amBoysArray = []; var pmBoysArray = []; var amGirlsArray = []; var pmGirlsArray = [];
     for (i = 0; i < _sl.length; i++) {
@@ -2846,7 +2831,7 @@ function loadAttStats() {
             pmGirlsArray.push(_sl[i].pmAtt.slice(0,_sl[i].pmAtt.length));
         }
     }
-    if (_isClassDay === true && today.getHours() < 18) {
+    if (_isClassDay === true && dateAndTime("hours") < 18) {
         amArray.pop(); pmArray.pop();
         for (i = 0; i < _sl.length; i++) {
             if (i < amBoysArray.length) { amBoysArray[i].pop(); }

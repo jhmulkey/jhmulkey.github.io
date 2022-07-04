@@ -98,8 +98,9 @@ a:link, a:visited, a:hover, a:active {
 
 #studentNotesList, #teacherNotesList {
     margin-top: 0px;
-}
+    text-align: left !important;
 
+}
 
 #att2Pop, #att3Pop {
     border-bottom: 2px solid white;
@@ -212,10 +213,6 @@ a:link, a:visited, a:hover, a:active {
 
 #attCountButton {
     padding-top: 6px;
-}
-
-.deleteButton {
-    background-color: firebrick;
 }
 
 #confirmDeleteStudentButton, #confirmDeleteNoteButton, #confirmDeleteTeacherNoteButton, #confirmResetDrawingButton {
@@ -640,10 +637,6 @@ a:link, a:visited, a:hover, a:active {
     padding: 15px;
 }
 
-#studentNotesList, #teacherNotesList {
-    text-align: left !important;
-}
-
 #email {
     height: 35px;
     width: 300px;
@@ -902,15 +895,6 @@ a:link, a:visited, a:hover, a:active {
 
 .addNote, #dispStudentPhoto, .roundButton, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, .secretButton, .secretButton2, .secretButton3, #advancedOptionsButton {
     cursor: pointer;
-}
-
-#displayInsignia {
-    width: 350px;
-    height: 600px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #111;
 }
 
 #studentPopClassRank {
