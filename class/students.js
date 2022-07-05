@@ -484,27 +484,27 @@ function loadStudentStats() {
         }
     }
     assignClassRank();
-    document.getElementById("studentStatsInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
-    document.getElementById("statsRankName").innerHTML = _rankNames[_sl[_ci].rank];
+    document.getElementById("studentPopInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
+    document.getElementById("studentPopRankName").innerHTML = _rankNames[_sl[_ci].rank];
     if (_rankNames[_sl[_ci].rank].length > 20) {
-        document.getElementById("statsRankName").style.fontSize = "15px";
+        document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
-        document.getElementById("statsRankName").style.fontSize = "18px";
+        document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
     if (_sl[_ci].fullName.length > 17) {
-        document.getElementById("statsName").style.fontSize = "22px";
+        document.getElementById("studentPopName").style.fontSize = "22px";
     } else {
-        document.getElementById("statsName").style.fontSize = "25px";
+        document.getElementById("studentPopName").style.fontSize = "25px";
     }
-    document.getElementById("statsName").innerHTML = _sl[_ci].fullName;
-    document.getElementById("statsClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
+    document.getElementById("studentPopName").innerHTML = _sl[_ci].fullName;
+    document.getElementById("studentPopClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
     document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + rankPercentage + "%)";
     document.getElementById("totalProgressTableP").innerHTML = "Total Points: " + totalEarnedPoints + "/" + totalPoints + " (" + totalPointsPercentage + "%)";
     document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Points: " + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)";
     document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Points: " + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)";
     document.getElementById("attendanceProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + attendancePercentage + "%)";
     document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)";
-    pop(["mainPop","infoAlertPop"],["studentStatsPop"]);
+    pop(["mainPop","infoAlertPop"],["studentPop"]);
     document.getElementById("nameList").innerHTML = "";
 }
 

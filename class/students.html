@@ -45,18 +45,49 @@
     <a href="sms:8645694879"><div class="contactButton2">d</div></a>
     <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton2">v</div></a>
   </div>
+</div>
 
-  <div id="studentStatsTopContainerDiv">
+  <!-- <div id="studentStatsTopContainerDiv">
     <div id="studentStatsInsignia"></div>
     <div id="studentStatsName">
       <p id="statsRankName"></p>
       <p id="statsName"></p>
       <p id="statsClassRank"></p>
     </div>
+  </div> -->
+
+  <div id="studentPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton" onclick="goHome()"><span>f</span></div>
+      <div class="secretButton" onclick="loadStudentData(); studentMenuSwitch(4)"></div>
+      <div class="homeButton" onclick="goHome()"><span>5</span></div>
+    </div>
+  
+    <div id="studentPopTopContainerDiv">
+      <div id="studentPopInsignia"></div>
+      <div id="studentPopInfo">
+        <p id="studentPopRankName"></p>
+        <p id="studentPopName"></p>
+        <p id="studentPopPts"></p>
+        <p id="studentPopClassRank"></p>
+      </div>
+    </div>
+  
+    <div>
+      <table id="studentMenuTable">
+        <tr>
+          <td id="studentMenu0" onclick="studentMenuSwitch(0)" style="background-color: #777">MISSIONS</td>
+          <td id="studentMenu1" onclick="studentMenuSwitch(1)">STATS</td>
+          <td id="studentMenu2" onclick="studentMenuSwitch(2)">INFO</td>
+          <td id="studentMenu3" onclick="studentMenuSwitch(3)">NOTES</td>
+        </tr>
+      </table>
+    </div>
   </div>
 
-  <p style="color:orange;font-size:15px;text-align:center;">Click on any progress bar below to see more info.</p>
+  <!-- <p style="color:orange;font-size:15px;text-align:center;">Click on any progress bar below to see more info.</p> -->
 
+<div>
   <div id="studentStatsBottomContainerDiv">
     <div class="tableContainer" onclick="loadRankTable()">
       <p id="rankProgressTableP"></p>

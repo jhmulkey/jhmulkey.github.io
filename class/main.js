@@ -1944,35 +1944,6 @@ function mvPop(mvNum,index,points) {
     scrollTo(0,0);
 }
 
-/* function populateNames() {
-    document.getElementById("nameList").innerHTML = "";
-    for (i = 0; i < _sl.length; i++) {
-        var elementNode = document.createElement("p");
-        if (_sl[i].attendance === true) {
-            elementNode.style.color = "lawnGreen";
-        } else {
-            elementNode.style.color = "white";
-        }
-        elementNode.classList.add("name");
-        if (document.getElementById("rapidAttCheck").checked == true) {
-            (function(i){
-                elementNode.onclick = function () {
-                    _ci = i; toggleAtt2(i); populateNames();
-                }
-            })(i);
-        } else {
-            (function(i){
-                elementNode.onclick = function () {
-                    loadStudent(i);
-                }
-            })(i);
-        }
-        var textNode = document.createTextNode(_sl[i].rankName + " " + _sl[i].fullName + " " + _sl[i].points);
-        elementNode.appendChild(textNode);
-        document.getElementById("nameList").appendChild(elementNode);
-    }  
-} */
-
 function populateNames() {
     document.getElementById("nameList").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
