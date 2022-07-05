@@ -373,14 +373,14 @@ function findStudent() {
     }
     if (x.length == 2) {
         for (i = 0; i < _sl.length; i++) {
-            if (x[0] == _sl[i].firstName.toLowerCase() && x[1] == _sl[i].lastName.toLowerCase()) {
+            if (x[0] + " " + x[1] == _sl[i].fullName.toLowerCase()) {
                 matches.push(i);
             }
         }
     }
     if (x.length == 3) {
         for (i = 0; i < _sl.length; i++) {
-            if (x[0] + " " + x[1] == _sl[i].firstName.toLowerCase() && x[2] == _sl[i].lastName.toLowerCase()) {
+            if (x[0] + " " + x[1] + " " + x[2] == _sl[i].fullName.toLowerCase()) {
                 matches.push(i);
             }
         }

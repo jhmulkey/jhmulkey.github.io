@@ -103,7 +103,6 @@ class Student {
         this.fullName = first + " " + last;
         this.gender = gender;
         this.dateAdded = assignTodaysDateNumber();
-        this.id;
         this.birthdayMonth = month;
         this.birthdayDate = date;
         this.birthdayNumber;
@@ -479,13 +478,13 @@ function deleteCurrentPlayer() {
 
 function addPlayer(x,i) {
     if (x == 1) {
-        _teams[0].team1.push(_sl[i]);
-        _teams[0].team1Reset.push(_sl[i]);
+        _teams[0].team1.push(_sl[i].fullName);
+        _teams[0].team1Reset.push(_sl[i].fullName);
         log = "ADDED " + _sl[i] + " to Team 1";
 
     } else {
-        _teams[0].team2.push(_sl[i]);
-        _teams[0].team2Reset.push(_sl[i]);
+        _teams[0].team2.push(_sl[i].fullName);
+        _teams[0].team2Reset.push(_sl[i].fullName);
         log = "ADDED " + _sl[i] + " to Team 2";
     }
     gameActivityLog(log);
@@ -625,38 +624,6 @@ function assignClassRanks() {
     for (i = 0; i < _sl.length; i++) {
         _sl[i].classRank = pointsRanked[i];
     }
-}
-
-function assignID() {
-    for (i = 0; i < _sl.length; i++) {
-        _sl[i].id = i+1;
-    }
-}
-
-function setPoints(parameter,data,reason) {
-    original = _sl[_ci].points;
-    y = data;
-    _sl[_ci].points = y;
-    if (y < 90) {
-        _sl[_ci].rank = Math.floor(y / 10);
-    } else if (y >= 90 && y < 160) {
-        _sl[_ci].rank = Math.floor(y / 10) - 1;
-    } else if (y >= 160 && y <210){
-        _sl[_ci].rank = Math.floor(y / 10) - 2;
-    } else if (y >= 210 && y < 220 ) {
-        _sl[_ci].rank = Math.floor(y / 10) - 3;
-    } else if (y >= 220) {
-        _sl[_ci].rank = 19;
-    }
-    setRankName();
-    setRankFactor();
-    assignClassRanks();
-    populateNames();
-    document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
-    document.getElementById("dispPts").innerHTML = "("+_sl[_ci].points+")";
-    var log = _sl[_ci].fullName + " points set " + original + "-->" + y  + "<br>" + "(reason: " + reason + ")" + "<br>" + dateAndTime("log");
-    activityLog(log);
-    storeAndBackup();
 }
 
 function setRankFactor() {
@@ -1356,7 +1323,6 @@ function newStudent() {
     sortStudentList();
     var log = "new student " + first + " " + last + "<br>" + dateAndTime("log");
     activityLog(log);
-    assignID();
     storeAndBackup();
     clearStudentFields()
     if (document.getElementById("rapidEntryCheck").checked === true) {
@@ -1369,7 +1335,7 @@ function newStudent() {
 
 function deleteStudent() {
     _sl.splice(_ci,1);
-    assignID(); attCount(); storeAndBackup(); sortStudentList(); goHome();
+    attCount(); storeAndBackup(); sortStudentList(); goHome();
 }
 
 function editStudent() {
@@ -1421,7 +1387,6 @@ function editStudent() {
         }
     }
     refreshStudentPop();
-    assignID();
     storeAndBackup();
     if (document.getElementById("rapidEditCheck").checked === true) {
         _ci++;
@@ -2075,37 +2040,22 @@ function populateNames3(x) {
     document.getElementById("teamsListButtons").style.display = "none";
     document.getElementById("nameList3").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].attendance === true) { continue }
         var elementNode = document.createElement("p");
-        if (_sl[i].attendance === true) {
-            elementNode.style.color = "lawnGreen";
-            if (_sl[i].promoted === true) {
-                elementNode.style.color = "yellow";
-            }
-        } else {
-            elementNode.style.color = "white";
-        }
         elementNode.classList.add("name");
         (function(i){
             elementNode.onclick = function () {
-                if (checkID(i) === true) {
-                    infoAlert("Student is already on a team",["att3Pop","teamsListPop"]); return;
-                } else {
-                    att2(i);
-                    addPlayer(x,i);
-                    pop(["att3Pop"],["teamsListPop"]);
-                    document.getElementById("search3").value = "";
-                }
+                att2(i);
+                addPlayer(x,i);
+                pop(["att3Pop"],["teamsListPop"]);
+                document.getElementById("search3").value = "";
             }
         })(i);
-        var textNode = document.createTextNode(_sl[i].rankName + " " + _sl[i].fullName + " " + _sl[i].points);
+        var textNode = document.createTextNode(_sl[i].fullName);
         elementNode.appendChild(textNode);
         document.getElementById("nameList3").appendChild(elementNode);
         document.getElementById("search3").focus();
     }  
-}
-
-function checkID(i) {
-    if(_teams[0].team1.some(e => e.id === _sl[i].id) || _teams[0].team2.some(e => e.id === _sl[i].id)) { return true } else { return false };
 }
 
 function confirmAction(id) {
@@ -2566,7 +2516,6 @@ function selectText(element) {
 
 function loadStudentData() {
     document.getElementById("dateAdded").innerHTML = _sl[_ci].dateAdded;
-    document.getElementById("studentID").innerHTML = _sl[_ci].id;
     document.getElementById("firstName").innerHTML = _sl[_ci].firstName;
     document.getElementById("lastName").innerHTML = _sl[_ci].lastName;
     document.getElementById("fullName").innerHTML = _sl[_ci].fullName;
@@ -3014,25 +2963,19 @@ function consoleAssignClassDateNumbers() {
 function consoleAllPhotosTrue() {
     if (confirm("Confirm batch action") == true) {
         for (i = 0; i < _sl.length; i++) {
-            _sl[i].photo = true; storeAndBackup();
+            _sl[i].photo = true
         }
     } 
+    storeAndBackup();
 }
 
 function consoleAllEmailsOnFile() {
     if (confirm("Confirm batch action") == true) {
         for (i = 0; i < _sl.length; i++) {
-            _sl[i].email = "on file"; storeAndBackup();
+            _sl[i].email = "on file"
         }
     } 
-}
-
-function consoleBatchEditSL(property,value) {
-    if (confirm("Confirm batch action") == true) {
-        for (i = 0; i < _sl.length; i++) {
-            _sl[i][property] = value; storeAndBackup();
-        }
-    } 
+    storeAndBackup();
 }
 
 function consoleBatchFilterSL(property,value) {
@@ -3056,12 +2999,84 @@ function consoleBatchDisplaySL(property) {
 }
 
 function consoleDisplayStudentProperties(fullName) {
-    var count = 0;
+    var result = false;
     for (i = 0; i < _sl.length; i++) {
         if(_sl[i]["fullName"] == fullName) {
-            console.log(_sl[i]); count++;
+            result = true;
+            for (let x in _sl[i]) {
+                if (typeof _sl[i][x] !== "object") {
+                    console.log(x + ": " + _sl[i][x]); 
+                }
+            }
+            for (let x in _sl[i]) {
+                if (typeof _sl[i][x] === "object") {
+                    console.log(x + ":");
+                    console.log(_sl[i][x]);
+                }
+            }
             break;
-        } 
+        }
     }
-    if (count == 0) { console.log("no results"); }
+    if (result === false) { 
+        console.log("The student " + fullName + " was not found.") 
+    }
+}
+
+function consoleBatchDeleteProperty(propertyName) {
+    var doesntExist = []; var count = 0;
+    for (i = 0; i < _sl.length; i++) {
+        if (typeof _sl[i][propertyName] === "undefined") {
+            doesntExist.push(_sl[i])
+        }
+    }
+    if (confirm("Confirm batch action") == true) {
+        for (i = 0; i < _sl.length; i++) {
+            if (typeof _sl[i][propertyName] !== "undefined") {
+                delete _sl[i][propertyName]; count++
+            }
+        }
+    }
+    console.log("The property '" + propertyName + "' has been deleted from " + count + " out of " + _sl.length + " students");
+    if (doesntExist.length > 0) {
+        console.log(doesntExist.length + " students did not have property and were skipped:")
+        for (i = 0; i < doesntExist.length; i++) {
+            console.log(doesntExist[i].fullName)
+        }
+    }
+    storeAndBackup();
+}
+
+function consoleBatchAddProperty(propertyName,value) {
+    var alreadyExists = []; var count = 0;
+    for (i = 0; i < _sl.length; i++) {
+        if (typeof _sl[i][propertyName] !== "undefined") {
+            alreadyExists.push(_sl[i])
+        }
+    }
+    if (confirm("Confirm batch action") == true) {
+        for (i = 0; i < _sl.length; i++) {
+            if (typeof _sl[i][propertyName] === "undefined") {
+                _sl[i][propertyName] = value; count++
+            }
+        }
+    }
+    console.log("The property '" + propertyName + "' has been added to " + count + " out of " + _sl.length + " students");
+    if (alreadyExists.length > 0) {
+        console.log(alreadyExists.length + " students already had this property and were skipped. To force this property and value to all students, use 'consoleBatchEditSL' instead:")
+        for (i = 0; i < alreadyExists.length; i++) {
+            console.log(alreadyExists[i].fullName + " '" + propertyName + "': " + alreadyExists[i][propertyName])
+        }
+    }
+    storeAndBackup();
+}
+
+function consoleBatchEditSL(propertyName,value) {
+    var count = 0;
+    if (confirm("Confirm batch action") == true) {
+        for (i = 0; i < _sl.length; i++) {
+            _sl[i][property] = value; count++
+        }
+    }
+    console.log("The property '" + propertyName + "' has been edited for " + count + " out of " + _sl.length + " students");
+    storeAndBackup();
 }
