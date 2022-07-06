@@ -1035,7 +1035,7 @@ function populateStudentNotes(id) {
         document.getElementById("studentNotesList").appendChild(elementNode);
     }
     var elementNode2 = document.createElement("p");
-    elementNode2.classList.add("addNote");
+    elementNode2.classList.add("addNew");
     elementNode2.onclick = function () {
         pop(["studentNotesPop"],["addStudentNotePop","addStudentNote"]);
         document.getElementById("addStudentNote").focus();
@@ -1277,8 +1277,8 @@ function actionAlert(message,popsArray,func,bypass,parameter) {
 }
 
 function newStudent() {
-    var newFirstName = document.getElementById("newFirstName").value
-    var newLastName = document.getElementById("newLastName").value
+    var NFNArray = (document.getElementById("newFirstName").value.trim().toLowerCase()).split(" ")
+    var NLNArray = (document.getElementById("newLastName").value.trim().toLowerCase()).split(" ")
     var newGender = document.getElementById("newGender").value
     var newBdayMonth = document.getElementById("newBdayMonth").value
     var newBdayDate = document.getElementById("newBdayDate").value
@@ -1287,8 +1287,14 @@ function newStudent() {
     if (newFirstName == "" || newLastName == "") {
         infoAlert("First and last name required",["newStudentPop"]); return;
     } else {
-        var first = capitalize(newFirstName);
-        var last = capitalize(newLastName);
+        for (i = 0; i < NFNArray.length; i++) {
+            NFNArray[i] = NFNArray[i][0].toUpperCase() + NFNArray[i].substr(1);
+        }
+        for (i = 0; i < NLNArray.length; i++) {
+            NLNArray[i] = NLNArray[i][0].toUpperCase() + NLNArray[i].substr(1);
+        }
+        var first = NFNArray.join("-");
+        var last = NLNArray.join("-");
     }
     if (newGender.toLowerCase() == "m") {
         var gender = "M";
@@ -1353,9 +1359,9 @@ function editStudent() {
     if (editFirstName == "" || editLastName == "") {
         infoAlert("First and last name required",["editStudentPop"]); return;
     } else {
-        _sl[_ci].firstName = capitalize(editFirstName);
-        _sl[_ci].lastName = capitalize(editLastName);
-        _sl[_ci].fullName = capitalize(editFirstName) + " " + capitalize(editLastName);
+        _sl[_ci].firstName = capitalize(editFirstName.toLowerCase());
+        _sl[_ci].lastName = capitalize(editLastName.toLowerCase());
+        _sl[_ci].fullName = _sl[_ci].firstName + " " + _sl[_ci].lastName
     }
     if (editGender.toLowerCase() == "m") {
         _sl[_ci].gender = "M";
@@ -1667,9 +1673,9 @@ function removePtBoxes() {
     }
 }
 
-function searchNames(id) {
+function searchNames(id,className) {
     var inputVal = document.getElementById(id).value.toLowerCase();
-    var names = document.getElementsByClassName("name");
+    var names = document.getElementsByClassName(className);
     for (i = 0; i < names.length; i++) {
         if (names[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
             names[i].style.display = "block";
@@ -1698,7 +1704,7 @@ function loadStudent(index) {
     if (document.getElementById("editStudentPop").style.display != "block") {
         pop(["mainPop"],["studentPop","missionsPop"]);
     }
-    document.getElementById("search").value = "";
+    document.getElementById("searchMain").value = "";
     assignClassRanks();
     document.getElementById("studentPopInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
     document.getElementById("studentPopRankName").innerHTML = _rankNames[_sl[_ci].rank];
@@ -1799,8 +1805,8 @@ function pop(closeArray,openArray) {
         removePtBoxes();
     }
     if (openArray.includes("mainPop")) {
-        document.getElementById("search").value = "";
-        document.getElementById("search").focus();
+        document.getElementById("searchMain").value = "";
+        document.getElementById("searchMain").focus();
         sortStudentList();
     }
     if (openArray.includes("randomPop") || openArray.includes("drawingPop")) {
@@ -1813,12 +1819,12 @@ function pop(closeArray,openArray) {
         document.getElementById("log").innerHTML = _log;
     }
     if (openArray.includes("att2Pop")) {
-        document.getElementById("search2").value = "";
-        document.getElementById("search2").focus();
+        document.getElementById("searchMain2").value = "";
+        document.getElementById("searchMain2").focus();
     }
     if (openArray.includes("att3Pop")) {
-        document.getElementById("search3").value = "";
-        document.getElementById("search3").focus();
+        document.getElementById("searchMain3").value = "";
+        document.getElementById("searchMain3").focus();
     }
     if (openArray.includes("newStudentPop")) {
         document.getElementById("newFirstName").focus();
@@ -1853,8 +1859,8 @@ function goHome() {
         document.getElementById("as"+i+"Pop").style.display = "block";
         document.getElementById("mv"+i+"Pop").style.display = "block";
     }
-    document.getElementById("search").value = "";
-    document.getElementById("search").focus();
+    document.getElementById("searchMain").value = "";
+    document.getElementById("searchMain").focus();
     alerts();
     sortStudentList();
     removePtBoxes();
@@ -1990,18 +1996,18 @@ function populateNames2() {
         } else {
             elementNode.style.color = "white";
         }
-        elementNode.classList.add("name");
+        elementNode.classList.add("nameSmaller");
         (function(i){
             elementNode.onclick = function () {
                 att2(i);
                 pop(["att2Pop"],["studentPop"]);
-                document.getElementById("search2").value = "";
+                document.getElementById("searchMain2").value = "";
             }
         })(i);
-        var textNode = document.createTextNode(_sl[i].rankName + " " + _sl[i].fullName + " " + _sl[i].points);
+        var textNode = document.createTextNode(_sl[i].fullName);
         elementNode.appendChild(textNode);
         document.getElementById("nameList2").appendChild(elementNode);
-        document.getElementById("search2").focus();
+        document.getElementById("searchMain2").focus();
     }  
 }
 
@@ -2011,21 +2017,20 @@ function populateNames3(x) {
     document.getElementById("teamsListButtons").style.display = "none";
     document.getElementById("nameList3").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true) { continue }
+        if (_sl[i].attendance === false || _teams[0].team1Reset.includes(_sl[i].fullName) || _teams[0].team2Reset.includes(_sl[i].fullName)) { continue }
         var elementNode = document.createElement("p");
-        elementNode.classList.add("name");
+        elementNode.classList.add("nameSmaller");
         (function(i){
             elementNode.onclick = function () {
-                att2(i);
                 addPlayer(x,i);
                 pop(["att3Pop"],["teamsListPop"]);
-                document.getElementById("search3").value = "";
+                document.getElementById("searchMain3").value = "";
             }
         })(i);
         var textNode = document.createTextNode(_sl[i].fullName);
         elementNode.appendChild(textNode);
         document.getElementById("nameList3").appendChild(elementNode);
-        document.getElementById("search3").focus();
+        document.getElementById("searchMain3").focus();
     }  
 }
 
@@ -2069,7 +2074,7 @@ function populateTeacherNotes() {
         document.getElementById("teacherNotesList").appendChild(elementNode);
     }
     var elementNode2 = document.createElement("p");
-    elementNode2.classList.add("addNote");
+    elementNode2.classList.add("addNew");
     elementNode2.onclick = function () {
         pop(["teacherNotesPop"],["addTeacherNotePop","addTeacherNote"]);
         document.getElementById("addTeacherNote").focus();
@@ -2143,8 +2148,8 @@ function toggleAtt2(i) {
         var log = "removed attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime("log");
     }
     activityLog(log);
-    document.getElementById("search").value = "";
-    document.getElementById("search").focus();
+    document.getElementById("searchMain").value = "";
+    document.getElementById("searchMain").focus();
     attCount();
     if (_isClassDay === true) { ampmAttendance(); }
     storeNewData();
@@ -2878,7 +2883,7 @@ function convertDateNumber(dateNumber) {
 
 whatToLoad()
 
-document.getElementById("search").focus();
+document.getElementById("searchMain").focus();
 
 /// FUNCTIONS TO RUN IN CONSOLE ///
 

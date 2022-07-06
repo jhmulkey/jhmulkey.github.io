@@ -387,18 +387,6 @@ function removePtBoxes() {
     }
 }
 
-function searchNames(id) {
-    var inputVal = document.getElementById(id).value.toLowerCase();
-    var names = document.getElementsByClassName("name");
-    for (i = 0; i < names.length; i++) {
-        if (names[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
-            names[i].style.display = "block";
-        } else {
-            names[i].style.display = "none";
-        }
-    }
-}
-
 function searchLog() {
     var inputVal = document.getElementById("searchLog").value.toLowerCase();
     var logEntries = document.getElementsByClassName("logEntry");

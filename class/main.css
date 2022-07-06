@@ -33,6 +33,7 @@ body {
 
 input, textarea {
     font-size: 20px;
+    height: 40px;
 }
 
 #master-wrapper {
@@ -73,7 +74,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #nameList2, #nameList3 {
-    height: 200px;
+    height: 160px;
     overflow-y: auto;
 }
 
@@ -105,7 +106,10 @@ a:link, a:visited, a:hover, a:active {
 #att2Pop, #att3Pop {
     border-bottom: 2px solid white;
     background-color: #222;
-    height: 401px;
+    height: 286px;
+    width: 388px;
+    padding: 20px 0px 0px 0px;
+    margin-bottom: 20px;
 }
 
 #absentPromotion, #absentBday, #absentEmailsNeeded, #absentPhotosNeeded, #absentBirthdaysNeeded {
@@ -184,12 +188,7 @@ a:link, a:visited, a:hover, a:active {
     margin: 20px auto;
 }
 
-#mainMenuButton {
-    font-family: Byom-Icons-Trial;
-    padding-top: 8px;
-}
-
-#addTeacherNoteButton {
+#mainMenuButton, #addTeacherNoteButton, #logButton, #backupButton {
     font-family: Byom-Icons-Trial;
     padding-top: 8px;
 }
@@ -218,17 +217,6 @@ a:link, a:visited, a:hover, a:active {
 #confirmDeleteStudentButton, #confirmDeleteNoteButton, #confirmDeleteTeacherNoteButton, #confirmResetDrawingButton {
     background-color: firebrick;
     display: none;
-}
-
-#search, #search2, #search3, #searchLog {
-    height: 50px;
-    width: 375px;
-    border-radius: 15px;
-    border: 1px solid transparent;
-    font-size: 25px;
-    font-family: Tahoma;
-    text-align: center;
-    margin: 20px auto 20px auto;
 }
 
 #nameList, #nameList2 {
@@ -371,10 +359,6 @@ a:link, a:visited, a:hover, a:active {
     flex-wrap: wrap;
 }
 
-#topMenu {
-    margin-bottom: 20px;
-}
-
 #attCount, #attArchiveCount {
     font-size: 50px;
     margin: 0px;
@@ -390,6 +374,7 @@ a:link, a:visited, a:hover, a:active {
 
 #studentPop {
     padding-bottom: 0px;
+    margin-bottom: 20px;
 }
 
 #missionsPop {
@@ -484,8 +469,12 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 3px;
 }
 
-.name {
+.name, .nameSmaller {
     margin: 0px 0px 15px;
+}
+
+.nameSmaller {
+    font-size: 20px;
 }
 
 .name2 {
@@ -607,14 +596,14 @@ a:link, a:visited, a:hover, a:active {
     font-size: 20px;
 }
 
-.addNote {
+.addNew {
     font-size: 20px;
     color: lawngreen;
     text-align: center;
     border: 1px solid green;
     border-radius: 10px;
     padding: 5px;
-    width: 150px;
+    width: 200px;
     margin: 20px auto;
 }
 
@@ -643,37 +632,49 @@ a:link, a:visited, a:hover, a:active {
     font-size: 20px;
 }
 
-.textInputField1, .textInputField2, .textInputField3, .textInputField4 {
-    border-radius: 15px;
+#searchMain, #searchLog {
+    margin: 20px auto;
+}
+
+#searchMain2, #searchMain3 {
+    margin: 10px auto;
+}
+
+.searchField {
+    width: 375px;
+}
+
+.searchField2 {
+    width: 350px;
+    font-size: 20px;
+    border-radius: 10px;
     border: 1px solid transparent;
-    font-size: 25px;
     font-family: Tahoma;
     text-align: center;
 }
 
-.textInputField1 {
-    height: 50px;
-    width: 375px;
-}
-
 .textInputField2 {
-    height: 50px;
     width: 150px;
 }
 
 .textInputField3 {
-    height: 50px;
     width: 175px;
 }
 
 .textInputField4 {
-    height: 50px;
     width: 85px;
 }
 
-.textInputField1:focus, .textInputField2:focus, .textInputField3:focus, #search:focus, #search2:focus, #search3:focus, #initialNote:focus, #dataInputTextField:focus, #enterReasonTextField:focus, #addStudentNote:focus, #editStudentNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
+.searchField:focus, .searchField2:focus, .textInputField2:focus, .textInputField3:focus, .textInputField4:focus, #initialNote:focus, #dataInputTextField:focus, #enterReasonTextField:focus, #addStudentNote:focus, #editStudentNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
     outline: none;
     border: 2px solid dodgerblue;
+}
+
+.searchField, .textInputField2, .textInputField3, .textInputField4 {
+    border-radius: 15px;
+    border: 1px solid transparent;
+    font-family: Tahoma;
+    text-align: center;
 }
 
 #editStudentPop p, #newStudentPop p {
@@ -893,7 +894,7 @@ a:link, a:visited, a:hover, a:active {
     text-align: center !important;
 }
 
-.addNote, #dispStudentPhoto, .roundButton, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, .secretButton, .secretButton2, .secretButton3, #advancedOptionsButton {
+.addNew, #dispStudentPhoto, .roundButton, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, .secretButton, .secretButton2, .secretButton3, #advancedOptionsButton {
     cursor: pointer;
 }
 
@@ -920,7 +921,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #studentMenuTable {
-    margin: 20px auto;
+    margin-top: 20px;
 }
 
 #studentMenuTable td {

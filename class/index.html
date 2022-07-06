@@ -11,22 +11,25 @@
 <div id="master-wrapper">
 
 <div id="mainPop" class="pop">
-      <div id="topMenuContainer">
-          <div id="mainMenuButton" class="roundButton" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
-          <div id="addTeacherNoteButton" class="roundButton" onclick="pop(['mainPop'],['addTeacherNotePop','addTeacherNote'])">E</div>
-          <div id="alertButton" class="roundButton" onclick="pop(['mainPop'],['alertsPop'])">#</div>
-          <div id="attCountButton" class="roundButton" onclick="loadAttendees()">0</div>
-          <div class="roundButton addButton" onclick="pop(['mainPop'],['newStudentPop'])">;</div>
-      </div>
-      <input id="search" class="textInputField1" type="text" placeholder="search names" oninput="searchNames('search')"/>
-      <div id="nameList"></div>
+    <div id="topMenuContainer">
+        <div id="mainMenuButton" class="roundButton" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
+        <div id="backupButton" class="roundButton" onclick="pop(['mainPop'],['backupPop'])">B</div>
+        <!-- <div id="addTeacherNoteButton" class="roundButton" onclick="pop(['mainPop'],['addTeacherNotePop','addTeacherNote'])">E</div> -->
+        <div id="attCountButton" class="roundButton" onclick="loadAttendees()">0</div>
+        <div id="logButton" class="roundButton" onclick="pop(['mainPop'],['logPop'])">F</div>
+        <div id="alertButton" class="roundButton" onclick="pop(['mainPop'],['alertsPop'])">#</div>
+        <!-- <div class="roundButton addButton" onclick="pop(['mainPop'],['newStudentPop'])">;</div> -->
+    </div>
+    <input id="searchMain" class="searchField" type="text" placeholder="search names" oninput="searchNames('searchMain','name')"/>
+    <div id="nameList"></div>
+    <p class="addNew" onclick="pop(['mainPop'],['newStudentPop'])">Add New Student</p>
 </div>
 
 <div id="att2Pop" class="pop">
   <div class="navigationButtonContainer" style="margin-bottom:0px">
     <div class="backButton" onclick="pop(['att2Pop'],['studentPop'])"><span>f</span></div>
   </div>
-  <input id="search2" type="text" placeholder="search names" oninput="searchNames('search2')"/>
+  <input id="searchMain2" class="searchField2" type="text" placeholder="search names" oninput="searchNames('searchMain2','nameSmaller')"/>
   <div id="nameList2"></div>
 </div>
 
@@ -34,7 +37,7 @@
   <div class="navigationButtonContainer" style="margin-bottom:0px">
     <div class="backButton" onclick="pop(['att3Pop'],['teamsListPop'])"><span>f</span></div>
   </div>
-  <input id="search3" type="text" placeholder="search names" oninput="searchNames('search3')"/>
+  <input id="searchMain3" class="searchField2" type="text" placeholder="search names" oninput="searchNames('searchMain3','nameSmaller')"/>
   <div id="nameList3"></div>
 </div>
 
@@ -73,8 +76,6 @@
     <div class="backButton" onclick="goHome()"><span>f</span></div>
     <div id="advancedOptionsButton" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">w</div>
   </div>
-  <div class="button" onclick="pop(['mainMenuPop'],['backupPop'])">Backup</div>
-  <div class="button" onclick="pop(['mainMenuPop'],['logPop'])">Log</div>
   <div class="button" onclick="loadAttStats()">Attendance Stats</div>
   <div class="button" onclick="pop(['mainMenuPop'],['sortChoicePop'])">Sort Students</div>
   <div class="button" onclick="pop(['mainMenuPop'],['drawingPop'])">Drawing</div>
@@ -236,7 +237,7 @@
     <div class="backButton" onclick="pop(['logPop'],['mainPop'])"><span>f</span></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
-  <input id="searchLog" type="text" placeholder="search log" oninput="searchLog()"/>
+  <input id="searchLog" class="searchField" type="text" placeholder="search log" oninput="searchLog()"/>
   <div id="log" onclick="selectText('log')"></div>
 </div>
 
@@ -251,12 +252,12 @@
 <div id="studentPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="goHome()"><span>f</span></div>
-    <div class="secretButton" onclick="loadStudentData(); studentMenuSwitch(4)"></div>
+    <div class="secretButton" onclick="populateNames2()"></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
 
   <div id="studentPopTopContainerDiv">
-    <div id="studentPopInsignia"></div>
+    <div id="studentPopInsignia" onclick="loadStudentData(); studentMenuSwitch(4)"></div>
     <div id="studentPopInfo">
       <p id="studentPopRankName"></p>
       <p id="studentPopName" onclick="toggleAtt()"></p>
@@ -602,7 +603,7 @@
   </div>
   <div>
     <p>Email Address</p>
-    <input class="textInputField1" id="newEmail" type="text" placeholder="email address" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"/>
+    <input class="searchField" id="newEmail" type="text" placeholder="email address" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"/>
   </div>
   <div>
     <p>Note</p>
@@ -637,7 +638,7 @@
         <p>Birthday</p>
         <div class="flexContainer">
           <div>
-            <input class="textInputField4" id="editBdayMonth" type="text" placeholder="Month" style="margin-right:10px" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
+            <input class="textInputField4" id="editBdayMonth" type="text" placeholder="Month" style="margin-right:10px" onkeydown="if(event.key === 'Enter')document.getElementById('editStudentOkButton').click()"/>
           </div>
           <div>
             <input class="textInputField4" id="editBdayDate" type="text" placeholder="Day" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
@@ -647,7 +648,7 @@
     </div>
     <div>
       <p>Email Address</p>
-      <input class="textInputField1" id="editEmail" type="text" placeholder="email address"
+      <input class="searchField" id="editEmail" type="text" placeholder="email address"
       onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
     </div>
     <div class="optionButtonContainer">
@@ -748,7 +749,7 @@
 <div id="missionsPop" class="pop">
     <div id="asmvHeaderContainer">
       <div class="asmvHeader" onclick="pop(['studentPop','missionsPop'],['missionVisibilityPop'])">ACTIVITY SHEETS</div>
-      <div class="secretButton" onclick="populateNames2()"></div>
+      <div class="secretButton"></div>
       <div class="asmvHeader" onclick="toggleIncomplete()">MEMORY VERSES</div>
     </div>
     <div id="asmvPopContainer">
@@ -1051,7 +1052,7 @@
 
 <div id="backupPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['backupPop'],['mainMenuPop'])"><span>f</span></div>
+    <div class="backButton" onclick="pop(['backupPop'],['mainPop'])"><span>f</span></div>
     <div class="homeButton" onclick="goHome()"><span>5</span></div>
   </div>
   <div id="backupArrays" onclick="selectText('backupArrays')">
