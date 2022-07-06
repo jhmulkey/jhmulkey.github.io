@@ -58,40 +58,118 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none; 
 }
 
-#rankChartLink {
-    text-decoration: underline;
+::placeholder {
+    font-size: 20px;
+    color: #aaa
 }
 
 *::-webkit-scrollbar { width: 0 !important }
 
-.invisible-scrollbar::-webkit-scrollbar {
+#calendarPop, #studentAttStatsPop, #openInsigniaPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPointsPop, #asPointsPop, #studentPop, .w01, .w02, .w03, .w04, .w05, .w06, .w07, .w08, .w09, .w10, .w11, .w12, .w13, .w14, .w15, .w16, .w17, .w18, .w19, .w20, .w21, .w22, .w23, .w24, .w25, .w26, .w27, .w28, .w29, .w30, .w31, .w32, .w33 {
     display: none;
 }
 
-#studentStatsPop, #studentStatsBottomContainerDiv, #studentAttStatsPop, #listMissionPointsPop, #studentPop, #infoAlertPop, #rankChartPop, #openInsigniaPop, #missionsPop, #mvPointsPop, #asPointsPop {
-    display: none;
+.pointer {
+    cursor: pointer;
 }
 
-#log p, #promoList p, #bdayList p, #notesList p, #teacherNotesList p {
+#log p, #studentNotesList p, #teacherNotesList p {
     margin-top: 20px !important;
+}
+
+#log, #gameLog {
+    text-align: left;
+}
+
+#nameList, #nameList2 {
+    margin: 0px auto;
+}
+
+#missionCheckBoxDiv, #studentNotesList, #teacherNotesList {
+    height: 600px;
+    overflow-y: auto;
+    text-align: left;
+    background-color: black;
+    border-radius: 25px;
+    border: 2px solid #222;
+    padding: 10px;
+}
+
+#studentNotesList, #teacherNotesList {
+    margin-top: 0px;
+    text-align: left !important;
+
+}
+
+#att2Pop, #att3Pop {
+    border-bottom: 2px solid white;
+    background-color: #222;
+    height: 401px;
+}
+
+#absentPromotion, #absentBday, #absentEmailsNeeded, #absentPhotosNeeded, #absentBirthdaysNeeded {
+    margin-top: 20px !important;
+    color: darkorange;
+}
+
+#promoListAbsent p, #bdayListAbsent p, #photosNeededListAbsent p, #emailsNeededListAbsent p, #birthdaysNeededListAbsent p{
+    color: gray;
 }
 
 .pop {
     padding: 20px;
 }
 
+#dispBday {
+    font-size: 18px;
+}
+
+#advancedOptionsPop, #missionVisibilityPop {
+    text-align: left;
+}
+
+.checkbox {
+    height: 20px;
+    width: 20px;
+}
+
+.checkboxLabel {
+    font-size: 22px;
+}
+
 .roundButton {
     height: 50px;
     width: 50px;
-    border: 2px solid white;
+    border: 2px solid #eee;
     background-color: black;
     border-radius: 25px;
     font-size: 25px;
 }
 
-.contactButton2 {
-    font-size: 65px;
-    font-family: MobileIcons;
+.secretButton {
+    height: 50px;
+    width: 50px;
+    margin: 0px;
+    position: absolute;
+}
+
+.secretButton2 {
+    height: 50px;
+    width: 50px;
+    margin: 0px;
+}
+
+.secretButton3 {
+    height: 50px;
+    width: 388px;
+    margin: 0px;
+}
+
+.addButton {
+    font-family: Font-90-Icons;
+    font-weight: bolder;
+    padding-top: 9px;
+    background-color: green;
 }
 
 .button {
@@ -105,152 +183,51 @@ a:link, a:visited, a:hover, a:active {
     margin: 20px auto;
 }
 
-#searchFieldContainerDiv {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    gap: 0px;
-    margin: 40px auto;
-    text-align: center;
-}
-
-#submitButton {
-    height: 50px;
-    width: 60px;
-    background-color: #3478F6;
-    border-radius: 0px 5px 5px 0px;
+#mainMenuButton {
     font-family: Byom-Icons-Trial;
-    font-size: 30px;
     padding-top: 8px;
-    margin: 0px;
 }
 
-#submitButton:hover {
-    background-color: #094fd3;
+#addTeacherNoteButton {
+    font-family: Byom-Icons-Trial;
+    padding-top: 8px;
 }
 
-#searchField {
-    height: 50px;
-    width: 300px;
-    font-size: 30px;
-    text-align: center;
-    border-radius: 5px 0px 0px 5px;
-    border: 1px solid #3478F6;
+#advancedOptionsButton {
+    height: 35px;
+    width: 35px;
+    border: 2px solid #eee;
+    background-color: black;
+    border-radius: 25px;
+    font-size: 18px;
+    padding-top: 5px;
+    font-family: Font-90-Icons;
 }
 
-#searchField:focus{
-    outline: none;
+#alertButton {
+    padding-top: 9px;
+    padding-right: 1px;
+    font-family: Font-90-Icons;
 }
 
-::placeholder {
-    font-size: 20px;
-    color: #aaa
+#attCountButton {
+    padding-top: 6px;
 }
 
-#nameList, #nameList2 {
-    margin: 0px auto;
-}
-
-#mv32Pop {
-    height: 40px;
-    width: 150px;
-    border: 1px solid transparent;
-    background-color: #111 !important;
+#confirmDeleteStudentButton, #confirmDeleteNoteButton, #confirmDeleteTeacherNoteButton, #confirmResetDrawingButton {
+    background-color: firebrick;
     display: none;
 }
 
-.name:hover {
-    border-radius: 25px;
-    background-color: hsla(0, 0%, 100%, 0.1);
-}
-
-#asPage1, #asPage2, #asPage3 {
-    width: 297.5px;
-    height: 385px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: white;
-}
-
-#asPage1, #asPage2 {
-    margin-bottom: 10px;
-}
-
-.radioButton {
-    height: 25px !important;
-    width: 25px !important;
-    margin: 10px auto;
-}
-
-#studentStatsPop p {
-    font-size: 18px;
-    text-align: left;
-}
-
-#missionsTitleDiv {
-    font-size: 30px;
-    margin-bottom: 15px;
-}
-
-.checkboxes label {
-    display: inline-block;
-    padding-right: 10px;
-    white-space: nowrap;  
-}
-
-.checkboxes input {
-    vertical-align: middle;
-    height: 18px;
-    width: 18px;
-}
-
-.checkboxes label span {
-    vertical-align: middle;
-    font-size: 18px;
-    color: orange;
-}
-
-#listMissionPointsPop p {
-    text-align: left;
-}
-
-#asHeading, #mvHeading {
-    width: 350px;
-    font-size: 30px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid white;
-}
-
-.missionsKeyTable {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.complete, .incomplete, .missing {
-    width: 20px;
-    border: 1px solid white;
-}
-
-.complete {
-    background-color: green;
-}
-
-.incomplete {
-    background-color: darkorange;
-}
-
-.missing {
-    background-color: black;
-}
-
-.equalSign {
-    text-align: right !important;
-}
-
-.keyLabel {
-    text-align: left !important;
-    padding-left: 3px;
+#search, #search2, #search3, #searchLog {
+    height: 50px;
+    width: 375px;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    font-size: 25px;
+    font-family: Tahoma;
+    text-align: center;
+    margin: 20px auto 20px auto;
 }
 
 .asmvHeader {
@@ -319,8 +296,26 @@ a:link, a:visited, a:hover, a:active {
     margin: 30px auto;
 }
 
+#promoPop p {
+    font-size: 50px;
+}
+
+#backupArrays {
+    font-size: 15px;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 #topMenu {
     margin-bottom: 20px;
+}
+
+#attCount, #attArchiveCount {
+    font-size: 50px;
+    margin: 0px;
 }
 
 #popButtons div {
@@ -343,6 +338,29 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 0px;
 }
 
+#attendanceButtonContainer {
+    margin-bottom: 20px;;
+}
+
+#penContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-top: 25px;
+}
+
+#boysListAttP, #girlsListAttP, #boysArchiveListAttP, #girlsArchiveListAttP, #team1ListP, #team2ListP {
+    margin: 20px 0px 0px 0px;
+    color: lawngreen;
+}
+
+.genderAndBdayContainer {
+    width: 375px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .flexContainer {
     display: flex;
     justify-content: space-around;
@@ -361,47 +379,42 @@ a:link, a:visited, a:hover, a:active {
 #topMenuContainer {
     width: 325px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .optionButtonContainer {
     width: 300px;
     margin: 25px auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .navigationButtonContainer {
     margin-bottom: 25px;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .lowerNavigationButtonContainer {
     margin-top: 10px;
     margin-bottom: 30px;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .backButton, .homeButton {
     border-radius: 25px;
-    height: 35px;
-    width: 75px;
+    height: 50px;
+    width: 115px;
     border: 2px solid white;
     font-weight: bold;
     font-family: Font-90-Icons;
     color: white;
     background-color: #333;
-    font-size: 20px;
-}
-
-.backButton {
-    padding-top: 4px;
-}
-
-.homeButton {
+    font-size: 35px;
     padding-top: 3px;
+    cursor: pointer;
+    margin: 0px;
 }
 
 .name {
@@ -419,6 +432,39 @@ a:link, a:visited, a:hover, a:active {
     text-align: left;
 }
 
+.textInputField1, .textInputField2, .textInputField3, .textInputField4 {
+    border-radius: 15px;
+    border: 1px solid transparent;
+    font-size: 25px;
+    font-family: Tahoma;
+    text-align: center;
+}
+
+.textInputField1 {
+    height: 50px;
+    width: 375px;
+}
+
+.textInputField2 {
+    height: 50px;
+    width: 150px;
+}
+
+.textInputField3 {
+    height: 50px;
+    width: 175px;
+}
+
+.textInputField4 {
+    height: 50px;
+    width: 85px;
+}
+
+.textInputField1:focus, .textInputField2:focus, .textInputField3:focus, #search:focus, #search2:focus, #search3:focus {
+    outline: none;
+    border: 2px solid dodgerblue;
+}
+
 #displayInsignia {
     width: 350px;
     height: 600px;
@@ -428,7 +474,7 @@ a:link, a:visited, a:hover, a:active {
     background-color: #111;
 }
 
-.progressBarTable {
+.progressBarTable{
     border: 1px solid white;
     border-spacing: 1px;
 }
@@ -492,6 +538,23 @@ a:link, a:visited, a:hover, a:active {
     justify-content: space-between;
 }
 
+#preloadImagesContainer {
+    height: 600px;
+    overflow-y: scroll;
+}
+
+#dispStudentPhoto {
+    width: 375px;
+    height: 500px;
+    padding-top: 25px;
+    border: 2px solid #222;
+    border-radius: 25px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #111;
+}
+
 #asReason {
     font-size: 20px;
     text-align: left;
@@ -506,6 +569,39 @@ a:link, a:visited, a:hover, a:active {
 .scrollingContainer {
     height: 600px;
     overflow-y: scroll;
+}
+
+#randomNameDiv, #drawingNameDiv {
+    margin-top: 150px;
+    height: 330px;
+}
+
+#randomName, #drawingName {
+    margin: 0px !important;
+    font-size: 75px;
+    font-weight: bold;    
+}
+
+#attStatsTableDiv, #attListTableDiv {
+    margin-top: 40px;
+}
+
+#attArchiveDate {
+    font-size: 20px;
+    color: orange;
+    margin: 15px auto;
+}
+
+#studentData {
+    text-align: left;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #72AED3;
+}
+
+#studentData p {
+    margin-bottom: 1px;
+    margin-top: 1px;
 }
 
 .asmvInfoTable {
@@ -572,6 +668,7 @@ a:link, a:visited, a:hover, a:active {
 
 #studentPopName {
     margin: 15px auto;
+    color: lawngreen;
 }
 
 #studentPopPts {
@@ -591,4 +688,59 @@ a:link, a:visited, a:hover, a:active {
     width: 25%;
     height: 35px;
     font-size: 15px;
+    cursor: pointer;
+}
+
+#promoListPop p, #bdayListPop p, #photosNeededPop p, #emailsNeededPop p, #birthdaysNeededPop p {
+    margin: 15px auto;
+    cursor: pointer;
+}
+
+#searchFieldContainerDiv {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+#searchField {
+    height: 50px;
+    width: 300px;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 5px 0px 0px 5px;
+    border: 1px solid #3478F6;
+}
+
+#searchField:focus{
+    outline: none;
+}
+
+#submitButton {
+    height: 50px;
+    width: 60px;
+    background-color: #3478F6;
+    border-radius: 0px 5px 5px 0px;
+    font-family: Byom-Icons-Trial;
+    font-size: 30px;
+    padding-top: 8px;
+    margin: 0px;
+}
+
+#submitButton:hover {
+    background-color: #094fd3;
+}
+
+.contactButton2 {
+    font-size: 65px;
+    font-family: MobileIcons;
+}
+
+.pointButtonContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 30px auto;
+    justify-content: space-around;
 }
