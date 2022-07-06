@@ -1887,7 +1887,7 @@ function asPop(asNum,points) {
     if (_sl[_ci].asDates[_asNum] == 0) {
         document.getElementById("asDateTurnedIn").innerHTML = "-"
     } else {
-        document.getElementById("asDateTurnedIn").innerHTML = consoleConvertDateNumber(_sl[_ci].asDates[_asNum]);
+        document.getElementById("asDateTurnedIn").innerHTML = convertDateNumber(_sl[_ci].asDates[_asNum]);
     }
     if (_sl[_ci].asReasons[_asNum] != "") {
         document.getElementById("asReason").innerHTML = "Reason for partial credit:<br> <span style='color:white'>" + _sl[_ci].asReasons[_asNum] + "</span>";
@@ -1928,7 +1928,7 @@ function mvPop(mvNum,index,points) {
     if (_sl[_ci].mvDates[_mvNum] == 0) {
         document.getElementById("mvDateRecited").innerHTML = "-"
     } else {
-        document.getElementById("mvDateRecited").innerHTML = consoleConvertDateNumber(_sl[_ci].mvDates[_mvNum]);
+        document.getElementById("mvDateRecited").innerHTML = convertDateNumber(_sl[_ci].mvDates[_mvNum]);
     }
     document.getElementById("mvText").innerHTML = _mvText[index];
     for (i = 1; i <= 7; i++) {
@@ -2850,31 +2850,7 @@ function loadStudentAttStats() {
     pop(["studentStatsPop"],["studentAttStatsPop"]);
 }
 
-whatToLoad()
-
-document.getElementById("search").focus();
-
-/// FUNCTIONS TO RUN IN CONSOLE ///
-
-function consoleAssignDateNumber(month,date) {
-    if (month == 0 || date == 0) { return 1000 }
-    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
-    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
-    var dateNumber;
-    if (month >= 8) {
-        dateNumber = cumulative[month] + date;
-    }
-    if (month < 8) {
-        if (_leapYear === true) {
-            dateNumber = cumulativeLeap[month] + date;
-        } else {
-            dateNumber = cumulative[month] + date;
-        }
-    }
-    return dateNumber;
-}
-
-function consoleConvertDateNumber(dateNumber) {
+function convertDateNumber(dateNumber) {
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var month; var date;
@@ -2898,6 +2874,30 @@ function consoleConvertDateNumber(dateNumber) {
         }
     }
     return month.toString() + "/" + date.toString();
+}
+
+whatToLoad()
+
+document.getElementById("search").focus();
+
+/// FUNCTIONS TO RUN IN CONSOLE ///
+
+function consoleAssignDateNumber(month,date) {
+    if (month == 0 || date == 0) { return 1000 }
+    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
+    var dateNumber;
+    if (month >= 8) {
+        dateNumber = cumulative[month] + date;
+    }
+    if (month < 8) {
+        if (_leapYear === true) {
+            dateNumber = cumulativeLeap[month] + date;
+        } else {
+            dateNumber = cumulative[month] + date;
+        }
+    }
+    return dateNumber;
 }
 
 function consoleAssignClassDateNumbers() {
@@ -3045,7 +3045,7 @@ function consoleBatchEditSL(propertyName,value) {
     var count = 0;
     if (confirm("Confirm batch action") == true) {
         for (i = 0; i < _sl.length; i++) {
-            _sl[i][property] = value; count++
+            _sl[i][propertyName] = value; count++
         }
     }
     console.log("The property '" + propertyName + "' has been edited for " + count + " out of " + _sl.length + " students");
