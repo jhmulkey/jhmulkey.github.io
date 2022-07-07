@@ -2610,6 +2610,7 @@ function loadStudentStats() {
 
 function showMissions() {
     for (i = 0; i < _checkedState.length; i++) {
+        if (i >31) {break}
         if (_checkedState[i] == 1) {
             document.getElementById("check"+i).checked = true;
             document.getElementById("as"+i+"Pop").style.display = "block";
