@@ -139,7 +139,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .checkboxLabel {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .roundButton {
@@ -730,12 +730,7 @@ a:link, a:visited, a:hover, a:active {
     width: 100%
 }
 
-#studentMenuTable, #studentMenuTable td,
-.asmvInfoTable, .asmvInfoTable th, .asmvInfoTable td,
-#rankChartTable, #rankChartTable th, #rankChartTable td,
-#attStatsTable, #attStatsTable th, #attStatsTable td,
-#attListTable, #attListTable td,
-#studentAttTable, #studentAttTable td {
+#studentMenuTable, #studentMenuTable td, .asmvInfoTable, .asmvInfoTable th, .asmvInfoTable td, #rankChartTable, #rankChartTable th, #rankChartTable td, #attStatsTable, #attStatsTable th, #attStatsTable td, #attListTable, #attListTable td, #studentAttTable, #studentAttTable td {
     border: 1px solid white;
     border-collapse: collapse;
     background-color: black;
