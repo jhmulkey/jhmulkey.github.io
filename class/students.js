@@ -1,8 +1,8 @@
 var _sl = []; var _ci;
 var _asNum; var _mvNum;
 var _asPoints;
-var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,6,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
-var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,7,3,4,3,3,3,6,4,4,3,4,3,3,3];
+var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
+var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3];
 var _leapYear = false; // Jan-July falls within a leap year
 var _weeksOff = 0;
     function setWeeksOff() {
@@ -29,16 +29,18 @@ var _teams = [];
 var _dataInputParameter;
 var _checkedState = [];
 var _amAtt = []; var _pmAtt = [];
-var _elapsedWeeks;
-var _classDates = ["8/22", "8/29", "9/12", "9/19", "9/26", "10/3", "10/10", "10/17", "10/24", "10/31", "11/7", "11/14", "12/5", "12/12", "12/19", "1/9", "1/23", "1/30", "2/6", "2/13", "2/20", "2/27", "3/6", "3/13", "3/20", "3/27", "4/3", "4/10", "4/24", "5/1", "5/8", "5/15", "5/22"];
-var _dateNumbers = [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 176, 183, 190, 197, 204, 211, 218, 225, 232, 239, 246, 253, 267, 274, 281, 288, 295];
-var _isClassDay;
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
+var _elapsedWeeks;
+var _isClassDay;
+var _classDates = ['8/22', '8/29', '9/12', '9/19', '9/26', '10/3', '10/10', '10/17', '10/24', '10/31', '11/7', '11/14', '12/5', '12/12', '12/19', '1/9', '1/16', '1/23', '1/30', '2/6', '2/13', '2/20', '2/27', '3/6', '3/13', '3/20', '3/27', '4/3', '4/10', '4/24', '5/1', '5/8', '5/15', '5/22'];
+var _dateNumbers = [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 169, 176, 183, 190, 197, 204, 211, 218, 225, 232, 239, 246, 253, 267, 274, 281, 288, 295];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
-var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword"];
-var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8",
-"phil-2-9","phil-2-10-11","rom-8-31-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"];
+var _asFullNames = ["Class Intro","John Intro","John 1","John 2","John 3","John 4","John 5","John 6","John 7","John 8","John 9","John 1-9 Review","John 10","John 11","John 12","John 13","John 14","John 15","John 16","John 17","John 18","John 19","John 20","John 21","John 10-21 Review","Armor Intro","Belt","Breastplate","Shoes","Shield","Helmet","Sword"];
+var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14","jn-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword"];
+var _mvFullNames = ["Psalm 139:17-18","John 20:30-31","John 1:1-2","John 1:3","John 1:4-5","John 1:6-8","John 1:9-11","John 1:12-13","John 1:14","John 1:15","John 1:16-17","John 1:18","Phil 2:5-6","Phil 2:7","Phil 2:8","Phil 2:9","Phil 2:10-11","Rom 8:31","Rom 8:32","Rom 8:33","Rom 8:34","Rom 8:35","Rom 8:36","Rom 8:37","Rom 8:38-39","Eph 6:10-11","Eph 6:12","Eph 6:13","Eph 6:14-15","Eph 6:16","Eph 6:17","Eph 6:18"];
+var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8","phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"];
+var _mvTextSnippets = ["How precious to", "Now Jesus did", "In the beginning", "All things were", "In him was", "There was a", "The true light,", "But to all", "And the Word", "(John bore witness", "For from his", "No one has", "Have this mind", "but emptied himself,", "And being found", "Therefore God has", "so that at", "What then shall", "He who did", "Who shall bring", "Who is to", "Who shall separate", "As it is", "No, in all", "For I am", "Finally, be strong", "For we do", "Therefore take up", "Stand therefore, having", "In all circumstances", "and take the", "praying at all"]
 var _mvText = [
     "<span style='color: #3478F6'>Psalm 139:17-18</span><br>How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
     "<span style='color: #3478F6'>John 20:30-31</span><br>Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
@@ -57,7 +59,8 @@ var _mvText = [
     "<span style='color: #3478F6'>Philippians 2:8</span><br>And being found in human form, he humbled himself by becoming obedient to the point of death, even death on a cross.",
     "<span style='color: #3478F6'>Philippians 2:9</span><br>Therefore God has highly exalted him and bestowed on him the name that is above every name,",
     "<span style='color: #3478F6'>Philippians 2:10-11</span><br>so that at the name of Jesus every knee should bow, in heaven and on earth and under the earth, and every tongue confess that Jesus Christ is Lord, to the glory of God the Father.",
-    "<span style='color: #3478F6'>Romans 8:31-32</span><br>What then shall we say to these things? If God is for us, who can be against us?  He who did not spare his own Son but gave him up for us all, how will he not also with him graciously give us all things?",
+    "<span style='color: #3478F6'>Romans 8:31</span><br>What then shall we say to these things? If God is for us, who can be against us?",
+    "<span style='color: #3478F6'>Romans 8:31-32</span><br>He who did not spare his own Son but gave him up for us all, how will he not also with him graciously give us all things?",
     "<span style='color: #3478F6'>Romans 8:33</span><br>Who shall bring any charge against God's elect? It is God who justifies.",
     "<span style='color: #3478F6'>Romans 8:34</span><br>Who is to condemn?  Christ Jesus is the one who died—more than that, who was raised—who is at the right hand of God, who indeed is interceding for us.",
     "<span style='color: #3478F6'>Romans 8:35</span><br>Who shall separate us from the love of Christ? Shall tribulation, or distress, or persecution, or famine, or nakedness, or danger, or sword?",
@@ -72,6 +75,15 @@ var _mvText = [
     "<span style='color: #3478F6'>Ephesians 6:17</span><br>and take the helmet of salvation, and the sword of the Spirit, which is the word of God,",
     "<span style='color: #3478F6'>Ephesians 6:18</span><br>praying at all times in the Spirit, with all prayer and supplication. To that end, keep alert with all perseverance, making supplication for all the saints," 
 ];
+
+function threeWords() {
+    var finalArray = [];
+    for (i = 0; i < _mvText.length; i++) {
+        var tempArray = _mvText[i].split(" ")
+        finalArray[i] = tempArray[0] + " " + tempArray[1] + " " + tempArray[2]
+    }
+    console.log(finalArray);
+}
 
 /* INDEX + RANK / POINTS / RANK FACTOR
 0 PVT / 0
@@ -98,8 +110,8 @@ var _mvText = [
 
 function loadBackup() {
     _sl = JSON.parse(localStorage.getItem("slBackup"));
-    _elapsedWeeks = 33 //_sl[0].amAtt.length;
-    isClassDay(); showMissions(); removePtBoxes();
+    _elapsedWeeks = 34 //_sl[0].amAtt.length;
+    isClassDay(); populateMissions(); populateCalendar();
 }
 
 function assignCheckedStates() {
@@ -125,7 +137,7 @@ function isClassDay() {
 }
 
 function setElapsedWeeks() {
-    _elapsedWeeks = 33
+    _elapsedWeeks = 34
 /*     var todaysDateNumber = assignTodaysDateNumber();
     for (i = 0; i < _dateNumbers.length; i++) {
         if (todaysDateNumber == _dateNumbers[i]) {
@@ -375,30 +387,6 @@ function mvPoints(_mvNum,x) {
     pop(["mvPointsPop"],["missionsPop"]);
 }
 
-function removePtBoxes() {
-    pops = ["asPointsPop","mvPointsPop"];
-    buttons = ["as4Points","as5Points","as6Points","mv4Points","mv5Points","mv6Points","mv7Points"];
-    for (i = 0; i <pops.length; i++) {
-        if (document.getElementById(pops[i]).style.display != "block") {
-            for (i = 0; i <buttons.length; i++) {
-                document.getElementById(buttons[i]).style.display = "none";
-            }
-        }
-    }
-}
-
-function searchLog() {
-    var inputVal = document.getElementById("searchLog").value.toLowerCase();
-    var logEntries = document.getElementsByClassName("logEntry");
-    for (i = 0; i < logEntries.length; i++) {
-        if (logEntries[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
-            logEntries[i].style.display = "block";
-        } else {
-            logEntries[i].style.display = "none";
-        }
-    }
-}
-
 function resetStudentMenu() {
     for (i = 0; i < 3; i++) {
         if (i == 0) {
@@ -454,9 +442,6 @@ function pop(closeArray,openArray) {
         if (openArray != []) {
             document.getElementById(openArray[i]).style.display = "block";
         }    
-    }
-    if (closeArray.includes("asPointsPop") || closeArray.includes("mvPointsPop")) {
-        removePtBoxes();
     }
     if (openArray.includes("mainPop")) {
         document.getElementById("search").value = "";
@@ -516,7 +501,6 @@ function goHome() {
     document.getElementById("search").focus();
     alerts();
     sortStudentList();
-    removePtBoxes();
 }
 
 function asPop(asNum,points) {
@@ -562,13 +546,17 @@ function asPop(asNum,points) {
             document.getElementById("as"+i+"Points").style.background = "black";
         }
     }
-    for (i = 1; i <= points; i++) {
-        document.getElementById("as"+i+"Points").style.display = "block";
+    for (i = 1; i <= 6; i++) {
+        if (i <= points) {
+            document.getElementById("as"+i+"Points").style.display = "block";
+        } else {
+            document.getElementById("as"+i+"Points").style.display = "none";
+        }
     }
     scrollTo(0,0);
 }
 
-function mvPop(mvNum,index,points) {
+function mvPop(mvNum,points) {
     document.getElementById("missionsPop").style.display = "none";
     document.getElementById("mvPointsPop").style.display = "block";
     _mvNum = mvNum;
@@ -589,7 +577,7 @@ function mvPop(mvNum,index,points) {
     } else {
         document.getElementById("mvDateRecited").innerHTML = convertDateNumber(_sl[_ci].mvDates[_mvNum]);
     }
-    document.getElementById("mvText").innerHTML = _mvText[index];
+    document.getElementById("mvText").innerHTML = _mvText[mvNum];
     for (i = 1; i <= 7; i++) {
         if (document.getElementById("mv"+i+"Points").innerHTML == _sl[_ci].mv[_mvNum]) {
             document.getElementById("mv"+i+"Points").style.background = "#3478F6";
@@ -597,8 +585,12 @@ function mvPop(mvNum,index,points) {
             document.getElementById("mv"+i+"Points").style.background = "black";
         }
     }
-    for (i = 1; i <= points; i++) {
-        document.getElementById("mv"+i+"Points").style.display = "block";
+    for (i = 1; i <= 7; i++) {
+        if (i <= points) {
+            document.getElementById("mv"+i+"Points").style.display = "block";
+        } else {
+            document.getElementById("mv"+i+"Points").style.display = "none";
+        }
     }
     scrollTo(0,0);
 }
@@ -661,30 +653,6 @@ function populateNames2() {
         elementNode.appendChild(textNode);
         document.getElementById("nameList2").appendChild(elementNode);
         document.getElementById("search2").focus();
-    }  
-}
-
-function populateNames3(x) {
-    document.getElementById("att3Pop").style.display = "block"
-    document.getElementById("teamsListNav").style.display = "none";
-    document.getElementById("teamsListButtons").style.display = "none";
-    document.getElementById("nameList3").innerHTML = "";
-    for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true) { continue }
-        var elementNode = document.createElement("p");
-        elementNode.classList.add("name");
-        (function(i){
-            elementNode.onclick = function () {
-                att2(i);
-                addPlayer(x,i);
-                pop(["att3Pop"],["teamsListPop"]);
-                document.getElementById("search3").value = "";
-            }
-        })(i);
-        var textNode = document.createTextNode(_sl[i].fullName);
-        elementNode.appendChild(textNode);
-        document.getElementById("nameList3").appendChild(elementNode);
-        document.getElementById("search3").focus();
     }  
 }
 
@@ -781,30 +749,36 @@ function loadStudentStats() {
     document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)";
 }
 
-function showMissions() {
-    for (i = 0; i < _checkedState.length; i++) {
-            document.getElementById("as"+i+"Pop").style.display = "block";
-            document.getElementById("mv"+i+"Pop").style.display = "block";
+function populateMissions() {
+    for (i = _elapsedWeeks-1; i >= 0; i--) {
+        if (i > 31) { continue }
+        var div1 = document.createElement("div");
+        div1.setAttribute("id","as"+i+"Pop");
+        div1.classList.add("asButton");
+        (function(i){
+            div1.onclick = function () {
+                asPop(i,_asMaxPts[i]);
+            }
+        })(i);
+        var textNode1 = document.createTextNode(_asFullNames[i]);
+        div1.appendChild(textNode1);
+        document.getElementById("asPop").appendChild(div1);
+    }
+    for (j = _elapsedWeeks-1; j >= 0; j--) {
+        if (j > 31) { continue }
+        var div2 = document.createElement("div");
+        div2.setAttribute("id","mv"+j+"Pop");
+        div2.classList.add("mvButton");
+        (function(j){
+            div2.onclick = function () {
+                mvPop(j,_mvMaxPts[j]);
+            }
+        })(j);
+        var textNode2 = _mvFullNames[j] + "<br>" + _mvTextSnippets[j];
+        div2.innerHTML = textNode2;
+        document.getElementById("mvPop").appendChild(div2);
     }
 }
-
-/* function doesFileExist(url) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET",url,true);
-    xhr.onload = function (e) {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-            return true;
-        } else {
-            return false;
-        }
-      }
-    }
-    xhr.onerror = function (e) {
-      console.error(xhr.statusText);
-    }
-    xhr.send(null);
-} */
 
 function loadRankTable() {
     _sharedPop = "rankChartPop";
@@ -999,6 +973,7 @@ function loadStudentAttStats() {
 
 function findStudent() {
     document.activeElement.blur();
+    document.getElementById("nameList").innerHTML = "";
     var x = (document.getElementById("searchField").value.trim().toLowerCase()).split(" ");
     if (x == false) { return; }
     for (i = 0; i < x.length; i++) {
@@ -1041,7 +1016,7 @@ function findStudent() {
     }
     if (matches.length > 1) {
         populateMatches(matches);
-        infoAlert("More than one match found.<br>Please click the correct name below",["mainPop"],"searchField",true);
+        infoAlert("More than one match found.<br>Please click the correct name below.",["mainPop"],"searchField",true);
     }
 }
 
@@ -1063,8 +1038,9 @@ function populateMatches(indexArray) {
 
 function loadStudent(index) {
     _ci = index;
-    assignCheckedStates(); assignClassRanks(); resetStudentMenu(); loadStudentStats(); showMissions();
+    assignCheckedStates(); assignClassRanks(); resetStudentMenu(); loadStudentStats();
     document.getElementById("searchField").value = "";
+    document.getElementById("infoAlertPop").style.display = "none";
     document.getElementById("studentPopInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
     document.getElementById("studentPopRankName").innerHTML = _rankNames[_sl[_ci].rank];
     document.getElementById("studentPopName").innerHTML = _sl[_ci].fullName;
@@ -1093,7 +1069,8 @@ function loadStudent(index) {
         document.getElementById("studentPopName").style.fontSize = "25px";
     }
     
-    for (i = 0; i < _asMaxPts.length; i++) {
+    for (i = 0; i < _elapsedWeeks; i++) {
+        if (i > 31) { break }
         if (_sl[_ci].as[i] == _asMaxPts[i]) {
             document.getElementById("as"+i+"Pop").style.background = "green";
         } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
@@ -1102,7 +1079,8 @@ function loadStudent(index) {
             document.getElementById("as"+i+"Pop").style.background = "black";
         }
     }
-    for (i = 0; i < _mvMaxPts.length; i++) {
+    for (i = 0; i < _elapsedWeeks; i++) {
+        if (i > 31) { break }
         if (_sl[_ci].mv[i] == _mvMaxPts[i]) {
             document.getElementById("mv"+i+"Pop").style.background = "green";
         } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
@@ -1141,8 +1119,17 @@ function convertDateNumber(dateNumber) {
     return month.toString() + "/" + date.toString();
 }
 
+function populateCalendar() {
+    for (i = 0; i < _classDates.length; i++) {
+        document.getElementById("calendarDate"+i).innerHTML = _classDates[i];
+        if (i < 32) {
+            document.getElementById("calendarLesson"+i).innerHTML = _asNames[i];
+            document.getElementById("calendarMemory"+i).innerHTML = _mvNames[i];
+        }
+    }
+    document.getElementById("calendarRow"+(_elapsedWeeks-1)).style.border = "2px solid lawngreen";
+}
+
 loadBackup();
 
 document.getElementById("searchField").focus();
-
-window.onbeforeunload = function() { return "Please use the back button at the top of the page"; }

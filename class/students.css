@@ -65,7 +65,7 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#calendarPop, #studentAttStatsPop, #openInsigniaPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPointsPop, #asPointsPop, #studentPop, .w01, .w02, .w03, .w04, .w05, .w06, .w07, .w08, .w09, .w10, .w11, .w12, .w13, .w14, .w15, .w16, .w17, .w18, .w19, .w20, .w21, .w22, .w23, .w24, .w25, .w26, .w27, .w28, .w29, .w30, .w31, .w32, .w33 {
+#calendarPop, #studentAttStatsPop, #openInsigniaPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPointsPop, #asPointsPop, #studentPop {
     display: none;
 }
 
@@ -82,7 +82,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #nameList, #nameList2 {
-    margin: 0px auto;
+    margin: 20px auto;
 }
 
 #missionCheckBoxDiv, #studentNotesList, #teacherNotesList {
@@ -183,42 +183,6 @@ a:link, a:visited, a:hover, a:active {
     margin: 20px auto;
 }
 
-#mainMenuButton {
-    font-family: Byom-Icons-Trial;
-    padding-top: 8px;
-}
-
-#addTeacherNoteButton {
-    font-family: Byom-Icons-Trial;
-    padding-top: 8px;
-}
-
-#advancedOptionsButton {
-    height: 35px;
-    width: 35px;
-    border: 2px solid #eee;
-    background-color: black;
-    border-radius: 25px;
-    font-size: 18px;
-    padding-top: 5px;
-    font-family: Font-90-Icons;
-}
-
-#alertButton {
-    padding-top: 9px;
-    padding-right: 1px;
-    font-family: Font-90-Icons;
-}
-
-#attCountButton {
-    padding-top: 6px;
-}
-
-#confirmDeleteStudentButton, #confirmDeleteNoteButton, #confirmDeleteTeacherNoteButton, #confirmResetDrawingButton {
-    background-color: firebrick;
-    display: none;
-}
-
 #search, #search2, #search3, #searchLog {
     height: 50px;
     width: 375px;
@@ -232,7 +196,6 @@ a:link, a:visited, a:hover, a:active {
 
 .asmvHeader {
     font-size: 18px;
-    margin-top: 10px;
     padding-top: 0px;
 }
 
@@ -242,7 +205,6 @@ a:link, a:visited, a:hover, a:active {
     font-size: 15px;
     border: 1px solid white;
     border-radius: 10px;
-    display: none;
 }
 
 .asButton {
@@ -286,7 +248,6 @@ a:link, a:visited, a:hover, a:active {
 
 #asPop, #mvPop {
     width: 187px;
-
 }
 
 #infoAlertTitle {
@@ -330,7 +291,7 @@ a:link, a:visited, a:hover, a:active {
     padding-bottom: 0px;
 }
 
-#missionsPop {
+#studentStatsPop, #missionsPop, #calendarPop {
     padding-top: 0px
 }
 
@@ -419,6 +380,7 @@ a:link, a:visited, a:hover, a:active {
 
 .name {
     margin: 0px 0px 15px;
+    color: lawngreen;
 }
 
 .name2 {
@@ -485,16 +447,11 @@ a:link, a:visited, a:hover, a:active {
     width: 9.5px;
 }
 
-.asmvInfoTable, #rankChartTable, #attStatsTable, #attListTable, #studentAttTable, #studentMenuTable {
+#calendarTable, .asmvInfoTable, #rankChartTable, #attStatsTable, #attListTable, #studentAttTable, #studentMenuTable {
     width: 100%
 }
 
-#studentMenuTable, #studentMenuTable td,
-.asmvInfoTable, .asmvInfoTable th, .asmvInfoTable td,
-#rankChartTable, #rankChartTable th, #rankChartTable td,
-#attStatsTable, #attStatsTable th, #attStatsTable td,
-#attListTable, #attListTable td,
-#studentAttTable, #studentAttTable td {
+#calendarTable, #calendarTable td, #calendarTable th, #studentMenuTable, #studentMenuTable td, .asmvInfoTable, .asmvInfoTable th, .asmvInfoTable td, #rankChartTable, #rankChartTable th, #rankChartTable td, #attStatsTable, #attStatsTable th, #attStatsTable td, #attListTable, #attListTable td, #studentAttTable, #studentAttTable td {
     border: 1px solid white;
     border-collapse: collapse;
     background-color: black;
@@ -508,6 +465,10 @@ a:link, a:visited, a:hover, a:active {
 #rankChartTable td {
     height: 90px;
     width: 90px;
+}
+
+#calendarTable td {
+    height: 50px;
 }
 
 .tableHeaderRow td {
@@ -562,8 +523,14 @@ a:link, a:visited, a:hover, a:active {
     color: orange;
 }
 
-#rankChartPop p {
+#rankChartPop p, #calendarPop p {
     font-size: 15px;
+    margin-top: 40px;
+}
+
+#rankChartPop, #calendarPop {
+    padding-top: 0px;
+    margin-top: 20px;
 }
 
 .scrollingContainer {
@@ -681,7 +648,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #studentMenuTable {
-    margin: 20px auto;
+    margin: 20px 0px 40px 0px;
 }
 
 #studentMenuTable td {

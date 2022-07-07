@@ -16,7 +16,6 @@
     <input id="searchField" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
     <div id="submitButton" onclick="findStudent()">S</div>
   </div>
-  <p style="font-size:15px;color:orange;">Hint: if your child shares the same last name as another child, you will be prompted to choose the correct child on the next screen.  To avoid this step, enter their first and last name together in the search box above.</p><br>
   <p style="font-size:15px;">Use the contact buttons below for help.</p>
   <div class="navigationButtonContainer" style="margin-top:35px;">
     <a href="tel:8645694879"><div class="contactButton2">x</div></a>
@@ -35,6 +34,7 @@
     <p id="infoAlertTitle">!</p>
     <p id="infoAlertMessage"></p>
     <div id="nameList"></div>
+    <!-- <p style="font-size:15px;color:orange;">Hint: To avoid this step in the future, search for your child's full name.</p><br> -->
 </div>
 
 <div id="studentPop" class="pop">
@@ -47,7 +47,6 @@
       <p id="studentPopClassRank"></p>
     </div>
   </div>
-
   <div>
     <table id="studentMenuTable">
       <tr>
@@ -346,80 +345,14 @@
 </div>
 
 <div id="missionsPop" class="pop">
-    <div id="asmvHeaderContainer">
-      <div class="asmvHeader" onclick="pop(['studentPop','missionsPop'],['missionVisibilityPop'])">ACTIVITY SHEETS</div>
-      <div class="secretButton" onclick="populateNames2()"></div>
-      <div class="asmvHeader" onclick="toggleIncomplete()">MEMORY VERSES</div>
-    </div>
-    <div id="asmvPopContainer">
-      <div id="asPop">
-        <div id="as30Pop" class="asButton w30" onclick="asPop(30)">Sword</div>
-        <div id="as29Pop" class="asButton w29" onclick="asPop(29)">Helmet</div>
-        <div id="as28Pop" class="asButton w28" onclick="asPop(28)">Shield</div>
-        <div id="as27Pop" class="asButton w27" onclick="asPop(27)">Shoes</div>
-        <div id="as26Pop" class="asButton w26" onclick="asPop(26)">Breastplate</div>
-        <div id="as25Pop" class="asButton w25" onclick="asPop(25)">Belt</div>
-        <div id="as24Pop" class="asButton w24" onclick="asPop(24)">Armor Intro</div>
-        <div id="as23Pop" class="asButton w23" onclick="asPop(23,6)">John 10-21 Review</div>
-        <div id="as22Pop" class="asButton w22" onclick="asPop(22)">John 21</div>
-        <div id="as21Pop" class="asButton w21" onclick="asPop(21)">John 20</div>
-        <div id="as20Pop" class="asButton w20" onclick="asPop(20)">John 19</div>
-        <div id="as19Pop" class="asButton w19" onclick="asPop(19)">John 18</div>
-        <div id="as18Pop" class="asButton w18" onclick="asPop(18)">John 17</div>
-        <div id="as17Pop" class="asButton w17" onclick="asPop(17)">John 16</div>
-        <div id="as16Pop" class="asButton w16" onclick="asPop(16,6)">John 14-15</div>
-        <div id="as15Pop" class="asButton w15" onclick="asPop(15)">John 13</div>
-        <div id="as14Pop" class="asButton w14" onclick="asPop(14)">John 12</div>
-        <div id="as13Pop" class="asButton w13" onclick="asPop(13)">John 11</div>
-        <div id="as12Pop" class="asButton w12" onclick="asPop(12)">John 10</div>
-        <div id="as11Pop" class="asButton w11" onclick="asPop(11,6)">John 1-9 Review</div>
-        <div id="as10Pop" class="asButton w10" onclick="asPop(10)">John 9</div>
-        <div id="as9Pop" class="asButton w9" onclick="asPop(9)">John 8</div>
-        <div id="as8Pop" class="asButton w8" onclick="asPop(8)">John 7</div>
-        <div id="as7Pop" class="asButton w7" onclick="asPop(7)">John 6</div>
-        <div id="as6Pop" class="asButton w6" onclick="asPop(6)">John 5</div>
-        <div id="as5Pop" class="asButton w5" onclick="asPop(5)">John 4</div>
-        <div id="as4Pop" class="asButton w4" onclick="asPop(4)">John 3</div>
-        <div id="as3Pop" class="asButton w3" onclick="asPop(3)">John 2</div>
-        <div id="as2Pop" class="asButton w2" onclick="asPop(2)">John 1</div>
-        <div id="as1Pop" class="asButton w1" onclick="asPop(1)">John Intro</div>
-        <div id="as0Pop" class="asButton w0" onclick="asPop(0)">Class Intro</div>
-      </div>
-      <div id="mvPop">
-        <div id="mv31Pop" class="asmvButtonFill w31"></div>
-        <div id="mv30Pop" class="mvButton w30" onclick="mvPop(30,30)"> Eph 6:18<br>"praying at"</div>
-        <div id="mv29Pop" class="mvButton w29" onclick="mvPop(29,29)"> Eph 6:17<br>"and take"</div>
-        <div id="mv28Pop" class="mvButton w28" onclick="mvPop(28,28)"> Eph 6:16<br>"In all"</div>
-        <div id="mv27Pop" class="mvButton w27" onclick="mvPop(27,27,4)"> Eph 6:14-15<br>"Stand therefore"</div>
-        <div id="mv26Pop" class="mvButton w26" onclick="mvPop(26,26)"> Eph 6:13<br>"Therefore take"</div>
-        <div id="mv25Pop" class="mvButton w25" onclick="mvPop(25,25,4)"> Eph 6:12<br>"For we"</div>
-        <div id="mv24Pop" class="mvButton w24" onclick="mvPop(24,24,4)"> Eph 6:10-11<br>"Finally, be"</div>
-        <div id="mv23Pop" class="mvButton w23" onclick="mvPop(23,23,6)">Rom 8:38-39<br>"For I"</div>
-        <div id="mv22Pop" class="mvButton w22" onclick="mvPop(22,22)">Rom 8:37<br>"No, in"</div>
-        <div id="mv21Pop" class="mvButton w21" onclick="mvPop(21,21)">Rom 8:36<br>"As it"</div>
-        <div id="mv20Pop" class="mvButton w20" onclick="mvPop(20,20)">Rom 8:35<br>"Who shall separate"</div>
-        <div id="mv19Pop" class="mvButton w19" onclick="mvPop(19,19,4)">Rom 8:34<br>"Who is"</div>
-        <div id="mv18Pop" class="mvButton w18" onclick="mvPop(18,18)">Rom 8:33<br>"Who shall bring"</div>
-        <div id="mv17Pop" class="mvButton w17" onclick="mvPop(17,17,7)">Rom 8:31-32<br>"What then"</div>
-        <div id="mv16Pop" class="mvButton w16" onclick="mvPop(16,16,4)">Phil 2:10-11<br>"so that"</div>
-        <div id="mv15Pop" class="mvButton w15" onclick="mvPop(15,15)">Phil 2:9<br>"therefore God"</div>
-        <div id="mv14Pop" class="mvButton w14" onclick="mvPop(14,14)">Phil 2:8<br>"And being"</div>
-        <div id="mv13Pop" class="mvButton w13" onclick="mvPop(13,13)">Phil 2:7<br>"But emptied"</div>
-        <div id="mv12Pop" class="mvButton w12" onclick="mvPop(12,12,4)">Phil 2:5-6<br>"Have this"</div>
-        <div id="mv11Pop" class="mvButton w11" onclick="mvPop(11,11)">John 1:18<br>"No one"</div>
-        <div id="mv10Pop" class="mvButton w10" onclick="mvPop(10,10)">John 1:16-17<br>"For from"</div>
-        <div id="mv9Pop" class="mvButton w9" onclick="mvPop(9,9,4)">John 1:15<br>"John bore"</div>
-        <div id="mv8Pop" class="mvButton w8" onclick="mvPop(8,8,4)">John 1:14<br>"And the"</div>
-        <div id="mv7Pop" class="mvButton w7" onclick="mvPop(7,7,5)">John 1:12-13<br>"But to"</div>
-        <div id="mv6Pop" class="mvButton w6" onclick="mvPop(6,6,5)">John 1:9-11<br>"The true"</div>
-        <div id="mv5Pop" class="mvButton w5" onclick="mvPop(5,5,5)">John 1:6-8<br>"There was"</div>
-        <div id="mv4Pop" class="mvButton w4" onclick="mvPop(4,4)">John 1:4-5<br>"In him"</div>
-        <div id="mv3Pop" class="mvButton w3" onclick="mvPop(3,3)">John 1:3<br>"All things"</div>
-        <div id="mv2Pop" class="mvButton w2" onclick="mvPop(2,2)">John 1:1-2<br>"In the"</div>
-        <div id="mv1Pop" class="mvButton w1" onclick="mvPop(1,1,6)">John 20:30-31<br>"Now Jesus"</div>
-        <div id="mv0Pop" class="mvButton w0" onclick="mvPop(0,0,4)">Psalm 139:17<br>"How precious"</div>
-      </div>
-    </div>
+  <div id="asmvHeaderContainer">
+    <div class="asmvHeader" onclick="pop(['studentPop','missionsPop'],['missionVisibilityPop'])">ACTIVITY SHEETS</div>
+    <div class="asmvHeader" onclick="toggleIncomplete()">MEMORY VERSES</div>
+  </div>
+  <div id="asmvPopContainer">
+    <div id="asPop"></div>
+    <div id="mvPop"></div>
+  </div>
 </div>
 
 <div id="asPointsPop" class="pop">
@@ -507,7 +440,6 @@
 </div>
 
 <div id="rankChartPop" class="pop">
-    <a href="../docs/ranks.pdf" target="_blank"><p>click here to download printable chart</p></a>
     <div id = "rankChartContainer">
     <table id="rankChartTable">
       <tr>
@@ -822,7 +754,214 @@
   </div>
 </div>
 
-<div id="calendarPop"></div>
+<div id="calendarPop" class="pop">
+  <div id = "calendarContainer">
+  <table id="calendarTable">
+    <tr>
+    <th>Date</th>
+    <th>Lesson</th>
+    <th>Memory</th>
+    </tr>
+    <tr id="calendarRow0">
+    <td id="calendarDate0"></td>
+    <td id="calendarLesson0"></td>
+    <td id="calendarMemory0"></td>
+    </tr>
+    <tr id="calendarRow1">
+    <td id="calendarDate1"></td>
+    <td id="calendarLesson1"></td>
+    <td id="calendarMemory1"></td>
+    </tr>
+    <tr>
+    <td>9/5</td>
+    <td colspan="2">No Kidstuff (Labor Day weekend)</td>
+    </tr>
+    <tr id="calendarRow2">
+    <td id="calendarDate2"></td>
+    <td id="calendarLesson2"></td>
+    <td id="calendarMemory2"></td>
+    </tr>
+    <tr id="calendarRow3">
+    <td id="calendarDate3"></td>
+    <td id="calendarLesson3"></td>
+    <td id="calendarMemory3"></td>
+    </tr>
+    <tr id="calendarRow4">
+    <td id="calendarDate4"></td>
+    <td id="calendarLesson4"></td>
+    <td id="calendarMemory4"></td>
+    </tr>
+    <tr id="calendarRow5">
+    <td id="calendarDate5"></td>
+    <td id="calendarLesson5"></td>
+    <td id="calendarMemory5"></td>
+    </tr>
+    <tr id="calendarRow6">
+    <td id="calendarDate6"></td>
+    <td id="calendarLesson6"></td>
+    <td id="calendarMemory6"></td>
+    </tr>
+    <tr id="calendarRow7">
+    <td id="calendarDate7"></td>
+    <td id="calendarLesson7"></td>
+    <td id="calendarMemory7"></td>
+    </tr>
+    <tr id="calendarRow8">
+    <td id="calendarDate8"></td>
+    <td id="calendarLesson8"></td>
+    <td id="calendarMemory8"></td>
+    </tr>
+    <tr id="calendarRow9">
+    <td id="calendarDate9"></td>
+    <td id="calendarLesson9"></td>
+    <td id="calendarMemory9"></td>
+    </tr>
+    <tr id="calendarRow10"></tr>
+    <td id="calendarDate10"></td>
+    <td id="calendarLesson10"></td>
+    <td id="calendarMemory10"></td>
+    </tr>
+    <tr id="calendarRow11"></tr>
+    <td id="calendarDate11"></td>
+    <td id="calendarLesson11"></td>
+    <td id="calendarMemory11"></td>
+    </tr>
+    <tr>
+      <td>11/21</td>
+      <td colspan="2">No Kidstuff (Anniversary Sunday)</td>
+      </tr>
+    <tr>
+    <tr>
+      <td>11/28</td>
+      <td colspan="2">No Kidstuff (Thanksgiving)</td>
+      </tr>
+    <tr>
+    <tr id="calendarRow12">
+    <td id="calendarDate12"></td>
+    <td id="calendarLesson12"></td>
+    <td id="calendarMemory12"></td>
+    </tr>
+    <tr id="calendarRow13">
+    <td id="calendarDate13"></td>
+    <td id="calendarLesson13"></td>
+    <td id="calendarMemory13"></td>
+    </tr>
+    <tr id="calendarRow14">
+    <td id="calendarDate14"></td>
+    <td id="calendarLesson14"></td>
+    <td id="calendarMemory14"></td>
+    </tr>
+    <tr>
+      <td>12/26</td>
+      <td colspan="2">No Kidstuff (Christmas)</td>
+      </tr>
+    <tr>
+    <tr>
+      <td>1/2</td>
+      <td colspan="2">No Kidstuff (New Years)</td>
+      </tr>
+    <tr>
+    <tr id="calendarRow15">
+    <td id="calendarDate15"></td>
+    <td id="calendarLesson15"></td>
+    <td id="calendarMemory15"></td>
+    </tr>
+    <tr id="calendarRow16">
+    <td id="calendarDate16"></td>
+    <td id="calendarLesson16"></td>
+    <td id="calendarMemory16"></td>
+    </tr>
+    <tr id="calendarRow17">
+    <td id="calendarDate17"></td>
+    <td id="calendarLesson17"></td>
+    <td id="calendarMemory17"></td>
+    </tr>
+    <tr id="calendarRow18">
+    <td id="calendarDate18"></td>
+    <td id="calendarLesson18"></td>
+    <td id="calendarMemory18"></td>
+    </tr>
+    <tr id="calendarRow19">
+    <td id="calendarDate19"></td>
+    <td id="calendarLesson19"></td>
+    <td id="calendarMemory19"></td>
+    </tr>
+    <tr id="calendarRow20">
+    <td id="calendarDate20"></td>
+    <td id="calendarLesson20"></td>
+    <td id="calendarMemory20"></td>
+    </tr>
+    <tr id="calendarRow21">
+    <td id="calendarDate21"></td>
+    <td id="calendarLesson21"></td>
+    <td id="calendarMemory21"></td>
+    </tr>
+    <tr id="calendarRow22">
+    <td id="calendarDate22"></td>
+    <td id="calendarLesson22"></td>
+    <td id="calendarMemory22"></td>
+    </tr>
+    <tr id="calendarRow23">
+    <td id="calendarDate23"></td>
+    <td id="calendarLesson23"></td>
+    <td id="calendarMemory23"></td>
+    </tr>
+    <tr id="calendarRow24">
+    <td id="calendarDate24"></td>
+    <td id="calendarLesson24"></td>
+    <td id="calendarMemory24"></td>
+    </tr>
+    <tr id="calendarRow25">
+    <td id="calendarDate25"></td>
+    <td id="calendarLesson25"></td>
+    <td id="calendarMemory25"></td>
+    </tr>
+    <tr id="calendarRow26">
+    <td id="calendarDate26"></td>
+    <td id="calendarLesson26"></td>
+    <td id="calendarMemory26"></td>
+    </tr>
+    <tr id="calendarRow27">
+    <td id="calendarDate27"></td>
+    <td id="calendarLesson27"></td>
+    <td id="calendarMemory27"></td>
+    </tr>
+    <tr id="calendarRow28">
+    <td id="calendarDate28"></td>
+    <td id="calendarLesson28"></td>
+    <td id="calendarMemory28"></td>
+    </tr>
+    <tr>
+      <td>4/17</td>
+      <td colspan="2">No Kidstuff (Easter)</td>
+      </tr>
+    <tr>
+    <tr id="calendarRow29">
+    <td id="calendarDate29"></td>
+    <td id="calendarLesson29"></td>
+    <td id="calendarMemory29"></td>
+    </tr>
+    <tr id="calendarRow30">
+    <td id="calendarDate30"></td>
+    <td id="calendarLesson30"></td>
+    <td id="calendarMemory30"></td>
+    </tr>
+    <tr id="calendarRow31">
+    <td id="calendarDate31"></td>
+    <td id="calendarLesson31"></td>
+    <td id="calendarMemory31"></td>
+    </tr>
+    <tr id="calendarRow32">
+    <td id="calendarDate32"></td>
+    <td colspan="2">Armor Review</td>
+    </tr>
+    <tr id="calendarRow33">
+    <td id="calendarDate33"></td>
+    <td colspan="2">CLASS PARTY</td>
+    </tr>
+  </table>
+  </div>
+</div>
 
 </div>
 <script src="studentsBackup.js"></script>

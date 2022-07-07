@@ -37,7 +37,10 @@ var _classDates = ['8/22', '8/29', '9/12', '9/19', '9/26', '10/3', '10/10', '10/
 var _dateNumbers = [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 169, 176, 183, 190, 197, 204, 211, 218, 225, 232, 239, 246, 253, 267, 274, 281, 288, 295];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
 var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14","jn-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword"];
+var _asFullNames = ["Class Intro","John Intro","John 1","John 2","John 3","John 4","John 5","John 6","John 7","John 8","John 9","John 1-9 Review","John 10","John 11","John 12","John 13","John 14","John 15","John 16","John 17","John 18","John 19","John 20","John 21","John 10-21 Review","Armor Intro","Belt","Breastplate","Shoes","Shield","Helmet","Sword"];
 var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8","phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"];
+var _mvFullNames = ["Psalm 139:17-18","John 20:30-31","John 1:1-2","John 1:3","John 1:4-5","John 1:6-8","John 1:9-11","John 1:12-13","John 1:14","John 1:15","John 1:16-17","John 1:18","Phil 2:5-6","Phil 2:7","Phil 2:8","Phil 2:9","Phil 2:10-11","Rom 8:31","Rom 8:32","Rom 8:33","Rom 8:34","Rom 8:35","Rom 8:36","Rom 8:37","Rom 8:38-39","Eph 6:10-11","Eph 6:12","Eph 6:13","Eph 6:14-15","Eph 6:16","Eph 6:17","Eph 6:18"];
+var _mvTextSnippets = ["How precious to", "Now Jesus did", "In the beginning", "All things were", "In him was", "There was a", "The true light,", "But to all", "And the Word", "(John bore witness", "For from his", "No one has", "Have this mind", "but emptied himself,", "And being found", "Therefore God has", "so that at", "What then shall", "He who did", "Who shall bring", "Who is to", "Who shall separate", "As it is", "No, in all", "For I am", "Finally, be strong", "For we do", "Therefore take up", "Stand therefore, having", "In all circumstances", "and take the", "praying at all"]
 var _mvText = [
     "<span style='color: #3478F6'>Psalm 139:17-18</span><br>How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
     "<span style='color: #3478F6'>John 20:30-31</span><br>Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
@@ -509,7 +512,7 @@ function loadBackup() {
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
     _promotionList = []; _birthdayList = [];
     activityLog("backup loaded" + "<br>" + dateAndTime("log"));
-    assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions(); findAllBday(); removePtBoxes(); populateTeacherNotes();
+    assignCheckedStates(); isClassDay(); setElapsedWeeks(); findAllBday(); populateTeacherNotes(); populateMissions();
     for (i = 0; i < _sl.length; i++) {
         _sl[i].attendance = false;
         _sl[i].random = false;
@@ -536,8 +539,8 @@ function loadLS() {
     document.getElementById("gameLog").innerHTML = _gameLog;
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotes"));
     _teams = JSON.parse(localStorage.getItem("teams"));
-    assignCheckedStates(); isClassDay(); setElapsedWeeks(); showMissions();
-    removePtBoxes(); populateTeacherNotes(); attCount();
+    assignCheckedStates(); isClassDay(); setElapsedWeeks(); populateMissions();
+    populateTeacherNotes(); attCount();
     activityLog("localstorage loaded" + "<br>" + dateAndTime("log"));
     backupNewData();
     pop(["wtlPop"],["mainPop"]);
@@ -978,12 +981,12 @@ function sortByNotes(bypass) {
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].notes.length != 0) {
             var p1 = document.createElement("p");
-            (function(i){
+/*          (function(i){
                 p1.onclick = function () {
                     _ci = i; populateStudentNotes(["customSortListPop"]);
                     pop(["customSortListPop"],["studentNotesPop","studentNotesList"]);
                 }
-            })(i);
+            })(i); */
             var br = document.createElement("br");
             var p2 = document.createElement("p");
             p1.classList.add("name3");
@@ -1661,18 +1664,6 @@ function mvPoints(_mvNum,x) {
     pop(["mvPointsPop"],["missionsPop"]);
 }
 
-function removePtBoxes() {
-    pops = ["asPointsPop","mvPointsPop"];
-    buttons = ["as4Points","as5Points","as6Points","mv4Points","mv5Points","mv6Points","mv7Points"];
-    for (i = 0; i <pops.length; i++) {
-        if (document.getElementById(pops[i]).style.display != "block") {
-            for (i = 0; i <buttons.length; i++) {
-                document.getElementById(buttons[i]).style.display = "none";
-            }
-        }
-    }
-}
-
 function searchNames(id,className) {
     var inputVal = document.getElementById(id).value.toLowerCase();
     var names = document.getElementsByClassName(className);
@@ -1699,8 +1690,7 @@ function searchLog() {
 
 function loadStudent(index) {
     _ci = index;
-    checkInAtt();
-    refreshStudentPop();
+    checkInAtt(); refreshStudentPop();
     if (document.getElementById("editStudentPop").style.display != "block") {
         pop(["mainPop"],["studentPop","missionsPop"]);
     }
@@ -1801,9 +1791,6 @@ function pop(closeArray,openArray) {
             document.getElementById(openArray[i]).style.display = "block";
         }    
     }
-    if (closeArray.includes("asPointsPop") || closeArray.includes("mvPointsPop")) {
-        removePtBoxes();
-    }
     if (openArray.includes("mainPop")) {
         document.getElementById("searchMain").value = "";
         document.getElementById("searchMain").focus();
@@ -1863,7 +1850,6 @@ function goHome() {
     document.getElementById("searchMain").focus();
     alerts();
     sortStudentList();
-    removePtBoxes();
 }
 
 function asPop(asNum,points) {
@@ -1909,13 +1895,17 @@ function asPop(asNum,points) {
             document.getElementById("as"+i+"Points").style.background = "black";
         }
     }
-    for (i = 1; i <= points; i++) {
-        document.getElementById("as"+i+"Points").style.display = "block";
+    for (i = 1; i <= 7; i++) {
+        if (i <= points) {
+            document.getElementById("as"+i+"Points").style.display = "block";
+        } else {
+            document.getElementById("as"+i+"Points").style.display = "none";
+        }
     }
     scrollTo(0,0);
 }
 
-function mvPop(mvNum,index,points) {
+function mvPop(mvNum,points) {
     document.getElementById("missionsPop").style.display = "none";
     document.getElementById("mvPointsPop").style.display = "block";
     _mvNum = mvNum;
@@ -1936,7 +1926,7 @@ function mvPop(mvNum,index,points) {
     } else {
         document.getElementById("mvDateRecited").innerHTML = convertDateNumber(_sl[_ci].mvDates[_mvNum]);
     }
-    document.getElementById("mvText").innerHTML = _mvText[index];
+    document.getElementById("mvText").innerHTML = _mvText[mvNum];
     for (i = 1; i <= 7; i++) {
         if (document.getElementById("mv"+i+"Points").innerHTML == _sl[_ci].mv[_mvNum]) {
             document.getElementById("mv"+i+"Points").style.background = "#3478F6";
@@ -1944,8 +1934,12 @@ function mvPop(mvNum,index,points) {
             document.getElementById("mv"+i+"Points").style.background = "black";
         }
     }
-    for (i = 1; i <= points; i++) {
-        document.getElementById("mv"+i+"Points").style.display = "block";
+    for (i = 1; i <= 7; i++) {
+        if (i <= points) {
+            document.getElementById("mv"+i+"Points").style.display = "block";
+        } else {
+            document.getElementById("mv"+i+"Points").style.display = "none";
+        }
     }
     scrollTo(0,0);
 }
@@ -2608,14 +2602,34 @@ function loadStudentStats() {
     document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)";
 }
 
-function showMissions() {
-    for (i = 0; i < _checkedState.length; i++) {
-        if (i >31) {break}
-        if (_checkedState[i] == 1) {
-            document.getElementById("check"+i).checked = true;
-            document.getElementById("as"+i+"Pop").style.display = "block";
-            document.getElementById("mv"+i+"Pop").style.display = "block";
-        }
+function populateMissions() {
+    for (i = _elapsedWeeks-1; i >= 0; i--) {
+        if (i > 31) { continue }
+        var div1 = document.createElement("div");
+        div1.setAttribute("id","as"+i+"Pop");
+        div1.classList.add("asButton");
+        (function(i){
+            div1.onclick = function () {
+                asPop(i,_asMaxPts[i]);
+            }
+        })(i);
+        var textNode1 = document.createTextNode(_asFullNames[i]);
+        div1.appendChild(textNode1);
+        document.getElementById("asPop").appendChild(div1);
+    }
+    for (j = _elapsedWeeks-1; j >= 0; j--) {
+        if (j > 31) { continue }
+        var div2 = document.createElement("div");
+        div2.setAttribute("id","mv"+j+"Pop");
+        div2.classList.add("mvButton");
+        (function(j){
+            div2.onclick = function () {
+                mvPop(j,_mvMaxPts[j]);
+            }
+        })(j);
+        var textNode2 = _mvFullNames[j] + "<br>" + _mvTextSnippets[j];
+        div2.innerHTML = textNode2;
+        document.getElementById("mvPop").appendChild(div2);
     }
 }
 
@@ -3005,6 +3019,27 @@ function consoleDisplayStudentProperties(fullName) {
     }
     if (result === false) { 
         console.log("The student " + fullName + " was not found.") 
+    }
+}
+
+function consoleBatchEditObject(objectName) {
+    if (confirm("Confirm batch action") == true) {
+        for (i = 0; i < _sl.length; i++) {
+            var array = [];
+            for (var x in _sl[i][objectName]) {
+                array.push(_sl[i][objectName][x]);
+            } // creates an array of all values from student.as
+            if (array[16] == 6) {
+                array[16] = 3;
+                array.splice(16,0,3) // if student earned full credit for jn-14-15, assign full credit (3) to jn-14 (now index 16) and full credit (3) to jn-15 (now index 17)
+            } else {
+                array.splice(16,0,0) // if student earned no points for jn-14-15, assign 0 points to jn-14 and jn-15
+            }
+            for (j = 0; j < 32; j++) {
+                _sl[i][objectName][j] = array[j]
+            } // overwrite student.as with properties 0-31 with values from the respective indices from array
+        }
+        storeAndBackup();
     }
 }
 
