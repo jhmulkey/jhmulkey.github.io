@@ -291,7 +291,7 @@ a:link, a:visited, a:hover, a:active {
     padding-bottom: 0px;
 }
 
-#studentStatsPop, #missionsPop, #calendarPop {
+#studentStatsPop, #studentAttStatsPop, #missionsPop, #calendarPop {
     padding-top: 0px
 }
 
