@@ -562,7 +562,7 @@ function isClassDay() {
 
 function setElapsedWeeks() {
     var todaysDateNumber = assignTodaysDateNumber();
-    //var todaysDateNumber = 63;
+    //var todaysDateNumber = 44;
     for (i = 0; i < _dateNumbers.length; i++) {
         if (todaysDateNumber == _dateNumbers[i]) {
             _elapsedWeeks = i + 1; break;
@@ -2514,23 +2514,30 @@ function loadStudentStats() {
     var earnedASpts = 0;   
     var totalMVpts = 0;
     var earnedMVpts = 0;
-    for (i = 0; i < (_elapsedWeeks-1); i++) {
-        if (i > 30) { break; };
-        totalASpts += _asMaxPts[i];
-        totalMVpts += _mvMaxPts[i];
+    if (_elapsedWeeks > 2) {
+        for (i = 0; i < (_elapsedWeeks-2); i++) {
+            if (i > 31) { break; };
+            totalASpts += _asMaxPts[i];
+            totalMVpts += _mvMaxPts[i];
+        }
+        for (i = 0; i < (_elapsedWeeks-2); i++) {
+            if (i > 31) { break; };
+            earnedASpts += _sl[_ci].as[i];
+            earnedMVpts += _sl[_ci].mv[i];
+        }
     }
-    for (i = 0; i < (_elapsedWeeks-1); i++) {
-        if (i > 30) { break; };
-        earnedASpts += Object.values(_sl[_ci].as)[i];
-        earnedMVpts += Object.values(_sl[_ci].mv)[i];
-    }
-    var asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
-    var asSquares = Math.round(asPercentage / 2.50);
-    var mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
-    var mvSquares = Math.round(mvPercentage / 2.50);
     var totalPoints = totalASpts + totalMVpts;
     var totalEarnedPoints = earnedASpts + earnedMVpts;
-    var totalPointsPercentage = ((totalEarnedPoints / totalPoints) * 100).toFixed(1);
+    var asPercentage; var mvPercentage; var totalPointsPercentage;
+    if (_elapsedWeeks > 2) {
+        asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
+        mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
+        totalPointsPercentage = ((totalEarnedPoints / totalPoints) * 100).toFixed(1);
+    } else {
+        asPercentage = 0; mvPercentage = 0; totalPointsPercentage = 0;
+    }
+    var asSquares = Math.round(asPercentage / 2.50);
+    var mvSquares = Math.round(mvPercentage / 2.50);
     var totalPointsSquares = Math.round(totalPointsPercentage / 2.50);
     var weeksAttended = 0;
     for (i = 0; i < _elapsedWeeks; i++) {

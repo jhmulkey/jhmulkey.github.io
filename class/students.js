@@ -125,9 +125,11 @@ function isClassDay() {
     }
 }
 
+// _dateNumbers = (34) [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 169, 176, 183, 190, 197, 204, 211, 218, 225, 232, 239, 246, 253, 267, 274, 281, 288, 295];
+
 function setElapsedWeeks() {
     var todaysDateNumber = assignTodaysDateNumber();
-    //var todaysDateNumber = 63;
+    //var todaysDateNumber = 190;
     for (i = 0; i < _dateNumbers.length; i++) {
         if (todaysDateNumber == _dateNumbers[i]) {
             _elapsedWeeks = i + 1; break;
@@ -655,23 +657,30 @@ function loadStudentStats() {
     var earnedASpts = 0;   
     var totalMVpts = 0;
     var earnedMVpts = 0;
-    for (i = 0; i < (_elapsedWeeks-1); i++) {
-        if (i > 30) { break; };
-        totalASpts += _asMaxPts[i];
-        totalMVpts += _mvMaxPts[i];
+    if (_elapsedWeeks > 1) {
+        for (i = 0; i < (_elapsedWeeks-1); i++) {
+            if (i > 31) { break; };
+            totalASpts += _asMaxPts[i];
+            totalMVpts += _mvMaxPts[i];
+        }
+        for (i = 0; i < (_elapsedWeeks-1); i++) {
+            if (i > 31) { break; };
+            earnedASpts += _sl[_ci].as[i];
+            earnedMVpts += _sl[_ci].mv[i];
+        }
     }
-    for (i = 0; i < (_elapsedWeeks-1); i++) {
-        if (i > 30) { break; };
-        earnedASpts += Object.values(_sl[_ci].as)[i];
-        earnedMVpts += Object.values(_sl[_ci].mv)[i];
-    }
-    var asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
-    var asSquares = Math.round(asPercentage / 2.50);
-    var mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
-    var mvSquares = Math.round(mvPercentage / 2.50);
     var totalPoints = totalASpts + totalMVpts;
     var totalEarnedPoints = earnedASpts + earnedMVpts;
-    var totalPointsPercentage = ((totalEarnedPoints / totalPoints) * 100).toFixed(1);
+    var asPercentage; var mvPercentage; var totalPointsPercentage;
+    if (_elapsedWeeks > 1) {
+        asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
+        mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
+        totalPointsPercentage = ((totalEarnedPoints / totalPoints) * 100).toFixed(1);
+    } else {
+        asPercentage = 0; mvPercentage = 0; totalPointsPercentage = 0;
+    }
+    var asSquares = Math.round(asPercentage / 2.50);
+    var mvSquares = Math.round(mvPercentage / 2.50);
     var totalPointsSquares = Math.round(totalPointsPercentage / 2.50);
     var weeksAttended = 0;
     for (i = 0; i < _elapsedWeeks; i++) {
@@ -724,8 +733,8 @@ function loadStudentStats() {
 }
 
 function populateMissions() {
-    if (_elapsedWeeks > 1) {
-        for (i = _elapsedWeeks-2; i >= 0; i--) {
+    if (_elapsedWeeks > 0) {
+        for (i = _elapsedWeeks-1; i >= 0; i--) {
             if (i > 31) { continue }
             var div1 = document.createElement("div");
             div1.setAttribute("id","as"+i+"Pop");
@@ -739,7 +748,7 @@ function populateMissions() {
             div1.appendChild(textNode1);
             document.getElementById("asPop").appendChild(div1);
         }
-        for (j = _elapsedWeeks-2; j >= 0; j--) {
+        for (j = _elapsedWeeks-1; j >= 0; j--) {
             if (j > 31) { continue }
             var div2 = document.createElement("div");
             div2.setAttribute("id","mv"+j+"Pop");
@@ -1045,7 +1054,8 @@ function loadStudent(index) {
         document.getElementById("studentPopName").style.fontSize = "25px";
     }
     if (_elapsedWeeks > 1) {
-        for (i = 0; i < _elapsedWeeks-2; i++) {
+        for (i = 0; i < _elapsedWeeks-1; i++) {
+            if (i > 31) { break };
             if (_sl[_ci].as[i] == _asMaxPts[i]) {
                 document.getElementById("as"+i+"Pop").style.background = "green";
             } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
@@ -1054,7 +1064,8 @@ function loadStudent(index) {
                 document.getElementById("as"+i+"Pop").style.background = "black";
             }
         }
-        for (i = 0; i < _elapsedWeeks-2; i++) {
+        for (i = 0; i < _elapsedWeeks-1; i++) {
+            if (i > 31) { break };
             if (_sl[_ci].mv[i] == _mvMaxPts[i]) {
                 document.getElementById("mv"+i+"Pop").style.background = "green";
             } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
