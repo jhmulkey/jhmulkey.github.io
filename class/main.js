@@ -1405,6 +1405,23 @@ function editStudent() {
 }
 
 function refreshStudentPop() {
+    assignClassRanks();
+    document.getElementById("studentPopInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
+    document.getElementById("studentPopRankName").innerHTML = _rankNames[_sl[_ci].rank];
+    document.getElementById("studentPopName").innerHTML = _sl[_ci].fullName;
+    var pointsNeeded;
+    if (_sl[_ci].points == 220) {
+        pointsNeeded = 0
+    } else {
+        pointsNeeded = _rankPts[_sl[_ci].rank+1] - _sl[_ci].points;
+    }
+    document.getElementById("studentPopPts").innerHTML = _sl[_ci].points + " | <span style='color: #999'>" + pointsNeeded +"</span>";
+    if (_rankNames[_sl[_ci].rank].length > 20) {
+        document.getElementById("studentPopRankName").style.fontSize = "15px";
+    } else {
+        document.getElementById("studentPopRankName").style.fontSize = "18px";
+    }
+    document.getElementById("studentPopClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
     if (_sl[_ci].attendance === true) {
         document.getElementById("studentPopName").style.color = "lawngreen";
     } else {
@@ -1426,6 +1443,29 @@ function refreshStudentPop() {
             document.getElementById("studentMenu2").style.color = "red"; break;
         } else {
             document.getElementById("studentMenu2").style.color = "white";
+        }
+    }
+}
+
+function refreshMissionsPop() {
+    if (_elapsedWeeks > 1) {
+        for (i = 0; i < _elapsedWeeks-2; i++) {
+            if (_sl[_ci].as[i] == _asMaxPts[i]) {
+                document.getElementById("as"+i+"Pop").style.background = "green";
+            } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
+                document.getElementById("as"+i+"Pop").style.background = "darkorange";
+            } else {
+                document.getElementById("as"+i+"Pop").style.background = "black";
+            }
+        }
+        for (i = 0; i < _elapsedWeeks-2; i++) {
+            if (_sl[_ci].mv[i] == _mvMaxPts[i]) {
+                document.getElementById("mv"+i+"Pop").style.background = "green";
+            } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
+                document.getElementById("mv"+i+"Pop").style.background = "darkorange";
+            } else {
+                document.getElementById("mv"+i+"Pop").style.background = "black";
+            }
         }
     }
 }
@@ -1683,49 +1723,11 @@ function searchLog() {
 }
 
 function loadStudent(index) {
+    document.getElementById("searchMain").value = "";
     _ci = index;
-    checkInAtt(); refreshStudentPop();
+    checkInAtt(); refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu();
     if (document.getElementById("editStudentPop").style.display != "block") {
         pop(["mainPop"],["studentPop","missionsPop"]);
-    }
-    document.getElementById("searchMain").value = "";
-    assignClassRanks();
-    document.getElementById("studentPopInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
-    document.getElementById("studentPopRankName").innerHTML = _rankNames[_sl[_ci].rank];
-    document.getElementById("studentPopName").innerHTML = _sl[_ci].fullName;
-    var pointsNeeded;
-    if (_sl[_ci].points == 220) {
-        pointsNeeded = 0
-    } else {
-        pointsNeeded = _rankPts[_sl[_ci].rank+1] - _sl[_ci].points;
-    }
-    document.getElementById("studentPopPts").innerHTML = _sl[_ci].points + " | <span style='color: #999'>" + pointsNeeded +"</span>";
-    if (_rankNames[_sl[_ci].rank].length > 20) {
-        document.getElementById("studentPopRankName").style.fontSize = "15px";
-    } else {
-        document.getElementById("studentPopRankName").style.fontSize = "18px";
-    }
-    document.getElementById("studentPopClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
-    resetStudentMenu();
-    if (_elapsedWeeks > 1) {
-        for (i = 0; i < _elapsedWeeks-2; i++) {
-            if (_sl[_ci].as[i] == _asMaxPts[i]) {
-                document.getElementById("as"+i+"Pop").style.background = "green";
-            } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
-                document.getElementById("as"+i+"Pop").style.background = "darkorange";
-            } else {
-                document.getElementById("as"+i+"Pop").style.background = "black";
-            }
-        }
-        for (i = 0; i < _elapsedWeeks-2; i++) {
-            if (_sl[_ci].mv[i] == _mvMaxPts[i]) {
-                document.getElementById("mv"+i+"Pop").style.background = "green";
-            } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
-                document.getElementById("mv"+i+"Pop").style.background = "darkorange";
-            } else {
-                document.getElementById("mv"+i+"Pop").style.background = "black";
-            }
-        }
     }
 }
 
@@ -2699,27 +2701,38 @@ function openInsignia() {
 }
 
 function toggleIncomplete() {
-    var noneHidden = true;
-    for (i = 0; i < (_checkedState.length); i++) {
-        if (document.getElementById("as"+i+"Pop").style.display == "none" || document.getElementById("mv"+i+"Pop").style.display == "none") {
-            noneHidden = false; break;
+    if (_elapsedWeeks > 1) {
+        var noneHidden = true;
+        for (i = 0; i < (_elapsedWeeks-2); i++) {
+            if (document.getElementById("as"+i+"Pop").style.display == "none" || document.getElementById("mv"+i+"Pop").style.display == "none") {
+                noneHidden = false; break;
+            }
+        }
+        if (noneHidden) {
+            for (i = 0; i < (_elapsedWeeks-2); i++) {
+                if (_sl[_ci].as[i] < _asMaxPts[i]) {
+                    document.getElementById("as"+i+"Pop").style.display = "block"
+                } else {
+                    document.getElementById("as"+i+"Pop").style.display = "none"
+                }
+                if (_sl[_ci].mv[i] < _mvMaxPts[i]) {
+                    document.getElementById("mv"+i+"Pop").style.display = "block"
+                } else {
+                    document.getElementById("mv"+i+"Pop").style.display = "none"
+                }
+            }
+        } else {
+            for (i = 0; i < (_elapsedWeeks-2); i++) {
+                document.getElementById("as"+i+"Pop").style.display = "block";
+                document.getElementById("mv"+i+"Pop").style.display = "block";
+            }
         }
     }
-    if (noneHidden) {
-        for (i = 0; i < (_checkedState.length); i++) {
-            if (_sl[_ci].as[i] < _asMaxPts[i]) {
-                document.getElementById("as"+i+"Pop").style.display = "block"
-            } else {
-                document.getElementById("as"+i+"Pop").style.display = "none"
-            }
-            if (_sl[_ci].mv[i] < _mvMaxPts[i]) {
-                document.getElementById("mv"+i+"Pop").style.display = "block"
-            } else {
-                document.getElementById("mv"+i+"Pop").style.display = "none"
-            }
-        }
-    } else {
-        for (i = 0; i < (_checkedState.length); i++) {
+}
+
+function resetMissions() {
+    if (_elapsedWeeks > 1) {
+        for (i = 0; i < (_elapsedWeeks-2); i++) {
             document.getElementById("as"+i+"Pop").style.display = "block";
             document.getElementById("mv"+i+"Pop").style.display = "block";
         }

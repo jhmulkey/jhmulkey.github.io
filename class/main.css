@@ -601,7 +601,7 @@ a:link, a:visited, a:hover, a:active {
     margin: 20px auto;
 }
 
-#enterReasonTextField, #addStudentNote, #editStudentNote, #addTeacherNote, #editTeacherNote {
+#asReasonText, #enterReasonTextField, #addStudentNote, #editStudentNote, #addTeacherNote, #editTeacherNote {
     width: 375px;
     height: 150px;
     font-size: 20px;
