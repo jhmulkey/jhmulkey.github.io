@@ -869,16 +869,42 @@ function sortByPoints() {
     assignClassRanks();
     document.getElementById("nameListCustom").style.display = "block";
     document.getElementById("genderListContainer").style.display = "none";
-    _sl.sort(function(a,b){return b.points - a.points});
+    _sl.sort(function(b,a){return a.points - b.points});
     document.getElementById("nameListCustom").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
+        var lastElementNode;
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
-        var textNode = document.createTextNode(_sl[i].classRank + ". " + _sl[i].fullName + " (" + _sl[i].points + ")");
+        if (_sl[i].rank != lastElementNode) {
+            elementNode.style.borderTop = "1px solid orange";
+            elementNode.style.paddingTop = "5px";
+        }
+        var textNode = document.createTextNode(_sl[i].classRank + ". " + _sl[i].fullName + " (" + _sl[i].points + "|" + _sl[i].rankName+ ")");
         elementNode.appendChild(textNode);
         document.getElementById("nameListCustom").appendChild(elementNode);
+        lastElementNode = _sl[i].rank;
     }
     pop(["sortChoicePop"],["customSortListPop"]);
+}
+
+function sortByRank() {
+    document.getElementById("nameListCustom").innerHTML = "";
+    document.getElementById("nameListCustom").style.display = "block";
+    document.getElementById("genderListContainer").style.display = "none";
+    var rankOrder = _sl.sort(function(b,a){return a.rank - b.rank});
+    for (i = 0; i < _sl.length; i++) {
+        var lastElementNode;
+        var elementNode = document.createElement("p");
+        elementNode.classList.add("name3");
+        if (_sl[i].rank != lastElementNode) {
+            elementNode.style.borderTop = "1px solid orange";
+        }
+        var textNode = document.createTextNode(rankOrder[i].rankName + " " + rankOrder[i].fullName);
+        elementNode.appendChild(textNode);
+        document.getElementById("nameListCustom").appendChild(elementNode);
+        lastElementNode = _sl[i].rank;
+    }  
+    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
 }
 
 function sortByAttendance() {
@@ -956,6 +982,7 @@ function sortByBday() {
         elementNode.classList.add("name3");
         if (_sl[i].birthdayMonth != lastElementNode) {
             elementNode.style.borderTop = "1px solid orange";
+            elementNode.style.paddingTop = "5px";
         }
         if (_sl[i].birthdayDone === true) {
             elementNode.style.color = "gray";
@@ -1089,13 +1116,13 @@ function editStudentNote() {
     pop(["editStudentNotePop"],["studentNotesPop"]);
 }
 
-function notesAlert() {
+/* function notesAlert() {
     if (_teacherNotes != false) {
         document.getElementById("teacherNotesButton").style.backgroundColor = "red";
     } else {
         document.getElementById("teacherNotesButton").style.backgroundColor = "black";
     }
-}
+} */
 
 function findAllBday() {
     var todaysDateNumber = assignTodaysDateNumber();
@@ -1117,41 +1144,41 @@ function findBday() {
     }
 }
 
-function birthdayAlert() {
+/* function birthdayAlert() {
     loadBdays();
     if (document.getElementById("bdayList").innerHTML != "") {
         document.getElementById("birthdayButton").style.backgroundColor = "red";
     } else {
         document.getElementById("birthdayButton").style.backgroundColor = "black";
     }
-}
+} */
 
-function photosNeededAlert() {
+/* function photosNeededAlert() {
     loadNeededPhotos();
     if (document.getElementById("photosNeededList").innerHTML != "") {
         document.getElementById("photosNeededButton").style.backgroundColor = "red";
     } else {
         document.getElementById("photosNeededButton").style.backgroundColor = "black";
     }
-}
+} */
 
-function emailsNeededAlert() {
+/* function emailsNeededAlert() {
     loadNeededEmails();
     if (document.getElementById("emailsNeededList").innerHTML != "") {
         document.getElementById("emailsNeededButton").style.backgroundColor = "red";
     } else {
         document.getElementById("emailsNeededButton").style.backgroundColor = "black";
     }
-}
+} */
 
-function birthdaysNeededAlert() {
+/* function birthdaysNeededAlert() {
     loadNeededBirthdays();
     if (document.getElementById("birthdaysNeededList").innerHTML != "") {
         document.getElementById("birthdaysNeededButton").style.backgroundColor = "red";
     } else {
         document.getElementById("birthdaysNeededButton").style.backgroundColor = "black";
     }
-}
+} */
 
 function capitalize(x) {
     return x.charAt(0).toUpperCase() + x.slice(1);
@@ -1780,7 +1807,7 @@ function pop(closeArray,openArray) {
     if (openArray.includes("mainPop")) {
         document.getElementById("searchMain").value = "";
         document.getElementById("searchMain").focus();
-        sortStudentList();
+        sortStudentList(); alerts();
     }
     if (openArray.includes("randomPop") || openArray.includes("drawingPop")) {
         document.getElementById("randomName").innerHTML = "tap here<br>to pick";
@@ -1818,7 +1845,6 @@ function pop(closeArray,openArray) {
     if (openArray.includes("sortChoicePop")) {
         _populateNotesID = [];
     }
-    alerts();
     scrollTo(0,0);
 }
 
@@ -1967,7 +1993,11 @@ function populateNames() {
     }
     var textNode2 = document.createTextNode("Add New Student");
     elementNode2.appendChild(textNode2);
-    document.getElementById("nameList").appendChild(elementNode2);  
+    document.getElementById("nameList").appendChild(elementNode2);
+    alerts();  
+    document.getElementById("searchMain").value = "";
+    document.getElementById("searchMain").focus();
+    
 }
 
 function populateNames2() {
@@ -2370,26 +2400,44 @@ function completePhoto(x) {
     _sl[x].photo = true; loadNeededPhotos(); storeAndBackup();
 }
 
-function alerts() {
+/* function alerts() {
     promotionAlert(); birthdayAlert(); photosNeededAlert(); emailsNeededAlert(); birthdaysNeededAlert(); notesAlert(); anyAlert();
-}
+} */
 
-function anyAlert() {
-    if (document.getElementById("promoList").innerHTML != "" || document.getElementById("bdayList").innerHTML != "" || document.getElementById("photosNeededList").innerHTML != "" || document.getElementById("emailsNeededList").innerHTML != "" || document.getElementById("birthdaysNeededList").innerHTML != "") {
+function alerts() {
+    var alertButtons = ["promotionButton","birthdayButton","photosNeededButton","emailsNeededButton","birthdaysNeededButton"];
+    var ids = ["promoList","bdayList","photosNeededList","emailsNeededList","birthdaysNeededList"];
+    var alertNum = 0;
+    for (i = 0; i < ids.length; i++) {
+        if (document.getElementById(ids[i]).innerHTML != "") {
+            document.getElementById(alertButtons[i]).style.backgroundColor = "red"; alertNum++
+        } else {
+            document.getElementById(alertButtons[i]).style.backgroundColor = "black";
+        }
+    }
+    if (alertNum > 0) {
         document.getElementById("alertButton").style.backgroundColor = "red";
     } else {
         document.getElementById("alertButton").style.backgroundColor = "black";
     }
 }
 
-function promotionAlert() {
+/* function anyAlert() {
+    if (document.getElementById("promoList").innerHTML != "" || document.getElementById("bdayList").innerHTML != "" || document.getElementById("photosNeededList").innerHTML != "" || document.getElementById("emailsNeededList").innerHTML != "" || document.getElementById("birthdaysNeededList").innerHTML != "") {
+        document.getElementById("alertButton").style.backgroundColor = "red";
+    } else {
+        document.getElementById("alertButton").style.backgroundColor = "black";
+    }
+} */
+
+/* function promotionAlert() {
     loadPromotions();
     if (document.getElementById("promoList").innerHTML != "") {
         document.getElementById("promotionButton").style.backgroundColor = "red";
     } else {
         document.getElementById("promotionButton").style.backgroundColor = "black";
     }
-}
+} */
 
 function storeAndBackup() {
     storeNewData();
