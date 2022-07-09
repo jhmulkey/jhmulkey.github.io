@@ -1091,7 +1091,7 @@ function editStudentNote() {
 
 function notesAlert() {
     if (_teacherNotes != false) {
-        document.getElementById("teacherNotesButton").style.backgroundColor = "darkgoldenrod";
+        document.getElementById("teacherNotesButton").style.backgroundColor = "red";
     } else {
         document.getElementById("teacherNotesButton").style.backgroundColor = "black";
     }
@@ -1120,7 +1120,7 @@ function findBday() {
 function birthdayAlert() {
     loadBdays();
     if (document.getElementById("bdayList").innerHTML != "") {
-        document.getElementById("birthdayButton").style.backgroundColor = "darkgoldenrod";
+        document.getElementById("birthdayButton").style.backgroundColor = "red";
     } else {
         document.getElementById("birthdayButton").style.backgroundColor = "black";
     }
@@ -1129,7 +1129,7 @@ function birthdayAlert() {
 function photosNeededAlert() {
     loadNeededPhotos();
     if (document.getElementById("photosNeededList").innerHTML != "") {
-        document.getElementById("photosNeededButton").style.backgroundColor = "darkgoldenrod";
+        document.getElementById("photosNeededButton").style.backgroundColor = "red";
     } else {
         document.getElementById("photosNeededButton").style.backgroundColor = "black";
     }
@@ -1138,7 +1138,7 @@ function photosNeededAlert() {
 function emailsNeededAlert() {
     loadNeededEmails();
     if (document.getElementById("emailsNeededList").innerHTML != "") {
-        document.getElementById("emailsNeededButton").style.backgroundColor = "darkgoldenrod";
+        document.getElementById("emailsNeededButton").style.backgroundColor = "red";
     } else {
         document.getElementById("emailsNeededButton").style.backgroundColor = "black";
     }
@@ -1147,7 +1147,7 @@ function emailsNeededAlert() {
 function birthdaysNeededAlert() {
     loadNeededBirthdays();
     if (document.getElementById("birthdaysNeededList").innerHTML != "") {
-        document.getElementById("birthdaysNeededButton").style.backgroundColor = "darkgoldenrod";
+        document.getElementById("birthdaysNeededButton").style.backgroundColor = "red";
     } else {
         document.getElementById("birthdaysNeededButton").style.backgroundColor = "black";
     }
@@ -2411,7 +2411,7 @@ function alerts() {
 
 function anyAlert() {
     if (document.getElementById("promoList").innerHTML != "" || document.getElementById("bdayList").innerHTML != "" || document.getElementById("photosNeededList").innerHTML != "" || document.getElementById("emailsNeededList").innerHTML != "" || document.getElementById("birthdaysNeededList").innerHTML != "") {
-        document.getElementById("alertButton").style.backgroundColor = "darkgoldenrod";
+        document.getElementById("alertButton").style.backgroundColor = "red";
     } else {
         document.getElementById("alertButton").style.backgroundColor = "black";
     }
@@ -2420,7 +2420,7 @@ function anyAlert() {
 function promotionAlert() {
     loadPromotions();
     if (document.getElementById("promoList").innerHTML != "") {
-        document.getElementById("promotionButton").style.backgroundColor = "darkgoldenrod";
+        document.getElementById("promotionButton").style.backgroundColor = "red";
     } else {
         document.getElementById("promotionButton").style.backgroundColor = "black";
     }

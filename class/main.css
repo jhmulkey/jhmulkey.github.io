@@ -180,13 +180,6 @@ a:link, a:visited, a:hover, a:active {
     margin: 0px;
 }
 
-.addButton {
-    font-family: Font-90-Icons;
-    font-weight: bolder;
-    padding-top: 9px;
-    background-color: green;
-}
-
 .button {
     height: 50px;
     width: 250px;
