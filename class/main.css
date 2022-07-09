@@ -884,7 +884,7 @@ a:link, a:visited, a:hover, a:active {
     text-align: center !important;
 }
 
-.otherButton, .addNew, #dispStudentPhoto, .roundButton1, .roundButton2, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, .secretButton, .secretButton2, .secretButton3, #advancedOptionsButton {
+#attCount, .otherButton, .addNew, #dispStudentPhoto, .roundButton1, .roundButton2, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, .secretButton, .secretButton2, .secretButton3, #advancedOptionsButton {
     cursor: pointer;
 }
 

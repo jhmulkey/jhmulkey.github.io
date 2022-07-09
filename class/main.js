@@ -1204,7 +1204,7 @@ function infoAlert(message,idArray,focus) {
     if (_focus) { document.getElementById(_focus).focus(); }
 }
 
-function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
+function dataInputAlert(message,popArray,func,parameter,bypass) {
     if (document.getElementById("dataInputAlertPop").style.display != "block") {
         _dataInputParameter = parameter;
         _currentPops2 = popArray;
@@ -1215,30 +1215,18 @@ function dataInputAlert(message,popArray,reasonRequired,func,parameter,bypass) {
             document.getElementById(_currentPops2[i]).style.display = "none"
         }
         document.getElementById("dataInputAlertMessage").innerHTML = message;
-        if (reasonRequired === true) {
-            document.getElementById("enterReasonDiv").style.display = "block";
-            document.getElementById("enterReasonTextField").value = "";
-        } else {
-            document.getElementById("enterReasonDiv").style.display = "none";
-        }
         document.getElementById("dataInputTextField").focus();
     } else if (document.getElementById("dataInputAlertPop").style.display == "block") {
         if (!bypass) {
             if (isNaN(parseInt(document.getElementById("dataInputTextField").value))) {
                 infoAlert("Please enter a number",["dataInputAlertPop"],"dataInputTextField"); return;
             }
-            if (document.getElementById("enterReasonDiv").style.display == "block" && document.getElementById("enterReasonTextField").value == "") {
-                infoAlert("Reason required",["dataInputAlertPop"],"enterReasonTextField"); return;
-            }
             var data = parseInt(document.getElementById("dataInputTextField").value);
-            var reason = document.getElementById("enterReasonTextField").value;
-            _currentFunction(_dataInputParameter,data,reason);
+            _currentFunction(_dataInputParameter,data);
             for (i = 0; i < _currentPops2.length; i++) {
                 document.getElementById(_currentPops2[i]).style.display = "block"
             }
-            document.getElementById("enterReasonDiv").style.display = "none";
             document.getElementById("dataInputAlertMessage").innerHTML = "";
-            document.getElementById("enterReasonTextField").value = "";
             document.getElementById("dataInputAlertPop").style.display = "none";
         } else {
             document.getElementById("dataInputAlertPop").style.display = "none";

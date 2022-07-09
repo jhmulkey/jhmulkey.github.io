@@ -126,11 +126,11 @@
   <div id="teamPointsContainer">
     <div>
       <p>Team 1</p>
-      <div id="team1Score" onclick="dataInputAlert('Adjust team 1 score',['playGamePop'],false,adjustGameScore,1)">0</div>
+      <div id="team1Score" onclick="dataInputAlert('Adjust team 1 score',['playGamePop'],adjustGameScore,1)">0</div>
     </div>
     <div>
       <p>Team 2</p>
-      <div id="team2Score" onclick="dataInputAlert('Adjust team 2 score',['playGamePop'],false,adjustGameScore,2)">0</div>
+      <div id="team2Score" onclick="dataInputAlert('Adjust team 2 score',['playGamePop'],adjustGameScore,2)">0</div>
     </div>
   </div>
   <div id="currentPlayerContainer">
@@ -174,14 +174,10 @@
 
 <div id="dataInputAlertPop" class="pop">
   <p id="dataInputAlertMessage"></p>
-  <input id="dataInputTextField" type="text"/>
-  <div id="enterReasonDiv">
-    <p>Reason (required):</p>
-    <textarea id="enterReasonTextField" rows="10" cols="30"></textarea>
-  </div>
+  <input id="dataInputTextField" type="text" onkeydown="if(event.keyCode==13)document.getElementById('dataInputAlertOK').click(); if(event.keyCode==27)document.getElementById('dataInputAlertCancel').click()"/>
   <div class="optionButtonContainer">
-    <div class="roundButton1 cancelButton" onclick="dataInputAlert(false,false,false,false,false,true)">X</div>
-    <div class="roundButton1 okButton" onclick="dataInputAlert()">V</div>
+    <div class="roundButton1 cancelButton" id="dataInputAlertCancel" onclick="dataInputAlert(false,false,false,false,true)">X</div>
+    <div class="roundButton1 okButton" id="dataInputAlertOK" onclick="dataInputAlert()">V</div>
   </div>
 </div>
 
@@ -717,18 +713,18 @@
 
 <div id="asPointsPop" class="pop">
   <div class="pointButtonContainer">
-      <div id="as1Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,1)">1</div>
-      <div id="as2Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,2)">2</div>
-      <div id="as3Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,3)">3</div>
-      <div id="as4Points" class="roundButton numberButton asPts" style="padding-right:3px" onclick="asPoints(_asNum,4)">4</div>
-      <div id="as5Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,5)">5</div>
-      <div id="as6Points" class="roundButton numberButton asPts" onclick="asPoints(_asNum,6)">6</div>
+      <div id="as1Points" class="roundButton1 numberButton asPts" onclick="asPoints(_asNum,1)">1</div>
+      <div id="as2Points" class="roundButton1 numberButton asPts" onclick="asPoints(_asNum,2)">2</div>
+      <div id="as3Points" class="roundButton1 numberButton asPts" onclick="asPoints(_asNum,3)">3</div>
+      <div id="as4Points" class="roundButton1 numberButton asPts" style="padding-right:3px" onclick="asPoints(_asNum,4)">4</div>
+      <div id="as5Points" class="roundButton1 numberButton asPts" onclick="asPoints(_asNum,5)">5</div>
+      <div id="as6Points" class="roundButton1 numberButton asPts" onclick="asPoints(_asNum,6)">6</div>
   </div>
   <div id="asReasonContainer" >
-    <textarea id="asReasonText" rows="5" cols="25" placeholder="reason for partial credit (required)" onkeydown="if(event.keyCode==13)document.getElementById('asReasonOKbutton').click()"></textarea>
+    <textarea id="asReasonText" rows="5" cols="25" placeholder="reason for partial credit (required)" onkeydown="if(event.keyCode==13)document.getElementById('asReasonOK').click(); if(event.keyCode==27)document.getElementById('asReasonCancel').click()"></textarea>
     <div class="optionButtonContainer">
-      <div class="roundButton1 cancelButton" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])">X</div>
-      <div class="roundButton1 okButton" id="asReasonOKbutton" onclick="asPoints(_asNum,_asPoints,true)">V</div>
+      <div class="roundButton1 cancelButton" id="asReasonCancel" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])">X</div>
+      <div class="roundButton1 okButton" id="asReasonOK" onclick="asPoints(_asNum,_asPoints,true)">V</div>
     </div>
   </div>
   <div>
@@ -767,13 +763,13 @@
 
 <div id="mvPointsPop" class="pop">
   <div class="pointButtonContainer">
-      <div id="mv1Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,1)">1</div>
-      <div id="mv2Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,2)">2</div>
-      <div id="mv3Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,3)">3</div>
-      <div id="mv4Points" class="roundButton numberButton mvPts" style="padding-right:3px" onclick="mvPoints(_mvNum,4)">4</div>
-      <div id="mv5Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,5)">5</div>
-      <div id="mv6Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,6)">6</div>
-      <div id="mv7Points" class="roundButton numberButton mvPts" onclick="mvPoints(_mvNum,7)">7</div>
+      <div id="mv1Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,1)">1</div>
+      <div id="mv2Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,2)">2</div>
+      <div id="mv3Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,3)">3</div>
+      <div id="mv4Points" class="roundButton1 numberButton mvPts" style="padding-right:3px" onclick="mvPoints(_mvNum,4)">4</div>
+      <div id="mv5Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,5)">5</div>
+      <div id="mv6Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,6)">6</div>
+      <div id="mv7Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,7)">7</div>
   </div>
   <div>
     <table class="asmvInfoTable">
@@ -831,10 +827,9 @@
 <div id="attListPop" class="pop">
     <div class="navigationButtonContainer">
       <div class="backButton" onclick="pop(['attListPop'],['mainPop'])">f</div>
-      <div class="secretButton" onclick="dataInputAlert('Number of students for random attendance',['attListPop'],false,randomAtt)"></div>
-      <div class="homeButton" onclick="goHome()">5</div>
+      <div class="otherButton" onclick="actionAlert('Reset attendance?',['attListPop'],resetAtt)">Reset</div>
     </div>
-    <p id="attCount" onclick="actionAlert('Reset attendance?',['attListPop'],resetAtt)"></p>
+    <p id="attCount" onclick="dataInputAlert('Number of students for random attendance',['attListPop'],randomAtt)"></p>
     <div id="attListContainer">
       <div id="boysListAttDiv">
         <p id="boysListAttP"></p>
@@ -945,7 +940,6 @@
 <div id="backupPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['backupPop'],['mainPop'])">f</div>
-    <div class="otherButton" onclick="selectText('backupArrays')">Select</div>
   </div>
   <div id="backupArrays" onclick="selectText('backupArrays')">
     <div id="slBackupArray"></div>
