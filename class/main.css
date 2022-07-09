@@ -84,7 +84,9 @@ a:link, a:visited, a:hover, a:active {
     background-color: black;
     border: 2px solid #222;
     padding-top: 20px;
+    padding-left: 20px;
     border-radius: 25px;
+    text-align: left;
 }
 
 #studentNotesList, #teacherNotesList {
@@ -104,8 +106,8 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #att2Pop, #att3Pop {
-    border-bottom: 2px solid white;
-    background-color: #222;
+    border-bottom: 2px solid #333;
+    background-color: #111;
     height: 286px;
     width: 428px;
     padding: 20px 0px 0px 0px;
@@ -627,8 +629,12 @@ a:link, a:visited, a:hover, a:active {
     font-size: 20px;
 }
 
-#searchMain, #searchLog {
+#searchMain {
     margin: 20px auto;
+}
+
+#searchLog {
+    margin: 17px auto 20px auto;
 }
 
 #searchMain2, #searchMain3 {
@@ -924,4 +930,8 @@ a:link, a:visited, a:hover, a:active {
 #promoListPop p, #bdayListPop p, #photosNeededPop p, #emailsNeededPop p, #birthdaysNeededPop p {
     margin: 15px auto;
     cursor: pointer;
+}
+
+.quickAttendance {
+    font-family: Byom-Icons-Trial;
 }

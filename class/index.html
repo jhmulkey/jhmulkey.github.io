@@ -13,12 +13,10 @@
 <div id="mainPop" class="pop">
     <div id="topMenuContainer">
         <div id="mainMenuButton" class="roundButton2" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
-        <div id="backupButton" class="roundButton2" onclick="pop(['mainPop'],['backupPop'])">B</div>
-        <!-- <div id="addTeacherNoteButton" class="roundButton" onclick="pop(['mainPop'],['addTeacherNotePop','addTeacherNote'])">E</div> -->
+        <div id="alertButton" class="roundButton2" onclick="pop(['mainPop'],['alertsPop'])">#</div>
         <div id="attCountButton" class="roundButton2" onclick="loadAttendees()">0</div>
         <div id="logButton" class="roundButton2" onclick="pop(['mainPop'],['logPop'])">F</div>
-        <div id="alertButton" class="roundButton2" onclick="pop(['mainPop'],['alertsPop'])">#</div>
-        <!-- <div class="roundButton addButton" onclick="pop(['mainPop'],['newStudentPop'])">;</div> -->
+        <div id="backupButton" class="roundButton2" onclick="pop(['mainPop'],['backupPop'])">B</div>
     </div>
     <input id="searchMain" class="searchField" type="text" placeholder="search names" oninput="searchNames('searchMain','name')"/>
     <div id="nameList"></div>
@@ -190,7 +188,6 @@
 <div id="logPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['logPop'],['mainPop'])">f</div>
-    <div class="homeButton" onclick="goHome()">5</div>
   </div>
   <input id="searchLog" class="searchField" type="text" placeholder="search log" oninput="searchLog()"/>
   <div id="log" onclick="selectText('log')"></div>
@@ -556,7 +553,7 @@
   </div>
   <div>
     <p>Email Address</p>
-    <input class="searchField" id="newEmail" type="text" placeholder="email address" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"/>
+    <input class="searchField" id="newEmail" type="text" placeholder="email address" onkeydown="keyPress()"/>
   </div>
   <div>
     <p>Note</p>
@@ -628,10 +625,10 @@
 </div>
 
 <div id="addStudentNotePop" class="pop">
-  <textarea id="addStudentNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('addStudentNoteOkButton').click()" placeholder="Add New Note"></textarea>
+  <textarea id="addStudentNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('addStudentNoteOk').click(); if(event.keyCode==27)document.getElementById('addStudentNoteCancel').click()" placeholder="Add New Note"></textarea>
   <div class="optionButtonContainer">
-    <div class="roundButton1 cancelButton" onclick="pop(['addStudentNotePop'],['studentNotesPop','studentNotesList'])">X</div>
-    <div class="roundButton1 okButton" id="addStudentNoteOkButton" onclick="addStudentNote()">V</div>
+    <div class="roundButton1 cancelButton" id="addStudentNoteCancel" onclick="pop(['addStudentNotePop'],['studentNotesPop','studentNotesList'])">X</div>
+    <div class="roundButton1 okButton" id="addStudentNoteOk" onclick="addStudentNote()">V</div>
   </div>
 </div>
 
@@ -640,19 +637,19 @@
     <div class="backButton" onclick="pop(['addTeacherNotePop','addTeacherNote'],['teacherNotesPop','teacherNotesList'])">f</div>
     <div class="homeButton" onclick="goHome()">5</div>
   </div>
-  <textarea id="addTeacherNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('addTeacherNoteOkButton').click()" placeholder="Add New Note"></textarea>
+  <textarea id="addTeacherNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('addTeacherNoteOk').click(); if(event.keyCode==27)document.getElementById('addTeacherNoteCancel').click()" placeholder="Add New Note"></textarea>
   <div class="optionButtonContainer">
-    <div class="roundButton1 cancelButton" onclick="pop(['addTeacherNotePop','addTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
-    <div class="roundButton1 okButton" id="addTeacherNoteOkButton" onclick="addTeacherNote()">V</div>
+    <div class="roundButton1 cancelButton" id="addTeacherNoteCancel" onclick="pop(['addTeacherNotePop','addTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
+    <div class="roundButton1 okButton" id="addTeacherNoteOk" onclick="addTeacherNote()">V</div>
   </div>
 </div>
 
 <div id="editStudentNotePop" class="pop">
-  <textarea id="editStudentNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('editStudentNoteOkButton').click()"></textarea>
+  <textarea id="editStudentNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('editStudentNoteOk').click(); if(event.keyCode==27)document.getElementById('editStudentNoteCancel').click()"></textarea>
   <div class="optionButtonContainer">
-    <div class="roundButton1 cancelButton" onclick="pop(['editStudentNotePop','editStudentNote'],['studentNotesPop','studentNotesList'])">X</div>
+    <div class="roundButton1 cancelButton" id="editStudentNoteCancel" onclick="pop(['editStudentNotePop','editStudentNote'],['studentNotesPop','studentNotesList'])">X</div>
     <div class="roundButton1 deleteButton" id="deleteNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editStudentNotePop'],deleteNote)">U</div>
-    <div class="roundButton1 okButton" id="editStudentNoteOkButton" onclick="editStudentNote()">V</div>
+    <div class="roundButton1 okButton" id="editStudentNoteOk" onclick="editStudentNote()">V</div>
   </div>
 </div>
 
@@ -661,11 +658,11 @@
     <div class="backButton" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])">f</div>
     <div class="homeButton" onclick="goHome()">5</div>
   </div>
-  <textarea id="editTeacherNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('editTeacherNoteOkButton').click()"></textarea>
+  <textarea id="editTeacherNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('editTeacherNoteOk').click(); if(event.keyCode==27)document.getElementById('editTeacherNoteCancel').click()"></textarea>
   <div class="optionButtonContainer">
-    <div class="roundButton1 cancelButton" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
+    <div class="roundButton1 cancelButton" id="editTeacherNoteCancel" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
     <div class="roundButton1 deleteButton" id="deleteTeacherNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editTeacherNotePop'],deleteTeacherNote)">U</div>
-    <div class="roundButton1 okButton" id="editTeacherNoteOkButton" onclick="editTeacherNote()">V</div>
+    <div class="roundButton1 okButton" id="editTeacherNoteOk" onclick="editTeacherNote()">V</div>
   </div>
 </div>
 
