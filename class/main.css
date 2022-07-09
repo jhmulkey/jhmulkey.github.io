@@ -455,6 +455,10 @@ a:link, a:visited, a:hover, a:active {
     font-size: 20px;
 }
 
+/* .backButtonLong {
+    width: 369px;
+} */
+
 .otherButton {
     font-size: 15px;
     padding-top: 2px;
@@ -880,7 +884,7 @@ a:link, a:visited, a:hover, a:active {
     text-align: center !important;
 }
 
-.addNew, #dispStudentPhoto, .roundButton, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, .secretButton, .secretButton2, .secretButton3, #advancedOptionsButton {
+.otherButton, .addNew, #dispStudentPhoto, .roundButton1, .roundButton2, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, .secretButton, .secretButton2, .secretButton3, #advancedOptionsButton {
     cursor: pointer;
 }
 

@@ -72,7 +72,8 @@
 
 <div id="mainMenuPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton" onclick="goHome()" style="width:375px">f</div>
+    <div class="backButton" onclick="goHome()">f</div>
+    <div class="otherButton" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">Advanced</div>
   </div>
   <div class="button" onclick="loadAttStats()">Attendance Stats</div>
   <div class="button" onclick="pop(['mainMenuPop'],['sortChoicePop'])">Sort Students</div>
@@ -80,7 +81,6 @@
   <div class="button" onclick="pop(['mainMenuPop'],['randomPop'])">Random</div>
   <div class="button" onclick="teams()">Teams</div>
   <div class="button" id="teacherNotesButton" onclick="pop(['mainMenuPop'],['teacherNotesPop']); populateTeacherNotes()">Notes</div>
-  <div class="button" id="advancedOptionsButton" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">w</div>
 </div>
 
 <div id="alertsPop" class="pop">
@@ -945,7 +945,7 @@
 <div id="backupPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="pop(['backupPop'],['mainPop'])">f</div>
-    <div class="homeButton" onclick="goHome()">5</div>
+    <div class="otherButton" onclick="selectText('backupArrays')">Select</div>
   </div>
   <div id="backupArrays" onclick="selectText('backupArrays')">
     <div id="slBackupArray"></div>
