@@ -107,9 +107,9 @@ a:link, a:visited, a:hover, a:active {
     border-bottom: 2px solid white;
     background-color: #222;
     height: 286px;
-    width: 388px;
+    width: 428px;
     padding: 20px 0px 0px 0px;
-    margin-bottom: 20px;
+    margin-bottom: 13px;
 }
 
 #absentPromotion, #absentBday, #absentEmailsNeeded, #absentPhotosNeeded, #absentBirthdaysNeeded {
@@ -142,13 +142,23 @@ a:link, a:visited, a:hover, a:active {
     font-size: 20px;
 }
 
-.roundButton {
+.roundButton1 {
     height: 50px;
     width: 50px;
     border: 2px solid #eee;
     background-color: black;
     border-radius: 25px;
     font-size: 25px;
+}
+
+.roundButton2 {
+    height: 50px;
+    width: 50px;
+    border: 2px solid #333;
+    background-color: black;
+    border-radius: 25px;
+    font-size: 25px;
+    color: #BBB;
 }
 
 .secretButton {
@@ -194,13 +204,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #advancedOptionsButton {
-    height: 35px;
-    width: 35px;
-    border: 2px solid #eee;
-    background-color: black;
-    border-radius: 25px;
-    font-size: 18px;
-    padding-top: 5px;
+    padding-top: 9px;
     font-family: Font-90-Icons;
 }
 
@@ -443,24 +447,24 @@ a:link, a:visited, a:hover, a:active {
     justify-content: center;
 }
 
-.backButton, .homeButton {
-    border-radius: 25px;
-    height: 35px;
-    width: 75px;
-    border: 2px solid white;
+.backButton, .homeButton, .otherButton {
+    border-radius: 10px;
+    height: 28px;
+    width: 175px;
+    border: 2px solid #333;
+    color: #BBB;
     font-weight: bold;
+    background-color: black;
+}
+
+.backButton, .homeButton {
     font-family: Font-90-Icons;
-    color: white;
-    background-color: #333;
     font-size: 20px;
 }
 
-.backButton {
-    padding-top: 4px;
-}
-
-.homeButton {
-    padding-top: 3px;
+.otherButton {
+    font-size: 15px;
+    padding-top: 2px;
 }
 
 .name, .nameSmaller {
@@ -631,7 +635,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #searchMain2, #searchMain3 {
-    margin: 10px auto;
+    margin: 15px 0px 10px 0px;
 }
 
 .searchField {

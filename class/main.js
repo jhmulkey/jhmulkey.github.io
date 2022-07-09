@@ -1984,16 +1984,9 @@ function populateNames2() {
     }
     document.getElementById("nameList2").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].attendance === true) { continue };
         var elementNode = document.createElement("p");
-        if (_sl[i].attendance === true) {
-            elementNode.style.color = "lawnGreen";
-            if (_sl[i].promoted === true) {
-                elementNode.style.color = "yellow";
-            }
-        } else {
-            elementNode.style.color = "white";
-        }
-        elementNode.classList.add("nameSmaller");
+        elementNode.classList.add("name");
         (function(i){
             elementNode.onclick = function () {
                 att2(i);
