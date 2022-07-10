@@ -1182,6 +1182,30 @@ function sortByBday() {
     pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
 }
 
+function sortByDateAdded() {
+    document.getElementById("nameListCustom").innerHTML = "";
+    document.getElementById("nameListCustom").style.display = "block";
+    document.getElementById("genderListContainer").style.display = "none";
+    var dateAddedOrder = _sl.sort(function(a,b){return a.dateAdded - b.dateAdded});
+    for (i = 0; i < _sl.length; i++) {
+        var dateAddedMonth; var dateAddedDate;
+        var dateAddedArray = convertDateNumber(_sl[i].dateAdded).split("/");
+        dateAddedMonth = dateAddedArray[0]; dateAddedDate = dateAddedArray[1];
+        var lastElementNode;
+        var elementNode = document.createElement("p");
+        elementNode.classList.add("name3");
+        if (dateAddedMonth != lastElementNode) {
+            elementNode.style.borderTop = "1px solid #333";
+            elementNode.style.paddingTop = "5px";
+        }
+        var textNode = document.createTextNode(dateAddedMonth + "/" + dateAddedDate + " " + dateAddedOrder[i].fullName);
+        elementNode.appendChild(textNode);
+        document.getElementById("nameListCustom").appendChild(elementNode);
+        lastElementNode = dateAddedMonth;
+    }  
+    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
+}
+
 function sortByNotes(bypass) {
     document.getElementById("nameListCustom").innerHTML = "";
     document.getElementById("nameListCustom").style.display = "block";
@@ -2803,18 +2827,18 @@ function convertDateNumber(dateNumber) {
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var month; var date;
     if (_leapYear === false) {
-        for (i = 1; i < cumulative.length; i++) {
-            if (dateNumber >= cumulative[i] && dateNumber <= cumulative[i+1]) {
-                month = i; date = dateNumber - cumulative[i]; break;
+        for (j = 1; j < cumulative.length; j++) {
+            if (dateNumber >= cumulative[j] && dateNumber <= cumulative[j+1]) {
+                month = j; date = dateNumber - cumulative[j]; break;
             }
             if (dateNumber > 334) {
                 month = 7; date = dateNumber - 334; break;
             }
         }
     } else {
-        for (i = 1; i < cumulative.length; i++) {
-            if (dateNumber >= cumulativeLeap[i] && dateNumber <= cumulativeLeap[i+1]) {
-                month = i; date = dateNumber - cumulativeLeap[i]; break;
+        for (j = 1; j < cumulative.length; j++) {
+            if (dateNumber >= cumulativeLeap[i] && dateNumber <= cumulativeLeap[j+1]) {
+                month = j; date = dateNumber - cumulativeLeap[j]; break;
             }
             if (dateNumber > 335) {
                 month = 7; date = dateNumber - 335; break;
