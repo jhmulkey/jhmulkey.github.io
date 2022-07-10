@@ -107,12 +107,12 @@ a:link, a:visited, a:hover, a:active {
     height: 401px;
 }
 
-#absentPromotion, #absentBday, #absentEmailsNeeded, #absentPhotosNeeded, #absentBirthdaysNeeded {
+#absentPromotion, #absentBday, #absentEmailsNeeded, #absentPhotosNeeded, #absentbdaysNeeded {
     margin-top: 20px !important;
     color: darkorange;
 }
 
-#promoListAbsent p, #bdayListAbsent p, #photosNeededListAbsent p, #emailsNeededListAbsent p, #birthdaysNeededListAbsent p{
+#promoListAbsent p, #bdayListAbsent p, #photosNeededListAbsent p, #emailsNeededListAbsent p, #bdaysNeededListAbsent p{
     color: gray;
 }
 
@@ -658,7 +658,7 @@ a:link, a:visited, a:hover, a:active {
     cursor: pointer;
 }
 
-#promoListPop p, #bdayListPop p, #photosNeededPop p, #emailsNeededPop p, #birthdaysNeededPop p {
+#promoListPop p, #bdayListPop p, #photosNeededPop p, #emailsNeededPop p, #bdaysNeededPop p {
     margin: 15px auto;
     cursor: pointer;
 }

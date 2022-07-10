@@ -15,7 +15,7 @@ var _weeksOff = 0;
             _weeksOff = 0;
         }
     }
-var _birthdayList = []; var _promotionList = [];
+var _bdayList = []; var _promotionList = [];
 var _noteIndex;
 var _teacherNotes = [];
 var _teacherNoteIndex;

@@ -15,7 +15,7 @@ var _weeksOff = 0;
             _weeksOff = 0;
         }
     }
-var _birthdayList = []; var _promotionList = [];
+var _bdayList = []; var _promotionList = [];
 var _noteIndex;
 var _teacherNotes = [];
 var _teacherNoteIndex;
@@ -105,12 +105,12 @@ class Student {
         this.fullName = first + " " + last;
         this.gender = gender;
         this.dateAdded = assignTodaysDateNumber();
-        this.birthdayMonth = month;
-        this.birthdayDate = date;
-        this.birthdayNumber;
-        this.birthday = month + "/" + date;
-        this.hasBirthday = false;
-        this.birthdayDone = false;
+        this.bdayMonth = month;
+        this.bdayDate = date;
+        this.bdayNumber;
+        this.bday = month + "/" + date;
+        this.hasbday = false;
+        this.bdayDone = false;
         this.email = email;
         this.photo = false;
         this.notes = note;
@@ -226,10 +226,10 @@ function allAlerts() {
         }
     }
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true && _sl[i].hasBirthday === true) {
-            alert = true; document.getElementById("birthdayButton").style.backgroundColor = "red"; break;
+        if (_sl[i].attendance === true && _sl[i].hasbday === true) {
+            alert = true; document.getElementById("bdayButton").style.backgroundColor = "red"; break;
         } else {
-            document.getElementById("birthdayButton").style.backgroundColor = "black";
+            document.getElementById("bdayButton").style.backgroundColor = "black";
         }
     }
     for (i = 0; i < _sl.length; i++) {
@@ -247,10 +247,10 @@ function allAlerts() {
         }
     }
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true && _sl[i].birthday == "0/0") {
-            alert = true; document.getElementById("birthdaysNeededButton").style.backgroundColor = "red"; break;
+        if (_sl[i].attendance === true && _sl[i].bday == "0/0") {
+            alert = true; document.getElementById("bdaysNeededButton").style.backgroundColor = "red"; break;
         } else {
-            document.getElementById("birthdaysNeededButton").style.backgroundColor = "black";
+            document.getElementById("bdaysNeededButton").style.backgroundColor = "black";
         }
     }
     if (alert === true) { 
@@ -272,10 +272,10 @@ function populateCustomList(log1,log2,type) {
                     actionAlert("Complete promotion for <br>" + _sl[i].fullName + " (" + _sl[i].rankName + ")?",["customListPop"],completePromotion,false,i);
                 }
             })(i);
-        } else if (type == "birthdayDone") {
+        } else if (type == "bdayDone") {
             (function(i){
                 elementNode1.onclick = function () {
-                    actionAlert("Complete birthday for <br>" + _sl[i].fullName + "?",["customListPop"],completeBday,false,i);
+                    actionAlert("Complete bday for <br>" + _sl[i].fullName + "?",["customListPop"],completeBday,false,i);
                 }
             })(i);
         } else if (type == "photo") {
@@ -291,11 +291,11 @@ function populateCustomList(log1,log2,type) {
                     populateStudentFields("editEmail",loadNeededEmails);
                 }
             })(i);
-        } else if (type == "birthdayNeeded") {
+        } else if (type == "bdayNeeded") {
             (function(i){
                 elementNode1.onclick = function () {
                     _ci = i; _array = ["customListPop"];
-                    populateStudentFields("editBdayMonth",loadNeededBirthdays);
+                    populateStudentFields("editBdayMonth",loadNeededbdays);
                     document.getElementById("editBdayMonth").value = "";
                     document.getElementById("editBdayDate").value = ""; 
                 }
@@ -336,12 +336,12 @@ function loadPromotions() {
 function loadBdays() {
     document.getElementById("customList").innerHTML = "";
     document.getElementById("customListAbsent").innerHTML = "";
-    document.getElementById("customListLabel").innerHTML = "Birthdays";
+    document.getElementById("customListLabel").innerHTML = "bdays";
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].hasBirthday === true && _sl[i].birthdayDone === false && _sl[i].attendance === true) {
-            populateCustomList(_sl[i].fullName + " (" + _sl[i].birthday + ")",false,"birthdayDone");
-        } else if (_sl[i].hasBirthday === true && _sl[i].birthdayDone === false && _sl[i].attendance === false) {
-            populateCustomList(false,_sl[i].fullName+" (" + _sl[i].birthday + ")");
+        if (_sl[i].hasbday === true && _sl[i].bdayDone === false && _sl[i].attendance === true) {
+            populateCustomList(_sl[i].fullName + " (" + _sl[i].bday + ")",false,"bdayDone");
+        } else if (_sl[i].hasbday === true && _sl[i].bdayDone === false && _sl[i].attendance === false) {
+            populateCustomList(false,_sl[i].fullName+" (" + _sl[i].bday + ")");
         }
     }
 }
@@ -372,14 +372,14 @@ function loadNeededEmails() {
     }
 }
 
-function loadNeededBirthdays() {
+function loadNeededbdays() {
     document.getElementById("customList").innerHTML = "";
     document.getElementById("customListAbsent").innerHTML = "";
-    document.getElementById("customListLabel").innerHTML = "Missing Birthdays";
+    document.getElementById("customListLabel").innerHTML = "Missing bdays";
     for (i = 0; i < _sl.length; i++) {
-        if ((_sl[i].birthdayMonth == 0 || _sl[i].birthdayDate == 0) && _sl[i].attendance === true) {
-            populateCustomList(_sl[i].fullName,false,"birthdayNeeded");
-        } else if ((_sl[i].birthdayMonth == 0 || _sl[i].birthdayDate == 0) && _sl[i].attendance === false) {
+        if ((_sl[i].bdayMonth == 0 || _sl[i].bdayDate == 0) && _sl[i].attendance === true) {
+            populateCustomList(_sl[i].fullName,false,"bdayNeeded");
+        } else if ((_sl[i].bdayMonth == 0 || _sl[i].bdayDate == 0) && _sl[i].attendance === false) {
             populateCustomList(false,_sl[i].fullName);
         }
     }
@@ -393,8 +393,8 @@ function completePromotion(x) {
 }
 
 function completeBday(x) {
-    _sl[x].birthdayDone = true; 
-    activityLog(_sl[x].fullName + " birthday complete<br>" + dateAndTime("log"));
+    _sl[x].bdayDone = true; 
+    activityLog(_sl[x].fullName + " bday complete<br>" + dateAndTime("log"));
     loadBdays(); storeAndBackup();
 }
 
@@ -695,7 +695,7 @@ function loadBackup() {
     _amAtt = JSON.parse(localStorage.getItem("amAttBackup"));
     _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
-    _promotionList = []; _birthdayList = [];
+    _promotionList = []; _bdayList = [];
     activityLog("backup loaded" + "<br>" + dateAndTime("log"));
     isClassDay(); setElapsedWeeks(); findAllBday(); populateTeacherNotes(); populateMissions();
     for (i = 0; i < _sl.length; i++) {
@@ -717,7 +717,7 @@ function loadLS() {
     _amAtt = JSON.parse(localStorage.getItem("amAtt"));
     _pmAtt = JSON.parse(localStorage.getItem("pmAtt"));
     _promotionList = JSON.parse(localStorage.getItem("promotionList"));
-    _birthdayList = JSON.parse(localStorage.getItem("birthdayList"));
+    _bdayList = JSON.parse(localStorage.getItem("bdayList"));
     _log = localStorage.getItem("log");
     _gameLog = localStorage.getItem("gameLog");
     document.getElementById("log").innerHTML = _log;
@@ -785,15 +785,15 @@ function dateAndTime(x) {
 }
 
 function assignBdayNumber() {
-    if (_sl[_ci].birthdayMonth == 0 || _sl[_ci].birthdayDate == 0) { 
-        _sl[_ci].birthdayNumber = 1000; return;
+    if (_sl[_ci].bdayMonth == 0 || _sl[_ci].bdayDate == 0) { 
+        _sl[_ci].bdayNumber = 1000; return;
     }
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     if (_leapYear === true) {
-        _sl[_ci].birthdayNumber = cumulativeLeap[_sl[_ci].birthdayMonth] + _sl[_ci].birthdayDate;
+        _sl[_ci].bdayNumber = cumulativeLeap[_sl[_ci].bdayMonth] + _sl[_ci].bdayDate;
     } else {
-        _sl[_ci].birthdayNumber = cumulative[_sl[_ci].birthdayMonth] + _sl[_ci].birthdayDate;
+        _sl[_ci].bdayNumber = cumulative[_sl[_ci].bdayMonth] + _sl[_ci].bdayDate;
     }
 }
 
@@ -880,7 +880,7 @@ function loadAttendees() {
         if (_promotionList.indexOf(boys[i]) !== -1) {
             elementNode1.style.color = "yellow";
         }
-        if (_birthdayList.indexOf(boys[i]) !== -1) {
+        if (_bdayList.indexOf(boys[i]) !== -1) {
             elementNode1.style.border = "1px solid fuchsia";
         }
         document.getElementById("boysListAtt").appendChild(elementNode1);
@@ -893,7 +893,7 @@ function loadAttendees() {
         if (_promotionList.indexOf(girls[i]) !== -1) {
             elementNode2.style.color = "yellow";
         }
-        if (_birthdayList.indexOf(girls[i]) !== -1) {
+        if (_bdayList.indexOf(girls[i]) !== -1) {
             elementNode2.style.border = "1px solid fuchsia";
         }
         document.getElementById("girlsListAtt").appendChild(elementNode2);
@@ -1162,22 +1162,22 @@ function sortByBday() {
     document.getElementById("nameListCustom").innerHTML = "";
     document.getElementById("nameListCustom").style.display = "block";
     document.getElementById("genderListContainer").style.display = "none";
-    var birthdayNumberOrder = _sl.sort(function(a,b){return a.birthdayNumber - b.birthdayNumber});
+    var bdayNumberOrder = _sl.sort(function(a,b){return a.bdayNumber - b.bdayNumber});
     for (i = 0; i < _sl.length; i++) {
         var lastElementNode;
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
-        if (_sl[i].birthdayMonth != lastElementNode) {
+        if (_sl[i].bdayMonth != lastElementNode) {
             elementNode.style.borderTop = "1px solid #333";
             elementNode.style.paddingTop = "5px";
         }
-        if (_sl[i].birthdayDone === true) {
+        if (_sl[i].bdayDone === true) {
             elementNode.style.color = "gray";
         }
-        var textNode = document.createTextNode(birthdayNumberOrder[i].birthday + " " + birthdayNumberOrder[i].fullName);
+        var textNode = document.createTextNode(bdayNumberOrder[i].bday + " " + bdayNumberOrder[i].fullName);
         elementNode.appendChild(textNode);
         document.getElementById("nameListCustom").appendChild(elementNode);
-        lastElementNode = _sl[i].birthdayMonth;
+        lastElementNode = _sl[i].bdayMonth;
     }  
     pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
 }
@@ -1325,9 +1325,9 @@ function findAllBday() {
     var todaysDateNumber = assignTodaysDateNumber();
     setWeeksOff();
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].birthdayNumber >= todaysDateNumber && _sl[i].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[i].hasBirthday === false && _sl[i].birthdayDone === false) {
-            _sl[i].hasBirthday = true; _birthdayList.push(_sl[i].fullName);
-            activityLog(_sl[i].fullName + " birthday found (" + _sl[i].birthday + ")<br>" + dateAndTime("log"));
+        if (_sl[i].bdayNumber >= todaysDateNumber && _sl[i].bdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[i].hasbday === false && _sl[i].bdayDone === false) {
+            _sl[i].hasbday = true; _bdayList.push(_sl[i].fullName);
+            activityLog(_sl[i].fullName + " bday found (" + _sl[i].bday + ")<br>" + dateAndTime("log"));
         }
     }
 }
@@ -1335,9 +1335,9 @@ function findAllBday() {
 function findBday() {
     var todaysDateNumber = assignTodaysDateNumber();
     setWeeksOff();
-    if (_sl[_ci].birthdayNumber >= todaysDateNumber && _sl[_ci].birthdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[_ci].hasBirthday === false && _sl[_ci].birthdayDone === false) {
-        _sl[_ci].hasBirthday = true; _birthdayList.push(_sl[_ci].fullName);
-        activityLog(_sl[_ci].fullName + " birthday found (" + _sl[_ci].birthday + ")<br>" + dateAndTime("log"));
+    if (_sl[_ci].bdayNumber >= todaysDateNumber && _sl[_ci].bdayNumber <= (todaysDateNumber + (6 + (7 * _weeksOff))) && _sl[_ci].hasbday === false && _sl[_ci].bdayDone === false) {
+        _sl[_ci].hasbday = true; _bdayList.push(_sl[_ci].fullName);
+        activityLog(_sl[_ci].fullName + " bday found (" + _sl[_ci].bday + ")<br>" + dateAndTime("log"));
     }
 }
 
@@ -1521,7 +1521,7 @@ function editStudent() {
     var originalFirstName = _sl[_ci].firstName;
     var originalLastName = _sl[_ci].lastName;
     var originalGender = _sl[_ci].gender;
-    var originalBday = _sl[_ci].birthday;
+    var originalBday = _sl[_ci].bday;
     var originalEmail = _sl[_ci].email;
     var editFirstName = document.getElementById("editFirstName").value
     var editLastName = document.getElementById("editLastName").value
@@ -1544,22 +1544,22 @@ function editStudent() {
         infoAlert("Please enter 'M' or 'F' for gender",["editStudentPop"]); return;
     }
     if (editBdayMonth == "" || editBdayDate == "") {
-        _sl[_ci].birthdayMonth = 0;
-        _sl[_ci].birthdayDate = 0;
-        _sl[_ci].birthday = "0/0";
-        _sl[_ci].hasBirthday = false;
+        _sl[_ci].bdayMonth = 0;
+        _sl[_ci].bdayDate = 0;
+        _sl[_ci].bday = "0/0";
+        _sl[_ci].hasbday = false;
     } else {
-        _sl[_ci].birthdayMonth = parseInt(editBdayMonth);
-        _sl[_ci].birthdayDate = parseInt(editBdayDate);
-        _sl[_ci].birthday = _sl[_ci].birthdayMonth + "/" + _sl[_ci].birthdayDate
+        _sl[_ci].bdayMonth = parseInt(editBdayMonth);
+        _sl[_ci].bdayDate = parseInt(editBdayDate);
+        _sl[_ci].bday = _sl[_ci].bdayMonth + "/" + _sl[_ci].bdayDate
     }
-    var previousBdayNumber = _sl[_ci].birthdayNumber;
+    var previousBdayNumber = _sl[_ci].bdayNumber;
     assignBdayNumber(); 
-    if (_sl[_ci].birthdayNumber != previousBdayNumber) { findBday() }
+    if (_sl[_ci].bdayNumber != previousBdayNumber) { findBday() }
     document.getElementById("studentPopName").innerHTML = _sl[_ci].fullName;
     var original = [originalFirstName,originalLastName,originalGender,originalBday,originalEmail];
-    var edit = [editFirstName,editLastName,editGender,_sl[_ci].birthday,_sl[_ci].email];
-    var labels = ["first name","last name","gender","birthday","email"];
+    var edit = [editFirstName,editLastName,editGender,_sl[_ci].bday,_sl[_ci].email];
+    var labels = ["first name","last name","gender","bday","email"];
     for (i = 0; i < original.length; i++) {
         if (original[i] != edit[i]) {
             activityLog(originalFirstName + " " + originalLastName + " " + labels[i] + " edited<br>" + original[i] + "-->" + edit[i] + "<br>" + dateAndTime("log"));
@@ -1612,7 +1612,7 @@ function refreshStudentPop() {
     } else {
         document.getElementById("studentPopName").style.fontSize = "25px";
     }
-    var properties = ["firstName","lastName","gender","birthdayMonth","birthdayDate","email","photo"];
+    var properties = ["firstName","lastName","gender","bdayMonth","bdayDate","email","photo"];
     for (i = 0; i < properties.length; i++) {
         if (_sl[_ci][properties[i]] == false) {
             document.getElementById("studentMenu2").style.color = "red"; break;
@@ -1649,8 +1649,8 @@ function populateStudentFields(id,func) {
     if (func) { _currentFunction = func }
     document.getElementById("editFirstName").value = _sl[_ci].firstName
     document.getElementById("editLastName").value = _sl[_ci].lastName
-    document.getElementById("editBdayMonth").value = _sl[_ci].birthdayMonth.toString();
-    document.getElementById("editBdayDate").value = _sl[_ci].birthdayDate.toString();
+    document.getElementById("editBdayMonth").value = _sl[_ci].bdayMonth.toString();
+    document.getElementById("editBdayDate").value = _sl[_ci].bdayDate.toString();
     document.getElementById("editEmail").value = _sl[_ci].email;
     document.getElementById("editGender").value = _sl[_ci].gender;
     loadStudentPhoto();
@@ -2388,7 +2388,7 @@ function storeNewData() {
     localStorage.setItem("teacherNotes",JSON.stringify(_teacherNotes));
     localStorage.setItem("log",_log);
     localStorage.setItem("promotionList",JSON.stringify(_promotionList));
-    localStorage.setItem("birthdayList",JSON.stringify(_birthdayList));
+    localStorage.setItem("bdayList",JSON.stringify(_bdayList));
     localStorage.setItem("gameLog",_gameLog);
     localStorage.setItem("teams",JSON.stringify(_teams));
 }
@@ -2422,12 +2422,12 @@ function loadStudentData() {
     document.getElementById("lastName").innerHTML = _sl[_ci].lastName;
     document.getElementById("fullName").innerHTML = _sl[_ci].fullName;
     document.getElementById("gender").innerHTML = _sl[_ci].gender;
-    document.getElementById("birthdayMonth").innerHTML = _sl[_ci].birthdayMonth;
-    document.getElementById("birthdayDate").innerHTML = _sl[_ci].birthdayDate;
-    document.getElementById("birthdayNumber").innerHTML = _sl[_ci].birthdayNumber;
-    document.getElementById("birthday").innerHTML = _sl[_ci].birthday;
-    document.getElementById("hasBirthday").innerHTML = _sl[_ci].hasBirthday;
-    document.getElementById("birthdayDone").innerHTML = _sl[_ci].birthdayDone;
+    document.getElementById("bdayMonth").innerHTML = _sl[_ci].bdayMonth;
+    document.getElementById("bdayDate").innerHTML = _sl[_ci].bdayDate;
+    document.getElementById("bdayNumber").innerHTML = _sl[_ci].bdayNumber;
+    document.getElementById("bday").innerHTML = _sl[_ci].bday;
+    document.getElementById("hasbday").innerHTML = _sl[_ci].hasbday;
+    document.getElementById("bdayDone").innerHTML = _sl[_ci].bdayDone;
     document.getElementById("email").innerHTML = _sl[_ci].email;
     document.getElementById("photo").innerHTML = _sl[_ci].photo;
     document.getElementById("notes").innerHTML = JSON.stringify(_sl[_ci].notes);
