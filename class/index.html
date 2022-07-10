@@ -86,11 +86,11 @@
           <div class="navigationButtonContainer">
             <div class="backButton" onclick="goHome()">f</div>
           </div>
-          <div class="button" id="promotionButton" onclick="pop(['alertsPop'],['promoListPop'])">Promotions</div>
-          <div class="button" id="birthdayButton" onclick="pop(['alertsPop'],['bdayListPop'])">Birthdays</div>
-          <div class="button" id="photosNeededButton" onclick="pop(['alertsPop'],['photosNeededPop'])">Missing Photos</div>
-          <div class="button" id="emailsNeededButton" onclick="pop(['alertsPop'],['emailsNeededPop']); _array = ['emailsNeededPop']">Missing Emails</div>
-          <div class="button" id="birthdaysNeededButton" onclick="pop(['alertsPop'],['birthdaysNeededPop']); _array = ['birthdaysNeededPop']">Missing Birthdays</div>
+          <div class="button" id="promotionButton" onclick="loadPromotions(); pop(['alertsPop'],['customListPop'])">Promotions</div>
+          <div class="button" id="birthdayButton" onclick="loadBdays(); pop(['alertsPop'],['customListPop'])">Birthdays</div>
+          <div class="button" id="photosNeededButton" onclick="loadNeededPhotos(); pop(['alertsPop'],['customListPop'])">Missing Photos</div>
+          <div class="button" id="emailsNeededButton" onclick="loadNeededEmails(); pop(['alertsPop'],['customListPop']); _array = ['customListPop']">Missing Emails</div>
+          <div class="button" id="birthdaysNeededButton" onclick="loadNeededBirthdays(); pop(['alertsPop'],['customListPop']); _array = ['customListPop']">Missing Birthdays</div>
       </div>
 </div>
 
@@ -205,7 +205,6 @@
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="goHome()">f</div>
     <div class="otherButton" onclick="populateNames2()">Attendance</div>
-    <!-- <div class="secretButton" onclick="populateNames2()"></div> -->
   </div>
   <div id="studentPopTopContainerDiv">
     <div id="studentPopInsignia" onclick="loadStudentData(); studentMenuSwitch(4)"></div>
@@ -811,16 +810,6 @@
   <p id="dispRankNamePromo"></p>
 </div>
 
-<div id="promoListPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['promoListPop'],['alertsPop'])">f</div>
-    <div class="homeButton" onclick="goHome()">5</div>
-  </div>
-  <div id="promoList"></div>
-  <p id="absentPromotion">Absent:</p>
-  <div id="promoListAbsent"></div>
-</div>
-
 <div id="attListPop" class="pop">
     <div class="navigationButtonContainer">
       <div class="backButton" onclick="pop(['attListPop'],['mainPop'])">f</div>
@@ -858,44 +847,15 @@
   </div>
 </div>
 
-<div id="bdayListPop" class="pop">
+<div id="customListPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['bdayListPop'],['alertsPop'])">f</div>
+    <div class="backButton" onclick="pop(['customListPop'],['alertsPop'])">f</div>
     <div class="homeButton" onclick="goHome()">5</div>
   </div>
-  <div id="bdayList"></div>
-  <p id="absentBday">Absent:</p>
-  <div id="bdayListAbsent"></div>
-</div>
-
-<div id="photosNeededPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['photosNeededPop'],['alertsPop'])">f</div>
-    <div class="homeButton" onclick="goHome()">5</div>
-  </div>
-  <div id="photosNeededList"></div>
-  <p id="absentPhotosNeeded">Absent:</p>
-  <div id="photosNeededListAbsent"></div>
-</div>
-
-<div id="emailsNeededPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['emailsNeededPop'],['alertsPop'])">f</div>
-    <div class="homeButton" onclick="goHome()">5</div>
-  </div>
-  <div id="emailsNeededList"></div>
-  <p id="absentEmailsNeeded">Absent:</p>
-  <div id="emailsNeededListAbsent"></div>
-</div>
-
-<div id="birthdaysNeededPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['birthdaysNeededPop'],['alertsPop'])">f</div>
-    <div class="homeButton" onclick="goHome()">5</div>
-  </div>
-  <div id="birthdaysNeededList"></div>
-  <p id="absentBirthdaysNeeded">Absent:</p>
-  <div id="birthdaysNeededListAbsent"></div>
+  <div id="customListLabel"></div>
+  <div id="customList"></div>
+  <p id="absentLabel">Absent:</p>
+  <div id="customListAbsent"></div>
 </div>
 
 <div id="studentPropertiesPop" class="pop">

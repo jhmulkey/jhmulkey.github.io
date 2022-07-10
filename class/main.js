@@ -216,6 +216,192 @@ class Teams {
     }
 }
 
+function allAlerts() {
+    var alert = false;
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].attendance === true && _sl[i].promoted === true) {
+            alert = true; document.getElementById("promotionButton").style.backgroundColor = "red"; break;
+        } else {
+            document.getElementById("promotionButton").style.backgroundColor = "black";
+        }
+    }
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].attendance === true && _sl[i].hasBirthday === true) {
+            alert = true; document.getElementById("birthdayButton").style.backgroundColor = "red"; break;
+        } else {
+            document.getElementById("birthdayButton").style.backgroundColor = "black";
+        }
+    }
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].attendance === true && _sl[i].photo === false) {
+            alert = true; document.getElementById("photosNeededButton").style.backgroundColor = "red"; break;
+        } else {
+            document.getElementById("photosNeededButton").style.backgroundColor = "black";
+        }
+    }
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].attendance === true && _sl[i].email == false) {
+            alert = true; document.getElementById("emailsNeededButton").style.backgroundColor = "red"; break;
+        } else {
+            document.getElementById("emailsNeededButton").style.backgroundColor = "black";
+        }
+    }
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].attendance === true && _sl[i].birthday == "0/0") {
+            alert = true; document.getElementById("birthdaysNeededButton").style.backgroundColor = "red"; break;
+        } else {
+            document.getElementById("birthdaysNeededButton").style.backgroundColor = "black";
+        }
+    }
+    if (alert === true) { 
+        document.getElementById("alertButton").style.backgroundColor = "red";
+    } else {
+        document.getElementById("alertButton").style.backgroundColor = "black";
+    }
+}
+
+function populateCustomList(log1,log2,type) {
+    if (log1) {
+        var elementNode1 = document.createElement("p");
+        elementNode1.classList.add("name");
+        var textNode1 = document.createTextNode(log1);
+        elementNode1.appendChild(textNode1);
+        if (type == "promotion") {
+            (function(i){
+                elementNode1.onclick = function () {
+                    actionAlert("Complete promotion for " + _sl[i].fullName + " (" + _sl[i].rankName + ")?",["customListPop"],completePromotion,false,i);
+                }
+            })(i);
+        } else if (type == "birthdayDone") {
+            (function(i){
+                elementNode1.onclick = function () {
+                    actionAlert("Complete birthday for " + _sl[i].fullName + "?",["customListPop"],completeBday,false,i);
+                }
+            })(i);
+        } else if (type == "photo") {
+            (function(i){
+                elementNode1.onclick = function () {
+                    actionAlert("Take photo for " + _sl[i].fullName + "?",["customListPop"],completePhoto,false,i);
+                }
+            })(i);
+        } else if (type == "email") {
+            (function(i){
+                elementNode1.onclick = function () {
+                    _ci = i; _array = ["customListPop"];
+                    populateStudentFields("editEmail",loadNeededEmails);
+                }
+            })(i);
+        } else if (type == "birthdayNeeded") {
+            (function(i){
+                elementNode1.onclick = function () {
+                    _ci = i; _array = ["customListPop"];
+                    populateStudentFields("editBdayMonth",loadNeededBirthdays);
+                    document.getElementById("editBdayMonth").value = "";
+                    document.getElementById("editBdayDate").value = ""; 
+                }
+            })(i);
+        }
+        document.getElementById("customList").appendChild(elementNode1);
+    }
+    if (log2) {
+        var elementNode2 = document.createElement("p");
+        elementNode2.classList.add("name");
+        var textNode2 = document.createTextNode(log2);
+        elementNode2.appendChild(textNode2);
+        document.getElementById("customListAbsent").appendChild(elementNode2);
+    }
+}
+
+function loadPromotions() {
+    document.getElementById("customList").innerHTML = "";
+    document.getElementById("customListAbsent").innerHTML = "";
+    document.getElementById("customListLabel").innerHTML = "Promotions";
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].promoted === true && _sl[i].attendance === true) {
+            if (_sl[i].promotionNum < 2) {
+                populateCustomList(_sl[i].rankName + " " + _sl[i].fullName,false,false,"promotion");
+            } else if (_sl[i].promotionNum > 1) {
+                populateCustomList(_sl[i].rankName + " " + "(" + _sl[i].promotionNum + ") " + _sl[i].fullName);
+            }
+        } else if (_sl[i].promoted === true && _sl[i].attendance === false) {
+            if (_sl[i].promotionNum < 2) {
+                populateCustomList(false,false,_sl[i].rankName + " " + _sl[i].fullName,"");
+            } else if (_sl[i].promotionNum > 1) {
+                populateCustomList(false,false,_sl[i].rankName + " " + "(" + _sl[i].promotionNum + ") " + _sl[i].fullName);
+            }
+        }
+    }
+}
+
+function loadBdays() {
+    document.getElementById("customList").innerHTML = "";
+    document.getElementById("customListAbsent").innerHTML = "";
+    document.getElementById("customListLabel").innerHTML = "Birthdays";
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].hasBirthday === true && _sl[i].birthdayDone === false && _sl[i].attendance === true) {
+            populateCustomList(_sl[i].fullName + " (" + _sl[i].birthday + ")",false,"birthdayDone");
+        } else if (_sl[i].hasBirthday === true && _sl[i].birthdayDone === false && _sl[i].attendance === false) {
+            populateCustomList(false,_sl[i].fullName+" (" + _sl[i].birthday + ")");
+        }
+    }
+}
+
+function loadNeededPhotos() {
+    document.getElementById("customList").innerHTML = "";
+    document.getElementById("customListAbsent").innerHTML = "";
+    document.getElementById("customListLabel").innerHTML = "Missing Photos";
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].photo === false && _sl[i].attendance === true) {
+            populateCustomList(_sl[i].fullName,false,"photo");
+        } else if (_sl[i].photo === false && _sl[i].attendance === false) {
+            populateCustomList(false,_sl[i].fullName);
+        }
+    }
+}
+
+function loadNeededEmails() {
+    document.getElementById("customList").innerHTML = "";
+    document.getElementById("customListAbsent").innerHTML = "";
+    document.getElementById("customListLabel").innerHTML = "Missing Emails";
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].email == "" && _sl[i].attendance === true) {
+            populateCustomList(_sl[i].fullName,false,"email");
+        } else if (_sl[i].email == "" && _sl[i].attendance === false) {
+            populateCustomList(false,_sl[i].fullName);
+        }
+    }
+}
+
+function loadNeededBirthdays() {
+    document.getElementById("customList").innerHTML = "";
+    document.getElementById("customListAbsent").innerHTML = "";
+    document.getElementById("customListLabel").innerHTML = "Missing Birthdays";
+    for (i = 0; i < _sl.length; i++) {
+        if ((_sl[i].birthdayMonth == 0 || _sl[i].birthdayDate == 0) && _sl[i].attendance === true) {
+            populateCustomList(_sl[i].fullName,false,"birthdayNeeded");
+        } else if ((_sl[i].birthdayMonth == 0 || _sl[i].birthdayDate == 0) && _sl[i].attendance === false) {
+            populateCustomList(false,_sl[i].fullName);
+        }
+    }
+}
+
+function completePromotion(x) {
+    _sl[x].promoted = false;
+    _sl[x].promotionNum = 0;
+    activityLog(_sl[x].fullName + " promotion complete<br>" + dateAndTime("log"));
+    loadPromotions(); storeAndBackup();
+}
+
+function completeBday(x) {
+    _sl[x].birthdayDone = true; 
+    activityLog(_sl[x].fullName + " birthday complete<br>" + dateAndTime("log"));
+    loadBdays(); storeAndBackup();
+}
+
+function completePhoto(x) {
+    _sl[x].photo = true; loadNeededPhotos(); storeAndBackup();
+}
+
 function teams() {
     var attCount = 0;
     for (i = 0; i < _sl.length; i++) {
@@ -1002,12 +1188,6 @@ function sortByNotes(bypass) {
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].notes.length != 0) {
             var p1 = document.createElement("p");
-/*          (function(i){
-                p1.onclick = function () {
-                    _ci = i; populateStudentNotes(["customSortListPop"]);
-                    pop(["customSortListPop"],["studentNotesPop","studentNotesList"]);
-                }
-            })(i); */
             var br = document.createElement("br");
             var p2 = document.createElement("p");
             p1.classList.add("name3");
@@ -1116,14 +1296,6 @@ function editStudentNote() {
     pop(["editStudentNotePop"],["studentNotesPop"]);
 }
 
-/* function notesAlert() {
-    if (_teacherNotes != false) {
-        document.getElementById("teacherNotesButton").style.backgroundColor = "red";
-    } else {
-        document.getElementById("teacherNotesButton").style.backgroundColor = "black";
-    }
-} */
-
 function findAllBday() {
     var todaysDateNumber = assignTodaysDateNumber();
     setWeeksOff();
@@ -1143,42 +1315,6 @@ function findBday() {
         activityLog(_sl[_ci].fullName + " birthday found (" + _sl[_ci].birthday + ")<br>" + dateAndTime("log"));
     }
 }
-
-/* function birthdayAlert() {
-    loadBdays();
-    if (document.getElementById("bdayList").innerHTML != "") {
-        document.getElementById("birthdayButton").style.backgroundColor = "red";
-    } else {
-        document.getElementById("birthdayButton").style.backgroundColor = "black";
-    }
-} */
-
-/* function photosNeededAlert() {
-    loadNeededPhotos();
-    if (document.getElementById("photosNeededList").innerHTML != "") {
-        document.getElementById("photosNeededButton").style.backgroundColor = "red";
-    } else {
-        document.getElementById("photosNeededButton").style.backgroundColor = "black";
-    }
-} */
-
-/* function emailsNeededAlert() {
-    loadNeededEmails();
-    if (document.getElementById("emailsNeededList").innerHTML != "") {
-        document.getElementById("emailsNeededButton").style.backgroundColor = "red";
-    } else {
-        document.getElementById("emailsNeededButton").style.backgroundColor = "black";
-    }
-} */
-
-/* function birthdaysNeededAlert() {
-    loadNeededBirthdays();
-    if (document.getElementById("birthdaysNeededList").innerHTML != "") {
-        document.getElementById("birthdaysNeededButton").style.backgroundColor = "red";
-    } else {
-        document.getElementById("birthdaysNeededButton").style.backgroundColor = "black";
-    }
-} */
 
 function capitalize(x) {
     return x.charAt(0).toUpperCase() + x.slice(1);
@@ -1404,8 +1540,7 @@ function editStudent() {
             activityLog(originalFirstName + " " + originalLastName + " " + labels[i] + " edited<br>" + original[i] + "-->" + edit[i] + "<br>" + dateAndTime("log"));
         }
     }
-    refreshStudentPop();
-    storeAndBackup();
+    refreshStudentPop(); storeAndBackup(); _currentFunction();
     if (document.getElementById("rapidEditCheck").checked === true) {
         _ci++;
         if (_ci < _sl.length) {
@@ -1485,7 +1620,8 @@ function refreshMissionsPop() {
     }
 }
 
-function populateStudentFields(id) {
+function populateStudentFields(id,func) {
+    if (func) { _currentFunction = func }
     document.getElementById("editFirstName").value = _sl[_ci].firstName
     document.getElementById("editLastName").value = _sl[_ci].lastName
     document.getElementById("editBdayMonth").value = _sl[_ci].birthdayMonth.toString();
@@ -1807,7 +1943,7 @@ function pop(closeArray,openArray) {
     if (openArray.includes("mainPop")) {
         document.getElementById("searchMain").value = "";
         document.getElementById("searchMain").focus();
-        sortStudentList(); alerts();
+        sortStudentList(); populateNames();
     }
     if (openArray.includes("randomPop") || openArray.includes("drawingPop")) {
         document.getElementById("randomName").innerHTML = "tap here<br>to pick";
@@ -1856,8 +1992,7 @@ function goHome() {
     }
     document.getElementById("searchMain").value = "";
     document.getElementById("searchMain").focus();
-    alerts();
-    sortStudentList();
+    sortStudentList(); populateNames();
 }
 
 function asPop(asNum,points) {
@@ -1994,10 +2129,9 @@ function populateNames() {
     var textNode2 = document.createTextNode("Add New Student");
     elementNode2.appendChild(textNode2);
     document.getElementById("nameList").appendChild(elementNode2);
-    alerts();  
+    allAlerts();
     document.getElementById("searchMain").value = "";
     document.getElementById("searchMain").focus();
-    
 }
 
 function populateNames2() {
@@ -2216,228 +2350,6 @@ function random() {
 function clearEligibleRandom() {
     _eligibleRandom = []; return;
 }
-  
-function promotionList(log) {
-    var elementNode = document.createElement("p");
-    var textNode = document.createTextNode(log);
-    elementNode.appendChild(textNode);
-    (function(i){
-        elementNode.onclick = function () {
-            actionAlert("Complete promotion for " + _sl[i].fullName + " (" + _sl[i].rankName + ")?",["promoListPop"],completePromotion,false,i);
-        }
-    })(i);
-    document.getElementById("promoList").appendChild(elementNode);
-}
-
-function completePromotion(x) {
-    _sl[x].promoted = false;
-    _sl[x].promotionNum = 0;
-    activityLog(_sl[x].fullName + " promotion complete<br>" + dateAndTime("log"));
-    loadPromotions();
-    storeAndBackup();
-}
-
-function bdayList(log1,log2) {
-    var elementNode1 = document.createElement("p");
-    var textNode1 = document.createTextNode(log1+log2);
-    elementNode1.appendChild(textNode1);
-    (function(i){
-        elementNode1.onclick = function () {
-            actionAlert("Complete birthday for " + _sl[i].fullName + "?",["bdayListPop"],completeBday,false,i);
-        }
-    })(i);
-    document.getElementById("bdayList").appendChild(elementNode1);
-}
-
-function photosNeededList(log) {
-    var elementNode1 = document.createElement("p");
-    var textNode1 = document.createTextNode(log);
-    elementNode1.appendChild(textNode1);
-    (function(i){
-        elementNode1.onclick = function () {
-            actionAlert("Take photo for " + _sl[i].fullName + "?",["photosNeededPop"],completePhoto,false,i);
-        }
-    })(i);
-    document.getElementById("photosNeededList").appendChild(elementNode1);
-}
-
-function emailsNeededList(log) {
-    var elementNode1 = document.createElement("p");
-    var textNode1 = document.createTextNode(log);
-    elementNode1.appendChild(textNode1);
-    (function(i){
-        elementNode1.onclick = function () {
-            _ci = i; _array = ["emailsNeededPop"];
-            populateStudentFields("editEmail");
-        }
-    })(i);
-    document.getElementById("emailsNeededList").appendChild(elementNode1);
-}
-
-function birthdaysNeededList(log) {
-    var elementNode1 = document.createElement("p");
-    var textNode1 = document.createTextNode(log);
-    elementNode1.appendChild(textNode1);
-    (function(i){
-        elementNode1.onclick = function () {
-            _ci = i; _array = ["birthdaysNeededPop"];
-            populateStudentFields("editBdayMonth");
-        }
-    })(i);
-    document.getElementById("birthdaysNeededList").appendChild(elementNode1);
-}
-
-function promotionListAbsent(log) {
-    var elementNode = document.createElement("p");
-    var textNode = document.createTextNode(log);
-    elementNode.appendChild(textNode);
-    document.getElementById("promoListAbsent").appendChild(elementNode);
-}
-
-function bdayListAbsent(log1,log2) {
-    var elementNode1 = document.createElement("p");
-    var textNode1 = document.createTextNode(log1+log2);
-    elementNode1.appendChild(textNode1);
-    document.getElementById("bdayListAbsent").appendChild(elementNode1);
-}
-
-function photosNeededListAbsent(log) {
-    var elementNode = document.createElement("p");
-    var textNode = document.createTextNode(log);
-    elementNode.appendChild(textNode);
-    document.getElementById("photosNeededListAbsent").appendChild(elementNode);
-}
-
-function emailsNeededListAbsent(log) {
-    var elementNode = document.createElement("p");
-    var textNode = document.createTextNode(log);
-    elementNode.appendChild(textNode);
-    document.getElementById("emailsNeededListAbsent").appendChild(elementNode);
-}
-
-function birthdaysNeededListAbsent(log) {
-    var elementNode = document.createElement("p");
-    var textNode = document.createTextNode(log);
-    elementNode.appendChild(textNode);
-    document.getElementById("birthdaysNeededListAbsent").appendChild(elementNode);
-}
-
-function loadPromotions() {
-    document.getElementById("promoList").innerHTML = "";
-    document.getElementById("promoListAbsent").innerHTML = "";
-    for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].promoted === true && _sl[i].attendance === true) {
-            if (_sl[i].promotionNum < 2) {
-                promotionList(_sl[i].rankName + " " + _sl[i].fullName);
-            } else if (_sl[i].promotionNum > 1) {
-                promotionList(_sl[i].rankName + " " + "(" + _sl[i].promotionNum + ") " + _sl[i].fullName);
-            }
-        } else if (_sl[i].promoted === true && _sl[i].attendance === false) {
-            if (_sl[i].promotionNum < 2) {
-                promotionListAbsent(_sl[i].rankName + " " + _sl[i].fullName);
-            } else if (_sl[i].promotionNum > 1) {
-                promotionListAbsent(_sl[i].rankName + " " + "(" + _sl[i].promotionNum + ") " + _sl[i].fullName);
-            }
-        }
-    }
-}
-
-function loadBdays() {
-    document.getElementById("bdayList").innerHTML = "";
-    document.getElementById("bdayListAbsent").innerHTML = "";
-    for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].hasBirthday === true && _sl[i].birthdayDone === false && _sl[i].attendance === true) {
-            bdayList(_sl[i].fullName+" ",_sl[i].birthday);
-        } else if (_sl[i].hasBirthday === true && _sl[i].birthdayDone === false && _sl[i].attendance === false) {
-            bdayListAbsent(_sl[i].fullName+" ",_sl[i].birthday);
-        }
-    }
-}
-
-function loadNeededPhotos() {
-    document.getElementById("photosNeededList").innerHTML = "";
-    document.getElementById("photosNeededListAbsent").innerHTML = "";
-    for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].photo === false && _sl[i].attendance === true) {
-            photosNeededList(_sl[i].fullName);
-        } else if (_sl[i].photo === false && _sl[i].attendance === false) {
-            photosNeededListAbsent(_sl[i].fullName);
-        }
-    }
-}
-
-function loadNeededEmails() {
-    document.getElementById("emailsNeededList").innerHTML = "";
-    document.getElementById("emailsNeededListAbsent").innerHTML = "";
-    for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].email == "" && _sl[i].attendance === true) {
-            emailsNeededList(_sl[i].fullName);
-        } else if (_sl[i].email == "" && _sl[i].attendance === false) {
-            emailsNeededListAbsent(_sl[i].fullName);
-        }
-    }
-}
-
-function loadNeededBirthdays() {
-    document.getElementById("birthdaysNeededList").innerHTML = "";
-    document.getElementById("birthdaysNeededListAbsent").innerHTML = "";
-    for (i = 0; i < _sl.length; i++) {
-        if ((_sl[i].birthdayMonth == 0 || _sl[i].birthdayDate == 0) && _sl[i].attendance === true) {
-            birthdaysNeededList(_sl[i].fullName);
-        } else if ((_sl[i].birthdayMonth == 0 || _sl[i].birthdayDate == 0) && _sl[i].attendance === false) {
-            birthdaysNeededListAbsent(_sl[i].fullName);
-        }
-    }
-}
-
-function completeBday(x) {
-    _sl[x].birthdayDone = true; 
-    activityLog(_sl[x].fullName + " birthday complete<br>" + dateAndTime("log"));
-    loadBdays(); storeAndBackup();
-}
-
-function completePhoto(x) {
-    _sl[x].photo = true; loadNeededPhotos(); storeAndBackup();
-}
-
-/* function alerts() {
-    promotionAlert(); birthdayAlert(); photosNeededAlert(); emailsNeededAlert(); birthdaysNeededAlert(); notesAlert(); anyAlert();
-} */
-
-function alerts() {
-    var alertButtons = ["promotionButton","birthdayButton","photosNeededButton","emailsNeededButton","birthdaysNeededButton"];
-    var ids = ["promoList","bdayList","photosNeededList","emailsNeededList","birthdaysNeededList"];
-    var alertNum = 0;
-    for (i = 0; i < ids.length; i++) {
-        if (document.getElementById(ids[i]).innerHTML != "") {
-            document.getElementById(alertButtons[i]).style.backgroundColor = "red"; alertNum++
-        } else {
-            document.getElementById(alertButtons[i]).style.backgroundColor = "black";
-        }
-    }
-    if (alertNum > 0) {
-        document.getElementById("alertButton").style.backgroundColor = "red";
-    } else {
-        document.getElementById("alertButton").style.backgroundColor = "black";
-    }
-}
-
-/* function anyAlert() {
-    if (document.getElementById("promoList").innerHTML != "" || document.getElementById("bdayList").innerHTML != "" || document.getElementById("photosNeededList").innerHTML != "" || document.getElementById("emailsNeededList").innerHTML != "" || document.getElementById("birthdaysNeededList").innerHTML != "") {
-        document.getElementById("alertButton").style.backgroundColor = "red";
-    } else {
-        document.getElementById("alertButton").style.backgroundColor = "black";
-    }
-} */
-
-/* function promotionAlert() {
-    loadPromotions();
-    if (document.getElementById("promoList").innerHTML != "") {
-        document.getElementById("promotionButton").style.backgroundColor = "red";
-    } else {
-        document.getElementById("promotionButton").style.backgroundColor = "black";
-    }
-} */
 
 function storeAndBackup() {
     storeNewData();
