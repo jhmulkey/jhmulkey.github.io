@@ -399,7 +399,7 @@ function completeBday(x) {
 }
 
 function completePhoto(x) {
-    _sl[x].photo = true; loadNeededPhotos(); storeAndBackup();
+    _sl[x].photo = true; loadNeededPhotos(); allAlerts(); storeAndBackup();
 }
 
 function teams() {
@@ -1565,7 +1565,7 @@ function editStudent() {
             activityLog(originalFirstName + " " + originalLastName + " " + labels[i] + " edited<br>" + original[i] + "-->" + edit[i] + "<br>" + dateAndTime("log"));
         }
     }
-    refreshStudentPop(); storeAndBackup(); _currentFunction();
+    refreshStudentPop(); storeAndBackup(); _currentFunction(); allAlerts();
     if (document.getElementById("rapidEditCheck").checked === true) {
         _ci++;
         if (_ci < _sl.length) {
@@ -2599,7 +2599,7 @@ function togglePhoto() {
     } else {
         _sl[_ci].photo = false;
     }
-    loadStudentPhoto(); refreshStudentPop(); storeAndBackup();         
+    loadStudentPhoto(); refreshStudentPop(); allAlerts(); storeAndBackup();         
 }
 
 /* function doesFileExist(url) {
