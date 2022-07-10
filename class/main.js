@@ -269,19 +269,19 @@ function populateCustomList(log1,log2,type) {
         if (type == "promotion") {
             (function(i){
                 elementNode1.onclick = function () {
-                    actionAlert("Complete promotion for " + _sl[i].fullName + " (" + _sl[i].rankName + ")?",["customListPop"],completePromotion,false,i);
+                    actionAlert("Complete promotion for <br>" + _sl[i].fullName + " (" + _sl[i].rankName + ")?",["customListPop"],completePromotion,false,i);
                 }
             })(i);
         } else if (type == "birthdayDone") {
             (function(i){
                 elementNode1.onclick = function () {
-                    actionAlert("Complete birthday for " + _sl[i].fullName + "?",["customListPop"],completeBday,false,i);
+                    actionAlert("Complete birthday for <br>" + _sl[i].fullName + "?",["customListPop"],completeBday,false,i);
                 }
             })(i);
         } else if (type == "photo") {
             (function(i){
                 elementNode1.onclick = function () {
-                    actionAlert("Take photo for " + _sl[i].fullName + "?",["customListPop"],completePhoto,false,i);
+                    actionAlert("Take photo for <br>" + _sl[i].fullName + "?",["customListPop"],completePhoto,false,i);
                 }
             })(i);
         } else if (type == "email") {
@@ -1062,7 +1062,7 @@ function sortByPoints() {
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
         if (_sl[i].rank != lastElementNode) {
-            elementNode.style.borderTop = "1px solid orange";
+            elementNode.style.borderTop = "1px solid #555";
             elementNode.style.paddingTop = "5px";
         }
         var textNode = document.createTextNode(_sl[i].classRank + ". " + _sl[i].fullName + " (" + _sl[i].points + "|" + _sl[i].rankName+ ")");
@@ -1083,7 +1083,7 @@ function sortByRank() {
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
         if (_sl[i].rank != lastElementNode) {
-            elementNode.style.borderTop = "1px solid orange";
+            elementNode.style.borderTop = "1px solid #555";
         }
         var textNode = document.createTextNode(rankOrder[i].rankName + " " + rankOrder[i].fullName);
         elementNode.appendChild(textNode);
@@ -1112,7 +1112,8 @@ function sortByAttendance() {
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
         if (_sl[i].totalWksAtt != lastElementNode) {
-            elementNode.style.borderTop = "1px solid orange";
+            elementNode.style.borderTop = "1px solid #555";
+            elementNode.style.paddingTop = "5px";
         }
         var textNode = document.createTextNode(_sl[i].fullName + " (" + _sl[i].totalWksAtt + "/" + _elapsedWeeks + ")");
         elementNode.appendChild(textNode);
@@ -1167,7 +1168,7 @@ function sortByBday() {
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
         if (_sl[i].birthdayMonth != lastElementNode) {
-            elementNode.style.borderTop = "1px solid orange";
+            elementNode.style.borderTop = "1px solid #333";
             elementNode.style.paddingTop = "5px";
         }
         if (_sl[i].birthdayDone === true) {
@@ -2261,7 +2262,7 @@ function toggleAtt() {
         } else if (_isClassDay === true && dateAndTime("hours") >= 16) {
             _sl[_ci].pmAtt[_elapsedWeeks-1] = 0;
         }
-        document.getElementById("studentPopName").style.color = "white";
+        document.getElementById("studentPopName").style.color = "white"; goHome();
     }
     if (_sl[_ci].attendance === true) {
         var log = "added attendee " + _sl[_ci].firstName + " " + _sl[_ci].lastName + "<br>" + dateAndTime("log");
