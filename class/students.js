@@ -520,7 +520,7 @@ function asPop(asNum,points) {
     if (_sl[_ci].asDates[_asNum] == 0) {
         document.getElementById("asDateTurnedIn").innerHTML = "-"
     } else {
-        document.getElementById("asDateTurnedIn").innerHTML = convertDateNumber(_sl[_ci].asDates[_asNum]);
+        document.getElementById("asDateTurnedIn").innerHTML = cdn(_sl[_ci].asDates[_asNum]);
     }
     if (_sl[_ci].asReasons[_asNum] != "") {
         document.getElementById("asReason").innerHTML = "Reason for partial credit:<br> <span style='color:white'>" + _sl[_ci].asReasons[_asNum] + "</span>";
@@ -565,7 +565,7 @@ function mvPop(mvNum,points) {
     if (_sl[_ci].mvDates[_mvNum] == 0) {
         document.getElementById("mvDateRecited").innerHTML = "-"
     } else {
-        document.getElementById("mvDateRecited").innerHTML = convertDateNumber(_sl[_ci].mvDates[_mvNum]);
+        document.getElementById("mvDateRecited").innerHTML = cdn(_sl[_ci].mvDates[_mvNum]);
     }
     document.getElementById("mvText").innerHTML = _mvText[mvNum];
     for (i = 1; i <= 7; i++) {
@@ -1078,7 +1078,7 @@ function loadStudent(index) {
     pop(["mainPop"],["studentPop","studentStatsPop"]);
 }
 
-function convertDateNumber(dateNumber) {
+function cdn(dateNumber) {
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var month; var date;

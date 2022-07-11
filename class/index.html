@@ -46,7 +46,7 @@
   <div class="button" onclick="sortByPoints()">Sort by Points</div>
   <div class="button" onclick="sortByAttendance()">Sort by Attendance</div>
   <div class="button" onclick="sortByGender()">Sort by Boy/Girl</div>
-  <div class="button" onclick="sortByBday()">Sort by Birthday</div>
+  <div class="button" onclick="sortByBd()">Sort by Birthday</div>
   <div class="button" onclick="sortByDateAdded()">Sort by Date Added</div>
   <div class="button" onclick="sortByNotes()">Sort by Notes</div>
 </div>
@@ -88,10 +88,10 @@
             <div class="backButton" onclick="goHome()">f</div>
           </div>
           <div class="button" id="promotionButton" onclick="loadPromotions(); pop(['alertsPop'],['customListPop'])">Promotions</div>
-          <div class="button" id="bdayButton" onclick="loadBdays(); pop(['alertsPop'],['customListPop'])">Birthdays</div>
+          <div class="button" id="bdButton" onclick="loadBds(); pop(['alertsPop'],['customListPop'])">Birthdays</div>
           <div class="button" id="photosNeededButton" onclick="loadNeededPhotos(); pop(['alertsPop'],['customListPop'])">Missing Photos</div>
           <div class="button" id="emailsNeededButton" onclick="loadNeededEmails(); pop(['alertsPop'],['customListPop']); _array = ['customListPop']">Missing Emails</div>
-          <div class="button" id="bdaysNeededButton" onclick="loadNeededbdays(); pop(['alertsPop'],['customListPop']); _array = ['customListPop']">Missing Birthdays</div>
+          <div class="button" id="bdNeededButton" onclick="loadNeededBds(); pop(['alertsPop'],['customListPop']); _array = ['customListPop']">Missing Birthdays</div>
       </div>
 </div>
 
@@ -207,7 +207,7 @@
     <div class="otherButton" onclick="populateNames2()">Attendance</div>
   </div>
   <div id="studentPopTopContainerDiv">
-    <div id="studentPopInsignia" onclick="loadStudentData(); studentMenuSwitch(4)"></div>
+    <div id="studentPopInsignia" onclick="loadStudentProperties(); studentMenuSwitch(4)"></div>
     <div id="studentPopInfo">
       <p id="studentPopRankName"></p>
       <p id="studentPopName" onclick="toggleAtt()"></p>
@@ -521,7 +521,7 @@
 </div>
 
 <div id="newStudentPop" class="pop">
-  <div class="genderAndBdayContainer">
+  <div class="genderAndBdContainer">
     <div>
       <p>First Name</p>
       <input class="textInputField3 focus" id="newFirstName" type="text" placeholder="First Name"/>
@@ -532,7 +532,7 @@
       <input class="textInputField3" id="newLastName" type="text" placeholder="Last Name"/>
     </div>
   </div>
-  <div class="genderAndBdayContainer">
+  <div class="genderAndBdContainer">
     <div>
       <p>Gender</p>
       <input class="textInputField2" id="newGender" type="text" placeholder="M or F"/>
@@ -542,17 +542,17 @@
       <p>Birthday</p>
       <div class="flexContainer">
         <div>
-          <input class="textInputField4" id="newBdayMonth" type="text" placeholder="Month" style="margin-right:10px">
+          <input class="textInputField4" id="newbdMonth" type="text" placeholder="Month" style="margin-right:10px">
         </div>
         <div>
-          <input class="textInputField4" id="newBdayDate" type="text" placeholder="Day" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"/>
+          <input class="textInputField4" id="newbdDate" type="text" placeholder="Day" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"/>
         </div>
       </div>
     </div>
   </div>
   <div>
     <p>Email Address</p>
-    <input class="searchField" id="newEmail" type="text" placeholder="email address" onkeydown="keyPress()"/>
+    <input class="searchField" id="newEmail" type="text" placeholder="email address" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"/>
   </div>
   <div>
     <p>Note</p>
@@ -566,7 +566,7 @@
 
 <div id="editStudentPop" class="pop">
   <div>
-    <div class="genderAndBdayContainer">
+    <div class="genderAndBdContainer">
       <div>
         <p style="margin-top:0px">First Name</p>
         <input class="textInputField3" id="editFirstName" type="text" placeholder="First Name" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
@@ -577,7 +577,7 @@
         <input class="textInputField3" id="editLastName" type="text" placeholder="Last Name" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
       </div>
     </div>
-    <div class="genderAndBdayContainer">
+    <div class="genderAndBdContainer">
       <div>
         <p>Gender</p>
         <input class="textInputField2" id="editGender" type="text" placeholder="M or F" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
@@ -587,10 +587,10 @@
         <p>Birthday</p>
         <div class="flexContainer">
           <div>
-            <input class="textInputField4" id="editBdayMonth" type="text" placeholder="Month" style="margin-right:10px" onkeydown="if(event.key === 'Enter')document.getElementById('editStudentOkButton').click()"/>
+            <input class="textInputField4" id="editBdMonth" type="text" placeholder="Month" style="margin-right:10px" onkeydown="if(event.key === 'Enter')document.getElementById('editStudentOkButton').click()"/>
           </div>
           <div>
-            <input class="textInputField4" id="editBdayDate" type="text" placeholder="Day" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
+            <input class="textInputField4" id="editBdDate" type="text" placeholder="Day" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
           </div>
         </div>
       </div>
@@ -865,12 +865,9 @@
     <p>fullName: <span id="fullName"></span></p>
     <p>gender: <span id="gender"></span></p>
     <p>dateAdded: <span id="dateAdded"></span></p>
-    <p>bdayMonth: <span id="bdayMonth"></span></p>
-    <p>bdayDate: <span id="bdayDate"></span></p>
-    <p>bdayNumber: <span id="bdayNumber"></span></p>
-    <p>bday: <span id="bday"></span></p>
-    <p>hasbday: <span id="hasbday"></span></p>
-    <p>bdayDone: <span id="bdayDone"></span></p>
+    <p>bdn: <span id="bdn"></span></p>
+    <p>hasBd: <span id="hasBd"></span></p>
+    <p>bdDone: <span id="bdDone"></span></p>
     <p>email: <span id="email"></span></p>
     <p>photo: <span id="photo"></span></p>
     <p>notes: <span id="notes"></span></p>
