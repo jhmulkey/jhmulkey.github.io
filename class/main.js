@@ -1450,7 +1450,7 @@ function newStudent() {
     var email = document.getElementById("newEmail").value.toLowerCase();
     var note = [document.getElementById("initialNote").value];
     var pron = document.getElementById("newNamePron").value;
-    if (newFirst == "" || newLast == "") {
+    if (NFNArray == false || NLNArray == false) {
         infoAlert("First and last name required",["newStudentPop"]); return;
     } else {
         for (i = 0; i < NFNArray.length; i++) {
@@ -1469,7 +1469,7 @@ function newStudent() {
     } else {
         infoAlert("Please enter 'M' or 'F' for gender",["newStudentPop"]); return;
     }
-    if (newbdMonth == "" || newbdDate == "") {
+    if (newbdMonth == "" || newbdDate == "" || isNaN(newbdMonth) || isNaN(newbdDate)) {
         var month = 0; var date = 0;
     } else {
         var month = parseInt(newbdMonth);
@@ -1515,20 +1515,39 @@ function editStudent() {
     var originalGender = _sl[_ci].gender;
     var originalBdn = _sl[_ci].bdn;
     var originalEmail = _sl[_ci].email;
-    var editFirst = document.getElementById("editFirst").value
-    var editLast = document.getElementById("editLast").value
+    /* var editFirst = document.getElementById("editFirst").value
+    var editLast = document.getElementById("editLast").value */
+    var EFNArray = (document.getElementById("editFirst").value.trim().toLowerCase()).split(" ")
+    var ELNArray = (document.getElementById("editLast").value.trim().toLowerCase()).split(" ")
     var editGender = document.getElementById("editGender").value
     var editBdMonth = parseInt(document.getElementById("editBdMonth").value);
     var editBdDate = parseInt(document.getElementById("editBdDate").value);
+
     _sl[_ci].pron = document.getElementById("editNamePron").value;
     _sl[_ci].email = document.getElementById("editEmail").value.toLowerCase();
-    if (editFirst == "" || editLast == "") {
+
+    /* if (editFirst == "" || editLast == "") {
         infoAlert("First and last name required",["editStudentPop"]); return;
     } else {
         _sl[_ci].first = capitalize(editFirst.toLowerCase());
         _sl[_ci].last = capitalize(editLast.toLowerCase());
         _sl[_ci].full = _sl[_ci].first + " " + _sl[_ci].last
+    } */
+
+    if (NFNArray == false || NLNArray == false) {
+        infoAlert("First and last name required",["editStudentPop"]); return;
+    } else {
+        for (i = 0; i < NFNArray.length; i++) {
+            EFNArray[i] = EFNArray[i][0].toUpperCase() + EFNArray[i].substr(1);
+        }
+        for (i = 0; i < NLNArray.length; i++) {
+            ELNArray[i] = ELNArray[i][0].toUpperCase() + ELNArray[i].substr(1);
+        }
+        _sl[_ci].first = NFNArray.join("-");
+        _sl[_ci].last = NLNArray.join("-");
+        _sl[_ci].full = _sl[_ci].first + _sl[_ci].last
     }
+
     if (editGender.toLowerCase() == "m") {
         _sl[_ci].gender = "M";
     } else if (editGender.toLowerCase() == "f") {
@@ -2919,7 +2938,19 @@ function batchFilterSL(property,value) {
 function batchDisplaySL(property) {
     for (i = 0; i < _sl.length; i++) {
         console.log(_sl[i].full + ": " + _sl[i][property]);
-    } 
+    }
+    var values = [];
+    var occurrences = [];
+    for (i = 0; i < _sl.length; i++) {
+        if (values.indexOf(_sl[i][property]) < 0) {
+            values.push(_sl[i][property]); occurrences[values.indexOf(_sl[i][property])] = 1;
+        } else {
+            occurrences[values.indexOf(_sl[i][property])]++
+        }
+    }
+    for (i = 0; i < values.length; i++) {
+        console.log(values[i] + "(" + occurrences[i] + ")")
+    }
 }
 
 function displayStudentProperties(full) {
@@ -3025,7 +3056,7 @@ function batchAddProperty(propertyName,value) {
     }
     console.log("The property '" + propertyName + "' has been added to " + count + " out of " + _sl.length + " students");
     if (alreadyExists.length > 0) {
-        console.log(alreadyExists.length + " students already had this property and were skipped. To force this property and value to all students, use 'batchEditSL' instead:")
+        console.log(alreadyExists.length + " students already had this property and were skipped. To force this property and value to all students, use 'batchEditSL' now:")
         for (i = 0; i < alreadyExists.length; i++) {
             console.log(alreadyExists[i].full + " '" + propertyName + "': " + alreadyExists[i][propertyName])
         }
