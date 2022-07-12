@@ -524,12 +524,12 @@
   <div class="genderAndBdContainer">
     <div>
       <p>First Name</p>
-      <input class="textInputField3 focus" id="newFirstName" type="text" placeholder="First Name"/>
+      <input class="textInputField3 focus" id="newFirst" type="text" placeholder="First Name"/>
     </div>
     <div style="width:24px; margin:0px"></div>
     <div>
       <p>Last Name</p>
-      <input class="textInputField3" id="newLastName" type="text" placeholder="Last Name"/>
+      <input class="textInputField3" id="newLast" type="text" placeholder="Last Name"/>
     </div>
   </div>
   <div class="genderAndBdContainer">
@@ -569,12 +569,12 @@
     <div class="genderAndBdContainer">
       <div>
         <p style="margin-top:0px">First Name</p>
-        <input class="textInputField3" id="editFirstName" type="text" placeholder="First Name" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
+        <input class="textInputField3" id="editFirst" type="text" placeholder="First Name" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
       </div>
       <div style="width:24px; margin:0px"></div>
       <div>
         <p style="margin-top:0px">Last Name</p>
-        <input class="textInputField3" id="editLastName" type="text" placeholder="Last Name" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
+        <input class="textInputField3" id="editLast" type="text" placeholder="Last Name" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
       </div>
     </div>
     <div class="genderAndBdContainer">
@@ -860,9 +860,10 @@
 
 <div id="studentPropertiesPop" class="pop">
   <div id="studentData">
-    <p>firstName: <span id="firstName"></span></p>
-    <p>lastName: <span id="lastName"></span></p>
-    <p>fullName: <span id="fullName"></span></p>
+    <p>first: <span id="first"></span></p>
+    <p>last: <span id="last"></span></p>
+    <p>full: <span id="full"></span></p>
+    <p>pron: <span id="pron"></span></p>
     <p>gender: <span id="gender"></span></p>
     <p>dateAdded: <span id="dateAdded"></span></p>
     <p>bdn: <span id="bdn"></span></p>
