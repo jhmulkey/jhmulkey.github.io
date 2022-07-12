@@ -1536,7 +1536,7 @@ function editStudent() {
     } else {
         infoAlert("Please enter 'M' or 'F' for gender",["editStudentPop"]); return;
     }
-    if (editBdMonth == "" || editBdDate == "") {
+    if (isNaN(editBdMonth) || isNaN(editBdDate) ) {
         _sl[_ci].bdn = 1000;
         _sl[_ci].hasBd = false;
     } else {
@@ -1555,11 +1555,10 @@ function editStudent() {
     refreshStudentPop(); storeAndBackup(); allAlerts();
     if (_currentFunction == loadNeededEmails || _currentFunction == loadNeededBds) { _currentFunction() };
     if (document.getElementById("rapidEditCheck").checked === true) {
-        _ci++;
-        if (_ci < _sl.length) {
-            loadStudent(_ci); populateStudentFields();
-        } else {
-            pop(["editStudentPop","missionsPop"],["studentPop"]);
+        if (_ci < _sl.length-1) {
+            _ci++; refreshStudentPop(); refreshMissionsPop(); populateStudentFields();
+        } else if (_ci == _sl.length-1) {
+            pop(["editStudentPop","studentPop"],["mainPop"]);
         }
     } else {
         resetStudentMenu();
@@ -1640,6 +1639,9 @@ function populateStudentFields(id,func) {
     if (_sl[_ci].bdn != 1000) {
         document.getElementById("editBdMonth").value = cdn(_sl[_ci].bdn,"M").toString();
         document.getElementById("editBdDate").value = cdn(_sl[_ci].bdn,"D").toString();
+    } else {
+        document.getElementById("editBdMonth").value = "";
+        document.getElementById("editBdDate").value = "";
     }
     document.getElementById("editEmail").value = _sl[_ci].email;
     document.getElementById("editGender").value = _sl[_ci].gender;
@@ -1665,7 +1667,7 @@ function promotion() {
     setRankFactor();
     setRankName();
     document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
-    document.getElementById("dispRankNamePromo").innerHTML = _sl[_ci].rankName;
+    document.getElementById("dispRankNamePromo").innerHTML = _rankNames[_sl[_ci].rank];
     storeAndBackup();
     document.getElementById("promoInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
     var log = _sl[_ci].full + " promoted to " + _sl[_ci].rankName + "<br>" + dateAndTime("log");
@@ -1890,8 +1892,7 @@ function searchLog() {
 }
 
 function loadStudent(index) {
-    document.getElementById("searchMain").value = "";
-    _ci = index;
+    _ci = index; document.getElementById("searchMain").value = "";
     checkInAtt(); refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu();
     if (document.getElementById("editStudentPop").style.display != "block") {
         pop(["mainPop"],["studentPop","missionsPop"]);

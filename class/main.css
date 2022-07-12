@@ -25,7 +25,7 @@ html {
 body {
     padding: 0px;
     margin: 0px;
-    font-family: Tahoma, serif;
+    font-family: Tahoma, sans-serif;
     font-size: 30px;
     color: white;
     background-color: #111;
@@ -118,7 +118,7 @@ a:link, a:visited, a:hover, a:active {
     margin-bottom: 13px;
 }
 
-#customListLabel {
+#customListLabel, #promoPopLabel {
     margin: 20px auto 20px auto !important;
     color: #3478F6;
     border-bottom: 2px solid #333;
@@ -348,10 +348,6 @@ a:link, a:visited, a:hover, a:active {
     font-family: Byom-Icons-Trial;
     font-size: 75px;
     margin: 30px auto;
-}
-
-#promoPop p {
-    font-size: 50px;
 }
 
 #backupArrays {
@@ -624,7 +620,6 @@ a:link, a:visited, a:hover, a:active {
     width: 375px;
     height: 150px;
     resize: none;
-    font-family: Tahoma;
     border-radius: 20px;
     padding: 15px;
 }
@@ -656,7 +651,6 @@ a:link, a:visited, a:hover, a:active {
     font-size: 20px;
     border-radius: 10px;
     border: 1px solid transparent;
-    font-family: Tahoma;
     text-align: center;
 }
 
@@ -680,7 +674,6 @@ a:link, a:visited, a:hover, a:active {
 .searchField, .textInputField2, .textInputField3, .textInputField4 {
     border-radius: 15px;
     border: 1px solid transparent;
-    font-family: Tahoma;
     text-align: center;
 }
 
@@ -700,8 +693,8 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #promoInsignia {
-    width: 350px;
-    height: 350px;
+    width: 250px;
+    height: 250px;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
