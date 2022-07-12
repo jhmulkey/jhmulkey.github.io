@@ -623,7 +623,6 @@ a:link, a:visited, a:hover, a:active {
 #initialNote {
     width: 375px;
     height: 150px;
-    font-size: 25px;
     resize: none;
     font-family: Tahoma;
     border-radius: 20px;

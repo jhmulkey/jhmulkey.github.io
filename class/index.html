@@ -555,6 +555,10 @@
     <input class="searchField" id="newEmail" type="text" placeholder="email address" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"/>
   </div>
   <div>
+    <p>Name Pronunciation</p>
+    <input class="searchField" id="newNamePron" placeholder="name pronunciation" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"></textarea>
+  </div>
+  <div>
     <p>Note</p>
     <textarea id="initialNote" rows="10" cols="30" placeholder="note" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"></textarea>
   </div>
@@ -599,6 +603,10 @@
       <p>Email Address</p>
       <input class="searchField" id="editEmail" type="text" placeholder="email address"
       onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
+    </div>
+    <div>
+      <p>Name Pronunciation</p>
+      <input class="searchField" id="editNamePron" placeholder="name pronunciation" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"></textarea>
     </div>
     <div class="optionButtonContainer">
       <div class="roundButton1 cancelButton" onclick="pop(['editStudentPop'],[_array]); clearStudentFields(); resetStudentMenu();">X</div>

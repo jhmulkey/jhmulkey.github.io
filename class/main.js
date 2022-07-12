@@ -98,11 +98,11 @@ var _mvText = [
 */
 
 class Student {
-    constructor(first,last,month,date,email,gender,note) {
+    constructor(first,last,month,date,email,gender,note,pron) {
         this.first = first;
         this.last = last;
         this.full = first + " " + last;
-        this.pron;
+        this.pron = pron;
         this.gender = gender;
         this.dateAdded = assignTodaysDn();
         this.bdn = assignDn(month,date);
@@ -264,9 +264,15 @@ function populateCustomList(log1,log2,type) {
         var textNode1 = document.createTextNode(log1);
         elementNode1.appendChild(textNode1);
         if (type == "promotion") {
+            var message;
+            if (_sl[i].pron != "") {
+                message = "Complete promotion for <br>" + _sl[i].full + " (" + _sl[i].rankName + ")?" + "<br> (" + _sl[i].pron + ")"
+            } else {
+                message = "Complete promotion for <br>" + _sl[i].full + " (" + _sl[i].rankName + ")?"
+            }
             (function(i){
                 elementNode1.onclick = function () {
-                    actionAlert("Complete promotion for <br>" + _sl[i].full + " (" + _sl[i].rankName + ")?",["customListPop"],completePromotion,false,i);
+                    actionAlert(message,["customListPop"],completePromotion,false,i);
                 }
             })(i);
         } else if (type == "bdDone") {
@@ -316,15 +322,15 @@ function loadPromotions() {
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].promoted === true && _sl[i].attendance === true) {
             if (_sl[i].promotionNum < 2) {
-                populateCustomList(_sl[i].rankName + " " + _sl[i].full,false,false,"promotion");
+                populateCustomList(_sl[i].rankName + " " + _sl[i].full,false,"promotion");
             } else if (_sl[i].promotionNum > 1) {
-                populateCustomList(_sl[i].rankName + " " + "(" + _sl[i].promotionNum + ") " + _sl[i].full);
+                populateCustomList(_sl[i].rankName + " " + "(" + _sl[i].promotionNum + ") " + _sl[i].full,false,"promotion");
             }
         } else if (_sl[i].promoted === true && _sl[i].attendance === false) {
             if (_sl[i].promotionNum < 2) {
-                populateCustomList(false,false,_sl[i].rankName + " " + _sl[i].full,"");
+                populateCustomList(false,_sl[i].rankName + " " + _sl[i].full,"");
             } else if (_sl[i].promotionNum > 1) {
-                populateCustomList(false,false,_sl[i].rankName + " " + "(" + _sl[i].promotionNum + ") " + _sl[i].full);
+                populateCustomList(false,_sl[i].rankName + " " + "(" + _sl[i].promotionNum + ") " + _sl[i].full);
             }
         }
     }
@@ -1443,6 +1449,7 @@ function newStudent() {
     var newbdDate = document.getElementById("newbdDate").value
     var email = document.getElementById("newEmail").value.toLowerCase();
     var note = [document.getElementById("initialNote").value];
+    var pron = document.getElementById("newNamePron").value;
     if (newFirst == "" || newLast == "") {
         infoAlert("First and last name required",["newStudentPop"]); return;
     } else {
@@ -1468,7 +1475,7 @@ function newStudent() {
         var month = parseInt(newbdMonth);
         var date = parseInt(newbdDate);
     }
-    var newStudent = new Student(first,last,month,date,email,gender,note);
+    var newStudent = new Student(first,last,month,date,email,gender,note,pron);
     newStudent.attendance = true;
     for (i = 0; i < _elapsedWeeks; i++) {
         newStudent.amAtt.push(0);
@@ -1513,6 +1520,7 @@ function editStudent() {
     var editGender = document.getElementById("editGender").value
     var editBdMonth = parseInt(document.getElementById("editBdMonth").value);
     var editBdDate = parseInt(document.getElementById("editBdDate").value);
+    _sl[_ci].pron = document.getElementById("editNamePron").value;
     _sl[_ci].email = document.getElementById("editEmail").value.toLowerCase();
     if (editFirst == "" || editLast == "") {
         infoAlert("First and last name required",["editStudentPop"]); return;
@@ -1635,6 +1643,7 @@ function populateStudentFields(id,func) {
     }
     document.getElementById("editEmail").value = _sl[_ci].email;
     document.getElementById("editGender").value = _sl[_ci].gender;
+    document.getElementById("editNamePron").value = _sl[_ci].pron;
     loadStudentPhoto();
     pop(_array,["editStudentPop"]);
     if (id) {
@@ -3015,7 +3024,7 @@ function batchAddProperty(propertyName,value) {
     }
     console.log("The property '" + propertyName + "' has been added to " + count + " out of " + _sl.length + " students");
     if (alreadyExists.length > 0) {
-        console.log(alreadyExists.length + " students already had this property and were skipped. To force this property and value to all students, use 'consoleBatchEditSL' instead:")
+        console.log(alreadyExists.length + " students already had this property and were skipped. To force this property and value to all students, use 'batchEditSL' instead:")
         for (i = 0; i < alreadyExists.length; i++) {
             console.log(alreadyExists[i].full + " '" + propertyName + "': " + alreadyExists[i][propertyName])
         }
@@ -3024,8 +3033,16 @@ function batchAddProperty(propertyName,value) {
 }
 
 function batchEditSL(propertyName,value) {
-    var count = 0;
+    var count = 0; var hasProperty = 0;
     if (confirm("Confirm batch action") == true) {
+        for (i = 0; i < _sl.length; i++) {
+            if (typeof(_sl[i][propertyName]) !== "undefined") {
+                hasProperty++
+            }
+        }
+        if (hasProperty < _sl.length) {
+            console.log("'" + propertyName + "' does not exist for one or more students. Use 'batchAddProperty' instead to add/overwrite this property for all students"); return;
+        }
         for (i = 0; i < _sl.length; i++) {
             _sl[i][propertyName] = value; count++
         }
