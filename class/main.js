@@ -392,13 +392,13 @@ function completePromotion(x) {
     _sl[x].promoted = false;
     _sl[x].promotionNum = 0;
     activityLog(_sl[x].full + " promotion complete<br>" + dateAndTime("log"));
-    loadPromotions(); storeAndBackup();
+    loadPromotions(); allAlerts(); storeAndBackup();
 }
 
 function completeBd(x) {
     _sl[x].bdDone = true; 
     activityLog(_sl[x].full + " birthday complete<br>" + dateAndTime("log"));
-    loadBds(); storeAndBackup();
+    loadBds(); allAlerts(); storeAndBackup();
 }
 
 function completePhoto(x) {
@@ -1442,8 +1442,21 @@ function actionAlert(message,popsArray,func,bypass,parameter) {
 }
 
 function newStudent() {
-    var NFNArray = (document.getElementById("newFirst").value.trim().toLowerCase()).split(" ")
-    var NLNArray = (document.getElementById("newLast").value.trim().toLowerCase()).split(" ")
+    var NFNArray; var NLNArray;
+    if (document.getElementById("newFirst").value.trim().indexOf(" ") > -1) {
+        var NFNArray = (document.getElementById("newFirst").value.trim().toLowerCase()).split(" ");
+    } else if (document.getElementById("newFirst").value.trim().indexOf("-") > -1) {
+        var NFNArray = (document.getElementById("newFirst").value.trim().toLowerCase()).split("-");
+    } else {
+        var NFNArray = [(document.getElementById("newFirst").value.trim().toLowerCase())];
+    }
+    if (document.getElementById("newLast").value.trim().indexOf(" ") > -1) {
+        var NLNArray = (document.getElementById("newLast").value.trim().toLowerCase()).split(" ");
+    } else if (document.getElementById("newLast").value.trim().indexOf("-") > -1) {
+        var NLNArray = (document.getElementById("newLast").value.trim().toLowerCase()).split("-");
+    } else {
+        var NLNArray = [(document.getElementById("newLast").value.trim().toLowerCase())];
+    }
     var newGender = document.getElementById("newGender").value
     var newbdMonth = document.getElementById("newbdMonth").value
     var newbdDate = document.getElementById("newbdDate").value
@@ -1489,13 +1502,8 @@ function newStudent() {
         }
     }
     _sl.push(newStudent); _ci = _sl.length-1;
-    attCount();
-    findBd();
-    sortStudentList();
-    var log = "new student " + first + " " + last + "<br>" + dateAndTime("log");
-    activityLog(log);
-    storeAndBackup();
-    clearStudentFields()
+    var log = "new student " + _sl[_ci].full + "<br>" + dateAndTime("log");
+    attCount(); findBd(); sortStudentList(); activityLog(log); storeAndBackup(); clearStudentFields()
     if (document.getElementById("rapidEntryCheck").checked === true) {
         document.getElementById("newFirst").focus();
         return;
@@ -1510,44 +1518,43 @@ function deleteStudent() {
 }
 
 function editStudent() {
-    var originalFirst = _sl[_ci].first;
-    var originalLast = _sl[_ci].last;
+    var originalFull = _sl[_ci].full;
     var originalGender = _sl[_ci].gender;
     var originalBdn = _sl[_ci].bdn;
     var originalEmail = _sl[_ci].email;
-    /* var editFirst = document.getElementById("editFirst").value
-    var editLast = document.getElementById("editLast").value */
-    var EFNArray = (document.getElementById("editFirst").value.trim().toLowerCase()).split(" ")
-    var ELNArray = (document.getElementById("editLast").value.trim().toLowerCase()).split(" ")
-    var editGender = document.getElementById("editGender").value
+    var EFNArray; var ELNArray;
+    if (document.getElementById("editFirst").value.trim().indexOf(" ") > -1) {
+        var EFNArray = (document.getElementById("editFirst").value.trim().toLowerCase()).split(" ");
+    } else if (document.getElementById("editFirst").value.trim().indexOf("-") > -1) {
+        var EFNArray = (document.getElementById("editFirst").value.trim().toLowerCase()).split("-");
+    } else {
+        var EFNArray = [(document.getElementById("editFirst").value.trim().toLowerCase())];
+    }
+    if (document.getElementById("editLast").value.trim().indexOf(" ") > -1) {
+        var ELNArray = (document.getElementById("editLast").value.trim().toLowerCase()).split(" ");
+    } else if (document.getElementById("editLast").value.trim().indexOf("-") > -1) {
+        var ELNArray = (document.getElementById("editLast").value.trim().toLowerCase()).split("-");
+    } else {
+        var ELNArray = [(document.getElementById("editLast").value.trim().toLowerCase())];
+    }
+    var editGender = document.getElementById("editGender").value;
     var editBdMonth = parseInt(document.getElementById("editBdMonth").value);
     var editBdDate = parseInt(document.getElementById("editBdDate").value);
-
     _sl[_ci].pron = document.getElementById("editNamePron").value;
     _sl[_ci].email = document.getElementById("editEmail").value.toLowerCase();
-
-    /* if (editFirst == "" || editLast == "") {
+    if (EFNArray == false || ELNArray == false) {
         infoAlert("First and last name required",["editStudentPop"]); return;
     } else {
-        _sl[_ci].first = capitalize(editFirst.toLowerCase());
-        _sl[_ci].last = capitalize(editLast.toLowerCase());
-        _sl[_ci].full = _sl[_ci].first + " " + _sl[_ci].last
-    } */
-
-    if (NFNArray == false || NLNArray == false) {
-        infoAlert("First and last name required",["editStudentPop"]); return;
-    } else {
-        for (i = 0; i < NFNArray.length; i++) {
+        for (i = 0; i < EFNArray.length; i++) {
             EFNArray[i] = EFNArray[i][0].toUpperCase() + EFNArray[i].substr(1);
         }
-        for (i = 0; i < NLNArray.length; i++) {
+        for (i = 0; i < ELNArray.length; i++) {
             ELNArray[i] = ELNArray[i][0].toUpperCase() + ELNArray[i].substr(1);
         }
-        _sl[_ci].first = NFNArray.join("-");
-        _sl[_ci].last = NLNArray.join("-");
-        _sl[_ci].full = _sl[_ci].first + _sl[_ci].last
+        _sl[_ci].first = EFNArray.join("-");
+        _sl[_ci].last = ELNArray.join("-");
+        _sl[_ci].full = _sl[_ci].first + " " + _sl[_ci].last
     }
-
     if (editGender.toLowerCase() == "m") {
         _sl[_ci].gender = "M";
     } else if (editGender.toLowerCase() == "f") {
@@ -1563,21 +1570,21 @@ function editStudent() {
     }
     if (_sl[_ci].bdn != originalBdn) { findBd() }
     document.getElementById("studentPopName").innerHTML = _sl[_ci].full;
-    var original = [originalFirst,originalLast,originalGender,cdn(originalBdn),originalEmail];
-    var edit = [editFirst,editLast,editGender,cdn(_sl[_ci].bdn),_sl[_ci].email];
-    var labels = ["first name","last name","gender","birthday","email"];
+    var original = [originalFull,originalGender,cdn(originalBdn),originalEmail];
+    var edit = [_sl[_ci].full,_sl[_ci].gender,cdn(_sl[_ci].bdn),_sl[_ci].email];
+    var labels = ["name","gender","birthday","email"];
     for (i = 0; i < original.length; i++) {
         if (original[i] != edit[i]) {
-            activityLog(originalFirst + " " + originalLast + " " + labels[i] + " edited<br>" + original[i] + "-->" + edit[i] + "<br>" + dateAndTime("log"));
+            activityLog(originalFull + " " + labels[i] + " edited<br>" + original[i] + "-->" + edit[i] + "<br>" + dateAndTime("log"));
         }
     }
-    refreshStudentPop(); storeAndBackup(); allAlerts();
+    refreshStudentPop(); allAlerts(); storeAndBackup();
     if (_currentFunction == loadNeededEmails || _currentFunction == loadNeededBds) { _currentFunction() };
     if (document.getElementById("rapidEditCheck").checked === true) {
         if (_ci < _sl.length-1) {
             _ci++; refreshStudentPop(); refreshMissionsPop(); populateStudentFields();
         } else if (_ci == _sl.length-1) {
-            pop(["editStudentPop","studentPop"],["mainPop"]);
+            pop(["editStudentPop","studentPop"],["mainPop"]); rapidOff();
         }
     } else {
         resetStudentMenu();
@@ -1613,7 +1620,7 @@ function refreshStudentPop() {
     } else {
         document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
-    if (_sl[_ci].full.length > 17) {
+    if (_sl[_ci].full.length > 15) {
         document.getElementById("studentPopName").style.fontSize = "22px";
     } else {
         document.getElementById("studentPopName").style.fontSize = "25px";
@@ -1673,10 +1680,15 @@ function populateStudentFields(id,func) {
 }
 
 function clearStudentFields() {
-    var ids = ["newFirst","newLast","newGender","newbdMonth","newbdDate","newEmail","initialNote"];
+    var ids = ["newFirst","newLast","newGender","newbdMonth","newbdDate","newEmail","initialNote","newNamePron"];
     for (i = 0; i < ids.length; i++) {
         document.getElementById(ids[i]).value = "";
     }
+}
+
+function rapidOff() {
+    document.getElementById("rapidEntryCheck").checked = false;
+    document.getElementById("rapidEditCheck").checked = false;
 }
 
 function promotion() {
@@ -2903,15 +2915,6 @@ function assignClassDns() {
     console.log(dnsCombined);
 }
 
-function allPhotosTrue() {
-    if (confirm("Confirm batch action") == true) {
-        for (i = 0; i < _sl.length; i++) {
-            _sl[i].photo = true
-        }
-    } 
-    storeAndBackup();
-}
-
 function allEmailsOnFile() {
     if (confirm("Confirm batch action") == true) {
         for (i = 0; i < _sl.length; i++) {
@@ -3079,8 +3082,16 @@ function batchEditSL(propertyName,value) {
             _sl[i][propertyName] = value; count++
         }
     }
-    console.log("The property '" + propertyName + "' has been edited for " + count + " out of " + _sl.length + " students");
+    console.log("The property '" + propertyName + "' has been changed to the " + typeof(value) + " '" + value + "' for " + count + " out of " + _sl.length + " students");
     storeAndBackup();
+}
+
+function allPhotosTrue() {
+    batchEditSL("photo",true)
+}
+
+function allHasBdsFalse() {
+    batchEditSL("hasBd",false)
 }
 
 whatToLoad()

@@ -563,7 +563,7 @@
     <textarea id="initialNote" rows="10" cols="30" placeholder="note" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"></textarea>
   </div>
   <div class="optionButtonContainer">
-    <div class="roundButton1 cancelButton" onclick="pop(['newStudentPop'],['mainPop']); clearStudentFields()">X</div>
+    <div class="roundButton1 cancelButton" onclick="pop(['newStudentPop'],['mainPop']); clearStudentFields(); rapidOff();">X</div>
     <div class="roundButton1 okButton" id="newStudentOkButton" onclick="newStudent()">V</div>
   </div>
 </div>
@@ -609,7 +609,7 @@
       <input class="searchField" id="editNamePron" placeholder="name pronunciation" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"></textarea>
     </div>
     <div class="optionButtonContainer">
-      <div class="roundButton1 cancelButton" onclick="pop(['editStudentPop'],[_array]); clearStudentFields(); resetStudentMenu();">X</div>
+      <div class="roundButton1 cancelButton" onclick="pop(['editStudentPop'],[_array]); clearStudentFields(); resetStudentMenu(); rapidOff()">X</div>
       <div class="roundButton1 deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
       <div class="roundButton1 okButton" id="editStudentOkButton" onclick="editStudent()">V</div>
     </div>
