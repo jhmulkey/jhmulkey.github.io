@@ -162,17 +162,9 @@
   <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> Quick student editing</label><br>
 </div>
 
-<div id="infoAlertPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton" onclick="infoAlert()">f</div>
-  </div>
-    <p id="infoAlertTitle">!</p>
-    <p id="infoAlertMessage"></p>
-</div>
-
 <div id="dataInputAlertPop" class="pop">
   <p id="dataInputAlertMessage"></p>
-  <input id="dataInputTextField" type="text" onkeydown="if(event.keyCode==13)document.getElementById('dataInputAlertOK').click(); if(event.keyCode==27)document.getElementById('dataInputAlertCancel').click()"/>
+  <input id="dataInputTextField" type="text" onkeydown="pressKey(13,'dataInputAlertOK'); pressKey(27,'dataInputAlertCancel')"/>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton" id="dataInputAlertCancel" onclick="dataInputAlert(false,false,false,false,true)">X</div>
     <div class="roundButton1 okButton" id="dataInputAlertOK" onclick="dataInputAlert()">V</div>
@@ -225,6 +217,14 @@
       </tr>
     </table>
   </div>
+</div>
+
+<div id="infoAlertPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="infoAlert()">f</div>
+  </div>
+    <p id="infoAlertTitle">!</p>
+    <p id="infoAlertMessage"></p>
 </div>
 
 <div id="actionAlertPop" class="pop">
@@ -535,7 +535,7 @@
   <div class="genderAndBdContainer">
     <div>
       <p>Gender</p>
-      <input class="textInputField2" id="newGender" type="text" placeholder="M or F"/>
+      <input class="textInputField2" id="newGender" type="text" placeholder="M or F" onkeydown="pressKey(13,'newStudentOkButton')"/>
     </div>
     <div style="width:42px; margin:0px"></div>
     <div>
@@ -545,22 +545,22 @@
           <input class="textInputField4" id="newbdMonth" type="text" placeholder="Month" style="margin-right:10px">
         </div>
         <div>
-          <input class="textInputField4" id="newbdDate" type="text" placeholder="Day" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"/>
+          <input class="textInputField4" id="newbdDate" type="text" placeholder="Day" onkeydown="pressKey(13,'newStudentOkButton')"/>
         </div>
       </div>
     </div>
   </div>
   <div>
     <p>Email Address</p>
-    <input class="searchField" id="newEmail" type="text" placeholder="email address" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"/>
+    <input class="searchField" id="newEmail" type="text" placeholder="email address" onkeydown="pressKey(13,'newStudentOkButton')"/>
   </div>
   <div>
     <p>Name Pronunciation</p>
-    <input class="searchField" id="newNamePron" placeholder="name pronunciation" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"></textarea>
+    <input class="searchField" id="newNamePron" placeholder="name pronunciation" onkeydown="pressKey(13,'newStudentOkButton')"></textarea>
   </div>
   <div>
     <p>Note</p>
-    <textarea id="initialNote" rows="10" cols="30" placeholder="note" onkeydown="if(event.keyCode==13)document.getElementById('newStudentOkButton').click()"></textarea>
+    <textarea id="initialNote" rows="10" cols="30" placeholder="note" onkeydown="pressKey(13,'newStudentOkButton')"></textarea>
   </div>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton" onclick="pop(['newStudentPop'],['mainPop']); clearStudentFields(); rapidOff();">X</div>
@@ -573,18 +573,18 @@
     <div class="genderAndBdContainer">
       <div>
         <p style="margin-top:0px">First Name</p>
-        <input class="textInputField3" id="editFirst" type="text" placeholder="First Name" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
+        <input class="textInputField3" id="editFirst" type="text" placeholder="First Name" onkeydown="pressKey(13,'editStudentOkButton')"/>
       </div>
       <div style="width:24px; margin:0px"></div>
       <div>
         <p style="margin-top:0px">Last Name</p>
-        <input class="textInputField3" id="editLast" type="text" placeholder="Last Name" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
+        <input class="textInputField3" id="editLast" type="text" placeholder="Last Name" onkeydown="pressKey(13,'editStudentOkButton')"/>
       </div>
     </div>
     <div class="genderAndBdContainer">
       <div>
         <p>Gender</p>
-        <input class="textInputField2" id="editGender" type="text" placeholder="M or F" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
+        <input class="textInputField2" id="editGender" type="text" placeholder="M or F" onkeydown="pressKey(13,'editStudentOkButton')"/>
       </div>
       <div style="width:42px; margin:0px"></div>
       <div>
@@ -594,7 +594,7 @@
             <input class="textInputField4" id="editBdMonth" type="text" placeholder="Month" style="margin-right:10px" onkeydown="if(event.key === 'Enter')document.getElementById('editStudentOkButton').click()"/>
           </div>
           <div>
-            <input class="textInputField4" id="editBdDate" type="text" placeholder="Day" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
+            <input class="textInputField4" id="editBdDate" type="text" placeholder="Day" onkeydown="pressKey(13,'editStudentOkButton')"/>
           </div>
         </div>
       </div>
@@ -602,11 +602,11 @@
     <div>
       <p>Email Address</p>
       <input class="searchField" id="editEmail" type="text" placeholder="email address"
-      onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"/>
+      onkeydown="pressKey(13,'editStudentOkButton')"/>
     </div>
     <div>
       <p>Name Pronunciation</p>
-      <input class="searchField" id="editNamePron" placeholder="name pronunciation" onkeydown="if(event.keyCode==13)document.getElementById('editStudentOkButton').click()"></textarea>
+      <input class="searchField" id="editNamePron" placeholder="name pronunciation" onkeydown="pressKey(13,'editStudentOkButton')"></textarea>
     </div>
     <div class="optionButtonContainer">
       <div class="roundButton1 cancelButton" onclick="pop(['editStudentPop'],[_array]); clearStudentFields(); resetStudentMenu(); rapidOff()">X</div>
@@ -632,7 +632,7 @@
 </div>
 
 <div id="addStudentNotePop" class="pop">
-  <textarea id="addStudentNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('addStudentNoteOk').click(); if(event.keyCode==27)document.getElementById('addStudentNoteCancel').click()" placeholder="Add New Note"></textarea>
+  <textarea id="addStudentNote" rows="10" cols="30" onkeydown="pressKey(13,'addStudentNoteOk'); pressKey(27,'addStudentNoteCancel')" placeholder="Add New Note"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton" id="addStudentNoteCancel" onclick="pop(['addStudentNotePop'],['studentNotesPop','studentNotesList'])">X</div>
     <div class="roundButton1 okButton" id="addStudentNoteOk" onclick="addStudentNote()">V</div>
@@ -644,7 +644,7 @@
     <div class="backButton" onclick="pop(['addTeacherNotePop','addTeacherNote'],['teacherNotesPop','teacherNotesList'])">f</div>
     <div class="homeButton" onclick="goHome()">5</div>
   </div>
-  <textarea id="addTeacherNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('addTeacherNoteOk').click(); if(event.keyCode==27)document.getElementById('addTeacherNoteCancel').click()" placeholder="Add New Note"></textarea>
+  <textarea id="addTeacherNote" rows="10" cols="30" onkeydown="pressKey(13,'addTeacherNoteOk'); pressKey(27,'addTeacherNoteCancel')" placeholder="Add New Note"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton" id="addTeacherNoteCancel" onclick="pop(['addTeacherNotePop','addTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
     <div class="roundButton1 okButton" id="addTeacherNoteOk" onclick="addTeacherNote()">V</div>
@@ -652,7 +652,7 @@
 </div>
 
 <div id="editStudentNotePop" class="pop">
-  <textarea id="editStudentNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('editStudentNoteOk').click(); if(event.keyCode==27)document.getElementById('editStudentNoteCancel').click()"></textarea>
+  <textarea id="editStudentNote" rows="10" cols="30" onkeydown="pressKey(13,'editStudentNoteOk'); pressKey(27,'editStudentNoteCancel')"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton" id="editStudentNoteCancel" onclick="pop(['editStudentNotePop','editStudentNote'],['studentNotesPop','studentNotesList'])">X</div>
     <div class="roundButton1 deleteButton" id="deleteNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editStudentNotePop'],deleteNote)">U</div>
@@ -665,7 +665,7 @@
     <div class="backButton" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])">f</div>
     <div class="homeButton" onclick="goHome()">5</div>
   </div>
-  <textarea id="editTeacherNote" rows="10" cols="30" onkeydown="if(event.keyCode==13)document.getElementById('editTeacherNoteOk').click(); if(event.keyCode==27)document.getElementById('editTeacherNoteCancel').click()"></textarea>
+  <textarea id="editTeacherNote" rows="10" cols="30" onkeydown="pressKey(13,'editTeacherNoteOk'); pressKey(27,'editTeacherNoteCancel')"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton" id="editTeacherNoteCancel" onclick="pop(['editTeacherNotePop','editTeacherNote'],['teacherNotesPop','teacherNotesList'])">X</div>
     <div class="roundButton1 deleteButton" id="deleteTeacherNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editTeacherNotePop'],deleteTeacherNote)">U</div>
@@ -725,7 +725,7 @@
       <div id="as6Points" class="roundButton1 numberButton asPts" onclick="asPoints(_asNum,6)">6</div>
   </div>
   <div id="asReasonContainer" >
-    <textarea id="asReasonText" rows="5" cols="25" placeholder="reason for partial credit (required)" onkeydown="if(event.keyCode==13)document.getElementById('asReasonOK').click(); if(event.keyCode==27)document.getElementById('asReasonCancel').click()"></textarea>
+    <textarea id="asReasonText" rows="5" cols="25" placeholder="reason for partial credit (required)" onkeydown="pressKey(13,'asReasonOK'); pressKey(27,'asReasonCancel')"></textarea>
     <div class="optionButtonContainer">
       <div class="roundButton1 cancelButton" id="asReasonCancel" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])">X</div>
       <div class="roundButton1 okButton" id="asReasonOK" onclick="asPoints(_asNum,_asPoints,true)">V</div>

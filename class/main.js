@@ -403,6 +403,7 @@ function completeBd(x) {
 
 function completePhoto(x) {
     _sl[x].photo = true; loadNeededPhotos(); allAlerts(); storeAndBackup();
+    activityLog(_sl[x].full + " photo complete<br>" + dateAndTime("log"));
 }
 
 function teams() {
@@ -1314,10 +1315,12 @@ function editStudentNote() {
 }
 
 function findAllBds() {
-    var todaysDn = assignTodaysDn();
-    setWeeksOff();
+    var todaysDn = assignTodaysDn(); setWeeksOff();
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].bdn >= todaysDn && _sl[i].bdn <= (todaysDn + (6 + (7 * _weeksOff))) && _sl[i].hasBd === false && _sl[i].bdDone === false) {
+        if (_sl[i].hasBd === true && _sl[i].bdDone === false) {
+            _bdList.push(_sl[i].full);
+        }
+        if (_sl[i].bdn >= todaysDn && _sl[i].bdn <= (todaysDn + (6 + (7 * _weeksOff))) && _sl[i].hasBd === false) {
             _sl[i].hasBd = true; _bdList.push(_sl[i].full);
             activityLog(_sl[i].full + " birthday found (" + cdn(_sl[i].bdn) + ")<br>" + dateAndTime("log"));
         }
@@ -1325,11 +1328,12 @@ function findAllBds() {
 }
 
 function findBd() {
-    var todaysDn = assignTodaysDn();
-    setWeeksOff();
+    var todaysDn = assignTodaysDn(); setWeeksOff();
     if (_sl[_ci].bdn >= todaysDn && _sl[_ci].bdn <= (todaysDn + (6 + (7 * _weeksOff))) && _sl[_ci].hasBd === false && _sl[_ci].bdDone === false) {
         _sl[_ci].hasBd = true; _bdList.push(_sl[_ci].full);
         activityLog(_sl[_ci].full + " birthday found (" + cdn(_sl[i].bdn) + ")<br>" + dateAndTime("log"));
+    } else if (_bdList.indexOf(_sl[_ci].full) > -1) {
+        _sl[_ci].hasBd = false; _bdList.splice(_bdList.indexOf(_sl[_ci].full),1);
     }
 }
 
@@ -1441,6 +1445,16 @@ function actionAlert(message,popsArray,func,bypass,parameter) {
     } 
 }
 
+function proofDate(month,date) {
+    var months = [1,2,3,4,5,6,7,8,9,10,11,12];
+    var dates = [31,29,31,30,31,30,31,31,30,31,30,31];
+    if (month != "" && date != "") {
+        if (months.indexOf(month) < 0 || date < 1 || date > dates[month-1] || isNaN(date)) {
+            return false;
+        }
+    }
+}
+
 function newStudent() {
     var NFNArray; var NLNArray;
     if (document.getElementById("newFirst").value.trim().indexOf(" ") > -1) {
@@ -1467,10 +1481,10 @@ function newStudent() {
         infoAlert("First and last name required",["newStudentPop"]); return;
     } else {
         for (i = 0; i < NFNArray.length; i++) {
-            NFNArray[i] = NFNArray[i][0].toUpperCase() + NFNArray[i].substr(1);
+            NFNArray[i] = capitalize(NFNArray[i]);
         }
         for (i = 0; i < NLNArray.length; i++) {
-            NLNArray[i] = NLNArray[i][0].toUpperCase() + NLNArray[i].substr(1);
+            NLNArray[i] = capitalize(NLNArray[i]);
         }
         var first = NFNArray.join("-");
         var last = NLNArray.join("-");
@@ -1482,11 +1496,14 @@ function newStudent() {
     } else {
         infoAlert("Please enter 'M' or 'F' for gender",["newStudentPop"]); return;
     }
-    if (newbdMonth == "" || newbdDate == "" || isNaN(newbdMonth) || isNaN(newbdDate)) {
+    if (newbdMonth == "" && newbdDate == "") {
         var month = 0; var date = 0;
     } else {
         var month = parseInt(newbdMonth);
         var date = parseInt(newbdDate);
+    }
+    if (proofDate(month,date) === false) {
+        infoAlert("Invalid birthday date",["newStudentPop"]); return;
     }
     var newStudent = new Student(first,last,month,date,email,gender,note,pron);
     newStudent.attendance = true;
@@ -1538,18 +1555,28 @@ function editStudent() {
         var ELNArray = [(document.getElementById("editLast").value.trim().toLowerCase())];
     }
     var editGender = document.getElementById("editGender").value;
-    var editBdMonth = parseInt(document.getElementById("editBdMonth").value);
-    var editBdDate = parseInt(document.getElementById("editBdDate").value);
+    var editBdMonth = document.getElementById("editBdMonth").value;
+    var editBdDate = document.getElementById("editBdDate").value;
+    if (editBdMonth == "" && editBdDate == "") {
+        _sl[_ci].bdn = 1000; _sl[_ci].hasBd = false;
+    } else {
+        editBdMonth = parseInt(editBdMonth); editBdDate = parseInt(editBdDate);
+    }
+    if (proofDate(editBdMonth,editBdDate) === false) {
+        infoAlert("Invalid birthday date",["editStudentPop"]); return;
+    } else {
+        _sl[_ci].bdn = assignDn(editBdMonth,editBdDate);
+    }
     _sl[_ci].pron = document.getElementById("editNamePron").value;
     _sl[_ci].email = document.getElementById("editEmail").value.toLowerCase();
     if (EFNArray == false || ELNArray == false) {
         infoAlert("First and last name required",["editStudentPop"]); return;
     } else {
         for (i = 0; i < EFNArray.length; i++) {
-            EFNArray[i] = EFNArray[i][0].toUpperCase() + EFNArray[i].substr(1);
+            EFNArray[i] = capitalize(EFNArray[i]);
         }
         for (i = 0; i < ELNArray.length; i++) {
-            ELNArray[i] = ELNArray[i][0].toUpperCase() + ELNArray[i].substr(1);
+            ELNArray[i] = capitalize(ELNArray[i]);
         }
         _sl[_ci].first = EFNArray.join("-");
         _sl[_ci].last = ELNArray.join("-");
@@ -1561,12 +1588,6 @@ function editStudent() {
         _sl[_ci].gender = "F";
     } else {
         infoAlert("Please enter 'M' or 'F' for gender",["editStudentPop"]); return;
-    }
-    if (isNaN(editBdMonth) || isNaN(editBdDate) ) {
-        _sl[_ci].bdn = 1000;
-        _sl[_ci].hasBd = false;
-    } else {
-        _sl[_ci].bdn = assignDn(editBdMonth,editBdDate);
     }
     if (_sl[_ci].bdn != originalBdn) { findBd() }
     document.getElementById("studentPopName").innerHTML = _sl[_ci].full;
@@ -2844,6 +2865,7 @@ function loadStudentAttStats() {
 }
 
 function cdn(dn,type) {
+    if (dn == 1000) { return "0/0" }
     var months = [8,9,10,11,12,1,2,3,4,5,6,7];
     var cumulative = [0,31,61,92,122,153,184,212,243,273,304,334];
     var cumulativeLeap = [0,31,61,92,122,153,184,213,244,274,305,335];
@@ -3092,6 +3114,10 @@ function allPhotosTrue() {
 
 function allHasBdsFalse() {
     batchEditSL("hasBd",false)
+}
+
+function pressKey(key,id) {
+    if(event.keyCode==key)document.getElementById(id).click()
 }
 
 whatToLoad()
