@@ -160,6 +160,7 @@
   </div>
   <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> Quick new student entry</label><br>
   <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> Quick student editing</label><br>
+  <div class="button" onclick="pop(['advancedOptionsPop'],['setDatePop']); setDatePop()">Set Date</div>
 </div>
 
 <div id="dataInputAlertPop" class="pop">
@@ -811,7 +812,7 @@
     <div class="backButton" onclick="pop(['promoPop'],['missionsPop','studentPop'])">f</div>
     <div class="homeButton" onclick="goHome()">5</div>
   </div>
-  <p id="promoPopLabel">Promotion</p>
+  <p style="font-size:50px"><span class="promoPopStar">3 </span> Promotion <span class="promoPopStar"> 3</span></p>
   <div>
     <div id="promoInsignia"></div>
   </div>
@@ -1487,6 +1488,25 @@
         <td id="studentAttPM33"></td>
       </tr>
     </table>
+  </div>
+</div>
+
+<div id="setDatePop" class="pop">
+  <div>
+    <p>Set Date</p>
+    <p id="currentDate"></p>
+    <div class="flexContainer2">
+      <div>
+        <input class="textInputField5" id="setDateMonth" type="text" placeholder="Month" onkeydown="pressKey(13,'setDateOK')">
+      </div>
+      <div>
+        <input class="textInputField5" id="setDateDate" type="text" placeholder="Day" onkeydown="pressKey(13,'setDateOK')"/>
+      </div>
+    </div>
+  </div>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton" id="setDateCancel" onclick="pop(['setDatePop'],['advancedOptionsPop'])">X</div>
+    <div class="roundButton1 okButton" id="setDateOK" onclick="assignTodaysDn(false,false,true); pop(['setDatePop'],['mainPop'])">V</div>
   </div>
 </div>
 

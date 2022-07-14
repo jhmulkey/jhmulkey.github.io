@@ -57,7 +57,7 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #asReasonContainer, #studentPhotoPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #sortByPop, #gameLogPop, #preloadImagesPop, #dataInputAlertPop, #enterReasonDiv, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #resetDrawingPop, #addTeacherNotePop, #addStudentNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #emailPop, #editStudentNotePop, #editTeacherNotePop, #modifyNotesPop, #studentNotesPop, #bdListPop, #logPop, #missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawingPop, #randomPop, #studentPop {
+#setDatePop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #asReasonContainer, #studentPhotoPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #sortByPop, #gameLogPop, #preloadImagesPop, #dataInputAlertPop, #enterReasonDiv, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #resetDrawingPop, #addTeacherNotePop, #addStudentNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #emailPop, #editStudentNotePop, #editTeacherNotePop, #modifyNotesPop, #studentNotesPop, #bdListPop, #logPop, #missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawingPop, #randomPop, #studentPop {
     display: none;
 }
 
@@ -118,7 +118,7 @@ a:link, a:visited, a:hover, a:active {
     margin-bottom: 13px;
 }
 
-#customListLabel, #promoPopLabel {
+#customListLabel {
     margin: 20px auto 20px auto !important;
     color: #3478F6;
     border-bottom: 2px solid #333;
@@ -409,6 +409,11 @@ a:link, a:visited, a:hover, a:active {
     justify-content: space-around;
 }
 
+.flexContainer2 {
+    display: flex;
+    justify-content: center;
+}
+
 .studentPopButtons {
     border-radius: 10px;
     height: 30px;
@@ -662,12 +667,17 @@ a:link, a:visited, a:hover, a:active {
     width: 85px;
 }
 
-.searchField:focus, .searchField2:focus, .textInputField2:focus, .textInputField3:focus, .textInputField4:focus, #initialNote:focus, #dataInputTextField:focus, #enterReasonTextField:focus, #addStudentNote:focus, #editStudentNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
+.textInputField5 {
+    width: 125px;
+    margin: 0px 0px 0px 0px;
+}
+
+.searchField:focus, .searchField2:focus, .textInputField2:focus, .textInputField3:focus, .textInputField4:focus, .textInputField5:focus, #initialNote:focus, #dataInputTextField:focus, #enterReasonTextField:focus, #addStudentNote:focus, #editStudentNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
     outline: none;
     border: 2px solid dodgerblue;
 }
 
-.searchField, .textInputField2, .textInputField3, .textInputField4 {
+.searchField, .textInputField2, .textInputField3, .textInputField4, .textInputField5 {
     border-radius: 15px;
     border: 1px solid transparent;
     text-align: center;
@@ -928,4 +938,13 @@ a:link, a:visited, a:hover, a:active {
 
 .quickAttendance {
     font-family: Byom-Icons-Trial;
+}
+
+.promoPopStar {
+    font-family: Font-90-Icons;
+    color: darkgoldenrod;
+}
+
+#currentDate {
+    font-size: 20px;
 }
