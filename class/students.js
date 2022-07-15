@@ -4,12 +4,14 @@ var _asPoints;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
 var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3];
 var _leapYear = false; // true if Jan-July falls within a leap year
+var _todaysDn
+var _elapsedWeeks;
+var _isClassDay;
 var _weeksOff = 0;
     function setWeeksOff() {
-        var todaysMonth = dateAndTime("month"); var todaysDate = dateAndTime("date")
-        if ((todaysMonth == 8 && todaysDate == 29) || (todaysMonth == 4 && todaysDate == 10)) {
+        if (_todaysDn ==  29 || _todaysDn == 253) {
             _weeksOff = 1;
-        } else if ((todaysMonth == 11 && todaysDate == 14) || (todaysMonth == 12 && todaysDate == 19)) {
+        } else if ((_todaysDn == 106 || _todaysDn == 141) ) {
             _weeksOff = 2;
         } else {
             _weeksOff = 0;
@@ -20,8 +22,6 @@ var _focus;
 var _currentFunction; var _currentParameter;
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
-var _elapsedWeeks;
-var _isClassDay;
 var _dns = [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 169, 176, 183, 190, 197, 204, 211, 218, 225, 232, 239, 246, 253, 267, 274, 281, 288, 295];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
 var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-6","jn-7","jn-8","jn-9","jn-1-9-review","jn-10","jn-11","jn-12","jn-13","jn-14","jn-15","jn-16","jn-17","jn-18","jn-19","jn-20","jn-21","jn-10-21-review","armor-intro","belt","breastplate","shoes","shield","helmet","sword"];
@@ -109,7 +109,7 @@ function threeWords() {
 
 function loadBackup() {
     _sl = JSON.parse(localStorage.getItem("slBackup"));
-    setElapsedWeeks(); isClassDay(); populateMissions();
+    assignTodaysDn();
 }
 
 function resetStudentMenu() {
@@ -221,42 +221,40 @@ function populateCalendar() {
         }
     }
     document.getElementById("calendarRow"+(_elapsedWeeks-1)).style.border = "2px solid lawngreen";
-    document.getElementById("calendarRow"+(_elapsedWeeks-1)).scrollIntoView();
 }
 
 function isClassDay() {
-    var todaysDn = assignTodaysDn();
-    for (i = 1; i < _dns.length; i++) {
-        if (todaysDn == _dns[i]) {
-            _isClassDay = true; 
-            document.getElementById("nameList").style.borderColor = "#3478F6";
-            break;
-        } else {
-            _isClassDay = false;
-        }
-    }
+    if (_dns.indexOf(_todaysDn) > -1) {
+        _isClassDay = true; 
+        document.getElementById("nameList").style.borderColor = "#3478F6";
+    } else { _isClassDay = false; }
 }
 
 // _dns = (34) [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 169, 176, 183, 190, 197, 204, 211, 218, 225, 232, 239, 246, 253, 267, 274, 281, 288, 295];
 
 function setElapsedWeeks() {
-    //var todaysDn = assignTodaysDn();
-    var todaysDn = 106;
-    for (i = 0; i < _dns.length; i++) {
-        if (todaysDn == _dns[i]) {
+    for (let i = 0; i < _dns.length; i++) {
+        if (_todaysDn == _dns[i]) {
             _elapsedWeeks = i + 1; break;
         }
-        if (todaysDn > _dns[0] && todaysDn < _dns[i]) {
+        if (_todaysDn > _dns[0] && _todaysDn < _dns[i]) {
             _elapsedWeeks = i; break;
         }
-        if (todaysDn < _dns[0] || todaysDn > _dns[_dns.length-1]) {
+        if (_todaysDn < _dns[0] || _todaysDn > _dns[_dns.length-1]) {
             _elapsedWeeks = 34;
         }
     }
 }
 
-function assignTodaysDn() {
-    var todaysMonth = dateAndTime("month"); var todaysDate = dateAndTime("date")
+function assignTodaysDn(month,date,inApp) {
+    if (month || date) {
+        var todaysMonth = month; var todaysDate = date;
+    } else if (inApp) {
+        var todaysMonth = parseInt(document.getElementById("setDateMonth").value)
+        var todaysDate = parseInt(document.getElementById("setDateDate").value)
+    } else {
+        var todaysMonth = dateAndTime("month"); var todaysDate = dateAndTime("date")
+    }
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var dn;
@@ -265,7 +263,9 @@ function assignTodaysDn() {
     } else {
         dn = cumulative[todaysMonth] + todaysDate;
     }
-    return dn;
+    _todaysDn = dn;
+    setWeeksOff(); isClassDay(); setElapsedWeeks(); populateMissions();
+    if (month || date || inApp) { refreshMissionsPop(); loadStudentStats() }
 }
 
 function dateAndTime(x) {
@@ -353,7 +353,8 @@ function refreshStudentPop() {
 
 function refreshMissionsPop() {
     if (_elapsedWeeks > 1) {
-        for (i = 0; i < _elapsedWeeks-2; i++) {
+        for (i = 0; i < _elapsedWeeks-1; i++) {
+            if (i > 31) { break }
             if (_sl[_ci].as[i] == _asMaxPts[i]) {
                 document.getElementById("as"+i+"Pop").style.background = "green";
             } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
@@ -362,7 +363,8 @@ function refreshMissionsPop() {
                 document.getElementById("as"+i+"Pop").style.background = "black";
             }
         }
-        for (i = 0; i < _elapsedWeeks-2; i++) {
+        for (i = 0; i < _elapsedWeeks-1; i++) {
+            if (i > 31) { break }
             if (_sl[_ci].mv[i] == _mvMaxPts[i]) {
                 document.getElementById("mv"+i+"Pop").style.background = "green";
             } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
@@ -556,14 +558,14 @@ function loadStudentStats() {
     var earnedASpts = 0;   
     var totalMVpts = 0;
     var earnedMVpts = 0;
-    if (_elapsedWeeks > 2) {
-        for (i = 0; i < (_elapsedWeeks-2); i++) {
-            if (i > 31) { break; };
+    if (_elapsedWeeks > 1) {
+        for (i = 0; i < (_elapsedWeeks-1); i++) {
+            if (i > 31) { break };
             totalASpts += _asMaxPts[i];
             totalMVpts += _mvMaxPts[i];
         }
-        for (i = 0; i < (_elapsedWeeks-2); i++) {
-            if (i > 31) { break; };
+        for (i = 0; i < (_elapsedWeeks-1); i++) {
+            if (i > 31) { break };
             earnedASpts += _sl[_ci].as[i];
             earnedMVpts += _sl[_ci].mv[i];
         }
@@ -632,8 +634,10 @@ function loadStudentStats() {
 }
 
 function populateMissions() {
+    document.getElementById("asPop").innerHTML = "";
+    document.getElementById("mvPop").innerHTML = "";
     if (_elapsedWeeks > 1) {
-        for (i = _elapsedWeeks-2; i >= 0; i--) {
+        for (let i =_elapsedWeeks-2; i >= 0; i--) {
             if (i > 31) { continue }
             var div1 = document.createElement("div");
             div1.setAttribute("id","as"+i+"Pop");
@@ -647,7 +651,7 @@ function populateMissions() {
             div1.appendChild(textNode1);
             document.getElementById("asPop").appendChild(div1);
         }
-        for (j = _elapsedWeeks-2; j >= 0; j--) {
+        for (let j =_elapsedWeeks-2; j >= 0; j--) {
             if (j > 31) { continue }
             var div2 = document.createElement("div");
             div2.setAttribute("id","mv"+j+"Pop");
