@@ -65,7 +65,7 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#calendarPop, #studentAttStatsPop, #openInsigniaPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPointsPop, #asPointsPop, #studentPop {
+#calendarPop, #studentAttStatsPop, #openInsigniaPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #studentPop {
     display: none;
 }
 
@@ -81,51 +81,12 @@ a:link, a:visited, a:hover, a:active {
     text-align: left;
 }
 
-#nameList, #nameList2 {
+#nameList {
     margin: 20px auto;
-}
-
-#missionCheckBoxDiv, #studentNotesList, #teacherNotesList {
-    height: 600px;
-    overflow-y: auto;
-    text-align: left;
-    background-color: black;
-    border-radius: 25px;
-    border: 2px solid #222;
-    padding: 10px;
-}
-
-#studentNotesList, #teacherNotesList {
-    margin-top: 0px;
-    text-align: left !important;
-
-}
-
-#att2Pop, #att3Pop {
-    border-bottom: 2px solid white;
-    background-color: #222;
-    height: 401px;
-}
-
-#absentPromotion, #absentBday, #absentEmailsNeeded, #absentPhotosNeeded, #absentbdaysNeeded {
-    margin-top: 20px !important;
-    color: darkorange;
-}
-
-#promoListAbsent p, #bdayListAbsent p, #photosNeededListAbsent p, #emailsNeededListAbsent p, #bdaysNeededListAbsent p{
-    color: gray;
 }
 
 .pop {
     padding: 20px;
-}
-
-#dispBday {
-    font-size: 18px;
-}
-
-#advancedOptionsPop, #missionVisibilityPop {
-    text-align: left;
 }
 
 .checkbox {
@@ -144,54 +105,6 @@ a:link, a:visited, a:hover, a:active {
     background-color: black;
     border-radius: 25px;
     font-size: 25px;
-}
-
-.secretButton {
-    height: 50px;
-    width: 50px;
-    margin: 0px;
-    position: absolute;
-}
-
-.secretButton2 {
-    height: 50px;
-    width: 50px;
-    margin: 0px;
-}
-
-.secretButton3 {
-    height: 50px;
-    width: 388px;
-    margin: 0px;
-}
-
-.addButton {
-    font-family: Font-90-Icons;
-    font-weight: bolder;
-    padding-top: 9px;
-    background-color: green;
-}
-
-.button {
-    height: 50px;
-    width: 250px;
-    font-size: 30px;
-    padding-top: 3px;
-    border: 2px solid white;
-    background-color: black;
-    border-radius: 25px;
-    margin: 20px auto;
-}
-
-#search, #search2, #search3, #searchLog {
-    height: 50px;
-    width: 375px;
-    border-radius: 15px;
-    border: 1px solid transparent;
-    font-size: 25px;
-    font-family: Tahoma;
-    text-align: center;
-    margin: 20px auto 20px auto;
 }
 
 .asmvHeader {
@@ -257,14 +170,6 @@ a:link, a:visited, a:hover, a:active {
     margin: 30px auto;
 }
 
-#promoPop p {
-    font-size: 50px;
-}
-
-#backupArrays {
-    font-size: 15px;
-}
-
 .flex {
     display: flex;
     flex-wrap: wrap;
@@ -272,11 +177,6 @@ a:link, a:visited, a:hover, a:active {
 
 #topMenu {
     margin-bottom: 20px;
-}
-
-#attCount, #attArchiveCount {
-    font-size: 50px;
-    margin: 0px;
 }
 
 #popButtons div {
@@ -295,20 +195,12 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 0px
 }
 
-#asPointsPop, #mvPointsPop {
+#asPtsPop, #mvPtsPop {
     padding-top: 0px;
 }
 
 #attendanceButtonContainer {
     margin-bottom: 20px;;
-}
-
-#penContainer {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    flex-direction: row;
-    margin-top: 25px;
 }
 
 #boysListAttP, #girlsListAttP, #boysArchiveListAttP, #girlsArchiveListAttP, #team1ListP, #team2ListP {

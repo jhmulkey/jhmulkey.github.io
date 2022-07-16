@@ -57,7 +57,7 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#setDatePop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #asReasonContainer, #studentPhotoPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #sortByPop, #gameLogPop, #preloadImagesPop, #dataInputAlertPop, #enterReasonDiv, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #resetDrawingPop, #addTeacherNotePop, #addStudentNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #emailPop, #editStudentNotePop, #editTeacherNotePop, #modifyNotesPop, #studentNotesPop, #bdListPop, #logPop, #missionsPop, #mvPointsPop, #asPointsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawingPop, #randomPop, #studentPop {
+#setDatePop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentPhotoPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #sortByPop, #gameLogPop, #preloadImagesPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #resetDrawingPop, #addTeacherNotePop, #addStudentNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #emailPop, #editStudentNotePop, #editTeacherNotePop, #modifyNotesPop, #studentNotesPop, #bdListPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
     display: none;
 }
 
@@ -377,20 +377,8 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 0px
 }
 
-#asPointsPop, #mvPointsPop {
+#asPtsPop, #mvPtsPop {
     padding-top: 0px;
-}
-
-#attendanceButtonContainer {
-    margin-bottom: 20px;;
-}
-
-#penContainer {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    flex-direction: row;
-    margin-top: 25px;
 }
 
 #boysListAttP, #girlsListAttP, #boysArchiveListAttP, #girlsArchiveListAttP, #team1ListP, #team2ListP {
@@ -522,7 +510,7 @@ a:link, a:visited, a:hover, a:active {
     word-wrap: break-word;
 }
 
-#teamPointsContainer {
+#teamPtsContainer {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -554,11 +542,7 @@ a:link, a:visited, a:hover, a:active {
     margin-bottom: 20px;
 }
 
-#enterReasonDiv p {
-    font-size: 15px;
-}
-
-#teamPointsContainer p {
+#teamPtsContainer p {
     margin: 5px auto;
 }
 
@@ -608,7 +592,7 @@ a:link, a:visited, a:hover, a:active {
     margin: 20px auto;
 }
 
-#asReasonText, #enterReasonTextField, #addStudentNote, #editStudentNote, #addTeacherNote, #editTeacherNote {
+#addStudentNote, #editStudentNote, #addTeacherNote, #editTeacherNote {
     width: 375px;
     height: 150px;
     font-size: 20px;
@@ -672,7 +656,7 @@ a:link, a:visited, a:hover, a:active {
     margin: 0px 0px 0px 0px;
 }
 
-.searchField:focus, .searchField2:focus, .textInputField2:focus, .textInputField3:focus, .textInputField4:focus, .textInputField5:focus, #initialNote:focus, #dataInputTextField:focus, #enterReasonTextField:focus, #addStudentNote:focus, #editStudentNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
+.searchField:focus, .searchField2:focus, .textInputField2:focus, .textInputField3:focus, .textInputField4:focus, .textInputField5:focus, #initialNote:focus, #dataInputTextField:focus, #addStudentNote:focus, #editStudentNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
     outline: none;
     border: 2px solid dodgerblue;
 }
@@ -688,7 +672,7 @@ a:link, a:visited, a:hover, a:active {
     margin: 20px auto 10px auto;
 }
 
-#randomFilter {
+#randFilter {
     text-align: left;
 }
 
@@ -796,13 +780,6 @@ a:link, a:visited, a:hover, a:active {
     background-color: #111;
 }
 
-#asReason {
-    font-size: 20px;
-    text-align: left;
-    margin: 20px auto;
-    color: orange;
-}
-
 #rankChartPop p {
     font-size: 15px;
 }
@@ -812,12 +789,12 @@ a:link, a:visited, a:hover, a:active {
     overflow-y: scroll;
 }
 
-#randomNameDiv, #drawingNameDiv {
+#randNameDiv, #drawNameDiv {
     margin-top: 150px;
     height: 330px;
 }
 
-#randomName, #drawingName {
+#randName, #drawName {
     margin: 0px !important;
     font-size: 75px;
     font-weight: bold;    

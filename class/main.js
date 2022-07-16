@@ -1,6 +1,6 @@
 var _sl = []; var _ci;
 var _asNum; var _mvNum;
-var _asPoints;
+var _asPts;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
 var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3];
 var _leapYear = false; // true if Jan-July falls within a leap year
@@ -18,7 +18,7 @@ var _weeksOff = 0;
             _weeksOff = 0;
         }
     }
-var _bdList = []; var _promotionList = [];
+var _bdList = []; var _promoList = [];
 var _noteIndex;
 var _teacherNotes = [];
 var _teacherNoteIndex;
@@ -38,40 +38,39 @@ var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-
 var _asFulls = ["Class Intro","John Intro","John 1","John 2","John 3","John 4","John 5","John 6","John 7","John 8","John 9","John 1-9 Review","John 10","John 11","John 12","John 13","John 14","John 15","John 16","John 17","John 18","John 19","John 20","John 21","John 10-21 Review","Armor Intro","Belt","Breastplate","Shoes","Shield","Helmet","Sword"];
 var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8","phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"];
 var _mvFulls = ["Psalm 139:17-18","John 20:30-31","John 1:1-2","John 1:3","John 1:4-5","John 1:6-8","John 1:9-11","John 1:12-13","John 1:14","John 1:15","John 1:16-17","John 1:18","Phil 2:5-6","Phil 2:7","Phil 2:8","Phil 2:9","Phil 2:10-11","Rom 8:31","Rom 8:32","Rom 8:33","Rom 8:34","Rom 8:35","Rom 8:36","Rom 8:37","Rom 8:38-39","Eph 6:10-11","Eph 6:12","Eph 6:13","Eph 6:14-15","Eph 6:16","Eph 6:17","Eph 6:18"];
-var _mvTextSnippets = ["How precious to", "Now Jesus did", "In the beginning", "All things were", "In him was", "There was a", "The true light,", "But to all", "And the Word", "(John bore witness", "For from his", "No one has", "Have this mind", "but emptied himself,", "And being found", "Therefore God has", "so that at", "What then shall", "He who did", "Who shall bring", "Who is to", "Who shall separate", "As it is", "No, in all", "For I am", "Finally, be strong", "For we do", "Therefore take up", "Stand therefore, having", "In all circumstances", "and take the", "praying at all"]
 var _mvText = [
-    "<span style='color: #3478F6'>Psalm 139:17-18</span><br>How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
-    "<span style='color: #3478F6'>John 20:30-31</span><br>Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
-    "<span style='color: #3478F6'>John 1:1-2</span><br>In the beginning was the Word, and the Word was with God, and the Word was God. He was in the beginning with God.",
-    "<span style='color: #3478F6'>John 1:3</span><br>All things were made through him, and without him was not any thing made that was made.",
-    "<span style='color: #3478F6'>John 1:4-5</span><br>In him was life, and the life was the light of men. The light shines in the darkness, and the darkness has not overcome it.",
-    "<span style='color: #3478F6'>John 1:6-8</span><br>There was a man sent from God, whose name was John. He came as a witness, to bear witness about the light, that all might believe through him. He was not the light, but came to bear witness about the light.",
-    "<span style='color: #3478F6'>John 1:9-11</span><br>The true light, which gives light to everyone, was coming into the world. He was in the world, and the world was made through him, yet the world did not know him. He came to his own, and his own people did not receive him.",
-    "<span style='color: #3478F6'>John 1:12-13</span><br>But to all who did receive him, who believed in his name, he gave the right to become children of God, who were born, not of blood nor of the will of the flesh nor of the will of man, but of God.",
-    "<span style='color: #3478F6'>John 1:14</span><br>And the Word became flesh and dwelt among us, and we have seen his glory, glory as of the only Son from the Father, full of grace and truth.",
-    "<span style='color: #3478F6'>John 1:15</span><br>(John bore witness about him, and cried out, “This was he of whom I said, ‘He who comes after me ranks before me, because he was before me.’”)",
-    "<span style='color: #3478F6'>John 1:16-17</span><br>For from his fullness we have all received, grace upon grace. For the law was given through Moses; grace and truth came through Jesus Christ.",
-    "<span style='color: #3478F6'>John 1:18</span><br>No one has ever seen God; the only God, who is at the Father's side, he has made him known.",
-    "<span style='color: #3478F6'>Philippians 2:5-6</span><br>Have this mind among yourselves, which is yours in Christ Jesus, who, though he was in the form of God, did not count equality with God a thing to be grasped,",
-    "<span style='color: #3478F6'>Philippians 2:7</span><br>but emptied himself, by taking the form of a servant, being born in the likeness of men.",
-    "<span style='color: #3478F6'>Philippians 2:8</span><br>And being found in human form, he humbled himself by becoming obedient to the point of death, even death on a cross.",
-    "<span style='color: #3478F6'>Philippians 2:9</span><br>Therefore God has highly exalted him and bestowed on him the name that is above every name,",
-    "<span style='color: #3478F6'>Philippians 2:10-11</span><br>so that at the name of Jesus every knee should bow, in heaven and on earth and under the earth, and every tongue confess that Jesus Christ is Lord, to the glory of God the Father.",
-    "<span style='color: #3478F6'>Romans 8:31</span><br>What then shall we say to these things? If God is for us, who can be against us?",
-    "<span style='color: #3478F6'>Romans 8:31-32</span><br>He who did not spare his own Son but gave him up for us all, how will he not also with him graciously give us all things?",
-    "<span style='color: #3478F6'>Romans 8:33</span><br>Who shall bring any charge against God's elect? It is God who justifies.",
-    "<span style='color: #3478F6'>Romans 8:34</span><br>Who is to condemn?  Christ Jesus is the one who died—more than that, who was raised—who is at the right hand of God, who indeed is interceding for us.",
-    "<span style='color: #3478F6'>Romans 8:35</span><br>Who shall separate us from the love of Christ? Shall tribulation, or distress, or persecution, or famine, or nakedness, or danger, or sword?",
-    "<span style='color: #3478F6'>Romans 8:36</span><br>As it is written, 'For your sake we are being killed all the day long; we are regarded as sheep to be slaughtered.'",
-    "<span style='color: #3478F6'>Romans 8:37</span><br>No, in all these things we are more than conquerors through him who loved us.",
-    "<span style='color: #3478F6'>Romans 8:38-39</span><br>For I am sure that neither death nor life, nor angels nor rulers, nor things present nor things to come, nor powers, nor height nor depth, nor anything else in all creation, will be able to separate us from the love of God in Christ Jesus our Lord.",
-    "<span style='color: #3478F6'>Ephesians 6:10-11</span><br>Finally, be strong in the Lord and in the strength of his might. Put on the whole armor of God, that you may be able to stand against the schemes of the devil.",
-    "<span style='color: #3478F6'>Ephesians 6:12</span><br>For we do not wrestle against flesh and blood, but against the rulers, against the authorities, against the cosmic powers over this present darkness, against the spiritual forces of evil in the heavenly places.",
-    "<span style='color: #3478F6'>Ephesians 6:13</span><br>Therefore take up the whole armor of God, that you may be able to withstand in the evil day, and having done all, to stand firm.",
-    "<span style='color: #3478F6'>Ephesians 6:14-15</span><br>Stand therefore, having fastened on the belt of truth, and having put on the breastplate of righteousness, and, as shoes for your feet, having put on the readiness given by the gospel of peace.",
-    "<span style='color: #3478F6'>Ephesians 6:16</span><br>In all circumstances take up the shield of faith, with which you can extinguish all the flaming darts of the evil one;",
-    "<span style='color: #3478F6'>Ephesians 6:17</span><br>and take the helmet of salvation, and the sword of the Spirit, which is the word of God,",
-    "<span style='color: #3478F6'>Ephesians 6:18</span><br>praying at all times in the Spirit, with all prayer and supplication. To that end, keep alert with all perseverance, making supplication for all the saints," 
+    "How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
+    "Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
+    "In the beginning was the Word, and the Word was with God, and the Word was God. He was in the beginning with God.",
+    "All things were made through him, and without him was not any thing made that was made.",
+    "In him was life, and the life was the light of men. The light shines in the darkness, and the darkness has not overcome it.",
+    "There was a man sent from God, whose name was John. He came as a witness, to bear witness about the light, that all might believe through him. He was not the light, but came to bear witness about the light.",
+    "The true light, which gives light to everyone, was coming into the world. He was in the world, and the world was made through him, yet the world did not know him. He came to his own, and his own people did not receive him.",
+    "But to all who did receive him, who believed in his name, he gave the right to become children of God, who were born, not of blood nor of the will of the flesh nor of the will of man, but of God.",
+    "And the Word became flesh and dwelt among us, and we have seen his glory, glory as of the only Son from the Father, full of grace and truth.",
+    "(John bore witness about him, and cried out, “This was he of whom I said, 'He who comes after me ranks before me, because he was before me.’”)",
+    "For from his fullness we have all received, grace upon grace. For the law was given through Moses; grace and truth came through Jesus Christ.",
+    "No one has ever seen God; the only God, who is at the Father's side, he has made him known.",
+    "Have this mind among yourselves, which is yours in Christ Jesus, who, though he was in the form of God, did not count equality with God a thing to be grasped,",
+    "but emptied himself, by taking the form of a servant, being born in the likeness of men.",
+    "And being found in human form, he humbled himself by becoming obedient to the point of death, even death on a cross.",
+    "Therefore God has highly exalted him and bestowed on him the name that is above every name,",
+    "so that at the name of Jesus every knee should bow, in heaven and on earth and under the earth, and every tongue confess that Jesus Christ is Lord, to the glory of God the Father.",
+    "What then shall we say to these things? If God is for us, who can be against us?",
+    "He who did not spare his own Son but gave him up for us all, how will he not also with him graciously give us all things?",
+    "Who shall bring any charge against God's elect? It is God who justifies.",
+    "Who is to condemn?  Christ Jesus is the one who died—more than that, who was raised—who is at the right hand of God, who indeed is interceding for us.",
+    "Who shall separate us from the love of Christ? Shall tribulation, or distress, or persecution, or famine, or nakedness, or danger, or sword?",
+    "As it is written, 'For your sake we are being killed all the day long; we are regarded as sheep to be slaughtered.'",
+    "No, in all these things we are more than conquerors through him who loved us.",
+    "For I am sure that neither death nor life, nor angels nor rulers, nor things present nor things to come, nor powers, nor height nor depth, nor anything else in all creation, will be able to separate us from the love of God in Christ Jesus our Lord.",
+    "Finally, be strong in the Lord and in the strength of his might. Put on the whole armor of God, that you may be able to stand against the schemes of the devil.",
+    "For we do not wrestle against flesh and blood, but against the rulers, against the authorities, against the cosmic powers over this present darkness, against the spiritual forces of evil in the heavenly places.",
+    "Therefore take up the whole armor of God, that you may be able to withstand in the evil day, and having done all, to stand firm.",
+    "Stand therefore, having fastened on the belt of truth, and having put on the breastplate of righteousness, and, as shoes for your feet, having put on the readiness given by the gospel of peace.",
+    "In all circumstances take up the shield of faith, with which you can extinguish all the flaming darts of the evil one;",
+    "and take the helmet of salvation, and the sword of the Spirit, which is the word of God,",
+    "praying at all times in the Spirit, with all prayer and supplication. To that end, keep alert with all perseverance, making supplication for all the saints," 
 ];
 
 /* INDEX + RANK / POINTS / RANK FACTOR
@@ -111,22 +110,20 @@ class Student {
         this.email = email;
         this.photo = false;
         this.notes = note;
-        this.points = 0;
+        this.pts = 0;
         this.classRank = 0;
         this.rank = 0;
         this.rankFactor = 0;
         this.rankName = "PVT"
-        this.attendance = false;
+        this.att = false;
         this.amAtt = [];
         this.pmAtt = [];
-        this.promoted = false;
-        this.promotionNum = 0;
-        this.drawing = false;
-        this.random = false;
-        this.asReasons = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
+        this.promo = false;
+        this.promoNum = 0;
+        this.draw = false;
+        this.rand = false;
         this.asDates = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         this.mvDates = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-        this.promoTally = [];
         this.as = {
             0: 0, //class-intro
             1: 0, //john-intro
@@ -217,35 +214,35 @@ class Teams {
 function allAlerts() {
     var alert = false;
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true && _sl[i].promoted === true) {
-            alert = true; document.getElementById("promotionButton").style.backgroundColor = "red"; break;
+        if (_sl[i].att === true && _sl[i].promo === true) {
+            alert = true; document.getElementById("promoButton").style.backgroundColor = "red"; break;
         } else {
-            document.getElementById("promotionButton").style.backgroundColor = "black";
+            document.getElementById("promoButton").style.backgroundColor = "black";
         }
     }
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true && _sl[i].hasBd === true && _sl[i].bdDone === false) {
+        if (_sl[i].att === true && _sl[i].hasBd === true && _sl[i].bdDone === false) {
             alert = true; document.getElementById("bdButton").style.backgroundColor = "red"; break;
         } else {
             document.getElementById("bdButton").style.backgroundColor = "black";
         }
     }
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true && _sl[i].photo === false) {
+        if (_sl[i].att === true && _sl[i].photo === false) {
             alert = true; document.getElementById("photosNeededButton").style.backgroundColor = "red"; break;
         } else {
             document.getElementById("photosNeededButton").style.backgroundColor = "black";
         }
     }
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true && _sl[i].email == false) {
+        if (_sl[i].att === true && _sl[i].email == false) {
             alert = true; document.getElementById("emailsNeededButton").style.backgroundColor = "red"; break;
         } else {
             document.getElementById("emailsNeededButton").style.backgroundColor = "black";
         }
     }
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true && _sl[i].bdn == 1000) {
+        if (_sl[i].att === true && _sl[i].bdn == 1000) {
             alert = true; document.getElementById("bdNeededButton").style.backgroundColor = "red"; break;
         } else {
             document.getElementById("bdNeededButton").style.backgroundColor = "black";
@@ -264,7 +261,7 @@ function populateCustomList(log1,log2,type) {
         elementNode1.classList.add("name");
         var textNode1 = document.createTextNode(log1);
         elementNode1.appendChild(textNode1);
-        if (type == "promotion") {
+        if (type == "promo") {
             var message;
             if (_sl[i].pron != "") {
                 message = "Complete promotion for <br>" + _sl[i].full + " (" + _sl[i].rankName + ")?" + "<br> (" + _sl[i].pron + ")"
@@ -273,7 +270,7 @@ function populateCustomList(log1,log2,type) {
             }
             (function(i){
                 elementNode1.onclick = function () {
-                    actionAlert(message,["customListPop"],completePromotion,false,i);
+                    actionAlert(message,["customListPop"],completePromo,false,i);
                 }
             })(i);
         } else if (type == "bdDone") {
@@ -316,22 +313,22 @@ function populateCustomList(log1,log2,type) {
     }
 }
 
-function loadPromotions() {
+function loadPromos() {
     document.getElementById("customList").innerHTML = "";
     document.getElementById("customListAbsent").innerHTML = "";
     document.getElementById("customListLabel").innerHTML = "Promotions";
-    for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].promoted === true && _sl[i].attendance === true) {
-            if (_sl[i].promotionNum < 2) {
-                populateCustomList(_sl[i].rankName + " " + _sl[i].full,false,"promotion");
-            } else if (_sl[i].promotionNum > 1) {
-                populateCustomList(_sl[i].rankName + " " + "(" + _sl[i].promotionNum + ") " + _sl[i].full,false,"promotion");
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].promo === true && _sl[i].att === true) {
+            if (_sl[i].promoNum < 2) {
+                populateCustomList(_sl[i].rankName + " " + _sl[i].full,false,"promo");
+            } else if (_sl[i].promoNum > 1) {
+                populateCustomList(_sl[i].rankName + " " + "(" + _sl[i].promoNum + ") " + _sl[i].full,false,"promo");
             }
-        } else if (_sl[i].promoted === true && _sl[i].attendance === false) {
-            if (_sl[i].promotionNum < 2) {
+        } else if (_sl[i].promo === true && _sl[i].att === false) {
+            if (_sl[i].promoNum < 2) {
                 populateCustomList(false,_sl[i].rankName + " " + _sl[i].full,"");
-            } else if (_sl[i].promotionNum > 1) {
-                populateCustomList(false,_sl[i].rankName + " " + "(" + _sl[i].promotionNum + ") " + _sl[i].full);
+            } else if (_sl[i].promoNum > 1) {
+                populateCustomList(false,_sl[i].rankName + " " + "(" + _sl[i].promoNum + ") " + _sl[i].full);
             }
         }
     }
@@ -341,10 +338,10 @@ function loadBds() {
     document.getElementById("customList").innerHTML = "";
     document.getElementById("customListAbsent").innerHTML = "";
     document.getElementById("customListLabel").innerHTML = "Birthdays";
-    for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].hasBd === true && _sl[i].bdDone === false && _sl[i].attendance === true) {
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].hasBd === true && _sl[i].bdDone === false && _sl[i].att === true) {
             populateCustomList(_sl[i].full + " (" + cdn(_sl[i].bdn) + ")",false,"bdDone");
-        } else if (_sl[i].hasBd === true && _sl[i].bdDone === false && _sl[i].attendance === false) {
+        } else if (_sl[i].hasBd === true && _sl[i].bdDone === false && _sl[i].att === false) {
             populateCustomList(false,_sl[i].full+" (" + cdn(_sl[i].bdn) + ")");
         }
     }
@@ -354,10 +351,10 @@ function loadNeededPhotos() {
     document.getElementById("customList").innerHTML = "";
     document.getElementById("customListAbsent").innerHTML = "";
     document.getElementById("customListLabel").innerHTML = "Missing Photos";
-    for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].photo === false && _sl[i].attendance === true) {
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].photo === false && _sl[i].att === true) {
             populateCustomList(_sl[i].full,false,"photo");
-        } else if (_sl[i].photo === false && _sl[i].attendance === false) {
+        } else if (_sl[i].photo === false && _sl[i].att === false) {
             populateCustomList(false,_sl[i].full);
         }
     }
@@ -367,10 +364,10 @@ function loadNeededEmails() {
     document.getElementById("customList").innerHTML = "";
     document.getElementById("customListAbsent").innerHTML = "";
     document.getElementById("customListLabel").innerHTML = "Missing Emails";
-    for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].email == "" && _sl[i].attendance === true) {
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].email == "" && _sl[i].att === true) {
             populateCustomList(_sl[i].full,false,"email");
-        } else if (_sl[i].email == "" && _sl[i].attendance === false) {
+        } else if (_sl[i].email == "" && _sl[i].att === false) {
             populateCustomList(false,_sl[i].full);
         }
     }
@@ -380,20 +377,20 @@ function loadNeededBds() {
     document.getElementById("customList").innerHTML = "";
     document.getElementById("customListAbsent").innerHTML = "";
     document.getElementById("customListLabel").innerHTML = "Missing Birthdays";
-    for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].bdn == 1000 && _sl[i].attendance === true) {
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].bdn == 1000 && _sl[i].att === true) {
             populateCustomList(_sl[i].full,false,"bdNeeded");
-        } else if (_sl[i].bdn == 1000 && _sl[i].attendance === false) {
+        } else if (_sl[i].bdn == 1000 && _sl[i].att === false) {
             populateCustomList(false,_sl[i].full);
         }
     }
 }
 
-function completePromotion(x) {
-    _sl[x].promoted = false;
-    _sl[x].promotionNum = 0;
+function completepromo(x) {
+    _sl[x].promo = false;
+    _sl[x].promoNum = 0;
     activityLog(_sl[x].full + " promotion complete<br>" + dateAndTime("log"));
-    loadPromotions(); allAlerts(); storeAndBackup();
+    loadPromos(); allAlerts(); storeAndBackup();
 }
 
 function completeBd(x) {
@@ -410,7 +407,7 @@ function completePhoto(x) {
 function teams() {
     var attCount = 0;
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true) {
+        if (_sl[i].att === true) {
             attCount++
         }
     }
@@ -433,7 +430,7 @@ function createTeams() {
     document.getElementById("team2Score").innerHTMl = 0
     var attendees = [];
     for (let i = 0; i <_sl.length; i++) {
-        if (_sl[i].attendance === true) {
+        if (_sl[i].att === true) {
             attendees.push(_sl[i].full)
         }
     }
@@ -495,10 +492,10 @@ function loadGame() {
     pop(["teamsListPop"],["playGamePop"]);
 }
 
-function gameScorePoints(x) {
+function gameScorePts(x) {
     _teams[0].undoGamePts = x; _teams[0].undoLimit = false; var log;
     if (_teams[0].currentTeam == 1) {
-        log = _teams[0].team1[0] + " +" + x + " pts team 1" + "<br>" +  "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score + x) + ")";
+        log = _teams[0].team1[0] + " +" + x + " points team 1" + "<br>" +  "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score + x) + ")";
         _teams[0].team1Score += x;
         document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
         _teams[0].currentTeam ++;
@@ -517,7 +514,7 @@ function gameScorePoints(x) {
         gameActivityLog(log);
         storeNewData();
     } else {
-        log = _teams[0].team2[0] + " +" + x + " pts team 2" + "<br>" +  "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score + x) + ")";
+        log = _teams[0].team2[0] + " +" + x + " points team 2" + "<br>" +  "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score + x) + ")";
         _teams[0].team2Score += x;
         document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
         _teams[0].currentTeam --;
@@ -545,7 +542,7 @@ function gameScorePoints(x) {
     }
 }
 
-function undoGameScorePoints() {
+function undoGameScorePts() {
     var log;
     if (_teams[0].undoLimit === true) {
         infoAlert("Cannot undo more than one score in a row",["playGamePop"]); return;
@@ -553,7 +550,7 @@ function undoGameScorePoints() {
         _teams[0].undoLimit = true;
     }
     if (_teams[0].currentTeam == 1) {
-        log = "UNDO " + _teams[0].undoCurrentPlayer + " -" + _teams[0].undoGamePts + " pts team 2 " + "<br>" + "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score - _teams[0].undoGamePts) + ")";
+        log = "UNDO " + _teams[0].undoCurrentPlayer + " -" + _teams[0].undoGamePts + " points team 2 " + "<br>" + "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score - _teams[0].undoGamePts) + ")";
         _teams[0].currentTeam = 2;
         _teams[0].team2Score -= _teams[0].undoGamePts;
         document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
@@ -563,7 +560,7 @@ function undoGameScorePoints() {
         document.getElementById("team1Score").style.backgroundColor = "#eee";
         gameActivityLog(log);
     } else if (_teams[0].currentTeam == 2) {
-        log = "UNDO " + _teams[0].undoCurrentPlayer + " -" + _teams[0].undoGamePts + " pts team 1 " + "<br>" + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
+        log = "UNDO " + _teams[0].undoCurrentPlayer + " -" + _teams[0].undoGamePts + " points team 1 " + "<br>" + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
         _teams[0].currentTeam = 1;
         _teams[0].team1Score -= _teams[0].undoGamePts;
         document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
@@ -700,11 +697,11 @@ function loadBackup() {
     _amAtt = JSON.parse(localStorage.getItem("amAttBackup"));
     _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
-    _promotionList = []; _bdList = [];
+    _promoList = []; _bdList = [];
     activityLog("backup loaded" + "<br>" + dateAndTime("log"));
     for (let i = 0; i < _sl.length; i++) {
-        _sl[i].attendance = false;
-        _sl[i].random = false;
+        _sl[i].att = false;
+        _sl[i].rand = false;
     }
     if (_isClassDay === true && _amAtt.length < _elapsedWeeks) {
         for (let i = 0; i < _sl.length; i++) {
@@ -720,7 +717,7 @@ function loadLS() {
     _sl = JSON.parse(localStorage.getItem("sl"));
     _amAtt = JSON.parse(localStorage.getItem("amAtt"));
     _pmAtt = JSON.parse(localStorage.getItem("pmAtt"));
-    _promotionList = JSON.parse(localStorage.getItem("promotionList"));
+    _promoList = JSON.parse(localStorage.getItem("promoList"));
     _log = localStorage.getItem("log");
     _gameLog = localStorage.getItem("gameLog");
     document.getElementById("log").innerHTML = _log;
@@ -763,15 +760,8 @@ function setDatePop() {
     document.getElementById("setDateMonth").focus();
 }
 
-function assignTodaysDn(month,date,inApp) {
-    if (month && date) {
-        var todaysMonth = month; var todaysDate = date;
-    } else if (inApp) {
-        var todaysMonth = parseInt(document.getElementById("setDateMonth").value)
-        var todaysDate = parseInt(document.getElementById("setDateDate").value)
-    } else {
-        var todaysMonth = dateAndTime("month"); var todaysDate = dateAndTime("date")
-    }
+function assignTodaysDn() {
+    var todaysMonth = dateAndTime("month"); var todaysDate = dateAndTime("date")
     var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
     var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
     var dn;
@@ -781,7 +771,7 @@ function assignTodaysDn(month,date,inApp) {
         dn = cumulative[todaysMonth] + todaysDate;
     }
     _todaysDn = dn;
-    setWeeksOff(); isClassDay(); setElapsedWeeks(); findAllBds(); populateMissions();
+    setWeeksOff(); isClassDay(); setElapsedWeeks(); findAllBds(); populateMissions(); 
 }
 
 function dateAndTime(x) {
@@ -794,14 +784,14 @@ function dateAndTime(x) {
 }
 
 function assignClassRanks() {
-    var points = [];
+    var pts = [];
     for (let i = 0; i < _sl.length; i++) {
-        points.push(_sl[i].points);
+        pts.push(_sl[i].pts);
     }
-    var pointsSorted = points.slice().sort(function(a,b){return b - a});
-    var pointsRanked = points.map(function(v){return pointsSorted.indexOf(v)+1});
+    var ptsSorted = pts.slice().sort(function(a,b){return b - a});
+    var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1});
     for (let i = 0; i < _sl.length; i++) {
-        _sl[i].classRank = pointsRanked[i];
+        _sl[i].classRank = ptsRanked[i];
     }
 }
 
@@ -823,14 +813,14 @@ function setRankName() {
 
 function setRandomFalse() {
     for (let i = 0; i < _sl.length; i++) {
-        _sl[i].random = false;
+        _sl[i].rand = false;
     }
 }
 
 function attCount() {
     var attCount = 0
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true) {
+        if (_sl[i].att === true) {
             attCount++;
         }
     }
@@ -841,7 +831,7 @@ function attCount() {
 function ampmAttendance() {
     var attCount = 0;
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true) {
+        if (_sl[i].att === true) {
             attCount++
         }
     }
@@ -862,9 +852,9 @@ function loadAttendees() {
     var boys = [];
     var girls = [];
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].gender == "M" && _sl[i].attendance === true) {
+        if (_sl[i].gender == "M" && _sl[i].att === true) {
             boys.push(_sl[i].full);
-        } else if (_sl[i].gender == "F" && _sl[i].attendance === true) {
+        } else if (_sl[i].gender == "F" && _sl[i].att === true) {
             girls.push(_sl[i].full);
         }
     }
@@ -873,7 +863,7 @@ function loadAttendees() {
         elementNode1.classList.add("name2");
         var textNode1 = document.createTextNode(boys[i]);
         elementNode1.appendChild(textNode1);
-        if (_promotionList.indexOf(boys[i]) !== -1) {
+        if (_promoList.indexOf(boys[i]) !== -1) {
             elementNode1.style.color = "yellow";
         }
         if (_bdList.indexOf(boys[i]) !== -1) {
@@ -886,7 +876,7 @@ function loadAttendees() {
         elementNode2.classList.add("name2");
         var textNode2 = document.createTextNode(girls[i]);
         elementNode2.appendChild(textNode2);
-        if (_promotionList.indexOf(girls[i]) !== -1) {
+        if (_promoList.indexOf(girls[i]) !== -1) {
             elementNode2.style.color = "yellow";
         }
         if (_bdList.indexOf(girls[i]) !== -1) {
@@ -947,12 +937,12 @@ function loadArchiveAttendees(index,time) {
 function resetAtt() {
     for (let i = 0; i < _sl.length; i++) {
         if (_isClassDay === false) {
-            _sl[i].attendance = false;
+            _sl[i].att = false;
         } else {
-            if (_sl[i].attendance === true && _sl[i].amAtt[_elapsedWeeks-1] == 1) {
-                _sl[i].amAtt[_elapsedWeeks-1] = 0; _sl[i].attendance = false;
-            } else if (_sl[i].attendance === true && _sl[i].pmAtt[_elapsedWeeks-1] == 1) {
-                _sl[i].pmAtt[_elapsedWeeks-1] = 0;  _sl[i].attendance = false;
+            if (_sl[i].att === true && _sl[i].amAtt[_elapsedWeeks-1] == 1) {
+                _sl[i].amAtt[_elapsedWeeks-1] = 0; _sl[i].att = false;
+            } else if (_sl[i].att === true && _sl[i].pmAtt[_elapsedWeeks-1] == 1) {
+                _sl[i].pmAtt[_elapsedWeeks-1] = 0;  _sl[i].att = false;
             }
         }
     }
@@ -965,22 +955,22 @@ function resetAtt() {
 }
 
 function att2(i) {
-    if (_sl[i].attendance === false) {
-        _sl[i].attendance = true;
+    if (_sl[i].att === false) {
+        _sl[i].att = true;
         if (_isClassDay === true && dateAndTime("hour") < 16) {
             _sl[i].amAtt[_elapsedWeeks-1] = 1;
         } else if (_isClassDay === true && dateAndTime("hour") >= 16) {
             _sl[i].pmAtt[_elapsedWeeks-1] = 1;
         }
     } else {
-        _sl[i].attendance = false;
+        _sl[i].att = false;
         if (_isClassDay === true && dateAndTime("hour") < 16) {
             _sl[i].amAtt[_elapsedWeeks-1] = 0;
         } else if (_isClassDay === true && dateAndTime("hour") >= 16) {
             _sl[i].pmAtt[_elapsedWeeks-1] = 0;
         }
     }
-    if (_sl[i].attendance === true) {
+    if (_sl[i].att === true) {
         var log = "added attendee " + _sl[i].first + " " + _sl[i].last + "<br>" + dateAndTime("log");
     } else {
         var log = "removed attendee " + _sl[i].first + " " + _sl[i].last + "<br>" + dateAndTime("log");
@@ -991,31 +981,31 @@ function att2(i) {
     storeNewData();
 }
 
-function randomAtt(blank,x) {
+function randAtt(blank,x) {
     if (x > _sl.length) {
         x = _sl.length;
     }
     for (let i = 0; i < _sl.length; i++) {
-        _sl[i].attendance = false;
+        _sl[i].att = false;
     }
     for (let i = 0; i < x; i++) {
         let x = Math.floor(Math.random() * _sl.length);
-        if (_sl[x].attendance === false) {
-            _sl[x].attendance = true;
+        if (_sl[x].att === false) {
+            _sl[x].att = true;
         } else {
             i--
         }
     }
     if (_isClassDay === true && dateAndTime("hour") < 16) {
         for (let i = 0; i < _sl.length; i++) {
-            if (_sl[i].attendance === true) {
+            if (_sl[i].att === true) {
                 _amAtt[_elapsedWeeks-1] += 1;
                 _sl[i].amAtt[_elapsedWeeks-1] = 1;
             }
         } 
     } else if (_isClassDay === true && dateAndTime("hour") >= 16) {
         for (let i = 0; i < _sl.length; i++) {
-            if (_sl[i].attendance === true) {
+            if (_sl[i].att === true) {
                 _pmAtt[_elapsedWeeks-1] += 1;
                 _sl[i].pmAtt[_elapsedWeeks-1] = 1;
             }
@@ -1029,7 +1019,7 @@ function randomAtt(blank,x) {
 
 function allAtt() {
     for (let i = 0; i < _sl.length; i++) {
-        _sl[i].attendance = true;
+        _sl[i].att = true;
     }
     if (_isClassDay === true && dateAndTime("hour") < 16) {
         for (let i = 0; i < _sl.length; i++) {
@@ -1047,11 +1037,11 @@ function allAtt() {
     storeNewData();
 }
 
-function sortByPoints() {
+function sortByPts() {
     assignClassRanks();
     document.getElementById("nameListCustom").style.display = "block";
     document.getElementById("genderListContainer").style.display = "none";
-    _sl.sort(function(b,a){return a.points - b.points});
+    _sl.sort(function(b,a){return a.pts - b.pts});
     document.getElementById("nameListCustom").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
         var lastElementNode;
@@ -1061,7 +1051,7 @@ function sortByPoints() {
             elementNode.style.borderTop = "1px solid #555";
             elementNode.style.paddingTop = "5px";
         }
-        var textNode = document.createTextNode(_sl[i].classRank + ". " + _sl[i].full + " (" + _sl[i].points + "|" + _sl[i].rankName+ ")");
+        var textNode = document.createTextNode(_sl[i].classRank + ". " + _sl[i].full + " (" + _sl[i].pts + "|" + _sl[i].rankName+ ")");
         elementNode.appendChild(textNode);
         document.getElementById("nameListCustom").appendChild(elementNode);
         lastElementNode = _sl[i].rank;
@@ -1492,7 +1482,7 @@ function newStudent() {
         infoAlert("Invalid birthday date",["newStudentPop"]); return;
     }
     var newStudent = new Student(first,last,month,date,email,gender,note,pron);
-    newStudent.attendance = true;
+    newStudent.att = true;
     for (let i = 0; i < _elapsedWeeks; i++) {
         newStudent.amAtt.push(0);
         newStudent.pmAtt.push(0);
@@ -1604,20 +1594,20 @@ function refreshStudentPop() {
     document.getElementById("studentPopInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
     document.getElementById("studentPopRankName").innerHTML = _rankNames[_sl[_ci].rank];
     document.getElementById("studentPopName").innerHTML = _sl[_ci].full;
-    var pointsNeeded;
-    if (_sl[_ci].points == 220) {
-        pointsNeeded = 0
+    var ptsNeeded;
+    if (_sl[_ci].pts == 220) {
+        ptsNeeded = 0
     } else {
-        pointsNeeded = _rankPts[_sl[_ci].rank+1] - _sl[_ci].points;
+        ptsNeeded = _rankPts[_sl[_ci].rank+1] - _sl[_ci].pts;
     }
-    document.getElementById("studentPopPts").innerHTML = _sl[_ci].points + " | <span style='color: #999'>" + pointsNeeded +"</span>";
+    document.getElementById("studentPopPts").innerHTML = _sl[_ci].pts + " | <span style='color: #999'>" + ptsNeeded +"</span>";
     if (_rankNames[_sl[_ci].rank].length > 20) {
         document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
         document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
     document.getElementById("studentPopClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
-    if (_sl[_ci].attendance === true) {
+    if (_sl[_ci].att === true) {
         document.getElementById("studentPopName").style.color = "lawngreen";
     } else {
         document.getElementById("studentPopName").style.color = "white";
@@ -1698,10 +1688,9 @@ function rapidOff() {
     document.getElementById("rapidEditCheck").checked = false;
 }
 
-function promotion() {
-    _sl[_ci].rank++;
-    _sl[_ci].promoted = true;
-    _sl[_ci].promotionNum++; _promotionList.push(_sl[_ci].full);
+function promo() {
+    _sl[_ci].rank++; _sl[_ci].promo = true; _sl[_ci].promoNum++; _promoList.push(_sl[_ci].full);
+    _sl[_ci].promoTally[_elapsedWeeks-1]++;
     setRankFactor();
     setRankName();
     document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
@@ -1715,12 +1704,12 @@ function promotion() {
     },10);
 }
 
-function demotion() {
+function demo() {
     _sl[_ci].rank--;
-    if (_sl[_ci].promotionNum == 1) {
-        _sl[_ci].promoted = false;
+    if (_sl[_ci].promoNum == 1) {
+        _sl[_ci].promo = false;
     }
-    _sl[_ci].promotionNum--;
+    _sl[_ci].promoNum--; _sl[_ci].promoTally[_elapsedWeeks-1]--;
     setRankFactor();
     setRankName();
     var log = _sl[_ci].full + " demoted to " + _sl[_ci].rankName + "<br>" + dateAndTime("log");
@@ -1729,176 +1718,144 @@ function demotion() {
     storeAndBackup();
 }
 
-function asPoints(_asNum,x,secondCall) {
+function asPts(_asNum,x) {
     if (_sl[_ci].asDates[_asNum] == 0) { _sl[_ci].asDates[_asNum] = _todaysDn };
-    if (x < _asMaxPts[_asNum] && x != _sl[_ci].as[_asNum] && !secondCall) {
-        _asPoints = x;
-        var buttons = ["as1Points","as2Points","as3Points","as4Points","as5Points","as6Points"];
-        for (let i = 0; i < buttons.length; i++) {
-            if (i == (x-1)) {
-                document.getElementById(buttons[i]).style.backgroundColor = "#3478F6";
-            } else {
-                document.getElementById(buttons[i]).style.backgroundColor = "black";
-            }
-        }
-        document.getElementById("as"+x+"Points").style.backgroundColor = "#3478F6";
-        document.getElementById("asReasonContainer").style.display = "block";
-        document.getElementById("asReasonText").value = "";
-        document.getElementById("asReasonText").focus();
-        return;
-    } else {
-        if (x < _asMaxPts[_asNum] && x != _sl[_ci].as[_asNum] && document.getElementById("asReasonText").value == "") {
-            infoAlert("Reason for partial credit required",["asPointsPop","studentPop","asReasonContainer"],"asReasonText"); return;
-        }
-        if (document.getElementById("asReasonContainer").style.display = "block") {
-            document.getElementById("asReasonContainer").style.display = "none"
-            _sl[_ci].asReasons[_asNum] = document.getElementById("asReasonText").value;
-            if (x < _asMaxPts[_asNum]) {
-                document.getElementById("asReason").innerHTML = "Reason for partial credit:<br><span style='color:white'>" + _sl[_ci].asReasons[_asNum] + "</span>";
-            } else {
-                document.getElementById("asReason").innerHTML = "";
-            }
-            document.getElementById("asReasonText").value = "";
-        }
-        var rankNum = _sl[_ci].rank;
-        var rankFactor = _sl[_ci].rankFactor;
-        var totalPts = _sl[_ci].points;
-        var asPts = _sl[_ci].as[_asNum];
-        var netPts = x - _sl[_ci].as[_asNum];
-        var promotionStatus = 0;
-        if (_sl[_ci].rank != 8 && _sl[_ci].rank != 14 && _sl[_ci].rank != 18) {
-            if (asPts == 0 || asPts < x) {
-                if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 200) {
-                    promotionStatus = 1;
-                }
-                _sl[_ci].points += netPts;
-                _sl[_ci].as[_asNum] = x;
-            }
-            if (asPts > x) {
-                if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
-                    promotionStatus = -1;
-                }
-                _sl[_ci].points += netPts;
-                _sl[_ci].as[_asNum] = x;
-            }
-            if (asPts == x) {
-                _sl[_ci].asDates[_asNum] = 0;
-                if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
-                    promotionStatus = -1;
-                }
-                _sl[_ci].points -= x; netPts = -x;
-                _sl[_ci].as[_asNum] = 0;
-                document.getElementById("asReason").innerHTML = "";
-            }
-        } else if (_sl[_ci].rank == 8 || _sl[_ci].rank == 14 || _sl[_ci].rank == 18) {
-            if (asPts == 0 || asPts < x) {
-                if ((totalPts - ((rankNum + rankFactor) * 10)) + x >= 20) {
-                    promotionStatus = 1;
-                }
-                _sl[_ci].points += netPts;
-                _sl[_ci].as[_asNum] = x;
-            }
-            if (asPts > x) {
-                if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
-                    promotionStatus = -1;
-                }
-                _sl[_ci].points += netPts;
-                _sl[_ci].as[_asNum] = x;
-            }
-            if (asPts == x) {
-                _sl[_ci].asDates[_asNum] = 0;
-                if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
-                    promotionStatus = -1;
-                }
-                _sl[_ci].points -= x;; netPts = -x;
-                _sl[_ci].as[_asNum] = 0;
-                document.getElementById("asReason").innerHTML = "";
-            }
-        }
-        var plusSign = ""; if (netPts > 0) {plusSign = "+"}
-        var log = _sl[_ci].full + " " + plusSign + netPts + " pts " + _asNames[_asNum] + " sheet " + "<br>" + "(" + asPts + "-->" + _sl[_ci].as[_asNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")" + "<br>" + dateAndTime("log");
-        activityLog(log);
-        if (promotionStatus > 0) {
-            promotion();
-        } else if (promotionStatus < 0) {
-            demotion();
-        }
-        document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
-        assignClassRanks();
-        storeAndBackup();
-        loadStudent(_ci);
-        pop(["asPointsPop"],["missionsPop"]);
-    }
-}
-
-function mvPoints(_mvNum,x) {
-    if (_sl[_ci].mvDates[_mvNum] == 0) { _sl[_ci].mvDates[_mvNum] = _todaysDn };
     var rankNum = _sl[_ci].rank;
     var rankFactor = _sl[_ci].rankFactor;
-    var totalPts = _sl[_ci].points;
-    var mvPts = _sl[_ci].mv[_mvNum];
-    var netPts = x - _sl[_ci].mv[_mvNum];
-    var promotionStatus = 0;
+    var totalPts = _sl[_ci].pts;
+    var asPts = _sl[_ci].as[_asNum];
+    var netPts = x - _sl[_ci].as[_asNum];
+    var promoStatus = 0;
     if (_sl[_ci].rank != 8 && _sl[_ci].rank != 14 && _sl[_ci].rank != 18) {
-        if (mvPts == 0 || mvPts < x) {
+        if (asPts == 0 || asPts < x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 220) {
-                promotionStatus = 1;
+                promoStatus = 1;
             }
-            _sl[_ci].points += netPts;
-            _sl[_ci].mv[_mvNum] = x;
+            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].as[_asNum] = x;
         }
-        if (mvPts > x) {
+        if (asPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
-                promotionStatus = -1;
+                promoStatus = -1;
             }
-            _sl[_ci].points += netPts;
-            _sl[_ci].mv[_mvNum] = x;
+            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].as[_asNum] = x;
         }
-        if (mvPts == x) {
-            _sl[_ci].mvDates[_mvNum] = 0;
+        if (asPts == x) {
+            _sl[_ci].asDates[_asNum] = 0;
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
-                promotionStatus = -1;
+                promoStatus = -1;
             }
-            _sl[_ci].points -= x; netPts = -x;
-            _sl[_ci].mv[_mvNum] = 0;
+            _sl[_ci].pts -= x; netPts = -x; _sl[_ci].ptTally[_elapsedWeeks-1] -= x;
+            _sl[_ci].as[_asNum] = 0;
         }
     } else if (_sl[_ci].rank == 8 || _sl[_ci].rank == 14 || _sl[_ci].rank == 18) {
-        if (mvPts == 0 || mvPts < x) {
+        if (asPts == 0 || asPts < x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + x >= 20) {
-                promotionStatus = 1;
+                promoStatus = 1;
             }
-            _sl[_ci].points += netPts;
-            _sl[_ci].mv[_mvNum] = x;
+            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].as[_asNum] = x;
         }
-        if (mvPts > x) {
+        if (asPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
-                promotionStatus = -1;
+                promoStatus = -1;
             }
-            _sl[_ci].points += netPts;
-            _sl[_ci].mv[_mvNum] = x;
+            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].as[_asNum] = x;
         }
-        if (mvPts == x) {
-            _sl[_ci].mvDates[_mvNum] = 0;
+        if (asPts == x) {
+            _sl[_ci].asDates[_asNum] = 0;
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
-                promotionStatus = -1;
+                promoStatus = -1;
             }
-            _sl[_ci].points -= x; netPts = -x;
-            _sl[_ci].mv[_mvNum] = 0;
+            _sl[_ci].pts -= x; netPts = -x; _sl[_ci].ptTally[_elapsedWeeks-1] -= x;
+            _sl[_ci].as[_asNum] = 0;
         }
     }
     var plusSign = ""; if (netPts > 0) {plusSign = "+"}
-    var log = _sl[_ci].full + " " + plusSign + netPts + " pts " + _mvNames[_mvNum] + " verse "  + "<br>" +  "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum] + ")" + " (" + (_sl[_ci].points - netPts) + "-->" + _sl[_ci].points + ")" + "<br>" + dateAndTime("log");
+    var log = _sl[_ci].full + " " + plusSign + netPts + " points " + _asNames[_asNum] + " sheet "  + "<br>" +  "(" + asPts + "-->" + _sl[_ci].as[_asNum] + ")" + " (" + (_sl[_ci].pts - netPts) + "-->" + _sl[_ci].pts + ")" + "<br>" + dateAndTime("log");
     activityLog(log);
-    if (promotionStatus > 0) {
-        promotion();
-    } else if (promotionStatus < 0) {
-        demotion();
+    if (promoStatus > 0) {
+        promo();
+    } else if (promoStatus < 0) {
+        demo();
     }
     document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
     assignClassRanks();
     storeAndBackup();
     loadStudent(_ci);
-    pop(["mvPointsPop"],["missionsPop"]);
+    pop(["asPtsPop"],["missionsPop"]);
+}
+
+function mvPts(_mvNum,x) {
+    if (_sl[_ci].mvDates[_mvNum] == 0) { _sl[_ci].mvDates[_mvNum] = _todaysDn };
+    var rankNum = _sl[_ci].rank;
+    var rankFactor = _sl[_ci].rankFactor;
+    var totalPts = _sl[_ci].pts;
+    var mvPts = _sl[_ci].mv[_mvNum];
+    var netPts = x - _sl[_ci].mv[_mvNum];
+    var promoStatus = 0;
+    if (_sl[_ci].rank != 8 && _sl[_ci].rank != 14 && _sl[_ci].rank != 18) {
+        if (mvPts == 0 || mvPts < x) {
+            if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 220) {
+                promoStatus = 1;
+            }
+            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].mv[_mvNum] = x;
+        }
+        if (mvPts > x) {
+            if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
+                promoStatus = -1;
+            }
+            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].mv[_mvNum] = x;
+        }
+        if (mvPts == x) {
+            _sl[_ci].mvDates[_mvNum] = 0;
+            if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
+                promoStatus = -1;
+            }
+            _sl[_ci].pts -= x; netPts = -x; _sl[_ci].ptTally[_elapsedWeeks-1] -= x;
+            _sl[_ci].mv[_mvNum] = 0;
+        }
+    } else if (_sl[_ci].rank == 8 || _sl[_ci].rank == 14 || _sl[_ci].rank == 18) {
+        if (mvPts == 0 || mvPts < x) {
+            if ((totalPts - ((rankNum + rankFactor) * 10)) + x >= 20) {
+                promoStatus = 1;
+            }
+            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].mv[_mvNum] = x;
+        }
+        if (mvPts > x) {
+            if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
+                promoStatus = -1;
+            }
+            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].mv[_mvNum] = x;
+        }
+        if (mvPts == x) {
+            _sl[_ci].mvDates[_mvNum] = 0;
+            if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
+                promoStatus = -1;
+            }
+            _sl[_ci].pts -= x; netPts = -x; _sl[_ci].ptTally[_elapsedWeeks-1] -= x;
+            _sl[_ci].mv[_mvNum] = 0;
+        }
+    }
+    var plusSign = ""; if (netPts > 0) {plusSign = "+"}
+    var log = _sl[_ci].full + " " + plusSign + netPts + " points " + _mvNames[_mvNum] + " verse "  + "<br>" +  "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum] + ")" + " (" + (_sl[_ci].pts - netPts) + "-->" + _sl[_ci].pts + ")" + "<br>" + dateAndTime("log");
+    activityLog(log);
+    if (promoStatus > 0) {
+        promo();
+    } else if (promoStatus < 0) {
+        demo();
+    }
+    document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
+    assignClassRanks();
+    storeAndBackup();
+    loadStudent(_ci);
+    pop(["mvPtsPop"],["missionsPop"]);
 }
 
 function searchNames(id,className) {
@@ -1996,9 +1953,9 @@ function pop(closeArray,openArray) {
         document.getElementById("searchMain").focus();
         sortStudentList(); populateNames();
     }
-    if (openArray.includes("randomPop") || openArray.includes("drawingPop")) {
-        document.getElementById("randomName").innerHTML = "tap here<br>to pick";
-        document.getElementById("drawingName").innerHTML = "tap here<br>to pick";
+    if (openArray.includes("randPop") || openArray.includes("drawPop")) {
+        document.getElementById("randName").innerHTML = "tap here<br>to pick";
+        document.getElementById("drawName").innerHTML = "tap here<br>to pick";
     }
     if (openArray.includes("logPop")) {
         document.getElementById("searchLog").value = "";
@@ -2046,7 +2003,7 @@ function goHome() {
     sortStudentList(); populateNames();
 }
 
-function asPop(asNum,points) {
+function asPop(asNum,pts) {
     _asNum = asNum;
     document.getElementById("asSheetName").innerHTML = _asNames[_asNum].toUpperCase();
     document.getElementById("asDateAssigned").innerHTML = cdn(_dns[asNum]);
@@ -2060,11 +2017,6 @@ function asPop(asNum,points) {
         document.getElementById("asCompletionStatus").innerHTML = "PARTIAL CREDIT";
         document.getElementById("asCompletionStatus").style.color = "orange";
     }
-    if (_sl[_ci].asReasons[_asNum] != "") {
-        document.getElementById("asReason").style.display = "table-cell";
-    } else {
-        document.getElementById("asReason").style.display = "none";
-    }
     if (_sl[_ci].as[_asNum] > 0) {
         document.getElementById("scannedImage").style.display = "table-cell";
     } else {
@@ -2075,33 +2027,28 @@ function asPop(asNum,points) {
     } else {
         document.getElementById("asDateTurnedIn").innerHTML = cdn(_sl[_ci].asDates[_asNum]);
     }
-    if (_sl[_ci].asReasons[_asNum] != "") {
-        document.getElementById("asReason").innerHTML = "Reason for partial credit:<br> <span style='color:white'>" + _sl[_ci].asReasons[_asNum] + "</span>";
-    } else {
-        document.getElementById("asReason").innerHTML = ""
-    }
     document.getElementById("missionsPop").style.display = "none";
-    document.getElementById("asPointsPop").style.display = "block";
+    document.getElementById("asPtsPop").style.display = "block";
     for (let i =1; i <= 6; i++) {
-        if (document.getElementById("as"+i+"Points").innerHTML == _sl[_ci].as[_asNum]) {
-            document.getElementById("as"+i+"Points").style.background = "#3478F6";
+        if (document.getElementById("as"+i+"Pts").innerHTML == _sl[_ci].as[_asNum]) {
+            document.getElementById("as"+i+"Pts").style.background = "#3478F6";
         } else {
-            document.getElementById("as"+i+"Points").style.background = "black";
+            document.getElementById("as"+i+"Pts").style.background = "black";
         }
     }
     for (let i =1; i <= 6; i++) {
-        if (i <= points) {
-            document.getElementById("as"+i+"Points").style.display = "block";
+        if (i <= pts) {
+            document.getElementById("as"+i+"Pts").style.display = "block";
         } else {
-            document.getElementById("as"+i+"Points").style.display = "none";
+            document.getElementById("as"+i+"Pts").style.display = "none";
         }
     }
     scrollTo(0,0);
 }
 
-function mvPop(mvNum,points) {
+function mvPop(mvNum,pts) {
     document.getElementById("missionsPop").style.display = "none";
-    document.getElementById("mvPointsPop").style.display = "block";
+    document.getElementById("mvPtsPop").style.display = "block";
     _mvNum = mvNum;
     document.getElementById("mvVerseName").innerHTML = _mvNames[_mvNum].toUpperCase();
     document.getElementById("mvDateAssigned").innerHTML = cdn(_dns[mvNum]);
@@ -2122,17 +2069,17 @@ function mvPop(mvNum,points) {
     }
     document.getElementById("mvText").innerHTML = _mvText[mvNum];
     for (let i =1; i <= 7; i++) {
-        if (document.getElementById("mv"+i+"Points").innerHTML == _sl[_ci].mv[_mvNum]) {
-            document.getElementById("mv"+i+"Points").style.background = "#3478F6";
+        if (document.getElementById("mv"+i+"Pts").innerHTML == _sl[_ci].mv[_mvNum]) {
+            document.getElementById("mv"+i+"Pts").style.background = "#3478F6";
         } else {
-            document.getElementById("mv"+i+"Points").style.background = "black";
+            document.getElementById("mv"+i+"Pts").style.background = "black";
         }
     }
     for (let i =1; i <= 7; i++) {
-        if (i <= points) {
-            document.getElementById("mv"+i+"Points").style.display = "block";
+        if (i <= pts) {
+            document.getElementById("mv"+i+"Pts").style.display = "block";
         } else {
-            document.getElementById("mv"+i+"Points").style.display = "none";
+            document.getElementById("mv"+i+"Pts").style.display = "none";
         }
     }
     scrollTo(0,0);
@@ -2144,12 +2091,12 @@ function populateNames() {
         var p = document.createElement("p");
         var span1 = document.createElement("span");
         var span2 = document.createElement("span");
-        if (_sl[i].attendance === true) {
+        if (_sl[i].att === true) {
             span1.style.color = "white";
         } else {
             span1.style.color = "#555";
         }
-        if (_sl[i].attendance === true) {
+        if (_sl[i].att === true) {
             span2.style.color = "lawnGreen";
         } else {
             span2.style.color = "white";
@@ -2189,7 +2136,7 @@ function populateNames2() {
     document.getElementById("att2Pop").style.display = "block";
     document.getElementById("nameList2").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true) { continue };
+        if (_sl[i].att === true) { continue };
         var elementNode = document.createElement("p");
         elementNode.classList.add("name");
         (function(i){
@@ -2212,7 +2159,7 @@ function populateNames3(x) {
     document.getElementById("teamsListButtons").style.display = "none";
     document.getElementById("nameList3").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === false || _teams[0].team1Reset.includes(_sl[i].full) || _teams[0].team2Reset.includes(_sl[i].full)) { continue }
+        if (_sl[i].att === false || _teams[0].team1Reset.includes(_sl[i].full) || _teams[0].team2Reset.includes(_sl[i].full)) { continue }
         var elementNode = document.createElement("p");
         elementNode.classList.add("nameSmaller");
         (function(i){
@@ -2280,8 +2227,8 @@ function populateTeacherNotes() {
 }
 
 function checkInAtt() {
-    if (_sl[_ci].attendance === false) {
-        _sl[_ci].attendance = true;
+    if (_sl[_ci].att === false) {
+        _sl[_ci].att = true;
         var log = "added attendee " + _sl[_ci].first + " " + _sl[_ci].last + "<br>" + dateAndTime("log");
         activityLog(log);
         if (_isClassDay === true && dateAndTime("hour") < 16) {
@@ -2297,8 +2244,8 @@ function checkInAtt() {
 }
 
 function toggleAtt() {
-    if (_sl[_ci].attendance === false) {
-        _sl[_ci].attendance = true;
+    if (_sl[_ci].att === false) {
+        _sl[_ci].att = true;
         if (_isClassDay === true && dateAndTime("hour") < 16) {
             _sl[_ci].amAtt[_elapsedWeeks-1] = 1;
         } else if (_isClassDay === true && dateAndTime("hour") >= 16) {
@@ -2306,7 +2253,7 @@ function toggleAtt() {
         }
         document.getElementById("studentPopName").style.color = "lawngreen";
     } else {
-        _sl[_ci].attendance = false;
+        _sl[_ci].att = false;
         if (_isClassDay === true && dateAndTime("hour") < 16) {
             _sl[_ci].amAtt[_elapsedWeeks-1] = 0;
         } else if (_isClassDay === true && dateAndTime("hour") >= 16) {
@@ -2314,7 +2261,7 @@ function toggleAtt() {
         }
         document.getElementById("studentPopName").style.color = "white"; goHome();
     }
-    if (_sl[_ci].attendance === true) {
+    if (_sl[_ci].att === true) {
         var log = "added attendee " + _sl[_ci].first + " " + _sl[_ci].last + "<br>" + dateAndTime("log");
     } else {
         var log = "removed attendee " + _sl[_ci].first + " " + _sl[_ci].last + "<br>" + dateAndTime("log");
@@ -2325,76 +2272,76 @@ function toggleAtt() {
     storeNewData();
 }
  
-function drawing() {
+function draw() {
     var eligibleNames = [];
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].attendance === true && _sl[i].drawing === false) {
+        if (_sl[i].att === true && _sl[i].draw === false) {
             eligibleNames.push(_sl[i])
         }
     }
     if (eligibleNames.length == 0) {
-        actionAlert('No more eligible names.  Reset drawing?',['drawingPop'],resetDrawing);
+        actionAlert('No more eligible names.  Reset drawing?',['drawPop'],resetDrawing);
     } else {
         var x = Math.floor(Math.random() * eligibleNames.length);
         var winner = eligibleNames[x];
-        winner.drawing = true;
+        winner.draw = true;
         if (winner.first.length > 9 || winner.last.length > 9) {
-            document.getElementById("drawingName").style.fontSize = "65px"; 
+            document.getElementById("drawName").style.fontSize = "65px"; 
         } else {
-            document.getElementById("drawingName").style.fontSize = "75px"; 
+            document.getElementById("drawName").style.fontSize = "75px"; 
         }
-        document.getElementById("drawingName").innerHTML = winner.first + "<br>" + winner.last;
+        document.getElementById("drawName").innerHTML = winner.first + "<br>" + winner.last;
         storeAndBackup();
     }
 }
 
 function resetDrawing() {
     for (let i = 0; i < _sl.length; i++) {
-        _sl[i].drawing = false;
+        _sl[i].draw = false;
     }
-    document.getElementById("drawingName").innerHTML = "tap here<br>to pick";
+    document.getElementById("drawName").innerHTML = "tap here<br>to pick";
     storeAndBackup();
 }
 
-function random() {
-    document.getElementById("randomName").style.color = "white";
+function rand() {
+    document.getElementById("randName").style.color = "white";
     if (document.getElementById("all").checked === true) {
         _eligibleRandom = [];
         for (let i = 0; i < _sl.length; i++) {
-            if (_sl[i].attendance === true && _sl[i].random === false) {
+            if (_sl[i].att === true && _sl[i].rand === false) {
                 _eligibleRandom.push(_sl[i])
             }
         }
     } else if (document.getElementById("boys").checked === true) {
         _eligibleRandom = [];
         for (let i = 0; i < _sl.length; i++) {
-            if (_sl[i].attendance === true && _sl[i].gender == "M" && _sl[i].random === false) {
+            if (_sl[i].att === true && _sl[i].gender == "M" && _sl[i].rand === false) {
                 _eligibleRandom.push(_sl[i])
             }
         }
     } else if (document.getElementById("girls").checked === true) {
         _eligibleRandom = [];
         for (let i = 0; i < _sl.length; i++) {
-            if (_sl[i].attendance === true && _sl[i].gender == "F" && _sl[i].random === false) {
+            if (_sl[i].att === true && _sl[i].gender == "F" && _sl[i].rand === false) {
                 _eligibleRandom.push(_sl[i])
             }
         }
     }
     if (_eligibleRandom.length == 0) {
         setRandomFalse();
-        document.getElementById("randomName").style.color = "fireBrick";
-        document.getElementById("randomName").innerHTML = "all names picked";
+        document.getElementById("randName").style.color = "fireBrick";
+        document.getElementById("randName").innerHTML = "all names picked";
         return;
     }
     var x = Math.floor(Math.random() * _eligibleRandom.length);
     var picked = _eligibleRandom[x];
-    picked.random = true;
+    picked.rand = true;
     if (picked.first.length > 9 || picked.last.length > 9) {
-        document.getElementById("randomName").style.fontSize = "65px"; 
+        document.getElementById("randName").style.fontSize = "65px"; 
     } else {
-        document.getElementById("randomName").style.fontSize = "75px"; 
+        document.getElementById("randName").style.fontSize = "75px"; 
     }
-    document.getElementById("randomName").innerHTML = picked.first + "<br>" + picked.last;
+    document.getElementById("randName").innerHTML = picked.first + "<br>" + picked.last;
     storeNewData();
 }
 
@@ -2408,8 +2355,8 @@ function storeAndBackup() {
 }
 
 function storeNewData() {
-    var globalObjects = [_sl,_amAtt,_pmAtt,_teacherNotes,_promotionList,_teams];
-    var objectLabels = ["sl","amAtt","pmAtt","teacherNotes","promotionList","teams"];
+    var globalObjects = [_sl,_amAtt,_pmAtt,_teacherNotes,_promoList,_teams];
+    var objectLabels = ["sl","amAtt","pmAtt","teacherNotes","promoList","teams"];
     var globalOther = [_log,_gameLog];
     var otherLabels = ["log","gameLog"];
     for (let i = 0; i < globalObjects.length; i++) {
@@ -2456,20 +2403,20 @@ function loadStudentProperties() {
     document.getElementById("email").innerHTML = _sl[_ci].email;
     document.getElementById("photo").innerHTML = _sl[_ci].photo;
     document.getElementById("notes").innerHTML = JSON.stringify(_sl[_ci].notes);
-    document.getElementById("points").innerHTML = _sl[_ci].points;
+    document.getElementById("pts").innerHTML = _sl[_ci].pts;
+    document.getElementById("ptTally").innerHTML = JSON.stringify(_sl[_ci].ptTally);
     document.getElementById("classRank").innerHTML = _sl[_ci].classRank;
     document.getElementById("rank").innerHTML = _sl[_ci].rank;
     document.getElementById("rankFactor").innerHTML = _sl[_ci].rankFactor;
     document.getElementById("rankName").innerHTML = _sl[_ci].rankName;
-    document.getElementById("attendance").innerHTML = _sl[_ci].attendance;
+    document.getElementById("att").innerHTML = _sl[_ci].att;
     document.getElementById("amAtt").innerHTML = JSON.stringify(_sl[_ci].amAtt);
     document.getElementById("pmAtt").innerHTML = JSON.stringify(_sl[_ci].pmAtt);
     document.getElementById("promoTally").innerHTML = JSON.stringify(_sl[_ci].promoTally);
-    document.getElementById("promoted").innerHTML = _sl[_ci].promoted;
-    document.getElementById("promotionNum").innerHTML = _sl[_ci].promotionNum;
-    document.getElementById("drawing").innerHTML = _sl[_ci].drawing;
-    document.getElementById("random").innerHTML = _sl[_ci].random;
-    document.getElementById("asReasons").innerHTML = JSON.stringify(_sl[_ci].asReasons);
+    document.getElementById("promo").innerHTML = _sl[_ci].promo;
+    document.getElementById("promoNum").innerHTML = _sl[_ci].promoNum;
+    document.getElementById("draw").innerHTML = _sl[_ci].draw;
+    document.getElementById("rand").innerHTML = _sl[_ci].rand;
     document.getElementById("asDates").innerHTML = JSON.stringify(_sl[_ci].asDates);
     document.getElementById("mvDates").innerHTML = JSON.stringify(_sl[_ci].mvDates);
     document.getElementById("as").innerHTML = JSON.stringify(_sl[_ci].as);
@@ -2483,31 +2430,31 @@ function loadStudentStats() {
     var earnedASpts = 0;   
     var totalMVpts = 0;
     var earnedMVpts = 0;
-    if (_elapsedWeeks > 2) {
-        for (let i = 0; i < (_elapsedWeeks-2); i++) {
+    if (_elapsedWeeks > 1) {
+        for (let i = 0; i < (_elapsedWeeks-1); i++) {
             if (i > 31) { break; };
             totalASpts += _asMaxPts[i];
             totalMVpts += _mvMaxPts[i];
         }
-        for (let i = 0; i < (_elapsedWeeks-2); i++) {
+        for (let i = 0; i < (_elapsedWeeks-1); i++) {
             if (i > 31) { break; };
             earnedASpts += _sl[_ci].as[i];
             earnedMVpts += _sl[_ci].mv[i];
         }
     }
-    var totalPoints = totalASpts + totalMVpts;
-    var totalEarnedPoints = earnedASpts + earnedMVpts;
-    var asPercentage; var mvPercentage; var totalPointsPercentage;
+    var totalPts = totalASpts + totalMVpts;
+    var totalEarnedPts = earnedASpts + earnedMVpts;
+    var asPercentage; var mvPercentage; var totalPtsPercentage;
     if (_elapsedWeeks > 2) {
         asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
         mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
-        totalPointsPercentage = ((totalEarnedPoints / totalPoints) * 100).toFixed(1);
+        totalPtsPercentage = ((totalEarnedPts / totalPts) * 100).toFixed(1);
     } else {
-        asPercentage = 0; mvPercentage = 0; totalPointsPercentage = 0;
+        asPercentage = 0; mvPercentage = 0; totalPtsPercentage = 0;
     }
     var asSquares = Math.round(asPercentage / 2.50);
     var mvSquares = Math.round(mvPercentage / 2.50);
-    var totalPointsSquares = Math.round(totalPointsPercentage / 2.50);
+    var totalPtsSquares = Math.round(totalPtsPercentage / 2.50);
     var weeksAttended = 0;
     for (let i = 0; i < _elapsedWeeks; i++) {
         weeksAttended += _sl[_ci].amAtt[i];
@@ -2516,14 +2463,14 @@ function loadStudentStats() {
             weeksAttended--;
         }
     }
-    var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(1);
-    var attendanceSquares = Math.round(attendancePercentage / 2.50);
+    var attPercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(1);
+    var attSquares = Math.round(attPercentage / 2.50);
     var totalEarned = weeksAttended + earnedASpts + earnedMVpts;
     var totalPossible = _elapsedWeeks + totalASpts + totalMVpts;
     var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(1);
     var totalSquares = Math.round(totalPercentage / 2.50);
-    var squaresArray = [rankSquares,totalPointsSquares,asSquares,mvSquares,attendanceSquares,totalSquares];
-    var variableArray = [rankPercentage,totalPointsPercentage,asPercentage,mvPercentage,attendancePercentage,totalPercentage];
+    var squaresArray = [rankSquares,totalPtsSquares,asSquares,mvSquares,attSquares,totalSquares];
+    var variableArray = [rankPercentage,totalPtsPercentage,asPercentage,mvPercentage,attPercentage,totalPercentage];
     var idArray1 = ["rankProgressTable","totalProgressTable","asProgressTable","mvProgressTable","attProgressTable","totalParticipationTable"];
     var idArray2 = ["rankProgressBar","totalProgressBar","asProgressBar","mvProgressBar","attProgressBar","totalParticipationBar"];
     for (let i = 0; i < squaresArray.length; i++) {
@@ -2551,10 +2498,10 @@ function loadStudentStats() {
         }
     }
     document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + rankPercentage + "%)";
-    document.getElementById("totalProgressTableP").innerHTML = "Total Points: " + totalEarnedPoints + "/" + totalPoints + " (" + totalPointsPercentage + "%)";
-    document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Points: " + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)";
-    document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Points: " + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)";
-    document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + attendancePercentage + "%)";
+    document.getElementById("totalProgressTableP").innerHTML = "Total Pts: " + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%)";
+    document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Pts: " + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)";
+    document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Pts: " + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)";
+    document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + attPercentage + "%)";
     document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)";
 }
 
@@ -2586,7 +2533,7 @@ function populateMissions() {
                     mvPop(j,_mvMaxPts[j]);
                 }
             })(j);
-            var textNode2 = _mvFulls[j] + "<br>" + _mvTextSnippets[j];
+            var textNode2 = _mvFulls[j] + "<br>" + _mvText[j].split(" ").slice(0,3).join(" ");
             div2.innerHTML = textNode2;
             document.getElementById("mvPop").appendChild(div2);
         }
@@ -2657,7 +2604,7 @@ function loadRankTable() {
         document.getElementById("rankChartInsignia"+i).style.cursor = "pointer";
         document.getElementById("rankChartRank"+i).innerHTML = _rankNames[i];
         document.getElementById("rankChartAbbreviation"+i).innerHTML = _rankNamesAbbr[i];
-        document.getElementById("rankChartPoints"+i).innerHTML = _rankPts[i];
+        document.getElementById("rankChartPts"+i).innerHTML = _rankPts[i];
         (function(i){
             document.getElementById("rankChartInsignia"+i).onclick = function () {
                 pop(["rankChartPop"],["openInsigniaPop"]);
@@ -2999,7 +2946,7 @@ function batchEditObject(objectName) {
                 array[16] = 3;
                 array.splice(16,0,3) // if student earned full credit for jn-14-15, assign full credit (3) to jn-14 (now index 16) and full credit (3) to jn-15 (now index 17)
             } else {
-                array.splice(16,0,0) // if student earned no points for jn-14-15, assign 0 points to jn-14 and jn-15
+                array.splice(16,0,0) // if student earned no pts for jn-14-15, assign 0 pts to jn-14 and jn-15
             }
             for (let j = 0; j < 32; j++) {
                 _sl[i][objectName][j] = array[j]
@@ -3009,7 +2956,7 @@ function batchEditObject(objectName) {
     }
 }
 
-function batchEditArray() {
+function batchEditArray1() {
     if (confirm("Confirm batch action") == true) {
         for (let i = 0; i < _sl.length; i++) {
             if (_sl[i].amAtt[16] == 1) {
@@ -3021,6 +2968,18 @@ function batchEditArray() {
                 _sl[i].pmAtt.splice(16,0,1)
             } else {
                 _sl[i].pmAtt.splice(16,0,0)
+            }
+        }
+        storeAndBackup();
+    }
+}
+
+function batchEditArray2() {
+    if (confirm("Confirm batch action") == true) {
+        for (let i = 0; i < _sl.length; i++) {
+            for (let j = 30; j > 16; j--) {
+                _sl[i].asReas[j+1] = _sl[i].asReas[j];
+                if (j == 17) { _sl[i].asReas[j] = "" }
             }
         }
         storeAndBackup();
@@ -3067,7 +3026,7 @@ function batchAddProperty(propertyName,value) {
     }
     console.log("The property '" + propertyName + "' has been added to " + count + " out of " + _sl.length + " students");
     if (alreadyExists.length > 0) {
-        console.log(alreadyExists.length + " students already had this property and were skipped. To force this property and value to all students, use 'batchEditSL' now:")
+        console.log(alreadyExists.length + " students already had this property and were skipped. To ensure this property's value is the same for all students, use 'batchEditSL' now:")
         for (let i = 0; i < alreadyExists.length; i++) {
             console.log(alreadyExists[i].full + " '" + propertyName + "': " + alreadyExists[i][propertyName])
         }

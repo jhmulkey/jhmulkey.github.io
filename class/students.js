@@ -1,6 +1,6 @@
 var _sl = []; var _ci;
 var _asNum; var _mvNum;
-var _asPoints;
+var _asPts;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
 var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3];
 var _leapYear = false; // true if Jan-July falls within a leap year
@@ -28,41 +28,6 @@ var _asNames = ["class-intro","jn-intro","jn-1","jn-2","jn-3","jn-4","jn-5","jn-
 var _asFulls = ["Class Intro","John Intro","John 1","John 2","John 3","John 4","John 5","John 6","John 7","John 8","John 9","John 1-9 Review","John 10","John 11","John 12","John 13","John 14","John 15","John 16","John 17","John 18","John 19","John 20","John 21","John 10-21 Review","Armor Intro","Belt","Breastplate","Shoes","Shield","Helmet","Sword"];
 var _mvNames = ["ps-139-17-18","jn-20-30-31","jn-1-1-2","jn-1-3","jn-1-4-5","jn-1-6-8","jn-1-9-11","jn-1-12-13","jn-1-14","jn-1-15","jn-1-16-17","jn-1-18","phil-2-5-6","phil-2-7","phil-2-8","phil-2-9","phil-2-10-11","rom-8-31","rom-8-32","rom-8-33","rom-8-34","rom-8-35","rom-8-36","rom-8-37","rom-8-38-39","eph-6-10-11","eph-6-12","eph-6-13","eph-6-14-15","eph-6-16","eph-6-17","eph-6-18"];
 var _mvFulls = ["Psalm 139:17-18","John 20:30-31","John 1:1-2","John 1:3","John 1:4-5","John 1:6-8","John 1:9-11","John 1:12-13","John 1:14","John 1:15","John 1:16-17","John 1:18","Phil 2:5-6","Phil 2:7","Phil 2:8","Phil 2:9","Phil 2:10-11","Rom 8:31","Rom 8:32","Rom 8:33","Rom 8:34","Rom 8:35","Rom 8:36","Rom 8:37","Rom 8:38-39","Eph 6:10-11","Eph 6:12","Eph 6:13","Eph 6:14-15","Eph 6:16","Eph 6:17","Eph 6:18"];
-var _mvTextSnippets = ["How precious to", "Now Jesus did", "In the beginning", "All things were", "In him was", "There was a", "The true light,", "But to all", "And the Word", "(John bore witness", "For from his", "No one has", "Have this mind", "but emptied himself,", "And being found", "Therefore God has", "so that at", "What then shall", "He who did", "Who shall bring", "Who is to", "Who shall separate", "As it is", "No, in all", "For I am", "Finally, be strong", "For we do", "Therefore take up", "Stand therefore, having", "In all circumstances", "and take the", "praying at all"]
-/* var _mvText = [
-    "<span style='color: #3478F6'>Psalm 139:17-18</span><br>How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
-    "<span style='color: #3478F6'>John 20:30-31</span><br>Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
-    "<span style='color: #3478F6'>John 1:1-2</span><br>In the beginning was the Word, and the Word was with God, and the Word was God. He was in the beginning with God.",
-    "<span style='color: #3478F6'>John 1:3</span><br>All things were made through him, and without him was not any thing made that was made.",
-    "<span style='color: #3478F6'>John 1:4-5</span><br>In him was life, and the life was the light of men. The light shines in the darkness, and the darkness has not overcome it.",
-    "<span style='color: #3478F6'>John 1:6-8</span><br>There was a man sent from God, whose name was John. He came as a witness, to bear witness about the light, that all might believe through him. He was not the light, but came to bear witness about the light.",
-    "<span style='color: #3478F6'>John 1:9-11</span><br>The true light, which gives light to everyone, was coming into the world. He was in the world, and the world was made through him, yet the world did not know him. He came to his own, and his own people did not receive him.",
-    "<span style='color: #3478F6'>John 1:12-13</span><br>But to all who did receive him, who believed in his name, he gave the right to become children of God, who were born, not of blood nor of the will of the flesh nor of the will of man, but of God.",
-    "<span style='color: #3478F6'>John 1:14</span><br>And the Word became flesh and dwelt among us, and we have seen his glory, glory as of the only Son from the Father, full of grace and truth.",
-    "<span style='color: #3478F6'>John 1:15</span><br>(John bore witness about him, and cried out, “This was he of whom I said, ‘He who comes after me ranks before me, because he was before me.’”)",
-    "<span style='color: #3478F6'>John 1:16-17</span><br>For from his fullness we have all received, grace upon grace. For the law was given through Moses; grace and truth came through Jesus Christ.",
-    "<span style='color: #3478F6'>John 1:18</span><br>No one has ever seen God; the only God, who is at the Father's side, he has made him known.",
-    "<span style='color: #3478F6'>Philippians 2:5-6</span><br>Have this mind among yourselves, which is yours in Christ Jesus, who, though he was in the form of God, did not count equality with God a thing to be grasped,",
-    "<span style='color: #3478F6'>Philippians 2:7</span><br>but emptied himself, by taking the form of a servant, being born in the likeness of men.",
-    "<span style='color: #3478F6'>Philippians 2:8</span><br>And being found in human form, he humbled himself by becoming obedient to the point of death, even death on a cross.",
-    "<span style='color: #3478F6'>Philippians 2:9</span><br>Therefore God has highly exalted him and bestowed on him the name that is above every name,",
-    "<span style='color: #3478F6'>Philippians 2:10-11</span><br>so that at the name of Jesus every knee should bow, in heaven and on earth and under the earth, and every tongue confess that Jesus Christ is Lord, to the glory of God the Father.",
-    "<span style='color: #3478F6'>Romans 8:31</span><br>What then shall we say to these things? If God is for us, who can be against us?",
-    "<span style='color: #3478F6'>Romans 8:31-32</span><br>He who did not spare his own Son but gave him up for us all, how will he not also with him graciously give us all things?",
-    "<span style='color: #3478F6'>Romans 8:33</span><br>Who shall bring any charge against God's elect? It is God who justifies.",
-    "<span style='color: #3478F6'>Romans 8:34</span><br>Who is to condemn?  Christ Jesus is the one who died—more than that, who was raised—who is at the right hand of God, who indeed is interceding for us.",
-    "<span style='color: #3478F6'>Romans 8:35</span><br>Who shall separate us from the love of Christ? Shall tribulation, or distress, or persecution, or famine, or nakedness, or danger, or sword?",
-    "<span style='color: #3478F6'>Romans 8:36</span><br>As it is written, 'For your sake we are being killed all the day long; we are regarded as sheep to be slaughtered.'",
-    "<span style='color: #3478F6'>Romans 8:37</span><br>No, in all these things we are more than conquerors through him who loved us.",
-    "<span style='color: #3478F6'>Romans 8:38-39</span><br>For I am sure that neither death nor life, nor angels nor rulers, nor things present nor things to come, nor powers, nor height nor depth, nor anything else in all creation, will be able to separate us from the love of God in Christ Jesus our Lord.",
-    "<span style='color: #3478F6'>Ephesians 6:10-11</span><br>Finally, be strong in the Lord and in the strength of his might. Put on the whole armor of God, that you may be able to stand against the schemes of the devil.",
-    "<span style='color: #3478F6'>Ephesians 6:12</span><br>For we do not wrestle against flesh and blood, but against the rulers, against the authorities, against the cosmic powers over this present darkness, against the spiritual forces of evil in the heavenly places.",
-    "<span style='color: #3478F6'>Ephesians 6:13</span><br>Therefore take up the whole armor of God, that you may be able to withstand in the evil day, and having done all, to stand firm.",
-    "<span style='color: #3478F6'>Ephesians 6:14-15</span><br>Stand therefore, having fastened on the belt of truth, and having put on the breastplate of righteousness, and, as shoes for your feet, having put on the readiness given by the gospel of peace.",
-    "<span style='color: #3478F6'>Ephesians 6:16</span><br>In all circumstances take up the shield of faith, with which you can extinguish all the flaming darts of the evil one;",
-    "<span style='color: #3478F6'>Ephesians 6:17</span><br>and take the helmet of salvation, and the sword of the Spirit, which is the word of God,",
-    "<span style='color: #3478F6'>Ephesians 6:18</span><br>praying at all times in the Spirit, with all prayer and supplication. To that end, keep alert with all perseverance, making supplication for all the saints," 
-]; */
 var _mvText = [
     "How precious to me are your thoughts, O God! How vast is the sum of them! If I would count them, they are more than the sand. I awake, and I am still with you.",
     "Now Jesus did many other signs in the presence of the disciples, which are not written in this book; but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.",
@@ -97,15 +62,6 @@ var _mvText = [
     "and take the helmet of salvation, and the sword of the Spirit, which is the word of God,",
     "praying at all times in the Spirit, with all prayer and supplication. To that end, keep alert with all perseverance, making supplication for all the saints," 
 ];
-
-function threeWords() {
-    var finalArray = [];
-    for (i = 0; i < _mvText.length; i++) {
-        var tempArray = _mvText[i].split(" ")
-        finalArray[i] = tempArray[0] + " " + tempArray[1] + " " + tempArray[2]
-    }
-    console.log(finalArray);
-}
 
 function loadBackup() {
     _sl = JSON.parse(localStorage.getItem("slBackup"));
@@ -278,14 +234,14 @@ function dateAndTime(x) {
 }
 
 function assignClassRanks() {
-    var points = [];
+    var pts = [];
     for (i = 0; i < _sl.length; i++) {
-        points.push(_sl[i].points);
+        pts.push(_sl[i].pts);
     }
-    var pointsSorted = points.slice().sort(function(a,b){return b - a});
-    var pointsRanked = points.map(function(v){return pointsSorted.indexOf(v)+1});
+    var ptsSorted = pts.slice().sort(function(a,b){return b - a});
+    var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1});
     for (i = 0; i < _sl.length; i++) {
-        _sl[i].classRank = pointsRanked[i];
+        _sl[i].classRank = ptsRanked[i];
     }
 }
 
@@ -321,20 +277,20 @@ function refreshStudentPop() {
     document.getElementById("studentPopInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank+"-rank.jpg)";
     document.getElementById("studentPopRankName").innerHTML = _rankNames[_sl[_ci].rank];
     document.getElementById("studentPopName").innerHTML = _sl[_ci].full;
-    var pointsNeeded;
-    if (_sl[_ci].points == 220) {
-        pointsNeeded = 0
+    var ptsNeeded;
+    if (_sl[_ci].pts == 220) {
+        ptsNeeded = 0
     } else {
-        pointsNeeded = _rankPts[_sl[_ci].rank+1] - _sl[_ci].points;
+        ptsNeeded = _rankPts[_sl[_ci].rank+1] - _sl[_ci].pts;
     }
-    document.getElementById("studentPopPts").innerHTML = _sl[_ci].points + " | <span style='color: #999'>" + pointsNeeded +"</span>";
+    document.getElementById("studentPopPts").innerHTML = _sl[_ci].pts + " | <span style='color: #999'>" + ptsNeeded +"</span>";
     if (_rankNames[_sl[_ci].rank].length > 20) {
         document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
         document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
     document.getElementById("studentPopClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
-    if (_sl[_ci].attendance === true) {
+    if (_sl[_ci].att === true) {
         document.getElementById("studentPopName").style.color = "lawngreen";
     } else {
         document.getElementById("studentPopName").style.color = "white";
@@ -459,7 +415,7 @@ function goHome() {
     sortStudentList(); populateNames();
 }
 
-function asPop(asNum,points) {
+function asPop(asNum,pts) {
     _asNum = asNum;
     document.getElementById("asSheetName").innerHTML = _asNames[_asNum].toUpperCase();
     document.getElementById("asDateAssigned").innerHTML = cdn(_dns[asNum]);
@@ -473,11 +429,6 @@ function asPop(asNum,points) {
         document.getElementById("asCompletionStatus").innerHTML = "PARTIAL CREDIT";
         document.getElementById("asCompletionStatus").style.color = "orange";
     }
-    if (_sl[_ci].asReasons[_asNum] != "") {
-        document.getElementById("asReason").style.display = "table-cell";
-    } else {
-        document.getElementById("asReason").style.display = "none";
-    }
     if (_sl[_ci].as[_asNum] > 0) {
         document.getElementById("scannedImage").style.display = "table-cell";
     } else {
@@ -488,33 +439,28 @@ function asPop(asNum,points) {
     } else {
         document.getElementById("asDateTurnedIn").innerHTML = cdn(_sl[_ci].asDates[_asNum]);
     }
-    if (_sl[_ci].asReasons[_asNum] != "") {
-        document.getElementById("asReason").innerHTML = "Reason for partial credit:<br> <span style='color:white'>" + _sl[_ci].asReasons[_asNum] + "</span>";
-    } else {
-        document.getElementById("asReason").innerHTML = ""
-    }
     document.getElementById("missionsPop").style.display = "none";
-    document.getElementById("asPointsPop").style.display = "block";
+    document.getElementById("asPtsPop").style.display = "block";
     for (i = 1; i <= 6; i++) {
-        if (document.getElementById("as"+i+"Points").innerHTML == _sl[_ci].as[_asNum]) {
-            document.getElementById("as"+i+"Points").style.background = "#3478F6";
+        if (document.getElementById("as"+i+"Pts").innerHTML == _sl[_ci].as[_asNum]) {
+            document.getElementById("as"+i+"Pts").style.background = "#3478F6";
         } else {
-            document.getElementById("as"+i+"Points").style.background = "black";
+            document.getElementById("as"+i+"Pts").style.background = "black";
         }
     }
     for (i = 1; i <= 6; i++) {
-        if (i <= points) {
-            document.getElementById("as"+i+"Points").style.display = "block";
+        if (i <= pts) {
+            document.getElementById("as"+i+"Pts").style.display = "block";
         } else {
-            document.getElementById("as"+i+"Points").style.display = "none";
+            document.getElementById("as"+i+"Pts").style.display = "none";
         }
     }
     scrollTo(0,0);
 }
 
-function mvPop(mvNum,points) {
+function mvPop(mvNum,pts) {
     document.getElementById("missionsPop").style.display = "none";
-    document.getElementById("mvPointsPop").style.display = "block";
+    document.getElementById("mvPtsPop").style.display = "block";
     _mvNum = mvNum;
     document.getElementById("mvVerseName").innerHTML = _mvNames[_mvNum].toUpperCase();
     document.getElementById("mvDateAssigned").innerHTML = cdn(_dns[mvNum]);
@@ -533,19 +479,20 @@ function mvPop(mvNum,points) {
     } else {
         document.getElementById("mvDateRecited").innerHTML = cdn(_sl[_ci].mvDates[_mvNum]);
     }
-    document.getElementById("mvText").innerHTML = _mvText[mvNum];
+    //document.getElementById("mvText").innerHTML = _mvText[mvNum];
+    document.getElementById("mvText").innerHTML = "<span style='color: #3478F6'>"+_mvFulls[mvNum]+"</span><br>"+_mvText[mvNum];
     for (i = 1; i <= 7; i++) {
-        if (document.getElementById("mv"+i+"Points").innerHTML == _sl[_ci].mv[_mvNum]) {
-            document.getElementById("mv"+i+"Points").style.background = "#3478F6";
+        if (document.getElementById("mv"+i+"Pts").innerHTML == _sl[_ci].mv[_mvNum]) {
+            document.getElementById("mv"+i+"Pts").style.background = "#3478F6";
         } else {
-            document.getElementById("mv"+i+"Points").style.background = "black";
+            document.getElementById("mv"+i+"Pts").style.background = "black";
         }
     }
     for (i = 1; i <= 7; i++) {
-        if (i <= points) {
-            document.getElementById("mv"+i+"Points").style.display = "block";
+        if (i <= pts) {
+            document.getElementById("mv"+i+"Pts").style.display = "block";
         } else {
-            document.getElementById("mv"+i+"Points").style.display = "none";
+            document.getElementById("mv"+i+"Pts").style.display = "none";
         }
     }
     scrollTo(0,0);
@@ -570,19 +517,19 @@ function loadStudentStats() {
             earnedMVpts += _sl[_ci].mv[i];
         }
     }
-    var totalPoints = totalASpts + totalMVpts;
-    var totalEarnedPoints = earnedASpts + earnedMVpts;
-    var asPercentage; var mvPercentage; var totalPointsPercentage;
+    var totalPts = totalASpts + totalMVpts;
+    var totalEarnedPts = earnedASpts + earnedMVpts;
+    var asPercentage; var mvPercentage; var totalPtsPercentage;
     if (_elapsedWeeks > 2) {
         asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
         mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
-        totalPointsPercentage = ((totalEarnedPoints / totalPoints) * 100).toFixed(1);
+        totalPtsPercentage = ((totalEarnedPts / totalPts) * 100).toFixed(1);
     } else {
-        asPercentage = 0; mvPercentage = 0; totalPointsPercentage = 0;
+        asPercentage = 0; mvPercentage = 0; totalPtsPercentage = 0;
     }
     var asSquares = Math.round(asPercentage / 2.50);
     var mvSquares = Math.round(mvPercentage / 2.50);
-    var totalPointsSquares = Math.round(totalPointsPercentage / 2.50);
+    var totalPtsSquares = Math.round(totalPtsPercentage / 2.50);
     var weeksAttended = 0;
     for (i = 0; i < _elapsedWeeks; i++) {
         weeksAttended += _sl[_ci].amAtt[i];
@@ -591,14 +538,14 @@ function loadStudentStats() {
             weeksAttended--;
         }
     }
-    var attendancePercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(1);
-    var attendanceSquares = Math.round(attendancePercentage / 2.50);
+    var attPercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(1);
+    var attSquares = Math.round(attPercentage / 2.50);
     var totalEarned = weeksAttended + earnedASpts + earnedMVpts;
     var totalPossible = _elapsedWeeks + totalASpts + totalMVpts;
     var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(1);
     var totalSquares = Math.round(totalPercentage / 2.50);
-    var squaresArray = [rankSquares,totalPointsSquares,asSquares,mvSquares,attendanceSquares,totalSquares];
-    var variableArray = [rankPercentage,totalPointsPercentage,asPercentage,mvPercentage,attendancePercentage,totalPercentage];
+    var squaresArray = [rankSquares,totalPtsSquares,asSquares,mvSquares,attSquares,totalSquares];
+    var variableArray = [rankPercentage,totalPtsPercentage,asPercentage,mvPercentage,attPercentage,totalPercentage];
     var idArray1 = ["rankProgressTable","totalProgressTable","asProgressTable","mvProgressTable","attProgressTable","totalParticipationTable"];
     var idArray2 = ["rankProgressBar","totalProgressBar","asProgressBar","mvProgressBar","attProgressBar","totalParticipationBar"];
     for (i = 0; i < squaresArray.length; i++) {
@@ -626,10 +573,10 @@ function loadStudentStats() {
         }
     }
     document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank + 1) + "/20" + " (" + rankPercentage + "%)";
-    document.getElementById("totalProgressTableP").innerHTML = "Total Points: " + totalEarnedPoints + "/" + totalPoints + " (" + totalPointsPercentage + "%)";
-    document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Points: " + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)";
-    document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Points: " + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)";
-    document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + attendancePercentage + "%)";
+    document.getElementById("totalProgressTableP").innerHTML = "Total Pts: " + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%)";
+    document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Pts: " + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)";
+    document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Pts: " + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)";
+    document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + attPercentage + "%)";
     document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)";
 }
 
@@ -651,7 +598,7 @@ function populateMissions() {
             div1.appendChild(textNode1);
             document.getElementById("asPop").appendChild(div1);
         }
-        for (let j =_elapsedWeeks-2; j >= 0; j--) {
+        for (let j = _elapsedWeeks-2; j >= 0; j--) {
             if (j > 31) { continue }
             var div2 = document.createElement("div");
             div2.setAttribute("id","mv"+j+"Pop");
@@ -661,7 +608,7 @@ function populateMissions() {
                     mvPop(j,_mvMaxPts[j]);
                 }
             })(j);
-            var textNode2 = _mvFulls[j] + "<br>" + _mvTextSnippets[j];
+            var textNode2 = _mvFulls[j] + "<br>" + _mvText[j].split(" ").slice(0,3).join(" ");
             div2.innerHTML = textNode2;
             document.getElementById("mvPop").appendChild(div2);
         }
@@ -677,7 +624,7 @@ function loadRankTable() {
         document.getElementById("rankChartInsignia"+i).style.cursor = "pointer";
         document.getElementById("rankChartRank"+i).innerHTML = _rankNames[i];
         document.getElementById("rankChartAbbreviation"+i).innerHTML = _rankNamesAbbr[i];
-        document.getElementById("rankChartPoints"+i).innerHTML = _rankPts[i];
+        document.getElementById("rankChartPts"+i).innerHTML = _rankPts[i];
         (function(i){
             document.getElementById("rankChartInsignia"+i).onclick = function () {
                 pop(["rankChartPop"],["openInsigniaPop"]);
@@ -903,7 +850,6 @@ function cdn(dn,type) {
         return month.toString() + "/" + date.toString();
     }
 }
-
 
 loadBackup();
 

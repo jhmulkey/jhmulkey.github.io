@@ -43,7 +43,7 @@
     <div class="backButton" onclick="pop(['sortChoicePop'],['mainMenuPop'])">f</div>
     <div class="homeButton" onclick="goHome()">5</div>
   </div>
-  <div class="button" onclick="sortByPoints()">Sort by Points</div>
+  <div class="button" onclick="sortByPts()">Sort by Points</div>
   <div class="button" onclick="sortByAttendance()">Sort by Attendance</div>
   <div class="button" onclick="sortByGender()">Sort by Boy/Girl</div>
   <div class="button" onclick="sortByBd()">Sort by Birthday</div>
@@ -76,8 +76,8 @@
   </div>
   <div class="button" onclick="pop(['mainMenuPop'],['sortChoicePop'])">Sort Students</div>
   <div class="button" onclick="loadAttStats()">Attendance Stats</div>
-  <div class="button" onclick="pop(['mainMenuPop'],['drawingPop'])">Drawing</div>
-  <div class="button" onclick="pop(['mainMenuPop'],['randomPop'])">Random</div>
+  <div class="button" onclick="pop(['mainMenuPop'],['drawPop'])">Drawing</div>
+  <div class="button" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
   <div class="button" onclick="teams()">Teams</div>
   <div class="button" id="teacherNotesButton" onclick="pop(['mainMenuPop'],['teacherNotesPop']); populateTeacherNotes()">Notes</div>
 </div>
@@ -87,7 +87,7 @@
           <div class="navigationButtonContainer">
             <div class="backButton" onclick="goHome()">f</div>
           </div>
-          <div class="button" id="promotionButton" onclick="loadPromotions(); pop(['alertsPop'],['customListPop'])">Promotions</div>
+          <div class="button" id="promoButton" onclick="loadPromos(); pop(['alertsPop'],['customListPop'])">Promotions</div>
           <div class="button" id="bdButton" onclick="loadBds(); pop(['alertsPop'],['customListPop'])">Birthdays</div>
           <div class="button" id="photosNeededButton" onclick="loadNeededPhotos(); pop(['alertsPop'],['customListPop'])">Missing Photos</div>
           <div class="button" id="emailsNeededButton" onclick="loadNeededEmails(); pop(['alertsPop'],['customListPop']); _array = ['customListPop']">Missing Emails</div>
@@ -122,7 +122,7 @@
     <div class="secretButton"></div>
     <div class="homeButton" onclick="goHome()">5</div>
   </div>
-  <div id="teamPointsContainer">
+  <div id="teamPtsContainer">
     <div>
       <p>Team 1</p>
       <div id="team1Score" onclick="dataInputAlert('Adjust team 1 score',['playGamePop'],adjustGameScore,1)">0</div>
@@ -138,17 +138,17 @@
     <div class="secretButton2" onclick="actionAlert('Skip this player?',['playGamePop'],skipPlayer)"></div>
   </div>
   <div id="gamePointButtonsContainer">
-    <div class="gamePointButton" id="gamePoint1" onclick="gameScorePoints(1)">1</div>
-    <div class="gamePointButton" id="gamePoint2" onclick="gameScorePoints(2)">2</div>
-    <div class="gamePointButton" id="gamePoint3" onclick="gameScorePoints(3)">3</div>
-    <div class="gamePointButton" id="gamePoint4" onclick="gameScorePoints(4)">4</div>
-    <div class="gamePointButton" id="gamePoint5" onclick="gameScorePoints(5)">5</div>
-    <div class="gamePointButton" id="gamePoint6" onclick="gameScorePoints(6)">6</div>
-    <div class="gamePointButton" id="gamePoint7" onclick="gameScorePoints(7)">7</div>
-    <div class="gamePointButton" id="gamePoint8" onclick="gameScorePoints(8)">8</div>
-    <div class="gamePointButton" id="gamePoint9" onclick="gameScorePoints(9)">9</div>
-    <div class="gameUndoButton" onclick="undoGameScorePoints()">b</div>
-    <div class="gamePointButton" id="gamePoint10" onclick="gameScorePoints(10)">10</div>
+    <div class="gamePointButton" id="gamePoint1" onclick="gameScorePts(1)">1</div>
+    <div class="gamePointButton" id="gamePoint2" onclick="gameScorePts(2)">2</div>
+    <div class="gamePointButton" id="gamePoint3" onclick="gameScorePts(3)">3</div>
+    <div class="gamePointButton" id="gamePoint4" onclick="gameScorePts(4)">4</div>
+    <div class="gamePointButton" id="gamePoint5" onclick="gameScorePts(5)">5</div>
+    <div class="gamePointButton" id="gamePoint6" onclick="gameScorePts(6)">6</div>
+    <div class="gamePointButton" id="gamePoint7" onclick="gameScorePts(7)">7</div>
+    <div class="gamePointButton" id="gamePoint8" onclick="gameScorePts(8)">8</div>
+    <div class="gamePointButton" id="gamePoint9" onclick="gameScorePts(9)">9</div>
+    <div class="gameUndoButton" onclick="undoGameScorePts()">b</div>
+    <div class="gamePointButton" id="gamePoint10" onclick="gameScorePts(10)">10</div>
     <div class="gameLogButton" onclick="pop(['playGamePop'],['gameLogPop'])">LOG</div>
   </div>
 </div>
@@ -674,31 +674,31 @@
   </div>
 </div>
 
-<div id="drawingPop" class="pop">
+<div id="drawPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['drawingPop'],['mainMenuPop'])">f</div>
+    <div class="backButton" onclick="pop(['drawPop'],['mainMenuPop'])">f</div>
     <div class="homeButton" onclick="goHome()">5</div>
   </div>
-  <div id="drawingNameDiv" onclick="drawing()">
-      <p id="drawingName">tap here<br>to pick</p>
+  <div id="drawNameDiv" onclick="draw()">
+      <p id="drawName">tap here<br>to pick</p>
   </div>
 </div>
 
-<div id="randomPop" class="pop">
+<div id="randPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['randomPop'],['mainMenuPop'])">f</div>
+    <div class="backButton" onclick="pop(['randPop'],['mainMenuPop'])">f</div>
     <div class="homeButton" onclick="goHome()">5</div>
   </div>
-  <div id="randomNameDiv" onclick="random()">
-      <p id="randomName">tap here<br>to pick</p>
+  <div id="randNameDiv" onclick="rand()">
+      <p id="randName">tap here<br>to pick</p>
   </div>
-  <div id="randomFilter">
+  <div id="randFilter">
     <form>
-      <input class="radioButton" type="radio" id="all" name="randomFilter" value="All" checked>
+      <input class="radioButton" type="radio" id="all" name="randFilter" value="All" checked>
       <label for="all">All</label><br>
-      <input class="radioButton" type="radio" id="boys" name="randomFilter" value="Boys">
+      <input class="radioButton" type="radio" id="boys" name="randFilter" value="Boys">
       <label for="boys">Boys</label><br>
-      <input class="radioButton" type="radio" id="girls" name="randomFilter" value="Girls">
+      <input class="radioButton" type="radio" id="girls" name="randFilter" value="Girls">
       <label for="girls">Girls</label><br><br>
     </form> 
   </div>
@@ -716,21 +716,14 @@
     </div>
 </div>
 
-<div id="asPointsPop" class="pop">
+<div id="asPtsPop" class="pop">
   <div class="pointButtonContainer">
-      <div id="as1Points" class="roundButton1 numberButton asPts" onclick="asPoints(_asNum,1)">1</div>
-      <div id="as2Points" class="roundButton1 numberButton asPts" onclick="asPoints(_asNum,2)">2</div>
-      <div id="as3Points" class="roundButton1 numberButton asPts" onclick="asPoints(_asNum,3)">3</div>
-      <div id="as4Points" class="roundButton1 numberButton asPts" style="padding-right:3px" onclick="asPoints(_asNum,4)">4</div>
-      <div id="as5Points" class="roundButton1 numberButton asPts" onclick="asPoints(_asNum,5)">5</div>
-      <div id="as6Points" class="roundButton1 numberButton asPts" onclick="asPoints(_asNum,6)">6</div>
-  </div>
-  <div id="asReasonContainer" >
-    <textarea id="asReasonText" rows="5" cols="25" placeholder="reason for partial credit (required)" onkeydown="pressKey(13,'asReasonOK'); pressKey(27,'asReasonCancel')"></textarea>
-    <div class="optionButtonContainer">
-      <div class="roundButton1 cancelButton" id="asReasonCancel" onclick="pop(['asPointsPop','asReasonContainer'],['missionsPop'])">X</div>
-      <div class="roundButton1 okButton" id="asReasonOK" onclick="asPoints(_asNum,_asPoints,true)">V</div>
-    </div>
+      <div id="as1Pts" class="roundButton1 numberButton asPts" onclick="asPts(_asNum,1)">1</div>
+      <div id="as2Pts" class="roundButton1 numberButton asPts" onclick="asPts(_asNum,2)">2</div>
+      <div id="as3Pts" class="roundButton1 numberButton asPts" onclick="asPts(_asNum,3)">3</div>
+      <div id="as4Pts" class="roundButton1 numberButton asPts" style="padding-right:3px" onclick="asPts(_asNum,4)">4</div>
+      <div id="as5Pts" class="roundButton1 numberButton asPts" onclick="asPts(_asNum,5)">5</div>
+      <div id="as6Pts" class="roundButton1 numberButton asPts" onclick="asPts(_asNum,6)">6</div>
   </div>
   <div>
     <table class="asmvInfoTable">
@@ -751,9 +744,6 @@
         <td id="asCompletionStatus"></td>
       </tr>
       <tr>
-        <td colspan="2" id="asReason"></td>
-      </tr>
-      <tr>
         <td colspan="2" id="scannedImage" onclick="scanLinks()"><span id="scanIcon">C &nbsp;&nbsp;&nbsp;</span>VIEW SCAN</td>
       </tr>
       <tr>
@@ -766,15 +756,15 @@
   </div>
 </div>
 
-<div id="mvPointsPop" class="pop">
+<div id="mvPtsPop" class="pop">
   <div class="pointButtonContainer">
-      <div id="mv1Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,1)">1</div>
-      <div id="mv2Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,2)">2</div>
-      <div id="mv3Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,3)">3</div>
-      <div id="mv4Points" class="roundButton1 numberButton mvPts" style="padding-right:3px" onclick="mvPoints(_mvNum,4)">4</div>
-      <div id="mv5Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,5)">5</div>
-      <div id="mv6Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,6)">6</div>
-      <div id="mv7Points" class="roundButton1 numberButton mvPts" onclick="mvPoints(_mvNum,7)">7</div>
+      <div id="mv1Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,1)">1</div>
+      <div id="mv2Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,2)">2</div>
+      <div id="mv3Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,3)">3</div>
+      <div id="mv4Pts" class="roundButton1 numberButton mvPts" style="padding-right:3px" onclick="mvPts(_mvNum,4)">4</div>
+      <div id="mv5Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,5)">5</div>
+      <div id="mv6Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,6)">6</div>
+      <div id="mv7Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,7)">7</div>
   </div>
   <div>
     <table class="asmvInfoTable">
@@ -824,7 +814,7 @@
       <div class="backButton" onclick="pop(['attListPop'],['mainPop'])">f</div>
       <div class="otherButton" onclick="actionAlert('Reset attendance?',['attListPop'],resetAtt)">Reset</div>
     </div>
-    <p id="attCount" onclick="dataInputAlert('Number of students for random attendance',['attListPop'],randomAtt)"></p>
+    <p id="attCount" onclick="dataInputAlert('Number of students for random attendance',['attListPop'],randAtt)"></p>
     <div id="attListContainer">
       <div id="boysListAttDiv">
         <p id="boysListAttP"></p>
@@ -881,20 +871,20 @@
     <p>email: <span id="email"></span></p>
     <p>photo: <span id="photo"></span></p>
     <p>notes: <span id="notes"></span></p>
-    <p>points: <span id="points"></span></p>
+    <p>pts: <span id="pts"></span></p>
+    <p>ptTally: <span id="ptTally"></span></p>
     <p>classRank: <span id="classRank"></span></p>
     <p>rank: <span id="rank"></span></p>
     <p>rankFactor: <span id="rankFactor"></span></p>
     <p>rankName: <span id="rankName"></span></p>
-    <p>attendance: <span id="attendance"></span></p>
+    <p>att: <span id="att"></span></p>
     <p>amAtt: <span id="amAtt"></span></p>
     <p>pmAtt: <span id="pmAtt"></span></p>
     <p>promoTally: <span id="promoTally"></span></p>
-    <p>promoted: <span id="promoted"></span></p>
-    <p>promotionNum: <span id="promotionNum"></span></p>
-    <p>drawing: <span id="drawing"></span></p>
-    <p>random: <span id="random"></span></p>
-    <p>asReasons: <span id="asReasons"></span></p>
+    <p>promo: <span id="promo"></span></p>
+    <p>promoNum: <span id="promoNum"></span></p>
+    <p>draw: <span id="draw"></span></p>
+    <p>rand: <span id="rand"></span></p>
     <p>asDates: <span id="asDates"></span></p>
     <p>mvDates: <span id="mvDates"></span></p>
     <p>as: <span id="as"></span></p>
@@ -922,127 +912,127 @@
       <th>Insignia</th>
       <th>Rank</th>
       <th>Abbreviation</th>
-      <th>Points</th>
+      <th>Pts</th>
     </tr>
     <tr id="rankChartRow0">
       <td id="rankChartInsignia0"></td>
       <td id="rankChartRank0"></td>
       <td id="rankChartAbbreviation0"></td>
-      <td id="rankChartPoints0"></td>
+      <td id="rankChartPts0"></td>
     </tr>
     <tr id="rankChartRow1">
       <td id="rankChartInsignia1"></td>
       <td id="rankChartRank1"></td>
       <td id="rankChartAbbreviation1"></td>
-      <td id="rankChartPoints1"></td>
+      <td id="rankChartPts1"></td>
     </tr>
     <tr id="rankChartRow2">
       <td id="rankChartInsignia2"></td>
       <td id="rankChartRank2"></td>
       <td id="rankChartAbbreviation2"></td>
-      <td id="rankChartPoints2"></td>
+      <td id="rankChartPts2"></td>
     </tr>
     <tr id="rankChartRow3">
       <td id="rankChartInsignia3"></td>
       <td id="rankChartRank3"></td>
       <td id="rankChartAbbreviation3"></td>
-      <td id="rankChartPoints3"></td>
+      <td id="rankChartPts3"></td>
     </tr>
     <tr id="rankChartRow4">
       <td id="rankChartInsignia4"></td>
       <td id="rankChartRank4"></td>
       <td id="rankChartAbbreviation4"></td>
-      <td id="rankChartPoints4"></td>
+      <td id="rankChartPts4"></td>
     </tr>
     <tr id="rankChartRow5">
       <td id="rankChartInsignia5"></td>
       <td id="rankChartRank5"></td>
       <td id="rankChartAbbreviation5"></td>
-      <td id="rankChartPoints5"></td>
+      <td id="rankChartPts5"></td>
     </tr>
     <tr id="rankChartRow6">
       <td id="rankChartInsignia6"></td>
       <td id="rankChartRank6"></td>
       <td id="rankChartAbbreviation6"></td>
-      <td id="rankChartPoints6"></td>
+      <td id="rankChartPts6"></td>
     </tr>
     <tr id="rankChartRow7">
       <td id="rankChartInsignia7"></td>
       <td id="rankChartRank7"></td>
       <td id="rankChartAbbreviation7"></td>
-      <td id="rankChartPoints7"></td>
+      <td id="rankChartPts7"></td>
     </tr>
     <tr id="rankChartRow8">
       <td id="rankChartInsignia8"></td>
       <td id="rankChartRank8"></td>
       <td id="rankChartAbbreviation8"></td>
-      <td id="rankChartPoints8"></td>
+      <td id="rankChartPts8"></td>
     </tr>
     <tr id="rankChartRow9">
       <td id="rankChartInsignia9"></td>
       <td id="rankChartRank9"></td>
       <td id="rankChartAbbreviation9"></td>
-      <td id="rankChartPoints9"></td>
+      <td id="rankChartPts9"></td>
     </tr>
     <tr id="rankChartRow10">
       <td id="rankChartInsignia10"></td>
       <td id="rankChartRank10"></td>
       <td id="rankChartAbbreviation10"></td>
-      <td id="rankChartPoints10"></td>
+      <td id="rankChartPts10"></td>
     </tr>
     <tr id="rankChartRow11">
       <td id="rankChartInsignia11"></td>
       <td id="rankChartRank11"></td>
       <td id="rankChartAbbreviation11"></td>
-      <td id="rankChartPoints11"></td>
+      <td id="rankChartPts11"></td>
     </tr>
     <tr id="rankChartRow12">
       <td id="rankChartInsignia12"></td>
       <td id="rankChartRank12"></td>
       <td id="rankChartAbbreviation12"></td>
-      <td id="rankChartPoints12"></td>
+      <td id="rankChartPts12"></td>
     </tr>
     <tr id="rankChartRow13">
       <td id="rankChartInsignia13"></td>
       <td id="rankChartRank13"></td>
       <td id="rankChartAbbreviation13"></td>
-      <td id="rankChartPoints13"></td>
+      <td id="rankChartPts13"></td>
     </tr>
     <tr id="rankChartRow14">
       <td id="rankChartInsignia14"></td>
       <td id="rankChartRank14"></td>
       <td id="rankChartAbbreviation14"></td>
-      <td id="rankChartPoints14"></td>
+      <td id="rankChartPts14"></td>
     </tr>
     <tr id="rankChartRow15">
       <td id="rankChartInsignia15"></td>
       <td id="rankChartRank15"></td>
       <td id="rankChartAbbreviation15"></td>
-      <td id="rankChartPoints15"></td>
+      <td id="rankChartPts15"></td>
     </tr>
     <tr id="rankChartRow16">
       <td id="rankChartInsignia16"></td>
       <td id="rankChartRank16"></td>
       <td id="rankChartAbbreviation16"></td>
-      <td id="rankChartPoints16"></td>
+      <td id="rankChartPts16"></td>
     </tr>
     <tr id="rankChartRow17">
       <td id="rankChartInsignia17"></td>
       <td id="rankChartRank17"></td>
       <td id="rankChartAbbreviation17"></td>
-      <td id="rankChartPoints17"></td>
+      <td id="rankChartPts17"></td>
     </tr>
     <tr id="rankChartRow18">
       <td id="rankChartInsignia18"></td>
       <td id="rankChartRank18"></td>
       <td id="rankChartAbbreviation18"></td>
-      <td id="rankChartPoints18"></td>
+      <td id="rankChartPts18"></td>
     </tr>
     <tr id="rankChartRow19">
       <td id="rankChartInsignia19"></td>
       <td id="rankChartRank19"></td>
       <td id="rankChartAbbreviation19"></td>
-      <td id="rankChartPoints19"></td>
+      <td id="rankChartPts19"></td>
     </tr>
   </table>
   </div>
