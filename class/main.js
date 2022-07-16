@@ -4,7 +4,7 @@ var _asPts;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
 var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3];
 var _leapYear = false; // true if Jan-July falls within a leap year
-var _dns = [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 169, 176, 183, 190, 197, 204, 211, 218, 225, 232, 239, 246, 253, 267, 274, 281, 288, 295];
+var _dns = [22,29,43,50,57,64,71,78,85,92,99,106,127,134,141,162,169,176,183,190,197,204,211,218,225,232,239,246,253,267,274,281,288,295];
 var _todaysDn
 var _elapsedWeeks;
 var _isClassDay;
@@ -667,11 +667,11 @@ function deleteCurrentPlayer() {
 }
 
 function addPlayer(x,i) {
+    var log;
     if (x == 1) {
         _teams[0].team1.push(_sl[i].full);
         _teams[0].team1Reset.push(_sl[i].full);
         log = "ADDED " + _sl[i] + " to Team 1";
-
     } else {
         _teams[0].team2.push(_sl[i].full);
         _teams[0].team2Reset.push(_sl[i].full);
@@ -737,7 +737,7 @@ function isClassDay() {
     } else { _isClassDay = false; }
 }
 
-// _dns = (34) [22, 29, 43, 50, 57, 64, 71, 78, 85, 92, 99, 106, 127, 134, 141, 162, 169, 176, 183, 190, 197, 204, 211, 218, 225, 232, 239, 246, 253, 267, 274, 281, 288, 295];
+// _dns = (34) [22,29,43,50,57,64,71,78,85,92,99,106,127,134,141,162,169,176,183,190,197,204,211,218,225,232,239,246,253,267,274,281,288,295];
 
 function setElapsedWeeks() {
     for (let i = 0; i < _dns.length; i++) {
@@ -1859,7 +1859,7 @@ function mvPts(_mvNum,x) {
 }
 
 function searchNames(id,className) {
-    var inputVal = document.getElementById(id).value.toLowerCase();
+    var inputVal = " " + document.getElementById(id).value.toLowerCase();
     var names = document.getElementsByClassName(className);
     for (let i = 0; i < names.length; i++) {
         if (names[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
