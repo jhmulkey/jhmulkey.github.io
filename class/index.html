@@ -175,7 +175,8 @@
 <div id="wtlPop" class="pop buttonArr">
     <p>Load localstorage or backup.js?</p>
     <div class="button" onclick="loadLS()">localstorage</div>
-    <div class="button" onclick="actionAlert('This action may potentially overwrite more current data. Are you sure?',['wtlPop'],loadBackup)">backup.js</div>
+    <div class="button" onclick="actionAlert('This action may potentially overwrite more current data. Are you sure?',['wtlPop'],loadBackup,true,latestBackup())">backup.js</div>
+    <div class="button" id="archivedBackups" onclick="pop(['wtlPop'],['archivedBackupsPop']); populateBackups()">Archived Backups</div>
 </div>
 
 <div id="logPop" class="pop">
@@ -872,7 +873,6 @@
     <p>photo: <span id="photo"></span></p>
     <p>notes: <span id="notes"></span></p>
     <p>pts: <span id="pts"></span></p>
-    <p>ptTally: <span id="ptTally"></span></p>
     <p>classRank: <span id="classRank"></span></p>
     <p>rank: <span id="rank"></span></p>
     <p>rankFactor: <span id="rankFactor"></span></p>
@@ -880,7 +880,6 @@
     <p>att: <span id="att"></span></p>
     <p>amAtt: <span id="amAtt"></span></p>
     <p>pmAtt: <span id="pmAtt"></span></p>
-    <p>promoTally: <span id="promoTally"></span></p>
     <p>promo: <span id="promo"></span></p>
     <p>promoNum: <span id="promoNum"></span></p>
     <p>draw: <span id="draw"></span></p>
@@ -901,6 +900,14 @@
     <div id="amAttBackupArray"></div>
     <div id="pmAttBackupArray"></div>
     <div id="teacherNotesBackupArray"></div>
+  </div>
+</div>
+
+<div id="archivedBackupsPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="pop(['archivedBackupsPop'],['wtlPop'])">f</div>
+  </div>
+  <div id="archivedBackupsList" onclick="selectText('backupArrays')">
   </div>
 </div>
 
@@ -1502,7 +1509,7 @@
 </div>
 
 </div>
-<script src="backup.js"></script>
+<script src="backup33.js"></script>
 <script src="backup0.js"></script>
 <script src="main.js"></script>
 </body>

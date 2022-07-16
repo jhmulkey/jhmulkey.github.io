@@ -683,22 +683,25 @@ function addPlayer(x,i) {
 }
 
 function whatToLoad() {
-    if (!localStorage.getItem("sl") && !JSON.parse(localStorage.getItem("slBackup"))) {
+    if (!localStorage.getItem("sl") && backupCount() == 0) {
         infoAlert("No data",["mainPop"]);
-    } else if (localStorage.getItem("sl") && JSON.parse(localStorage.getItem("slBackup"))) {
+    } else if (localStorage.getItem("sl") && backupCount() > 0) {
+        if (backupCount() > 1) { 
+            document.getElementById("archivedBackups").style.display = "block";
+        }
         pop(["mainPop"],["wtlPop"]);
-    } else if (!localStorage.getItem("sl") && JSON.parse(localStorage.getItem("slBackup"))) {
-        loadBackup();
+    } else if (!localStorage.getItem("sl") && backupCount() > 0) {
+        loadBackup(latestBackup());
     }
 }
 
-function loadBackup() {
-    _sl = JSON.parse(localStorage.getItem("slBackup"));
-    _amAtt = JSON.parse(localStorage.getItem("amAttBackup"));
-    _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"));
-    _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
+function loadBackup(i) {
+    _sl = JSON.parse(localStorage.getItem("slBackup"+i));
+    _amAtt = JSON.parse(localStorage.getItem("amAttBackup"+i));
+    _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"+i));
+    _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"+i));
     _promoList = []; _bdList = [];
-    activityLog("backup loaded" + "<br>" + dateAndTime("log"));
+    activityLog(cdn(_dns[i]) + " backup loaded<br>" + dateAndTime("log"));
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].att = false;
         _sl[i].rand = false;
@@ -710,7 +713,7 @@ function loadBackup() {
         _amAtt.push(0); _pmAtt.push(0);
     }
     populateTeacherNotes(); assignTodaysDn(); storeAndBackup();
-    pop(["wtlPop"],["mainPop"]);
+    pop(["wtlPop","archivedBackupsPop"],["mainPop"]);
 }
 
 function loadLS() {
@@ -1690,7 +1693,6 @@ function rapidOff() {
 
 function promo() {
     _sl[_ci].rank++; _sl[_ci].promo = true; _sl[_ci].promoNum++; _promoList.push(_sl[_ci].full);
-    _sl[_ci].promoTally[_elapsedWeeks-1]++;
     setRankFactor();
     setRankName();
     document.getElementById("studentPopRankName").innerHTML = _sl[_ci].rankName;
@@ -1709,7 +1711,7 @@ function demo() {
     if (_sl[_ci].promoNum == 1) {
         _sl[_ci].promo = false;
     }
-    _sl[_ci].promoNum--; _sl[_ci].promoTally[_elapsedWeeks-1]--;
+    _sl[_ci].promoNum--;
     setRankFactor();
     setRankName();
     var log = _sl[_ci].full + " demoted to " + _sl[_ci].rankName + "<br>" + dateAndTime("log");
@@ -1731,14 +1733,14 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 220) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].as[_asNum] = x;
         }
         if (asPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].as[_asNum] = x;
         }
         if (asPts == x) {
@@ -1746,7 +1748,7 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts -= x; netPts = -x; _sl[_ci].ptTally[_elapsedWeeks-1] -= x;
+            _sl[_ci].pts -= x; netPts = -x;
             _sl[_ci].as[_asNum] = 0;
         }
     } else if (_sl[_ci].rank == 8 || _sl[_ci].rank == 14 || _sl[_ci].rank == 18) {
@@ -1754,14 +1756,14 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + x >= 20) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].as[_asNum] = x;
         }
         if (asPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].as[_asNum] = x;
         }
         if (asPts == x) {
@@ -1769,7 +1771,7 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts -= x; netPts = -x; _sl[_ci].ptTally[_elapsedWeeks-1] -= x;
+            _sl[_ci].pts -= x; netPts = -x;
             _sl[_ci].as[_asNum] = 0;
         }
     }
@@ -1801,14 +1803,14 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 220) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].mv[_mvNum] = x;
         }
         if (mvPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].mv[_mvNum] = x;
         }
         if (mvPts == x) {
@@ -1816,7 +1818,7 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts -= x; netPts = -x; _sl[_ci].ptTally[_elapsedWeeks-1] -= x;
+            _sl[_ci].pts -= x; netPts = -x;
             _sl[_ci].mv[_mvNum] = 0;
         }
     } else if (_sl[_ci].rank == 8 || _sl[_ci].rank == 14 || _sl[_ci].rank == 18) {
@@ -1824,14 +1826,14 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + x >= 20) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].mv[_mvNum] = x;
         }
         if (mvPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts += netPts; _sl[_ci].ptTally[_elapsedWeeks-1] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].mv[_mvNum] = x;
         }
         if (mvPts == x) {
@@ -1839,7 +1841,7 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts -= x; netPts = -x; _sl[_ci].ptTally[_elapsedWeeks-1] -= x;
+            _sl[_ci].pts -= x; netPts = -x;
             _sl[_ci].mv[_mvNum] = 0;
         }
     }
@@ -1859,7 +1861,12 @@ function mvPts(_mvNum,x) {
 }
 
 function searchNames(id,className) {
-    var inputVal = " " + document.getElementById(id).value.toLowerCase();
+    if (id == "searchMain") { 
+        var inputVal = " " + document.getElementById(id).value.toLowerCase();
+    } else {
+        console.log("hello");
+        var inputVal = document.getElementById(id).value.toLowerCase();
+    }
     var names = document.getElementsByClassName(className);
     for (let i = 0; i < names.length; i++) {
         if (names[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
@@ -2404,7 +2411,6 @@ function loadStudentProperties() {
     document.getElementById("photo").innerHTML = _sl[_ci].photo;
     document.getElementById("notes").innerHTML = JSON.stringify(_sl[_ci].notes);
     document.getElementById("pts").innerHTML = _sl[_ci].pts;
-    document.getElementById("ptTally").innerHTML = JSON.stringify(_sl[_ci].ptTally);
     document.getElementById("classRank").innerHTML = _sl[_ci].classRank;
     document.getElementById("rank").innerHTML = _sl[_ci].rank;
     document.getElementById("rankFactor").innerHTML = _sl[_ci].rankFactor;
@@ -2412,7 +2418,6 @@ function loadStudentProperties() {
     document.getElementById("att").innerHTML = _sl[_ci].att;
     document.getElementById("amAtt").innerHTML = JSON.stringify(_sl[_ci].amAtt);
     document.getElementById("pmAtt").innerHTML = JSON.stringify(_sl[_ci].pmAtt);
-    document.getElementById("promoTally").innerHTML = JSON.stringify(_sl[_ci].promoTally);
     document.getElementById("promo").innerHTML = _sl[_ci].promo;
     document.getElementById("promoNum").innerHTML = _sl[_ci].promoNum;
     document.getElementById("draw").innerHTML = _sl[_ci].draw;
@@ -2557,7 +2562,7 @@ function loadStudentPhoto() {
 
 function photoLinks() {
     if (_sl[_ci].photo === false) {
-        actionAlert("Toggle photo on/off?",["editStudentPop"],togglePhoto);
+        actionAlert("Load photo for<br>" + _sl[_ci].full + "?",["editStudentPop"],loadPhoto);
     } else {
         if (_sl[_ci].first.includes(" ")) {
             var firstArray = _sl[_ci].first.split(" ");
@@ -2568,12 +2573,8 @@ function photoLinks() {
     }
 }
 
-function togglePhoto() {
-    if (_sl[_ci].photo === false) {
-        _sl[_ci].photo = true;
-    } else {
-        _sl[_ci].photo = false;
-    }
+function loadPhoto() {
+    if (_sl[_ci].photo === false) {_sl[_ci].photo = true}
     loadStudentPhoto(); refreshStudentPop(); allAlerts(); storeAndBackup();         
 }
 
@@ -3064,6 +3065,43 @@ function allBdsFalse() {
 
 function pressKey(key,id) {
     if(event.keyCode==key)document.getElementById(id).click()
+}
+
+function populateBackups() {
+    document.getElementById("archivedBackupsList").innerHTML = "";
+    for (let i = 0; i < 35; i++) {
+        if (JSON.parse(localStorage.getItem("slBackup"+i)) !== null) {
+            var p = document.createElement("p");
+            p.classList.add("button");
+            p.innerHTML = cdn(_dns[i]) + " Backup";
+            (function(i){
+                p.onclick = function () {
+                    loadBackup(i);
+                }
+            })(i);
+            document.getElementById("archivedBackupsList").appendChild(p);
+        }
+    }
+}
+
+function backupCount() {
+    var count = 0;
+    for (let i = 0; i < 35; i++) {
+        if (JSON.parse(localStorage.getItem("slBackup"+i)) !== null) {
+            count++; if (count > 1) {break}
+        }
+    }
+    return count;
+}
+
+function latestBackup() {
+    var count = 0;
+    for (i = 0; i < 35; i++) {
+        if (JSON.parse(localStorage.getItem("slBackup"+i)) !== null) {
+            count++; if (count > 1) {break}
+        }
+    }
+    return i;
 }
 
 whatToLoad();

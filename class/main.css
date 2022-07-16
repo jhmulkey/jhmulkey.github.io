@@ -57,7 +57,7 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#setDatePop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentPhotoPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #sortByPop, #gameLogPop, #preloadImagesPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #resetDrawingPop, #addTeacherNotePop, #addStudentNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #emailPop, #editStudentNotePop, #editTeacherNotePop, #modifyNotesPop, #studentNotesPop, #bdListPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
+#archivedBackupsPop, #setDatePop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentPhotoPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #sortByPop, #gameLogPop, #preloadImagesPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #resetDrawingPop, #addTeacherNotePop, #addStudentNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #emailPop, #editStudentNotePop, #editTeacherNotePop, #modifyNotesPop, #studentNotesPop, #bdListPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
     display: none;
 }
 
