@@ -925,3 +925,8 @@ a:link, a:visited, a:hover, a:active {
 #currentDate {
     font-size: 20px;
 }
+
+.seperatorDiv {
+    height: 2px;
+    border-top: 2px solid #333;
+}

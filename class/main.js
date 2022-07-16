@@ -3069,14 +3069,14 @@ function pressKey(key,id) {
 
 function populateBackups() {
     document.getElementById("archivedBackupsList").innerHTML = "";
-    for (let i = 0; i < 35; i++) {
+    for (let i = 34; i >= 0; i--) {
         if (JSON.parse(localStorage.getItem("slBackup"+i)) !== null) {
             var p = document.createElement("p");
             p.classList.add("button");
             p.innerHTML = cdn(_dns[i]) + " Backup";
             (function(i){
                 p.onclick = function () {
-                    loadBackup(i);
+                    loadBackup(i); _elapsedWeeks = i + 1;
                 }
             })(i);
             document.getElementById("archivedBackupsList").appendChild(p);

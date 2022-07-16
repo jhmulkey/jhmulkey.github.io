@@ -173,10 +173,10 @@
 </div>
 
 <div id="wtlPop" class="pop buttonArr">
-    <p>Load localstorage or backup.js?</p>
-    <div class="button" onclick="loadLS()">localstorage</div>
-    <div class="button" onclick="actionAlert('This action may potentially overwrite more current data. Are you sure?',['wtlPop'],loadBackup,true,latestBackup())">backup.js</div>
-    <div class="button" id="archivedBackups" onclick="pop(['wtlPop'],['archivedBackupsPop']); populateBackups()">Archived Backups</div>
+    <p>Choose data to load</p>
+    <div class="button" onclick="loadLS()">Local Storage</div>
+    <div class="button" onclick="actionAlert('This action may potentially overwrite more current data. Are you sure?',['wtlPop'],loadBackup,true,latestBackup())">Latest Backup</div>
+    <div class="button" id="archivedBackups" onclick="pop(['wtlPop'],['archivedBackupsPop']); populateBackups()">Archived Backup</div>
 </div>
 
 <div id="logPop" class="pop">
