@@ -695,6 +695,13 @@ function whatToLoad() {
     }
 }
 
+function isArchiveMode() {
+    var today = new Date();
+    var month = today.getMonth() + 1; var date = today.getDate();
+    var todaysDn = assignDn(month,date);
+    if (_todaysDn != todaysDn) {return true} else {return false}
+}
+
 function loadBackup(i) {
     _sl = JSON.parse(localStorage.getItem("slBackup"+i));
     _amAtt = JSON.parse(localStorage.getItem("amAttBackup"+i));
@@ -714,6 +721,8 @@ function loadBackup(i) {
     }
     if (i < latestBackup()) {
         _todaysDn = _dns[i]; _elapsedWeeks = i+1;
+    } else  {
+        assignTodaysDn();
     }
     populateMissions(); populateTeacherNotes(); storeAndBackup();
     pop(["wtlPop","archivedBackupsPop"],["mainPop"]);
@@ -1640,19 +1649,21 @@ function refreshStudentPop() {
 
 function refreshMissionsPop() {
     if (_elapsedWeeks > 1) {
-        for (let i = 0; i < _elapsedWeeks-2; i++) {
-            if (_sl[_ci].as[i] == _asMaxPts[i]) {
+        for (let i = 0; i < _elapsedWeeks-1; i++) {
+            if (i > 31) {break}
+            if (_sl[_ci].as[i] == _asMaxPts[i] && _sl[_ci].asDates[i] <= _todaysDn) {
                 document.getElementById("as"+i+"Pop").style.background = "green";
-            } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i]) {
+            } else if (_sl[_ci].as[i] > 0 && _sl[_ci].as[i] < _asMaxPts[i] && _sl[_ci].asDates[i] <= _todaysDn) {
                 document.getElementById("as"+i+"Pop").style.background = "darkorange";
             } else {
                 document.getElementById("as"+i+"Pop").style.background = "black";
             }
         }
-        for (let i = 0; i < _elapsedWeeks-2; i++) {
-            if (_sl[_ci].mv[i] == _mvMaxPts[i]) {
+        for (let i = 0; i < _elapsedWeeks-1; i++) {
+            if (i > 31) {break}
+            if (_sl[_ci].mv[i] == _mvMaxPts[i] && _sl[_ci].mvDates[i] <= _todaysDn) {
                 document.getElementById("mv"+i+"Pop").style.background = "green";
-            } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i]) {
+            } else if (_sl[_ci].mv[i] > 0 && _sl[_ci].mv[i] < _mvMaxPts[i] && _sl[_ci].mvDates[i] <= _todaysDn) {
                 document.getElementById("mv"+i+"Pop").style.background = "darkorange";
             } else {
                 document.getElementById("mv"+i+"Pop").style.background = "black";
@@ -1724,6 +1735,7 @@ function demo() {
 }
 
 function asPts(_asNum,x) {
+    if (isArchiveMode() === true) {return} 
     if (_sl[_ci].asDates[_asNum] == 0) { _sl[_ci].asDates[_asNum] = _todaysDn };
     var rankNum = _sl[_ci].rank;
     var rankFactor = _sl[_ci].rankFactor;
@@ -1794,6 +1806,7 @@ function asPts(_asNum,x) {
 }
 
 function mvPts(_mvNum,x) {
+    if (isArchiveMode() === true) {return}
     if (_sl[_ci].mvDates[_mvNum] == 0) { _sl[_ci].mvDates[_mvNum] = _todaysDn };
     var rankNum = _sl[_ci].rank;
     var rankFactor = _sl[_ci].rankFactor;
@@ -1894,7 +1907,8 @@ function searchLog() {
 
 function loadStudent(index) {
     _ci = index; document.getElementById("searchMain").value = "";
-    checkInAtt(); refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu();
+    if (isArchiveMode() === false) {checkInAtt()}
+    refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu();
     if (document.getElementById("editStudentPop").style.display != "block") {
         pop(["mainPop"],["studentPop","missionsPop"]);
     }
@@ -2015,6 +2029,11 @@ function goHome() {
 
 function asPop(asNum,pts) {
     _asNum = asNum;
+    for (let i = 0; i < _sl[_ci].asDates.length; i++) {
+        if (_sl[_ci].asDates[i] > _todaysDn) {
+            _sl[_ci].as[i] = 0
+        }
+    }
     document.getElementById("asSheetName").innerHTML = _asNames[_asNum].toUpperCase();
     document.getElementById("asDateAssigned").innerHTML = cdn(_dns[asNum]);
     if (_sl[_ci].as[_asNum] == _asMaxPts[_asNum]) {
@@ -2032,7 +2051,7 @@ function asPop(asNum,pts) {
     } else {
         document.getElementById("scannedImage").style.display = "none";
     }
-    if (_sl[_ci].asDates[_asNum] == 0) {
+    if (_sl[_ci].asDates[_asNum] == 0 || _sl[_ci].asDates[_asNum] > _todaysDn) {
         document.getElementById("asDateTurnedIn").innerHTML = "-"
     } else {
         document.getElementById("asDateTurnedIn").innerHTML = cdn(_sl[_ci].asDates[_asNum]);
@@ -2060,6 +2079,11 @@ function mvPop(mvNum,pts) {
     document.getElementById("missionsPop").style.display = "none";
     document.getElementById("mvPtsPop").style.display = "block";
     _mvNum = mvNum;
+    for (let i = 0; i < _sl[_ci].mvDates.length; i++) {
+        if (_sl[_ci].mvDates[i] > _todaysDn) {
+            _sl[_ci].mv[i] = 0
+        }
+    }
     document.getElementById("mvVerseName").innerHTML = _mvNames[_mvNum].toUpperCase();
     document.getElementById("mvDateAssigned").innerHTML = cdn(_dns[mvNum]);
     if (_sl[_ci].mv[_mvNum] == _mvMaxPts[_mvNum]) {
@@ -2072,7 +2096,7 @@ function mvPop(mvNum,pts) {
         document.getElementById("mvCompletionStatus").innerHTML = "PARTIAL CREDIT";
         document.getElementById("mvCompletionStatus").style.color = "orange";
     }
-    if (_sl[_ci].mvDates[_mvNum] == 0) {
+    if (_sl[_ci].mvDates[_mvNum] == 0 || _sl[_ci].mvDates[_mvNum] > _todaysDn) {
         document.getElementById("mvDateRecited").innerHTML = "-"
     } else {
         document.getElementById("mvDateRecited").innerHTML = cdn(_sl[_ci].mvDates[_mvNum]);
@@ -2099,33 +2123,39 @@ function populateNames() {
     document.getElementById("nameList").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
         var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
-        if (_sl[i].att === true) {
-            span1.style.color = "white";
-        } else {
-            span1.style.color = "#555";
+        if (isArchiveMode() !== true) {
+            var span1 = document.createElement("span");
+            span1.classList.add("quickAttendance");
+            span1.innerHTML = "V"
+            if (_sl[i].att === true) {
+                span1.style.color = "white";
+            } else {
+                span1.style.color = "#555";
+            }
+            (function(i){
+                span1.onclick = function () {
+                    _ci = i; toggleAtt(i); populateNames();
+                }
+            })(i);
         }
+        var span2 = document.createElement("span");
         if (_sl[i].att === true) {
             span2.style.color = "lawnGreen";
         } else {
             span2.style.color = "white";
         }
         p.classList.add("name");
-        span1.classList.add("quickAttendance");
-        (function(i){
-            span1.onclick = function () {
-                _ci = i; toggleAtt(i); populateNames();
-            }
-        })(i);
         (function(i){
             span2.onclick = function () {
                 loadStudent(i);
             }
         })(i);
-        span1.innerHTML = "V"
         span2.innerHTML = " " + _sl[i].full;
-        p.append(span1,span2);
+        if (isArchiveMode() !== true) {
+            p.append(span1,span2);
+        } else {
+            p.append(span2);
+        }
         document.getElementById("nameList").appendChild(p);
     }
     var elementNode2 = document.createElement("p");
@@ -3109,7 +3139,6 @@ function latestBackup() {
 
 whatToLoad(); 
 
-
-document.body.style.borderTop = "2px solid red"
+// document.body.style.borderTop = "2px solid red"
 
 document.getElementById("searchMain").focus();
