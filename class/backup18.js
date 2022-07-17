@@ -3,7 +3,7 @@ var _amAttBackup = [17,15,15,17,18,14,16,13,18,24,19,16,20,17,14,19,15,19];
 var _pmAttBackup = [2,3,3,4,5,4,6,5,6,3,7,6,5,2,4,7,2,4];
 var _teacherNotesBackup = [];
 
-localStorage.setItem("slBackup0",JSON.stringify(_slBackup));
-localStorage.setItem("amAttBackup0",JSON.stringify(_amAttBackup));
-localStorage.setItem("pmAttBackup0",JSON.stringify(_pmAttBackup));
-localStorage.setItem("teacherNotesBackup0",JSON.stringify(_teacherNotesBackup));
+localStorage.setItem("slBackup18",JSON.stringify(_slBackup));
+localStorage.setItem("amAttBackup18",JSON.stringify(_amAttBackup));
+localStorage.setItem("pmAttBackup18",JSON.stringify(_pmAttBackup));
+localStorage.setItem("teacherNotesBackup18",JSON.stringify(_teacherNotesBackup));

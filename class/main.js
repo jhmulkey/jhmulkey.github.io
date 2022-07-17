@@ -712,7 +712,10 @@ function loadBackup(i) {
         }
         _amAtt.push(0); _pmAtt.push(0);
     }
-    populateTeacherNotes(); assignTodaysDn(); storeAndBackup();
+    if (i < latestBackup()) {
+        _todaysDn = _dns[i]; _elapsedWeeks = i+1;
+    }
+    populateMissions(); populateTeacherNotes(); storeAndBackup();
     pop(["wtlPop","archivedBackupsPop"],["mainPop"]);
 }
 
@@ -3076,7 +3079,7 @@ function populateBackups() {
             p.innerHTML = cdn(_dns[i]) + " Backup";
             (function(i){
                 p.onclick = function () {
-                    loadBackup(i); _elapsedWeeks = i + 1;
+                    actionAlert('This action may potentially overwrite more current data. Are you sure?',['archivedBackupsPop'],loadBackup,true,i);
                 }
             })(i);
             document.getElementById("archivedBackupsList").appendChild(p);
@@ -3104,6 +3107,9 @@ function latestBackup() {
     return i;
 }
 
-whatToLoad();
+whatToLoad(); 
+
+
+document.body.style.borderTop = "2px solid red"
 
 document.getElementById("searchMain").focus();
