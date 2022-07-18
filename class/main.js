@@ -725,7 +725,18 @@ function loadBackup(i) {
         assignTodaysDn();
     }
     populateMissions(); populateTeacherNotes(); storeAndBackup();
+    if (isArchiveMode() === true) {disableButtons()}
     pop(["wtlPop","archivedBackupsPop"],["mainPop"]);
+}
+
+function disableButtons() {
+    var ids = ["alertButton","attCountButton","logButton","att2Button","drawButton","randButton","teamsButton","advancedButton","editStudentCancelButton","editStudentOkButton","deleteStudentButton","dispStudentPhoto"]
+    for (i = 0; i < ids.length; i++) {
+        document.getElementById(ids[i]).style.color = "#222";
+        document.getElementById(ids[i]).style.backgroundColor = "black";
+        document.getElementById(ids[i]).style.borderColor = "#333";
+        document.getElementById(ids[i]).onclick = "";
+    }
 }
 
 function loadLS() {
@@ -1237,27 +1248,31 @@ function populateStudentNotes(id) {
         if (_sl[_ci].notes[i] == false) { continue }
         var elementNode = document.createElement("p");
         elementNode.classList.add("note");
-        (function(i){
-            elementNode.onclick = function () {
-                pop(["studentNotesPop"],["editStudentNotePop","editStudentNote"]);
-                document.getElementById("editStudentNote").focus();
-                _noteIndex = i;
-                document.getElementById("editStudentNote").value = _sl[_ci].notes[_noteIndex];
-            }
-        })(i);
+        if (isArchiveMode() !== true) {
+            (function(i){
+                elementNode.onclick = function () {
+                    pop(["studentNotesPop"],["editStudentNotePop","editStudentNote"]);
+                    document.getElementById("editStudentNote").focus();
+                    _noteIndex = i;
+                    document.getElementById("editStudentNote").value = _sl[_ci].notes[_noteIndex];
+                }
+            })(i);
+        }
         var textNode = document.createTextNode((i + 1) + ". " + _sl[_ci].notes[i]);
         elementNode.appendChild(textNode);
         document.getElementById("studentNotesList").appendChild(elementNode);
     }
-    var elementNode2 = document.createElement("p");
-    elementNode2.classList.add("addNew");
-    elementNode2.onclick = function () {
-        pop(["studentNotesPop"],["addStudentNotePop","addStudentNote"]);
-        document.getElementById("addStudentNote").focus();
+    if (isArchiveMode() !== true) {
+        var elementNode2 = document.createElement("p");
+        elementNode2.classList.add("addNew");
+        elementNode2.onclick = function () {
+            pop(["studentNotesPop"],["addStudentNotePop","addStudentNote"]);
+            document.getElementById("addStudentNote").focus();
+        }
+        var textNode2 = document.createTextNode("Add New Note");
+        elementNode2.appendChild(textNode2);
+        document.getElementById("studentNotesList").appendChild(elementNode2);
     }
-    var textNode2 = document.createTextNode("Add New Note");
-    elementNode2.appendChild(textNode2);
-    document.getElementById("studentNotesList").appendChild(elementNode2);
 }
 
 function addStudentNote() {
@@ -2158,18 +2173,20 @@ function populateNames() {
         }
         document.getElementById("nameList").appendChild(p);
     }
-    var elementNode2 = document.createElement("p");
-    elementNode2.classList.add("addNew");
-    elementNode2.onclick = function () {
-        pop(["mainPop"],["newStudentPop"]);
-        document.getElementById("newFirst").focus();
+    if (isArchiveMode() !== true) {
+        var elementNode2 = document.createElement("p");
+        elementNode2.classList.add("addNew");
+        elementNode2.onclick = function () {
+            pop(["mainPop"],["newStudentPop"]);
+            document.getElementById("newFirst").focus();
+        }
+        var textNode2 = document.createTextNode("Add New Student");
+        elementNode2.appendChild(textNode2);
+        document.getElementById("nameList").appendChild(elementNode2);
+        allAlerts();
+        document.getElementById("searchMain").value = "";
+        document.getElementById("searchMain").focus();
     }
-    var textNode2 = document.createTextNode("Add New Student");
-    elementNode2.appendChild(textNode2);
-    document.getElementById("nameList").appendChild(elementNode2);
-    allAlerts();
-    document.getElementById("searchMain").value = "";
-    document.getElementById("searchMain").focus();
 }
 
 function populateNames2() {
@@ -2243,27 +2260,31 @@ function populateTeacherNotes() {
     for (let i = 0; i < _teacherNotes.length; i++) {
         var elementNode = document.createElement("p");
         elementNode.classList.add("note");
-        (function(i){
-            elementNode.onclick = function () {
-                pop(["teacherNotesPop"],["editTeacherNotePop","editTeacherNote"]);
-                document.getElementById("editTeacherNote").focus();
-                _teacherNoteIndex = i;
-                document.getElementById("editTeacherNote").value = _teacherNotes[_teacherNoteIndex];
-            }
-        })(i);
+        if (isArchiveMode() !== true) {
+            (function(i){
+                elementNode.onclick = function () {
+                    pop(["teacherNotesPop"],["editTeacherNotePop","editTeacherNote"]);
+                    document.getElementById("editTeacherNote").focus();
+                    _teacherNoteIndex = i;
+                    document.getElementById("editTeacherNote").value = _teacherNotes[_teacherNoteIndex];
+                }
+            })(i);
+        }
         var textNode = document.createTextNode((i + 1) + ". " + _teacherNotes[i]);
         elementNode.appendChild(textNode);
         document.getElementById("teacherNotesList").appendChild(elementNode);
     }
-    var elementNode2 = document.createElement("p");
-    elementNode2.classList.add("addNew");
-    elementNode2.onclick = function () {
-        pop(["teacherNotesPop"],["addTeacherNotePop","addTeacherNote"]);
-        document.getElementById("addTeacherNote").focus();
+    if (isArchiveMode() !== true) {
+        var elementNode2 = document.createElement("p");
+        elementNode2.classList.add("addNew");
+        elementNode2.onclick = function () {
+            pop(["teacherNotesPop"],["addTeacherNotePop","addTeacherNote"]);
+            document.getElementById("addTeacherNote").focus();
+        }
+        var textNode2 = document.createTextNode("Add New Note");
+        elementNode2.appendChild(textNode2);
+        document.getElementById("teacherNotesList").appendChild(elementNode2);
     }
-    var textNode2 = document.createTextNode("Add New Note");
-    elementNode2.appendChild(textNode2);
-    document.getElementById("teacherNotesList").appendChild(elementNode2);
 }
 
 function checkInAtt() {
@@ -3137,8 +3158,6 @@ function latestBackup() {
     return i;
 }
 
-whatToLoad(); 
-
-// document.body.style.borderTop = "2px solid red"
+whatToLoad();
 
 document.getElementById("searchMain").focus();

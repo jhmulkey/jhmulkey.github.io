@@ -72,13 +72,13 @@
 <div id="mainMenuPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="goHome()">f</div>
-    <div class="otherButton" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">Advanced</div>
+    <div id="advancedButton" class="otherButton" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">Advanced</div>
   </div>
   <div class="button" onclick="pop(['mainMenuPop'],['sortChoicePop'])">Sort Students</div>
   <div class="button" onclick="loadAttStats()">Attendance Stats</div>
-  <div class="button" onclick="pop(['mainMenuPop'],['drawPop'])">Drawing</div>
-  <div class="button" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
-  <div class="button" onclick="teams()">Teams</div>
+  <div id="drawButton" class="button" onclick="pop(['mainMenuPop'],['drawPop'])">Drawing</div>
+  <div id="randButton" class="button" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
+  <div id="teamsButton" class="button" onclick="teams()">Teams</div>
   <div class="button" id="teacherNotesButton" onclick="pop(['mainMenuPop'],['teacherNotesPop']); populateTeacherNotes()">Notes</div>
 </div>
 
@@ -198,7 +198,7 @@
 <div id="studentPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton" onclick="goHome()">f</div>
-    <div class="otherButton" onclick="populateNames2()">Attendance</div>
+    <div id="att2Button" class="otherButton" onclick="populateNames2()">Attendance</div>
   </div>
   <div id="studentPopTopContainerDiv">
     <div id="studentPopInsignia" onclick="loadStudentProperties(); studentMenuSwitch(4)"></div>
@@ -611,7 +611,7 @@
       <input class="searchField" id="editNamePron" placeholder="name pronunciation" onkeydown="pressKey(13,'editStudentOkButton')"></textarea>
     </div>
     <div class="optionButtonContainer">
-      <div class="roundButton1 cancelButton" onclick="pop(['editStudentPop'],[_array]); clearStudentFields(); resetStudentMenu(); rapidOff()">X</div>
+      <div class="roundButton1 cancelButton" id="editStudentCancelButton" onclick="pop(['editStudentPop'],[_array]); clearStudentFields(); resetStudentMenu(); rapidOff()">X</div>
       <div class="roundButton1 deleteButton" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
       <div class="roundButton1 okButton" id="editStudentOkButton" onclick="editStudent()">V</div>
     </div>
