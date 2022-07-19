@@ -10,6 +10,8 @@
 <body>
 <div id="master-wrapper">
 
+<div id="archiveBanner"></div>
+
 <div id="mainPop" class="pop">
     <div id="topMenuContainer">
         <div id="mainMenuButton" class="roundButton2" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
@@ -81,6 +83,19 @@
   <div id="randButton" class="button" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
   <div id="teamsButton" class="button" onclick="teams()">Teams</div>
   <div class="button" id="teacherNotesButton" onclick="pop(['mainMenuPop'],['teacherNotesPop']); populateTeacherNotes()">Notes</div>
+</div>
+
+<div id="pwdPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="homeButton" onclick="pop(['pwdPop'],['wtlPop'])">5</div>
+  </div>
+  <p>Enter password to confirm overwriting local storage:</p>
+  <div class="flex" id="pwdFlexDiv">
+    <input type="text" id="pwd1" class="textInputField6" maxlength="1" onkeydown="pwdEntry(1)">
+    <input type="text" id="pwd2" class="textInputField6" maxlength="1" onkeydown="pwdEntry(2)">
+    <input type="text" id="pwd3" class="textInputField6" maxlength="1" onkeydown="pwdEntry(3)">
+    <input type="text" id="pwd4" class="textInputField6" maxlength="1" onkeydown="pwdEntry(4)">
+  </div>
 </div>
 
 <div id="alertsPop" class="pop">
@@ -161,7 +176,6 @@
   </div>
   <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> Quick new student entry</label><br>
   <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> Quick student editing</label><br>
-  <div class="button" onclick="pop(['advancedOptionsPop'],['setDatePop']); setDatePop()">Set Date</div>
 </div>
 
 <div id="dataInputAlertPop" class="pop">
@@ -176,7 +190,7 @@
 <div id="wtlPop" class="pop buttonArr">
     <p>Choose data to load</p>
     <div class="button" onclick="loadLS()">Local Storage</div>
-    <div class="button" onclick="actionAlert('This action may potentially overwrite more current data. Are you sure?',['wtlPop'],loadBackup,true,latestBackup())">Latest Backup</div>
+    <div class="button" onclick="loadLatestBackup()">Latest Backup</div>
     <div class="button" id="archivedBackups" onclick="pop(['wtlPop'],['archivedBackupsPop']); populateBackups()">Archived Backup</div>
 </div>
 
@@ -1487,25 +1501,6 @@
         <td id="studentAttPM33"></td>
       </tr>
     </table>
-  </div>
-</div>
-
-<div id="setDatePop" class="pop">
-  <div>
-    <p>Set Date</p>
-    <p id="currentDate"></p>
-    <div class="flexContainer2">
-      <div>
-        <input class="textInputField5" id="setDateMonth" type="text" placeholder="Month" onkeydown="pressKey(13,'setDateOK')">
-      </div>
-      <div>
-        <input class="textInputField5" id="setDateDate" type="text" placeholder="Day" onkeydown="pressKey(13,'setDateOK')"/>
-      </div>
-    </div>
-  </div>
-  <div class="optionButtonContainer">
-    <div class="roundButton1 cancelButton" id="setDateCancel" onclick="pop(['setDatePop'],['advancedOptionsPop'])">X</div>
-    <div class="roundButton1 okButton" id="setDateOK" onclick="assignTodaysDn(false,false,true); pop(['setDatePop'],['mainPop'])">V</div>
   </div>
 </div>
 

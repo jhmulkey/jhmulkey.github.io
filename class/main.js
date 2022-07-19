@@ -31,6 +31,7 @@ var _eligibleRandom;
 var _teams = [];
 var _dataInputParameter;
 var _amAtt = []; var _pmAtt = [];
+var _pwd = []; var _backupIndex;
 var _rankNamesAbbr = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
@@ -720,10 +721,18 @@ function isArchiveMode() {
     var today = new Date();
     var month = today.getMonth() + 1; var date = today.getDate();
     var todaysDn = assignDn(month,date);
-    if (_todaysDn != todaysDn) {return true} else {return false}
+    if (_todaysDn != todaysDn) {
+        document.getElementById("archiveBanner").style.display = "block";
+        document.getElementById("archiveBanner").innerHTML = "Archive View for " + cdn(_todaysDn);
+        return true;
+    } else {
+        document.getElementById("archiveBanner").style.display = "none";
+        return false
+    }
 }
 
-function loadBackup(i) {
+function loadBackup(_backupIndex) {
+    var i = _backupIndex;
     _sl = JSON.parse(localStorage.getItem("slBackup"+i));
     _amAtt = JSON.parse(localStorage.getItem("amAttBackup"+i));
     _pmAtt = JSON.parse(localStorage.getItem("pmAttBackup"+i));
@@ -748,6 +757,34 @@ function loadBackup(i) {
     populateMissions(); populateTeacherNotes(); storeAndBackup();
     if (isArchiveMode() === true) {disableButtons()}
     pop(["wtlPop","archivedBackupsPop"],["mainPop"]);
+}
+
+function pwdEntry(id) {
+    var ids = ["pwd1","pwd2","pwd3","pwd4"]
+    setTimeout(function() {
+        if (isNaN(parseInt(document.getElementById("pwd"+id).value))) {
+            document.getElementById("pwd"+id).value = "";
+            document.getElementById("pwd"+id).focus(); return;
+        } else if (id < 4) {
+            _pwd.push(parseInt(document.getElementById("pwd"+id).value));
+            document.getElementById("pwd"+(id+1)).focus();
+        } else {
+            _pwd.push(parseInt(document.getElementById("pwd"+id).value));
+            if (parseInt(_pwd.join("")) == 3784) {
+                loadBackup(_backupIndex);
+                document.getElementById("pwdPop").style.display = "none";
+                for (let i = 0; i < ids.length; i++) {
+                    document.getElementById(ids[i]).value = "";
+                }
+            } else {
+                infoAlert("incorrect password",["pwdPop"],"pwd1");
+                for (let i = 0; i < ids.length; i++) {
+                    document.getElementById(ids[i]).value = "";
+                }
+                _pwd = [];
+            }
+        }
+    },10);
 }
 
 function disableButtons() {
@@ -798,13 +835,6 @@ function setElapsedWeeks() {
             _elapsedWeeks = 34;
         }
     }
-}
-
-function setDatePop() {
-    document.getElementById("currentDate").innerHTML = "Current Date: " + cdn(_todaysDn);
-    document.getElementById("setDateMonth").value = "";
-    document.getElementById("setDateDate").value = "";
-    document.getElementById("setDateMonth").focus();
 }
 
 function assignTodaysDn() {
@@ -3189,12 +3219,22 @@ function populateBackups() {
             p.innerHTML = cdn(_dns[i]) + " Backup";
             (function(i){
                 p.onclick = function () {
-                    actionAlert('This action may potentially overwrite more current data. Are you sure?',['archivedBackupsPop'],loadBackup,true,i);
+                    _backupIndex = i; pop(["archivedBackupsPop"],["pwdPop"]);
+                    setTimeout(function() {
+                         document.getElementById("pwd1").focus();
+                    },10);
                 }
             })(i);
             document.getElementById("archivedBackupsList").appendChild(p);
         }
     }
+}
+
+function loadLatestBackup() {
+    _backupIndex = latestBackup(); pop(["wtlPop"],["pwdPop"]);
+    setTimeout(function() {
+            document.getElementById("pwd1").focus();
+    },10);
 }
 
 function backupCount() {

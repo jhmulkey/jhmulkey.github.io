@@ -57,8 +57,16 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#archivedBackupsPop, #setDatePop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentPhotoPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #sortByPop, #gameLogPop, #preloadImagesPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #resetDrawingPop, #addTeacherNotePop, #addStudentNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #emailPop, #editStudentNotePop, #editTeacherNotePop, #modifyNotesPop, #studentNotesPop, #bdListPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
+#archiveBanner, #pwdPop, #archivedBackupsPop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #gameLogPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #addTeacherNotePop, #addStudentNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #editStudentNotePop, #editTeacherNotePop, #studentNotesPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
     display: none;
+}
+
+#archiveBanner {
+    margin: 0px 20px 0px 20px;
+    padding: 0px;
+    background-color: red;
+    color: white;
+    font-size: 15px;
 }
 
 #customList, #customListAbsent { 
@@ -87,8 +95,7 @@ a:link, a:visited, a:hover, a:active {
     overflow-y: auto;
     background-color: black;
     border: 2px solid #222;
-    padding-top: 20px;
-    padding-left: 20px;
+    padding: 20px;
     border-radius: 25px;
     text-align: left;
 }
@@ -130,7 +137,7 @@ a:link, a:visited, a:hover, a:active {
     color: darkorange;
 }
 
-#customListAbsent p{
+#customListAbsent p {
     color: gray;
 }
 
@@ -315,14 +322,6 @@ a:link, a:visited, a:hover, a:active {
     font-size: 28px;
 }
 
-
-.asmvButtonFill {
-    height: 150px;
-    width: 150px;
-    border: 1px solid transparent;
-    background-color: #111 !important;
-}
-
 #asPop div, #mvPop div {
     margin: 14px auto;
 }
@@ -357,6 +356,10 @@ a:link, a:visited, a:hover, a:active {
 .flex {
     display: flex;
     flex-wrap: wrap;
+}
+
+#pwdFlexDiv {
+    justify-content: space-around;
 }
 
 #attCount, #attArchiveCount {
@@ -656,12 +659,20 @@ a:link, a:visited, a:hover, a:active {
     margin: 0px 0px 0px 0px;
 }
 
-.searchField:focus, .searchField2:focus, .textInputField2:focus, .textInputField3:focus, .textInputField4:focus, .textInputField5:focus, #initialNote:focus, #dataInputTextField:focus, #addStudentNote:focus, #editStudentNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
+.textInputField6 {
+    width: 50px;
+    height: 50px;
+    margin: 0px 20px;
+    font-size: 40px;
+}
+
+
+.searchField:focus, .searchField2:focus, .textInputField2:focus, .textInputField3:focus, .textInputField4:focus, .textInputField5:focus, .textInputField6:focus, #initialNote:focus, #dataInputTextField:focus, #addStudentNote:focus, #editStudentNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
     outline: none;
     border: 2px solid dodgerblue;
 }
 
-.searchField, .textInputField2, .textInputField3, .textInputField4, .textInputField5 {
+.searchField, .textInputField2, .textInputField3, .textInputField4, .textInputField5, .textInputField6 {
     border-radius: 15px;
     border: 1px solid transparent;
     text-align: center;
