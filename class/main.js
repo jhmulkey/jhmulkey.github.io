@@ -111,6 +111,7 @@ class Student {
         this.photo = false;
         this.notes = note;
         this.pts = 0;
+        this.gamePts = 0;
         this.classRank = 0;
         this.rank = 0;
         this.rankFactor = 0;
@@ -501,6 +502,11 @@ function gameScorePts(x) {
         _teams[0].currentTeam ++;
         _teams[0].undoCurrentPlayer = _teams[0].team1[0];
         _teams[0].undoTeam = 1;
+        for (let i = 0; i < _sl.length; i++) {
+            if (_sl[i].full == _teams[0].undoCurrentPlayer) {
+                _sl[i].gamePts += x; break;
+            }
+        }
         _teams[0].team1.shift();
         _teams[0].currentPlayer = _teams[0].team2[0];
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0] + "</span>";
@@ -520,6 +526,11 @@ function gameScorePts(x) {
         _teams[0].currentTeam --;
         _teams[0].undoCurrentPlayer = _teams[0].team2[0];
         _teams[0].undoTeam = 2;
+        for (let i = 0; i < _sl.length; i++) {
+            if (_sl[i].full == _teams[0].undoCurrentPlayer) {
+                _sl[i].gamePts += x; break;
+            }
+        }
         _teams[0].team2.shift();
         _teams[0].currentPlayer = _teams[0].team1[0];
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0] + "</span>";
@@ -553,6 +564,11 @@ function undoGameScorePts() {
         log = "UNDO " + _teams[0].undoCurrentPlayer + " -" + _teams[0].undoGamePts + " points team 2 " + "<br>" + "(" + _teams[0].team2Score + "-->" + (_teams[0].team2Score - _teams[0].undoGamePts) + ")";
         _teams[0].currentTeam = 2;
         _teams[0].team2Score -= _teams[0].undoGamePts;
+        for (let i = 0; i < _sl.length; i++) {
+            if (_sl[i].full == _teams[0].undoCurrentPlayer) {
+                _sl[i].gamePts -= _teams[0].undoGamePts; break;
+            }
+        }
         document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
         _teams[0].team2.unshift(_teams[0].undoCurrentPlayer);
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team2[0] + "</span>";
@@ -563,6 +579,11 @@ function undoGameScorePts() {
         log = "UNDO " + _teams[0].undoCurrentPlayer + " -" + _teams[0].undoGamePts + " points team 1 " + "<br>" + "(" + _teams[0].team1Score + "-->" + (_teams[0].team1Score - _teams[0].undoGamePts) + ")";
         _teams[0].currentTeam = 1;
         _teams[0].team1Score -= _teams[0].undoGamePts;
+        for (let i = 0; i < _sl.length; i++) {
+            if (_sl[i].full == _teams[0].undoCurrentPlayer) {
+                _sl[i].gamePts -= _teams[0].undoGamePts; break;
+            }
+        }
         document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
         _teams[0].team1.unshift(_teams[0].undoCurrentPlayer);
         document.getElementById("currentPlayer").innerHTML = "Current Player:<br><span style='color: lawngreen'>" + _teams[0].team1[0] + "</span>";
@@ -818,6 +839,18 @@ function assignClassRanks() {
     var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1});
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].classRank = ptsRanked[i];
+    }
+}
+
+function assignGameRanks() {
+    var gamePts = [];
+    for (let i = 0; i < _sl.length; i++) {
+        gamePts.push(_sl[i].gamePts);
+    }
+    var gamePtsSorted = gamePts.slice().sort(function(a,b){return b - a});
+    var gamePtsRanked = gamePts.map(function(v){return gamePtsSorted.indexOf(v)+1});
+    for (let i = 0; i < _sl.length; i++) {
+        _sl[i].gameRank = gamePtsRanked[i];
     }
 }
 
@@ -1081,6 +1114,22 @@ function sortByPts() {
         elementNode.appendChild(textNode);
         document.getElementById("nameListCustom").appendChild(elementNode);
         lastElementNode = _sl[i].rank;
+    }
+    pop(["sortChoicePop"],["customSortListPop"]);
+}
+
+function sortByGamePts() {
+    assignGameRanks();
+    document.getElementById("nameListCustom").style.display = "block";
+    document.getElementById("genderListContainer").style.display = "none";
+    _sl.sort(function(b,a){return a.gamePts - b.gamePts});
+    document.getElementById("nameListCustom").innerHTML = "";
+    for (let i = 0; i < _sl.length; i++) {
+        var elementNode = document.createElement("p");
+        elementNode.classList.add("name3");
+        var textNode = document.createTextNode(_sl[i].gameRank + ". " + _sl[i].full + " (" + _sl[i].gamePts + ")");
+        elementNode.appendChild(textNode);
+        document.getElementById("nameListCustom").appendChild(elementNode);
     }
     pop(["sortChoicePop"],["customSortListPop"]);
 }
@@ -2028,6 +2077,9 @@ function pop(closeArray,openArray) {
     if (openArray.includes("sortChoicePop")) {
         _populateNotesID = [];
     }
+    if (closeArray.includes("customSortListPop")) {
+        batchDeletePropertyQuick("gameRank");
+    }
     scrollTo(0,0);
 }
 
@@ -2039,7 +2091,7 @@ function goHome() {
     }
     document.getElementById("searchMain").value = "";
     document.getElementById("searchMain").focus();
-    sortStudentList(); populateNames();
+    sortStudentList(); populateNames(); batchDeletePropertyQuick("gameRank");
 }
 
 function asPop(asNum,pts) {
@@ -3062,6 +3114,13 @@ function batchDeleteProperty(propertyName) {
             console.log(doesntExist[i].full)
         }
     }
+    storeAndBackup();
+}
+
+function batchDeletePropertyQuick(propertyName) {
+    for (let i = 0; i < _sl.length; i++) {
+            delete _sl[i][propertyName];
+        }
     storeAndBackup();
 }
 
