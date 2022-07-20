@@ -839,13 +839,13 @@ function setElapsedWeeks() {
 
 function assignTodaysDn() {
     var todaysMonth = dateAndTime("month"); var todaysDate = dateAndTime("date")
-    var cumulative = [0,153,184,212,243,273,304,334,0,31,61,92,122];
-    var cumulativeLeap = [0,153,184,213,244,274,305,335,0,31,61,92,122];
+    var cumulative = [153,184,212,243,273,304,334,0,31,61,92,122];
+    var cumulativeLeap = [153,184,213,244,274,305,335,0,31,61,92,122];
     var dn;
     if (_leapYear === true) {
-        dn = cumulativeLeap[todaysMonth] + todaysDate;
+        dn = cumulativeLeap[todaysMonth-1] + todaysDate;
     } else {
-        dn = cumulative[todaysMonth] + todaysDate;
+        dn = cumulative[todaysMonth-1] + todaysDate;
     }
     _todaysDn = dn;
     setWeeksOff(); isClassDay(); setElapsedWeeks(); findAllBds(); populateMissions(); 
