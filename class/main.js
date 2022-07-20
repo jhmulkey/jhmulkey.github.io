@@ -3237,7 +3237,7 @@ function populateBackups() {
                     _backupIndex = i; pop(["archivedBackupsPop"],["pwdPop"]);
                     setTimeout(function() {
                          document.getElementById("pwd").focus();
-                    },10);
+                    },50);
                 }
             })(i);
             document.getElementById("archivedBackupsList").appendChild(p);
