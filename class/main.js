@@ -758,32 +758,21 @@ function loadBackup(_backupIndex) {
     pop(["wtlPop","archivedBackupsPop"],["mainPop"]);
 }
 
-function pwdEntry(id) {
-    var ids = ["pwd1","pwd2","pwd3","pwd4"]
-    setTimeout(function() {
-        if (isNaN(parseInt(document.getElementById("pwd"+id).value))) {
-            document.getElementById("pwd"+id).value = "";
-            document.getElementById("pwd"+id).focus(); return;
-        } else if (id < 4) {
-            _pwd.push(parseInt(document.getElementById("pwd"+id).value));
-            document.getElementById("pwd"+(id+1)).focus();
+function pwdEntry() {
+    if (isNaN(parseInt(document.getElementById("pwd").value))) {
+        document.getElementById("pwd").value = "";
+        document.getElementById("pwd").focus(); return;
+    } else {
+        var pwd = parseInt(document.getElementById("pwd").value);
+        if (pwd == 3784) {
+            loadBackup(_backupIndex);
+            document.getElementById("pwdPop").style.display = "none";
+            document.getElementById("pwd").value = "";
         } else {
-            _pwd.push(parseInt(document.getElementById("pwd"+id).value));
-            if (parseInt(_pwd.join("")) == 3784) {
-                loadBackup(_backupIndex);
-                document.getElementById("pwdPop").style.display = "none";
-                for (let i = 0; i < ids.length; i++) {
-                    document.getElementById(ids[i]).value = "";
-                }
-            } else {
-                infoAlert("incorrect password",["pwdPop"],"pwd1");
-                for (let i = 0; i < ids.length; i++) {
-                    document.getElementById(ids[i]).value = "";
-                }
-                _pwd = [];
-            }
+            infoAlert("incorrect password",["pwdPop"],"pwd");
+            document.getElementById("pwd").value = ""; pwd = 0;
         }
-    },10);
+    }
 }
 
 function disableButtons() {
@@ -3247,7 +3236,7 @@ function populateBackups() {
                 p.onclick = function () {
                     _backupIndex = i; pop(["archivedBackupsPop"],["pwdPop"]);
                     setTimeout(function() {
-                         document.getElementById("pwd1").focus();
+                         document.getElementById("pwd").focus();
                     },10);
                 }
             })(i);
@@ -3259,7 +3248,7 @@ function populateBackups() {
 function loadLatestBackup() {
     _backupIndex = latestBackup(); pop(["wtlPop"],["pwdPop"]);
     setTimeout(function() {
-            document.getElementById("pwd1").focus();
+            document.getElementById("pwd").focus();
     },10);
 }
 
