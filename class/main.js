@@ -2118,8 +2118,11 @@ function goHome() {
     sortStudentList(); populateNames(); batchDeletePropertyQuick("gameRank");
 }
 
-function idFocus(id) {
-    document.getElementById(id).focus();
+function idFocus() {
+    pop(["archivedBackupsPop"],["pwdPop"])
+    setTimeout(function() {
+        document.getElementById("pwd").focus();
+    },10);
 }
 
 function asPop(asNum,pts) {
@@ -3238,11 +3241,7 @@ function populateBackups() {
             p.innerHTML = cdn(_dns[i]) + " Backup";
             (function(i){
                 p.onclick = function () {
-                    _backupIndex = i; 
-                    pop(["archivedBackupsPop"],["pwdPop"]); 
-                    setTimeout(function() {
-                        idFocus("pwd");
-                    },100);
+                    _backupIndex = i; idFocus();
                 }
             })(i);
             document.getElementById("archivedBackupsList").appendChild(p);
