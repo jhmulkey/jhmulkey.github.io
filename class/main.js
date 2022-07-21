@@ -2118,6 +2118,10 @@ function goHome() {
     sortStudentList(); populateNames(); batchDeletePropertyQuick("gameRank");
 }
 
+function idFocus(id) {
+    document.getElementById(id).focus();
+}
+
 function asPop(asNum,pts) {
     _asNum = asNum;
     for (let i = 0; i < _sl[_ci].asDates.length; i++) {
@@ -3235,10 +3239,10 @@ function populateBackups() {
             (function(i){
                 p.onclick = function () {
                     _backupIndex = i; 
-                    pop(["archivedBackupsPop"],["pwdPop"]);
+                    pop(["archivedBackupsPop"],["pwdPop"]); 
                     setTimeout(function() {
-                        document.getElementById("pwd").focus();
-                    });
+                        idFocus("pwd");
+                    },100);
                 }
             })(i);
             document.getElementById("archivedBackupsList").appendChild(p);
@@ -3247,10 +3251,7 @@ function populateBackups() {
 }
 
 function loadLatestBackup() {
-    _backupIndex = latestBackup(); pop(["wtlPop"],["pwdPop"]);
-    setTimeout(function() {
-            document.getElementById("pwd").focus();
-    });
+    _backupIndex = latestBackup(); pop(["wtlPop"],["pwdPop"]); idFocus("pwd");
 }
 
 function backupCount() {
