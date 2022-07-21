@@ -2101,6 +2101,9 @@ function pop(closeArray,openArray) {
     if (openArray.includes("sortChoicePop")) {
         _populateNotesID = [];
     }
+    if (openArray.includes("pwdPop")) {
+        document.getElementById("pwd").focus();
+    }
     if (closeArray.includes("customSortListPop")) {
         batchDeletePropertyQuick("gameRank");
     }
@@ -3234,10 +3237,11 @@ function populateBackups() {
             p.innerHTML = cdn(_dns[i]) + " Backup";
             (function(i){
                 p.onclick = function () {
-                    _backupIndex = i; pop(["archivedBackupsPop"],["pwdPop"]);
+                    _backupIndex = i; 
                     setTimeout(function() {
-                         document.getElementById("pwd").focus();
-                    },50);
+                        pop(["archivedBackupsPop"],["pwdPop"]);
+                        //document.getElementById("pwd").focus();
+                    },10);
                 }
             })(i);
             document.getElementById("archivedBackupsList").appendChild(p);
@@ -3247,9 +3251,9 @@ function populateBackups() {
 
 function loadLatestBackup() {
     _backupIndex = latestBackup(); pop(["wtlPop"],["pwdPop"]);
-    setTimeout(function() {
+    /* setTimeout(function() {
             document.getElementById("pwd").focus();
-    },10);
+    },10); */
 }
 
 function backupCount() {
