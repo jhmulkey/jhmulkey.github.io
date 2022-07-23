@@ -189,7 +189,7 @@
 <div id="wtlPop" class="pop buttonArr">
     <p>Choose data to load</p>
     <div class="button" onclick="loadLS()">Local Storage</div>
-    <div class="button" onclick="loadLatestBackup()">Latest Backup</div>
+    <div class="button" onclick="_backupIndex = latestBackup(); pop(['wtlPop'],['pwdPop'])">Latest Backup</div>
     <div class="button" id="archivedBackups" onclick="pop(['wtlPop'],['archivedBackupsPop']); populateBackups()">Archived Backup</div>
 </div>
 
@@ -875,28 +875,19 @@
 <div id="studentPropertiesPop" class="pop">
   <div id="studentProperties">
     <p>name: <span id="name"></span></p>
-    <p>pron: <span id="pron"></span></p>
     <p>gender: <span id="gender"></span></p>
     <p>dateAdded: <span id="dateAdded"></span></p>
-    <p>bdn: <span id="bdn"></span></p>
-    <p>hasBd: <span id="hasBd"></span></p>
-    <p>bdDone: <span id="bdDone"></span></p>
+    <p>bd: <span id="bd"></span></p>
     <p>email: <span id="email"></span></p>
     <p>photo: <span id="photo"></span></p>
     <p>notes: <span id="notes"></span></p>
     <p>pts: <span id="pts"></span></p>
     <p>classRank: <span id="classRank"></span></p>
     <p>rank: <span id="rank"></span></p>
-    <p>rankFactor: <span id="rankFactor"></span></p>
     <p>att: <span id="att"></span></p>
-    <p>amAtt: <span id="amAtt"></span></p>
-    <p>pmAtt: <span id="pmAtt"></span></p>
+    <p>attArr: <span id="attArr"></span></p>
     <p>promo: <span id="promo"></span></p>
-    <p>promoNum: <span id="promoNum"></span></p>
-    <p>draw: <span id="draw"></span></p>
-    <p>rand: <span id="rand"></span></p>
-    <p>asDates: <span id="asDates"></span></p>
-    <p>mvDates: <span id="mvDates"></span></p>
+    <p>randDraw: <span id="randDraw"></span></p>
     <p>as: <span id="as"></span></p>
     <p>mv: <span id="mv"></span></p>
   </div>
@@ -908,8 +899,7 @@
   </div>
   <div id="backupArrays" onclick="selectText('backupArrays')">
     <div id="slBackupArray"></div>
-    <div id="amAttBackupArray"></div>
-    <div id="pmAttBackupArray"></div>
+    <div id="attBackupArray"></div>
     <div id="teacherNotesBackupArray"></div>
   </div>
 </div>
