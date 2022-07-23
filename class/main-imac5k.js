@@ -694,27 +694,51 @@ function addPlayer(x,i) {
 }
 
 function whatToLoad() {
-    if (!localStorage.getItem("sl") && !localStorage.getItem("slBackup")) {
+    if (!localStorage.getItem("sl") && backupCount() == 0) {
         infoAlert("No data",["mainPop"]);
-    } else if (!localStorage.getItem("sl") && localStorage.getItem("slBackup")) {
-        loadBackup();
-    } else if (localStorage.getItem("sl") && localStorage.getItem("slBackup")) {
-        pop(['mainPop'],['wtlPop'])
+    } else if (localStorage.getItem("sl") && backupCount() > 0) {
+        if (backupCount() > 1) { 
+            document.getElementById("archivedBackups").style.display = "block";
+        }
+        pop(["mainPop"],["wtlPop"]);
+    } else if (!localStorage.getItem("sl") && backupCount() > 0) {
+        loadBackup(latestBackup());
     }
 }
 
-function loadBackup() {
-    _sl = JSON.parse(localStorage.getItem("slBackup"));
-    _slOLD = JSON.parse(localStorage.getItem("slBackupOLD"));
-    _att = JSON.parse(localStorage.getItem("attBackup"));
-    _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
-    _promoList = []; _bdList = [];
-    activityLog("backup loaded<br>" + dateAndTime("log"));
-    for (let i = 0; i < _sl.length; i++) {
-        _sl[i].randDraw[0] = false;
+function isArchiveMode() {
+    var today = new Date();
+    var month = today.getMonth() + 1; var date = today.getDate();
+    var todaysDn = assignDn(month,date);
+    if (_todaysDn != todaysDn) {
+        document.getElementById("archiveBanner").style.display = "block";
+        document.getElementById("archiveBanner").innerHTML = "Archive View for " + cdn(_todaysDn);
+        return true;
+    } else {
+        document.getElementById("archiveBanner").style.display = "none";
+        return false
     }
-    assignTodaysDn(); clearAttendees(); populateMissions(); populateTeacherNotes(); storeAndBackup();
-    pop(["wtlPop"],["mainPop"]);
+}
+
+function loadBackup(_backupIndex) {
+    var i = _backupIndex;
+    _sl = JSON.parse(localStorage.getItem("slBackup"+i));
+    _slOLD = JSON.parse(localStorage.getItem("slBackupOLD"));
+    _att = JSON.parse(localStorage.getItem("attBackup"+i));
+    _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"+i));
+    _promoList = []; _bdList = [];
+    activityLog(cdn(_dns[i]) + " backup loaded<br>" + dateAndTime("log"));
+    for (let i = 0; i < _sl.length; i++) {
+        _sl[i].rand = false;
+    }
+    if (i < latestBackup()) {
+        _todaysDn = _dns[i]; _elapsedWeeks = i+1; _ti = i;
+    } else  {
+        assignTodaysDn();
+    }
+    clearAttendees(); populateMissions(); populateTeacherNotes(); storeAndBackup();
+    if (isArchiveMode() === true) {disableButtons()}
+    pop(["wtlPop","archivedBackupsPop"],["mainPop"]);
 }
 
 function pwdEntry() {
@@ -731,6 +755,16 @@ function pwdEntry() {
             infoAlert("incorrect password",["pwdPop"],"pwd");
             document.getElementById("pwd").value = ""; pwd = 0;
         }
+    }
+}
+
+function disableButtons() {
+    var ids = ["alertButton","attCountButton","logButton","att2Button","drawButton","randButton","teamsButton","advancedButton","editStudentCancelButton","editStudentOkButton","deleteStudentButton","dispStudentPhoto"]
+    for (i = 0; i < ids.length; i++) {
+        document.getElementById(ids[i]).style.color = "#222";
+        document.getElementById(ids[i]).style.backgroundColor = "black";
+        document.getElementById(ids[i]).style.borderColor = "#333";
+        document.getElementById(ids[i]).onclick = "";
     }
 }
 
@@ -751,10 +785,11 @@ function loadLS() {
 }
 
 function isClassDay() {
-    if (_dns.indexOf(_todaysDn) > -1) {
+    _isClassDay = true;
+    /* if (_dns.indexOf(_todaysDn) > -1) {
         _isClassDay = true; 
         document.getElementById("nameList").style.borderColor = "#3478F6";
-    } else { _isClassDay = false; }
+    } else { _isClassDay = false; } */
 }
 
 // _dns = (34) [22,29,43,50,57,64,71,78,85,92,99,106,127,134,141,162,169,176,183,190,197,204,211,218,225,232,239,246,253,267,274,281,288,295];
@@ -836,6 +871,12 @@ function setRankFactor() {
         _sl[_ci].rank[1] = 3;
     } else {
         _sl[_ci].rank[1] = 0;
+    }
+}
+
+function setRandomFalse() {
+    for (let i = 0; i < _sl.length; i++) {
+        _sl[i].rand = false;
     }
 }
 
@@ -983,17 +1024,15 @@ function resetAtt() {
 function clearAttendees() {
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].att = false;
-        if (_isClassDay) {
-            if (dateAndTime("hour") < 16) {
-                _sl[i].attArr[_ti][0] = 0;
-            } else {_sl[i].attArr[_ti][1] = 0}
-        }
     }
     if (_isClassDay) {
-        _att[_ti][0] = 0;
-        _att[_ti][1] = 0;
+        if (dateAndTime("hour") < 16) {
+            _sl[i].attArr[_ti][0] = 0;
+            _att[_ti][0] = 0;
+        } else {
+            _sl[i].attArr[_ti][1] = 0;
+        }
     }
-
 }
 
 function att2(i) {
@@ -1264,27 +1303,31 @@ function populateStudentNotes(id) {
         if (_sl[_ci].notes[i] == false) { continue }
         var elementNode = document.createElement("p");
         elementNode.classList.add("note");
-        (function(i){
-            elementNode.onclick = function () {
-                pop(["studentNotesPop"],["editStudentNotePop","editStudentNote"]);
-                document.getElementById("editStudentNote").focus();
-                _noteIndex = i;
-                document.getElementById("editStudentNote").value = _sl[_ci].notes[_noteIndex];
-            }
-        })(i);
+        if (isArchiveMode() !== true) {
+            (function(i){
+                elementNode.onclick = function () {
+                    pop(["studentNotesPop"],["editStudentNotePop","editStudentNote"]);
+                    document.getElementById("editStudentNote").focus();
+                    _noteIndex = i;
+                    document.getElementById("editStudentNote").value = _sl[_ci].notes[_noteIndex];
+                }
+            })(i);
+        }
         var textNode = document.createTextNode((i + 1) + ". " + _sl[_ci].notes[i]);
         elementNode.appendChild(textNode);
         document.getElementById("studentNotesList").appendChild(elementNode);
     }
-    var elementNode2 = document.createElement("p");
-    elementNode2.classList.add("addNew");
-    elementNode2.onclick = function () {
-        pop(["studentNotesPop"],["addStudentNotePop","addStudentNote"]);
-        document.getElementById("addStudentNote").focus();
+    if (isArchiveMode() !== true) {
+        var elementNode2 = document.createElement("p");
+        elementNode2.classList.add("addNew");
+        elementNode2.onclick = function () {
+            pop(["studentNotesPop"],["addStudentNotePop","addStudentNote"]);
+            document.getElementById("addStudentNote").focus();
+        }
+        var textNode2 = document.createTextNode("Add New Note");
+        elementNode2.appendChild(textNode2);
+        document.getElementById("studentNotesList").appendChild(elementNode2);
     }
-    var textNode2 = document.createTextNode("Add New Note");
-    elementNode2.appendChild(textNode2);
-    document.getElementById("studentNotesList").appendChild(elementNode2);
 }
 
 function addStudentNote() {
@@ -1770,6 +1813,7 @@ function demo() {
 }
 
 function asPts(_asNum,x) {
+    if (isArchiveMode() === true) {return} 
     if (_sl[_ci].as[_asNum][1] == 0) {_sl[_ci].as[_asNum][1] = _todaysDn};
     var rankNum = _sl[_ci].rank[0];
     var rankFactor = _sl[_ci].rank[1];
@@ -1837,6 +1881,7 @@ function asPts(_asNum,x) {
 }
 
 function mvPts(_mvNum,x) {
+    if (isArchiveMode() === true) {return}
     if (_sl[_ci].mv[_mvNum][1] == 0) {_sl[_ci].mv[_mvNum][1] = _todaysDn};
     var rankNum = _sl[_ci].rank[0];
     var rankFactor = _sl[_ci].rank[1];
@@ -1936,7 +1981,8 @@ function searchLog() {
 
 function loadStudent(index) {
     _ci = index; document.getElementById("searchMain").value = "";
-    checkInAtt(); refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu();
+    if (isArchiveMode() === false) {checkInAtt()}
+    refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu();
     if (document.getElementById("editStudentPop").style.display != "block") {
         pop(["mainPop"],["studentPop","missionsPop"]);
     }
@@ -2065,11 +2111,11 @@ function goHome() {
 
 function asPop(asNum,pts) {
     _asNum = asNum;
-    /* for (let i = 0; i < _asMaxPts.length; i++) {
+    for (let i = 0; i < _asMaxPts.length; i++) {
         if (_sl[_ci].as[i][1] > _todaysDn) {
             _sl[_ci].as[i][0] = 0
         }
-    } */
+    }
     document.getElementById("asSheetName").innerHTML = _asNames[_asNum].toUpperCase();
     document.getElementById("asDateAssigned").innerHTML = cdn(_dns[asNum]);
     if (_sl[_ci].as[_asNum][0] == _asMaxPts[_asNum]) {
@@ -2115,11 +2161,11 @@ function mvPop(mvNum,pts) {
     document.getElementById("missionsPop").style.display = "none";
     document.getElementById("mvPtsPop").style.display = "block";
     _mvNum = mvNum;
-    /* for (let i = 0; i < _mvMaxPts.length; i++) {
+    for (let i = 0; i < _mvMaxPts.length; i++) {
         if (_sl[_ci].mv[i][1] > _todaysDn) {
             _sl[_ci].mv[i][0] = 0
         }
-    } */
+    }
     document.getElementById("mvVerseName").innerHTML = _mvNames[_mvNum].toUpperCase();
     document.getElementById("mvDateAssigned").innerHTML = cdn(_dns[mvNum]);
     if (_sl[_ci].mv[_mvNum][0] == _mvMaxPts[_mvNum]) {
@@ -2159,19 +2205,21 @@ function populateNames() {
     document.getElementById("nameList").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
         var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        span1.classList.add("quickAttendance");
-        span1.innerHTML = "V"
-        if (_sl[i].att === true) {
-            span1.style.color = "white";
-        } else {
-            span1.style.color = "#555";
-        }
-        (function(i){
-            span1.onclick = function () {
-                _ci = i; toggleAtt(i); populateNames();
+        if (isArchiveMode() !== true) {
+            var span1 = document.createElement("span");
+            span1.classList.add("quickAttendance");
+            span1.innerHTML = "V"
+            if (_sl[i].att === true) {
+                span1.style.color = "white";
+            } else {
+                span1.style.color = "#555";
             }
-        })(i);
+            (function(i){
+                span1.onclick = function () {
+                    _ci = i; toggleAtt(i); populateNames();
+                }
+            })(i);
+        }
         var span2 = document.createElement("span");
         if (_sl[i].att === true) {
             span2.style.color = "lawnGreen";
@@ -2185,21 +2233,27 @@ function populateNames() {
             }
         })(i);
         span2.innerHTML = " " + _sl[i].name[0];
-        p.append(span1,span2);
+        if (isArchiveMode() !== true) {
+            p.append(span1,span2);
+        } else {
+            p.append(span2);
+        }
         document.getElementById("nameList").appendChild(p);
     }
-    var elementNode2 = document.createElement("p");
-    elementNode2.classList.add("addNew");
-    elementNode2.onclick = function () {
-        pop(["mainPop"],["newStudentPop"]);
-        document.getElementById("newFirst").focus();
+    if (isArchiveMode() !== true) {
+        var elementNode2 = document.createElement("p");
+        elementNode2.classList.add("addNew");
+        elementNode2.onclick = function () {
+            pop(["mainPop"],["newStudentPop"]);
+            document.getElementById("newFirst").focus();
+        }
+        var textNode2 = document.createTextNode("Add New Student");
+        elementNode2.appendChild(textNode2);
+        document.getElementById("nameList").appendChild(elementNode2);
+        allAlerts();
+        document.getElementById("searchMain").value = "";
+        document.getElementById("searchMain").focus();
     }
-    var textNode2 = document.createTextNode("Add New Student");
-    elementNode2.appendChild(textNode2);
-    document.getElementById("nameList").appendChild(elementNode2);
-    allAlerts();
-    document.getElementById("searchMain").value = "";
-    document.getElementById("searchMain").focus();
 }
 
 function populateNames2() {
@@ -2273,27 +2327,31 @@ function populateTeacherNotes() {
     for (let i = 0; i < _teacherNotes.length; i++) {
         var elementNode = document.createElement("p");
         elementNode.classList.add("note");
-        (function(i){
-            elementNode.onclick = function () {
-                pop(["teacherNotesPop"],["editTeacherNotePop","editTeacherNote"]);
-                document.getElementById("editTeacherNote").focus();
-                _teacherNoteIndex = i;
-                document.getElementById("editTeacherNote").value = _teacherNotes[_teacherNoteIndex];
-            }
-        })(i);
+        if (isArchiveMode() !== true) {
+            (function(i){
+                elementNode.onclick = function () {
+                    pop(["teacherNotesPop"],["editTeacherNotePop","editTeacherNote"]);
+                    document.getElementById("editTeacherNote").focus();
+                    _teacherNoteIndex = i;
+                    document.getElementById("editTeacherNote").value = _teacherNotes[_teacherNoteIndex];
+                }
+            })(i);
+        }
         var textNode = document.createTextNode((i + 1) + ". " + _teacherNotes[i]);
         elementNode.appendChild(textNode);
         document.getElementById("teacherNotesList").appendChild(elementNode);
     }
-    var elementNode2 = document.createElement("p");
-    elementNode2.classList.add("addNew");
-    elementNode2.onclick = function () {
-        pop(["teacherNotesPop"],["addTeacherNotePop","addTeacherNote"]);
-        document.getElementById("addTeacherNote").focus();
+    if (isArchiveMode() !== true) {
+        var elementNode2 = document.createElement("p");
+        elementNode2.classList.add("addNew");
+        elementNode2.onclick = function () {
+            pop(["teacherNotesPop"],["addTeacherNotePop","addTeacherNote"]);
+            document.getElementById("addTeacherNote").focus();
+        }
+        var textNode2 = document.createTextNode("Add New Note");
+        elementNode2.appendChild(textNode2);
+        document.getElementById("teacherNotesList").appendChild(elementNode2);
     }
-    var textNode2 = document.createTextNode("Add New Note");
-    elementNode2.appendChild(textNode2);
-    document.getElementById("teacherNotesList").appendChild(elementNode2);
 }
 
 function checkInAtt() {
@@ -2423,9 +2481,10 @@ function rand() {
         }
     }
     if (_eligibleRandom.length == 0) {
+        setRandomFalse();
         document.getElementById("randName").style.color = "fireBrick";
         document.getElementById("randName").innerHTML = "all names picked";
-        for (let i = 0; i < _sl.length; i++) {_sl[i].randDraw[0] = false} return;
+        _eligibleRandom = []; return;
     }
     var x = Math.floor(Math.random() * _eligibleRandom.length);
     var picked = _eligibleRandom[x];
@@ -2445,6 +2504,7 @@ function storeAndBackup() {
 }
 
 function storeNewData() {
+    if (isArchiveMode()) {return}
     var globalObjects = [_sl,_att,_teacherNotes,_promoList,_teams];
     var objectLabels = ["sl","att","teacherNotes","promoList","teams"];
     var globalOther = [_log,_gameLog];
@@ -2458,6 +2518,7 @@ function storeNewData() {
 }
 
 function backupNewData() {
+    if (isArchiveMode()) {return}
     document.getElementById("slBackupArray").innerHTML = "var _slBackup = "+localStorage.getItem("sl")+";";
     document.getElementById("attBackupArray").innerHTML = "var _attBackup = "+localStorage.getItem("att")+";";
     document.getElementById("teacherNotesBackupArray").innerHTML = "var _teacherNotesBackup = "+localStorage.getItem("teacherNotes")+";";
@@ -3173,6 +3234,43 @@ function allBdsFalse() {
 
 function pressKey(key,id) {
     if(event.keyCode==key)document.getElementById(id).click()
+}
+
+function populateBackups() {
+    document.getElementById("archivedBackupsList").innerHTML = "";
+    for (let i = 34; i >= 0; i--) {
+        if (JSON.parse(localStorage.getItem("slBackup"+i)) !== null) {
+            var p = document.createElement("p");
+            p.classList.add("button");
+            p.innerHTML = cdn(_dns[i]) + " Backup";
+            (function(i){
+                p.onclick = function () {
+                    _backupIndex = i; pop(["archivedBackupsPop"],["pwdPop"])
+                }
+            })(i);
+            document.getElementById("archivedBackupsList").appendChild(p);
+        }
+    }
+}
+
+function backupCount() {
+    var count = 0;
+    for (let i = 0; i < 34; i++) {
+        if (JSON.parse(localStorage.getItem("slBackup"+i)) !== null) {
+            count++;
+        }
+    }
+    return count;
+}
+
+function latestBackup() {
+    var indexes = [];
+    for (i = 0; i < 34; i++) {
+        if (JSON.parse(localStorage.getItem("slBackup"+i)) !== null) {
+            indexes.push(i)
+        }
+    }
+    return Math.max(...indexes);
 }
 
 whatToLoad();

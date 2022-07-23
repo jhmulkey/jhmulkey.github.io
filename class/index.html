@@ -83,7 +83,6 @@
   <div id="randButton" class="button" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
   <div id="teamsButton" class="button" onclick="teams()">Teams</div>
   <div class="button" id="teacherNotesButton" onclick="pop(['mainMenuPop'],['teacherNotesPop']); populateTeacherNotes()">Notes</div>
-  <div id="teamsButton" class="button" onclick="pop(['archivedBackupsPop'],['pwdPop'])">TEST</div>
 </div>
 
 <div id="pwdPop" class="pop">
@@ -189,8 +188,7 @@
 <div id="wtlPop" class="pop buttonArr">
     <p>Choose data to load</p>
     <div class="button" onclick="loadLS()">Local Storage</div>
-    <div class="button" onclick="_backupIndex = latestBackup(); pop(['wtlPop'],['pwdPop'])">Latest Backup</div>
-    <div class="button" id="archivedBackups" onclick="pop(['wtlPop'],['archivedBackupsPop']); populateBackups()">Archived Backup</div>
+    <div class="button" onclick="pop(['wtlPop'],['pwdPop'])">Backup</div>
 </div>
 
 <div id="logPop" class="pop">
@@ -904,14 +902,6 @@
   </div>
 </div>
 
-<div id="archivedBackupsPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton" onclick="pop(['archivedBackupsPop'],['wtlPop'])">f</div>
-  </div>
-  <div id="archivedBackupsList" onclick="selectText('backupArrays')">
-  </div>
-</div>
-
 <div id="rankChartPop" class="pop">
   <a href="../docs/ranks.pdf" target="_blank"><p>click here to download printable chart</p></a>
   <div id = "rankChartContainer">
@@ -1491,8 +1481,7 @@
 </div>
 
 </div>
-<script src="backup33.js"></script>
-<script src="backup18.js"></script>
+<script src="backup.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

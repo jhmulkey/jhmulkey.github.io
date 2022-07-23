@@ -2,7 +2,7 @@ var _slBackup = [{"gender":"M","email":"","photo":false,"notes":[],"pts":0,"clas
 var _attBackup = [[17,2],[15,3],[15,3],[17,4],[18,5],[14,4],[16,6],[13,5],[18,6],[24,3],[19,7],[16,6],[20,5],[17,2],[14,4],[19,7],[19,7],[15,2],[19,4],[17,5],[22,0],[17,5],[19,2],[23,4],[20,6],[16,4],[16,5],[23,2],[19,3],[16,2],[16,5],[12,3],[18,6],[22,8]];
 var _teacherNotesBackup = [];
 
-localStorage.setItem("slBackup33",JSON.stringify(_slBackup));
-localStorage.setItem("attBackup33",JSON.stringify(_attBackup));
-localStorage.setItem("teacherNotesBackup33",JSON.stringify(_teacherNotesBackup));
+localStorage.setItem("slBackup",JSON.stringify(_slBackup));
+localStorage.setItem("attBackup",JSON.stringify(_attBackup));
+localStorage.setItem("teacherNotesBackup",JSON.stringify(_teacherNotesBackup));
 
