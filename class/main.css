@@ -938,3 +938,7 @@ a:link, a:visited, a:hover, a:active {
     height: 2px;
     border-top: 2px solid #333;
 }
+
+#dateAddedConverted, #bdnConverted, #rankConverted {
+    color: red !important;
+}

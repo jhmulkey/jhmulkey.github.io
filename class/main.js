@@ -2452,17 +2452,21 @@ function loadStudentProperties() {
     document.getElementById("name").innerHTML = JSON.stringify(_sl[_ci].name);
     document.getElementById("gender").innerHTML = _sl[_ci].gender;
     document.getElementById("dateAdded").innerHTML = _sl[_ci].dateAdded;
+    document.getElementById("dateAddedConverted").innerHTML = " (" + cdn(_sl[_ci].dateAdded) + ")";
     document.getElementById("bd").innerHTML = JSON.stringify(_sl[_ci].bd);
+    document.getElementById("bdnConverted").innerHTML = " (" + cdn(_sl[_ci].bd[0]) +")";
     document.getElementById("email").innerHTML = _sl[_ci].email;
     document.getElementById("photo").innerHTML = _sl[_ci].photo;
     document.getElementById("notes").innerHTML = JSON.stringify(_sl[_ci].notes);
     document.getElementById("pts").innerHTML = _sl[_ci].pts;
+    document.getElementById("gamePts").innerHTML = _sl[_ci].gamePts;
     document.getElementById("classRank").innerHTML = _sl[_ci].classRank;
     document.getElementById("rank").innerHTML = JSON.stringify(_sl[_ci].rank);
+    document.getElementById("rankConverted").innerHTML = " (" + _rankNamesShort[_sl[_ci].rank[0]] + ")";
     document.getElementById("att").innerHTML = _sl[_ci].att;
     document.getElementById("attArr").innerHTML = JSON.stringify(_sl[_ci].attArr);
-    document.getElementById("randDraw").innerHTML = JSON.stringify(_sl[_ci].randDraw);
     document.getElementById("promo").innerHTML = JSON.stringify(_sl[_ci].promo);
+    document.getElementById("randDraw").innerHTML = JSON.stringify(_sl[_ci].randDraw);
     document.getElementById("as").innerHTML = JSON.stringify(_sl[_ci].as);
     document.getElementById("mv").innerHTML = JSON.stringify(_sl[_ci].mv);
 }
@@ -2470,18 +2474,16 @@ function loadStudentProperties() {
 function loadStudentStats() {
     var rankPercentage = (((_sl[_ci].rank[0] + 1) / 20) * 100).toFixed(1);
     var rankSquares = Math.round(rankPercentage / 2.50);
-    var totalASpts = 0;
-    var earnedASpts = 0;   
-    var totalMVpts = 0;
-    var earnedMVpts = 0;
+    var totalASpts = 0; var earnedASpts = 0;   
+    var totalMVpts = 0; var earnedMVpts = 0;
     if (_elapsedWeeks > 1) {
-        for (let i = 0; i < (_ti); i++) {
-            if (i > 31) {break};
+        for (let i = 0; i < _ti; i++) {
+            if (i > 31) {break}
             totalASpts += _asMaxPts[i];
             totalMVpts += _mvMaxPts[i];
         }
-        for (let i = 0; i < (_ti); i++) {
-            if (i > 31) {break};
+        for (let i = 0; i < _ti; i++) {
+            if (i > 31) {break}
             earnedASpts += _sl[_ci].as[i][0];
             earnedMVpts += _sl[_ci].mv[i][0];
         }
@@ -2489,7 +2491,7 @@ function loadStudentStats() {
     var totalPts = totalASpts + totalMVpts;
     var totalEarnedPts = earnedASpts + earnedMVpts;
     var asPercentage; var mvPercentage; var totalPtsPercentage;
-    if (_elapsedWeeks > 2) {
+    if (_elapsedWeeks > 1) {
         asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
         mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
         totalPtsPercentage = ((totalEarnedPts / totalPts) * 100).toFixed(1);
@@ -2548,88 +2550,6 @@ function loadStudentStats() {
     document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + attPercentage + "%)";
     document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)";
 }
-
-/* function loadStudentStats() {
-    var rankPercentage = (((_sl[_ci].rank[0] + 1) / 20) * 100).toFixed(1);
-    var rankSquares = Math.round(rankPercentage / 2.50);
-    var totalASpts = 0;
-    var earnedASpts = 0;   
-    var totalMVpts = 0;
-    var earnedMVpts = 0;
-    if (_elapsedWeeks > 1) {
-        for (let i = 0; i < (_ti); i++) {
-            if (i > 31) { break; };
-            totalASpts += _asMaxPts[i];
-            totalMVpts += _mvMaxPts[i];
-        }
-        for (let i = 0; i < (_ti); i++) {
-            if (i > 31) { break; };
-            earnedASpts += _sl[_ci].as[i][0];
-            earnedMVpts += _sl[_ci].mv[i];
-        }
-    }
-    var totalPts = totalASpts + totalMVpts;
-    var totalEarnedPts = earnedASpts + earnedMVpts;
-    var asPercentage; var mvPercentage; var totalPtsPercentage;
-    if (_elapsedWeeks > 2) {
-        asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
-        mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
-        totalPtsPercentage = ((totalEarnedPts / totalPts) * 100).toFixed(1);
-    } else {
-        asPercentage = 0; mvPercentage = 0; totalPtsPercentage = 0;
-    }
-    var asSquares = Math.round(asPercentage / 2.50);
-    var mvSquares = Math.round(mvPercentage / 2.50);
-    var totalPtsSquares = Math.round(totalPtsPercentage / 2.50);
-    var weeksAttended = 0;
-    for (let i = 0; i < _elapsedWeeks; i++) {
-        weeksAttended += _sl[_ci].amAtt[i];
-        weeksAttended += _sl[_ci].pmAtt[i];
-        if (_sl[_ci].amAtt[i] == 1 && _sl[_ci].pmAtt[i] == 1) {
-            weeksAttended--;
-        }
-    }
-    var attPercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(1);
-    var attSquares = Math.round(attPercentage / 2.50);
-    var totalEarned = weeksAttended + earnedASpts + earnedMVpts;
-    var totalPossible = _elapsedWeeks + totalASpts + totalMVpts;
-    var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(1);
-    var totalSquares = Math.round(totalPercentage / 2.50);
-    var squaresArray = [rankSquares,totalPtsSquares,asSquares,mvSquares,attSquares,totalSquares];
-    var variableArray = [rankPercentage,totalPtsPercentage,asPercentage,mvPercentage,attPercentage,totalPercentage];
-    var idArray1 = ["rankProgressTable","totalProgressTable","asProgressTable","mvProgressTable","attProgressTable","totalParticipationTable"];
-    var idArray2 = ["rankProgressBar","totalProgressBar","asProgressBar","mvProgressBar","attProgressBar","totalParticipationBar"];
-    for (let i = 0; i < squaresArray.length; i++) {
-        for (let j =1; j <= 40; j++) {
-            if (j <= squaresArray[i]) {
-                if (i == 0) {
-                    document.getElementById(idArray2[i]+j).style.backgroundColor = "#3478F6";
-                } else {
-                    document.getElementById(idArray2[i]+j).style.backgroundColor = "lawngreen";
-                }
-            } else {
-                document.getElementById(idArray2[i]+j).style.backgroundColor = "black";
-            }
-        }
-    }
-    for (let i = 0; i < variableArray.length; i++) {
-        if (variableArray[i] == 100.00) {
-            if (i == 0) {
-                document.getElementById(idArray1[i]).style.backgroundColor = "#3478F6";
-            } else {
-                document.getElementById(idArray1[i]).style.backgroundColor = "lawngreen";
-            }
-        } else {
-            document.getElementById(idArray1[i]).style.backgroundColor = "black";
-        }
-    }
-    document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank[0] + 1) + "/20" + " (" + rankPercentage + "%)";
-    document.getElementById("totalProgressTableP").innerHTML = "Total Pts: " + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%)";
-    document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Pts: " + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)";
-    document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Pts: " + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)";
-    document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + attPercentage + "%)";
-    document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)";
-} */
 
 function populateMissions() {
     document.getElementById("asPop").innerHTML = "";
@@ -2752,7 +2672,7 @@ function toggleIncomplete() {
                 } else {
                     document.getElementById("as"+i+"Pop").style.display = "none"
                 }
-                if (_sl[_ci].mv[i] < _mvMaxPts[i]) {
+                if (_sl[_ci].mv[i][0] < _mvMaxPts[i]) {
                     document.getElementById("mv"+i+"Pop").style.display = "block"
                 } else {
                     document.getElementById("mv"+i+"Pop").style.display = "none"
