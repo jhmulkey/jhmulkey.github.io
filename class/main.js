@@ -717,6 +717,14 @@ function loadBackup() {
     pop(["wtlPop"],["mainPop"]);
 }
 
+function compareBackupNames() {
+    for (let i = 0; i < _sl.length; i++) {
+        if (_sl[i].name[0] != _slOLD[i].fullName) {
+            console.log("_sl: " + _sl[i].name[0] + "; slOLD: " + _slOLD[i].fullName)
+        }
+    }
+}
+
 function pwdEntry() {
     if (isNaN(parseInt(document.getElementById("pwd").value))) {
         document.getElementById("pwd").value = "";
@@ -1042,26 +1050,6 @@ function randAtt(blank,x) {
     }
     loadAttendees(); attCount(); populateNames(); storeAndBackup();
 }
-
-/* function allAtt() {
-    for (let i = 0; i < _sl.length; i++) {
-        _sl[i].att = true;
-    }
-    if (_isClassDay && dateAndTime("hour") < 16) {
-        for (let i = 0; i < _sl.length; i++) {
-            _amAtt[_ti] += 1;
-            _sl[i].attArr[_ti][0] = 1;
-        } 
-    } else if (_isClassDay && dateAndTime("hour") >= 16) {
-        for (let i = 0; i < _sl.length; i++) {
-            _pmAtt[_ti] += 1;
-            _sl[i].attArr[_ti][1] = 1;
-        } 
-    }
-    attCount();
-    populateNames();
-    storeNewData();
-} */
 
 function sortByPts() {
     assignClassRanks();
@@ -1525,7 +1513,7 @@ function newStudent() {
         infoAlert("Invalid birthday date",["newStudentPop"]); return;
     }
     var newStudent = new Student(name,month,date,email,gender,note,pron);
-    //newStudent.att = true;
+    newStudent.att = true;
     for (let i = 0; i < _dns.length; i++) {
         newStudent.attArr[i] = [0,0];
     }
@@ -1546,16 +1534,6 @@ function newStudent() {
         pop(["newStudentPop"],["mainPop"]);
     }
 }
-
-/* function proofDate(month,date) {
-    var months = [1,2,3,4,5,6,7,8,9,10,11,12];
-    var dates = [31,29,31,30,31,30,31,31,30,31,30,31];
-    if (month != "" && date != "") {
-        if (months.indexOf(month) < 0 || date < 1 || date > dates[month-1] || isNaN(date)) {
-            return false;
-        }
-    }
-} */
 
 function deleteStudent() {
     _sl.splice(_ci,1);
@@ -1627,7 +1605,7 @@ function editStudent() {
             activityLog(originalFull + " " + labels[i] + " edited<br>" + original[i] + "-->" + edit[i] + "<br>" + dateAndTime("log"));
         }
     }
-    refreshStudentPop(); allAlerts(); storeAndBackup();
+    refreshStudentPop(); allAlerts(); sortStudentList(); storeAndBackup();
     if (_currentFunction == loadNeededEmails || _currentFunction == loadNeededBds) { _currentFunction() };
     if (document.getElementById("rapidEditCheck").checked === true) {
         if (_ci < _sl.length-1) {
@@ -2065,11 +2043,6 @@ function goHome() {
 
 function asPop(asNum,pts) {
     _asNum = asNum;
-    /* for (let i = 0; i < _asMaxPts.length; i++) {
-        if (_sl[_ci].as[i][1] > _todaysDn) {
-            _sl[_ci].as[i][0] = 0
-        }
-    } */
     document.getElementById("asSheetName").innerHTML = _asNames[_asNum].toUpperCase();
     document.getElementById("asDateAssigned").innerHTML = cdn(_dns[asNum]);
     if (_sl[_ci].as[_asNum][0] == _asMaxPts[_asNum]) {
@@ -2115,11 +2088,6 @@ function mvPop(mvNum,pts) {
     document.getElementById("missionsPop").style.display = "none";
     document.getElementById("mvPtsPop").style.display = "block";
     _mvNum = mvNum;
-    /* for (let i = 0; i < _mvMaxPts.length; i++) {
-        if (_sl[_ci].mv[i][1] > _todaysDn) {
-            _sl[_ci].mv[i][0] = 0
-        }
-    } */
     document.getElementById("mvVerseName").innerHTML = _mvNames[_mvNum].toUpperCase();
     document.getElementById("mvDateAssigned").innerHTML = cdn(_dns[mvNum]);
     if (_sl[_ci].mv[_mvNum][0] == _mvMaxPts[_mvNum]) {
@@ -2445,8 +2413,8 @@ function storeAndBackup() {
 }
 
 function storeNewData() {
-    var globalObjects = [_sl,_att,_teacherNotes,_promoList,_teams];
-    var objectLabels = ["sl","att","teacherNotes","promoList","teams"];
+    var globalObjects = [_sl,_att,_teacherNotes,_promoList,_teams,_slOLD];
+    var objectLabels = ["sl","att","teacherNotes","promoList","teams","slOLD"];
     var globalOther = [_log,_gameLog];
     var otherLabels = ["log","gameLog"];
     for (let i = 0; i < globalObjects.length; i++) {
@@ -2459,6 +2427,7 @@ function storeNewData() {
 
 function backupNewData() {
     document.getElementById("slBackupArray").innerHTML = "var _slBackup = "+localStorage.getItem("sl")+";";
+    // document.getElementById("slBackupOLDArray").innerHTML = "var _slBackupOLD = "+localStorage.getItem("slOLD")+";";
     document.getElementById("attBackupArray").innerHTML = "var _attBackup = "+localStorage.getItem("att")+";";
     document.getElementById("teacherNotesBackupArray").innerHTML = "var _teacherNotesBackup = "+localStorage.getItem("teacherNotes")+";";
 }
@@ -2499,6 +2468,88 @@ function loadStudentProperties() {
 }
 
 function loadStudentStats() {
+    var rankPercentage = (((_sl[_ci].rank[0] + 1) / 20) * 100).toFixed(1);
+    var rankSquares = Math.round(rankPercentage / 2.50);
+    var totalASpts = 0;
+    var earnedASpts = 0;   
+    var totalMVpts = 0;
+    var earnedMVpts = 0;
+    if (_elapsedWeeks > 1) {
+        for (let i = 0; i < (_ti); i++) {
+            if (i > 31) {break};
+            totalASpts += _asMaxPts[i];
+            totalMVpts += _mvMaxPts[i];
+        }
+        for (let i = 0; i < (_ti); i++) {
+            if (i > 31) {break};
+            earnedASpts += _sl[_ci].as[i][0];
+            earnedMVpts += _sl[_ci].mv[i][0];
+        }
+    }
+    var totalPts = totalASpts + totalMVpts;
+    var totalEarnedPts = earnedASpts + earnedMVpts;
+    var asPercentage; var mvPercentage; var totalPtsPercentage;
+    if (_elapsedWeeks > 2) {
+        asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
+        mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
+        totalPtsPercentage = ((totalEarnedPts / totalPts) * 100).toFixed(1);
+    } else {
+        asPercentage = 0; mvPercentage = 0; totalPtsPercentage = 0;
+    }
+    var asSquares = Math.round(asPercentage / 2.50);
+    var mvSquares = Math.round(mvPercentage / 2.50);
+    var totalPtsSquares = Math.round(totalPtsPercentage / 2.50);
+    var weeksAttended = 0;
+    for (let i = 0; i < _elapsedWeeks; i++) {
+        weeksAttended += _sl[_ci].attArr[i][0];
+        weeksAttended += _sl[_ci].attArr[i][1];
+        if (_sl[_ci].attArr[i][0] == 1 && _sl[_ci].attArr[i][1] == 1) {
+            weeksAttended--;
+        }
+    }
+    var attPercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(1);
+    var attSquares = Math.round(attPercentage / 2.50);
+    var totalEarned = weeksAttended + earnedASpts + earnedMVpts;
+    var totalPossible = _elapsedWeeks + totalASpts + totalMVpts;
+    var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(1);
+    var totalSquares = Math.round(totalPercentage / 2.50);
+    var squaresArray = [rankSquares,totalPtsSquares,asSquares,mvSquares,attSquares,totalSquares];
+    var variableArray = [rankPercentage,totalPtsPercentage,asPercentage,mvPercentage,attPercentage,totalPercentage];
+    var idArray1 = ["rankProgressTable","totalProgressTable","asProgressTable","mvProgressTable","attProgressTable","totalParticipationTable"];
+    var idArray2 = ["rankProgressBar","totalProgressBar","asProgressBar","mvProgressBar","attProgressBar","totalParticipationBar"];
+    for (let i = 0; i < squaresArray.length; i++) {
+        for (let j =1; j <= 40; j++) {
+            if (j <= squaresArray[i]) {
+                if (i == 0) {
+                    document.getElementById(idArray2[i]+j).style.backgroundColor = "#3478F6";
+                } else {
+                    document.getElementById(idArray2[i]+j).style.backgroundColor = "lawngreen";
+                }
+            } else {
+                document.getElementById(idArray2[i]+j).style.backgroundColor = "black";
+            }
+        }
+    }
+    for (let i = 0; i < variableArray.length; i++) {
+        if (variableArray[i] == 100.00) {
+            if (i == 0) {
+                document.getElementById(idArray1[i]).style.backgroundColor = "#3478F6";
+            } else {
+                document.getElementById(idArray1[i]).style.backgroundColor = "lawngreen";
+            }
+        } else {
+            document.getElementById(idArray1[i]).style.backgroundColor = "black";
+        }
+    }
+    document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank[0] + 1) + "/20" + " (" + rankPercentage + "%)";
+    document.getElementById("totalProgressTableP").innerHTML = "Total Pts: " + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%)";
+    document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Pts: " + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)";
+    document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Pts: " + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)";
+    document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + attPercentage + "%)";
+    document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)";
+}
+
+/* function loadStudentStats() {
     var rankPercentage = (((_sl[_ci].rank[0] + 1) / 20) * 100).toFixed(1);
     var rankSquares = Math.round(rankPercentage / 2.50);
     var totalASpts = 0;
@@ -2578,7 +2629,7 @@ function loadStudentStats() {
     document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Pts: " + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)";
     document.getElementById("attProgressTableP").innerHTML = "Attendance: " + weeksAttended + "/" + _elapsedWeeks + " (" + attPercentage + "%)";
     document.getElementById("totalParticipationTableP").innerHTML = "Total Participation: " + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)";
-}
+} */
 
 function populateMissions() {
     document.getElementById("asPop").innerHTML = "";
@@ -2729,7 +2780,7 @@ function averageArray(array) {
     function sum(a,b) {
         return a + b;
     }
-    return Math.round(x.reduce(sum)/array.length);
+    return Math.round(array.reduce(sum)/array.length);
 }
 
 function sumArray(array) {
@@ -2747,60 +2798,74 @@ function sumArrays(arrays) {
     return sum;
 }
 
-function loadAttStats() {
-    var amArray = []; var pmArray = [];
-
-    for (let i = 0; i <= _ti; i++) {
-        amArray.push(_att[i][0]); pmArray.push(_att[i][1])
-    }
-
-    var amBoysArray = []; var pmBoysArray = []; var amGirlsArray = []; var pmGirlsArray = [];
-    for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].gender == "M") {
-            amBoysArray.push(_sl[i].amAtt.slice(0,_sl[i].amAtt.length));
-            pmBoysArray.push(_sl[i].pmAtt.slice(0,_sl[i].pmAtt.length));
-        } else {
-            amGirlsArray.push(_sl[i].amAtt.slice(0,_sl[i].amAtt.length));
-            pmGirlsArray.push(_sl[i].pmAtt.slice(0,_sl[i].pmAtt.length));
-        }
-    }
-    if (_isClassDay && dateAndTime("hour") < 18) {
-        amArray.pop(); pmArray.pop();
+function compareAtt() {
+    for (let j = 0; j < _dns.length; j++) {    
+        var invididualWeekArrayAM = [];
+        var invididualWeekArrayPM = [];
         for (let i = 0; i < _sl.length; i++) {
-            if (i < amBoysArray.length) { amBoysArray[i].pop(); }
-            if (i < pmBoysArray.length) { pmBoysArray[i].pop(); }
-            if (i < amGirlsArray.length) { amGirlsArray[i].pop(); }
-            if (i < pmGirlsArray.length) { pmGirlsArray[i].pop(); }
+            invididualWeekArrayAM.push(_sl[i].attArr[j][0])
+            invididualWeekArrayPM.push(_sl[i].attArr[j][1])
+        }
+        if (sumArray(invididualWeekArrayAM) != _att[j][0]) {
+            console.log("Week " + j + " AM attendance " + sumArray(invididualWeekArrayAM) + " vs " + _att[j][0])
+        } 
+        if (sumArray(invididualWeekArrayPM) != _att[j][1]) {
+            console.log("Week " + j + " PM attendance " + sumArray(invididualWeekArrayPM) + " vs " + _att[j][1])
+        } 
+    }
+}
+
+function listAttendees(m,d) {
+    var AM = []; var PM = [];
+    index = _dns.indexOf(assignDn(m,d));
+    for (let i = 0; i < _sl.length; i++) {
+        if (_sl[i].attArr[index][0] == 1) {
+            AM.push(_sl[i].name[0]);
+        }
+        if (_sl[i].attArr[index][1] == 1) {
+            PM.push(_sl[i].name[0]);
         }
     }
-    amBoysCount = 0; pmBoysCount = 0; amGirlsCount = 0; pmGirlsCount = 0;
-    for (let i = 0; i < _sl.length; i++) {
-        if (i < amBoysArray.length) { amBoysCount += sumArray(amBoysArray[i]); }
-        if (i < pmBoysArray.length) { pmBoysCount += sumArray(pmBoysArray[i]); }
-        if (i < amGirlsArray.length) { amGirlsCount += sumArray(amGirlsArray[i]); }
-        if (i < pmGirlsArray.length) { pmGirlsCount += sumArray(pmGirlsArray[i]); }
+    console.log(AM); console.log(PM);
+}
+
+function loadAttStats() {
+    var amArray = []; var pmArray = []; var bothArray = [];
+    var amBoysArray = []; var pmBoysArray = []; var amGirlsArray = []; var pmGirlsArray = [];
+    var amPmBoysArray = []; var amPmGirlsArray = [];
+    var elapsedWeeks;
+    if (_isClassDay === true && dateAndTime("hours") < 18) {
+        elapsedWeeks = _elapsedWeeks -1;
+    } else {
+        elapsedWeeks = _elapsedWeeks;
     }
-    var bothArray = [];
-    for (let i = 0; i < amArray.length; i++) {
-        bothArray.push(amArray[i] + pmArray[i]);
+    for (let i = 0; i < elapsedWeeks; i++) {
+        amArray.push(_att[i][0]);
+        pmArray.push(_att[i][1]);
+        bothArray.push(_att[i][0] + _att[i][1]);
     }
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].gender == "M") {
-            amBoysArray.push(sumArray(_sl[i].amAtt));
-            pmBoysArray.push(sumArray(_sl[i].pmAtt));
-        } else {
-            amGirlsArray.push(sumArray(_sl[i].amAtt));
-            pmGirlsArray.push(sumArray(_sl[i].pmAtt));
+        for (let j = 0; j < elapsedWeeks; j++) {
+            if (_sl[i].attArr[j][0] > 0) {
+                if (_sl[i].gender == "M") {
+                    amBoysArray.push(_sl[i].attArr[j][0]);
+                    amPmBoysArray.push(_sl[i].attArr[j][0]);
+                } else {
+                    amGirlsArray.push(_sl[i].attArr[j][0]);
+                    amPmGirlsArray.push(_sl[i].attArr[j][0]);
+                }
+            }
+            if (_sl[i].attArr[j][1] > 0) {
+                if (_sl[i].gender == "M") {
+                    pmBoysArray.push(_sl[i].attArr[j][1]);
+                    amPmBoysArray.push(_sl[i].attArr[j][1]);
+                } else {
+                    pmGirlsArray.push(_sl[i].attArr[j][1]);
+                    amPmGirlsArray.push(_sl[i].attArr[j][1]);
+                }
+            }
         }
     }
-    var bothBoysArray = []; var bothGirlsArray = [];
-    for (let i = 0; i < amBoysArray.length; i++) {
-        bothBoysArray.push(amBoysArray[i] + pmBoysArray[i]);
-    }
-    for (let i = 0; i < amGirlsArray.length; i++) {
-        bothGirlsArray.push(amGirlsArray[i] + pmGirlsArray[i]);
-    }
-    var divisor = amArray.length;
     document.getElementById("amAvg").innerHTML = averageArray(amArray);
     document.getElementById("pmAvg").innerHTML = averageArray(pmArray);
     document.getElementById("bothAvg").innerHTML = averageArray(bothArray);
@@ -2810,17 +2875,17 @@ function loadAttStats() {
     document.getElementById("amMin").innerHTML = Math.min(...amArray);
     document.getElementById("pmMin").innerHTML = Math.min(...pmArray);
     document.getElementById("bothMin").innerHTML = Math.min(...bothArray);
-    document.getElementById("amBoysAvg").innerHTML = Math.round(amBoysCount/divisor);
-    document.getElementById("pmBoysAvg").innerHTML = Math.round(pmBoysCount/divisor);
-    document.getElementById("bothBoysAvg").innerHTML = Math.round((amBoysCount+pmBoysCount)/divisor);
-    document.getElementById("amGirlsAvg").innerHTML = Math.round(amGirlsCount/divisor);
-    document.getElementById("pmGirlsAvg").innerHTML = Math.round(pmGirlsCount/divisor);
-    document.getElementById("bothGirlsAvg").innerHTML = Math.round((amGirlsCount+pmGirlsCount)/divisor);
-    for (let i = 0; i < amArray.length; i++) {
+    document.getElementById("amBoysAvg").innerHTML = Math.round((sumArray(amBoysArray))/elapsedWeeks);
+    document.getElementById("pmBoysAvg").innerHTML = Math.round((sumArray(pmBoysArray))/elapsedWeeks);
+    document.getElementById("bothBoysAvg").innerHTML = Math.round((sumArray(amPmBoysArray))/elapsedWeeks);
+    document.getElementById("amGirlsAvg").innerHTML = Math.round((sumArray(amGirlsArray))/elapsedWeeks);
+    document.getElementById("pmGirlsAvg").innerHTML = Math.round((sumArray(pmGirlsArray))/elapsedWeeks);
+    document.getElementById("bothGirlsAvg").innerHTML = Math.round((sumArray(amPmGirlsArray))/elapsedWeeks);
+    for (i = 0; i < amArray.length; i++) {
         document.getElementById("attDate"+i).innerHTML = cdn(_dns[i]);
-        document.getElementById("attAM"+i).innerHTML = _amAtt[i];
-        document.getElementById("attPM"+i).innerHTML = _pmAtt[i];
-        document.getElementById("attBoth"+i).innerHTML = _amAtt[i] + _pmAtt[i];
+        document.getElementById("attAM"+i).innerHTML = _att[i][0];
+        document.getElementById("attPM"+i).innerHTML = _att[i][1];
+        document.getElementById("attBoth"+i).innerHTML = _att[i][0] + _att[i][1];
         document.getElementById("attAM"+i).classList.add("pointer");
         document.getElementById("attPM"+i).classList.add("pointer");
         (function(i){
@@ -2832,7 +2897,7 @@ function loadAttStats() {
             }
         })(i);
     }
-    for (let i =amArray.length; i < 34; i++) {
+    for (i = elapsedWeeks; i < 34; i++) {
         document.getElementById("attRow"+i).style.display = "none";
     }
     pop(["mainMenuPop"],["attStatsPop"]);
@@ -2841,17 +2906,17 @@ function loadAttStats() {
 function loadStudentAttStats() {
     for (let i = 0; i < _elapsedWeeks; i++) {
         document.getElementById("studentAttDate"+i).innerHTML = cdn(_dns[i]);
-        if (_sl[_ci].amAtt[i] == 1) {
+        if (_sl[_ci].attArr[i][0] == 1) {
             document.getElementById("studentAttAM"+i).innerHTML = "X";
         } else {
             document.getElementById("studentAttAM"+i).innerHTML = "";
         }
-        if (_sl[_ci].pmAtt[i] == 1) {
+        if (_sl[_ci].attArr[i][1] == 1) {
             document.getElementById("studentAttPM"+i).innerHTML = "X";
         } else {
             document.getElementById("studentAttPM"+i).innerHTML = "";
         }
-        if (_sl[_ci].amAtt[i] == 0 && _sl[_ci].pmAtt[i] == 0) {
+        if (_sl[_ci].attArr[i][0] == 0 && _sl[_ci].attArr[i][1] == 0) {
             document.getElementById("studentAttDate"+i).style.color = "firebrick";
         } else {
             document.getElementById("studentAttDate"+i).style.color = "lawngreen";
