@@ -1978,6 +1978,7 @@ function searchLog() {
 function loadStudent(index) {
     _ci = index; document.getElementById("searchMain").value = "";
     checkInAtt(); refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu();
+    document.activeElement.blur();
     if (document.getElementById("editStudentPop").style.display != "block") {
         pop(["mainPop"],["studentPop","missionsPop"]);
     }
@@ -2272,6 +2273,12 @@ function generateStudentAttTable() {
         tr.append(td1,td2,td3);
         document.getElementById("studentAttTable").append(tr);
     }
+}
+
+function generateStudentStatsTables() {
+    var tables = ["rankProgressTable","totalProgressTable","asProgressTable","mvProgressTable","attProgressTable","totalParticipationTable"];
+    var ids = ["rankProgressBar","totalProgressBar","asProgressBar","mvProgressBar","attProgressBar","totalParticipationBar"];
+
 }
 
 function populateNames2() {
