@@ -815,12 +815,27 @@ function assignClassRanks() {
     var pts = [];
     for (let i = 0; i < _sl.length; i++) {
         pts.push(_sl[i].pts);
-    }
-    var ptsSorted = pts.slice().sort(function(a,b){return b - a});
-    var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1});
+    } // creates an array of the points of each student in alphabetical order
+    var ptsSorted = pts.slice().sort(function(a,b){return b - a}); // sorts the resuting array in numerical order
+    var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1}); // maps the index(+1) of each unique point value in the resulting array back to original array that was in alphabetical order
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].classRank = ptsRanked[i];
+    } // assigns the values of the resulting array as the class rank of each student
+    sortSlByClassRank(); var repeats = 0;
+    var corrected = []; corrected.push(_sl[0].classRank);
+    for (let i = 1; i < _sl.length; i++) {
+        if (_sl[i].classRank == _sl[i-1].classRank) {
+            repeats++;
+            corrected.push(corrected[i-1]);
+        } else {
+            corrected.push(_sl[i].classRank - repeats);
+        }
     }
+    for (let i = 1; i < _sl.length; i++) {
+        _sl[i].classRank = corrected[i];
+    }
+    sortSl();
+    /* _sl is then sorted by class rank.  An array of "corrected" class ranks is created, and the first class rank is pushed to it.  Now for every consecutive class rank, if it's the same as the previous class rank, a "repeat" is tallied, and the last value added to the "corrected" array is pushed to the array as a repeated class rank.  If a consecutive class rank is not the same as the previous class rank, the class rank is added to the "corrected" array after subtracting the current repeat tally from it.  This ensures no class rank numbers are skipped, so instead of (for example) class ranks [1,1,3,4,5,5,5,8,9,10], you get [1,1,2,3,4,4,4,5,6,7].  Finally, the current class ranks are reassigned as the corrected class ranks and _sl is sorted back into alphabetical order. */
 }
 
 function assignGameRanks() {
@@ -834,6 +849,32 @@ function assignGameRanks() {
         _sl[i].gameRank = gamePtsRanked[i];
     }
 }
+
+/* function assignGameRanks() {
+    var pts = [];
+    for (let i = 0; i < _sl.length; i++) {
+        pts.push(_sl[i].pts);
+    }
+    var ptsSorted = pts.slice().sort(function(a,b){return b - a});
+    var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1});
+    for (let i = 0; i < _sl.length; i++) {
+        _sl[i].classRank = ptsRanked[i];
+    }
+    sortSlByClassRank(); var repeats = 0;
+    var corrected = []; corrected.push(_sl[0].classRank);
+    for (let i = 1; i < _sl.length; i++) {
+        if (_sl[i].classRank == _sl[i-1].classRank) {
+            repeats++;
+            corrected.push(corrected[i-1]);
+        } else {
+            corrected.push(_sl[i].classRank - repeats);
+        }
+    }
+    for (let i = 1; i < _sl.length; i++) {
+        _sl[i].classRank = corrected[i];
+    }
+    sortSl();
+} */
 
 function setRankFactor() {
     if (_sl[_ci].rank[0] >= 9 && _sl[_ci].rank[0] < 15) {
@@ -1061,14 +1102,14 @@ function sortByPts() {
         var lastElementNode;
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
-        if (_sl[i].rank[0] != lastElementNode) {
+        if (_sl[i].pts != lastElementNode) {
             elementNode.style.borderTop = "1px solid #555";
             elementNode.style.paddingTop = "5px";
         }
         var textNode = document.createTextNode(_sl[i].classRank + ". " + _sl[i].name[0] + " (" + _sl[i].pts + "|" + _rankNamesShort[_sl[i].rank[0]]+ ")");
         elementNode.appendChild(textNode);
         document.getElementById("nameListCustom").appendChild(elementNode);
-        lastElementNode = _sl[i].rank[0];
+        lastElementNode = _sl[i].pts;
     }
     pop(["sortChoicePop"],["customSortListPop"]);
 }
@@ -1079,12 +1120,21 @@ function sortByGamePts() {
     document.getElementById("genderListContainer").style.display = "none";
     _sl.sort(function(b,a){return a.gamePts - b.gamePts});
     document.getElementById("nameListCustom").innerHTML = "";
+    var noMatchCount = 0;
     for (let i = 0; i < _sl.length; i++) {
+        //if (noMatchCount == 3) {break}
+        var lastElementNode;
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
+        if (_sl[i].gamePts != lastElementNode) {
+            noMatchCount++;
+            elementNode.style.borderTop = "1px solid #555";
+            elementNode.style.paddingTop = "5px";
+        }
         var textNode = document.createTextNode(_sl[i].gameRank + ". " + _sl[i].name[0] + " (" + _sl[i].gamePts + ")");
         elementNode.appendChild(textNode);
         document.getElementById("nameListCustom").appendChild(elementNode);
+        lastElementNode = _sl[i].gamePts;
     }
     pop(["sortChoicePop"],["customSortListPop"]);
 }
@@ -1236,13 +1286,30 @@ function sortByNotes(bypass) {
     if (!bypass) { pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]); }
 }
 
-function sortStudentList() {
+function sortSl() {
     _sl.sort(function(a,b) {
-        var textA = a.name[0].split(" ")[1].toLowerCase();
-        var textB = b.name[0].split(" ")[1].toLowerCase();
+        var textA = a.name[0].split(" ")[1].toLowerCase(); // last name A
+        var textB = b.name[0].split(" ")[1].toLowerCase(); // last name B
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    }); // sorts by last name
+    _sl.sort(function(a,b) {
+        var textA1 = a.name[0].split(" ")[1].toLowerCase(); // last name A
+        var textB1 = b.name[0].split(" ")[1].toLowerCase(); // last name B
+        var textA0 = a.name[0].split(" ")[0].toLowerCase(); // first name A
+        var textB0 = b.name[0].split(" ")[0].toLowerCase(); // first name B
+        if (textA1 == textB1) {
+            return (textA0 < textB0) ? -1 : (textA0 > textB0) ? 1 : 0;
+        }
+    }); // then sorts students with the same last name by their first name
+    populateNames();
+}
+
+function sortSlByClassRank() {
+    _sl.sort(function(a,b) {
+        var textA = a.classRank;
+        var textB = b.classRank;
         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
     });
-    populateNames();
 }
 
 function populateStudentNotes(id) {
@@ -1526,7 +1593,7 @@ function newStudent() {
     }
     _sl.push(newStudent); _ci = _sl.length-1;
     var log = "new student " + _sl[_ci].name[0] + "<br>" + dateAndTime("log");
-    attCount(); findBd(); sortStudentList(); activityLog(log); storeAndBackup(); clearStudentFields()
+    attCount(); findBd(); sortSl(); activityLog(log); storeAndBackup(); clearStudentFields()
     if (document.getElementById("rapidEntryCheck").checked === true) {
         document.getElementById("newFirst").focus();
         return;
@@ -1537,7 +1604,7 @@ function newStudent() {
 
 function deleteStudent() {
     _sl.splice(_ci,1);
-    attCount(); storeAndBackup(); sortStudentList(); goHome();
+    attCount(); storeAndBackup(); sortSl(); goHome();
 }
 
 function editStudent() {
@@ -1605,7 +1672,7 @@ function editStudent() {
             activityLog(originalFull + " " + labels[i] + " edited<br>" + original[i] + "-->" + edit[i] + "<br>" + dateAndTime("log"));
         }
     }
-    refreshStudentPop(); allAlerts(); sortStudentList(); storeAndBackup();
+    refreshStudentPop(); allAlerts(); sortSl(); storeAndBackup();
     if (_currentFunction == loadNeededEmails || _currentFunction == loadNeededBds) { _currentFunction() };
     if (document.getElementById("rapidEditCheck").checked === true) {
         if (_ci < _sl.length-1) {
@@ -1981,7 +2048,7 @@ function pop(closeArray,openArray) {
     if (openArray.includes("mainPop")) {
         document.getElementById("searchMain").value = "";
         document.getElementById("searchMain").focus();
-        sortStudentList(); populateNames();
+        sortSl(); populateNames();
     }
     if (openArray.includes("randPop") || openArray.includes("drawPop")) {
         document.getElementById("randName").innerHTML = "tap here<br>to pick";
@@ -2038,7 +2105,7 @@ function goHome() {
     }
     document.getElementById("searchMain").value = "";
     document.getElementById("searchMain").focus();
-    sortStudentList(); populateNames(); batchDeletePropertyQuick("gameRank");
+    sortSl(); populateNames(); batchDeletePropertyQuick("gameRank");
 }
 
 function asPop(asNum,pts) {
