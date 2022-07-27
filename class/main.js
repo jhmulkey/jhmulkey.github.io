@@ -740,6 +740,10 @@ function pwdEntry() {
     }
 }
 
+function pwdAutoEnter() {
+    if (document.getElementById("pwd").value.length == 4) {pwdEntry()}
+}
+
 function loadLS() {
     _sl = JSON.parse(localStorage.getItem("sl"));
     _att = JSON.parse(localStorage.getItem("att"));

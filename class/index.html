@@ -87,7 +87,7 @@
 <div id="pwdPop" class="pop">
   <p>Enter password to confirm overwriting local storage:</p>
   <div>
-    <input type="text" id="pwd" class="textInputField6" maxlength="4" onkeydown="pressKey(13,'pwdOkButton'); pressKey(27,'pwdCancelButton')">
+    <input type="text" id="pwd" class="textInputField6" maxlength="4" oninput="pwdAutoEnter()" onkeydown="pressKey(13,'pwdOkButton'); pressKey(27,'pwdCancelButton')">
   </div>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton" id="pwdCancelButton" onclick="pop(['pwdPop'],['wtlPop'])">X</div>
