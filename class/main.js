@@ -31,7 +31,6 @@ var _eligibleRandom;
 var _teams = [];
 var _dataInputParameter;
 var _att = [];
-//var _amAtt = []; var _pmAtt = [];
 var _pwd = []; var _backupIndex;
 var _rankNamesShort = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
@@ -1011,7 +1010,7 @@ function resetAtt() {
         } else {_att[_ti][1] = 0;}
     }
     var log = "removed all attendees" + "<br>" + dateAndTime("log");
-    if (_isClassDay) { ampmAttendance(); }
+    if (_isClassDay) {ampmAttendance()}
     pop(["attListPop"],["mainPop"]);
     activityLog(log); attCount(); storeAndBackup();
 }
@@ -1040,7 +1039,7 @@ function att2(i) {
         } else {
             _sl[i].attArr[_ti][1] = 1;
         } 
-         ampmAttendance()
+        ampmAttendance()
     }
     var log = "added attendee " + _sl[i].name[0] + "<br>" + dateAndTime("log");
     activityLog(log); attCount(); storeNewData();
@@ -1128,9 +1127,15 @@ function sortByAttendance() {
     document.getElementById("nameListCustom").style.display = "block";
     document.getElementById("genderListContainer").style.display = "none";
     for (let i = 0; i < _sl.length; i++) {
-        var total = sumArrays([_sl[i].amAtt,_sl[i].pmAtt]);
-        for (let j = 0; j < _sl[i].amAtt.length; j++) {
-            if (_sl[i].amAtt[j] == 1 && _sl[i].pmAtt[j] == 1) {
+        var amTotal = []; var pmTotal = []
+        for (let j = 0; j < _elapsedWeeks; j++) {
+            amTotal.push(_sl[i].attArr[j][0]);
+            pmTotal.push(_sl[i].attArr[j][1]);
+        }
+        // console.log(amTotal); console.log(pmTotal);
+        var total = sumArrays([amTotal,pmTotal]);
+        for (let j = 0; j < _elapsedWeeks; j++) {
+            if (_sl[i].attArr[j][0] == 1 && _sl[i].attArr[j][1] == 1) {
                 total--
             }
         }
@@ -2324,15 +2329,17 @@ function populateTeacherNotes() {
 function checkInAtt() {
     if (_sl[_ci].att === false) {
         _sl[_ci].att = true;
-        if (_isClassDay && dateAndTime("hour") < 16) {
-            _sl[_ci].attArr[_ti][0] = 1;
-        }
-        if (_isClassDay && dateAndTime("hour") >= 16) {
-            _sl[_ci].attArr[_ti][1] = 1;
+        if (_isClassDay) {
+            if (dateAndTime("hour") < 16) {
+                _sl[_ci].attArr[_ti][0] = 1;
+            } else {
+                _sl[_ci].attArr[_ti][1] = 1;
+            }
+            ampmAttendance()
         }
         document.getElementById("studentPopName").style.color = "lawngreen";
         var log = "added attendee " + _sl[_ci].name[0] + "<br>" + dateAndTime("log");
-        ampmAttendance(); attCount(); storeNewData(); activityLog(log);
+        attCount(); storeNewData(); activityLog(log);
     }
 }
 
@@ -2441,8 +2448,8 @@ function storeAndBackup() {
 }
 
 function storeNewData() {
-    var globalObjects = [_sl,_att,_teacherNotes,_promoList,_teams,_slOLD];
-    var objectLabels = ["sl","att","teacherNotes","promoList","teams","slOLD"];
+    var globalObjects = [_sl,_att,_teacherNotes,_promoList,_teams];
+    var objectLabels = ["sl","att","teacherNotes","promoList","teams"];
     var globalOther = [_log,_gameLog];
     var otherLabels = ["log","gameLog"];
     for (let i = 0; i < globalObjects.length; i++) {
@@ -2455,7 +2462,6 @@ function storeNewData() {
 
 function backupNewData() {
     document.getElementById("slBackupArray").innerHTML = "var _slBackup = "+localStorage.getItem("sl")+";";
-    // document.getElementById("slBackupOLDArray").innerHTML = "var _slBackupOLD = "+localStorage.getItem("slOLD")+";";
     document.getElementById("attBackupArray").innerHTML = "var _attBackup = "+localStorage.getItem("att")+";";
     document.getElementById("teacherNotesBackupArray").innerHTML = "var _teacherNotesBackup = "+localStorage.getItem("teacherNotes")+";";
 }
