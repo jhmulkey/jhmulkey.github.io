@@ -23,7 +23,7 @@ var _noteIndex;
 var _teacherNotes = [];
 var _teacherNoteIndex;
 var _log = ""; var _gameLog = ""; 
-var _currentPops; var _currentPops2; var _sharedPop; var _array;
+var _currentPops; var _currentPops2; var _array;
 var _populateNotesID = [];
 var _focus;
 var _currentFunction; var _currentParameter;
@@ -107,9 +107,8 @@ class Student {
         this.email = email;
         this.photo = false;
         this.notes = note;
-        this.pts = 0;
-        this.gamePts = 0;
-        this.classRank = 0;
+        this.pts = [0,0]; // [pts,classRank]
+        this.gamePts = [0,0]; // [gamePts,gameRank]
         this.rank = [0,0]; // [rankNumber,rankFactor]
         this.att;
         this.attArr = [];
@@ -494,7 +493,7 @@ function gameScorePts(x) {
         _teams[0].undoTeam = 1;
         for (let i = 0; i < _sl.length; i++) {
             if (_sl[i].name[0] == _teams[0].undoCurrentPlayer) {
-                _sl[i].gamePts += x; break;
+                _sl[i].gamePts[0] += x; break;
             }
         }
         _teams[0].team1.shift();
@@ -518,7 +517,7 @@ function gameScorePts(x) {
         _teams[0].undoTeam = 2;
         for (let i = 0; i < _sl.length; i++) {
             if (_sl[i].name[0] == _teams[0].undoCurrentPlayer) {
-                _sl[i].gamePts += x; break;
+                _sl[i].gamePts[0] += x; break;
             }
         }
         _teams[0].team2.shift();
@@ -556,7 +555,7 @@ function undoGameScorePts() {
         _teams[0].team2Score -= _teams[0].undoGamePts;
         for (let i = 0; i < _sl.length; i++) {
             if (_sl[i].name[0] == _teams[0].undoCurrentPlayer) {
-                _sl[i].gamePts -= _teams[0].undoGamePts; break;
+                _sl[i].gamePts[0] -= _teams[0].undoGamePts; break;
             }
         }
         document.getElementById("team2Score").innerHTML = _teams[0].team2Score;
@@ -571,7 +570,7 @@ function undoGameScorePts() {
         _teams[0].team1Score -= _teams[0].undoGamePts;
         for (let i = 0; i < _sl.length; i++) {
             if (_sl[i].name[0] == _teams[0].undoCurrentPlayer) {
-                _sl[i].gamePts -= _teams[0].undoGamePts; break;
+                _sl[i].gamePts[0] -= _teams[0].undoGamePts; break;
             }
         }
         document.getElementById("team1Score").innerHTML = _teams[0].team1Score;
@@ -814,25 +813,25 @@ function dateAndTime(x) {
 function assignClassRanks() {
     var pts = [];
     for (let i = 0; i < _sl.length; i++) {
-        pts.push(_sl[i].pts);
+        pts.push(_sl[i].pts[0]);
     } // creates an array of the points of each student in alphabetical order
     var ptsSorted = pts.slice().sort(function(a,b){return b - a}); // sorts the resuting array in numerical order
     var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1}); // maps the index(+1) of each unique point value in the resulting array back to original array that was in alphabetical order
     for (let i = 0; i < _sl.length; i++) {
-        _sl[i].classRank = ptsRanked[i];
+        _sl[i].pts[1] = ptsRanked[i];
     } // assigns the values of the resulting array as the class rank of each student
     sortSlByClassRank(); var repeats = 0;
-    var corrected = []; corrected.push(_sl[0].classRank);
+    var corrected = []; corrected.push(_sl[0].pts[1]);
     for (let i = 1; i < _sl.length; i++) {
-        if (_sl[i].classRank == _sl[i-1].classRank) {
+        if (_sl[i].pts[1] == _sl[i-1].pts[1]) {
             repeats++;
             corrected.push(corrected[i-1]);
         } else {
-            corrected.push(_sl[i].classRank - repeats);
+            corrected.push(_sl[i].pts[1] - repeats);
         }
     }
     for (let i = 1; i < _sl.length; i++) {
-        _sl[i].classRank = corrected[i];
+        _sl[i].pts[1] = corrected[i];
     }
     sortSl();
     /* _sl is then sorted by class rank.  An array of "corrected" class ranks is created, and the first class rank is pushed to it.  Now for every consecutive class rank, if it's the same as the previous class rank, a "repeat" is tallied, and the last value added to the "corrected" array is pushed to the array as a repeated class rank.  If a consecutive class rank is not the same as the previous class rank, the class rank is added to the "corrected" array after subtracting the current repeat tally from it.  This ensures no class rank numbers are skipped, so instead of (for example) class ranks [1,1,3,4,5,5,5,8,9,10], you get [1,1,2,3,4,4,4,5,6,7].  Finally, the current class ranks are reassigned as the corrected class ranks and _sl is sorted back into alphabetical order. */
@@ -841,40 +840,28 @@ function assignClassRanks() {
 function assignGameRanks() {
     var gamePts = [];
     for (let i = 0; i < _sl.length; i++) {
-        gamePts.push(_sl[i].gamePts);
+        gamePts.push(_sl[i].gamePts[0]);
     }
     var gamePtsSorted = gamePts.slice().sort(function(a,b){return b - a});
     var gamePtsRanked = gamePts.map(function(v){return gamePtsSorted.indexOf(v)+1});
     for (let i = 0; i < _sl.length; i++) {
-        _sl[i].gameRank = gamePtsRanked[i];
+        _sl[i].gamePts[1] = gamePtsRanked[i];
     }
-}
-
-/* function assignGameRanks() {
-    var pts = [];
-    for (let i = 0; i < _sl.length; i++) {
-        pts.push(_sl[i].pts);
-    }
-    var ptsSorted = pts.slice().sort(function(a,b){return b - a});
-    var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1});
-    for (let i = 0; i < _sl.length; i++) {
-        _sl[i].classRank = ptsRanked[i];
-    }
-    sortSlByClassRank(); var repeats = 0;
-    var corrected = []; corrected.push(_sl[0].classRank);
+    sortSlByGameRank(); var repeats = 0;
+    var corrected = []; corrected.push(_sl[0].gamePts[1]);
     for (let i = 1; i < _sl.length; i++) {
-        if (_sl[i].classRank == _sl[i-1].classRank) {
+        if (_sl[i].gamePts[1] == _sl[i-1].gamePts[1]) {
             repeats++;
             corrected.push(corrected[i-1]);
         } else {
-            corrected.push(_sl[i].classRank - repeats);
+            corrected.push(_sl[i].gamePts[1] - repeats);
         }
     }
     for (let i = 1; i < _sl.length; i++) {
-        _sl[i].classRank = corrected[i];
+        _sl[i].gamePts[1] = corrected[i];
     }
     sortSl();
-} */
+}
 
 function setRankFactor() {
     if (_sl[_ci].rank[0] >= 9 && _sl[_ci].rank[0] < 15) {
@@ -1096,20 +1083,20 @@ function sortByPts() {
     assignClassRanks();
     document.getElementById("nameListCustom").style.display = "block";
     document.getElementById("genderListContainer").style.display = "none";
-    _sl.sort(function(b,a){return a.pts - b.pts});
+    _sl.sort(function(b,a){return a.pts[0] - b.pts[0]});
     document.getElementById("nameListCustom").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
         var lastElementNode;
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
-        if (_sl[i].pts != lastElementNode) {
+        if (_sl[i].pts[0] != lastElementNode) {
             elementNode.style.borderTop = "1px solid #555";
             elementNode.style.paddingTop = "5px";
         }
-        var textNode = document.createTextNode(_sl[i].classRank + ". " + _sl[i].name[0] + " (" + _sl[i].pts + "|" + _rankNamesShort[_sl[i].rank[0]]+ ")");
+        var textNode = document.createTextNode(_sl[i].pts[1] + ". " + _sl[i].name[0] + " (" + _sl[i].pts[0] + "|" + _rankNamesShort[_sl[i].rank[0]]+ ")");
         elementNode.appendChild(textNode);
         document.getElementById("nameListCustom").appendChild(elementNode);
-        lastElementNode = _sl[i].pts;
+        lastElementNode = _sl[i].pts[0];
     }
     pop(["sortChoicePop"],["customSortListPop"]);
 }
@@ -1118,25 +1105,23 @@ function sortByGamePts() {
     assignGameRanks();
     document.getElementById("nameListCustom").style.display = "block";
     document.getElementById("genderListContainer").style.display = "none";
-    _sl.sort(function(b,a){return a.gamePts - b.gamePts});
+    _sl.sort(function(b,a){return a.gamePts[0] - b.gamePts[0]});
     document.getElementById("nameListCustom").innerHTML = "";
-    var noMatchCount = 0;
     for (let i = 0; i < _sl.length; i++) {
-        //if (noMatchCount == 3) {break}
+        if (_sl[i].gamePts[1] > 3) {break}
         var lastElementNode;
         var elementNode = document.createElement("p");
         elementNode.classList.add("name3");
-        if (_sl[i].gamePts != lastElementNode) {
-            noMatchCount++;
+        if (_sl[i].gamePts[0] != lastElementNode) {
             elementNode.style.borderTop = "1px solid #555";
             elementNode.style.paddingTop = "5px";
         }
-        var textNode = document.createTextNode(_sl[i].gameRank + ". " + _sl[i].name[0] + " (" + _sl[i].gamePts + ")");
+        var textNode = document.createTextNode(_sl[i].gamePts[1] + ". " + _sl[i].name[0] + " (" + _sl[i].gamePts[0] + ")");
         elementNode.appendChild(textNode);
         document.getElementById("nameListCustom").appendChild(elementNode);
-        lastElementNode = _sl[i].gamePts;
+        lastElementNode = _sl[i].gamePts[0];
     }
-    pop(["sortChoicePop"],["customSortListPop"]);
+    pop(["teamsListPop"],["customSortListPop"]);
 }
 
 function sortByAttendance() {
@@ -1306,8 +1291,16 @@ function sortSl() {
 
 function sortSlByClassRank() {
     _sl.sort(function(a,b) {
-        var textA = a.classRank;
-        var textB = b.classRank;
+        var textA = a.pts[1];
+        var textB = b.pts[1];
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    });
+}
+
+function sortSlByGameRank() {
+    _sl.sort(function(a,b) {
+        var textA = a.gamePts[1];
+        var textB = b.gamePts[1];
         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
     });
 }
@@ -1692,18 +1685,18 @@ function refreshStudentPop() {
     document.getElementById("studentPopRankName").innerHTML = _rankNames[_sl[_ci].rank[0]];
     document.getElementById("studentPopName").innerHTML = _sl[_ci].name[0];
     var ptsNeeded;
-    if (_sl[_ci].pts == 220) {
+    if (_sl[_ci].pts[0] == 220) {
         ptsNeeded = 0
     } else {
-        ptsNeeded = _rankPts[_sl[_ci].rank[0]+1] - _sl[_ci].pts;
+        ptsNeeded = _rankPts[_sl[_ci].rank[0]+1] - _sl[_ci].pts[0];
     }
-    document.getElementById("studentPopPts").innerHTML = _sl[_ci].pts + " | <span style='color: #999'>" + ptsNeeded +"</span>";
+    document.getElementById("studentPopPts").innerHTML = _sl[_ci].pts[0] + " | <span style='color: #999'>" + ptsNeeded +"</span>";
     if (_rankNames[_sl[_ci].rank[0]].length > 20) {
         document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
         document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
-    document.getElementById("studentPopClassRank").innerHTML = "Class Rank: " + _sl[_ci].classRank;
+    document.getElementById("studentPopClassRank").innerHTML = "Class Rank: " + _sl[_ci].pts[1];
     if (_sl[_ci].att === true) {
         document.getElementById("studentPopName").style.color = "lawngreen";
     } else {
@@ -1818,7 +1811,7 @@ function asPts(_asNum,x) {
     if (_sl[_ci].as[_asNum][1] == 0) {_sl[_ci].as[_asNum][1] = _todaysDn};
     var rankNum = _sl[_ci].rank[0];
     var rankFactor = _sl[_ci].rank[1];
-    var totalPts = _sl[_ci].pts;
+    var totalPts = _sl[_ci].pts[0];
     var asPts = _sl[_ci].as[_asNum][0];
     var netPts = x - _sl[_ci].as[_asNum][0];
     var promoStatus = 0;
@@ -1827,14 +1820,14 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 220) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts += netPts;
+            _sl[_ci].pts[0] += netPts;
             _sl[_ci].as[_asNum][0] = x;
         }
         if (asPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts += netPts;
+            _sl[_ci].pts[0] += netPts;
             _sl[_ci].as[_asNum][0] = x;
         }
         if (asPts == x) {
@@ -1842,7 +1835,7 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts -= x; netPts = -x;
+            _sl[_ci].pts[0] -= x; netPts = -x;
             _sl[_ci].as[_asNum][0] = 0;
         }
     } else if (_sl[_ci].rank[0] == 8 || _sl[_ci].rank[0] == 14 || _sl[_ci].rank[0] == 18) {
@@ -1850,14 +1843,14 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + x >= 20) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts += netPts;
+            _sl[_ci].pts[0] += netPts;
             _sl[_ci].as[_asNum][0] = x;
         }
         if (asPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts += netPts;
+            _sl[_ci].pts[0] += netPts;
             _sl[_ci].as[_asNum][0] = x;
         }
         if (asPts == x) {
@@ -1865,12 +1858,12 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts -= x; netPts = -x;
+            _sl[_ci].pts[0] -= x; netPts = -x;
             _sl[_ci].as[_asNum][0] = 0;
         }
     }
     var plusSign = ""; if (netPts > 0) {plusSign = "+"}
-    var log = _sl[_ci].name[0] + " " + plusSign + netPts + " points " + _asNames[_asNum] + " sheet "  + "<br>" +  "(" + asPts + "-->" + _sl[_ci].as[_asNum][0] + ")" + " (" + (_sl[_ci].pts - netPts) + "-->" + _sl[_ci].pts + ")" + "<br>" + dateAndTime("log");
+    var log = _sl[_ci].name[0] + " " + plusSign + netPts + " points " + _asNames[_asNum] + " sheet "  + "<br>" +  "(" + asPts + "-->" + _sl[_ci].as[_asNum][0] + ")" + " (" + (_sl[_ci].pts[0] - netPts) + "-->" + _sl[_ci].pts[0] + ")" + "<br>" + dateAndTime("log");
     activityLog(log);
     if (promoStatus > 0) {
         promo();
@@ -1885,7 +1878,7 @@ function mvPts(_mvNum,x) {
     if (_sl[_ci].mv[_mvNum][1] == 0) {_sl[_ci].mv[_mvNum][1] = _todaysDn};
     var rankNum = _sl[_ci].rank[0];
     var rankFactor = _sl[_ci].rank[1];
-    var totalPts = _sl[_ci].pts;
+    var totalPts = _sl[_ci].pts[0];
     var mvPts = _sl[_ci].mv[_mvNum][0];
     var netPts = x - _sl[_ci].mv[_mvNum][0];
     var promoStatus = 0;
@@ -1894,14 +1887,14 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 220) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts += netPts;
+            _sl[_ci].pts[0] += netPts;
             _sl[_ci].mv[_mvNum][0] = x;
         }
         if (mvPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts += netPts;
+            _sl[_ci].pts[0] += netPts;
             _sl[_ci].mv[_mvNum][0] = x;
         }
         if (mvPts == x) {
@@ -1909,7 +1902,7 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts -= x; netPts = -x;
+            _sl[_ci].pts[0] -= x; netPts = -x;
             _sl[_ci].mv[_mvNum][0] = 0;
         }
     } else if (_sl[_ci].rank[0] == 8 || _sl[_ci].rank[0] == 14 || _sl[_ci].rank[0] == 18) {
@@ -1917,14 +1910,14 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + x >= 20) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts += netPts;
+            _sl[_ci].pts[0] += netPts;
             _sl[_ci].mv[_mvNum][0] = x;
         }
         if (mvPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts += netPts;
+            _sl[_ci].pts[0] += netPts;
             _sl[_ci].mv[_mvNum][0] = x;
         }
         if (mvPts == x) {
@@ -1932,12 +1925,12 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts -= x; netPts = -x;
+            _sl[_ci].pts[0] -= x; netPts = -x;
             _sl[_ci].mv[_mvNum][0] = 0;
         }
     }
     var plusSign = ""; if (netPts > 0) {plusSign = "+"}
-    var log = _sl[_ci].name[0] + " " + plusSign + netPts + " points " + _mvNames[_mvNum] + " verse "  + "<br>" +  "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum][0] + ")" + " (" + (_sl[_ci].pts - netPts) + "-->" + _sl[_ci].pts + ")" + "<br>" + dateAndTime("log");
+    var log = _sl[_ci].name[0] + " " + plusSign + netPts + " points " + _mvNames[_mvNum] + " verse "  + "<br>" +  "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum][0] + ")" + " (" + (_sl[_ci].pts[0] - netPts) + "-->" + _sl[_ci].pts[0] + ")" + "<br>" + dateAndTime("log");
     activityLog(log);
     if (promoStatus > 0) {
         promo();
@@ -2091,9 +2084,6 @@ function pop(closeArray,openArray) {
             document.getElementById("pwd").focus();
         },10);
     }
-    if (closeArray.includes("customSortListPop")) {
-        batchDeletePropertyQuick("gameRank");
-    }
     scrollTo(0,0);
 }
 
@@ -2105,7 +2095,7 @@ function goHome() {
     }
     document.getElementById("searchMain").value = "";
     document.getElementById("searchMain").focus();
-    sortSl(); populateNames(); batchDeletePropertyQuick("gameRank");
+    sortSl(); populateNames();
 }
 
 function asPop(asNum,pts) {
@@ -2373,35 +2363,6 @@ function toggleAtt() {
     refreshStudentPop(); activityLog(log); attCount(); populateNames(); storeNewData();
 }
 
-/* function toggleAtt() {
-    if (_isClassDay && dateAndTime("hour") < 16) {
-        if (_sl[_ci].attArr[_ti][0] == 0) {
-            _sl[_ci].attArr[_ti][0] = 1;
-            document.getElementById("studentPopName").style.color = "lawngreen";
-            var log = "added attendee " + _sl[_ci].name[0] + "<br>" + dateAndTime("log");
-        } else {
-            _sl[_ci].attArr[_ti][0] = 0;
-            document.getElementById("studentPopName").style.color = "white";
-            var log = "removed attendee " + _sl[_ci].name[0] + "<br>" + dateAndTime("log");
-        }
-    }
-    if (_isClassDay && dateAndTime("hour") >= 16) {
-        if (_sl[_ci].attArr[_ti][1] == 0) {
-            _sl[_ci].attArr[_ti][1] = 1;
-            document.getElementById("studentPopName").style.color = "lawngreen";
-            var log = "added attendee " + _sl[_ci].name[0] + "<br>" + dateAndTime("log");
-        } else {
-            _sl[_ci].attArr[_ti][1] = 0;
-            document.getElementById("studentPopName").style.color = "white";
-            var log = "removed attendee " + _sl[_ci].name[0] + "<br>" + dateAndTime("log");
-        }
-    }
-    activityLog(log);
-    attCount();
-    if (_isClassDay) { ampmAttendance(); }
-    storeNewData();
-} */
- 
 function draw() {
     var eligibleNames = [];
     for (let i = 0; i < _sl.length; i++) {
@@ -2525,9 +2486,8 @@ function loadStudentProperties() {
     document.getElementById("email").innerHTML = _sl[_ci].email;
     document.getElementById("photo").innerHTML = _sl[_ci].photo;
     document.getElementById("notes").innerHTML = JSON.stringify(_sl[_ci].notes);
-    document.getElementById("pts").innerHTML = _sl[_ci].pts;
-    document.getElementById("gamePts").innerHTML = _sl[_ci].gamePts;
-    document.getElementById("classRank").innerHTML = _sl[_ci].classRank;
+    document.getElementById("pts").innerHTML = JSON.stringify(_sl[_ci].pts);
+    document.getElementById("gamePts").innerHTML = JSON.stringify(_sl[_ci].gamePts[0]);
     document.getElementById("rank").innerHTML = JSON.stringify(_sl[_ci].rank);
     document.getElementById("rankConverted").innerHTML = " (" + _rankNamesShort[_sl[_ci].rank[0]] + ")";
     document.getElementById("att").innerHTML = _sl[_ci].att;
@@ -2695,7 +2655,6 @@ function loadPhoto() {
 } */
 
 function loadRankTable() {
-    _sharedPop = "rankChartPop";
     pop(["studentStatsPop"],["rankChartPop"]);
     for (let i = 0; i < _rankNames.length; i++) {
         let x; x = i;
@@ -2719,7 +2678,6 @@ function loadRankTable() {
 }
 
 function openInsignia() {
-    _sharedPop = "studentStatsPop";
     document.getElementById("displayInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank[0]+"-rank.jpg)";
     pop(["studentStatsPop"],["openInsigniaPop"]);
 }

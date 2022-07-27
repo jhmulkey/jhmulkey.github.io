@@ -51,7 +51,6 @@
   <div class="button" onclick="sortByBd()">Sort by Birthday</div>
   <div class="button" onclick="sortByDateAdded()">Sort by Date Added</div>
   <div class="button" onclick="sortByNotes()">Sort by Notes</div>
-  <div class="button" onclick="sortByGamePts()">Sort by Game Points</div>
 </div>
 
 <div id="customSortListPop" class="pop">
@@ -127,6 +126,7 @@
   <div id="teamsListButtons">
     <div class="button" onclick="loadGame()">Play Game</div>
     <div class="button" onclick="actionAlert('Generate new teams and start new game?',['teamsListPop'],createTeams)">Reset Game</div>
+    <div class="button" onclick="sortByGamePts(); _currentP ">Top 3 Scorers</div>
   </div>
 </div>
 
@@ -251,7 +251,7 @@
 
 <div id="openInsigniaPop" class="pop">
   <div>
-    <div id="displayInsignia" onclick="pop(['openInsigniaPop'],[_sharedPop])"></div>
+    <div id="displayInsignia" onclick="pop(['openInsigniaPop'],['rankChartPop'])"></div>
   </div>
 </div>
 
@@ -881,7 +881,6 @@
     <p>notes: <span id="notes"></span></p>
     <p>pts: <span id="pts"></span></p>
     <p>gamePts: <span id="gamePts"></span></p>
-    <p>classRank: <span id="classRank"></span></p>
     <p>rank: <span id="rank"></span><span id="rankConverted"></span></p>
     <p>att: <span id="att"></span></p>
     <p>attArr: <span id="attArr"></span></p>
@@ -902,14 +901,6 @@
     <div id="teacherNotesBackupArray"></div>
   </div>
 </div>
-
-<!-- <div id="backupOLDPop" class="pop">
-  <div id="backupOLDArrays" onclick="selectText('backupOLDArrays')">
-    <div id="slBackupOLDArray"></div>
-    <div id="attBackupOLDArray"></div>
-    <div id="teacherNotesBackupOLDArray"></div>
-  </div>
-</div> -->
 
 <div id="rankChartPop" class="pop">
   <a href="../docs/ranks.pdf" target="_blank"><p>click here to download printable chart</p></a>
@@ -1491,7 +1482,6 @@
 
 </div>
 <script src="backup.js"></script>
-<!-- <script src="backupOLD.js"></script> -->
 <script src="main.js"></script>
 </body>
 </html>
