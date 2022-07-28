@@ -623,7 +623,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #searchMain2, #searchMain3 {
-    margin: 15px 0px 10px 0px;
+    margin: 15px 0px 20px 0px;
 }
 
 .searchField {
@@ -755,7 +755,7 @@ a:link, a:visited, a:hover, a:active {
     background-repeat: no-repeat;
 }
 
-#studentStatsBottomContainerDiv p {
+#studentStatsPop p {
     font-size: 18px;
     text-align: left;
 }

@@ -256,282 +256,37 @@
 </div>
 
 <div id="studentStatsPop" class="pop">
-  <div id="studentStatsBottomContainerDiv">
+
     <div id="rankProgressTableDiv" onclick="loadRankTable()">
       <p id="rankProgressTableP" style="margin-top:0px"></p>
-      <table id="rankProgressTable" class="progressBarTable">
-        <tr>
-          <td id="rankProgressBar1"></td>
-          <td id="rankProgressBar2"></td>
-          <td id="rankProgressBar3"></td>
-          <td id="rankProgressBar4"></td>
-          <td id="rankProgressBar5"></td>
-          <td id="rankProgressBar6"></td>
-          <td id="rankProgressBar7"></td>
-          <td id="rankProgressBar8"></td>
-          <td id="rankProgressBar9"></td>
-          <td id="rankProgressBar10"></td>
-          <td id="rankProgressBar11"></td>
-          <td id="rankProgressBar12"></td>
-          <td id="rankProgressBar13"></td>
-          <td id="rankProgressBar14"></td>
-          <td id="rankProgressBar15"></td>
-          <td id="rankProgressBar16"></td>
-          <td id="rankProgressBar17"></td>
-          <td id="rankProgressBar18"></td>
-          <td id="rankProgressBar19"></td>
-          <td id="rankProgressBar20"></td>
-          <td id="rankProgressBar21"></td>
-          <td id="rankProgressBar22"></td>
-          <td id="rankProgressBar23"></td>
-          <td id="rankProgressBar24"></td>
-          <td id="rankProgressBar25"></td>
-          <td id="rankProgressBar26"></td>
-          <td id="rankProgressBar27"></td>
-          <td id="rankProgressBar28"></td>
-          <td id="rankProgressBar29"></td>
-          <td id="rankProgressBar30"></td>
-          <td id="rankProgressBar31"></td>
-          <td id="rankProgressBar32"></td>
-          <td id="rankProgressBar33"></td>
-          <td id="rankProgressBar34"></td>
-          <td id="rankProgressBar35"></td>
-          <td id="rankProgressBar36"></td>
-          <td id="rankProgressBar37"></td>
-          <td id="rankProgressBar38"></td>
-          <td id="rankProgressBar39"></td>
-          <td id="rankProgressBar40"></td>
-        </tr>
-      </table>
+      <table id="rankProgressTable" class="progressBarTable"></table>
     </div>
-    <p id="totalProgressTableP"></p>
-    <table id="totalProgressTable" class="progressBarTable">
-      <tr>
-        <td id="totalProgressBar1"></td>
-        <td id="totalProgressBar2"></td>
-        <td id="totalProgressBar3"></td>
-        <td id="totalProgressBar4"></td>
-        <td id="totalProgressBar5"></td>
-        <td id="totalProgressBar6"></td>
-        <td id="totalProgressBar7"></td>
-        <td id="totalProgressBar8"></td>
-        <td id="totalProgressBar9"></td>
-        <td id="totalProgressBar10"></td>
-        <td id="totalProgressBar11"></td>
-        <td id="totalProgressBar12"></td>
-        <td id="totalProgressBar13"></td>
-        <td id="totalProgressBar14"></td>
-        <td id="totalProgressBar15"></td>
-        <td id="totalProgressBar16"></td>
-        <td id="totalProgressBar17"></td>
-        <td id="totalProgressBar18"></td>
-        <td id="totalProgressBar19"></td>
-        <td id="totalProgressBar20"></td>
-        <td id="totalProgressBar21"></td>
-        <td id="totalProgressBar22"></td>
-        <td id="totalProgressBar23"></td>
-        <td id="totalProgressBar24"></td>
-        <td id="totalProgressBar25"></td>
-        <td id="totalProgressBar26"></td>
-        <td id="totalProgressBar27"></td>
-        <td id="totalProgressBar28"></td>
-        <td id="totalProgressBar29"></td>
-        <td id="totalProgressBar30"></td>
-        <td id="totalProgressBar31"></td>
-        <td id="totalProgressBar32"></td>
-        <td id="totalProgressBar33"></td>
-        <td id="totalProgressBar34"></td>
-        <td id="totalProgressBar35"></td>
-        <td id="totalProgressBar36"></td>
-        <td id="totalProgressBar37"></td>
-        <td id="totalProgressBar38"></td>
-        <td id="totalProgressBar39"></td>
-        <td id="totalProgressBar40"></td>
-      </tr>
-    </table>
-    <p id="asProgressTableP"></p>
-    <table id="asProgressTable" class="progressBarTable">
-      <tr>
-        <td id="asProgressBar1"></td>
-        <td id="asProgressBar2"></td>
-        <td id="asProgressBar3"></td>
-        <td id="asProgressBar4"></td>
-        <td id="asProgressBar5"></td>
-        <td id="asProgressBar6"></td>
-        <td id="asProgressBar7"></td>
-        <td id="asProgressBar8"></td>
-        <td id="asProgressBar9"></td>
-        <td id="asProgressBar10"></td>
-        <td id="asProgressBar11"></td>
-        <td id="asProgressBar12"></td>
-        <td id="asProgressBar13"></td>
-        <td id="asProgressBar14"></td>
-        <td id="asProgressBar15"></td>
-        <td id="asProgressBar16"></td>
-        <td id="asProgressBar17"></td>
-        <td id="asProgressBar18"></td>
-        <td id="asProgressBar19"></td>
-        <td id="asProgressBar20"></td>
-        <td id="asProgressBar21"></td>
-        <td id="asProgressBar22"></td>
-        <td id="asProgressBar23"></td>
-        <td id="asProgressBar24"></td>
-        <td id="asProgressBar25"></td>
-        <td id="asProgressBar26"></td>
-        <td id="asProgressBar27"></td>
-        <td id="asProgressBar28"></td>
-        <td id="asProgressBar29"></td>
-        <td id="asProgressBar30"></td>
-        <td id="asProgressBar31"></td>
-        <td id="asProgressBar32"></td>
-        <td id="asProgressBar33"></td>
-        <td id="asProgressBar34"></td>
-        <td id="asProgressBar35"></td>
-        <td id="asProgressBar36"></td>
-        <td id="asProgressBar37"></td>
-        <td id="asProgressBar38"></td>
-        <td id="asProgressBar39"></td>
-        <td id="asProgressBar40"></td>
-      </tr>
-    </table>
-    <p id="mvProgressTableP"></p>
-    <table id="mvProgressTable" class="progressBarTable"> 
-      <tr>
-        <td id="mvProgressBar1"></td>
-        <td id="mvProgressBar2"></td>
-        <td id="mvProgressBar3"></td>
-        <td id="mvProgressBar4"></td>
-        <td id="mvProgressBar5"></td>
-        <td id="mvProgressBar6"></td>
-        <td id="mvProgressBar7"></td>
-        <td id="mvProgressBar8"></td>
-        <td id="mvProgressBar9"></td>
-        <td id="mvProgressBar10"></td>
-        <td id="mvProgressBar11"></td>
-        <td id="mvProgressBar12"></td>
-        <td id="mvProgressBar13"></td>
-        <td id="mvProgressBar14"></td>
-        <td id="mvProgressBar15"></td>
-        <td id="mvProgressBar16"></td>
-        <td id="mvProgressBar17"></td>
-        <td id="mvProgressBar18"></td>
-        <td id="mvProgressBar19"></td>
-        <td id="mvProgressBar20"></td>
-        <td id="mvProgressBar21"></td>
-        <td id="mvProgressBar22"></td>
-        <td id="mvProgressBar23"></td>
-        <td id="mvProgressBar24"></td>
-        <td id="mvProgressBar25"></td>
-        <td id="mvProgressBar26"></td>
-        <td id="mvProgressBar27"></td>
-        <td id="mvProgressBar28"></td>
-        <td id="mvProgressBar29"></td>
-        <td id="mvProgressBar30"></td>
-        <td id="mvProgressBar31"></td>
-        <td id="mvProgressBar32"></td>
-        <td id="mvProgressBar33"></td>
-        <td id="mvProgressBar34"></td>
-        <td id="mvProgressBar35"></td>
-        <td id="mvProgressBar36"></td>
-        <td id="mvProgressBar37"></td>
-        <td id="mvProgressBar38"></td>
-        <td id="mvProgressBar39"></td>
-        <td id="mvProgressBar40"></td>
-      </tr>
-    </table>
+
+    <div id="totalProgressTableDiv" onclick="">
+      <p id="totalProgressTableP"></p>
+      <table id="totalProgressTable" class="progressBarTable"></table>
+    </div>
+
+    <div id="asProgressTableDiv" onclick="">
+      <p id="asProgressTableP"></p>
+      <table id="asProgressTable" class="progressBarTable"></table>
+    </div>
+
+    <div id="mvProgressTableDiv" onclick="">
+      <p id="mvProgressTableP"></p>
+      <table id="mvProgressTable" class="progressBarTable"> </table>
+    </div>
+
     <div id="attProgressTableDiv" onclick="loadStudentAttStats()">
       <p id="attProgressTableP"></p>
-      <table id="attProgressTable" class="progressBarTable">
-        <tr>
-          <td id="attProgressBar1"></td>
-          <td id="attProgressBar2"></td>
-          <td id="attProgressBar3"></td>
-          <td id="attProgressBar4"></td>
-          <td id="attProgressBar5"></td>
-          <td id="attProgressBar6"></td>
-          <td id="attProgressBar7"></td>
-          <td id="attProgressBar8"></td>
-          <td id="attProgressBar9"></td>
-          <td id="attProgressBar10"></td>
-          <td id="attProgressBar11"></td>
-          <td id="attProgressBar12"></td>
-          <td id="attProgressBar13"></td>
-          <td id="attProgressBar14"></td>
-          <td id="attProgressBar15"></td>
-          <td id="attProgressBar16"></td>
-          <td id="attProgressBar17"></td>
-          <td id="attProgressBar18"></td>
-          <td id="attProgressBar19"></td>
-          <td id="attProgressBar20"></td>
-          <td id="attProgressBar21"></td>
-          <td id="attProgressBar22"></td>
-          <td id="attProgressBar23"></td>
-          <td id="attProgressBar24"></td>
-          <td id="attProgressBar25"></td>
-          <td id="attProgressBar26"></td>
-          <td id="attProgressBar27"></td>
-          <td id="attProgressBar28"></td>
-          <td id="attProgressBar29"></td>
-          <td id="attProgressBar30"></td>
-          <td id="attProgressBar31"></td>
-          <td id="attProgressBar32"></td>
-          <td id="attProgressBar33"></td>
-          <td id="attProgressBar34"></td>
-          <td id="attProgressBar35"></td>
-          <td id="attProgressBar36"></td>
-          <td id="attProgressBar37"></td>
-          <td id="attProgressBar38"></td>
-          <td id="attProgressBar39"></td>
-          <td id="attProgressBar40"></td>
-        </tr>
-      </table>
+      <table id="attProgressTable" class="progressBarTable"></table>
     </div>
-    <p id="totalParticipationTableP"></p>
-    <table id="totalParticipationTable" class="progressBarTable">
-      <tr>
-        <td id="totalParticipationBar1"></td>
-        <td id="totalParticipationBar2"></td>
-        <td id="totalParticipationBar3"></td>
-        <td id="totalParticipationBar4"></td>
-        <td id="totalParticipationBar5"></td>
-        <td id="totalParticipationBar6"></td>
-        <td id="totalParticipationBar7"></td>
-        <td id="totalParticipationBar8"></td>
-        <td id="totalParticipationBar9"></td>
-        <td id="totalParticipationBar10"></td>
-        <td id="totalParticipationBar11"></td>
-        <td id="totalParticipationBar12"></td>
-        <td id="totalParticipationBar13"></td>
-        <td id="totalParticipationBar14"></td>
-        <td id="totalParticipationBar15"></td>
-        <td id="totalParticipationBar16"></td>
-        <td id="totalParticipationBar17"></td>
-        <td id="totalParticipationBar18"></td>
-        <td id="totalParticipationBar19"></td>
-        <td id="totalParticipationBar20"></td>
-        <td id="totalParticipationBar21"></td>
-        <td id="totalParticipationBar22"></td>
-        <td id="totalParticipationBar23"></td>
-        <td id="totalParticipationBar24"></td>
-        <td id="totalParticipationBar25"></td>
-        <td id="totalParticipationBar26"></td>
-        <td id="totalParticipationBar27"></td>
-        <td id="totalParticipationBar28"></td>
-        <td id="totalParticipationBar29"></td>
-        <td id="totalParticipationBar30"></td>
-        <td id="totalParticipationBar31"></td>
-        <td id="totalParticipationBar32"></td>
-        <td id="totalParticipationBar33"></td>
-        <td id="totalParticipationBar34"></td>
-        <td id="totalParticipationBar35"></td>
-        <td id="totalParticipationBar36"></td>
-        <td id="totalParticipationBar37"></td>
-        <td id="totalParticipationBar38"></td>
-        <td id="totalParticipationBar39"></td>
-        <td id="totalParticipationBar40"></td>
-      </tr>
-    </table>
-  </div>
+
+    <div id="totalParticipationTableDiv" onclick="">
+      <p id="totalParticipationTableP"></p>
+      <table id="totalParticipationTable" class="progressBarTable"></table>
+    </div>
+
 </div>
 
 <div id="newStudentPop" class="pop">

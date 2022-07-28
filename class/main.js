@@ -357,7 +357,7 @@ function allAlerts() {
 }
 
 function generateAllTables() {
-    generateRankTable(); generateAttListTable(); generateStudentAttTable();
+    generateRankTable(); generateAttListTable(); generateStudentAttTable(); generateStudentStatsTables();
 }
 
 function populateCustomList(log1,log2,type) {
@@ -2278,7 +2278,15 @@ function generateStudentAttTable() {
 function generateStudentStatsTables() {
     var tables = ["rankProgressTable","totalProgressTable","asProgressTable","mvProgressTable","attProgressTable","totalParticipationTable"];
     var ids = ["rankProgressBar","totalProgressBar","asProgressBar","mvProgressBar","attProgressBar","totalParticipationBar"];
-
+    for (let i = 0; i < tables.length; i++) {
+        var tr = document.createElement("tr");
+        for (let j = 1; j < 41; j++) {
+            var td = document.createElement("td");
+            td.setAttribute("id",ids[i]+j);
+            tr.append(td);
+            document.getElementById(tables[i]).append(tr);
+        }
+    }
 }
 
 function populateNames2() {
