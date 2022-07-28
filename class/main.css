@@ -73,7 +73,7 @@ a:link, a:visited, a:hover, a:active {
     text-align: left;
 }
 
-.pointer {
+.ptr {
     cursor: pointer;
 }
 
@@ -248,6 +248,7 @@ a:link, a:visited, a:hover, a:active {
     font-size: 15px;
     border: 1px solid white;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .asButton {
@@ -401,16 +402,6 @@ a:link, a:visited, a:hover, a:active {
     justify-content: center;
 }
 
-.studentPopButtons {
-    border-radius: 10px;
-    height: 30px;
-    width: 115px;
-    border: 1px solid white;
-    margin-bottom: 14.5px;
-    font-size: 20px;
-    background-color: black;
-}
-
 #topMenuContainer {
     width: 325px;
     display: flex;
@@ -459,6 +450,7 @@ a:link, a:visited, a:hover, a:active {
 
 .name, .nameSmaller {
     margin: 0px 0px 15px;
+    cursor: pointer;
 }
 
 .nameSmaller {
@@ -472,8 +464,13 @@ a:link, a:visited, a:hover, a:active {
 
 .name3 {
     margin: 10px auto;
-    font-size: 25px;
+    font-size: 20px;
     text-align: left;
+}
+
+.sortValues {
+    color: #3478F6 !important;
+    font-size: 20px !important;
 }
 
 .noteText {
@@ -578,6 +575,7 @@ a:link, a:visited, a:hover, a:active {
 
 .note {
     font-size: 20px;
+    cursor: pointer;
 }
 
 .addNew {
@@ -589,6 +587,7 @@ a:link, a:visited, a:hover, a:active {
     padding: 5px;
     width: 200px;
     margin: 20px auto;
+    cursor: pointer;
 }
 
 #addStudentNote, #editStudentNote, #addTeacherNote, #editTeacherNote {
@@ -877,10 +876,6 @@ a:link, a:visited, a:hover, a:active {
 
 #studentPopInfo p {
     text-align: center !important;
-}
-
-#attCount, .otherButton, .addNew, #dispStudentPhoto, .roundButton1, .roundButton2, .button, .asButton, .mvButton, .studentPopButtons, .backButton, .homeButton, .name, .note, #rankProgressTableDiv, #attProgressTableDiv, #team1ListDiv, #team2ListDiv, #scannedImage, #studentPopName, .secretButton, .secretButton2, .secretButton3, #advancedOptionsButton {
-    cursor: pointer;
 }
 
 #studentPopClassRank {
