@@ -1138,7 +1138,7 @@ function sortByRank() {
         elementNode.classList.add("name3");
         if (_sl[i].rank[0] != lastElementNode) {
             elementNode.style.borderTop = "1px solid #555";
-            elementNode.style.paddingTop = "5px";
+            elementNode.style.paddingTop = "10px";
         }
         var textNode = document.createTextNode(_sl[i].name[0] + " (" + _rankNamesShort[_sl[i].rank[0]] + ")");
         elementNode.append(textNode);
@@ -1187,7 +1187,7 @@ function sortByASpts() {
         p.classList.add("name3");
         if (_sl[i].earnedASpts != lastElementNode) {
             p.style.borderTop = "1px solid #555";
-            p.style.paddingTop = "5px";
+            p.style.paddingTop = "10px";
         }
         span1.innerHTML = _sl[i].asRank + ". " + _sl[i].name[0];
         span2.innerHTML = " " + _sl[i].earnedASpts + "/" + totalASpts + " (" + _sl[i].asPercentage + "%)";
@@ -1237,7 +1237,7 @@ function sortByMVpts() {
         p.classList.add("name3");
         if (_sl[i].earnedMVpts != lastElementNode) {
             p.style.borderTop = "1px solid #555";
-            p.style.paddingTop = "5px";
+            p.style.paddingTop = "10px";
         }
         span1.innerHTML = _sl[i].mvRank + ". " + _sl[i].name[0];
         span2.innerHTML = " " + _sl[i].earnedMVpts + "/" + totalMVpts + " (" + _sl[i].mvPercentage + "%)";
@@ -1249,6 +1249,15 @@ function sortByMVpts() {
 }
 
 function sortByPts() {
+    var totalASpts = 0; var totalMVpts = 0;
+    if (_elapsedWeeks > 1) {
+        for (let i = 0; i < _ti; i++) {
+            if (i > 31) {break}
+            totalASpts += _asMaxPts[i];
+            totalMVpts += _mvMaxPts[i];
+        }
+    }
+    var totalPts = totalASpts + totalMVpts;
     assignClassRanks();
     document.getElementById("nameListCustom").style.display = "block";
     document.getElementById("genderListContainer").style.display = "none";
@@ -1256,6 +1265,7 @@ function sortByPts() {
     document.getElementById("nameListCustom").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].pts[0] == 0) {continue}
+        var totalPtsPercentage = ((_sl[i].pts[0] / totalPts) * 100).toFixed(1);
         var lastElementNode;
         var p = document.createElement("p");
         var span1 = document.createElement("span");
@@ -1264,10 +1274,10 @@ function sortByPts() {
         span2.classList.add("sortValues");
         if (_sl[i].pts[0] != lastElementNode) {
             p.style.borderTop = "1px solid #555";
-            p.style.paddingTop = "5px";
+            p.style.paddingTop = "10px";
         }
         span1.innerHTML = _sl[i].pts[1] + ". " + _sl[i].name[0];
-        span2.innerHTML = " " + _sl[i].pts[0];
+        span2.innerHTML = " " + _sl[i].pts[0] + "/" + totalPts + " (" + totalPtsPercentage + "%)";
         p.append(span1,span2);
         document.getElementById("nameListCustom").append(p);
         lastElementNode = _sl[i].pts[0];
@@ -1289,7 +1299,7 @@ function sortByGamePts() {
         elementNode.classList.add("name3");
         if (_sl[i].gamePts[0] != lastElementNode) {
             elementNode.style.borderTop = "1px solid #555";
-            elementNode.style.paddingTop = "5px";
+            elementNode.style.paddingTop = "10px";
         }
         var textNode = document.createTextNode(_sl[i].gamePts[1] + ". " + _sl[i].name[0] + " (" + _sl[i].gamePts[0] + ")");
         elementNode.append(textNode);
@@ -1324,7 +1334,7 @@ function sortByAttendance() {
         elementNode.classList.add("name3");
         if (_sl[i].totalWksAtt != lastElementNode) {
             elementNode.style.borderTop = "1px solid #555";
-            elementNode.style.paddingTop = "5px";
+            elementNode.style.paddingTop = "10px";
         }
         var textNode = document.createTextNode(_sl[i].name[0] + " (" + _sl[i].totalWksAtt + "/" + _elapsedWeeks + ")");
         elementNode.append(textNode);
@@ -1381,7 +1391,7 @@ function sortByBd() {
         elementNode.classList.add("name3");
         if (cdn(_sl[i].bd[0],"M") != lastElementNode) {
             elementNode.style.borderTop = "1px solid #333";
-            elementNode.style.paddingTop = "5px";
+            elementNode.style.paddingTop = "10px";
         }
         if (_sl[i].bd[2] === true) {
             elementNode.style.color = "gray";
@@ -1411,7 +1421,7 @@ function sortByDateAdded() {
         elementNode.classList.add("name3");
         if (dateAddedMonth != lastElementNode) {
             elementNode.style.borderTop = "1px solid #333";
-            elementNode.style.paddingTop = "5px";
+            elementNode.style.paddingTop = "10px";
         }
         var textNode = document.createTextNode(dateAddedMonth + "/" + dateAddedDate + " " + dateAddedOrder[i].name[0]);
         elementNode.append(textNode);
