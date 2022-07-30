@@ -62,6 +62,7 @@
     <div class="backButton ptr" onclick="pop(['customSortListPop'],[_currentPop])">f</div>
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
+  <p id="customSortListLabel"></p>
   <div id="nameListCustom"></div>
   <div id="genderListContainer">
     <div id="boysListDiv">
@@ -291,6 +292,35 @@
       <table id="totalParticipationTable" class="progressBarTable"></table>
     </div>
 
+    <div id="lbDiv">
+      <p style="text-align:center;">Leader Boards</p>
+      <div class="lb" id="totalPtsLb">
+        <p class="lbTitle">Total Points</p>
+        <div id="totalPtsLbList"></div>
+      </div>
+
+      <div class="lb" id="asPtsLb">
+        <p class="lbTitle">Activity Sheet Points</p>
+        <div id="asPtsLbList"></div>
+      </div>
+
+      <div class="lb" id="mvPtsLb">
+        <p class="lbTitle">Memory Verse Points</p>
+        <div id="mvPtsLbList"></div>
+      </div>
+
+      <div class="lb" id="attLb">
+        <p class="lbTitle">Attendance</p>
+        <div id="attLbList"></div>
+      </div>
+
+      <div class="lb" id="tpLb">
+        <p class="lbTitle">Total Participation</p>
+        <div id="tpLbList"></div>
+      </div>
+
+    </div>
+
 </div>
 
 <div id="newStudentPop" class="pop">
@@ -490,12 +520,12 @@
 
 <div id="asPtsPop" class="pop">
   <div class="pointButtonContainer">
-      <div id="as1Pts" class="roundButton1 numberButton asPts" onclick="asPts(_asNum,1)">1</div>
-      <div id="as2Pts" class="roundButton1 numberButton asPts" onclick="asPts(_asNum,2)">2</div>
-      <div id="as3Pts" class="roundButton1 numberButton asPts" onclick="asPts(_asNum,3)">3</div>
-      <div id="as4Pts" class="roundButton1 numberButton asPts" style="padding-right:3px" onclick="asPts(_asNum,4)">4</div>
-      <div id="as5Pts" class="roundButton1 numberButton asPts" onclick="asPts(_asNum,5)">5</div>
-      <div id="as6Pts" class="roundButton1 numberButton asPts" onclick="asPts(_asNum,6)">6</div>
+      <div id="as1Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,1)">1</div>
+      <div id="as2Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,2)">2</div>
+      <div id="as3Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,3)">3</div>
+      <div id="as4Pts" class="roundButton1 numberButton asPts ptr" style="padding-right:3px" onclick="asPts(_asNum,4)">4</div>
+      <div id="as5Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,5)">5</div>
+      <div id="as6Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,6)">6</div>
   </div>
   <div>
     <table class="asmvInfoTable">
@@ -530,13 +560,13 @@
 
 <div id="mvPtsPop" class="pop">
   <div class="pointButtonContainer">
-      <div id="mv1Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,1)">1</div>
-      <div id="mv2Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,2)">2</div>
-      <div id="mv3Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,3)">3</div>
-      <div id="mv4Pts" class="roundButton1 numberButton mvPts" style="padding-right:3px" onclick="mvPts(_mvNum,4)">4</div>
-      <div id="mv5Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,5)">5</div>
-      <div id="mv6Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,6)">6</div>
-      <div id="mv7Pts" class="roundButton1 numberButton mvPts" onclick="mvPts(_mvNum,7)">7</div>
+      <div id="mv1Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,1)">1</div>
+      <div id="mv2Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,2)">2</div>
+      <div id="mv3Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,3)">3</div>
+      <div id="mv4Pts" class="roundButton1 numberButton mvPts ptr" style="padding-right:3px" onclick="mvPts(_mvNum,4)">4</div>
+      <div id="mv5Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,5)">5</div>
+      <div id="mv6Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,6)">6</div>
+      <div id="mv7Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,7)">7</div>
   </div>
   <div>
     <table class="asmvInfoTable">

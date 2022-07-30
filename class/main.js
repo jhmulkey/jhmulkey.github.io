@@ -113,6 +113,7 @@ class Student {
         this.attArr = [];
         this.promo = [false,0]; // [promoted,promoNum]
         this.randDraw = [false,false];
+        this.statsRanks = [];
         this.as = { // [ptsEarned,dateCompleted]
             0: [0,0], //class-intro
             1: [0,0], //john-intro
@@ -565,7 +566,7 @@ function populateTeams() {
         p.classList.add("name2");
         p.innerHTML = _teams[0].team1Reset[i];
         document.getElementById("team1List").append(p);
-    }  
+    }
     for (let i = 0; i < _teams[0].team2Reset.length; i++) {
         var p = document.createElement("p");
         p.classList.add("name2");
@@ -1121,10 +1122,10 @@ function randAtt(blank,x) {
 }
 
 function sortByRank() {
+    document.getElementById("nameListCustom").innerHTML = "";
     document.getElementById("nameListCustom").style.display = "block";
     document.getElementById("genderListContainer").style.display = "none";
     _sl.sort(function(b,a){return a.rank[0] - b.rank[0]});
-    document.getElementById("nameListCustom").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
         var lastElementNode;
         var p = document.createElement("p");
@@ -1142,10 +1143,17 @@ function sortByRank() {
         document.getElementById("nameListCustom").append(p);
         lastElementNode = _sl[i].rank[0];
     }
-    pop(["sortChoicePop"],["customSortListPop"]);
+    pop(["sortChoicePop"],["customSortListPop"],"Rank");
 }
 
-function sortByPts() {
+function sortByPts(lb) {
+    if (lb) {
+        document.getElementById("totalPtsLbList").innerHTML = "";
+    } else {
+        document.getElementById("nameListCustom").innerHTML = "";
+        document.getElementById("nameListCustom").style.display = "block";
+        document.getElementById("genderListContainer").style.display = "none";
+    }
     var totalASpts = 0; var totalMVpts = 0;
     if (_elapsedWeeks > 1) {
         for (let i = 0; i < _ti; i++) {
@@ -1156,12 +1164,10 @@ function sortByPts() {
     }
     var totalPts = totalASpts + totalMVpts;
     assignStatsRanks("pts");
-    document.getElementById("nameListCustom").style.display = "block";
-    document.getElementById("genderListContainer").style.display = "none";
     _sl.sort(function(b,a){return a.pts[0] - b.pts[0]});
-    document.getElementById("nameListCustom").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].pts[0] == 0) {continue}
+        if (lb) {if ( _sl[i].pts[1] > 10 ) {continue}}
         var totalPtsPercentage = ((_sl[i].pts[0] / totalPts) * 100).toFixed(1);
         var lastElementNode;
         var p = document.createElement("p");
@@ -1176,18 +1182,22 @@ function sortByPts() {
         span1.innerHTML = _sl[i].pts[1] + ". " + _sl[i].name[0];
         span2.innerHTML = " " + _sl[i].pts[0] + "/" + totalPts + " (" + totalPtsPercentage + "%)";
         p.append(span1,span2);
-        document.getElementById("nameListCustom").append(p);
+        if (lb) {
+            document.getElementById("totalPtsLbList").append(p);
+        } else {
+            document.getElementById("nameListCustom").append(p);
+        }
         lastElementNode = _sl[i].pts[0];
     }
-    pop(["sortChoicePop"],["customSortListPop"]);
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
 }
 
 function sortByGamePts() {
     assignStatsRanks("gamePts");
+    document.getElementById("nameListCustom").innerHTML = "";
     document.getElementById("nameListCustom").style.display = "block";
     document.getElementById("genderListContainer").style.display = "none";
     _sl.sort(function(b,a){return a.gamePts[0] - b.gamePts[0]});
-    document.getElementById("nameListCustom").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].gamePts[0] == 0) {continue}
         if (_sl[i].gamePts[1] > 3) {break}
@@ -1202,10 +1212,17 @@ function sortByGamePts() {
         document.getElementById("nameListCustom").append(p);
         lastElementNode = _sl[i].gamePts[0];
     }
-    pop(["teamsListPop"],["customSortListPop"]);
+    pop(["teamsListPop"],["customSortListPop"],"Game Points");
 }
 
-function sortByASpts() {
+function sortByASpts(lb) {
+    if (lb) {
+        document.getElementById("asPtsLbList").innerHTML = "";
+    } else {
+        document.getElementById("nameListCustom").innerHTML = "";
+        document.getElementById("nameListCustom").style.display = "block";
+        document.getElementById("genderListContainer").style.display = "none";
+    }
     var totalASpts = 0;
     if (_elapsedWeeks > 1) {
         for (let j = 0; j < _ti; j++) {
@@ -1229,13 +1246,11 @@ function sortByASpts() {
         _sl[i].earnedASpts = earnedASpts;
         _sl[i].asPercentage = asPercentage;
     }
-    document.getElementById("nameListCustom").style.display = "block";
-    document.getElementById("genderListContainer").style.display = "none";
     assignStatRanks("earnedASpts",false,"asRank");
     _sl.sort(function(b,a){return a.earnedASpts - b.earnedASpts});
-    document.getElementById("nameListCustom").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].earnedASpts == 0) {continue}
+        if (lb) {if ( _sl[i].asRank > 10 ) {continue}}
         var lastElementNode;
         var p = document.createElement("p");
         var span1 = document.createElement("span");
@@ -1249,13 +1264,23 @@ function sortByASpts() {
         span1.innerHTML = _sl[i].asRank + ". " + _sl[i].name[0];
         span2.innerHTML = " " + _sl[i].earnedASpts + "/" + totalASpts + " (" + _sl[i].asPercentage + "%)";
         p.append(span1,span2);
-        document.getElementById("nameListCustom").append(p);
-        lastElementNode = _sl[i].earnedASpts;
+        if (lb) {
+            document.getElementById("asPtsLbList").append(p);
+        } else {
+            document.getElementById("nameListCustom").append(p);
+        }        lastElementNode = _sl[i].earnedASpts;
     }
-    pop(["sortChoicePop"],["customSortListPop"]);
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
 }
 
-function sortByMVpts() {
+function sortByMVpts(lb) {
+    if (lb) {
+        document.getElementById("mvPtsLbList").innerHTML = "";
+    } else {
+        document.getElementById("nameListCustom").innerHTML = "";
+        document.getElementById("nameListCustom").style.display = "block";
+        document.getElementById("genderListContainer").style.display = "none";
+    }
     var totalMVpts = 0;
     if (_elapsedWeeks > 1) {
         for (let j = 0; j < _ti; j++) {
@@ -1279,13 +1304,11 @@ function sortByMVpts() {
         _sl[i].earnedMVpts = earnedMVpts;
         _sl[i].mvPercentage = mvPercentage;
     }
-    document.getElementById("nameListCustom").style.display = "block";
-    document.getElementById("genderListContainer").style.display = "none";
     assignStatRanks("earnedMVpts",false,"mvRank");
     _sl.sort(function(b,a){return a.earnedMVpts - b.earnedMVpts});
-    document.getElementById("nameListCustom").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].earnedMVpts == 0) {continue}
+        if (lb) {if ( _sl[i].mvRank > 10 ) {continue}}
         var lastElementNode;
         var p = document.createElement("p");
         var span1 = document.createElement("span");
@@ -1299,15 +1322,23 @@ function sortByMVpts() {
         span1.innerHTML = _sl[i].mvRank + ". " + _sl[i].name[0];
         span2.innerHTML = " " + _sl[i].earnedMVpts + "/" + totalMVpts + " (" + _sl[i].mvPercentage + "%)";
         p.append(span1,span2);
-        document.getElementById("nameListCustom").append(p);
-        lastElementNode = _sl[i].earnedMVpts;
+        if (lb) {
+            document.getElementById("mvPtsLbList").append(p);
+        } else {
+            document.getElementById("nameListCustom").append(p);
+        }        lastElementNode = _sl[i].earnedMVpts;
     }
-    pop(["sortChoicePop"],["customSortListPop"]);
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
 }
 
-function sortByAtt() {
-    document.getElementById("nameListCustom").style.display = "block";
-    document.getElementById("genderListContainer").style.display = "none";
+function sortByAtt(lb) {
+    if (lb) {
+        document.getElementById("attLbList").innerHTML = "";
+    } else {
+        document.getElementById("nameListCustom").innerHTML = "";
+        document.getElementById("nameListCustom").style.display = "block";
+        document.getElementById("genderListContainer").style.display = "none";
+    }
     for (let i = 0; i < _sl.length; i++) {
         var amTotal = []; var pmTotal = []
         for (let j = 0; j < _elapsedWeeks; j++) {
@@ -1325,8 +1356,8 @@ function sortByAtt() {
     assignAttRanks();
     assignStatRanks("totalWksAtt",false,"attRank");
     _sl.sort(function(a,b){return b.totalWksAtt - a.totalWksAtt});
-    document.getElementById("nameListCustom").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
+        if (lb) {if ( _sl[i].attRank > 10 ) {continue}}
         var lastElementNode;
         var attPercentage = ((_sl[i].totalWksAtt / _elapsedWeeks) * 100).toFixed(1);
         var p = document.createElement("p");
@@ -1342,15 +1373,23 @@ function sortByAtt() {
         span1.innerHTML = _sl[i].attRank + ". " + _sl[i].name[0];
         span2.innerHTML = " " + _sl[i].totalWksAtt + "/" + _elapsedWeeks + " (" + attPercentage + "%)";
         p.append(span1,span2);
-        document.getElementById("nameListCustom").append(p);
-        lastElementNode = _sl[i].totalWksAtt;
+        if (lb) {
+            document.getElementById("attLbList").append(p);
+        } else {
+            document.getElementById("nameListCustom").append(p);
+        }        lastElementNode = _sl[i].totalWksAtt;
     }  
-    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
 }
 
-function sortByTP() {
-    document.getElementById("nameListCustom").style.display = "block";
-    document.getElementById("genderListContainer").style.display = "none";
+function sortByTP(lb) {
+    if (lb) {
+        document.getElementById("tpLbList").innerHTML = "";
+    } else {
+        document.getElementById("nameListCustom").innerHTML = "";
+        document.getElementById("nameListCustom").style.display = "block";
+        document.getElementById("genderListContainer").style.display = "none";
+    }
     var totalASpts = 0; var totalMVpts = 0;
     if (_elapsedWeeks > 1) {
         for (let j = 0; j < _ti; j++) {
@@ -1376,8 +1415,8 @@ function sortByTP() {
     }
     assignStatRanks("tpPts",false,"tpRank");
     _sl.sort(function(a,b){return b.tpPts - a.tpPts});
-    document.getElementById("nameListCustom").innerHTML = "";
     for (let i = 0; i < _sl.length; i++) {
+        if (lb) {if ( _sl[i].tpRank > 10 ) {continue}}
         var lastElementNode;
         var tpPercentage = ((_sl[i].tpPts / totalTPpts) * 100).toFixed(1);
         var p = document.createElement("p");
@@ -1393,20 +1432,22 @@ function sortByTP() {
         span1.innerHTML = _sl[i].tpRank + ". " + _sl[i].name[0];
         span2.innerHTML = " " + _sl[i].tpPts + "/" + totalTPpts + " (" + tpPercentage + "%)";
         p.append(span1,span2);
-        document.getElementById("nameListCustom").append(p);
+        if (lb) {
+            document.getElementById("tpLbList").append(p);
+        } else {
+            document.getElementById("nameListCustom").append(p);
+        }
         lastElementNode = _sl[i].tpPts;
     }  
-    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
 }
 
 function sortByGender() {
     var boys = []; var girls = [];
     document.getElementById("nameListCustom").style.display = "none";
+    document.getElementById("boysList").innerHTML = "";
+    document.getElementById("girlsList").innerHTML = "";
     document.getElementById("genderListContainer").style.display = "flex";
-    var ids = ["boysList","girlsList","boysListP","girlsListP"];
-    for (let i = 0; i < ids.length; i++) {
-        document.getElementById(ids[i]).innerHTML = "";
-    }
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].gender == "M") {
             boys.push(_sl[i].name[0]);
@@ -1428,7 +1469,7 @@ function sortByGender() {
     }  
     document.getElementById("boysListP").innerHTML = "Boys (" + boys.length + ")";
     document.getElementById("girlsListP").innerHTML = "Girls (" + girls.length + ")";
-    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
+    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"],"Gender");
 }
 
 function sortByBd() {
@@ -1440,7 +1481,10 @@ function sortByBd() {
         if (bdnOrder[i].bd[0] == 0) { continue }
         var lastElementNode;
         var p = document.createElement("p");
+        var span1 = document.createElement("span");
+        var span2 = document.createElement("span");
         p.classList.add("name3");
+        span1.classList.add("sortValues");
         if (cdn(_sl[i].bd[0],"M") != lastElementNode) {
             p.style.borderTop = "1px solid #333";
             p.style.paddingTop = "10px";
@@ -1451,11 +1495,13 @@ function sortByBd() {
         if (_bdList.indexOf(_sl[i].name[0]) > -1 && _sl[i].bd[2] === false) {
             p.style.color = "fuchsia";
         };
-        p.innerHTML = cdn(bdnOrder[i].bd[0]) + " " + bdnOrder[i].name[0];
+        span1.innerHTML = cdn(bdnOrder[i].bd[0]);
+        span2.innerHTML = " " + bdnOrder[i].name[0];
+        p.append(span1,span2);
         document.getElementById("nameListCustom").append(p);
         lastElementNode = cdn(_sl[i].bd[0],"M");
     }  
-    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
+    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"],"Birthdays");
 }
 
 function sortByDateAdded() {
@@ -1478,7 +1524,7 @@ function sortByDateAdded() {
         document.getElementById("nameListCustom").append(p);
         lastElementNode = dateAddedMonth;
     }  
-    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]);
+    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"],"Date Added");
 }
 
 function sortByNotes(bypass) {
@@ -1487,11 +1533,16 @@ function sortByNotes(bypass) {
     document.getElementById("genderListContainer").style.display = "none";
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].notes.length != 0) {
+            var lastElementNode;
             var p1 = document.createElement("p");
             var br = document.createElement("br");
             var p2 = document.createElement("p");
             p1.classList.add("name3");
             p2.classList.add("noteText");
+            if (_sl[i] != lastElementNode) {
+                p1.style.borderTop = "1px solid #333";
+                p1.style.paddingTop = "10px";
+            }
             p1.innerHTML = _sl[i].name[0];
             var notesString = "";
             for (let j = 0; j < _sl[i].notes.length; j++) {
@@ -1505,9 +1556,10 @@ function sortByNotes(bypass) {
             p2.innerHTML = notesString;
             p1.append(p2);
             document.getElementById("nameListCustom").append(p1);
+            lastElementNode = _sl[i];
         }
     }  
-    if (!bypass) { pop(["mainMenuPop","sortChoicePop"],["customSortListPop"]); }
+    if (!bypass) { pop(["mainMenuPop","sortChoicePop"],["customSortListPop"],"Notes"); }
 }
 
 function sortSL() {
@@ -2216,10 +2268,15 @@ function searchLog() {
 function loadStudent(index) {
     _ci = index; document.getElementById("searchMain").value = "";
     checkInAtt(); refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu();
+    loadLbs();
     document.activeElement.blur();
     if (document.getElementById("editStudentPop").style.display != "block") {
         pop(["mainPop"],["studentPop","missionsPop"]);
     }
+}
+
+function loadLbs() {
+    sortByPts(true); sortByASpts(true); sortByMVpts(true); sortByAtt(true); sortByTP(true); sortSL();
 }
 
 function resetStudentMenu() {
@@ -2269,7 +2326,7 @@ function mvLinks() {
     window.open("docs/memory/mv"+_mvNum+".pdf","_blank");
 }
 
-function pop(closeArray,openArray) {
+function pop(closeArray,openArray,title) {
     for (let i = 0; i < closeArray.length; i++) {
         if (closeArray != []) {
             document.getElementById(closeArray[i]).style.display = "none";
@@ -2321,6 +2378,9 @@ function pop(closeArray,openArray) {
         setTimeout(function() {
             document.getElementById("pwd").focus();
         },10);
+    }
+    if (openArray.includes("customSortListPop")) {
+        document.getElementById("customSortListLabel").innerHTML = title;
     }
     if (_currentPop == "sortChoicePop") {
         for (let i = 0; i < _sl.length; i++) {
