@@ -1,4 +1,4 @@
-var _sl = []; var _ci; var _ti; var _slOLD = [];
+var _sl = []; var _ci; var _ti; var _slOLD = []; var _currentStudent;
 var _asNum; var _mvNum;
 var _asPts;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
@@ -803,113 +803,31 @@ function addPlayer(x,i) {
     storeNewData();
 }
 
-function assignStatsRanks(propertyName) {
+function assignStatsRanks(propertyName,index) {
     var pts = [];
     for (let i = 0; i < _sl.length; i++) {
-        pts.push(_sl[i][propertyName][0]);
+        pts.push(_sl[i][propertyName]);
     } // creates an array of the points of each student in alphabetical order
     var ptsSorted = pts.slice().sort(function(a,b){return b - a}); // sorts the resuting array in numerical order
     var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1}); // maps the index(+1) of each unique point value in the resulting array back to original array that was in alphabetical order
     for (let i = 0; i < _sl.length; i++) {
-        _sl[i][propertyName][1] = ptsRanked[i];
-    } // assigns the values of the resulting array as the class rank of each student
-    sortSLbyProperty(propertyName,1); var repeats = 0;
-    var corrected = []; corrected.push(_sl[0][propertyName][1]);
+        _sl[i].statsRanks[index] = ptsRanked[i];
+    } // assigns the values of the resulting array as the rank of each student
+    sortSLbyProperty(propertyName); var repeats = 0;
+    var corrected = []; corrected.push(_sl[0].statsRanks[index]);
     for (let i = 1; i < _sl.length; i++) {
-        if (_sl[i][propertyName][1] == _sl[i-1][propertyName][1]) {
+        if (_sl[i].statsRanks[index] == _sl[i-1].statsRanks[index]) {
             repeats++;
             corrected.push(corrected[i-1]);
         } else {
-            corrected.push(_sl[i][propertyName][1] - repeats);
+            corrected.push(_sl[i].statsRanks[index] - repeats);
         }
     }
     for (let i = 1; i < _sl.length; i++) {
-        _sl[i][propertyName][1] = corrected[i];
+        _sl[i].statsRanks[index] = corrected[i];
     }
     sortSL();
-    /* _sl is then sorted by class rank.  An array of "corrected" class ranks is created, and the first class rank is pushed to it.  Now for every consecutive class rank, if it's the same as the previous class rank, a "repeat" is tallied, and the last value added to the "corrected" array is pushed to the array as a repeated class rank.  If a consecutive class rank is not the same as the previous class rank, the class rank is added to the "corrected" array after subtracting the current repeat tally from it.  This ensures no class rank numbers are skipped, so instead of (for example) class ranks [1,1,3,4,5,5,5,8,9,10], you get [1,1,2,3,4,4,4,5,6,7].  Finally, the current class ranks are reassigned as the corrected class ranks and _sl is sorted back into alphabetical order. */
-}
-
-function assignAttRanks() {
-    var wksAttended = [];
-    for (let i = 0; i < _sl.length; i++) {
-        wksAttended.push(_sl[i].totalWksAtt);
-    }
-    var wksAttendedSorted = wksAttended.slice().sort(function(a,b){return b - a});
-    var wksAttendedRanked = wksAttended.map(function(v){return wksAttendedSorted.indexOf(v)+1});
-    for (let i = 0; i < _sl.length; i++) {
-        _sl[i].attRank = wksAttendedRanked[i];
-    }
-    sortSLbyProperty(); var repeats = 0;
-    var corrected = []; corrected.push(_sl[0].attRank);
-    for (let i = 1; i < _sl.length; i++) {
-        if (_sl[i].attRank == _sl[i-1].attRank) {
-            repeats++;
-            corrected.push(corrected[i-1]);
-        } else {
-            corrected.push(_sl[i].attRank - repeats);
-        }
-    }
-    for (let i = 1; i < _sl.length; i++) {
-        _sl[i].attRank = corrected[i];
-    }
-    sortSL();
-}
-
-function assignTPranks() {
-    var tpPts = [];
-    for (let i = 0; i < _sl.length; i++) {
-        tpPts.push(_sl[i].tpPts);
-    }
-    var tpPtsSorted = tpPts.slice().sort(function(a,b){return b - a});
-    var tpPtsRanked = tpPts.map(function(v){return tpPtsSorted.indexOf(v)+1});
-    for (let i = 0; i < _sl.length; i++) {
-        _sl[i].tpRank = tpPtsRanked[i];
-    }
-    sortSLbyProperty(); var repeats = 0;
-    var corrected = []; corrected.push(_sl[0].tpRank);
-    for (let i = 1; i < _sl.length; i++) {
-        if (_sl[i].tpRank == _sl[i-1].tpRank) {
-            repeats++;
-            corrected.push(corrected[i-1]);
-        } else {
-            corrected.push(_sl[i].tpRank - repeats);
-        }
-    }
-    for (let i = 1; i < _sl.length; i++) {
-        _sl[i].tpRank = corrected[i];
-    }
-    sortSL();
-}
-
-function assignStatRanks(propertyName1,index1,rankName,index2) {
-    var array = [];
-    for (let i = 0; i < _sl.length; i++) {
-        if (index1) { 
-            array.push(_sl[i][propertyName1][index1]);
-        } else {
-            array.push(_sl[i][propertyName1]);
-        }
-    }
-    var arraySorted = array.slice().sort(function(a,b){return b - a});
-    var arrayRanked = array.map(function(v){return arraySorted.indexOf(v)+1});
-    for (let i = 0; i < _sl.length; i++) {
-        _sl[i][rankName] = arrayRanked[i];
-    }
-    sortSLbyProperty(rankName,index2); var repeats = 0;
-    var corrected = []; corrected.push(_sl[0][rankName]);
-    for (let i = 1; i < _sl.length; i++) {
-        if (_sl[i][rankName] == _sl[i-1][rankName]) {
-            repeats++;
-            corrected.push(corrected[i-1]);
-        } else {
-            corrected.push(_sl[i][rankName] - repeats);
-        }
-    }
-    for (let i = 1; i < _sl.length; i++) {
-        _sl[i][rankName] = corrected[i];
-    }
-    sortSL();
+    /* _sl is then sorted by rank.  An array of "corrected" ranks is created, and the first rank is pushed to it.  Now for every consecutive rank, if it's the same as the previous rank, a "repeat" is tallied, and the last value added to the "corrected" array is pushed to the array as a repeated rank.  If a consecutive rank is not the same as the previous rank, the rank is added to the "corrected" array after subtracting the current repeat tally from it.  This ensures no rank numbers are skipped, so instead of (for example) ranks [1,1,3,4,5,5,5,8,9,10], you get [1,1,2,3,4,4,4,5,6,7].  Finally, the current ranks are reassigned as the corrected ranks and _sl is sorted back into alphabetical order. */
 }
 
 function setRankFactor() {
@@ -1163,31 +1081,32 @@ function sortByPts(lb) {
         }
     }
     var totalPts = totalASpts + totalMVpts;
-    assignStatsRanks("pts");
-    _sl.sort(function(b,a){return a.pts[0] - b.pts[0]});
+    assignStatsRanks("pts",0);
+    _sl.sort(function(b,a){return a.pts - b.pts});
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].pts[0] == 0) {continue}
-        if (lb) {if ( _sl[i].pts[1] > 10 ) {continue}}
-        var totalPtsPercentage = ((_sl[i].pts[0] / totalPts) * 100).toFixed(1);
+        if (_sl[i].pts == 0) {continue}
+        if (lb) {if ( _sl[i].statsRanks[0] > 10 ) {continue}}
+        var totalPtsPercentage = ((_sl[i].pts / totalPts) * 100).toFixed(1);
         var lastElementNode;
         var p = document.createElement("p");
         var span1 = document.createElement("span");
         var span2 = document.createElement("span");
         p.classList.add("name3");
         span2.classList.add("sortValues");
-        if (_sl[i].pts[0] != lastElementNode) {
+        if (_sl[i].pts != lastElementNode) {
             p.style.borderTop = "1px solid #555";
             p.style.paddingTop = "10px";
         }
-        span1.innerHTML = _sl[i].pts[1] + ". " + _sl[i].name[0];
-        span2.innerHTML = " " + _sl[i].pts[0] + "/" + totalPts + " (" + totalPtsPercentage + "%)";
+        span1.innerHTML = _sl[i].statsRanks[0] + ". " + _sl[i].name[0];
+        span2.innerHTML = " " + _sl[i].pts + "/" + totalPts + " (" + totalPtsPercentage + "%)";
+        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         p.append(span1,span2);
         if (lb) {
             document.getElementById("totalPtsLbList").append(p);
         } else {
             document.getElementById("nameListCustom").append(p);
         }
-        lastElementNode = _sl[i].pts[0];
+        lastElementNode = _sl[i].pts;
     }
     if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
 }
@@ -1246,22 +1165,23 @@ function sortByASpts(lb) {
         _sl[i].earnedASpts = earnedASpts;
         _sl[i].asPercentage = asPercentage;
     }
-    assignStatRanks("earnedASpts",false,"asRank");
+    assignStatsRanks("earnedASpts",1);
     _sl.sort(function(b,a){return a.earnedASpts - b.earnedASpts});
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].earnedASpts == 0) {continue}
-        if (lb) {if ( _sl[i].asRank > 10 ) {continue}}
+        if (lb) {if ( _sl[i].statsRanks[1] > 10 ) {continue}}
         var lastElementNode;
         var p = document.createElement("p");
         var span1 = document.createElement("span");
         var span2 = document.createElement("span");
+        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         span2.classList.add("sortValues");
         p.classList.add("name3");
         if (_sl[i].earnedASpts != lastElementNode) {
             p.style.borderTop = "1px solid #555";
             p.style.paddingTop = "10px";
         }
-        span1.innerHTML = _sl[i].asRank + ". " + _sl[i].name[0];
+        span1.innerHTML = _sl[i].statsRanks[1] + ". " + _sl[i].name[0];
         span2.innerHTML = " " + _sl[i].earnedASpts + "/" + totalASpts + " (" + _sl[i].asPercentage + "%)";
         p.append(span1,span2);
         if (lb) {
@@ -1304,22 +1224,23 @@ function sortByMVpts(lb) {
         _sl[i].earnedMVpts = earnedMVpts;
         _sl[i].mvPercentage = mvPercentage;
     }
-    assignStatRanks("earnedMVpts",false,"mvRank");
+    assignStatsRanks("earnedMVpts",2);
     _sl.sort(function(b,a){return a.earnedMVpts - b.earnedMVpts});
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].earnedMVpts == 0) {continue}
-        if (lb) {if ( _sl[i].mvRank > 10 ) {continue}}
+        if (lb) {if ( _sl[i].statsRanks[2] > 10 ) {continue}}
         var lastElementNode;
         var p = document.createElement("p");
         var span1 = document.createElement("span");
         var span2 = document.createElement("span");
+        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         span2.classList.add("sortValues");
         p.classList.add("name3");
         if (_sl[i].earnedMVpts != lastElementNode) {
             p.style.borderTop = "1px solid #555";
             p.style.paddingTop = "10px";
         }
-        span1.innerHTML = _sl[i].mvRank + ". " + _sl[i].name[0];
+        span1.innerHTML = _sl[i].statsRanks[2] + ". " + _sl[i].name[0];
         span2.innerHTML = " " + _sl[i].earnedMVpts + "/" + totalMVpts + " (" + _sl[i].mvPercentage + "%)";
         p.append(span1,span2);
         if (lb) {
@@ -1353,11 +1274,10 @@ function sortByAtt(lb) {
         }
         _sl[i].totalWksAtt = total;
     }
-    assignAttRanks();
-    assignStatRanks("totalWksAtt",false,"attRank");
+    assignStatsRanks("totalWksAtt",3);
     _sl.sort(function(a,b){return b.totalWksAtt - a.totalWksAtt});
     for (let i = 0; i < _sl.length; i++) {
-        if (lb) {if ( _sl[i].attRank > 10 ) {continue}}
+        if (lb) {if ( _sl[i].statsRanks[3] > 10 ) {continue}}
         var lastElementNode;
         var attPercentage = ((_sl[i].totalWksAtt / _elapsedWeeks) * 100).toFixed(1);
         var p = document.createElement("p");
@@ -1370,8 +1290,9 @@ function sortByAtt(lb) {
             p.style.borderTop = "1px solid #555";
             p.style.paddingTop = "10px";
         }
-        span1.innerHTML = _sl[i].attRank + ". " + _sl[i].name[0];
+        span1.innerHTML = _sl[i].statsRanks[3] + ". " + _sl[i].name[0];
         span2.innerHTML = " " + _sl[i].totalWksAtt + "/" + _elapsedWeeks + " (" + attPercentage + "%)";
+        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         p.append(span1,span2);
         if (lb) {
             document.getElementById("attLbList").append(p);
@@ -1411,17 +1332,18 @@ function sortByTP(lb) {
                 total--
             }
         }
-        _sl[i].tpPts = _sl[i].pts[0] + total;
+        _sl[i].tpPts = _sl[i].pts + total;
     }
-    assignStatRanks("tpPts",false,"tpRank");
+    assignStatsRanks("tpPts",4);
     _sl.sort(function(a,b){return b.tpPts - a.tpPts});
     for (let i = 0; i < _sl.length; i++) {
-        if (lb) {if ( _sl[i].tpRank > 10 ) {continue}}
+        if (lb) {if ( _sl[i].statsRanks[4] > 10 ) {continue}}
         var lastElementNode;
         var tpPercentage = ((_sl[i].tpPts / totalTPpts) * 100).toFixed(1);
         var p = document.createElement("p");
         var span1 = document.createElement("span");
         var span2 = document.createElement("span");
+        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         span2.classList.add("sortValues");
         p.classList.add("name3");
         p.classList.add("name3");
@@ -1429,7 +1351,7 @@ function sortByTP(lb) {
             p.style.borderTop = "1px solid #555";
             p.style.paddingTop = "10px";
         }
-        span1.innerHTML = _sl[i].tpRank + ". " + _sl[i].name[0];
+        span1.innerHTML = _sl[i].statsRanks[4] + ". " + _sl[i].name[0];
         span2.innerHTML = " " + _sl[i].tpPts + "/" + totalTPpts + " (" + tpPercentage + "%)";
         p.append(span1,span2);
         if (lb) {
@@ -1580,18 +1502,11 @@ function sortSL() {
     populateNames();
 }
 
-function sortSLbyProperty(propertyName,index) {
+function sortSLbyProperty(propertyName) {
     _sl.sort(function(a,b) {
-        if (index) {
-            var textA = a[propertyName][index];
-            var textB = b[propertyName][index];
-            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-        } else {
             var textA = a[propertyName];
             var textB = b[propertyName];
-            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-        }
-
+            return (textA < textB) ? 1 : (textA > textB) ? -1 : 0;
     });
 }
 
@@ -1973,23 +1888,23 @@ function editStudent() {
 }
 
 function refreshStudentPop() {
-    assignStatsRanks("pts");
+    assignStatsRanks("pts",0);
     document.getElementById("studentPopInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank[0]+"-rank.jpg)";
     document.getElementById("studentPopRankName").innerHTML = _rankNames[_sl[_ci].rank[0]];
     document.getElementById("studentPopName").innerHTML = _sl[_ci].name[0];
     var ptsNeeded;
-    if (_sl[_ci].pts[0] == 220) {
+    if (_sl[_ci].pts == 220) {
         ptsNeeded = 0
     } else {
-        ptsNeeded = _rankPts[_sl[_ci].rank[0]+1] - _sl[_ci].pts[0];
+        ptsNeeded = _rankPts[_sl[_ci].rank[0]+1] - _sl[_ci].pts;
     }
-    document.getElementById("studentPopPts").innerHTML = _sl[_ci].pts[0] + " | <span style='color: #999'>" + ptsNeeded +"</span>";
+    document.getElementById("studentPopPts").innerHTML = _sl[_ci].pts + " | <span style='color: #999'>" + ptsNeeded +"</span>";
     if (_rankNames[_sl[_ci].rank[0]].length > 20) {
         document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
         document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
-    document.getElementById("studentPopClassRank").innerHTML = "Class Rank: " + _sl[_ci].pts[1];
+    document.getElementById("studentPopClassRank").innerHTML = "Class Rank: " + _sl[_ci].statsRanks[0];
     if (_sl[_ci].att === true) {
         document.getElementById("studentPopName").style.color = "lawngreen";
     } else {
@@ -2104,7 +2019,7 @@ function asPts(_asNum,x) {
     if (_sl[_ci].as[_asNum][1] == 0) {_sl[_ci].as[_asNum][1] = _todaysDn};
     var rankNum = _sl[_ci].rank[0];
     var rankFactor = _sl[_ci].rank[1];
-    var totalPts = _sl[_ci].pts[0];
+    var totalPts = _sl[_ci].pts;
     var asPts = _sl[_ci].as[_asNum][0];
     var netPts = x - _sl[_ci].as[_asNum][0];
     var promoStatus = 0;
@@ -2113,14 +2028,14 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 220) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts[0] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].as[_asNum][0] = x;
         }
         if (asPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts[0] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].as[_asNum][0] = x;
         }
         if (asPts == x) {
@@ -2128,7 +2043,7 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts[0] -= x; netPts = -x;
+            _sl[_ci].pts -= x; netPts = -x;
             _sl[_ci].as[_asNum][0] = 0;
         }
     } else if (_sl[_ci].rank[0] == 8 || _sl[_ci].rank[0] == 14 || _sl[_ci].rank[0] == 18) {
@@ -2136,14 +2051,14 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + x >= 20) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts[0] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].as[_asNum][0] = x;
         }
         if (asPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts[0] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].as[_asNum][0] = x;
         }
         if (asPts == x) {
@@ -2151,19 +2066,19 @@ function asPts(_asNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts[0] -= x; netPts = -x;
+            _sl[_ci].pts -= x; netPts = -x;
             _sl[_ci].as[_asNum][0] = 0;
         }
     }
     var plusSign = ""; if (netPts > 0) {plusSign = "+"}
-    var log = _sl[_ci].name[0] + " " + plusSign + netPts + " points " + _asNames[_asNum] + " sheet "  + "<br>" +  "(" + asPts + "-->" + _sl[_ci].as[_asNum][0] + ")" + " (" + (_sl[_ci].pts[0] - netPts) + "-->" + _sl[_ci].pts[0] + ")" + "<br>" + dateAndTime("log");
+    var log = _sl[_ci].name[0] + " " + plusSign + netPts + " points " + _asNames[_asNum] + " sheet "  + "<br>" +  "(" + asPts + "-->" + _sl[_ci].as[_asNum][0] + ")" + " (" + (_sl[_ci].pts - netPts) + "-->" + _sl[_ci].pts + ")" + "<br>" + dateAndTime("log");
     activityLog(log);
     if (promoStatus > 0) {
         promo();
     } else if (promoStatus < 0) {
         demo();
     }
-    assignStatsRanks("pts"); storeAndBackup(); loadStudent(_ci);
+    assignStatsRanks("pts",0); storeAndBackup(); loadStudent(_ci);
     pop(["asPtsPop"],["missionsPop"]);
 }
 
@@ -2171,7 +2086,7 @@ function mvPts(_mvNum,x) {
     if (_sl[_ci].mv[_mvNum][1] == 0) {_sl[_ci].mv[_mvNum][1] = _todaysDn};
     var rankNum = _sl[_ci].rank[0];
     var rankFactor = _sl[_ci].rank[1];
-    var totalPts = _sl[_ci].pts[0];
+    var totalPts = _sl[_ci].pts;
     var mvPts = _sl[_ci].mv[_mvNum][0];
     var netPts = x - _sl[_ci].mv[_mvNum][0];
     var promoStatus = 0;
@@ -2180,14 +2095,14 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + netPts >= 10 && totalPts < 220) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts[0] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].mv[_mvNum][0] = x;
         }
         if (mvPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts[0] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].mv[_mvNum][0] = x;
         }
         if (mvPts == x) {
@@ -2195,7 +2110,7 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts[0] -= x; netPts = -x;
+            _sl[_ci].pts -= x; netPts = -x;
             _sl[_ci].mv[_mvNum][0] = 0;
         }
     } else if (_sl[_ci].rank[0] == 8 || _sl[_ci].rank[0] == 14 || _sl[_ci].rank[0] == 18) {
@@ -2203,14 +2118,14 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) + x >= 20) {
                 promoStatus = 1;
             }
-            _sl[_ci].pts[0] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].mv[_mvNum][0] = x;
         }
         if (mvPts > x) {
             if ((totalPts + netPts < ((rankNum + rankFactor) * 10))) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts[0] += netPts;
+            _sl[_ci].pts += netPts;
             _sl[_ci].mv[_mvNum][0] = x;
         }
         if (mvPts == x) {
@@ -2218,19 +2133,19 @@ function mvPts(_mvNum,x) {
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
-            _sl[_ci].pts[0] -= x; netPts = -x;
+            _sl[_ci].pts -= x; netPts = -x;
             _sl[_ci].mv[_mvNum][0] = 0;
         }
     }
     var plusSign = ""; if (netPts > 0) {plusSign = "+"}
-    var log = _sl[_ci].name[0] + " " + plusSign + netPts + " points " + _mvNames[_mvNum] + " verse "  + "<br>" +  "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum][0] + ")" + " (" + (_sl[_ci].pts[0] - netPts) + "-->" + _sl[_ci].pts[0] + ")" + "<br>" + dateAndTime("log");
+    var log = _sl[_ci].name[0] + " " + plusSign + netPts + " points " + _mvNames[_mvNum] + " verse "  + "<br>" +  "(" + mvPts + "-->" + _sl[_ci].mv[_mvNum][0] + ")" + " (" + (_sl[_ci].pts - netPts) + "-->" + _sl[_ci].pts + ")" + "<br>" + dateAndTime("log");
     activityLog(log);
     if (promoStatus > 0) {
         promo();
     } else if (promoStatus < 0) {
         demo();
     }
-    assignStatsRanks("pts");
+    assignStatsRanks("pts",0);
     storeAndBackup();
     loadStudent(_ci);
     pop(["mvPtsPop"],["missionsPop"]);
@@ -2266,7 +2181,8 @@ function searchLog() {
 }
 
 function loadStudent(index) {
-    _ci = index; document.getElementById("searchMain").value = "";
+    _ci = index; _currentStudent = _sl[_ci].name[0];
+    document.getElementById("searchMain").value = "";
     checkInAtt(); refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu();
     loadLbs();
     document.activeElement.blur();
@@ -2382,12 +2298,14 @@ function pop(closeArray,openArray,title) {
     if (openArray.includes("customSortListPop")) {
         document.getElementById("customSortListLabel").innerHTML = title;
     }
-    if (_currentPop == "sortChoicePop") {
-        for (let i = 0; i < _sl.length; i++) {
-            batchDeletePropertyQuick(["earnedASpts","asPercentage","asRank","earnedMVpts","mvPercentage","mvRank","attRank","totalWksAtt","tpPts","tpRank"])
-        }
-    }
     scrollTo(0,0);
+}
+
+function populateBackup() {
+    for (let i = 0; i < _sl.length; i++) {
+        batchDeletePropertyQuick(["earnedASpts","asPercentage","earnedMVpts","mvPercentage","totalWksAtt","tpPts"])
+    }
+    pop(["mainPop"],["backupPop"]);
 }
 
 function goHome() {
@@ -2928,7 +2846,7 @@ function loadStudentStats() {
             document.getElementById(idArray1[i]).style.backgroundColor = "black";
         }
     }
-    document.getElementById("rankProgressTableP").innerHTML = "Rank Progress: " + (_sl[_ci].rank[0] + 1) + "/20" + " (" + rankPercentage + "%)";
+    document.getElementById("rankProgressTableP").innerHTML = "Promotion Progress: " + (_sl[_ci].rank[0] + 1) + "/20" + " (" + rankPercentage + "%)";
     document.getElementById("totalProgressTableP").innerHTML = "Total Pts: " + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%)";
     document.getElementById("asProgressTableP").innerHTML = "Activity Sheet Pts: " + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)";
     document.getElementById("mvProgressTableP").innerHTML = "Memory Verse Pts: " + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)";
@@ -3187,8 +3105,8 @@ function loadAttStats() {
         document.getElementById("attAM"+i).innerHTML = _att[i][0];
         document.getElementById("attPM"+i).innerHTML = _att[i][1];
         document.getElementById("attBoth"+i).innerHTML = _att[i][0] + _att[i][1];
-        document.getElementById("attAM"+i).classList.add("pointer");
-        document.getElementById("attPM"+i).classList.add("pointer");
+        document.getElementById("attAM"+i).classList.add("ptr");
+        document.getElementById("attPM"+i).classList.add("ptr");
         (function(i){
             document.getElementById("attAM"+i).onclick = function () {
                 loadArchiveAttendees(i,"AM");
