@@ -2765,7 +2765,7 @@ function loadStudentProperties() {
     document.getElementById("email").innerHTML = _sl[_ci].email;
     document.getElementById("photo").innerHTML = _sl[_ci].photo;
     document.getElementById("notes").innerHTML = JSON.stringify(_sl[_ci].notes);
-    document.getElementById("pts").innerHTML = JSON.stringify(_sl[_ci].pts);
+    document.getElementById("pts").innerHTML = _sl[_ci].pts;
     document.getElementById("gamePts").innerHTML = JSON.stringify(_sl[_ci].gamePts);
     document.getElementById("rank").innerHTML = JSON.stringify(_sl[_ci].rank);
     document.getElementById("rankConverted").innerHTML = " (" + _rankNamesShort[_sl[_ci].rank[0]] + ")";
@@ -2773,6 +2773,7 @@ function loadStudentProperties() {
     document.getElementById("attArr").innerHTML = JSON.stringify(_sl[_ci].attArr);
     document.getElementById("promo").innerHTML = JSON.stringify(_sl[_ci].promo);
     document.getElementById("randDraw").innerHTML = JSON.stringify(_sl[_ci].randDraw);
+    document.getElementById("statsRanks").innerHTML = JSON.stringify(_sl[_ci].statsRanks);
     document.getElementById("as").innerHTML = JSON.stringify(_sl[_ci].as);
     document.getElementById("mv").innerHTML = JSON.stringify(_sl[_ci].mv);
 }
