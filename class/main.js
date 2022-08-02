@@ -1048,8 +1048,8 @@ function sortByRank() {
             p.style.borderTop = "1px solid #555";
             p.style.paddingTop = "10px";
         }
-        span1.innerHTML = _sl[i].name[0];
-        span2.innerHTML = " " + _rankNamesShort[_sl[i].rank[0]];
+        span1.innerHTML = _rankNamesShort[_sl[i].rank[0]];
+        span2.innerHTML = " " + _sl[i].name[0];
         p.append(span1,span2);
         append("nameListCustom",p);
         lastElementNode = _sl[i].rank[0];
@@ -2832,12 +2832,17 @@ function loadStudentStats() {
             bgColor(idArray1[i],"black");
         }
     }
-    innerHTML("rankProgressTableP","Promotions: <span style='color:yellow'>" + (_sl[_ci].rank[0] + 1) + "/20" + " (" + rankPercentage + "%)</span><span style='font-size:15px'>&nbsp;&nbsp;&nbsp;Class Rank: " + _sl[_ci].statsRanks[0] + "</span>");
-    innerHTML("totalProgressTableP","Total Points: <span style='color:yellow'>" + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%)</span><span style='font-size:15px'>&nbsp;&nbsp;&nbsp;Class Rank: " + _sl[_ci].statsRanks[1] + "</span>");
-    innerHTML("asProgressTableP","Activities: <span style='color:yellow'>" + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)</span><span style='font-size:15px'>&nbsp;&nbsp;&nbsp;Class Rank: " + _sl[_ci].statsRanks[2] + "</span>");
-    innerHTML("mvProgressTableP","Memory: <span style='color:yellow'>" + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)</span><span style='font-size:15px'>&nbsp;&nbsp;&nbsp;Class Rank: " + _sl[_ci].statsRanks[3] + "</span>");
-    innerHTML("attProgressTableP","Attendance: <span style='color:yellow'>" + weeksAttended + "/" + _elapsedWeeks + " (" + attPercentage + "%)</span><span style='font-size:15px'>&nbsp;&nbsp;&nbsp;Class Rank: " + _sl[_ci].statsRanks[4] + "</span>");
-    innerHTML("totalParticipationTableP","Participation: <span style='color:yellow'>" + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)</span><span style='font-size:15px'>&nbsp;&nbsp;&nbsp;Class Rank: " + _sl[_ci].statsRanks[4] + "</span>");
+    innerHTML("rankProgressTableP","<span style='font-size:20px'>Promotions <span style='color:#bbb;font-size:16px'>" + (_sl[_ci].rank[0] + 1) + "/20" + " (" + rankPercentage + "%)</span>");
+
+    innerHTML("totalProgressTableP","<span style='font-size:20px'>Total Points <span style='color:#bbb;font-size:16px'>" + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[0]) + "/span";
+
+    innerHTML("asProgressTableP","<span style='font-size:20px'>Activities <span style='color:#bbb;font-size:16px'>" + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[1]) + "/span";
+
+    innerHTML("mvProgressTableP","<span style='font-size:20px'>Memory <span style='color:#bbb;font-size:16px'>" + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[2]) + "/span";
+
+    innerHTML("attProgressTableP","<span style='font-size:20px'>Attendance <span style='color:#bbb;font-size:16px'>" + weeksAttended + "/" + _elapsedWeeks + " (" + attPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[3]) + "/span";
+
+    innerHTML("totalParticipationTableP","<span style='font-size:20px'>Participation <span style='color:#bbb;font-size:16px'>" + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[4]) + "/span";
 }
 
 function populateMissions() {
