@@ -414,9 +414,8 @@ function populateCustomList(log1,log2,type) {
 }
 
 function loadPromos() {
-    innerHTML("customList","");
-    innerHTML("customListAbsent","");
-    innerHTML("customListLabel","Promotions");
+    innerHTML("customList",""); innerHTML("customListAbsent","");
+    innerHTML("customListLabel","Promotions"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].promo[0] === true && _sl[i].att === true) {
             if (_sl[i].promo[1] < 2) {
@@ -425,6 +424,7 @@ function loadPromos() {
                 populateCustomList(_rankNamesShort[_sl[i].rank[0]] + " " + "(" + _sl[i].promo[1] + ") " + _sl[i].name[0],false,"promo");
             }
         } else if (_sl[i].promo[0] === true && _sl[i].att === false) {
+            display("absentLabel","block");
             if (_sl[i].promo[1] < 2) {
                 populateCustomList(false,_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0],"");
             } else if (_sl[i].promo[1] > 1) {
@@ -435,52 +435,52 @@ function loadPromos() {
 }
 
 function loadBds() {
-    innerHTML("customList","");
-    innerHTML("customListAbsent","");
-    innerHTML("customListLabel","Birthdays");
+    innerHTML("customList",""); innerHTML("customListAbsent","");
+    innerHTML("customListLabel","Birthdays"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].bd[1] === true && _sl[i].bd[2] === false && _sl[i].att === true) {
             populateCustomList(_sl[i].name[0] + " (" + cdn(_sl[i].bd[0]) + ")",false,"bdDone");
         } else if (_sl[i].bd[1] === true && _sl[i].bd[2] === false && _sl[i].att === false) {
+            display("absentLabel","block");
             populateCustomList(false,_sl[i].name[0]+" (" + cdn(_sl[i].bd[0]) + ")");
         }
     }
 }
 
 function loadNeededPhotos() {
-    innerHTML("customList","");
-    innerHTML("customListAbsent","");
-    innerHTML("customListLabel","Missing Photos");
+    innerHTML("customList",""); innerHTML("customListAbsent","");
+    innerHTML("customListLabel","Missing Photos"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].photo === false && _sl[i].att === true) {
             populateCustomList(_sl[i].name[0],false,"photo");
         } else if (_sl[i].photo === false && _sl[i].att === false) {
+            display("absentLabel","block");
             populateCustomList(false,_sl[i].name[0]);
         }
     }
 }
 
 function loadNeededEmails() {
-    innerHTML("customList","");
-    innerHTML("customListAbsent","");
-    innerHTML("customListLabel","Missing Emails");
+    innerHTML("customList",""); innerHTML("customListAbsent","");
+    innerHTML("customListLabel","Missing Emails"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].email == "" && _sl[i].att === true) {
             populateCustomList(_sl[i].name[0],false,"email");
         } else if (_sl[i].email == "" && _sl[i].att === false) {
+            display("absentLabel","block");
             populateCustomList(false,_sl[i].name[0]);
         }
     }
 }
 
 function loadNeededBds() {
-    innerHTML("customList","");
-    innerHTML("customListAbsent","");
-    innerHTML("customListLabel","Missing Birthdays");
+    innerHTML("customList",""); innerHTML("customListAbsent","");
+    innerHTML("customListLabel","Missing Birthdays"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].bd[0] == 0 && _sl[i].att === true) {
             populateCustomList(_sl[i].name[0],false,"bdNeeded");
         } else if (_sl[i].bd[0] == 0 && _sl[i].att === false) {
+            display("absentLabel","block");
             populateCustomList(false,_sl[i].name[0]);
         }
     }
@@ -1183,7 +1183,7 @@ function sortByASpts(lb) {
             append("nameListCustom",p);
         }        lastElementNode = _sl[i].earnedASpts;
     }
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Activity Points")}
 }
 
 function sortByMVpts(lb) {
@@ -1242,7 +1242,7 @@ function sortByMVpts(lb) {
             append("nameListCustom",p);
         }        lastElementNode = _sl[i].earnedMVpts;
     }
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Memory Points")}
 }
 
 function sortByAtt(lb) {
@@ -1293,7 +1293,7 @@ function sortByAtt(lb) {
             append("nameListCustom",p);
         }        lastElementNode = _sl[i].totalWksAtt;
     }  
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Attendance")}
 }
 
 function sortByTP(lb) {
@@ -1354,7 +1354,7 @@ function sortByTP(lb) {
         }
         lastElementNode = _sl[i].tpPts;
     }  
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Participation")}
 }
 
 function sortByGender() {
