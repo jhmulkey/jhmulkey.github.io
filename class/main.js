@@ -1042,7 +1042,7 @@ function sortByRank() {
         var p = document.createElement("p");
         var span1 = document.createElement("span");
         var span2 = document.createElement("span");
-        span2.classList.add("sortValues");
+        span1.classList.add("sortValues");
         p.classList.add("name3");
         if (_sl[i].rank[0] != lastElementNode) {
             p.style.borderTop = "1px solid #555";
@@ -1412,8 +1412,7 @@ function sortByBd() {
         };
         span1.innerHTML = cdn(bdnOrder[i].bd[0]);
         span2.innerHTML = " " + bdnOrder[i].name[0];
-        p.append(span1,span2);
-        append("nameListCustom",p);
+        p.append(span1,span2); append("nameListCustom",p);
         lastElementNode = cdn(_sl[i].bd[0],"M");
     }  
     pop(["mainMenuPop","sortChoicePop"],["customSortListPop"],"Birthdays");
@@ -1430,13 +1429,17 @@ function sortByDateAdded() {
         dateAddedMonth = dateAddedArray[0]; dateAddedDate = dateAddedArray[1];
         var lastElementNode;
         var p = document.createElement("p");
+        var span1 = document.createElement("span");
+        var span2 = document.createElement("span");
         p.classList.add("name3");
+        span1.classList.add("sortValues");
         if (dateAddedMonth != lastElementNode) {
             p.style.borderTop = "1px solid #333";
             p.style.paddingTop = "10px";
         }
-        p.innerHTML = dateAddedMonth + "/" + dateAddedDate + " " + dateAddedOrder[i].name[0];
-        append("nameListCustom",p);
+        span1.innerHTML = dateAddedMonth + "/" + dateAddedDate;
+        span2.innerHTML = " " + dateAddedOrder[i].name[0];
+        p.append(span1,span2); append("nameListCustom",p);
         lastElementNode = dateAddedMonth;
     }  
     pop(["mainMenuPop","sortChoicePop"],["customSortListPop"],"Date Added");
@@ -1453,7 +1456,7 @@ function sortByNotes(bypass) {
             var br = document.createElement("br");
             var p2 = document.createElement("p");
             p1.classList.add("name3");
-            p2.classList.add("noteText");
+            p2.classList.add("sortValues");
             if (_sl[i] != lastElementNode) {
                 p1.style.borderTop = "1px solid #333";
                 p1.style.paddingTop = "10px";
@@ -1921,9 +1924,9 @@ function refreshMissionsPop() {
     if (_elapsedWeeks > 1) {
         for (let i = 0; i < _ti; i++) {
             if (i > 31) {break}
-            if (_sl[_ci].as[i][0] == _asMaxPts[i] && _sl[_ci].as[i][1] <= _todaysDn) {
+            if (_sl[_ci].as[i][0] == _asMaxPts[i]) {
                 bgColor("as"+i+"Pop","green");
-            } else if (_sl[_ci].as[i][0] > 0 && _sl[_ci].as[i][0] < _asMaxPts[i] && _sl[_ci].as[i][1] <= _todaysDn) {
+            } else if (_sl[_ci].as[i][0] > 0 && _sl[_ci].as[i][0] < _asMaxPts[i]) {
                 bgColor("as"+i+"Pop","darkorange");
             } else {
                 bgColor("as"+i+"Pop","black");
@@ -1931,9 +1934,9 @@ function refreshMissionsPop() {
         }
         for (let i = 0; i < _ti; i++) {
             if (i > 31) {break}
-            if (_sl[_ci].mv[i][0] == _mvMaxPts[i] && _sl[_ci].mv[i][1] <= _todaysDn) {
+            if (_sl[_ci].mv[i][0] == _mvMaxPts[i]) {
                 bgColor("mv"+i+"Pop","green");
-            } else if (_sl[_ci].mv[i][0] > 0 && _sl[_ci].mv[i][0] < _mvMaxPts[i] && _sl[_ci].mv[i][1] <= _todaysDn) {
+            } else if (_sl[_ci].mv[i][0] > 0 && _sl[_ci].mv[i][0] < _mvMaxPts[i]) {
                 bgColor("mv"+i+"Pop","darkorange");
             } else {
                 bgColor("mv"+i+"Pop","black");
@@ -2323,7 +2326,7 @@ function asPop(asNum,pts) {
     } else {
         display("scannedImage","none");
     }
-    if (_sl[_ci].as[_asNum][1] == 0 || _sl[_ci].as[_asNum][1] > _todaysDn) {
+    if (_sl[_ci].as[_asNum][1] == 0) {
         innerHTML("asDateTurnedIn","-");
     } else {
         innerHTML("asDateTurnedIn",cdn(_sl[_ci].as[_asNum][1]));
@@ -2363,7 +2366,7 @@ function mvPop(mvNum,pts) {
         innerHTML("mvCompletionStatus","PARTIAL CREDIT");
         color("mvCompletionStatus","orange");
     }
-    if (_sl[_ci].mv[_mvNum][1] == 0 || _sl[_ci].mv[_mvNum][1] > _todaysDn) {
+    if (_sl[_ci].mv[_mvNum][1] == 0) {
         innerHTML("mvDateRecited","-");
     } else {
         innerHTML("mvDateRecited",cdn(_sl[_ci].mv[_mvNum][1]));
