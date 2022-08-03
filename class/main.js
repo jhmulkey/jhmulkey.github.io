@@ -217,6 +217,10 @@ function display(id,display) {
     document.getElementById(id).style.display = display;
 }
 
+function idFontSize(id,fontSize) {
+    document.getElementById(id).style.fontSize = fontSize+"px";
+}
+
 function value(id,value) {
     document.getElementById(id).value = value;
 }
@@ -1656,7 +1660,7 @@ function activityLog(log) {
     storeNewData();
 }
 
-function infoAlert(message,idArray,focus,noImage) {
+function infoAlert(message,idArray,focus,noImage,fontSize,textAlign) {
     if (document.getElementById("infoAlertPop").style.display == "block") {
         display("infoAlertPop","none");
         for (let i = 0; i < _currentPops.length; i++) {
@@ -1677,10 +1681,12 @@ function infoAlert(message,idArray,focus,noImage) {
         innerHTML("infoAlertMessage",message);
     }
     if (_focus) {idFocus(_focus)}
-    if (noImage) {
-        display("infoAlertTitle","none");
+    if (noImage) {display("infoAlertTitle","none")} else {display("infoAlertTitle","block")}
+    if (fontSize) {idFontSize("infoAlertMessage",fontSize)} else {idFontSize("infoAlertMessage",30)}
+    if (textAlign) {
+        document.getElementById("infoAlertMessage").style.textAlign = textAlign;
     } else {
-        display("infoAlertTitle","block");
+        document.getElementById("infoAlertMessage").style.textAlign = "center";
     }
 }
 
@@ -1926,7 +1932,6 @@ function refreshStudentPop() {
     } else {
         document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
-    innerHTML("studentPopClassRank","Class Rank: " + _sl[_ci].statsRanks[0]);
     if (_sl[_ci].att === true) {
         color("studentPopName","lawngreen");
     } else {
