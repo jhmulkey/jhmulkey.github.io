@@ -823,6 +823,32 @@ function assignStatsRanks(propertyName,index) {
     /* _sl is then sorted by rank.  An array of "corrected" ranks is created, and the first rank is pushed to it.  Now for every consecutive rank, if it's the same as the previous rank, a "repeat" is tallied, and the last value added to the "corrected" array is pushed to the array as a repeated rank.  If a consecutive rank is not the same as the previous rank, the rank is added to the "corrected" array after subtracting the current repeat tally from it.  This ensures no rank numbers are skipped, so instead of (for example) ranks [1,1,3,4,5,5,5,8,9,10], you get [1,1,2,3,4,4,4,5,6,7].  Finally, the current ranks are reassigned as the corrected ranks and _sl is sorted back into alphabetical order. */
 }
 
+function assignGameRanks() {
+    var pts = [];
+    for (let i = 0; i < _sl.length; i++) {
+        pts.push(_sl[i].gamePts[0]);
+    }
+    var ptsSorted = pts.slice().sort(function(a,b){return b - a});
+    var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1});
+    for (let i = 0; i < _sl.length; i++) {
+        _sl[i].gamePts[1] = ptsRanked[i];
+    }
+    sortSLbyGamePts(); var repeats = 0;
+    var corrected = []; corrected.push(_sl[0].gamePts[1]);
+    for (let i = 1; i < _sl.length; i++) {
+        if (_sl[i].gamePts[1] == _sl[i-1].gamePts[1]) {
+            repeats++;
+            corrected.push(corrected[i-1]);
+        } else {
+            corrected.push(_sl[i].gamePts[1] - repeats);
+        }
+    }
+    for (let i = 1; i < _sl.length; i++) {
+        _sl[i].gamePts[1] = corrected[i];
+    }
+    sortSL();
+}
+
 function setRankFactor() {
     if (_sl[_ci].rank[0] >= 9 && _sl[_ci].rank[0] < 15) {
         _sl[_ci].rank[1] = 1;
@@ -1105,10 +1131,8 @@ function sortByPts(lb) {
 }
 
 function sortByGamePts() {
-    assignStatsRanks("gamePts");
-    innerHTML("nameListCustom","");
-    display("nameListCustom","block");
-    display("genderListContainer","none");
+    assignGameRanks(); innerHTML("nameListCustom","");
+    display("nameListCustom","block"); display("genderListContainer","none");
     _sl.sort(function(b,a){return a.gamePts[0] - b.gamePts[0]});
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].gamePts[0] == 0) {continue}
@@ -1502,6 +1526,14 @@ function sortSLbyProperty(propertyName) {
     _sl.sort(function(a,b) {
             var textA = a[propertyName];
             var textB = b[propertyName];
+            return (textA < textB) ? 1 : (textA > textB) ? -1 : 0;
+    });
+}
+
+function sortSLbyGamePts() {
+    _sl.sort(function(a,b) {
+            var textA = a.gamePts[0];
+            var textB = b.gamePts[0];
             return (textA < textB) ? 1 : (textA > textB) ? -1 : 0;
     });
 }
@@ -2140,15 +2172,23 @@ function mvPts(_mvNum,x) {
 }
 
 function searchNames(id,className) {
-    if (id == "searchMain") { 
-        var inputVal = " " + document.getElementById(id).value.toLowerCase();
-    } else {
-        console.log("hello");
-        var inputVal = document.getElementById(id).value.toLowerCase();
-    }
+    var inputVal = document.getElementById(id).value.toLowerCase();
     var names = document.getElementsByClassName(className);
     for (let i = 0; i < names.length; i++) {
         if (names[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
+            names[i].style.display = "block";
+        } else {
+            names[i].style.display = "none";
+        }
+    }
+}
+
+function searchNamesMain() {
+    var inputVal = document.getElementById("searchMain").value.toLowerCase();
+    var names = document.getElementsByClassName("name");
+    var nameSpan = document.getElementsByClassName("nameSpan");
+    for (let i = 0; i < nameSpan.length; i++) {
+        if (nameSpan[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
             names[i].style.display = "block";
         } else {
             names[i].style.display = "none";
@@ -2413,6 +2453,7 @@ function populateNames() {
             span2.style.color = "white";
         }
         p1.classList.add("name");
+        span2.classList.add("nameSpan");
         (function(i){
             span2.onclick = function () {
                 loadStudent(i);
