@@ -74,121 +74,6 @@ var _mvText = [
     "praying at all times in the Spirit, with all prayer and supplication. To that end, keep alert with all perseverance, making supplication for all the saints," 
 ];
 
-function loadBackup() {
-    _sl = JSON.parse(localStorage.getItem("slBackup"));
-    assignTodaysDn();
-}
-
-function resetStudentMenu() {
-    for (i = 0; i < 3; i++) {
-        if (i == 0) {
-            bgColor("studentMenu"+i,"#777");
-        } else {
-            bgColor("studentMenu"+i,"black");
-        }
-    }
-}
-
-function studentMenuSwitch(x) {
-    _array = ["missionsPop"];
-    var allPops = document.getElementsByClassName("pop");
-    var pops = ["studentStatsPop","missionsPop","calendarPop"];
-    for (i = 0; i < 3; i++) {
-        if (i == x) {
-            bgColor("studentMenu"+i,"#777");
-        } else {
-            bgColor("studentMenu"+i,"black");
-        }
-    }
-    for (j = 0; j < 3; j++) {
-        if (j == x) {
-            display(pops[j],"block")
-        }
-    }
-    for (i = 0; i < allPops.length; i++) {
-        if (allPops[i].id != pops[x] && allPops[i].id != "studentPop") {
-            allPops[i].style.display = "none";
-        }
-    }
-    if (x == 2) { populateCalendar() }
-}
-
-function findStudent() {
-    document.activeElement.blur();
-    innerHTML("nameList","");
-    var x = (document.getElementById("searchField").value.trim().toLowerCase()).split(" ");
-    if (x == false) { return; }
-    for (i = 0; i < x.length; i++) {
-        if (x[i] == false) {
-            x.splice(i,1); i = 0; continue;
-        }
-    }
-    var matches = [];
-    if (x.length == 1) {
-        for (i = 0; i < _sl.length; i++) {
-            if (x[0] == _sl[i].name[0].split(" ")[1].toLowerCase()) {
-                matches.push(i);
-            }
-        }
-    }
-    if (x.length == 2) {
-        for (i = 0; i < _sl.length; i++) {
-            if (x[0] + " " + x[1] == _sl[i].name[0].toLowerCase()) {
-                matches.push(i);
-            }
-        }
-    }
-    if (x.length == 3) {
-        for (i = 0; i < _sl.length; i++) {
-            if (x[0] + " " + x[1] + " " + x[2] == _sl[i].name[0].toLowerCase()) {
-                matches.push(i);
-            }
-        }
-    }
-    if (matches.length == 0) {
-        for (i = 0; i < x.length; i++) {
-            x[i] = x[i][0].toUpperCase() + x[i].substr(1);
-        }
-        var string = x.join(" ");
-        infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + string + "</span>.  Please check the spelling and try again or use the contact buttons above for help.",["mainPop"],"searchField");
-        document.getElementById("searchField").value = "";
-    }
-    if (matches.length == 1) {
-        _ci = matches[0]; loadStudent(_ci); pop(["mainPop"],["studentPop","studentStatsPop"]);
-    }
-    if (matches.length > 1) {
-        populateMatches(matches);
-        infoAlert("More than one match found.<br>Please click the correct name below.",["mainPop"],"searchField",true);
-    }
-}
-
-function populateMatches(indexArray) {
-    for (i = 0; i < indexArray.length; i++) {
-        var p = document.createElement("p");
-        p.classList.add("name");
-        (function(i){
-            p.onclick = function () {
-                let x = indexArray[i]; _ci = x;
-                loadStudent(_ci);
-                pop(["infoAlertPop"],["studentPop","studentStatsPop"]);
-            }
-        })(i);
-        p.innerHTML = _sl[indexArray[i]].full;
-        document.getElementById("nameList").appendChild(p);
-    }  
-}
-
-function populateCalendar() {
-    for (i = 0; i < _dns.length; i++) {
-        innerHTML("calendarDate"+i,cdn(_dns[i]));
-        if (i < 32) {
-            innerHTML("calendarLesson"+i,_asFulls[i]);
-            innerHTML("calendarMemory"+i,_mvFulls[i]);
-        }
-    }
-    document.getElementById("calendarRow"+(_elapsedWeeks-1)).style.border = "2px solid lawngreen";
-}
-
 function color(id,color) {
     document.getElementById(id).style.color = color;
 }
@@ -219,6 +104,18 @@ function idFocus(id) {
 
 function append(id,element) {
     document.getElementById(id).append(element);
+}
+
+function loadBackup() {
+    _sl = JSON.parse(localStorage.getItem("slBackup"));
+    _slOLD = JSON.parse(localStorage.getItem("slBackupOLD"));
+    _att = JSON.parse(localStorage.getItem("attBackup"));
+    _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
+    _promoList = []; _bdList = [];
+    for (let i = 0; i < _sl.length; i++) {
+        _sl[i].randDraw[0] = false;
+    }
+    generateAllTables(); assignTodaysDn(); populateMissions();
 }
 
 function isClassDay() {
@@ -276,6 +173,468 @@ function generateAllTables() {
     generateRankTable(); generateAttListTable(); generateStudentAttTable(); generateStudentStatsTables();
 }
 
+function findStudent() {
+    document.activeElement.blur();
+    document.getElementById("nameList").innerHTML = "";
+    var x = (document.getElementById("searchField").value.trim().toLowerCase()).split(" ");
+    if (x == false) { return; }
+    for (i = 0; i < x.length; i++) {
+        if (x[i] == false) {
+            x.splice(i,1); i = 0; continue;
+        }
+    }
+    var matches = [];
+    if (x.length == 1) {
+        for (i = 0; i < _sl.length; i++) {
+            if (x[0] == _sl[i].name[0].split(" ")[1].toLowerCase()) {
+                matches.push(i);
+            }
+        }
+    }
+    if (x.length == 2) {
+        for (i = 0; i < _sl.length; i++) {
+            if (x[0] + " " + x[1] == _sl[i].name[0].toLowerCase()) {
+                matches.push(i);
+            }
+        }
+    }
+    if (x.length == 3) {
+        for (i = 0; i < _sl.length; i++) {
+            if (x[0] + " " + x[1] + " " + x[2] == _sl[i].name[0].toLowerCase()) {
+                matches.push(i);
+            }
+        }
+    }
+    if (matches.length == 0) {
+        for (i = 0; i < x.length; i++) {
+            x[i] = x[i][0].toUpperCase() + x[i].substr(1);
+        }
+        var string = x.join(" ");
+        infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + string + "</span>.  Please check the spelling and try again or use the contact buttons above for help.",["mainPopStudent"],"searchField");
+        document.getElementById("searchField").value = "";
+    }
+    if (matches.length == 1) {
+        _ci = matches[0]; loadStudent(_ci); pop(["mainPopStudent"],["studentPop","studentStatsPop"]);
+    }
+    if (matches.length > 1) {
+        populateMatches(matches);
+        infoAlert("More than one match found.<br>Please click the correct name below.",["mainPopStudent"],"searchField",true);
+    }
+}
+
+function populateMatches(indexArray) {
+    for (i = 0; i < indexArray.length; i++) {
+        var elementNode = document.createElement("p");
+        elementNode.classList.add("name");
+        (function(i){
+            elementNode.onclick = function () {
+                let x = indexArray[i]; _ci = x;
+                loadStudent(_ci);
+                pop(["infoAlertPop"],["studentPop","studentStatsPop"]);
+            }
+        })(i);
+        var textNode = document.createTextNode(_sl[indexArray[i]].full);
+        elementNode.appendChild(textNode);
+        document.getElementById("nameList").appendChild(elementNode);
+    }  
+}
+
+function populateCalendar() {
+    for (i = 0; i < _dns.length; i++) {
+        document.getElementById("calendarDate"+i).innerHTML = cdn(_dns[i]);
+        if (i < 32) {
+            document.getElementById("calendarLesson"+i).innerHTML = _asFulls[i];
+            document.getElementById("calendarMemory"+i).innerHTML = _mvFulls[i];
+        }
+    }
+    document.getElementById("calendarRow"+(_elapsedWeeks-1)).style.border = "2px solid lawngreen";
+}
+
+function populateCustomList(log1,log2,type) {
+    if (log1) {
+        var p1 = document.createElement("p");
+        p1.classList.add("name");
+        p1.innerHTML = log1;
+        if (type == "promo") {
+            var message;
+            if (_sl[i].name[1] != "") {
+                message = "Complete promotion for <br>" + _sl[i].name[0] + " (" + _rankNamesShort[_sl[i].rank[0]] + ")?" + "<br> (" + _sl[i].name[1] + ")"
+            } else {
+                message = "Complete promotion for <br>" + _sl[i].name[0] + " (" + _rankNamesShort[_sl[i].rank[0]] + ")?"
+            }
+            (function(i){
+                p1.onclick = function () {
+                    actionAlert(message,["customListPop"],completePromo,false,i);
+                }
+            })(i);
+        } else if (type == "bdDone") {
+            (function(i){
+                p1.onclick = function () {
+                    actionAlert("Complete birthday for <br>" + _sl[i].name[0] + "?",["customListPop"],completeBd,false,i);
+                }
+            })(i);
+        } else if (type == "photo") {
+            (function(i){
+                p1.onclick = function () {
+                    actionAlert("Take photo for <br>" + _sl[i].name[0] + "?",["customListPop"],completePhoto,false,i);
+                }
+            })(i);
+        } else if (type == "email") {
+            (function(i){
+                p1.onclick = function () {
+                    _ci = i; _array = ["customListPop"];
+                    populateStudentFields("editEmail",loadNeededEmails);
+                }
+            })(i);
+        } else if (type == "bdNeeded") {
+            (function(i){
+                p1.onclick = function () {
+                    _ci = i; _array = ["customListPop"];
+                    populateStudentFields("editBdMonth",loadNeededBds);
+                    value("editBdMonth","");
+                    value("editBdDate",""); 
+                }
+            })(i);
+        }
+        append("customList",p1);
+    }
+    if (log2) {
+        var p2 = document.createElement("p");
+        p2.classList.add("name");
+        p2.innerHTML = log2;
+        append("customListAbsent",p2);
+    }
+}
+
+function assignStatsRanks(propertyName,index) {
+    var pts = [];
+    for (let i = 0; i < _sl.length; i++) {
+        pts.push(_sl[i][propertyName]);
+    } // creates an array of the points of each student in alphabetical order
+    var ptsSorted = pts.slice().sort(function(a,b){return b - a}); // sorts the resuting array in numerical order
+    var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1}); // maps the index(+1) of each unique point value in the resulting array back to original array that was in alphabetical order
+    for (let i = 0; i < _sl.length; i++) {
+        _sl[i].statsRanks[index] = ptsRanked[i];
+    } // assigns the values of the resulting array as the rank of each student
+    sortSLbyProperty(propertyName); var repeats = 0;
+    var corrected = []; corrected.push(_sl[0].statsRanks[index]);
+    for (let i = 1; i < _sl.length; i++) {
+        if (_sl[i].statsRanks[index] == _sl[i-1].statsRanks[index]) {
+            repeats++;
+            corrected.push(corrected[i-1]);
+        } else {
+            corrected.push(_sl[i].statsRanks[index] - repeats);
+        }
+    }
+    for (let i = 1; i < _sl.length; i++) {
+        _sl[i].statsRanks[index] = corrected[i];
+    }
+    sortSL();
+    /* _sl is then sorted by rank.  An array of "corrected" ranks is created, and the first rank is pushed to it.  Now for every consecutive rank, if it's the same as the previous rank, a "repeat" is tallied, and the last value added to the "corrected" array is pushed to the array as a repeated rank.  If a consecutive rank is not the same as the previous rank, the rank is added to the "corrected" array after subtracting the current repeat tally from it.  This ensures no rank numbers are skipped, so instead of (for example) ranks [1,1,3,4,5,5,5,8,9,10], you get [1,1,2,3,4,4,4,5,6,7].  Finally, the current ranks are reassigned as the corrected ranks and _sl is sorted back into alphabetical order. */
+}
+
+function sortByPts(lb) {
+    if (lb) {
+        innerHTML("totalPtsLbList","");
+    } else {
+        innerHTML("nameListCustom","");
+        display("nameListCustom","block");
+        display("genderListContainer","none");
+    }
+    var totalASpts = 0; var totalMVpts = 0;
+    if (_elapsedWeeks > 1) {
+        for (let i = 0; i < _ti; i++) {
+            if (i > 31) {break}
+            totalASpts += _asMaxPts[i];
+            totalMVpts += _mvMaxPts[i];
+        }
+    }
+    var totalPts = totalASpts + totalMVpts;
+    assignStatsRanks("pts",0);
+    _sl.sort(function(b,a){return a.pts - b.pts});
+    for (let i = 0; i < _sl.length; i++) {
+        if (_sl[i].pts == 0) {continue}
+        if (lb) {if ( _sl[i].statsRanks[0] > 10 ) {continue}}
+        var totalPtsPercentage = ((_sl[i].pts / totalPts) * 100).toFixed(1);
+        var lastElementNode;
+        var p = document.createElement("p");
+        var span1 = document.createElement("span");
+        var span2 = document.createElement("span");
+        p.classList.add("name3");
+        span2.classList.add("sortValues");
+        if (_sl[i].pts != lastElementNode) {
+            p.style.borderTop = "1px solid #555";
+            p.style.paddingTop = "10px";
+        }
+        span1.innerHTML = _sl[i].statsRanks[0] + ". " + _sl[i].name[0];
+        span2.innerHTML = " " + _sl[i].pts + "/" + totalPts + " (" + totalPtsPercentage + "%)";
+        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
+        p.append(span1,span2);
+        if (lb) {
+            append("totalPtsLbList",p);
+        } else {
+            append("nameListCustom",p);
+        }
+        lastElementNode = _sl[i].pts;
+    }
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
+}
+
+function sortByASpts(lb) {
+    if (lb) {
+        innerHTML("asPtsLbList","");
+    } else {
+        innerHTML("nameListCustom","");
+        display("nameListCustom","block");
+        display("genderListContainer","none");
+    }
+    var totalASpts = 0;
+    if (_elapsedWeeks > 1) {
+        for (let j = 0; j < _ti; j++) {
+            if (j > 31) {break}
+            totalASpts += _asMaxPts[j];
+        }
+    }
+    for (let i = 0; i < _sl.length; i++) {
+        var earnedASpts = 0; var asPercentage;
+        if (_elapsedWeeks > 1) {
+            for (let j = 0; j < _ti; j++) {
+                if (j > 31) {break}
+                earnedASpts += _sl[i].as[j][0];
+            }
+        }
+        if (_elapsedWeeks > 1) {
+            asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
+        } else {
+            asPercentage = 0;
+        }
+        _sl[i].earnedASpts = earnedASpts;
+        _sl[i].asPercentage = asPercentage;
+    }
+    assignStatsRanks("earnedASpts",1);
+    _sl.sort(function(b,a){return a.earnedASpts - b.earnedASpts});
+    for (let i = 0; i < _sl.length; i++) {
+        if (_sl[i].earnedASpts == 0) {continue}
+        if (lb) {if ( _sl[i].statsRanks[1] > 10 ) {continue}}
+        var lastElementNode;
+        var p = document.createElement("p");
+        var span1 = document.createElement("span");
+        var span2 = document.createElement("span");
+        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
+        span2.classList.add("sortValues");
+        p.classList.add("name3");
+        if (_sl[i].earnedASpts != lastElementNode) {
+            p.style.borderTop = "1px solid #555";
+            p.style.paddingTop = "10px";
+        }
+        span1.innerHTML = _sl[i].statsRanks[1] + ". " + _sl[i].name[0];
+        span2.innerHTML = " " + _sl[i].earnedASpts + "/" + totalASpts + " (" + _sl[i].asPercentage + "%)";
+        p.append(span1,span2);
+        if (lb) {
+            append("asPtsLbList",p);
+        } else {
+            append("nameListCustom",p);
+        }        lastElementNode = _sl[i].earnedASpts;
+    }
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Activity Points")}
+}
+
+function sortByMVpts(lb) {
+    if (lb) {
+        innerHTML("mvPtsLbList","");
+    } else {
+        innerHTML("nameListCustom","");
+        display("nameListCustom","block");
+        display("genderListContainer","none");
+    }
+    var totalMVpts = 0;
+    if (_elapsedWeeks > 1) {
+        for (let j = 0; j < _ti; j++) {
+            if (j > 31) {break}
+            totalMVpts += _mvMaxPts[j];
+        }
+    }
+    for (let i = 0; i < _sl.length; i++) {
+        var earnedMVpts = 0; var mvPercentage;
+        if (_elapsedWeeks > 1) {
+            for (let j = 0; j < _ti; j++) {
+                if (j > 31) {break}
+                earnedMVpts += _sl[i].mv[j][0];
+            }
+        }
+        if (_elapsedWeeks > 1) {
+            mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
+        } else {
+            mvPercentage = 0;
+        }
+        _sl[i].earnedMVpts = earnedMVpts;
+        _sl[i].mvPercentage = mvPercentage;
+    }
+    assignStatsRanks("earnedMVpts",2);
+    _sl.sort(function(b,a){return a.earnedMVpts - b.earnedMVpts});
+    for (let i = 0; i < _sl.length; i++) {
+        if (_sl[i].earnedMVpts == 0) {continue}
+        if (lb) {if ( _sl[i].statsRanks[2] > 10 ) {continue}}
+        var lastElementNode;
+        var p = document.createElement("p");
+        var span1 = document.createElement("span");
+        var span2 = document.createElement("span");
+        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
+        span2.classList.add("sortValues");
+        p.classList.add("name3");
+        if (_sl[i].earnedMVpts != lastElementNode) {
+            p.style.borderTop = "1px solid #555";
+            p.style.paddingTop = "10px";
+        }
+        span1.innerHTML = _sl[i].statsRanks[2] + ". " + _sl[i].name[0];
+        span2.innerHTML = " " + _sl[i].earnedMVpts + "/" + totalMVpts + " (" + _sl[i].mvPercentage + "%)";
+        p.append(span1,span2);
+        if (lb) {
+            append("mvPtsLbList",p);
+        } else {
+            append("nameListCustom",p);
+        }        lastElementNode = _sl[i].earnedMVpts;
+    }
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Memory Points")}
+}
+
+function sortByAtt(lb) {
+    if (lb) {
+        innerHTML("attLbList","");
+    } else {
+        innerHTML("nameListCustom","");
+        display("nameListCustom","block");
+        display("genderListContainer","none");
+    }
+    for (let i = 0; i < _sl.length; i++) {
+        var amTotal = []; var pmTotal = []
+        for (let j = 0; j < _elapsedWeeks; j++) {
+            amTotal.push(_sl[i].attArr[j][0]);
+            pmTotal.push(_sl[i].attArr[j][1]);
+        }
+        var total = sumArrays([amTotal,pmTotal]);
+        for (let j = 0; j < _elapsedWeeks; j++) {
+            if (_sl[i].attArr[j][0] == 1 && _sl[i].attArr[j][1] == 1) {
+                total--
+            }
+        }
+        _sl[i].totalWksAtt = total;
+    }
+    assignStatsRanks("totalWksAtt",3);
+    _sl.sort(function(a,b){return b.totalWksAtt - a.totalWksAtt});
+    for (let i = 0; i < _sl.length; i++) {
+        if (lb) {if ( _sl[i].statsRanks[3] > 10 ) {continue}}
+        var lastElementNode;
+        var attPercentage = ((_sl[i].totalWksAtt / _elapsedWeeks) * 100).toFixed(1);
+        var p = document.createElement("p");
+        var span1 = document.createElement("span");
+        var span2 = document.createElement("span");
+        span2.classList.add("sortValues");
+        p.classList.add("name3");
+        p.classList.add("name3");
+        if (_sl[i].totalWksAtt != lastElementNode) {
+            p.style.borderTop = "1px solid #555";
+            p.style.paddingTop = "10px";
+        }
+        span1.innerHTML = _sl[i].statsRanks[3] + ". " + _sl[i].name[0];
+        span2.innerHTML = " " + _sl[i].totalWksAtt + "/" + _elapsedWeeks + " (" + attPercentage + "%)";
+        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
+        p.append(span1,span2);
+        if (lb) {
+            append("attLbList",p);
+        } else {
+            append("nameListCustom",p);
+        }        lastElementNode = _sl[i].totalWksAtt;
+    }  
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Attendance")}
+}
+
+function sortByTP(lb) {
+    if (lb) {
+        innerHTML("tpLbList","");
+    } else {
+        innerHTML("nameListCustom","");
+        display("nameListCustom","block");
+        display("genderListContainer","none");
+    }
+    var totalASpts = 0; var totalMVpts = 0;
+    if (_elapsedWeeks > 1) {
+        for (let j = 0; j < _ti; j++) {
+            if (j > 31) {break}
+            totalASpts += _asMaxPts[j];
+            totalMVpts += _mvMaxPts[j];
+        }
+    }
+    var totalTPpts = totalASpts + totalMVpts + _elapsedWeeks;
+    for (let i = 0; i < _sl.length; i++) {
+        var amTotal = []; var pmTotal = []
+        for (let j = 0; j < _elapsedWeeks; j++) {
+            amTotal.push(_sl[i].attArr[j][0]);
+            pmTotal.push(_sl[i].attArr[j][1]);
+        }
+        var total = sumArrays([amTotal,pmTotal]);
+        for (let j = 0; j < _elapsedWeeks; j++) {
+            if (_sl[i].attArr[j][0] == 1 && _sl[i].attArr[j][1] == 1) {
+                total--
+            }
+        }
+        _sl[i].tpPts = _sl[i].pts + total;
+    }
+    assignStatsRanks("tpPts",4);
+    _sl.sort(function(a,b){return b.tpPts - a.tpPts});
+    for (let i = 0; i < _sl.length; i++) {
+        if (lb) {if ( _sl[i].statsRanks[4] > 10 ) {continue}}
+        var lastElementNode;
+        var tpPercentage = ((_sl[i].tpPts / totalTPpts) * 100).toFixed(1);
+        var p = document.createElement("p");
+        var span1 = document.createElement("span");
+        var span2 = document.createElement("span");
+        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
+        span2.classList.add("sortValues");
+        p.classList.add("name3");
+        p.classList.add("name3");
+        if (_sl[i].tpPts != lastElementNode) {
+            p.style.borderTop = "1px solid #555";
+            p.style.paddingTop = "10px";
+        }
+        span1.innerHTML = _sl[i].statsRanks[4] + ". " + _sl[i].name[0];
+        span2.innerHTML = " " + _sl[i].tpPts + "/" + totalTPpts + " (" + tpPercentage + "%)";
+        p.append(span1,span2);
+        if (lb) {
+            append("tpLbList",p);
+        } else {
+            append("nameListCustom",p);
+        }
+        lastElementNode = _sl[i].tpPts;
+    }  
+    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Participation")}
+}
+
+function sortSL() {
+    _sl.sort(function(a,b) {
+        var textA = a.name[0].split(" ")[1].toLowerCase(); // last name A
+        var textB = b.name[0].split(" ")[1].toLowerCase(); // last name B
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    }); // sorts by last name
+    _sl.sort(function(a,b) {
+        var textA1 = a.name[0].split(" ")[1].toLowerCase(); // last name A
+        var textB1 = b.name[0].split(" ")[1].toLowerCase(); // last name B
+        var textA0 = a.name[0].split(" ")[0].toLowerCase(); // first name A
+        var textB0 = b.name[0].split(" ")[0].toLowerCase(); // first name B
+        if (textA1 == textB1) {
+            return (textA0 < textB0) ? -1 : (textA0 > textB0) ? 1 : 0;
+        }
+    }); // then sorts students with the same last name by their first name
+}
+
+function sortSLbyProperty(propertyName) {
+    _sl.sort(function(a,b) {
+            var textA = a[propertyName];
+            var textB = b[propertyName];
+            return (textA < textB) ? 1 : (textA > textB) ? -1 : 0;
+    });
+}
+
 function capitalize(x) {
     return x.charAt(0).toUpperCase() + x.slice(1);
 }
@@ -308,30 +667,6 @@ function infoAlert(message,idArray,focus,noImage,fontSize,textAlign) {
     } else {
         document.getElementById("infoAlertMessage").style.textAlign = "center";
     }
-}
-
-function actionAlert(message,popsArray,func,bypass,parameter) {
-    if (document.getElementById("actionAlertPop").style.display != "block") {
-        _currentPops = popsArray; _currentFunction = func; _currentParameter= parameter;
-        display("actionAlertPop","block");
-        for (let i = 0; i < _currentPops.length; i++) {
-            if (_currentPops[i] !== undefined) {
-                display(_currentPops[i],"none");
-            }
-        }
-        innerHTML("actionAlertMessage",message);
-    } else if (document.getElementById("actionAlertPop").style.display == "block") {
-        display("actionAlertPop","none");
-        for (let i = 0; i < _currentPops.length; i++) {
-            if (_currentPops[i] !== undefined) {
-                display(_currentPops[i],"block");
-            }
-        }
-        innerHTML("actionAlertMessage","");
-        if (!bypass) {
-            _currentFunction(_currentParameter);
-        }
-    } 
 }
 
 function refreshStudentPop() {
@@ -404,13 +739,47 @@ function refreshMissionsPop() {
 function loadStudent(index) {
     _ci = index; _currentStudent = _sl[_ci].name[0];
     value("searchField","");
-    refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu();
-    loadLbs();
+    refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu(); loadStudentStats(); loadLbs();
     document.activeElement.blur();
 }
 
 function loadLbs() {
     sortByPts(true); sortByASpts(true); sortByMVpts(true); sortByAtt(true); sortByTP(true); sortSL();
+}
+
+function resetStudentMenu() {
+    for (let i = 0; i < 4; i++) {
+        if (i == 0) {
+            bgColor("studentMenu"+i,"#777");
+        } else {
+            bgColor("studentMenu"+i,"black");
+        }
+    }
+}
+
+function studentMenuSwitch(x) {
+    _array = ["missionsPop"];
+    var allPops = document.getElementsByClassName("pop");
+    var pops = ["missionsPop","studentStatsPop","editStudentPop","studentNotesPop","studentPropertiesPop"];
+    var funcs = [false,loadStudentStats,populateStudentFields,populateStudentNotes]
+    for (let i = 0; i < 4; i++) {
+        if (i == x) {
+            bgColor("studentMenu"+i,"#777");
+        } else {
+            bgColor("studentMenu"+i,"black");
+        }
+    }
+    for (let i = 0; i < 5; i++) {
+        if (i == x) {
+            display(pops[i],"block");
+            if (i > 0 && i < 4) { funcs[i]() }
+        }
+    }
+    for (let i = 0; i < allPops.length; i++) {
+        if (allPops[i].id != pops[x] && allPops[i].id != "studentPop") {
+            allPops[i].style.display = "none";
+        }
+    }
 }
 
 function asLinks() {
@@ -425,7 +794,7 @@ function mvLinks() {
     window.open("docs/memory/mv"+_mvNum+".pdf","_blank");
 }
 
-function pop(closeArray,openArray) {
+function pop(closeArray,openArray,title) {
     for (let i = 0; i < closeArray.length; i++) {
         if (closeArray != []) {
             display(closeArray[i],"none");
@@ -436,9 +805,12 @@ function pop(closeArray,openArray) {
             display(openArray[i],"block");
         }    
     }
-    if (openArray.includes("mainPop")) {
+    if (openArray.includes("mainPopStudent")) {
         value("searchField","");
         idFocus("searchField");
+    }
+    if (openArray.includes("customSortListPop")) {
+        innerHTML("customSortListLabel",title);
     }
     scrollTo(0,0);
 }
@@ -447,11 +819,10 @@ function goHome() {
     var pops = document.getElementsByClassName("pop");
     for (let i = 0; i < pops.length; i++) {
         pops[i].style.display = "none";
-        display("mainPop","block");
+        display("mainPopStudent","block");
     }
-    value("searchMain","");
-    idFocus("searchMain");
-    sortSL(); 
+    value("searchField","");
+    idFocus("searchField");
 }
 
 function asPop(asNum,pts) {
@@ -548,6 +919,21 @@ function generateRankTable() {
         td4.setAttribute("id","rankChartPts"+i);
         tr.append(td1,td2,td3,td4);
         append("rankChartTable",tr);
+    }
+}
+
+function generateAttListTable() {
+    for (let i = 0; i < 34; i++) {
+        var tr = document.createElement("tr");
+        var td1 = document.createElement("td"); var td2 = document.createElement("td");
+        var td3 = document.createElement("td"); var td4 = document.createElement("td");
+        tr.setAttribute("id","attRow"+i);
+        td1.setAttribute("id","attDate"+i);
+        td2.setAttribute("id","attAM"+i);
+        td3.setAttribute("id","attPM"+i);
+        td4.setAttribute("id","attBoth"+i);
+        tr.append(td1,td2,td3,td4);
+        append("attListTable",tr);
     }
 }
 
@@ -865,357 +1251,6 @@ function assignDn(month,date) {
 
 function pressKey(key,id) {
     if(event.keyCode==key)document.getElementById(id).click()
-}
-
-function assignStatsRanks(propertyName,index) {
-    var pts = [];
-    for (let i = 0; i < _sl.length; i++) {
-        pts.push(_sl[i][propertyName]);
-    } // creates an array of the points of each student in alphabetical order
-    var ptsSorted = pts.slice().sort(function(a,b){return b - a}); // sorts the resuting array in numerical order
-    var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1}); // maps the index(+1) of each unique point value in the resulting array back to original array that was in alphabetical order
-    for (let i = 0; i < _sl.length; i++) {
-        _sl[i].statsRanks[index] = ptsRanked[i];
-    } // assigns the values of the resulting array as the rank of each student
-    sortSLbyProperty(propertyName); var repeats = 0;
-    var corrected = []; corrected.push(_sl[0].statsRanks[index]);
-    for (let i = 1; i < _sl.length; i++) {
-        if (_sl[i].statsRanks[index] == _sl[i-1].statsRanks[index]) {
-            repeats++;
-            corrected.push(corrected[i-1]);
-        } else {
-            corrected.push(_sl[i].statsRanks[index] - repeats);
-        }
-    }
-    for (let i = 1; i < _sl.length; i++) {
-        _sl[i].statsRanks[index] = corrected[i];
-    }
-    sortSL();
-    /* _sl is then sorted by rank.  An array of "corrected" ranks is created, and the first rank is pushed to it.  Now for every consecutive rank, if it's the same as the previous rank, a "repeat" is tallied, and the last value added to the "corrected" array is pushed to the array as a repeated rank.  If a consecutive rank is not the same as the previous rank, the rank is added to the "corrected" array after subtracting the current repeat tally from it.  This ensures no rank numbers are skipped, so instead of (for example) ranks [1,1,3,4,5,5,5,8,9,10], you get [1,1,2,3,4,4,4,5,6,7].  Finally, the current ranks are reassigned as the corrected ranks and _sl is sorted back into alphabetical order. */
-}
-
-function sortSLbyProperty(propertyName) {
-    _sl.sort(function(a,b) {
-            var textA = a[propertyName];
-            var textB = b[propertyName];
-            return (textA < textB) ? 1 : (textA > textB) ? -1 : 0;
-    });
-}
-
-function sortSL() {
-    _sl.sort(function(a,b) {
-        var textA = a.name[0].split(" ")[1].toLowerCase(); // last name A
-        var textB = b.name[0].split(" ")[1].toLowerCase(); // last name B
-        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-    }); // sorts by last name
-    _sl.sort(function(a,b) {
-        var textA1 = a.name[0].split(" ")[1].toLowerCase(); // last name A
-        var textB1 = b.name[0].split(" ")[1].toLowerCase(); // last name B
-        var textA0 = a.name[0].split(" ")[0].toLowerCase(); // first name A
-        var textB0 = b.name[0].split(" ")[0].toLowerCase(); // first name B
-        if (textA1 == textB1) {
-            return (textA0 < textB0) ? -1 : (textA0 > textB0) ? 1 : 0;
-        }
-    }); // then sorts students with the same last name by their first name
-    
-}
-
-function sortByPts(lb) {
-    if (lb) {
-        innerHTML("totalPtsLbList","");
-    } else {
-        innerHTML("nameListCustom","");
-        display("nameListCustom","block");
-        display("genderListContainer","none");
-    }
-    var totalASpts = 0; var totalMVpts = 0;
-    if (_elapsedWeeks > 1) {
-        for (let i = 0; i < _ti; i++) {
-            if (i > 31) {break}
-            totalASpts += _asMaxPts[i];
-            totalMVpts += _mvMaxPts[i];
-        }
-    }
-    var totalPts = totalASpts + totalMVpts;
-    assignStatsRanks("pts",0);
-    _sl.sort(function(b,a){return a.pts - b.pts});
-    for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].pts == 0) {continue}
-        if (lb) {if ( _sl[i].statsRanks[0] > 10 ) {continue}}
-        var totalPtsPercentage = ((_sl[i].pts / totalPts) * 100).toFixed(1);
-        var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
-        p.classList.add("name3");
-        span2.classList.add("sortValues");
-        if (_sl[i].pts != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
-            p.style.paddingTop = "10px";
-        }
-        span1.innerHTML = _sl[i].statsRanks[0] + ". " + _sl[i].name[0];
-        span2.innerHTML = " " + _sl[i].pts + "/" + totalPts + " (" + totalPtsPercentage + "%)";
-        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
-        p.append(span1,span2);
-        if (lb) {
-            append("totalPtsLbList",p);
-        } else {
-            append("nameListCustom",p);
-        }
-        lastElementNode = _sl[i].pts;
-    }
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
-}
-
-function sortByGamePts() {
-    assignGameRanks(); innerHTML("nameListCustom","");
-    display("nameListCustom","block"); display("genderListContainer","none");
-    _sl.sort(function(b,a){return a.gamePts[0] - b.gamePts[0]});
-    for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].gamePts[0] == 0) {continue}
-        if (_sl[i].gamePts[1] > 3) {break}
-        var lastElementNode;
-        var p = document.createElement("p");
-        p.classList.add("name3");
-        if (_sl[i].gamePts[0] != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
-            p.style.paddingTop = "10px";
-        }
-        p.innerHTML = _sl[i].gamePts[1] + ". " + _sl[i].name[0] + " (" + _sl[i].gamePts[0] + ")";
-        append("nameListCustom",p);
-        lastElementNode = _sl[i].gamePts[0];
-    }
-    pop(["teamsListPop"],["customSortListPop"],"Game Points");
-}
-
-function sortByASpts(lb) {
-    if (lb) {
-        innerHTML("asPtsLbList","");
-    } else {
-        innerHTML("nameListCustom","");
-        display("nameListCustom","block");
-        display("genderListContainer","none");
-    }
-    var totalASpts = 0;
-    if (_elapsedWeeks > 1) {
-        for (let j = 0; j < _ti; j++) {
-            if (j > 31) {break}
-            totalASpts += _asMaxPts[j];
-        }
-    }
-    for (let i = 0; i < _sl.length; i++) {
-        var earnedASpts = 0; var asPercentage;
-        if (_elapsedWeeks > 1) {
-            for (let j = 0; j < _ti; j++) {
-                if (j > 31) {break}
-                earnedASpts += _sl[i].as[j][0];
-            }
-        }
-        if (_elapsedWeeks > 1) {
-            asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
-        } else {
-            asPercentage = 0;
-        }
-        _sl[i].earnedASpts = earnedASpts;
-        _sl[i].asPercentage = asPercentage;
-    }
-    assignStatsRanks("earnedASpts",1);
-    _sl.sort(function(b,a){return a.earnedASpts - b.earnedASpts});
-    for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].earnedASpts == 0) {continue}
-        if (lb) {if ( _sl[i].statsRanks[1] > 10 ) {continue}}
-        var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
-        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
-        span2.classList.add("sortValues");
-        p.classList.add("name3");
-        if (_sl[i].earnedASpts != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
-            p.style.paddingTop = "10px";
-        }
-        span1.innerHTML = _sl[i].statsRanks[1] + ". " + _sl[i].name[0];
-        span2.innerHTML = " " + _sl[i].earnedASpts + "/" + totalASpts + " (" + _sl[i].asPercentage + "%)";
-        p.append(span1,span2);
-        if (lb) {
-            append("asPtsLbList",p);
-        } else {
-            append("nameListCustom",p);
-        }        lastElementNode = _sl[i].earnedASpts;
-    }
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Activity Points")}
-}
-
-function sortByMVpts(lb) {
-    if (lb) {
-        innerHTML("mvPtsLbList","");
-    } else {
-        innerHTML("nameListCustom","");
-        display("nameListCustom","block");
-        display("genderListContainer","none");
-    }
-    var totalMVpts = 0;
-    if (_elapsedWeeks > 1) {
-        for (let j = 0; j < _ti; j++) {
-            if (j > 31) {break}
-            totalMVpts += _mvMaxPts[j];
-        }
-    }
-    for (let i = 0; i < _sl.length; i++) {
-        var earnedMVpts = 0; var mvPercentage;
-        if (_elapsedWeeks > 1) {
-            for (let j = 0; j < _ti; j++) {
-                if (j > 31) {break}
-                earnedMVpts += _sl[i].mv[j][0];
-            }
-        }
-        if (_elapsedWeeks > 1) {
-            mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
-        } else {
-            mvPercentage = 0;
-        }
-        _sl[i].earnedMVpts = earnedMVpts;
-        _sl[i].mvPercentage = mvPercentage;
-    }
-    assignStatsRanks("earnedMVpts",2);
-    _sl.sort(function(b,a){return a.earnedMVpts - b.earnedMVpts});
-    for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].earnedMVpts == 0) {continue}
-        if (lb) {if ( _sl[i].statsRanks[2] > 10 ) {continue}}
-        var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
-        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
-        span2.classList.add("sortValues");
-        p.classList.add("name3");
-        if (_sl[i].earnedMVpts != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
-            p.style.paddingTop = "10px";
-        }
-        span1.innerHTML = _sl[i].statsRanks[2] + ". " + _sl[i].name[0];
-        span2.innerHTML = " " + _sl[i].earnedMVpts + "/" + totalMVpts + " (" + _sl[i].mvPercentage + "%)";
-        p.append(span1,span2);
-        if (lb) {
-            append("mvPtsLbList",p);
-        } else {
-            append("nameListCustom",p);
-        }        lastElementNode = _sl[i].earnedMVpts;
-    }
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Memory Points")}
-}
-
-function sortByAtt(lb) {
-    if (lb) {
-        innerHTML("attLbList","");
-    } else {
-        innerHTML("nameListCustom","");
-        display("nameListCustom","block");
-        display("genderListContainer","none");
-    }
-    for (let i = 0; i < _sl.length; i++) {
-        var amTotal = []; var pmTotal = []
-        for (let j = 0; j < _elapsedWeeks; j++) {
-            amTotal.push(_sl[i].attArr[j][0]);
-            pmTotal.push(_sl[i].attArr[j][1]);
-        }
-        var total = sumArrays([amTotal,pmTotal]);
-        for (let j = 0; j < _elapsedWeeks; j++) {
-            if (_sl[i].attArr[j][0] == 1 && _sl[i].attArr[j][1] == 1) {
-                total--
-            }
-        }
-        _sl[i].totalWksAtt = total;
-    }
-    assignStatsRanks("totalWksAtt",3);
-    _sl.sort(function(a,b){return b.totalWksAtt - a.totalWksAtt});
-    for (let i = 0; i < _sl.length; i++) {
-        if (lb) {if ( _sl[i].statsRanks[3] > 10 ) {continue}}
-        var lastElementNode;
-        var attPercentage = ((_sl[i].totalWksAtt / _elapsedWeeks) * 100).toFixed(1);
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
-        span2.classList.add("sortValues");
-        p.classList.add("name3");
-        p.classList.add("name3");
-        if (_sl[i].totalWksAtt != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
-            p.style.paddingTop = "10px";
-        }
-        span1.innerHTML = _sl[i].statsRanks[3] + ". " + _sl[i].name[0];
-        span2.innerHTML = " " + _sl[i].totalWksAtt + "/" + _elapsedWeeks + " (" + attPercentage + "%)";
-        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
-        p.append(span1,span2);
-        if (lb) {
-            append("attLbList",p);
-        } else {
-            append("nameListCustom",p);
-        }        lastElementNode = _sl[i].totalWksAtt;
-    }  
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Attendance")}
-}
-
-function sortByTP(lb) {
-    if (lb) {
-        innerHTML("tpLbList","");
-    } else {
-        innerHTML("nameListCustom","");
-        display("nameListCustom","block");
-        display("genderListContainer","none");
-    }
-    var totalASpts = 0; var totalMVpts = 0;
-    if (_elapsedWeeks > 1) {
-        for (let j = 0; j < _ti; j++) {
-            if (j > 31) {break}
-            totalASpts += _asMaxPts[j];
-            totalMVpts += _mvMaxPts[j];
-        }
-    }
-    var totalTPpts = totalASpts + totalMVpts + _elapsedWeeks;
-    for (let i = 0; i < _sl.length; i++) {
-        var amTotal = []; var pmTotal = []
-        for (let j = 0; j < _elapsedWeeks; j++) {
-            amTotal.push(_sl[i].attArr[j][0]);
-            pmTotal.push(_sl[i].attArr[j][1]);
-        }
-        var total = sumArrays([amTotal,pmTotal]);
-        for (let j = 0; j < _elapsedWeeks; j++) {
-            if (_sl[i].attArr[j][0] == 1 && _sl[i].attArr[j][1] == 1) {
-                total--
-            }
-        }
-        _sl[i].tpPts = _sl[i].pts + total;
-    }
-    assignStatsRanks("tpPts",4);
-    _sl.sort(function(a,b){return b.tpPts - a.tpPts});
-    for (let i = 0; i < _sl.length; i++) {
-        if (lb) {if ( _sl[i].statsRanks[4] > 10 ) {continue}}
-        var lastElementNode;
-        var tpPercentage = ((_sl[i].tpPts / totalTPpts) * 100).toFixed(1);
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
-        if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
-        span2.classList.add("sortValues");
-        p.classList.add("name3");
-        p.classList.add("name3");
-        if (_sl[i].tpPts != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
-            p.style.paddingTop = "10px";
-        }
-        span1.innerHTML = _sl[i].statsRanks[4] + ". " + _sl[i].name[0];
-        span2.innerHTML = " " + _sl[i].tpPts + "/" + totalTPpts + " (" + tpPercentage + "%)";
-        p.append(span1,span2);
-        if (lb) {
-            append("tpLbList",p);
-        } else {
-            append("nameListCustom",p);
-        }
-        lastElementNode = _sl[i].tpPts;
-    }  
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Participation")}
 }
 
 loadBackup();

@@ -10,7 +10,7 @@
 <body>
 <div id="master-wrapper">
 
-<div id="mainPop" class="pop">
+<div id="mainPopStudent" class="pop">
   <p>Please enter your child's last name below and click the search button to view their class progress.</p>
   <div id="searchFieldContainerDiv">
     <input id="searchField" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
@@ -24,16 +24,57 @@
   </div>
 </div>
 
+<!-- <div id="mainPop" class="pop">
+  <p>Please enter your child's last name below and click the search button to view their class progress.</p>
+  <div id="searchFieldContainerDiv">
+    <input id="searchField" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
+    <div id="submitButton" onclick="findStudent()">S</div>
+  </div>
+  <p style="font-size:15px;">Use the contact buttons below for help.</p>
+  <div class="navigationButtonContainer" style="margin-top:35px;">
+    <a href="tel:8645694879"><div class="contactButton2">x</div></a>
+    <a href="sms:8645694879"><div class="contactButton2">d</div></a>
+    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton2">v</div></a>
+  </div>
+</div> -->
+
+<div id="sameLastPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="infoAlert()"><span>f</span></div>
+    <a href="tel:8645694879"><div class="contactButton2">x</div></a>
+    <a href="sms:8645694879"><div class="contactButton2">d</div></a>
+    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton2">v</div></a>
+  </div>
+    <p id="infoAlertTitle">!</p>
+    <p id="infoAlertMessage"></p>
+    <div id="nameList"></div>
+    <!-- <p style="font-size:15px;color:orange;">Hint: To avoid this step in the future, search for your child's full name.</p><br> -->
+</div>
+
+<!-- <div id="infoAlertPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton" onclick="infoAlert()"><span>f</span></div>
+    <a href="tel:8645694879"><div class="contactButton2">x</div></a>
+    <a href="sms:8645694879"><div class="contactButton2">d</div></a>
+    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton2">v</div></a>
+  </div>
+    <p id="infoAlertTitle">!</p>
+    <p id="infoAlertMessage"></p>
+    <div id="nameList"></div>
+    <p style="font-size:15px;color:orange;">Hint: To avoid this step in the future, search for your child's full name.</p><br>
+</div> -->
+
+<!-- ********** -->
+
 <div id="studentPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="goHome()">f</div>
-    <div id="att2Button" class="otherButton ptr" onclick="populateNames2()">Attendance</div>
   </div>
   <div id="studentPopTopContainerDiv">
     <div id="studentPopInsignia"></div>
     <div id="studentPopInfo">
       <p id="studentPopRankName"></p>
-      <p id="studentPopName" class="ptr" onclick="toggleAtt()"></p>
+      <p id="studentPopName"></p>
       <p id="studentPopPts"></p>
     </div>
   </div>
@@ -51,15 +92,18 @@
 
 <div id="infoAlertPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton" onclick="infoAlert()"><span>f</span></div>
-    <a href="tel:8645694879"><div class="contactButton2">x</div></a>
-    <a href="sms:8645694879"><div class="contactButton2">d</div></a>
-    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton2">v</div></a>
+    <div class="backButton ptr" onclick="infoAlert()">f</div>
   </div>
     <p id="infoAlertTitle">!</p>
     <p id="infoAlertMessage"></p>
-    <div id="nameList"></div>
-    <!-- <p style="font-size:15px;color:orange;">Hint: To avoid this step in the future, search for your child's full name.</p><br> -->
+</div>
+
+<div id="actionAlertPop" class="pop">
+  <p id="actionAlertMessage"></p>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton ptr" onclick="actionAlert(false,false,false,true)">X</div>
+    <div class="roundButton1 okButton ptr" onclick="actionAlert()">V</div>
+  </div>
 </div>
 
 <div id="openInsigniaPop" class="pop">
@@ -224,8 +268,67 @@
   </div>
 </div>
 
+<div id="promoPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['promoPop'],['missionsPop','studentPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <p style="font-size:50px"><span class="promoPopStar">3 </span> Promotion <span class="promoPopStar"> 3</span></p>
+  <div>
+    <div id="promoInsignia"></div>
+  </div>
+  <p id="dispRankNamePromo"></p>
+</div>
+
+<div id="attListPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton ptr" onclick="pop(['attListPop'],['mainPop'])">f</div>
+      <div class="otherButton ptr" onclick="actionAlert('Reset attendance?',['attListPop'],resetAtt)">Reset</div>
+    </div>
+    <p id="attCount" class="ptr" onclick="dataInputAlert('Number of students for random attendance',['attListPop'],randAtt)"></p>
+    <div id="attListContainer">
+      <div id="boysListAttDiv">
+        <p id="boysListAttP"></p>
+        <div id="boysListAtt"></div>
+      </div>
+      <div id="girlsListAttDiv">
+        <p id="girlsListAttP"></p>
+        <div id="girlsListAtt"></div>
+      </div>
+    </div>
+</div>
+
+<div id="attArchiveListPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['attArchiveListPop'],['attStatsPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <p id="attArchiveDate"></p>
+  <p id="attArchiveCount"></p>
+  <div id="attArchiveListContainer">
+    <div id="boysArchiveListAttDiv">
+      <p id="boysArchiveListAttP"></p>
+      <div id="boysArchiveListAtt"></div>
+    </div>
+    <div id="girlsArchiveListAttDiv">
+      <p id="girlsArchiveListAttP"></p>
+      <div id="girlsArchiveListAtt"></div>
+    </div>
+  </div>
+</div>
+
+<div id="customListPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['customListPop'],['alertsPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div id="customListLabel"></div>
+  <div id="customList"></div>
+  <p id="absentLabel">Absent:</p>
+  <div id="customListAbsent"></div>
+</div>
+
 <div id="rankChartPop" class="pop">
-  <a href="../docs/ranks.pdf" target="_blank"><p>click here to download printable chart</p></a>
   <div id = "rankChartContainer">
   <table id="rankChartTable">
     <tr>
@@ -235,6 +338,64 @@
       <th>Pts</th>
     </tr>
   </table>
+  </div>
+</div>
+
+<div id="attStatsPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['attStatsPop'],['mainMenuPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div id="attStatsTableDiv">
+    <table id="attStatsTable">
+      <tr class="tableHeaderRow">
+        <td></td>
+        <td>AM</td>
+        <td>PM</td>
+        <td>Both</td>
+      </tr>
+      <tr>
+        <td>Average</td>
+        <td id="amAvg"></td>
+        <td id="pmAvg"></td>
+        <td id="bothAvg"></td>
+      </tr>
+      <tr>
+        <td>Max</td>
+        <td id="amMax"></td>
+        <td id="pmMax"></td>
+        <td id="bothMax"></td>
+      </tr>
+      <tr>
+        <td>Min</td>
+        <td id="amMin"></td>
+        <td id="pmMin"></td>
+        <td id="bothMin"></td>
+      </tr>
+      <tr>
+        <td>Boys Avg</td>
+        <td id="amBoysAvg"></td>
+        <td id="pmBoysAvg"></td>
+        <td id="bothBoysAvg"></td>
+      </tr>
+      <tr>
+        <td>Girls Avg</td>
+        <td id="amGirlsAvg"></td>
+        <td id="pmGirlsAvg"></td>
+        <td id="bothGirlsAvg"></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="attListTableDiv">
+    <table id="attListTable">
+      <tr class="tableHeaderRow">
+        <td>Date</td>
+        <td>AM</td>
+        <td>PM</td>
+        <td>BOTH</td>
+      </tr>
+    </table>
   </div>
 </div>
 
@@ -255,212 +416,3 @@
 <script src="students.js"></script>
 </body>
 </html>
-
-<div id="calendarPop" class="pop">
-  <div id = "calendarContainer">
-  <table id="calendarTable">
-    <tr>
-    <th>Date</th>
-    <th>Lesson</th>
-    <th>Memory</th>
-    </tr>
-    <tr id="calendarRow0">
-    <td id="calendarDate0"></td>
-    <td id="calendarLesson0"></td>
-    <td id="calendarMemory0"></td>
-    </tr>
-    <tr id="calendarRow1">
-    <td id="calendarDate1"></td>
-    <td id="calendarLesson1"></td>
-    <td id="calendarMemory1"></td>
-    </tr>
-    <tr>
-    <td>9/5</td>
-    <td colspan="2">No Kidstuff (Labor Day weekend)</td>
-    </tr>
-    <tr id="calendarRow2">
-    <td id="calendarDate2"></td>
-    <td id="calendarLesson2"></td>
-    <td id="calendarMemory2"></td>
-    </tr>
-    <tr id="calendarRow3">
-    <td id="calendarDate3"></td>
-    <td id="calendarLesson3"></td>
-    <td id="calendarMemory3"></td>
-    </tr>
-    <tr id="calendarRow4">
-    <td id="calendarDate4"></td>
-    <td id="calendarLesson4"></td>
-    <td id="calendarMemory4"></td>
-    </tr>
-    <tr id="calendarRow5">
-    <td id="calendarDate5"></td>
-    <td id="calendarLesson5"></td>
-    <td id="calendarMemory5"></td>
-    </tr>
-    <tr id="calendarRow6">
-    <td id="calendarDate6"></td>
-    <td id="calendarLesson6"></td>
-    <td id="calendarMemory6"></td>
-    </tr>
-    <tr id="calendarRow7">
-    <td id="calendarDate7"></td>
-    <td id="calendarLesson7"></td>
-    <td id="calendarMemory7"></td>
-    </tr>
-    <tr id="calendarRow8">
-    <td id="calendarDate8"></td>
-    <td id="calendarLesson8"></td>
-    <td id="calendarMemory8"></td>
-    </tr>
-    <tr id="calendarRow9">
-    <td id="calendarDate9"></td>
-    <td id="calendarLesson9"></td>
-    <td id="calendarMemory9"></td>
-    </tr>
-    <tr id="calendarRow10">
-    <td id="calendarDate10"></td>
-    <td id="calendarLesson10"></td>
-    <td id="calendarMemory10"></td>
-    </tr>
-    <tr id="calendarRow11">
-    <td id="calendarDate11"></td>
-    <td id="calendarLesson11"></td>
-    <td id="calendarMemory11"></td>
-    </tr>
-    <tr>
-      <td>11/21</td>
-      <td colspan="2">No Kidstuff (Anniversary Sunday)</td>
-      </tr>
-    <tr>
-    <tr>
-      <td>11/28</td>
-      <td colspan="2">No Kidstuff (Thanksgiving)</td>
-      </tr>
-    <tr>
-    <tr id="calendarRow12">
-    <td id="calendarDate12"></td>
-    <td id="calendarLesson12"></td>
-    <td id="calendarMemory12"></td>
-    </tr>
-    <tr id="calendarRow13">
-    <td id="calendarDate13"></td>
-    <td id="calendarLesson13"></td>
-    <td id="calendarMemory13"></td>
-    </tr>
-    <tr id="calendarRow14">
-    <td id="calendarDate14"></td>
-    <td id="calendarLesson14"></td>
-    <td id="calendarMemory14"></td>
-    </tr>
-    <tr>
-      <td>12/26</td>
-      <td colspan="2">No Kidstuff (Christmas)</td>
-      </tr>
-    <tr>
-    <tr>
-      <td>1/2</td>
-      <td colspan="2">No Kidstuff (New Years)</td>
-      </tr>
-    <tr>
-    <tr id="calendarRow15">
-    <td id="calendarDate15"></td>
-    <td id="calendarLesson15"></td>
-    <td id="calendarMemory15"></td>
-    </tr>
-    <tr id="calendarRow16">
-    <td id="calendarDate16"></td>
-    <td id="calendarLesson16"></td>
-    <td id="calendarMemory16"></td>
-    </tr>
-    <tr id="calendarRow17">
-    <td id="calendarDate17"></td>
-    <td id="calendarLesson17"></td>
-    <td id="calendarMemory17"></td>
-    </tr>
-    <tr id="calendarRow18">
-    <td id="calendarDate18"></td>
-    <td id="calendarLesson18"></td>
-    <td id="calendarMemory18"></td>
-    </tr>
-    <tr id="calendarRow19">
-    <td id="calendarDate19"></td>
-    <td id="calendarLesson19"></td>
-    <td id="calendarMemory19"></td>
-    </tr>
-    <tr id="calendarRow20">
-    <td id="calendarDate20"></td>
-    <td id="calendarLesson20"></td>
-    <td id="calendarMemory20"></td>
-    </tr>
-    <tr id="calendarRow21">
-    <td id="calendarDate21"></td>
-    <td id="calendarLesson21"></td>
-    <td id="calendarMemory21"></td>
-    </tr>
-    <tr id="calendarRow22">
-    <td id="calendarDate22"></td>
-    <td id="calendarLesson22"></td>
-    <td id="calendarMemory22"></td>
-    </tr>
-    <tr id="calendarRow23">
-    <td id="calendarDate23"></td>
-    <td id="calendarLesson23"></td>
-    <td id="calendarMemory23"></td>
-    </tr>
-    <tr id="calendarRow24">
-    <td id="calendarDate24"></td>
-    <td id="calendarLesson24"></td>
-    <td id="calendarMemory24"></td>
-    </tr>
-    <tr id="calendarRow25">
-    <td id="calendarDate25"></td>
-    <td id="calendarLesson25"></td>
-    <td id="calendarMemory25"></td>
-    </tr>
-    <tr id="calendarRow26">
-    <td id="calendarDate26"></td>
-    <td id="calendarLesson26"></td>
-    <td id="calendarMemory26"></td>
-    </tr>
-    <tr id="calendarRow27">
-    <td id="calendarDate27"></td>
-    <td id="calendarLesson27"></td>
-    <td id="calendarMemory27"></td>
-    </tr>
-    <tr id="calendarRow28">
-    <td id="calendarDate28"></td>
-    <td id="calendarLesson28"></td>
-    <td id="calendarMemory28"></td>
-    </tr>
-    <tr>
-      <td>4/17</td>
-      <td colspan="2">No Kidstuff (Easter)</td>
-      </tr>
-    <tr>
-    <tr id="calendarRow29">
-    <td id="calendarDate29"></td>
-    <td id="calendarLesson29"></td>
-    <td id="calendarMemory29"></td>
-    </tr>
-    <tr id="calendarRow30">
-    <td id="calendarDate30"></td>
-    <td id="calendarLesson30"></td>
-    <td id="calendarMemory30"></td>
-    </tr>
-    <tr id="calendarRow31">
-    <td id="calendarDate31"></td>
-    <td id="calendarLesson31"></td>
-    <td id="calendarMemory31"></td>
-    </tr>
-    <tr id="calendarRow32">
-    <td id="calendarDate32"></td>
-    <td colspan="2">Armor Review</td>
-    </tr>
-    <tr id="calendarRow33">
-    <td id="calendarDate33"></td>
-    <td colspan="2">CLASS PARTY</td>
-    </tr>
-  </table>
-  </div>
-</div>
