@@ -10,8 +10,6 @@
 <body>
 <div id="master-wrapper">
 
-<div id="archiveBanner"></div>
-
 <div id="mainPop" class="pop">
     <div id="topMenuContainer">
         <div id="mainMenuButton" class="roundButton2 ptr" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
@@ -157,18 +155,18 @@
     <div class="secretButton2 ptr" onclick="actionAlert('Skip this player?',['playGamePop'],skipPlayer)"></div>
   </div>
   <div id="gamePointButtonsContainer">
-    <div class="gamePointButton" id="gamePoint1" onclick="gameScorePts(1)">1</div>
-    <div class="gamePointButton" id="gamePoint2" onclick="gameScorePts(2)">2</div>
-    <div class="gamePointButton" id="gamePoint3" onclick="gameScorePts(3)">3</div>
-    <div class="gamePointButton" id="gamePoint4" onclick="gameScorePts(4)">4</div>
-    <div class="gamePointButton" id="gamePoint5" onclick="gameScorePts(5)">5</div>
-    <div class="gamePointButton" id="gamePoint6" onclick="gameScorePts(6)">6</div>
-    <div class="gamePointButton" id="gamePoint7" onclick="gameScorePts(7)">7</div>
-    <div class="gamePointButton" id="gamePoint8" onclick="gameScorePts(8)">8</div>
-    <div class="gamePointButton" id="gamePoint9" onclick="gameScorePts(9)">9</div>
-    <div class="gameUndoButton" onclick="undoGameScorePts()">b</div>
-    <div class="gamePointButton" id="gamePoint10" onclick="gameScorePts(10)">10</div>
-    <div class="gameLogButton" onclick="pop(['playGamePop'],['gameLogPop'])">LOG</div>
+    <div class="gamePointButton ptr" id="gamePoint1" onclick="gameScorePts(1)">1</div>
+    <div class="gamePointButton ptr" id="gamePoint2" onclick="gameScorePts(2)">2</div>
+    <div class="gamePointButton ptr" id="gamePoint3" onclick="gameScorePts(3)">3</div>
+    <div class="gamePointButton ptr" id="gamePoint4" onclick="gameScorePts(4)">4</div>
+    <div class="gamePointButton ptr" id="gamePoint5" onclick="gameScorePts(5)">5</div>
+    <div class="gamePointButton ptr" id="gamePoint6" onclick="gameScorePts(6)">6</div>
+    <div class="gamePointButton ptr" id="gamePoint7" onclick="gameScorePts(7)">7</div>
+    <div class="gamePointButton ptr" id="gamePoint8" onclick="gameScorePts(8)">8</div>
+    <div class="gamePointButton ptr" id="gamePoint9" onclick="gameScorePts(9)">9</div>
+    <div id="gameUndoButton" class="ptr" onclick="undoGameScorePts()">b</div>
+    <div class="gamePointButton ptr" id="gamePoint10" onclick="gameScorePts(10)">10</div>
+    <div id="gameLogButton" class="ptr" onclick="pop(['playGamePop'],['gameLogPop'])">F</div>
   </div>
 </div>
 
@@ -209,6 +207,7 @@
     <div class="backButton ptr" onclick="pop(['gameLogPop'],['playGamePop'])">f</div>
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
+  <input id="searchGameLog" class="searchField" type="text" placeholder="search log" oninput="searchGameLog()"/>
   <div id="gameLog" onclick="selectText('gameLog')"></div>
 </div>
 

@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
     font-family: Tahoma;
     src: url(../fonts/Tahoma.ttf);
 }
@@ -20,8 +20,8 @@
 
 * {
     box-sizing: border-box;
-    /* border: 1px solid green; */
-};
+    border: 1px solid green;
+}
 
 html {
     background-color: #111;
@@ -242,19 +242,6 @@ a:link, a:visited, a:hover, a:active {
     justify-content: space-evenly;
 }
 
-.navigationButtonContainer {
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.lowerNavigationButtonContainer {
-    margin-top: 10px;
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: space-evenly;
-}
-
 .backButton, .homeButton {
     border-radius: 25px;
     height: 50px;
@@ -334,7 +321,6 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .progressBarTable td {
-    /* height: 9.5px; */
     height: 19px;
     width: 9.5px;
 }
@@ -413,16 +399,6 @@ a:link, a:visited, a:hover, a:active {
     text-align: left;
     margin: 20px auto;
     color: orange;
-}
-
-#rankChartPop p, #calendarPop p {
-    font-size: 15px;
-    margin-top: 40px;
-}
-
-#rankChartPop, #calendarPop {
-    padding-top: 0px;
-    margin-top: 20px;
 }
 
 .scrollingContainer {
@@ -602,4 +578,1010 @@ a:link, a:visited, a:hover, a:active {
     flex-wrap: nowrap;
     margin: 30px auto;
     justify-content: space-around;
+} */
+
+/***********************************************************************************
+************************************************************************************
+***********************************************************************************/
+
+
+
+@font-face {
+    font-family: Tahoma;
+    src: url(../fonts/Tahoma.ttf);
+}
+
+@font-face {
+    font-family: Font-90-Icons;
+    src: url(../fonts/Font-90-Icons.ttf);
+}
+
+@font-face {
+    font-family: Byom-Icons-Trial;
+    src: url(../fonts/Byom-Icons-Trial.ttf);
+}
+
+@font-face {
+    font-family: MobileIcons;
+    src: url(../fonts/MobileIcons.ttf);
+}
+
+* {
+    box-sizing: border-box;
+    /* border: 1px solid green; */
+};
+
+html {
+    background-color: #111;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: Tahoma, sans-serif;
+    font-size: 30px;
+    color: white;
+    background-color: #111;
+}
+
+input, textarea {
+    font-size: 20px;
+    height: 40px;
+}
+
+#master-wrapper {
+    width: 428px;
+}
+
+div {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: white;
+    text-decoration: none; 
+}
+
+::placeholder {
+    font-size: 20px;
+    color: #aaa
+}
+
+*::-webkit-scrollbar { width: 0 !important }
+
+#calendarPop, #studentAttStatsPop, #openInsigniaPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #studentPop {
+    display: none;
+}
+
+.lb {
+    border: 1px solid white;
+    margin-bottom: 20px;
+    padding-left: 10px;
+}
+
+.lbTitle {
+    font-size: 25px;
+    color: #3478F6;
+    text-align: center !important;
+}
+
+#archiveBanner {
+    margin: 0px 20px 0px 20px;
+    padding: 0px;
+    background-color: red;
+    color: white;
+    font-size: 15px;
+}
+
+#customList, #customListAbsent { 
+    text-align: left;
+}
+
+.ptr {
+    cursor: pointer;
+}
+
+#log p, #studentNotesList p, #teacherNotesList p {
+    margin-top: 20px !important;
+}
+
+#log, #gameLog {
+    text-align: left;
+}
+
+#nameList2, #nameList3 {
+    height: 160px;
+    overflow-y: auto;
+}
+
+#nameList {
+    height: 600px;
+    overflow-y: auto;
+    background-color: black;
+    border: 2px solid #222;
+    padding: 20px;
+    border-radius: 25px;
+    text-align: left;
+}
+
+#studentNotesList, #teacherNotesList {
+    height: 600px;
+    overflow-y: auto;
+    text-align: left;
+    background-color: black;
+    border-radius: 25px;
+    border: 2px solid #222;
+    padding: 10px;
+}
+
+#studentNotesList, #teacherNotesList {
+    margin-top: 0px;
+    text-align: left !important;
+
+}
+
+#att2Pop, #att3Pop {
+    border-bottom: 2px solid #333;
+    background-color: #111;
+    height: 286px;
+    width: 428px;
+    padding: 20px 0px 0px 0px;
+    margin-bottom: 13px;
+}
+
+#customListLabel {
+    margin: 20px auto 20px auto !important;
+    color: #3478F6;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+}
+
+#customSortListLabel {
+    font-size: 20px;
+    color: #3478F6;
+    margin: 0px auto 10px auto;
+}
+
+#absentLabel {
+    margin: 30px auto 5px auto !important;
+    color: darkorange;
+}
+
+#customListAbsent p {
+    color: gray;
+}
+
+.pop {
+    padding: 20px;
+}
+
+#advancedOptionsPop {
+    text-align: left;
+}
+
+.checkbox {
+    height: 20px;
+    width: 20px;
+}
+
+.checkboxLabel {
+    font-size: 20px;
+}
+
+.roundButton1 {
+    height: 50px;
+    width: 50px;
+    border: 2px solid #eee;
+    background-color: black;
+    border-radius: 25px;
+    font-size: 25px;
+}
+
+.roundButton2 {
+    height: 50px;
+    width: 50px;
+    border: 2px solid #333;
+    background-color: black;
+    border-radius: 25px;
+    font-size: 25px;
+    color: #BBB;
+}
+
+.secretButton {
+    height: 50px;
+    width: 50px;
+    margin: 0px;
+    position: absolute;
+}
+
+.secretButton2 {
+    height: 50px;
+    width: 50px;
+    margin: 0px;
+}
+
+.secretButton3 {
+    height: 50px;
+    width: 388px;
+    margin: 0px;
+}
+
+.button {
+    height: 50px;
+    width: 250px;
+    font-size: 25px;
+    padding-top: 6px;
+    border: 2px solid #ddd;
+    background-color: black;
+    border-radius: 20px;
+    margin: 20px auto;
+}
+
+#mainMenuButton, #addTeacherNoteButton, #logButton, #backupButton {
+    font-family: Byom-Icons-Trial;
+    padding-top: 8px;
+}
+
+#advancedOptionsButton {
+    padding-top: 9px;
+    font-family: Font-90-Icons;
+}
+
+#alertButton {
+    padding-top: 9px;
+    padding-right: 1px;
+    font-family: Font-90-Icons;
+}
+
+#attCountButton {
+    padding-top: 6px;
+}
+
+#confirmDeleteStudentButton, #confirmDeleteNoteButton, #confirmDeleteTeacherNoteButton, #confirmResetDrawingButton {
+    background-color: firebrick;
+    display: none;
+}
+
+#nameList, #nameList2 {
+    margin: 0px auto;
+}
+
+.asmvHeader {
+    font-size: 18px;
+    margin-top: 10px;
+    padding-top: 0px;
+}
+
+.asButton, .mvButton {
+    height: 50px;
+    width: 180px;
+    font-size: 15px;
+    border: 1px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.asButton {
+    padding-top: 15px;
+}
+
+.mvButton {
+    padding-top: 5px;
+}
+
+.pointButtonContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 30px auto;
+    justify-content: space-around;
+}
+
+#currentPlayerContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 50px;
+    margin: 15px auto 15px auto;
+    justify-content: space-around;
+}
+
+.numberButton {
+    font-size: 40px;
+    margin: 0px 5px;
+    padding-top: 1px;
+    line-height: 1;
+    background-color: black;
+}
+
+.gamePointButton {
+    border-radius: 25px;
+    height: 80px;
+    width: 80px;
+    border: 1px solid white;
+    background-color: black;
+    padding-top: 7px;
+    font-size: 60px;
+    line-height: 1;
+    margin: 10px;
+}
+
+#gameUndoButton {
+    border-radius: 25px;
+    height: 80px;
+    width: 80px;
+    padding-top: 13px;
+    line-height: 1;
+    margin: 10px;
+    border: 2px solid white;
+    font-weight: bold;
+    font-family: Font-90-Icons;
+    color: white;
+    background-color: #333;
+    font-size: 45px;
+}
+
+#gameLogButton {
+    font-family: Byom-Icons-Trial;
+    border-radius: 25px;
+    height: 80px;
+    width: 80px;
+    padding-top: 22px;
+    line-height: 1;
+    margin: 10px;
+    border: 2px solid white;
+    font-weight: bold;
+    color: white;
+    background-color: #333;
+    font-size: 28px;
+}
+
+#asPop div, #mvPop div {
+    margin: 14px auto;
+}
+
+#asmvPopContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+#asmvHeaderContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+#asPop, #mvPop {
+    width: 187px;
+}
+
+#infoAlertTitle {
+    color: red;
+    font-family: Byom-Icons-Trial;
+    font-size: 75px;
+    margin: 30px auto;
+}
+
+#backupArrays {
+    font-size: 15px;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#attCount, #attArchiveCount {
+    font-size: 50px;
+    margin: 0px;
+}
+
+#popButtons div {
+    margin: 10px auto;
+}
+
+#studentPop {
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+}
+
+#missionsPop {
+    padding-top: 0px
+}
+
+#asPtsPop, #mvPtsPop {
+    padding-top: 0px;
+}
+
+#boysListAttP, #girlsListAttP, #boysArchiveListAttP, #girlsArchiveListAttP, #team1ListP, #team2ListP {
+    margin: 20px 0px 0px 0px;
+    color: lawngreen;
+}
+
+.genderAndBdContainer {
+    width: 375px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.flexContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flexContainer2 {
+    display: flex;
+    justify-content: center;
+}
+
+#topMenuContainer {
+    width: 325px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.optionButtonContainer {
+    width: 300px;
+    margin: 25px auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navigationButtonContainer {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.lowerNavigationButtonContainer {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.backButton, .homeButton, .otherButton {
+    border-radius: 10px;
+    height: 28px;
+    width: 175px;
+    border: 2px solid #333;
+    color: #BBB;
+    font-weight: bold;
+    background-color: black;
+}
+
+.backButton, .homeButton {
+    font-family: Font-90-Icons;
+    font-size: 20px;
+}
+
+.otherButton {
+    font-size: 15px;
+    padding-top: 2px;
+}
+
+.name, .nameSmaller {
+    margin: 0px 0px 15px;
+    cursor: pointer;
+}
+
+.nameSmaller {
+    font-size: 20px;
+}
+
+.name2 {
+    margin: 10px auto;
+    font-size: 20px;
+}
+
+.name3 {
+    margin: 10px auto;
+    font-size: 20px;
+    text-align: left;
+}
+
+.sortValues {
+    margin: 0px 0px 20px 0px;
+    color: #bbb;
+    font-size: 20px !important;
+}
+
+#teamListContainer, #genderListContainer, #attListContainer, #attArchiveListContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+#genderListContainer {
+    border-top: 1px solid #333;
+}
+
+#gamePointButtonsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+#team1ListDiv, #team2ListDiv, #boysListAttDiv, #girlsListAttDiv, #boysArchiveListAttDiv, #girlsArchiveListAttDiv {
+    width: 190px;
+}
+
+#team1ListDiv, #boysListDiv, #boysArchiveListDiv {
+    padding-left: 10px;
+    word-wrap: break-word;
+}
+
+#boysListP, #girlsListP {
+    color: #bbb;
+    font-size: 25px;
+    margin: 10px auto 10px auto;
+}
+
+#team2ListDiv, #girlsListDiv, #girlsArchiveListDiv {
+    padding-right: 10px;
+    word-wrap: break-word;
+}
+
+#teamPtsContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+#team1Score, #team2Score {
+    height: 100px;
+    width: 150px;
+    border: 3px solid #555;
+    color: black;
+    font-size: 75px;
+    line-height: 1;
+    border-radius: 25px;
+    padding-top: 8px;
+    font-weight: bolder;
+}
+
+#dataInputTextField {
+    height: 100px;
+    width: 150px;
+    outline: none;
+    color: black;
+    font-size: 50px;
+    text-align: center;
+    line-height: 1;
+    border-radius: 25px;
+    border: 1px solid transparent;
+    padding-top: 7px;
+    margin-bottom: 20px;
+}
+
+#teamPtsContainer p {
+    margin: 5px auto;
+}
+
+#nextPlayer {
+    margin: 15px auto;
+    font-size: 20px;
+}
+
+.cancelButton {
+    background-color: firebrick;
+    font-family: Byom-Icons-Trial;
+    font-size: 35px;
+    padding-top: 3.5px;
+}
+
+.okButton {
+    background-color: green;
+    font-family: Byom-Icons-Trial;
+    padding-top: 3.5px;
+    font-size: 35px;
+}
+
+.deleteButton {
+    background-color: firebrick;
+    font-family: Byom-Icons-Trial;
+    font-size: 25px;
+    padding-top: 8px;
+}
+
+.logEntry, .gameLogEntry {
+    margin-top: 20px !important;
+    font-size: 15px !important;
+}
+
+.note {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.addNew {
+    font-size: 20px;
+    color: lawngreen;
+    text-align: center;
+    border: 1px solid green;
+    border-radius: 10px;
+    padding: 5px;
+    width: 200px;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+#addStudentNote, #editStudentNote, #addTeacherNote, #editTeacherNote {
+    width: 375px;
+    height: 150px;
+    font-size: 20px;
+    border: 1px solid transparent;
+    resize: none;
+    margin: 0px auto;
+}
+
+#initialNote {
+    width: 375px;
+    height: 150px;
+    resize: none;
+    border-radius: 20px;
+    padding: 15px;
+}
+
+#email {
+    height: 35px;
+    width: 300px;
+    font-size: 20px;
+}
+
+#searchMain {
+    margin: 20px auto;
+}
+
+#searchLog, #searchGameLog {
+    margin: 17px auto 20px auto;
+}
+
+#searchMain2, #searchMain3 {
+    margin: 15px 0px 20px 0px;
+}
+
+#searchFieldContainerDiv {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+#searchField {
+    height: 50px;
+    width: 300px;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 5px 0px 0px 5px;
+    border: 1px solid #3478F6;
+}
+
+#searchField:focus{
+    outline: none;
+}
+
+#submitButton {
+    height: 50px;
+    width: 60px;
+    background-color: #3478F6;
+    border-radius: 0px 5px 5px 0px;
+    font-family: Byom-Icons-Trial;
+    font-size: 30px;
+    padding-top: 8px;
+    margin: 0px;
+}
+
+#submitButton:hover {
+    background-color: #094fd3;
+}
+
+.contactButton2 {
+    font-size: 65px;
+    font-family: MobileIcons;
+}
+
+.textInputField2 {
+    width: 150px;
+}
+
+.textInputField3 {
+    width: 175px;
+}
+
+.textInputField4 {
+    width: 85px;
+}
+
+.textInputField5 {
+    width: 125px;
+    margin: 0px 0px 0px 0px;
+}
+
+.textInputField6 {
+    width: 200px;
+    height: 50px;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    font-size: 30px;
+}
+
+
+.searchField:focus, .searchField2:focus, .textInputField2:focus, .textInputField3:focus, .textInputField4:focus, .textInputField5:focus, .textInputField6:focus, #initialNote:focus, #dataInputTextField:focus, #addStudentNote:focus, #editStudentNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
+    outline: none;
+    border: 2px solid dodgerblue;
+}
+
+.searchField, .textInputField2, .textInputField3, .textInputField4, .textInputField5, .textInputField6 {
+    border-radius: 15px;
+    border: 1px solid transparent;
+    text-align: center;
+}
+
+#editStudentPop p, #newStudentPop p {
+    font-size: 16px;
+    margin: 20px auto 10px auto;
+}
+
+#randFilter {
+    text-align: left;
+}
+
+.radioButton {
+    height: 25px !important;
+    width: 25px !important;
+    margin: 10px auto;
+}
+
+#promoInsignia {
+    width: 250px;
+    height: 250px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #111;
+}
+
+#displayInsignia {
+    width: 350px;
+    height: 600px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #111;
+}
+
+#currentPlayer {
+    margin: 0px;
+    font-size: 20px;
+}
+
+.progressBarTable{
+    border: 1px solid white;
+    border-spacing: 1px;
+}
+
+.progressBarTable td {
+    height: 19px;
+    width: 9.5px;
+}
+
+.asmvInfoTable, #rankChartTable, #attStatsTable, #attListTable, #studentAttTable, #studentMenuTable {
+    width: 100%
+}
+
+#studentMenuTable, #studentMenuTable td, .asmvInfoTable, .asmvInfoTable th, .asmvInfoTable td, #rankChartTable, #rankChartTable th, #rankChartTable td, #attStatsTable, #attStatsTable th, #attStatsTable td, #attListTable, #attListTable td, #studentAttTable, #studentAttTable td {
+    border: 1px solid white;
+    border-collapse: collapse;
+    background-color: black;
+}
+
+#studentAttTable td, #attListTable td, #attStatsTable td {
+    height: 40px;
+    font-size: 20px;
+}
+
+#rankChartTable td {
+    height: 90px;
+    width: 90px;
+}
+
+.tableHeaderRow td {
+    background-color: #3478F6 !important;
+}
+
+#rankChartTable th, #rankChartTable td {
+    font-size: 15px;
+    text-align: center;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#studentStatsPop p {
+    font-size: 18px;
+    text-align: left;
+}
+
+#rankProgressTableP, #totalProgressTableP, #asProgressTableP, #mvProgressTableP, #attProgressTableP, #totalParticipationTableP {
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+#studentPopTopContainerDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#preloadImagesContainer {
+    height: 600px;
+    overflow-y: scroll;
+}
+
+#dispStudentPhoto {
+    width: 375px;
+    height: 500px;
+    padding-top: 25px;
+    border: 2px solid #222;
+    border-radius: 25px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #111;
+}
+
+#rankChartPop p, #calendarPop p {
+    font-size: 15px;
+}
+
+.scrollingContainer {
+    height: 600px;
+    overflow-y: scroll;
+}
+
+#randNameDiv, #drawNameDiv {
+    margin-top: 150px;
+    height: 330px;
+}
+
+#randName, #drawName {
+    margin: 0px !important;
+    font-size: 75px;
+    font-weight: bold;    
+}
+
+#attStatsTableDiv, #attListTableDiv {
+    margin-top: 40px;
+}
+
+#attArchiveDate {
+    font-size: 20px;
+    color: orange;
+    margin: 15px auto;
+}
+
+#studentProperties {
+    text-align: left;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #72AED3;
+}
+
+#studentProperties p {
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+
+.asmvInfoTable {
+    font-size: 20px;
+}
+
+.asmvInfoTable td {
+    padding: 5px;
+    width: 50%;
+    height: 50px;
+}
+
+.tableSider {
+    background-color: #333 !important;
+}
+
+.downloadOrPrint, #scannedImage {
+    font-size: 25px;
+    background-color: #3478F6 !important;
+}
+
+#scanIcon {
+    font-family: Byom-Icons-Trial;
+}
+
+.downloadIcon {
+    font-family: Font-90-Icons;
+}
+
+#mvText {
+    text-align: left;
+}
+
+#studentPopInsignia {
+    width: 150px;
+    height: 150px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #111;
+}
+
+#studentPopInfo {
+    width: 200px;
+    min-height: 150px;
+}
+
+#studentPopInfo p {
+    text-align: center !important;
+}
+
+#studentPopClassRank {
+    margin: 15px auto;
+    font-size: 15px !important;
+}
+
+#studentPopRankName {
+    margin: 0px 0px 15px 0px;
+}
+
+#studentPopName {
+    margin: 15px auto;
+}
+
+#studentPopPts {
+    font-size: 50px;
+    margin: 15px auto;
+}
+
+#studentProperties span {
+    color: white;
+}
+
+#studentMenuTable {
+    margin-top: 20px;
+}
+
+#studentMenuTable td {
+    width: 25%;
+    height: 35px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#promoListPop p, #bdListPop p, #photosNeededPop p, #emailsNeededPop p, #bdsNeededPop p {
+    margin: 15px auto;
+    cursor: pointer;
+}
+
+.quickAttendance {
+    font-family: Byom-Icons-Trial;
+}
+
+.promoPopStar {
+    font-family: Font-90-Icons;
+    color: darkgoldenrod;
+}
+
+#currentDate {
+    font-size: 20px;
+}
+
+.seperatorDiv {
+    height: 2px;
+    border-top: 2px solid #333;
+}
+
+#dateAddedConverted, #bdnConverted, #rankConverted {
+    color: red !important;
 }

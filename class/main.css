@@ -312,7 +312,7 @@ a:link, a:visited, a:hover, a:active {
     margin: 10px;
 }
 
-.gameUndoButton {
+#gameUndoButton {
     border-radius: 25px;
     height: 80px;
     width: 80px;
@@ -327,7 +327,8 @@ a:link, a:visited, a:hover, a:active {
     font-size: 45px;
 }
 
-.gameLogButton {
+#gameLogButton {
+    font-family: Byom-Icons-Trial;
     border-radius: 25px;
     height: 80px;
     width: 80px;
@@ -591,7 +592,7 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 8px;
 }
 
-.logEntry {
+.logEntry, .gameLogEntry {
     margin-top: 20px !important;
     font-size: 15px !important;
 }
@@ -640,7 +641,7 @@ a:link, a:visited, a:hover, a:active {
     margin: 20px auto;
 }
 
-#searchLog {
+#searchLog, #searchGameLog {
     margin: 17px auto 20px auto;
 }
 
