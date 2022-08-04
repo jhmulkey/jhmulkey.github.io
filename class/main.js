@@ -1,4 +1,4 @@
-var _sl = []; var _ci; var _ti; var _slOLD = []; var _currentStudent;
+var _sl = []; var _ci; var _ti; var _currentStudent;
 var _asNum; var _mvNum;
 var _asPts;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
@@ -2261,7 +2261,7 @@ function studentMenuSwitch(x) {
     _array = ["missionsPop"];
     var allPops = document.getElementsByClassName("pop");
     var pops = ["missionsPop","studentStatsPop","editStudentPop","studentNotesPop","studentPropertiesPop"];
-    var funcs = [false,loadStudentStats,populateStudentFields,populateStudentNotes]
+    var funcs = [false,loadStudentStats,populateStudentFields,populateStudentNotes];
     for (let i = 0; i < 4; i++) {
         if (i == x) {
             bgColor("studentMenu"+i,"#777");

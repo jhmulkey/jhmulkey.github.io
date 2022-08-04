@@ -1,4 +1,4 @@
-var _sl = []; var _ci; var _ti; var _slOLD = []; var _currentStudent;
+var _sl = []; var _ci; var _ti; var _currentStudent;
 var _asNum; var _mvNum;
 var _asPts;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
@@ -121,7 +121,6 @@ function loadBackup() {
 function isClassDay() {
     if (_dns.indexOf(_todaysDn) > -1) {
         _isClassDay = true; 
-        document.getElementById("nameList").style.borderColor = "#3478F6";
     } else { _isClassDay = false; }
 }
 
@@ -170,14 +169,14 @@ function dateAndTime(x) {
 }
 
 function generateAllTables() {
-    generateRankTable(); generateAttListTable(); generateStudentAttTable(); generateStudentStatsTables();
+    generateRankTable(); generateStudentAttTable(); generateStudentStatsTables();
 }
 
 function findStudent() {
     document.activeElement.blur();
     document.getElementById("nameList").innerHTML = "";
     var x = (document.getElementById("searchField").value.trim().toLowerCase()).split(" ");
-    if (x == false) { return; }
+    if (x == false) { idFocus("searchField"); return; }
     for (i = 0; i < x.length; i++) {
         if (x[i] == false) {
             x.splice(i,1); i = 0; continue;
@@ -209,33 +208,34 @@ function findStudent() {
         for (i = 0; i < x.length; i++) {
             x[i] = x[i][0].toUpperCase() + x[i].substr(1);
         }
-        var string = x.join(" ");
-        infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + string + "</span>.  Please check the spelling and try again or use the contact buttons above for help.",["mainPopStudent"],"searchField");
+        var string = x.join(" "); display("hint","none");
+        infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + string + "</span>. Please check the spelling and try again.",["mainPop"],"searchField");
         document.getElementById("searchField").value = "";
     }
     if (matches.length == 1) {
-        _ci = matches[0]; loadStudent(_ci); pop(["mainPopStudent"],["studentPop","studentStatsPop"]);
+        _ci = matches[0]; loadStudent(_ci); pop(["mainPop"],["studentPop","studentStatsPop"]);
     }
     if (matches.length > 1) {
+        display("hint","block");
         populateMatches(matches);
-        infoAlert("More than one match found.<br>Please click the correct name below.",["mainPopStudent"],"searchField",true);
+        infoAlert("More than one match found.<br>Please click the correct name below.",["mainPop"],"searchField",true);
     }
 }
 
 function populateMatches(indexArray) {
     for (i = 0; i < indexArray.length; i++) {
-        var elementNode = document.createElement("p");
-        elementNode.classList.add("name");
+        var p = document.createElement("p");
+        p.classList.add("name");
+        p.classList.add("ptr");
         (function(i){
-            elementNode.onclick = function () {
+            p.onclick = function () {
                 let x = indexArray[i]; _ci = x;
-                loadStudent(_ci);
+                loadStudent(_ci); display("hint","none");
                 pop(["infoAlertPop"],["studentPop","studentStatsPop"]);
             }
         })(i);
-        var textNode = document.createTextNode(_sl[indexArray[i]].full);
-        elementNode.appendChild(textNode);
-        document.getElementById("nameList").appendChild(elementNode);
+        p.innerHTML = _sl[indexArray[i]].name[0];
+        document.getElementById("nameList").appendChild(p);
     }  
 }
 
@@ -661,7 +661,7 @@ function infoAlert(message,idArray,focus,noImage,fontSize,textAlign) {
     }
     if (_focus) {idFocus(_focus)}
     if (noImage) {display("infoAlertTitle","none")} else {display("infoAlertTitle","block")}
-    if (fontSize) {idFontSize("infoAlertMessage",fontSize)} else {idFontSize("infoAlertMessage",30)}
+    if (fontSize) {idFontSize("infoAlertMessage",fontSize)} else {idFontSize("infoAlertMessage",22)}
     if (textAlign) {
         document.getElementById("infoAlertMessage").style.textAlign = textAlign;
     } else {
@@ -686,11 +686,6 @@ function refreshStudentPop() {
     } else {
         document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
-    if (_sl[_ci].att === true) {
-        color("studentPopName","lawngreen");
-    } else {
-        color("studentPopName","white");
-    }
     if (_rankNames[_sl[_ci].rank[0]].length > 20) {
         document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
@@ -700,14 +695,6 @@ function refreshStudentPop() {
         document.getElementById("studentPopName").style.fontSize = "22px";
     } else {
         document.getElementById("studentPopName").style.fontSize = "25px";
-    }
-    var properties = ["name","gender","bdMonth","bdDate","email","photo"];
-    for (let i = 0; i < properties.length; i++) {
-        if (_sl[_ci][properties[i]] == false) {
-            color("studentMenu2","red"); break;
-        } else {
-            color("studentMenu2","white");
-        }
     }
 }
 
@@ -760,8 +747,7 @@ function resetStudentMenu() {
 function studentMenuSwitch(x) {
     _array = ["missionsPop"];
     var allPops = document.getElementsByClassName("pop");
-    var pops = ["missionsPop","studentStatsPop","editStudentPop","studentNotesPop","studentPropertiesPop"];
-    var funcs = [false,loadStudentStats,populateStudentFields,populateStudentNotes]
+    var pops = ["studentStatsPop","missionsPop","calendarPop","resourcesPop"];
     for (let i = 0; i < 4; i++) {
         if (i == x) {
             bgColor("studentMenu"+i,"#777");
@@ -772,7 +758,6 @@ function studentMenuSwitch(x) {
     for (let i = 0; i < 5; i++) {
         if (i == x) {
             display(pops[i],"block");
-            if (i > 0 && i < 4) { funcs[i]() }
         }
     }
     for (let i = 0; i < allPops.length; i++) {
@@ -805,7 +790,7 @@ function pop(closeArray,openArray,title) {
             display(openArray[i],"block");
         }    
     }
-    if (openArray.includes("mainPopStudent")) {
+    if (openArray.includes("mainPop")) {
         value("searchField","");
         idFocus("searchField");
     }
@@ -819,7 +804,7 @@ function goHome() {
     var pops = document.getElementsByClassName("pop");
     for (let i = 0; i < pops.length; i++) {
         pops[i].style.display = "none";
-        display("mainPopStudent","block");
+        display("mainPop","block");
     }
     value("searchField","");
     idFocus("searchField");
@@ -829,6 +814,7 @@ function asPop(asNum,pts) {
     _asNum = asNum;
     innerHTML("asSheetName",_asNames[_asNum].toUpperCase());
     innerHTML("asDateAssigned",cdn(_dns[asNum]));
+    innerHTML("asPtsEarned",_sl[_ci].as[_asNum][0]+"/"+_asMaxPts[_asNum]);
     if (_sl[_ci].as[_asNum][0] == _asMaxPts[_asNum]) {
         innerHTML("asCompletionStatus","COMPLETED");
         color("asCompletionStatus","lawnGreen");
@@ -851,21 +837,6 @@ function asPop(asNum,pts) {
     }
     display("missionsPop","none");
     display("asPtsPop","block");
-    for (let i =1; i <= 6; i++) {
-        if (document.getElementById("as"+i+"Pts").innerHTML == _sl[_ci].as[_asNum][0]) {
-            bgColor("as"+i+"Pts","#3478F6");
-        } else {
-            bgColor("as"+i+"Pts","black");
-        }
-    }
-    for (let i =1; i <= 6; i++) {
-        if (i <= pts) {
-            display("as"+i+"Pts","block");
-        } else {
-            display("as"+i+"Pts","none");
-        }
-    }
-    scrollTo(0,0);
 }
 
 function mvPop(mvNum,pts) {
@@ -874,6 +845,7 @@ function mvPop(mvNum,pts) {
     _mvNum = mvNum;
     innerHTML("mvVerseName",_mvNames[_mvNum].toUpperCase());
     innerHTML("mvDateAssigned",cdn(_dns[mvNum]));
+    innerHTML("mvPtsEarned",_sl[_ci].mv[_mvNum][0]+"/"+_mvMaxPts[_mvNum]);
     if (_sl[_ci].mv[_mvNum][0] == _mvMaxPts[_mvNum]) {
         innerHTML("mvCompletionStatus","COMPLETED");
         color("mvCompletionStatus","lawnGreen");
@@ -889,22 +861,7 @@ function mvPop(mvNum,pts) {
     } else {
         innerHTML("mvDateRecited",cdn(_sl[_ci].mv[_mvNum][1]));
     }
-    innerHTML("mvText",_mvText[mvNum]);
-    for (let i =1; i <= 7; i++) {
-        if (document.getElementById("mv"+i+"Pts").innerHTML == _sl[_ci].mv[_mvNum][0]) {
-            bgColor("mv"+i+"Pts","#3478F6");
-        } else {
-            bgColor("mv"+i+"Pts","black");
-        }
-    }
-    for (let i =1; i <= 7; i++) {
-        if (i <= pts) {
-            display("mv"+i+"Pts","block");
-        } else {
-            display("mv"+i+"Pts","none");
-        }
-    }
-    scrollTo(0,0);
+    innerHTML("mvText","\""+_mvText[mvNum]+"\"");
 }
 
 function generateRankTable() {
@@ -919,21 +876,6 @@ function generateRankTable() {
         td4.setAttribute("id","rankChartPts"+i);
         tr.append(td1,td2,td3,td4);
         append("rankChartTable",tr);
-    }
-}
-
-function generateAttListTable() {
-    for (let i = 0; i < 34; i++) {
-        var tr = document.createElement("tr");
-        var td1 = document.createElement("td"); var td2 = document.createElement("td");
-        var td3 = document.createElement("td"); var td4 = document.createElement("td");
-        tr.setAttribute("id","attRow"+i);
-        td1.setAttribute("id","attDate"+i);
-        td2.setAttribute("id","attAM"+i);
-        td3.setAttribute("id","attPM"+i);
-        td4.setAttribute("id","attBoth"+i);
-        tr.append(td1,td2,td3,td4);
-        append("attListTable",tr);
     }
 }
 
@@ -1085,15 +1027,9 @@ function loadRankTable() {
     for (let i = 0; i < _rankNames.length; i++) {
         let x; x = i;
         document.getElementById("rankChartInsignia"+i).style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
-        document.getElementById("rankChartInsignia"+i).style.cursor = "pointer";
         innerHTML("rankChartRank"+i,_rankNames[i]);
         innerHTML("rankChartAbbreviation"+i,_rankNamesShort[i]);
         innerHTML("rankChartPts"+i,_rankPts[i]);
-        (function(i){
-            document.getElementById("rankChartInsignia"+i).onclick = function () {
-                pop(["rankChartPop"],["openInsigniaPop"]);
-                document.getElementById("displayInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";            }
-        })(i);
         if (i == _sl[_ci].rank[0]) {
             document.getElementById("rankChartRow"+i).style.border = "3px solid lawngreen";
         } else {
