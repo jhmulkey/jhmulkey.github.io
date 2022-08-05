@@ -11,12 +11,12 @@
 <div id="master-wrapper">
 
 <div id="mainPop" class="pop">
-  <p>Please enter your child's last name below and click the search button to view their class progress.</p>
+  <p>Please enter your child's last name below and click the search button to view their class progress</p>
   <div id="searchFieldContainerDiv">
     <input id="searchField" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
     <div id="submitButton" onclick="findStudent()">S</div>
   </div>
-  <p style="font-size:15px;color:orange">Use the contact buttons below for help.</p>
+  <p class="note">Use the contact buttons below for help</p>
   <div class="navigationButtonContainer" style="margin-top:35px;">
     <a href="tel:8645694879"><div class="contactButton2">x</div></a>
     <a href="sms:8645694879"><div class="contactButton2">d</div></a>
@@ -55,7 +55,7 @@
     <p id="infoAlertTitle">!</p>
     <p id="infoAlertMessage"></p>
     <div id="nameList" style="margin:30px auto"></div>
-    <p id="hint" style="font-size:15px;color:orange;">Hint: To avoid this step in the future, type your child's full name when searching.</p><br>
+    <p id="hint" style="font-size:15px;color:orange;">To avoid this step in the future, type your child's full name when searching</p><br>
 </div>
 
 <div id="actionAlertPop" class="pop">
@@ -74,7 +74,7 @@
 
 <div id="studentStatsPop" class="pop">
 
-  <p class="note" style="margin-top:20px">click or tap on any bar graph below for more info</p>
+  <p class="note" style="margin-top:20px">Click on any bar graph below for more info</p>
 
   <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
     <p id="rankProgressTableP" style="margin-top:15px"></p>
@@ -138,25 +138,23 @@
 </div>
 
 <div id="missionsPop" class="pop">
-  <p class="note" style="margin:20px auto 15px auto">click or tap on any mission below for details</p>
+  <p class="note" style="margin:20px auto 15px auto">Click on any mission below for details</p>
 
-  <div id="missionsKeyTableDiv">
-    <table id="missionsKeyTable">
-      <tr>
-        <td id="complete"></td>
-        <td class="equalSign">=</td>
-        <td class="keyLabel">complete</td>
-        <td class="keySpacer"></td>
-        <td id="incomplete"></td>
-        <td class="equalSign">=</td>
-        <td class="keyLabel">partial credit</td>
-        <td class="keySpacer"></td>
-        <td id="missing"></td>
-        <td class="equalSign">=</td>
-        <td class="keyLabel">incomplete</td>
-      </tr>
-    </table>
-  </div>
+  <table id="missionsKeyTable">
+    <tr>
+      <td id="complete"></td>
+      <td class="equalSign">=</td>
+      <td class="keyLabel">complete</td>
+      <td class="keySpacer"></td>
+      <td id="incomplete"></td>
+      <td class="equalSign">=</td>
+      <td class="keyLabel">partial credit</td>
+      <td class="keySpacer"></td>
+      <td id="missing"></td>
+      <td class="equalSign">=</td>
+      <td class="keyLabel">incomplete</td>
+    </tr>
+  </table>
 
   <div id="asmvHeaderContainer">
     <div class="asmvHeader">ACTIVITY SHEETS</div>
