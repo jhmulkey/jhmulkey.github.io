@@ -66,7 +66,7 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#calendarPop, #hint, #archiveBanner, #pwdPop, #archivedBackupsPop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #sameLastPop, #infoAlertPop, #addTeacherNotePop, #addStudentNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #editStudentNotePop, #editTeacherNotePop, #studentNotesPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
+#calendarPop, #studentAttStatsPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #studentPop {
     display: none;
 }
 
@@ -246,6 +246,10 @@ a:link, a:visited, a:hover, a:active {
     cursor: pointer;
 }
 
+.asButton:hover, .mvButton:hover {
+    border: 1.5px solid white;
+}
+
 .asButton {
     padding-top: 15px;
 }
@@ -400,6 +404,11 @@ a:link, a:visited, a:hover, a:active {
     font-size: 20px;
 }
 
+.backButton:hover, .homeButton:hover {
+    color: white;
+    border: 1px solid #999;
+}
+
 .otherButton {
     font-size: 15px;
     padding-top: 2px;
@@ -518,7 +527,6 @@ a:link, a:visited, a:hover, a:active {
 
 .note {
     font-size: 20px;
-    cursor: pointer;
 }
 
 .addNew {
@@ -637,9 +645,22 @@ a:link, a:visited, a:hover, a:active {
     background-color: black;
 }
 
-#studentAttTable td, #attListTable td, #attStatsTable td {
+#studentAttTable td {
     height: 40px;
     font-size: 20px;
+}
+
+#studentMenuTable tr td:hover {
+    color: lawngreen;
+}
+
+#studentStatsPop div table:hover {
+    border: 1px solid white;
+}
+
+#calendarTable td {
+    height: 40px;
+    font-size: 15px;
 }
 
 #rankChartTable td {
@@ -921,4 +942,13 @@ a:link, a:visited, a:hover, a:active {
 
 .keySpacer {
     width: 20px;
+}
+
+#currentMissionsLink {
+    font-size: 18px;;
+}
+
+#currentMissionsLinkSpan {
+    color: #ddd;
+    text-decoration: underline;
 }

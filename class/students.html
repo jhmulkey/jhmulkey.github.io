@@ -58,20 +58,6 @@
     <p id="hint" style="font-size:15px;color:orange;">To avoid this step in the future, type your child's full name when searching</p><br>
 </div>
 
-<div id="actionAlertPop" class="pop">
-  <p id="actionAlertMessage"></p>
-  <div class="optionButtonContainer">
-    <div class="roundButton1 cancelButton ptr" onclick="actionAlert(false,false,false,true)">X</div>
-    <div class="roundButton1 okButton ptr" onclick="actionAlert()">V</div>
-  </div>
-</div>
-
-<div id="openInsigniaPop" class="pop">
-  <div>
-    <div id="displayInsignia" onclick="pop(['openInsigniaPop'],['rankChartPop'])"></div>
-  </div>
-</div>
-
 <div id="studentStatsPop" class="pop">
 
   <p class="note" style="margin-top:20px">Click on any bar graph below for more info</p>
@@ -138,7 +124,9 @@
 </div>
 
 <div id="missionsPop" class="pop">
-  <p class="note" style="margin:20px auto 15px auto">Click on any mission below for details</p>
+  <p class="note" style="margin:20px auto 15px auto">Click on any past mission below for details</p>
+  
+  <p id="currentMissionsLink" class="ptr" onclick="currentMissionsLink()"><span class="downloadIcon">m&nbsp;</span><span id="currentMissionsLinkSpan">Download this week's missions</span><span class="downloadIcon">&nbsp;m</span></p>
 
   <table id="missionsKeyTable">
     <tr>
@@ -238,24 +226,6 @@
   </div>
 </div>
 
-<div id="attListPop" class="pop">
-    <div class="navigationButtonContainer">
-      <div class="backButton ptr" onclick="pop(['attListPop'],['mainPop'])">f</div>
-      <div class="otherButton ptr" onclick="actionAlert('Reset attendance?',['attListPop'],resetAtt)">Reset</div>
-    </div>
-    <p id="attCount" class="ptr" onclick="dataInputAlert('Number of students for random attendance',['attListPop'],randAtt)"></p>
-    <div id="attListContainer">
-      <div id="boysListAttDiv">
-        <p id="boysListAttP"></p>
-        <div id="boysListAtt"></div>
-      </div>
-      <div id="girlsListAttDiv">
-        <p id="girlsListAttP"></p>
-        <div id="girlsListAtt"></div>
-      </div>
-    </div>
-</div>
-
 <div id="rankChartPop" class="pop">  
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="pop(['rankChartPop'],['studentStatsPop'])"><span>f</span></div>
@@ -295,203 +265,6 @@
     <td>Lesson</td>
     <td>Memory</td>
     </tr>
-<!--     <tr id="calendarRow0">
-    <td id="calendarDate0"></td>
-    <td id="calendarLesson0"></td>
-    <td id="calendarMemory0"></td>
-    </tr>
-    <tr id="calendarRow1">
-    <td id="calendarDate1"></td>
-    <td id="calendarLesson1"></td>
-    <td id="calendarMemory1"></td>
-    </tr>
-    <tr>
-    <td>9/5</td>
-    <td colspan="2">No Kidstuff (Labor Day weekend)</td>
-    </tr>
-    <tr id="calendarRow2">
-    <td id="calendarDate2"></td>
-    <td id="calendarLesson2"></td>
-    <td id="calendarMemory2"></td>
-    </tr>
-    <tr id="calendarRow3">
-    <td id="calendarDate3"></td>
-    <td id="calendarLesson3"></td>
-    <td id="calendarMemory3"></td>
-    </tr>
-    <tr id="calendarRow4">
-    <td id="calendarDate4"></td>
-    <td id="calendarLesson4"></td>
-    <td id="calendarMemory4"></td>
-    </tr>
-    <tr id="calendarRow5">
-    <td id="calendarDate5"></td>
-    <td id="calendarLesson5"></td>
-    <td id="calendarMemory5"></td>
-    </tr>
-    <tr id="calendarRow6">
-    <td id="calendarDate6"></td>
-    <td id="calendarLesson6"></td>
-    <td id="calendarMemory6"></td>
-    </tr>
-    <tr id="calendarRow7">
-    <td id="calendarDate7"></td>
-    <td id="calendarLesson7"></td>
-    <td id="calendarMemory7"></td>
-    </tr>
-    <tr id="calendarRow8">
-    <td id="calendarDate8"></td>
-    <td id="calendarLesson8"></td>
-    <td id="calendarMemory8"></td>
-    </tr>
-    <tr id="calendarRow9">
-    <td id="calendarDate9"></td>
-    <td id="calendarLesson9"></td>
-    <td id="calendarMemory9"></td>
-    </tr>
-    <tr id="calendarRow10">
-    <td id="calendarDate10"></td>
-    <td id="calendarLesson10"></td>
-    <td id="calendarMemory10"></td>
-    </tr>
-    <tr id="calendarRow11">
-    <td id="calendarDate11"></td>
-    <td id="calendarLesson11"></td>
-    <td id="calendarMemory11"></td>
-    </tr>
-    <tr>
-      <td>11/21</td>
-      <td colspan="2">No Kidstuff (Anniversary Sunday)</td>
-      </tr>
-    <tr>
-    <tr>
-      <td>11/28</td>
-      <td colspan="2">No Kidstuff (Thanksgiving)</td>
-      </tr>
-    <tr>
-    <tr id="calendarRow12">
-    <td id="calendarDate12"></td>
-    <td id="calendarLesson12"></td>
-    <td id="calendarMemory12"></td>
-    </tr>
-    <tr id="calendarRow13">
-    <td id="calendarDate13"></td>
-    <td id="calendarLesson13"></td>
-    <td id="calendarMemory13"></td>
-    </tr>
-    <tr id="calendarRow14">
-    <td id="calendarDate14"></td>
-    <td id="calendarLesson14"></td>
-    <td id="calendarMemory14"></td>
-    </tr>
-    <tr>
-      <td>12/26</td>
-      <td colspan="2">No Kidstuff (Christmas)</td>
-      </tr>
-    <tr>
-    <tr>
-      <td>1/2</td>
-      <td colspan="2">No Kidstuff (New Years)</td>
-      </tr>
-    <tr>
-    <tr id="calendarRow15">
-    <td id="calendarDate15"></td>
-    <td id="calendarLesson15"></td>
-    <td id="calendarMemory15"></td>
-    </tr>
-    <tr id="calendarRow16">
-    <td id="calendarDate16"></td>
-    <td id="calendarLesson16"></td>
-    <td id="calendarMemory16"></td>
-    </tr>
-    <tr id="calendarRow17">
-    <td id="calendarDate17"></td>
-    <td id="calendarLesson17"></td>
-    <td id="calendarMemory17"></td>
-    </tr>
-    <tr id="calendarRow18">
-    <td id="calendarDate18"></td>
-    <td id="calendarLesson18"></td>
-    <td id="calendarMemory18"></td>
-    </tr>
-    <tr id="calendarRow19">
-    <td id="calendarDate19"></td>
-    <td id="calendarLesson19"></td>
-    <td id="calendarMemory19"></td>
-    </tr>
-    <tr id="calendarRow20">
-    <td id="calendarDate20"></td>
-    <td id="calendarLesson20"></td>
-    <td id="calendarMemory20"></td>
-    </tr>
-    <tr id="calendarRow21">
-    <td id="calendarDate21"></td>
-    <td id="calendarLesson21"></td>
-    <td id="calendarMemory21"></td>
-    </tr>
-    <tr id="calendarRow22">
-    <td id="calendarDate22"></td>
-    <td id="calendarLesson22"></td>
-    <td id="calendarMemory22"></td>
-    </tr>
-    <tr id="calendarRow23">
-    <td id="calendarDate23"></td>
-    <td id="calendarLesson23"></td>
-    <td id="calendarMemory23"></td>
-    </tr>
-    <tr id="calendarRow24">
-    <td id="calendarDate24"></td>
-    <td id="calendarLesson24"></td>
-    <td id="calendarMemory24"></td>
-    </tr>
-    <tr id="calendarRow25">
-    <td id="calendarDate25"></td>
-    <td id="calendarLesson25"></td>
-    <td id="calendarMemory25"></td>
-    </tr>
-    <tr id="calendarRow26">
-    <td id="calendarDate26"></td>
-    <td id="calendarLesson26"></td>
-    <td id="calendarMemory26"></td>
-    </tr>
-    <tr id="calendarRow27">
-    <td id="calendarDate27"></td>
-    <td id="calendarLesson27"></td>
-    <td id="calendarMemory27"></td>
-    </tr>
-    <tr id="calendarRow28">
-    <td id="calendarDate28"></td>
-    <td id="calendarLesson28"></td>
-    <td id="calendarMemory28"></td>
-    </tr>
-    <tr>
-      <td>4/17</td>
-      <td colspan="2">No Kidstuff (Easter)</td>
-      </tr>
-    <tr>
-    <tr id="calendarRow29">
-    <td id="calendarDate29"></td>
-    <td id="calendarLesson29"></td>
-    <td id="calendarMemory29"></td>
-    </tr>
-    <tr id="calendarRow30">
-    <td id="calendarDate30"></td>
-    <td id="calendarLesson30"></td>
-    <td id="calendarMemory30"></td>
-    </tr>
-    <tr id="calendarRow31">
-    <td id="calendarDate31"></td>
-    <td id="calendarLesson31"></td>
-    <td id="calendarMemory31"></td>
-    </tr>
-    <tr id="calendarRow32">
-    <td id="calendarDate32"></td>
-    <td colspan="2">Armor Review</td>
-    </tr>
-    <tr id="calendarRow33">
-    <td id="calendarDate33"></td>
-    <td colspan="2">CLASS PARTY</td>
-    </tr> -->
   </table>
   </div>
 </div>

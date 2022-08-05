@@ -9,15 +9,6 @@ var _todaysDn
 var _elapsedWeeks;
 var _isClassDay;
 var _weeksOff = 0;
-    function setWeeksOff() {
-        if (_todaysDn ==  29 || _todaysDn == 253) {
-            _weeksOff = 1;
-        } else if ((_todaysDn == 106 || _todaysDn == 141) ) {
-            _weeksOff = 2;
-        } else {
-            _weeksOff = 0;
-        }
-    }
 var _bdList = []; var _promoList = [];
 var _noteIndex;
 var _teacherNotes = [];
@@ -106,6 +97,10 @@ function append(id,element) {
     document.getElementById(id).append(element);
 }
 
+function createElement(elementName) {
+    return document.createElement(elementName);
+}
+
 function loadBackup() {
     _sl = JSON.parse(localStorage.getItem("slBackup"));
     _slOLD = JSON.parse(localStorage.getItem("slBackupOLD"));
@@ -115,28 +110,7 @@ function loadBackup() {
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].randDraw[0] = false;
     }
-    generateAllTables(); assignTodaysDn(); populateMissions();
-}
-
-function isClassDay() {
-    if (_dns.indexOf(_todaysDn) > -1) {
-        _isClassDay = true; 
-    } else { _isClassDay = false; }
-}
-
-function setElapsedWeeks() {
-    for (let i = 0; i < _dns.length; i++) {
-        if (_todaysDn == _dns[i]) {
-            _elapsedWeeks = i + 1; break;
-        }
-        if (_todaysDn > _dns[0] && _todaysDn < _dns[i]) {
-            _elapsedWeeks = i; break;
-        }
-        if (_todaysDn < _dns[0] || _todaysDn > _dns[_dns.length-1]) {
-            _elapsedWeeks = 34;
-        }
-    }
-    _ti = _elapsedWeeks - 1;
+    assignTodaysDn(); generateAllTables(); populateMissions();
 }
 
 function assignTodaysDn() {
@@ -159,6 +133,37 @@ function assignTodaysDn() {
     setWeeksOff(); isClassDay(); setElapsedWeeks(); populateMissions(); 
 }
 
+function isClassDay() {
+    if (_dns.indexOf(_todaysDn) > -1) {_isClassDay = true}
+}
+
+function setWeeksOff() {
+    if (_isClassDay) {
+        if (_dns[_dns.indexOf(_todaysDn)+1] - _todaysDn == 14) {
+            _weeksOff = 1;
+        } else if (_dns[_dns.indexOf(_todaysDn)+1] - _todaysDn == 21) {
+            _weeksOff = 2;
+        } else {
+            _weeksOff = 0;
+        }
+    }
+}
+
+function setElapsedWeeks() {
+    for (let i = 0; i < _dns.length; i++) {
+        if (_todaysDn == _dns[i]) {
+            _elapsedWeeks = i + 1; break;
+        }
+        if (_todaysDn > _dns[0] && _todaysDn < _dns[i]) {
+            _elapsedWeeks = i; break;
+        }
+        if (_todaysDn < _dns[0] || _todaysDn > _dns[_dns.length-1]) {
+            _elapsedWeeks = 34;
+        }
+    }
+    _ti = _elapsedWeeks - 1;
+}
+
 function dateAndTime(x) {
     var today = new Date();
     if (x == "month") { return today.getMonth() + 1 }
@@ -169,7 +174,7 @@ function dateAndTime(x) {
 }
 
 function generateAllTables() {
-    generateRankTable(); generateStudentAttTable(); generateStudentStatsTables();
+    generateRankTable(); generateStudentAttTable(); generateStudentStatsTables(); generateCalendarTable();
 }
 
 function findStudent() {
@@ -224,7 +229,7 @@ function findStudent() {
 
 function populateMatches(indexArray) {
     for (i = 0; i < indexArray.length; i++) {
-        var p = document.createElement("p");
+        var p = createElement("p");
         p.classList.add("name");
         p.classList.add("ptr");
         (function(i){
@@ -242,17 +247,17 @@ function populateMatches(indexArray) {
 function populateCalendar() {
     for (i = 0; i < _dns.length; i++) {
         document.getElementById("calendarDate"+i).innerHTML = cdn(_dns[i]);
-        if (i < 32) {
+        if (i < _dns.length-2) {
             document.getElementById("calendarLesson"+i).innerHTML = _asFulls[i];
             document.getElementById("calendarMemory"+i).innerHTML = _mvFulls[i];
         }
     }
-    document.getElementById("calendarRow"+(_elapsedWeeks-1)).style.border = "2px solid lawngreen";
+    document.getElementById("calendarRow"+(_ti)).style.border = "2px solid lawngreen";
 }
 
 function populateCustomList(log1,log2,type) {
     if (log1) {
-        var p1 = document.createElement("p");
+        var p1 = createElement("p");
         p1.classList.add("name");
         p1.innerHTML = log1;
         if (type == "promo") {
@@ -299,7 +304,7 @@ function populateCustomList(log1,log2,type) {
         append("customList",p1);
     }
     if (log2) {
-        var p2 = document.createElement("p");
+        var p2 = createElement("p");
         p2.classList.add("name");
         p2.innerHTML = log2;
         append("customListAbsent",p2);
@@ -357,9 +362,9 @@ function sortByPts(lb) {
         if (lb) {if ( _sl[i].statsRanks[0] > 10 ) {continue}}
         var totalPtsPercentage = ((_sl[i].pts / totalPts) * 100).toFixed(1);
         var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         p.classList.add("name3");
         span2.classList.add("sortValues");
         if (_sl[i].pts != lastElementNode) {
@@ -417,9 +422,9 @@ function sortByASpts(lb) {
         if (_sl[i].earnedASpts == 0) {continue}
         if (lb) {if ( _sl[i].statsRanks[1] > 10 ) {continue}}
         var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         span2.classList.add("sortValues");
         p.classList.add("name3");
@@ -476,9 +481,9 @@ function sortByMVpts(lb) {
         if (_sl[i].earnedMVpts == 0) {continue}
         if (lb) {if ( _sl[i].statsRanks[2] > 10 ) {continue}}
         var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         span2.classList.add("sortValues");
         p.classList.add("name3");
@@ -526,9 +531,9 @@ function sortByAtt(lb) {
         if (lb) {if ( _sl[i].statsRanks[3] > 10 ) {continue}}
         var lastElementNode;
         var attPercentage = ((_sl[i].totalWksAtt / _elapsedWeeks) * 100).toFixed(1);
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         span2.classList.add("sortValues");
         p.classList.add("name3");
         p.classList.add("name3");
@@ -586,9 +591,9 @@ function sortByTP(lb) {
         if (lb) {if ( _sl[i].statsRanks[4] > 10 ) {continue}}
         var lastElementNode;
         var tpPercentage = ((_sl[i].tpPts / totalTPpts) * 100).toFixed(1);
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         span2.classList.add("sortValues");
         p.classList.add("name3");
@@ -700,8 +705,8 @@ function refreshStudentPop() {
 
 function refreshMissionsPop() {
     if (_elapsedWeeks > 1) {
-        for (let i = 0; i < _ti; i++) {
-            if (i > 31) {break}
+        for (let i = _ti; i >= 0; i--) {
+            if (i >= _asNames.length) {continue}
             if (_sl[_ci].as[i][0] == _asMaxPts[i]) {
                 bgColor("as"+i+"Pop","green");
             } else if (_sl[_ci].as[i][0] > 0 && _sl[_ci].as[i][0] < _asMaxPts[i]) {
@@ -710,8 +715,8 @@ function refreshMissionsPop() {
                 bgColor("as"+i+"Pop","black");
             }
         }
-        for (let i = 0; i < _ti; i++) {
-            if (i > 31) {break}
+        for (let i = _ti; i >= 0; i--) {
+            if (i >= _mvNames.length) {continue}
             if (_sl[_ci].mv[i][0] == _mvMaxPts[i]) {
                 bgColor("mv"+i+"Pop","green");
             } else if (_sl[_ci].mv[i][0] > 0 && _sl[_ci].mv[i][0] < _mvMaxPts[i]) {
@@ -777,6 +782,10 @@ function scanLinks() {
 
 function mvLinks() {
     window.open("docs/memory/mv"+_mvNum+".pdf","_blank");
+}
+
+function currentMissionsLink() {
+    window.open("../docs/missions/asmv"+_ti+".pdf","_blank");
 }
 
 function pop(closeArray,openArray,title) {
@@ -866,9 +875,9 @@ function mvPop(mvNum,pts) {
 
 function generateRankTable() {
     for (let i = 0; i < 20; i++) {
-        var tr = document.createElement("tr");
-        var td1 = document.createElement("td"); var td2 = document.createElement("td");
-        var td3 = document.createElement("td"); var td4 = document.createElement("td");
+        var tr = createElement("tr");
+        var td1 = createElement("td"); var td2 = createElement("td");
+        var td3 = createElement("td"); var td4 = createElement("td");
         tr.setAttribute("id","rankChartRow"+i);
         td1.setAttribute("id","rankChartInsignia"+i);
         td2.setAttribute("id","rankChartRank"+i);
@@ -881,9 +890,9 @@ function generateRankTable() {
 
 function generateStudentAttTable() {
     for (let i = 0; i < 34; i++) {
-        var tr = document.createElement("tr");
-        var td1 = document.createElement("td"); var td2 = document.createElement("td");
-        var td3 = document.createElement("td"); var td4 = document.createElement("td");
+        var tr = createElement("tr");
+        var td1 = createElement("td"); var td2 = createElement("td");
+        var td3 = createElement("td"); var td4 = createElement("td");
         tr.setAttribute("id","studentAttRow"+i);
         td1.setAttribute("id","studentAttDate"+i);
         td2.setAttribute("id","studentAttAM"+i);
@@ -897,14 +906,72 @@ function generateStudentStatsTables() {
     var tables = ["rankProgressTable","totalProgressTable","asProgressTable","mvProgressTable","attProgressTable","totalParticipationTable"];
     var ids = ["rankProgressBar","totalProgressBar","asProgressBar","mvProgressBar","attProgressBar","totalParticipationBar"];
     for (let i = 0; i < tables.length; i++) {
-        var tr = document.createElement("tr");
+        var tr = createElement("tr");
         for (let j = 1; j < 41; j++) {
-            var td = document.createElement("td");
+            var td = createElement("td");
             td.setAttribute("id",ids[i]+j);
             tr.append(td);
             append(tables[i],tr);
         }
     }
+}
+
+function generateCalendarTable() {
+    var titles = ["No Kidstuff (Labor Day weekend)","No Kidstuff (Anniversary Sunday)","No Kidstuff (Thanksgiving)","No Kidstuff (Christmas)","No Kidstuff (New Years)","No Kidstuff (Easter)","Armor Review","CLASS PARTY"];
+    for (let i = 0; i < _dns.length; i++) {
+        if (_dns[i] - _dns[i-1] == 14) {
+            var tr1 = createElement("tr");
+            var td1 = createElement("td");
+            var td2 = createElement("td");
+            tr1.style.color = "red";
+            td2.setAttribute("colspan",2);
+            td1.innerHTML = cdn(_dns[i-1]+7);
+            td2.innerHTML = titles.shift();
+            tr1.append(td1,td2);
+            append("calendarTable",tr1);
+        } 
+        if (_dns[i] - _dns[i-1] == 21) {
+            var tr1 = createElement("tr");
+            tr1.style.color = "red";
+            var td1 = createElement("td");
+            var td2 = createElement("td");
+            td1.innerHTML = cdn(_dns[i-1]+7);
+            td2.innerHTML = titles.shift();
+            td2.setAttribute("colspan",2);
+            tr1.append(td1,td2);
+            append("calendarTable",tr1);
+            var tr2 = createElement("tr");
+            tr2.style.color = "red";
+            var td3 = createElement("td");
+            var td4 = createElement("td");
+            td3.innerHTML = cdn(_dns[i-1]+14);
+            td4.innerHTML = titles.shift();
+            td4.setAttribute("colspan",2);
+            tr2.append(td3,td4);
+            append("calendarTable",tr2);
+        }
+        var tr1 = createElement("tr");
+        var td1 = createElement("td");
+        tr1.setAttribute("id","calendarRow"+i);
+        td1.setAttribute("id","calendarDate"+i);
+        if (i >= _dns.length-2) {
+            var td2 = createElement("td");
+            td2.setAttribute("colspan",2);
+            td2.innerHTML = titles.shift();
+            tr1.append(td1,td2);
+            append("calendarTable",tr1);
+        } else {
+            var td2 = createElement("td");
+            var td3 = createElement("td");
+            tr1.setAttribute("id","calendarRow"+i);
+            td1.setAttribute("id","calendarDate"+i);
+            td2.setAttribute("id","calendarLesson"+i);
+            td3.setAttribute("id","calendarMemory"+i);
+            tr1.append(td1,td2,td3);
+            append("calendarTable",tr1);
+        }
+    }
+    populateCalendar();
 }
 
 function loadStudentStats() {
@@ -990,12 +1057,11 @@ function loadStudentStats() {
 }
 
 function populateMissions() {
-    innerHTML("asPop","");
-    innerHTML("mvPop","");
+    innerHTML("asPop",""); innerHTML("mvPop","");
     if (_elapsedWeeks > 1) {
-        for (let i =_elapsedWeeks-2; i >= 0; i--) {
-            if (i > 31) { continue }
-            var div1 = document.createElement("div");
+        for (let i = _ti; i >= 0; i--) {
+            if (i >= _asNames.length) { continue }
+            var div1 = createElement("div");
             div1.setAttribute("id","as"+i+"Pop");
             div1.classList.add("asButton");
             (function(i){
@@ -1006,17 +1072,17 @@ function populateMissions() {
             div1.innerHTML = _asFulls[i];
             append("asPop",div1);
         }
-        for (let j =_elapsedWeeks-2; j >= 0; j--) {
-            if (j > 31) { continue }
-            var div2 = document.createElement("div");
-            div2.setAttribute("id","mv"+j+"Pop");
+        for (let i = _ti; i >= 0; i--) {
+            if (i >= _mvNames.length) { continue }
+            var div2 = createElement("div");
+            div2.setAttribute("id","mv"+i+"Pop");
             div2.classList.add("mvButton");
-            (function(j){
+            (function(i){
                 div2.onclick = function () {
-                    mvPop(j,_mvMaxPts[j]);
+                    mvPop(i,_mvMaxPts[i]);
                 }
-            })(j);
-            div2.innerHTML = _mvFulls[j] + "<br>" + _mvText[j].split(" ").slice(0,3).join(" ");
+            })(i);
+            div2.innerHTML = _mvFulls[i] + "<br>" + _mvText[i].split(" ").slice(0,3).join(" ");
             append("mvPop",div2);
         }
     }

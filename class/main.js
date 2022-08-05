@@ -9,15 +9,6 @@ var _todaysDn
 var _elapsedWeeks;
 var _isClassDay;
 var _weeksOff = 0;
-    function setWeeksOff() {
-        if (_todaysDn ==  29 || _todaysDn == 253) {
-            _weeksOff = 1;
-        } else if ((_todaysDn == 106 || _todaysDn == 141) ) {
-            _weeksOff = 2;
-        } else {
-            _weeksOff = 0;
-        }
-    }
 var _bdList = []; var _promoList = [];
 var _noteIndex;
 var _teacherNotes = [];
@@ -233,6 +224,10 @@ function append(id,element) {
     document.getElementById(id).append(element);
 }
 
+function createElement(elementName) {
+    return document.createElement(elementName);
+}
+
 function whatToLoad() {
     if (!localStorage.getItem("sl") && !localStorage.getItem("slBackup")) {
         infoAlert("No data",["mainPop"]);
@@ -288,28 +283,6 @@ function pwdAutoEnter() {
     if (document.getElementById("pwd").value.length == 4) {pwdEntry()}
 }
 
-function isClassDay() {
-    if (_dns.indexOf(_todaysDn) > -1) {
-        _isClassDay = true; 
-        document.getElementById("nameList").style.borderColor = "#3478F6";
-    } else { _isClassDay = false; }
-}
-
-function setElapsedWeeks() {
-    for (let i = 0; i < _dns.length; i++) {
-        if (_todaysDn == _dns[i]) {
-            _elapsedWeeks = i + 1; break;
-        }
-        if (_todaysDn > _dns[0] && _todaysDn < _dns[i]) {
-            _elapsedWeeks = i; break;
-        }
-        if (_todaysDn < _dns[0] || _todaysDn > _dns[_dns.length-1]) {
-            _elapsedWeeks = 34;
-        }
-    }
-    _ti = _elapsedWeeks - 1;
-}
-
 function assignTodaysDn() {
     var todaysMonth = dateAndTime("month"); 
     var todaysDate = dateAndTime("date")
@@ -328,6 +301,40 @@ function assignTodaysDn() {
     }
     _todaysDn = dn;
     setWeeksOff(); isClassDay(); setElapsedWeeks(); findAllBds(); populateMissions(); 
+}
+
+function isClassDay() {
+    if (_dns.indexOf(_todaysDn) > -1) {
+        _isClassDay = true; 
+        document.getElementById("nameList").style.borderColor = "#3478F6";
+    }
+}
+
+function setWeeksOff() {
+    if (_isClassDay) {
+        if (_dns[_dns.indexOf(_todaysDn)+1] - _todaysDn == 14) {
+            _weeksOff = 1;
+        } else if (_dns[_dns.indexOf(_todaysDn)+1] - _todaysDn == 21) {
+            _weeksOff = 2;
+        } else {
+            _weeksOff = 0;
+        }
+    }
+}
+
+function setElapsedWeeks() {
+    for (let i = 0; i < _dns.length; i++) {
+        if (_todaysDn == _dns[i]) {
+            _elapsedWeeks = i + 1; break;
+        }
+        if (_todaysDn > _dns[0] && _todaysDn < _dns[i]) {
+            _elapsedWeeks = i; break;
+        }
+        if (_todaysDn < _dns[0] || _todaysDn > _dns[_dns.length-1]) {
+            _elapsedWeeks = 34;
+        }
+    }
+    _ti = _elapsedWeeks - 1;
 }
 
 function dateAndTime(x) {
@@ -363,7 +370,7 @@ function generateAllTables() {
 
 function populateCustomList(log1,log2,type) {
     if (log1) {
-        var p1 = document.createElement("p");
+        var p1 = createElement("p");
         p1.classList.add("name");
         p1.innerHTML = log1;
         if (type == "promo") {
@@ -410,7 +417,7 @@ function populateCustomList(log1,log2,type) {
         append("customList",p1);
     }
     if (log2) {
-        var p2 = document.createElement("p");
+        var p2 = createElement("p");
         p2.classList.add("name");
         p2.innerHTML = log2;
         append("customListAbsent",p2);
@@ -565,13 +572,13 @@ function createTeams() {
 function populateTeams() {
     innerHTML("team1List",""); innerHTML("team2List","");
     for (let i = 0; i < _teams[0].team1Reset.length; i++) {
-        var p = document.createElement("p");
+        var p = createElement("p");
         p.classList.add("name2");
         p.innerHTML = _teams[0].team1Reset[i];
         append("team1List",p);
     }
     for (let i = 0; i < _teams[0].team2Reset.length; i++) {
-        var p = document.createElement("p");
+        var p = createElement("p");
         p.classList.add("name2");
         p.innerHTML = _teams[0].team2Reset[i];
         append("team2List",p);
@@ -708,10 +715,10 @@ function adjustGameScore(parameter,data) {
 }
 
 function gameActivityLog(textA,textB) {
-    var p = document.createElement("p");
-    var span1 = document.createElement("span");
-    var span2 = document.createElement("span"); span2.style.color = "#bbb";
-    var br1 = document.createElement("br");
+    var p = createElement("p");
+    var span1 = createElement("span");
+    var span2 = createElement("span"); span2.style.color = "#bbb";
+    var br1 = createElement("br");
     span1.innerHTML = textA; span2.innerHTML = textB;
     p.classList.add("gameLogEntry");
     span1.classList.add("gameLogSpan");
@@ -904,7 +911,7 @@ function loadAttendees() {
         }
     }
     for (let i = 0; i < boys.length; i++) {
-        var p1 = document.createElement("p");
+        var p1 = createElement("p");
         p1.classList.add("name2");
         p1.innerHTML = boys[i];
         if (_promoList.indexOf(boys[i]) !== -1) {
@@ -916,7 +923,7 @@ function loadAttendees() {
         append("boysListAtt",p1);
     }  
     for (let i = 0; i < girls.length; i++) {
-        var p2 = document.createElement("p");
+        var p2 = createElement("p");
         p2.classList.add("name2");
         p2.innerHTML = girls[i];
         if (_promoList.indexOf(girls[i]) !== -1) {
@@ -956,13 +963,13 @@ function loadArchiveAttendees(index,time) {
         }
     }
     for (let i = 0; i < boys.length; i++) {
-        var p1 = document.createElement("p");
+        var p1 = createElement("p");
         p1.classList.add("name2");
         p1.innerHTML = boys[i];
         append("boysArchiveListAtt",p1);
     }  
     for (let i = 0; i < girls.length; i++) {
-        var p2 = document.createElement("p");
+        var p2 = createElement("p");
         p2.classList.add("name2");
         p2.innerHTML = girls[i];
         append("girlsArchiveListAtt",p2);
@@ -1066,9 +1073,9 @@ function sortByRank() {
     _sl.sort(function(b,a){return a.rank[0] - b.rank[0]});
     for (let i = 0; i < _sl.length; i++) {
         var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         span1.classList.add("sortValues");
         p.classList.add("name3");
         if (_sl[i].rank[0] != lastElementNode) {
@@ -1108,9 +1115,9 @@ function sortByPts(lb) {
         if (lb) {if ( _sl[i].statsRanks[0] > 10 ) {continue}}
         var totalPtsPercentage = ((_sl[i].pts / totalPts) * 100).toFixed(1);
         var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         p.classList.add("name3");
         span2.classList.add("sortValues");
         if (_sl[i].pts != lastElementNode) {
@@ -1139,7 +1146,7 @@ function sortByGamePts() {
         if (_sl[i].gamePts[0] == 0) {continue}
         if (_sl[i].gamePts[1] > 3) {break}
         var lastElementNode;
-        var p = document.createElement("p");
+        var p = createElement("p");
         p.classList.add("name3");
         if (_sl[i].gamePts[0] != lastElementNode) {
             p.style.borderTop = "1px solid #555";
@@ -1189,9 +1196,9 @@ function sortByASpts(lb) {
         if (_sl[i].earnedASpts == 0) {continue}
         if (lb) {if ( _sl[i].statsRanks[1] > 10 ) {continue}}
         var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         span2.classList.add("sortValues");
         p.classList.add("name3");
@@ -1248,9 +1255,9 @@ function sortByMVpts(lb) {
         if (_sl[i].earnedMVpts == 0) {continue}
         if (lb) {if ( _sl[i].statsRanks[2] > 10 ) {continue}}
         var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         span2.classList.add("sortValues");
         p.classList.add("name3");
@@ -1298,9 +1305,9 @@ function sortByAtt(lb) {
         if (lb) {if ( _sl[i].statsRanks[3] > 10 ) {continue}}
         var lastElementNode;
         var attPercentage = ((_sl[i].totalWksAtt / _elapsedWeeks) * 100).toFixed(1);
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         span2.classList.add("sortValues");
         p.classList.add("name3");
         p.classList.add("name3");
@@ -1358,9 +1365,9 @@ function sortByTP(lb) {
         if (lb) {if ( _sl[i].statsRanks[4] > 10 ) {continue}}
         var lastElementNode;
         var tpPercentage = ((_sl[i].tpPts / totalTPpts) * 100).toFixed(1);
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         span2.classList.add("sortValues");
         p.classList.add("name3");
@@ -1396,13 +1403,13 @@ function sortByGender() {
         }
     }
     for (let i = 0; i < boys.length; i++) {
-        var p1 = document.createElement("p");
+        var p1 = createElement("p");
         p1.classList.add("name2");
         p1.innerHTML = boys[i];
         append("boysList",p1);
     }  
     for (let i = 0; i < girls.length; i++) {
-        var p2 = document.createElement("p");
+        var p2 = createElement("p");
         p2.classList.add("name2");
         p2.innerHTML = girls[i];
         append("girlsList",p2);
@@ -1420,9 +1427,9 @@ function sortByBd() {
     for (let i = 0; i < _sl.length; i++) {
         if (bdnOrder[i].bd[0] == 0) { continue }
         var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         p.classList.add("name3");
         span1.classList.add("sortValues");
         if (cdn(_sl[i].bd[0],"M") != lastElementNode) {
@@ -1453,9 +1460,9 @@ function sortByDateAdded() {
         var dateAddedArray = cdn(_sl[i].dateAdded).split("/");
         dateAddedMonth = dateAddedArray[0]; dateAddedDate = dateAddedArray[1];
         var lastElementNode;
-        var p = document.createElement("p");
-        var span1 = document.createElement("span");
-        var span2 = document.createElement("span");
+        var p = createElement("p");
+        var span1 = createElement("span");
+        var span2 = createElement("span");
         p.classList.add("name3");
         span1.classList.add("sortValues");
         if (dateAddedMonth != lastElementNode) {
@@ -1477,9 +1484,9 @@ function sortByNotes(bypass) {
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].notes.length != 0) {
             var lastElementNode;
-            var p1 = document.createElement("p");
-            var br = document.createElement("br");
-            var p2 = document.createElement("p");
+            var p1 = createElement("p");
+            var br = createElement("br");
+            var p2 = createElement("p");
             p1.classList.add("name3");
             p2.classList.add("sortValues");
             if (_sl[i] != lastElementNode) {
@@ -1544,7 +1551,7 @@ function populateStudentNotes(id) {
     innerHTML("studentNotesList","");
     for (let i = 0; i < _sl[_ci].notes.length; i++) {
         if (_sl[_ci].notes[i] == false) { continue }
-        var p1 = document.createElement("p");
+        var p1 = createElement("p");
         p1.classList.add("note");
         (function(i){
             p1.onclick = function () {
@@ -1557,7 +1564,7 @@ function populateStudentNotes(id) {
         p1.innerHTML = (i + 1) + ". " + _sl[_ci].notes[i];
         append("studentNotesList",p1);
     }
-    var p2 = document.createElement("p");
+    var p2 = createElement("p");
     p2.classList.add("addNew");
     p2.onclick = function () {
         pop(["studentNotesPop"],["addStudentNotePop","addStudentNote"]);
@@ -1649,16 +1656,16 @@ function shuffleArray(array) {
 }
 
 function activityLog(textA,textB,textC) {
-    var p = document.createElement("p");
-    var span1 = document.createElement("span");
-    var span2 = document.createElement("span"); span2.style.color = "#bbb";
-    var br1 = document.createElement("br");
-    var br2 = document.createElement("br");
+    var p = createElement("p");
+    var span1 = createElement("span");
+    var span2 = createElement("span"); span2.style.color = "#bbb";
+    var br1 = createElement("br");
+    var br2 = createElement("br");
     span1.innerHTML = textA; span2.innerHTML = textB; 
     p.classList.add("logEntry");
     span1.classList.add("logSpan");
     if (textC) {
-        var span3 = document.createElement("span"); span3.style.color = "#bbb"
+        var span3 = createElement("span"); span3.style.color = "#bbb"
         span3.innerHTML = textC;
         p.append(span1,br1,span2,br2,span3)
     } else {p.append(span1,br1,span2)}
@@ -1968,8 +1975,8 @@ function refreshStudentPop() {
 
 function refreshMissionsPop() {
     if (_elapsedWeeks > 1) {
-        for (let i = 0; i < _ti; i++) {
-            if (i > 31) {break}
+        for (let i = _ti; i >= 0; i--) {
+            if (i >= _asNames.length) {continue}
             if (_sl[_ci].as[i][0] == _asMaxPts[i]) {
                 bgColor("as"+i+"Pop","green");
             } else if (_sl[_ci].as[i][0] > 0 && _sl[_ci].as[i][0] < _asMaxPts[i]) {
@@ -1978,8 +1985,8 @@ function refreshMissionsPop() {
                 bgColor("as"+i+"Pop","black");
             }
         }
-        for (let i = 0; i < _ti; i++) {
-            if (i > 31) {break}
+        for (let i = _ti; i >= 0; i--) {
+            if (i >= _mvNames.length) {continue}
             if (_sl[_ci].mv[i][0] == _mvMaxPts[i]) {
                 bgColor("mv"+i+"Pop","green");
             } else if (_sl[_ci].mv[i][0] > 0 && _sl[_ci].mv[i][0] < _mvMaxPts[i]) {
@@ -2461,8 +2468,8 @@ function mvPop(mvNum,pts) {
 function populateNames() {
     innerHTML("nameList","");
     for (let i = 0; i < _sl.length; i++) {
-        var p1 = document.createElement("p");
-        var span1 = document.createElement("span");
+        var p1 = createElement("p");
+        var span1 = createElement("span");
         span1.classList.add("quickAttendance");
         span1.innerHTML = "V"
         if (_sl[i].att === true) {
@@ -2475,7 +2482,7 @@ function populateNames() {
                 _ci = i; toggleAtt(i); populateNames();
             }
         })(i);
-        var span2 = document.createElement("span");
+        var span2 = createElement("span");
         if (_sl[i].att === true) {
             span2.style.color = "lawnGreen";
         } else {
@@ -2492,7 +2499,7 @@ function populateNames() {
         p1.append(span1,span2);
         append("nameList",p1);
     }
-    var p2 = document.createElement("p");
+    var p2 = createElement("p");
     p2.classList.add("addNew");
     p2.onclick = function () {
         pop(["mainPop"],["newStudentPop"]);
@@ -2506,9 +2513,9 @@ function populateNames() {
 
 function generateRankTable() {
     for (let i = 0; i < 20; i++) {
-        var tr = document.createElement("tr");
-        var td1 = document.createElement("td"); var td2 = document.createElement("td");
-        var td3 = document.createElement("td"); var td4 = document.createElement("td");
+        var tr = createElement("tr");
+        var td1 = createElement("td"); var td2 = createElement("td");
+        var td3 = createElement("td"); var td4 = createElement("td");
         tr.setAttribute("id","rankChartRow"+i);
         td1.setAttribute("id","rankChartInsignia"+i);
         td2.setAttribute("id","rankChartRank"+i);
@@ -2521,9 +2528,9 @@ function generateRankTable() {
 
 function generateAttListTable() {
     for (let i = 0; i < 34; i++) {
-        var tr = document.createElement("tr");
-        var td1 = document.createElement("td"); var td2 = document.createElement("td");
-        var td3 = document.createElement("td"); var td4 = document.createElement("td");
+        var tr = createElement("tr");
+        var td1 = createElement("td"); var td2 = createElement("td");
+        var td3 = createElement("td"); var td4 = createElement("td");
         tr.setAttribute("id","attRow"+i);
         td1.setAttribute("id","attDate"+i);
         td2.setAttribute("id","attAM"+i);
@@ -2536,9 +2543,9 @@ function generateAttListTable() {
 
 function generateStudentAttTable() {
     for (let i = 0; i < 34; i++) {
-        var tr = document.createElement("tr");
-        var td1 = document.createElement("td"); var td2 = document.createElement("td");
-        var td3 = document.createElement("td"); var td4 = document.createElement("td");
+        var tr = createElement("tr");
+        var td1 = createElement("td"); var td2 = createElement("td");
+        var td3 = createElement("td"); var td4 = createElement("td");
         tr.setAttribute("id","studentAttRow"+i);
         td1.setAttribute("id","studentAttDate"+i);
         td2.setAttribute("id","studentAttAM"+i);
@@ -2552,9 +2559,9 @@ function generateStudentStatsTables() {
     var tables = ["rankProgressTable","totalProgressTable","asProgressTable","mvProgressTable","attProgressTable","totalParticipationTable"];
     var ids = ["rankProgressBar","totalProgressBar","asProgressBar","mvProgressBar","attProgressBar","totalParticipationBar"];
     for (let i = 0; i < tables.length; i++) {
-        var tr = document.createElement("tr");
+        var tr = createElement("tr");
         for (let j = 1; j < 41; j++) {
-            var td = document.createElement("td");
+            var td = createElement("td");
             td.setAttribute("id",ids[i]+j);
             tr.append(td);
             append(tables[i],tr);
@@ -2567,7 +2574,7 @@ function populateNames2() {
     innerHTML("nameList2","");
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].att === true) { continue };
-        var p = document.createElement("p");
+        var p = createElement("p");
         p.classList.add("name");
         (function(i){
             p.onclick = function () {
@@ -2589,7 +2596,7 @@ function populateNames3(x) {
     innerHTML("nameList3","");
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].att === false || _teams[0].team1Reset.includes(_sl[i].name[0]) || _teams[0].team2Reset.includes(_sl[i].name[0])) { continue }
-        var p = document.createElement("p");
+        var p = createElement("p");
         p.classList.add("nameSmaller");
         (function(i){
             p.onclick = function () {
@@ -2629,7 +2636,7 @@ function editTeacherNote() {
 function populateTeacherNotes() {
     innerHTML("teacherNotesList","");
     for (let i = 0; i < _teacherNotes.length; i++) {
-        var p1 = document.createElement("p");
+        var p1 = createElement("p");
         p1.classList.add("note");
         (function(i){
             p1.onclick = function () {
@@ -2642,7 +2649,7 @@ function populateTeacherNotes() {
         p1.innerHTML = (i + 1) + ". " + _teacherNotes[i];
         append("teacherNotesList",p1);
     }
-    var p2 = document.createElement("p");
+    var p2 = createElement("p");
     p2.classList.add("addNew");
     p2.onclick = function () {
         pop(["teacherNotesPop"],["addTeacherNotePop","addTeacherNote"]);
@@ -2919,12 +2926,11 @@ function loadStudentStats() {
 }
 
 function populateMissions() {
-    innerHTML("asPop","");
-    innerHTML("mvPop","");
+    innerHTML("asPop",""); innerHTML("mvPop","");
     if (_elapsedWeeks > 1) {
-        for (let i =_elapsedWeeks-2; i >= 0; i--) {
-            if (i > 31) { continue }
-            var div1 = document.createElement("div");
+        for (let i = _ti; i >= 0; i--) {
+            if (i >= _asNames.length) { continue }
+            var div1 = createElement("div");
             div1.setAttribute("id","as"+i+"Pop");
             div1.classList.add("asButton");
             (function(i){
@@ -2935,17 +2941,17 @@ function populateMissions() {
             div1.innerHTML = _asFulls[i];
             append("asPop",div1);
         }
-        for (let j =_elapsedWeeks-2; j >= 0; j--) {
-            if (j > 31) { continue }
-            var div2 = document.createElement("div");
-            div2.setAttribute("id","mv"+j+"Pop");
+        for (let i = _ti; i >= 0; i--) {
+            if (i >= _mvNames.length) { continue }
+            var div2 = createElement("div");
+            div2.setAttribute("id","mv"+i+"Pop");
             div2.classList.add("mvButton");
-            (function(j){
+            (function(i){
                 div2.onclick = function () {
-                    mvPop(j,_mvMaxPts[j]);
+                    mvPop(i,_mvMaxPts[i]);
                 }
-            })(j);
-            div2.innerHTML = _mvFulls[j] + "<br>" + _mvText[j].split(" ").slice(0,3).join(" ");
+            })(i);
+            div2.innerHTML = _mvFulls[i] + "<br>" + _mvText[i].split(" ").slice(0,3).join(" ");
             append("mvPop",div2);
         }
     }
