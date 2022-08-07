@@ -14,7 +14,7 @@
   <p>Please enter your child's last name below and click the search button to view their class progress</p>
   <div id="searchFieldContainerDiv">
     <input id="searchField" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
-    <div id="submitButton" onclick="findStudent()">S</div>
+    <div id="submitButton" class="ptr" onclick="findStudent()">S</div>
   </div>
   <p class="note">Use the contact buttons below for help</p>
   <div class="navigationButtonContainer" style="margin-top:35px;">
@@ -124,10 +124,16 @@
 </div>
 
 <div id="missionsPop" class="pop">
-  <p class="note" style="margin:20px auto 15px auto">Click on any past mission below for details</p>
-  
-  <p id="currentMissionsLink" class="ptr" onclick="currentMissionsLink()"><span class="downloadIcon">m&nbsp;</span><span id="currentMissionsLinkSpan">Download this week's missions</span><span class="downloadIcon">&nbsp;m</span></p>
-
+  <p id="currentMissionsLink" class="ptr" onclick="currentMissionsLink()">Download this week's missions</p>
+  <p class="note" style="margin:0px auto 15px auto">Click on any past mission below for details</p>
+  <div id="asmvHeaderContainer">
+    <div class="asmvHeader">ACTIVITY SHEETS</div>
+    <div class="asmvHeader">MEMORY VERSES</div>
+  </div>
+  <div id="asmvPopContainer">
+    <div id="asPop"></div>
+    <div id="mvPop"></div>
+  </div>
   <table id="missionsKeyTable">
     <tr>
       <td id="complete"></td>
@@ -143,15 +149,6 @@
       <td class="keyLabel">incomplete</td>
     </tr>
   </table>
-
-  <div id="asmvHeaderContainer">
-    <div class="asmvHeader">ACTIVITY SHEETS</div>
-    <div class="asmvHeader">MEMORY VERSES</div>
-  </div>
-  <div id="asmvPopContainer">
-    <div id="asPop"></div>
-    <div id="mvPop"></div>
-  </div>
 </div>
 
 <div id="asPtsPop" class="pop">
@@ -230,13 +227,14 @@
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="pop(['rankChartPop'],['studentStatsPop'])"><span>f</span></div>
   </div>
+  <p id="rankChartNote" class="note" style="margin:0px auto 15px auto"></p>
   <div id = "rankChartContainer">
   <table id="rankChartTable">
-    <tr>
-      <th>Insignia</th>
-      <th>Rank</th>
-      <th>Abbreviation</th>
-      <th>Points</th>
+    <tr class="tableHeaderRow">
+      <td>Insignia</td>
+      <td>Rank</td>
+      <td>Abbreviation</td>
+      <td>Points</td>
     </tr>
   </table>
   </div>
@@ -258,6 +256,7 @@
 </div>
 
 <div id="calendarPop" class="pop">
+  <p class="note" style="margin:0px auto 15px auto">The latest class date is outlined in green</p>
   <div id = "calendarContainer">
   <table id="calendarTable">
     <tr class="tableHeaderRow">

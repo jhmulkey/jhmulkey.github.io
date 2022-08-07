@@ -89,18 +89,13 @@ var _mvText = [
 */
 
 class Student {
-    constructor(name,month,date,email,gender,note,pron) {
-        this.name = [name,pron];
-        this.gender = gender;
+    constructor() {
         this.dateAdded = _todaysDn;
-        this.bd = [assignDn(month,date),false,false] // [birthdayNumber,hasBd,bdDone]
-        this.email = email;
         this.photo = false;
-        this.notes = note;
         this.pts = 0;
         this.gamePts = [0,0]; // [gamePts,gameRank]
         this.rank = [0,0]; // [rankNumber,rankFactor]
-        this.att;
+        this.att = true;
         this.attArr = [];
         this.promo = [false,0]; // [promoted,promoNum]
         this.randDraw = [false,false];
@@ -189,6 +184,33 @@ class Teams {
         this.undoGamePts;
         this.undoLimit = true;
         this.undoTeam;
+    }
+}
+
+function assignPin(_ci,bypass) {
+    if (!bypass) {
+        var pins = []
+        for (let i = 0; i < _sl.length; i++) {
+            if (i == _ci) {continue}
+            pins.push(_sl[i].pin);
+        }
+    }
+    var pin = Math.floor(Math.random()*1000);
+    if (pin < 99) {pin+= ((100-pin) + Math.floor(Math.random()*100))}
+    for (let i = 0; i < pins.length; i++) {
+        if (pins.indexOf(pin) < 0) {_sl[_ci].pin = pin;return} else {assignPin(_ci,true)}
+    }
+}
+
+function batchAssignPin() {
+    var pins = [];
+    for (let i = 0; i < _sl.length; i++) {
+        var pin = Math.floor(Math.random()*1000);
+        if (pin < 99) {pin+= ((100-pin) + Math.floor(Math.random()*100))}
+        if (pins.indexOf(pin) < 0) {pins.push(pin)} else {i--}
+    }
+    for (let i = 0; i < _sl.length; i++) {
+        _sl[i].pin = pins[i];
     }
 }
 
@@ -1636,7 +1658,7 @@ function findAllBds() {
 function findBd() {
     if (_sl[_ci].bd[0] >= _todaysDn && _sl[_ci].bd[0] <= (_todaysDn + (6 + (7 * _weeksOff))) && _sl[_ci].bd[1] === false && _sl[_ci].bd[2] === false) {
         _sl[_ci].bd[1] = true; _bdList.push(_sl[_ci].name[0]);
-        activityLog(_sl[_ci].name[0] + " birthday found (" + cdn(_sl[i].bd[0]) + ")",dateAndTime("log"));
+        activityLog(_sl[_ci].name[0] + " birthday found (" + cdn(_sl[_ci].bd[0]) + ")",dateAndTime("log"));
     } else if (_bdList.indexOf(_sl[_ci].name[0]) > -1) {
         _sl[_ci].bd[1] = false; _bdList.splice(_bdList.indexOf(_sl[_ci].name[0]),1);
     }
@@ -1762,10 +1784,11 @@ function actionAlert(message,popsArray,func,bypass,parameter) {
 }
 
 function proofDate(month,date) {
+    if (month == 0 || date == 0) {return false}
     var months = [1,2,3,4,5,6,7,8,9,10,11,12];
     var dates = [31,29,31,30,31,30,31,31,30,31,30,31];
     if (month != "" && date != "") {
-        if (months.indexOf(month) < 0 || date < 1 || date > dates[month-1] || isNaN(date)) {
+        if (months.indexOf(month) < 0 || date > dates[month-1] || isNaN(date)) {
             return false;
         }
     }
@@ -1774,25 +1797,19 @@ function proofDate(month,date) {
 function newStudent() {
     var NFNArray; var NLNArray;
     if (document.getElementById("newFirst").value.trim().indexOf(" ") > -1) {
-        var NFNArray = (document.getElementById("newFirst").value.trim().toLowerCase()).split(" ");
+        NFNArray = (document.getElementById("newFirst").value.trim().toLowerCase()).split(" ");
     } else if (document.getElementById("newFirst").value.trim().indexOf("-") > -1) {
-        var NFNArray = (document.getElementById("newFirst").value.trim().toLowerCase()).split("-");
+        NFNArray = (document.getElementById("newFirst").value.trim().toLowerCase()).split("-");
     } else {
-        var NFNArray = [(document.getElementById("newFirst").value.trim().toLowerCase())];
+        NFNArray = [(document.getElementById("newFirst").value.trim().toLowerCase())];
     }
     if (document.getElementById("newLast").value.trim().indexOf(" ") > -1) {
-        var NLNArray = (document.getElementById("newLast").value.trim().toLowerCase()).split(" ");
+        NLNArray = (document.getElementById("newLast").value.trim().toLowerCase()).split(" ");
     } else if (document.getElementById("newLast").value.trim().indexOf("-") > -1) {
-        var NLNArray = (document.getElementById("newLast").value.trim().toLowerCase()).split("-");
+        NLNArray = (document.getElementById("newLast").value.trim().toLowerCase()).split("-");
     } else {
-        var NLNArray = [(document.getElementById("newLast").value.trim().toLowerCase())];
+        NLNArray = [(document.getElementById("newLast").value.trim().toLowerCase())];
     }
-    var newGender = document.getElementById("newGender").value
-    var newbdMonth = document.getElementById("newbdMonth").value
-    var newbdDate = document.getElementById("newbdDate").value
-    var email = document.getElementById("newEmail").value.toLowerCase();
-    var note = [document.getElementById("initialNote").value];
-    var pron = document.getElementById("newNamePron").value;
     if (NFNArray == false || NLNArray == false) {
         infoAlert("First and last name required",["newStudentPop"]); return;
     } else {
@@ -1802,28 +1819,34 @@ function newStudent() {
         for (let i = 0; i < NLNArray.length; i++) {
             NLNArray[i] = capitalize(NLNArray[i]);
         }
-        var first = NFNArray.join("-");
-        var last = NLNArray.join("-");
-        var name = first + " " + last;
+        var newFirst = NFNArray.join("-"); var newLast = NLNArray.join("-");
+        var pron = document.getElementById("newNamePron").value;
     }
-    if (newGender.toLowerCase() == "m") {
-        var gender = "M";
-    } else if (newGender.toLowerCase() == "f") {
-        var gender = "F";
+    var newGender = document.getElementById("newGender").value;
+    if (typeof newGender === "string" && newGender.toLowerCase() == "m") {
+        newGender = "M";
+    } else if (typeof newGender === "string" && newGender.toLowerCase() == "f") {
+        newGender = "F";
     } else {
         infoAlert("Please enter 'M' or 'F' for gender",["newStudentPop"]); return;
     }
-    if (newbdMonth == "" && newbdDate == "") {
-        var month = 0; var date = 0;
+    var newbdMonth = document.getElementById("newbdMonth").value;
+    var newbdDate = document.getElementById("newbdDate").value;
+    if (newbdMonth === "" && newbdDate === "") {
+        newbdMonth = 0; newbdDate = 0;
     } else {
-        var month = parseInt(newbdMonth);
-        var date = parseInt(newbdDate);
+        if (proofDate(parseInt(newbdMonth),parseInt(newbdDate)) === false || newbdMonth === 0 || newbdDate === 0 || isNaN(parseInt(newbdMonth)) || isNaN(parseInt(newbdDate))) {
+            infoAlert("Invalid birthday date",["newStudentPop"]); return;
+        }
     }
-    if (proofDate(month,date) === false) {
-        infoAlert("Invalid birthday date",["newStudentPop"]); return;
-    }
-    var newStudent = new Student(name,month,date,email,gender,note,pron);
-    newStudent.att = true;
+    var newStudent = new Student();
+    _sl.push(newStudent); _ci = _sl.length-1;
+    _sl[_ci].name = [newFirst + " " + newLast,pron];
+    _sl[_ci].gender = newGender;
+    _sl[_ci].bd = [assignDn(parseInt(newbdMonth),parseInt(newbdDate)),false,false];
+    _sl[_ci].email = document.getElementById("newEmail").value.toLowerCase();
+    _sl[_ci].notes = [document.getElementById("initialNote").value];
+
     for (let i = 0; i < _dns.length; i++) {
         newStudent.attArr[i] = [0,0];
     }
@@ -1834,9 +1857,8 @@ function newStudent() {
             newStudent.attArr[_ti][1] = 1;
         }
     }
-    _sl.push(newStudent); _ci = _sl.length-1;
     activityLog("new student " + _sl[_ci].name[0],dateAndTime("log"));
-    attCount(); findBd(); sortSL(); storeAndBackup(); clearStudentFields()
+    assignPin(_ci); attCount(); findBd(); sortSL(); storeAndBackup(); clearStudentFields();
     if (document.getElementById("rapidEntryCheck").checked === true) {
         idFocus("newFirst");
         return;
@@ -1851,10 +1873,7 @@ function deleteStudent() {
 }
 
 function editStudent() {
-    var originalFull = _sl[_ci].name[0].toString();
-    var originalGender = _sl[_ci].gender;
-    var originalBdn = _sl[_ci].bd[0];
-    var originalEmail = _sl[_ci].email;
+    var original = [_sl[_ci].name[0].toString(),_sl[_ci].gender,cdn(_sl[_ci].bd[0]),_sl[_ci].email];
     var EFNArray; var ELNArray;
     if (document.getElementById("editFirst").value.trim().indexOf(" ") > -1) {
         var EFNArray = (document.getElementById("editFirst").value.trim().toLowerCase()).split(" ");
@@ -1871,18 +1890,23 @@ function editStudent() {
         var ELNArray = [(document.getElementById("editLast").value.trim().toLowerCase())];
     }
     var editGender = document.getElementById("editGender").value;
+    if (typeof editGender === "string" && editGender.toLowerCase() == "m") {
+        _sl[_ci].gender = "M";
+    } else if (typeof editGender === "string" && editGender.toLowerCase() == "f") {
+        _sl[_ci].gender = "F";
+    } else {
+        infoAlert("Please enter 'M' or 'F' for gender",["editStudentPop"]); return;
+    }
     var editBdMonth = document.getElementById("editBdMonth").value;
     var editBdDate = document.getElementById("editBdDate").value;
-    if (editBdMonth == "" && editBdDate == "") {
-        _sl[_ci].bd[0] = 0; _sl[_ci].bd[1] = false;
+    if (editBdMonth === "" && editBdDate === "") {
+        var editBdMonth = 0; var editBdDate = 0;
     } else {
-        editBdMonth = parseInt(editBdMonth); editBdDate = parseInt(editBdDate);
+        if (proofDate(parseInt(editBdMonth),parseInt(editBdDate)) === false || editBdMonth === 0 || editBdDate === 0 || isNaN(parseInt(editBdMonth)) || isNaN(parseInt(editBdDate))) {
+            infoAlert("Invalid birthday date",["editStudentPop"]); return;
+        }
     }
-    if (proofDate(editBdMonth,editBdDate) === false) {
-        infoAlert("Invalid birthday date",["editStudentPop"]); return;
-    } else {
-        _sl[_ci].bd[0] = assignDn(editBdMonth,editBdDate);
-    }
+    _sl[_ci].bd = [assignDn(parseInt(editBdMonth),parseInt(editBdDate)),false,false];
     _sl[_ci].name[1] = document.getElementById("editNamePron").value;
     _sl[_ci].email = document.getElementById("editEmail").value.toLowerCase();
     if (EFNArray == false || ELNArray == false) {
@@ -1898,27 +1922,19 @@ function editStudent() {
         var last = ELNArray.join("-");
         _sl[_ci].name[0] = first + " " + last;
     }
-    if (editGender.toLowerCase() == "m") {
-        _sl[_ci].gender = "M";
-    } else if (editGender.toLowerCase() == "f") {
-        _sl[_ci].gender = "F";
-    } else {
-        infoAlert("Please enter 'M' or 'F' for gender",["editStudentPop"]); return;
-    }
-    if (_sl[_ci].bd[0] != originalBdn) { findBd() }
     innerHTML("studentPopName",_sl[_ci].name[0]);
-    var original = [originalFull,originalGender,cdn(originalBdn),originalEmail];
+    if (cdn(_sl[_ci].bd[0]) != original[2]) {findBd()}
     var edit = [_sl[_ci].name[0].toString(),_sl[_ci].gender,cdn(_sl[_ci].bd[0]),_sl[_ci].email];
     var labels = ["name","gender","birthday","email"];
     for (let i = 0; i < original.length; i++) {
         if (original[i] != edit[i]) {
-            activityLog(originalFull + " " + labels[i] + " edited",original[i] + "-->" + edit[i],dateAndTime("log"));
+            activityLog(original[0] + " " + labels[i] + " edited",original[i] + "-->" + edit[i],dateAndTime("log"));
         }
     }
     sortSL(); 
     for (let i = 0; i < _sl.length; i++) {if (_sl[i].name[0] == first + " " + last) {_ci = i; break;}}
     refreshStudentPop(); allAlerts(); storeAndBackup();
-    if (_currentFunction == loadNeededEmails || _currentFunction == loadNeededBds) { _currentFunction() };
+    if (_currentFunction == loadNeededEmails || _currentFunction == loadNeededBds) {_currentFunction()};
     if (document.getElementById("rapidEditCheck").checked === true) {
         if (_ci < _sl.length-1) {
             _ci++; refreshStudentPop(); refreshMissionsPop(); populateStudentFields();

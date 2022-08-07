@@ -393,7 +393,7 @@ a:link, a:visited, a:hover, a:active {
     border-radius: 10px;
     height: 28px;
     width: 175px;
-    border: 2px solid #333;
+    border: 2px solid #999;
     color: #BBB;
     font-weight: bold;
     background-color: black;
@@ -406,7 +406,7 @@ a:link, a:visited, a:hover, a:active {
 
 .backButton:hover, .homeButton:hover {
     color: white;
-    border: 1px solid #999;
+    border: 1px solid white;
 }
 
 .otherButton {
@@ -650,8 +650,10 @@ a:link, a:visited, a:hover, a:active {
     font-size: 20px;
 }
 
-#studentMenuTable tr td:hover {
-    color: lawngreen;
+@media (hover: hover) {
+    #studentMenuTable tr td:hover {
+        color: lawngreen;
+    }
 }
 
 #studentStatsPop div table:hover {
@@ -670,7 +672,7 @@ a:link, a:visited, a:hover, a:active {
 
 .tableHeaderRow td {
     background-color: #3478F6 !important;
-    height: 35px;
+    height: 35px !important;
 }
 
 #rankChartTable th, #rankChartTable td {
@@ -898,8 +900,10 @@ a:link, a:visited, a:hover, a:active {
     margin: 0px;
 }
 
-#submitButton:hover {
-    background-color: #094fd3;
+@media (hover: hover) {
+    #submitButton:hover {
+        background-color: #094fd3;
+    }
 }
 
 .contactButton2 {
@@ -907,8 +911,14 @@ a:link, a:visited, a:hover, a:active {
     font-family: MobileIcons;
 }
 
+@media (hover: hover) {
+    .contactButton2:hover {
+        transform: scale(1.2);
+    }
+}
+
 #missionsKeyTable {
-    margin: 0px auto;
+    margin: 20px auto;
 }
 
 #complete, #incomplete, #missing {
@@ -945,10 +955,12 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #currentMissionsLink {
-    font-size: 18px;;
+    color: #ddd;
+    font-size: 18px;
+    margin: 20px auto 20px auto;
+    text-decoration: underline;
 }
 
-#currentMissionsLinkSpan {
-    color: #ddd;
-    text-decoration: underline;
+#currentMissionsLink:hover {
+    color: white;
 }

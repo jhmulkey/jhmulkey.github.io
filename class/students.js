@@ -218,6 +218,7 @@ function findStudent() {
         document.getElementById("searchField").value = "";
     }
     if (matches.length == 1) {
+        display("hint","none");
         _ci = matches[0]; loadStudent(_ci); pop(["mainPop"],["studentPop","studentStatsPop"]);
     }
     if (matches.length > 1) {
@@ -732,6 +733,7 @@ function loadStudent(index) {
     _ci = index; _currentStudent = _sl[_ci].name[0];
     value("searchField","");
     refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu(); loadStudentStats(); loadLbs();
+    innerHTML("rankChartNote",_sl[_ci].name[0].split(" ")[0]+"'s rank is outlined in green")
     document.activeElement.blur();
 }
 
