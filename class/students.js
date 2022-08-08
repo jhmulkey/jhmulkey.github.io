@@ -757,6 +757,7 @@ function loadStudent(index) {
     value("searchField","");
     refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu(); loadStudentStats(); loadLbs();
     innerHTML("rankChartNote",_sl[_ci].name[0].split(" ")[0]+"'s rank is outlined in <span style='color:lawngreen'>green</span>");
+    innerHTML("studentPin","Student PIN: "+_sl[_ci].pin);
     document.activeElement.blur();
 }
 
