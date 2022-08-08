@@ -1932,7 +1932,7 @@ function editStudent() {
         }
     }
     sortSL(); 
-    for (let i = 0; i < _sl.length; i++) {if (_sl[i].name[0] == first + " " + last) {_ci = i; break;}}
+    for (let i = 0; i < _sl.length; i++) {if (_sl[i].name[0] == _sl[_ci].name[0]) {_ci = i; break;}}
     refreshStudentPop(); allAlerts(); storeAndBackup();
     if (_currentFunction == loadNeededEmails || _currentFunction == loadNeededBds) {_currentFunction()};
     if (document.getElementById("rapidEditCheck").checked === true) {

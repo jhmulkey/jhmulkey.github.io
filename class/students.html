@@ -13,7 +13,7 @@
 <div id="mainPop" class="pop">
   <p>Please enter your child's last name below and click the search button to view their class progress</p>
   <div id="searchFieldContainerDiv">
-    <input id="searchField" type="text" placeholder="enter child's last name" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
+    <input id="searchField" type="text" placeholder="enter child's last name" oninput="pinAutoEnter()" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
     <div id="submitButton" class="ptr" onclick="findStudent()">S</div>
   </div>
   <p class="note">Use the contact buttons below for help</p>
@@ -63,7 +63,7 @@
   <p class="note" style="margin-top:20px">Click on any bar graph below for more info</p>
 
   <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
-    <p id="rankProgressTableP" style="margin-top:15px"></p>
+    <p id="rankProgressTableP"></p>
     <table id="rankProgressTable" class="progressBarTable"></table>
   </div>
 
@@ -87,7 +87,7 @@
     <table id="attProgressTable" class="progressBarTable"></table>
   </div>
 
-  <div id="totalParticipationTableDiv" class="ptr" onclick="infoAlert('Participation is a combination of all the student\'s activity sheet points, memory verse points, and attendance.',['studentStatsPop'],false,true,20,'left')">
+  <div id="totalParticipationTableDiv" class="ptr" onclick="infoAlert('Participation is a combination of all the student\'s activity sheet points, memory verse points, and attendance. '+_sl[_ci].name[0].split(' ')[0]+' has earned '+_earnedASpts+' out of '+_totalASpts+' activity sheet points, '+_earnedMVpts+' out of '+_totalMVpts+' memory verse points, and has attended '+_weeksAttended+' out of '+_elapsedWeeks+' weeks.  That totals to '+_totalEarned+' out of '+_totalPossible+' possible ('+_totalPercentage+'%)',['studentStatsPop'],false,true,20,'left')">
     <p id="totalParticipationTableP"></p>
     <table id="totalParticipationTable" class="progressBarTable"></table>
   </div>
@@ -115,7 +115,7 @@
     </div>
 
     <div class="lb" id="tpLb">
-      <p class="lbTitle">Total Participation</p>
+      <p class="lbTitle">Participation</p>
       <div id="tpLbList"></div>
     </div>
 
@@ -256,7 +256,7 @@
 </div>
 
 <div id="calendarPop" class="pop">
-  <p class="note" style="margin:0px auto 15px auto">The latest class date is outlined in green</p>
+  <p class="note" style="margin:0px auto 15px auto">The latest class date is outlined in <span style="color:lawngreen">green</span></p>
   <div id = "calendarContainer">
   <table id="calendarTable">
     <tr class="tableHeaderRow">
@@ -266,6 +266,10 @@
     </tr>
   </table>
   </div>
+</div>
+
+<div id="resourcesPop" class="pop">
+
 </div>
 
 </div>

@@ -1,4 +1,7 @@
 var _sl = []; var _ci; var _ti; var _currentStudent;
+var _totalASpts; var _totalMVpts; var _totalPts; var _totalPossible;
+var _earnedASpts; var _earnedMVpts; var _totalEarnedPts; var _weeksAttended; var _totalEarned;
+var _asPercentage; var _mvPercentage; var _attPercentage; var _totalPtsPercentage; var _totalPercentage;
 var _asNum; var _mvNum;
 var _asPts;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
@@ -175,6 +178,26 @@ function dateAndTime(x) {
 
 function generateAllTables() {
     generateRankTable(); generateStudentAttTable(); generateStudentStatsTables(); generateCalendarTable();
+}
+
+function pinEntry(x) {
+    var match = false;
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].pin == x) {
+            match = true; loadStudent(i);
+            pop(["mainPop"],["studentPop","studentStatsPop"]);
+        }
+    }
+    if (!match) {
+        display("hint","none");
+        infoAlert("The PIN <span style='color:red;font-weight:bold'>" + x + "</span> does not match any students. Please try again.",["mainPop"],"searchField");
+        document.getElementById("searchField").value = "";
+    }
+}
+
+function pinAutoEnter() {
+    var x = parseInt(document.getElementById("searchField").value);
+    if (document.getElementById("searchField").value.length == 3 && !isNaN(x)) {pinEntry(x)}
 }
 
 function findStudent() {
@@ -733,7 +756,7 @@ function loadStudent(index) {
     _ci = index; _currentStudent = _sl[_ci].name[0];
     value("searchField","");
     refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu(); loadStudentStats(); loadLbs();
-    innerHTML("rankChartNote",_sl[_ci].name[0].split(" ")[0]+"'s rank is outlined in green")
+    innerHTML("rankChartNote",_sl[_ci].name[0].split(" ")[0]+"'s rank is outlined in <span style='color:lawngreen'>green</span>");
     document.activeElement.blur();
 }
 
@@ -989,9 +1012,11 @@ function loadStudentStats() {
             earnedASpts += _sl[_ci].as[i][0];
             earnedMVpts += _sl[_ci].mv[i][0];
         }
+        _totalASpts = totalASpts; _totalMVpts = totalMVpts;
+        _earnedASpts = earnedASpts; _earnedMVpts = earnedMVpts;
     }
-    var totalPts = totalASpts + totalMVpts;
-    var totalEarnedPts = earnedASpts + earnedMVpts;
+    var totalPts = totalASpts + totalMVpts; _totalPts = totalPts;
+    var totalEarnedPts = earnedASpts + earnedMVpts; _totalEarnedPts = totalEarnedPts;
     var asPercentage; var mvPercentage; var totalPtsPercentage;
     if (_elapsedWeeks > 1) {
         asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
@@ -999,6 +1024,7 @@ function loadStudentStats() {
         totalPtsPercentage = ((totalEarnedPts / totalPts) * 100).toFixed(1);
     } else {
         asPercentage = 0; mvPercentage = 0; totalPtsPercentage = 0;
+        _asPercentage = asPercentage; _mvPercentage = mvPercentage; _totalPtsPercentage = totalPtsPercentage;
     }
     var asSquares = Math.round(asPercentage / 2.50);
     var mvSquares = Math.round(mvPercentage / 2.50);
@@ -1011,11 +1037,12 @@ function loadStudentStats() {
             weeksAttended--;
         }
     }
-    var attPercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(1);
+    _weeksAttended = weeksAttended;
+    var attPercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(1); _attPercentage = attPercentage;
     var attSquares = Math.round(attPercentage / 2.50);
-    var totalEarned = weeksAttended + earnedASpts + earnedMVpts;
-    var totalPossible = _elapsedWeeks + totalASpts + totalMVpts;
-    var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(1);
+    var totalEarned = weeksAttended + earnedASpts + earnedMVpts; _totalEarned = totalEarned;
+    var totalPossible = _elapsedWeeks + totalASpts + totalMVpts; _totalPossible = totalPossible;
+    var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(1); _totalPercentage = totalPercentage;
     var totalSquares = Math.round(totalPercentage / 2.50);
     var squaresArray = [rankSquares,totalPtsSquares,asSquares,mvSquares,attSquares,totalSquares];
     var variableArray = [rankPercentage,totalPtsPercentage,asPercentage,mvPercentage,attPercentage,totalPercentage];

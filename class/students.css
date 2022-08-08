@@ -420,6 +420,12 @@ a:link, a:visited, a:hover, a:active {
     font-size: 30px;
 }
 
+.name3 {
+    margin: 10px auto;
+    font-size: 20px;
+    text-align: left;
+}
+
 .sortValues {
     margin: 0px 0px 20px 0px;
     color: #bbb;
@@ -689,7 +695,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #rankProgressTableP, #totalProgressTableP, #asProgressTableP, #mvProgressTableP, #attProgressTableP, #totalParticipationTableP {
-    margin-top: 25px;
+    margin-top: 30px;
     margin-bottom: 5px;
 }
 
