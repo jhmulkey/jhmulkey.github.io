@@ -11,9 +11,9 @@
 <div id="master-wrapper">
 
 <div id="mainPop" class="pop">
-  <p>Please enter your child's last name below and click the search button to view their class progress</p>
+  <p>Enter your child's last name or PIN below and click the search button to view their class progress</p>
   <div id="searchFieldContainerDiv">
-    <input id="searchField" type="text" placeholder="enter child's last name" oninput="pinAutoEnter()" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
+    <input id="searchField" type="text" placeholder="enter last name or PIN" oninput="pinAutoEnter()" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
     <div id="submitButton" class="ptr" onclick="findStudent()">S</div>
   </div>
   <p class="note">Use the contact buttons below for help</p>
@@ -55,7 +55,7 @@
     <p id="infoAlertTitle">!</p>
     <p id="infoAlertMessage"></p>
     <div id="nameList" style="margin:30px auto"></div>
-    <p id="hint" style="font-size:15px;color:orange;">To avoid this step in the future, type your child's full name when searching</p><br>
+    <p id="hint" style="font-size:15px;color:orange;">To avoid this step in the future, type your child's full name when searching or type their 3-digit PIN instead</p><br>
 </div>
 
 <div id="studentStatsPop" class="pop">
