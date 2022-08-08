@@ -315,7 +315,7 @@ function assignTodaysDn() {
         dn = (cumulative[todaysMonth-1]) + todaysDate;
     }
     if (todaysMonth > 2 || todaysMonth < 8) {
-        if (_leapYear === true) {
+        if (_leapYear) {
             dn = (cumulativeLeap[todaysMonth-1]) + todaysDate;
         } else {
             dn = (cumulative[todaysMonth-1]) + todaysDate;
@@ -372,10 +372,10 @@ function allAlerts() {
     var alerts = [0,0,0,0,0];
     var ids = ["promoButton","bdButton","photosNeededButton","emailsNeededButton","bdNeededButton"]
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].att === true) {
-            if (_sl[i].promo[0] === true) {alerts[0]++}
-            if (_sl[i].bd[1] === true && _sl[i].bd[2] === false) {alerts[1]++}
-            if (_sl[i].photo === false) {alerts[2]++}
+        if (_sl[i].att) {
+            if (_sl[i].promo[0]) {alerts[0]++}
+            if (_sl[i].bd[1] && !_sl[i].bd[2]) {alerts[1]++}
+            if (!_sl[i].photo) {alerts[2]++}
             if (_sl[i].email == false) {alerts[3]++}
             if (_sl[i].bd[0] == 0) {alerts[4]++}
         }
@@ -450,13 +450,13 @@ function loadPromos() {
     innerHTML("customList",""); innerHTML("customListAbsent","");
     innerHTML("customListLabel","Promotions"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].promo[0] === true && _sl[i].att === true) {
+        if (_sl[i].promo[0] && _sl[i].att) {
             if (_sl[i].promo[1] < 2) {
                 populateCustomList(_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0],false,"promo");
             } else if (_sl[i].promo[1] > 1) {
                 populateCustomList(_rankNamesShort[_sl[i].rank[0]] + " " + "(" + _sl[i].promo[1] + ") " + _sl[i].name[0],false,"promo");
             }
-        } else if (_sl[i].promo[0] === true && _sl[i].att === false) {
+        } else if (_sl[i].promo[0] && !_sl[i].att) {
             display("absentLabel","block");
             if (_sl[i].promo[1] < 2) {
                 populateCustomList(false,_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0],"");
@@ -471,9 +471,9 @@ function loadBds() {
     innerHTML("customList",""); innerHTML("customListAbsent","");
     innerHTML("customListLabel","Birthdays"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].bd[1] === true && _sl[i].bd[2] === false && _sl[i].att === true) {
+        if (_sl[i].bd[1] && !_sl[i].bd[2] && _sl[i].att) {
             populateCustomList(_sl[i].name[0] + " (" + cdn(_sl[i].bd[0]) + ")",false,"bdDone");
-        } else if (_sl[i].bd[1] === true && _sl[i].bd[2] === false && _sl[i].att === false) {
+        } else if (_sl[i].bd[1] && !_sl[i].bd[2] && !_sl[i].att) {
             display("absentLabel","block");
             populateCustomList(false,_sl[i].name[0]+" (" + cdn(_sl[i].bd[0]) + ")");
         }
@@ -484,9 +484,9 @@ function loadNeededPhotos() {
     innerHTML("customList",""); innerHTML("customListAbsent","");
     innerHTML("customListLabel","Missing Photos"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].photo === false && _sl[i].att === true) {
+        if (!_sl[i].photo && _sl[i].att) {
             populateCustomList(_sl[i].name[0],false,"photo");
-        } else if (_sl[i].photo === false && _sl[i].att === false) {
+        } else if (!_sl[i].photo && !_sl[i].att) {
             display("absentLabel","block");
             populateCustomList(false,_sl[i].name[0]);
         }
@@ -497,9 +497,9 @@ function loadNeededEmails() {
     innerHTML("customList",""); innerHTML("customListAbsent","");
     innerHTML("customListLabel","Missing Emails"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].email == "" && _sl[i].att === true) {
+        if (_sl[i].email == "" && _sl[i].att) {
             populateCustomList(_sl[i].name[0],false,"email");
-        } else if (_sl[i].email == "" && _sl[i].att === false) {
+        } else if (_sl[i].email == "" && !_sl[i].att) {
             display("absentLabel","block");
             populateCustomList(false,_sl[i].name[0]);
         }
@@ -510,9 +510,9 @@ function loadNeededBds() {
     innerHTML("customList",""); innerHTML("customListAbsent","");
     innerHTML("customListLabel","Missing Birthdays"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].bd[0] == 0 && _sl[i].att === true) {
+        if (_sl[i].bd[0] == 0 && _sl[i].att) {
             populateCustomList(_sl[i].name[0],false,"bdNeeded");
-        } else if (_sl[i].bd[0] == 0 && _sl[i].att === false) {
+        } else if (_sl[i].bd[0] == 0 && !_sl[i].att) {
             display("absentLabel","block");
             populateCustomList(false,_sl[i].name[0]);
         }
@@ -540,7 +540,7 @@ function completePhoto(x) {
 function teams() {
     var attCount = 0;
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].att === true) {
+        if (_sl[i].att) {
             attCount++
         }
     }
@@ -566,7 +566,7 @@ function createTeams() {
     innerHTML("team1Score",0); innerHTML("team2Score",0);
     var attendees = [];
     for (let i = 0; i <_sl.length; i++) {
-        if (_sl[i].att === true) {
+        if (_sl[i].att) {
             attendees.push(_sl[i].name[0])
         }
     }
@@ -685,7 +685,7 @@ function gameScorePts(x) {
 
 function undoGameScorePts() {
     var log;
-    if (_teams[0].undoLimit === true) {
+    if (_teams[0].undoLimit) {
         infoAlert("Cannot undo more than one score in a row",["playGamePop"]); return;
     } else {
         _teams[0].undoLimit = true;
@@ -894,7 +894,7 @@ function setRankFactor() {
 function attCount() {
     var attCount = 0;
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].att === true) {
+        if (_sl[i].att) {
             attCount++;
         }
     }
@@ -905,9 +905,9 @@ function attCount() {
 function ampmAttendance() {
     var attCount = 0;
     for (let i = 0; i < _sl.length; i++) {
-        if (dateAndTime("hour") < 16 && _sl[i].att === true) {
+        if (dateAndTime("hour") < 16 && _sl[i].att) {
             _sl[i].attArr[_ti][0] == 1; attCount++;
-        } else if (dateAndTime("hour") >= 16 && _sl[i].att === true) {
+        } else if (dateAndTime("hour") >= 16 && _sl[i].att) {
             _sl[i].attArr[_ti][1] == 1; attCount++;
         }
     }
@@ -926,9 +926,9 @@ function loadAttendees() {
         innerHTML(ids[i],"");
     }
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].gender == "M" && _sl[i].att === true) {
+        if (_sl[i].gender == "M" && _sl[i].att) {
             boys.push(_sl[i].name[0]);
-        } else if (_sl[i].gender == "F" && _sl[i].att === true) {
+        } else if (_sl[i].gender == "F" && _sl[i].att) {
             girls.push(_sl[i].name[0]);
         }
     }
@@ -1064,7 +1064,7 @@ function randAtt(blank,x) {
     }
     for (let i = 0; i < x; i++) {
         let x = Math.floor(Math.random() * _sl.length);
-        if (_sl[x].att === false) {
+        if (!_sl[x].att) {
             _sl[x].att = true;
         } else {
             i--
@@ -1072,14 +1072,14 @@ function randAtt(blank,x) {
     }
     if (_isClassDay && dateAndTime("hour") < 16) {
         for (let i = 0; i < _sl.length; i++) {
-            if (_sl[i].att === true) {
+            if (_sl[i].att) {
                 _att[_ti][0] += 1;
                 _sl[i].attArr[_ti][0] = 1;
             }
         } 
     } else if (_isClassDay && dateAndTime("hour") >= 16) {
         for (let i = 0; i < _sl.length; i++) {
-            if (_sl[i].att === true) {
+            if (_sl[i].att) {
                 _att[_ti][1] += 1;
                 _sl[i].attArr[_ti][1] = 1;
             }
@@ -1458,10 +1458,10 @@ function sortByBd() {
             p.style.borderTop = "1px solid #333";
             p.style.paddingTop = "10px";
         }
-        if (_sl[i].bd[2] === true) {
+        if (_sl[i].bd[2]) {
             p.style.color = "gray";
         };
-        if (_bdList.indexOf(_sl[i].name[0]) > -1 && _sl[i].bd[2] === false) {
+        if (_bdList.indexOf(_sl[i].name[0]) > -1 && !_sl[i].bd[2]) {
             p.style.color = "fuchsia";
         };
         span1.innerHTML = cdn(bdnOrder[i].bd[0]);
@@ -1645,10 +1645,10 @@ function editStudentNote() {
 
 function findAllBds() {
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].bd[1] === true && _sl[i].bd[2] === false) {
+        if (_sl[i].bd[1] && !_sl[i].bd[2]) {
             _bdList.push(_sl[i].name[0]);
         }
-        if (_sl[i].bd[0] >= _todaysDn && _sl[i].bd[0] <= (_todaysDn + (6 + (7 * _weeksOff))) && _sl[i].bd[1] === false) {
+        if (_sl[i].bd[0] >= _todaysDn && _sl[i].bd[0] <= (_todaysDn + (6 + (7 * _weeksOff))) && !_sl[i].bd[1]) {
             _sl[i].bd[1] = true; _bdList.push(_sl[i].name[0]);
             activityLog(_sl[i].name[0] + " birthday found (" + cdn(_sl[i].bd[0]) + ")",dateAndTime("log"));
         }
@@ -1656,7 +1656,7 @@ function findAllBds() {
 }
 
 function findBd() {
-    if (_sl[_ci].bd[0] >= _todaysDn && _sl[_ci].bd[0] <= (_todaysDn + (6 + (7 * _weeksOff))) && _sl[_ci].bd[1] === false && _sl[_ci].bd[2] === false) {
+    if (_sl[_ci].bd[0] >= _todaysDn && _sl[_ci].bd[0] <= (_todaysDn + (6 + (7 * _weeksOff))) && !_sl[_ci].bd[1] && !_sl[_ci].bd[2]) {
         _sl[_ci].bd[1] = true; _bdList.push(_sl[_ci].name[0]);
         activityLog(_sl[_ci].name[0] + " birthday found (" + cdn(_sl[_ci].bd[0]) + ")",dateAndTime("log"));
     } else if (_bdList.indexOf(_sl[_ci].name[0]) > -1) {
@@ -1790,7 +1790,7 @@ function proofDate(month,date) {
     if (month != "" && date != "") {
         if (months.indexOf(month) < 0 || date > dates[month-1] || isNaN(date)) {
             return false;
-        }
+        } else {return true}
     }
 }
 
@@ -1835,7 +1835,7 @@ function newStudent() {
     if (newbdMonth === "" && newbdDate === "") {
         newbdMonth = 0; newbdDate = 0;
     } else {
-        if (proofDate(parseInt(newbdMonth),parseInt(newbdDate)) === false || newbdMonth === 0 || newbdDate === 0 || isNaN(parseInt(newbdMonth)) || isNaN(parseInt(newbdDate))) {
+        if (!proofDate(parseInt(newbdMonth),parseInt(newbdDate)) || newbdMonth === 0 || newbdDate === 0 || isNaN(parseInt(newbdMonth)) || isNaN(parseInt(newbdDate))) {
             infoAlert("Invalid birthday date",["newStudentPop"]); return;
         }
     }
@@ -1859,7 +1859,7 @@ function newStudent() {
     }
     activityLog("new student " + _sl[_ci].name[0],dateAndTime("log"));
     assignPin(_ci); attCount(); findBd(); sortSL(); storeAndBackup(); clearStudentFields();
-    if (document.getElementById("rapidEntryCheck").checked === true) {
+    if (document.getElementById("rapidEntryCheck").checked) {
         idFocus("newFirst");
         return;
     } else {
@@ -1902,7 +1902,7 @@ function editStudent() {
     if (editBdMonth === "" && editBdDate === "") {
         var editBdMonth = 0; var editBdDate = 0;
     } else {
-        if (proofDate(parseInt(editBdMonth),parseInt(editBdDate)) === false || editBdMonth === 0 || editBdDate === 0 || isNaN(parseInt(editBdMonth)) || isNaN(parseInt(editBdDate))) {
+        if (!proofDate(parseInt(editBdMonth),parseInt(editBdDate)) || editBdMonth === 0 || editBdDate === 0 || isNaN(parseInt(editBdMonth)) || isNaN(parseInt(editBdDate))) {
             infoAlert("Invalid birthday date",["editStudentPop"]); return;
         }
     }
@@ -1935,7 +1935,7 @@ function editStudent() {
     for (let i = 0; i < _sl.length; i++) {if (_sl[i].name[0] == _sl[_ci].name[0]) {_ci = i; break;}}
     refreshStudentPop(); allAlerts(); storeAndBackup();
     if (_currentFunction == loadNeededEmails || _currentFunction == loadNeededBds) {_currentFunction()};
-    if (document.getElementById("rapidEditCheck").checked === true) {
+    if (document.getElementById("rapidEditCheck").checked) {
         if (_ci < _sl.length-1) {
             _ci++; refreshStudentPop(); refreshMissionsPop(); populateStudentFields();
         } else if (_ci == _sl.length-1) {
@@ -1964,7 +1964,7 @@ function refreshStudentPop() {
     } else {
         document.getElementById("studentPopRankName").style.fontSize = "18px";
     }
-    if (_sl[_ci].att === true) {
+    if (_sl[_ci].att) {
         color("studentPopName","lawngreen");
     } else {
         color("studentPopName","white");
@@ -2488,7 +2488,7 @@ function populateNames() {
         var span1 = createElement("span");
         span1.classList.add("quickAttendance");
         span1.innerHTML = "V"
-        if (_sl[i].att === true) {
+        if (_sl[i].att) {
             span1.style.color = "white";
         } else {
             span1.style.color = "#555";
@@ -2499,7 +2499,7 @@ function populateNames() {
             }
         })(i);
         var span2 = createElement("span");
-        if (_sl[i].att === true) {
+        if (_sl[i].att) {
             span2.style.color = "lawnGreen";
         } else {
             span2.style.color = "white";
@@ -2589,7 +2589,7 @@ function populateNames2() {
     display("att2Pop","block");
     innerHTML("nameList2","");
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].att === true) { continue };
+        if (_sl[i].att) { continue };
         var p = createElement("p");
         p.classList.add("name");
         (function(i){
@@ -2611,7 +2611,7 @@ function populateNames3(x) {
     display("teamsListButtons","none");
     innerHTML("nameList3","");
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].att === false || _teams[0].team1Reset.includes(_sl[i].name[0]) || _teams[0].team2Reset.includes(_sl[i].name[0])) { continue }
+        if (!_sl[i].att || _teams[0].team1Reset.includes(_sl[i].name[0]) || _teams[0].team2Reset.includes(_sl[i].name[0])) { continue }
         var p = createElement("p");
         p.classList.add("nameSmaller");
         (function(i){
@@ -2676,7 +2676,7 @@ function populateTeacherNotes() {
 }
 
 function checkInAtt() {
-    if (_sl[_ci].att === false) {
+    if (!_sl[_ci].att) {
         _sl[_ci].att = true;
         if (_isClassDay) {
             if (dateAndTime("hour") < 16) {
@@ -2693,7 +2693,7 @@ function checkInAtt() {
 }
 
 function toggleAtt() {
-    if (_sl[_ci].att === false) {
+    if (!_sl[_ci].att) {
         _sl[_ci].att = true;
         activityLog("added attendee " + _sl[_ci].name[0],dateAndTime("log"));
     } else {
@@ -2701,7 +2701,7 @@ function toggleAtt() {
         activityLog("removed attendee " + _sl[_ci].name[0],dateAndTime("log"));
     }
     if (_isClassDay) {
-        if (_sl[_ci].att === true) {
+        if (_sl[_ci].att) {
             if (dateAndTime("hour") < 16) {
                 _sl[_ci].attArr[_ti][0] = 1;
             } else {
@@ -2723,7 +2723,7 @@ function toggleAtt() {
 function draw() {
     var eligibleNames = [];
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].att === true && _sl[i].randDraw[1] === false) {
+        if (_sl[i].att && !_sl[i].randDraw[1]) {
             eligibleNames.push(_sl[i])
         }
     }
@@ -2753,24 +2753,24 @@ function resetDrawing() {
 
 function rand() {
     color("randName","white");
-    if (document.getElementById("all").checked === true) {
+    if (document.getElementById("all").checked) {
         _eligibleRandom = [];
         for (let i = 0; i < _sl.length; i++) {
-            if (_sl[i].att === true && _sl[i].randDraw[0] === false) {
+            if (_sl[i].att && !_sl[i].randDraw[0]) {
                 _eligibleRandom.push(_sl[i])
             }
         }
-    } else if (document.getElementById("boys").checked === true) {
+    } else if (document.getElementById("boys").checked) {
         _eligibleRandom = [];
         for (let i = 0; i < _sl.length; i++) {
-            if (_sl[i].att === true && _sl[i].gender == "M" && _sl[i].randDraw[0] === false) {
+            if (_sl[i].att && _sl[i].gender == "M" && !_sl[i].randDraw[0]) {
                 _eligibleRandom.push(_sl[i])
             }
         }
-    } else if (document.getElementById("girls").checked === true) {
+    } else if (document.getElementById("girls").checked) {
         _eligibleRandom = [];
         for (let i = 0; i < _sl.length; i++) {
-            if (_sl[i].att === true && _sl[i].gender == "F" && _sl[i].randDraw[0] === false) {
+            if (_sl[i].att && _sl[i].gender == "F" && !_sl[i].randDraw[0]) {
                 _eligibleRandom.push(_sl[i])
             }
         }
@@ -2975,7 +2975,7 @@ function populateMissions() {
 
 function loadStudentPhoto() {
     document.getElementById("dispStudentPhoto").style.backgroundImage = "none";
-    if (_sl[_ci].photo === true) {
+    if (_sl[_ci].photo) {
         document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+_sl[_ci].name[0].split(" ")[0].toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+".jpeg)";
         innerHTML("dispStudentPhoto","");
     } else {
@@ -2984,7 +2984,7 @@ function loadStudentPhoto() {
 }
 
 function photoLinks() {
-    if (_sl[_ci].photo === false) {
+    if (!_sl[_ci].photo) {
         actionAlert("Load photo for<br>" + _sl[_ci].name[0] + "?",["editStudentPop"],loadPhoto);
     } else {
         window.open("img/students/"+_sl[_ci].name[0].split(" ")[0].toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+".jpeg");
@@ -2992,7 +2992,7 @@ function photoLinks() {
 }
 
 function loadPhoto() {
-    if (_sl[_ci].photo === false) {_sl[_ci].photo = true}
+    if (!_sl[_ci].photo) {_sl[_ci].photo = true}
     loadStudentPhoto(); refreshStudentPop(); allAlerts(); storeAndBackup();         
 }
 
@@ -3139,7 +3139,7 @@ function loadAttStats() {
     var amBoysArray = []; var pmBoysArray = []; var amGirlsArray = []; var pmGirlsArray = [];
     var amPmBoysArray = []; var amPmGirlsArray = [];
     var elapsedWeeks;
-    if (_isClassDay === true && dateAndTime("hours") < 18) {
+    if (_isClassDay && dateAndTime("hours") < 18) {
         elapsedWeeks = _elapsedWeeks -1;
     } else {
         elapsedWeeks = _elapsedWeeks;
@@ -3247,7 +3247,7 @@ function cdn(dn,type) {
     var cumulative = [0,31,61,92,122,153,184,212,243,273,304,334];
     var cumulativeLeap = [0,31,61,92,122,153,184,213,244,274,305,335];
     var month; var date;
-    if (_leapYear === false) {
+    if (!_leapYear) {
         for (let i = 0; i < cumulative.length; i++) {
             if (dn >= cumulative[i] && dn <= cumulative[i+1]) {
                 month = months[i]; date = dn - cumulative[i]; break;
@@ -3283,7 +3283,7 @@ function assignDn(month,date) {
         dn = (cumulative[month-1]) + date;
     }
     if (month > 2 || month < 8) {
-        if (_leapYear === true) {
+        if (_leapYear) {
             dn = (cumulativeLeap[month-1]) + date;
         } else {
             dn = (cumulative[month-1]) + date;
@@ -3303,7 +3303,7 @@ function assignClassDns() {
             dns1.push(cumulative[months[i]-1] + dates[i]);
         }
         if (months[i] < 8) {
-            if (_leapYear === true) {
+            if (_leapYear) {
                 dns2.push(cumulativeLeap[months[i]-1] + dates[i]);
             } else {
                 dns2.push(cumulative[months[i]-1] + dates[i]);
@@ -3374,7 +3374,7 @@ function displayStudentProperties(full) {
             break;
         }
     }
-    if (result === false) { 
+    if (!result) { 
         console.log("The student " + full + " was not found.") 
     }
 }
@@ -3526,13 +3526,13 @@ function editProperty(full,property,newValue) {
             } break;
         }
     }
-    if (result1 === false) { 
+    if (!result1) { 
         console.log("The student " + full + " was not found.") 
     }
-    if (result1 === true && result2 === false) { 
+    if (result1 && !result2) { 
         console.log("The property '" + property + "' was not found for " + full ) 
     }
-    if (result1 === true && result2 === true) {
+    if (result1 && result2) {
         console.log("The property '" + property + "' was changed to the " + typeof(newValue) + " '" + newValue + "' for " + full) 
     }
     storeAndBackup();

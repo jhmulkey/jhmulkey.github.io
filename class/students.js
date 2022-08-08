@@ -126,7 +126,7 @@ function assignTodaysDn() {
         dn = (cumulative[todaysMonth-1]) + todaysDate;
     }
     if (todaysMonth > 2 || todaysMonth < 8) {
-        if (_leapYear === true) {
+        if (_leapYear) {
             dn = (cumulativeLeap[todaysMonth-1]) + todaysDate;
         } else {
             dn = (cumulative[todaysMonth-1]) + todaysDate;
@@ -1236,7 +1236,7 @@ function cdn(dn,type) {
     var cumulative = [0,31,61,92,122,153,184,212,243,273,304,334];
     var cumulativeLeap = [0,31,61,92,122,153,184,213,244,274,305,335];
     var month; var date;
-    if (_leapYear === false) {
+    if (!_leapYear) {
         for (let i = 0; i < cumulative.length; i++) {
             if (dn >= cumulative[i] && dn <= cumulative[i+1]) {
                 month = months[i]; date = dn - cumulative[i]; break;
@@ -1276,7 +1276,7 @@ function assignDn(month,date) {
         dn = (cumulative[month-1]) + date;
     }
     if (month > 2 || month < 8) {
-        if (_leapYear === true) {
+        if (_leapYear) {
             dn = (cumulativeLeap[month-1]) + date;
         } else {
             dn = (cumulative[month-1]) + date;
