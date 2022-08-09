@@ -28,7 +28,7 @@
   <div class="navigationButtonContainer">
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
-  <div id="studentPopTopContainerDiv">
+  <div id="studentPopContainerDiv">
     <div id="studentPopInsignia"></div>
     <div id="studentPopInfo">
       <p id="studentPopRankName"></p>
@@ -60,7 +60,7 @@
 
 <div id="studentStatsPop" class="pop">
 
-  <p class="note" style="margin-top:20px">Click on any bar graph below for more info</p>
+  <p class="note">Click on any bar graph below for more info</p>
 
   <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
     <p id="rankProgressTableP"></p>
@@ -87,7 +87,7 @@
     <table id="attProgressTable" class="progressBarTable"></table>
   </div>
 
-  <div id="totalParticipationTableDiv" class="ptr" onclick="infoAlert('Participation is a combination of all the student\'s activity sheet points, memory verse points, and attendance. '+_sl[_ci].name[0].split(' ')[0]+' has earned '+_earnedASpts+' out of '+_totalASpts+' activity sheet points, '+_earnedMVpts+' out of '+_totalMVpts+' memory verse points, and has attended '+_weeksAttended+' out of '+_elapsedWeeks+' weeks.  That totals to '+_totalEarned+' out of '+_totalPossible+' possible ('+_totalPercentage+'%)',['studentStatsPop'],false,true,20,'left')">
+  <div id="totalParticipationTableDiv" class="ptr" onclick="infoAlert('Participation is a combination of all the student\'s activity sheet points, memory verse points, and attendance. Students with a perfect participation score will receive a special, extra prize on the last day of class (separate from the General of the Army prizes).<br><br>'+_sl[_ci].name[0].split(' ')[0]+' has earned '+_earnedASpts+' out of '+_totalASpts+' activity sheet points, '+_earnedMVpts+' out of '+_totalMVpts+' memory verse points, and has attended '+_weeksAttended+' out of '+_elapsedWeeks+' weeks.  That totals to '+_totalEarned+' out of '+_totalPossible+' possible ('+_totalPercentage+'%)',['studentStatsPop'],false,true,20,'left')">
     <p id="totalParticipationTableP"></p>
     <table id="totalParticipationTable" class="progressBarTable"></table>
   </div>
@@ -125,7 +125,7 @@
 
 <div id="missionsPop" class="pop">
   <p id="currentMissionsLink" class="ptr" onclick="currentMissionsLink()">Download this week's missions</p>
-  <p class="note" style="margin:0px auto 15px auto">Click on any past mission below for details</p>
+  <p class="note">Click on any past mission below for details</p>
   <div id="asmvHeaderContainer">
     <div class="asmvHeader">ACTIVITY SHEETS</div>
     <div class="asmvHeader">MEMORY VERSES</div>
@@ -227,7 +227,7 @@
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="pop(['rankChartPop'],['studentStatsPop'])"><span>f</span></div>
   </div>
-  <p id="rankChartNote" class="note" style="margin:0px auto 15px auto"></p>
+  <p id="rankChartPopText" class="note"></p>
   <div id = "rankChartContainer">
   <table id="rankChartTable">
     <tr class="tableHeaderRow">
@@ -240,10 +240,23 @@
   </div>
 </div>
 
+<div id="totalPointsPop" class="pop">
+  <p id="totalPointsPopText"></p>
+</div>
+
+<div id="asPointsPop" class="pop">
+  <p id="asPointsPopText"></p>
+</div>
+
+<div id="mvPointsPop" class="pop">
+  <p id="mvPointsPopText"></p>
+</div>
+
 <div id="studentAttStatsPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="pop(['studentAttStatsPop'],['studentStatsPop'])"><span>f</span></div>
   </div>
+  <p id="studentAttStatsPopText"></p>
   <div id="studentAttTableDiv">
     <table id="studentAttTable">
       <tr class="tableHeaderRow">
@@ -255,8 +268,12 @@
   </div>
 </div>
 
+<div id="participationPop" class="pop">
+  <p id="participationPopText"></p>
+</div>
+
 <div id="calendarPop" class="pop">
-  <p class="note" style="margin:0px auto 15px auto">The latest class date is outlined in <span style="color:lawngreen">green</span></p>
+  <p id="calendarPopText"></p>
   <div id = "calendarContainer">
   <table id="calendarTable">
     <tr class="tableHeaderRow">

@@ -181,7 +181,7 @@ function generateAllTables() {
 }
 
 function pinEntry(x) {
-    var match = false;
+    var match = false; document.getElementById("nameList").innerHTML = "";
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].pin == x) {
             match = true; loadStudent(i);
@@ -241,12 +241,10 @@ function findStudent() {
         document.getElementById("searchField").value = "";
     }
     if (matches.length == 1) {
-        display("hint","none");
         _ci = matches[0]; loadStudent(_ci); pop(["mainPop"],["studentPop","studentStatsPop"]);
     }
     if (matches.length > 1) {
-        display("hint","block");
-        populateMatches(matches);
+        display("hint","block"); document.getElementById("searchField").value = ""; populateMatches(matches);
         infoAlert("More than one match found.<br>Please click the correct name below.",["mainPop"],"searchField",true);
     }
 }
@@ -259,7 +257,7 @@ function populateMatches(indexArray) {
         (function(i){
             p.onclick = function () {
                 let x = indexArray[i]; _ci = x;
-                loadStudent(_ci); display("hint","none");
+                loadStudent(_ci);
                 pop(["infoAlertPop"],["studentPop","studentStatsPop"]);
             }
         })(i);
@@ -754,11 +752,26 @@ function refreshMissionsPop() {
 
 function loadStudent(index) {
     _ci = index; _currentStudent = _sl[_ci].name[0];
-    value("searchField","");
-    refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu(); loadStudentStats(); loadLbs();
-    innerHTML("rankChartNote",_sl[_ci].name[0].split(" ")[0]+"'s rank is outlined in <span style='color:lawngreen'>green</span>");
+    value("searchField",""); display("hint","none");
+    refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu(); loadStudentStats(); loadLbs(); loadPopText();
     innerHTML("studentPin","Student PIN: "+_sl[_ci].pin);
     document.activeElement.blur();
+}
+
+function loadPopText() {
+    innerHTML("rankChartPopText","");
+
+    innerHTML("totalPointsPopText","");
+    
+    innerHTML("asPointsPopText","");
+    
+    innerHTML("mvPointsPopText","");
+    
+    innerHTML("studentAttStatsPopText","");
+    
+    innerHTML("participationPopText","Participation is a combination of all the student's activity sheet points, memory verse points, and attendance. Students with a perfect participation score will receive a special, extra prize on the last day of class (separate from the General of the Army prizes).<br><br>"+_sl[_ci].name[0].split(" ")[0]+" has earned "+_earnedASpts+" out of "+_totalASpts+" activity sheet points, "+_earnedMVpts+" out of "+_totalMVpts+" memory verse points, and has attended "+_weeksAttended+" out of "+_elapsedWeeks+" weeks.  That totals to "+_totalEarned+" out of "+_totalPossible+" possible ("+_totalPercentage+"%)");
+    
+    innerHTML("calendarPopText","");
 }
 
 function loadLbs() {

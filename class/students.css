@@ -66,7 +66,7 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#calendarPop, #studentAttStatsPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #studentPop {
+#totalPointsPop, #asPointsPop, #mvPointsPop, #participationPop, #resourcesPop, #calendarPop, #studentAttStatsPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #studentPop {
     display: none;
 }
 
@@ -333,13 +333,9 @@ a:link, a:visited, a:hover, a:active {
 
 .note {
     font-size: 18px !important;
-    color: orange;
+    color: orange !important;
     text-align: center !important;
-    margin: 0px auto;
-}
-
-#studentStatsPop, #missionsPop {
-    padding-top: 0px
+    margin: 0px auto 15px auto !important;
 }
 
 #boysListAttP, #girlsListAttP, #boysArchiveListAttP, #girlsArchiveListAttP, #team1ListP, #team2ListP {
@@ -377,9 +373,9 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .navigationButtonContainer {
-    margin-bottom: 25px;
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 15px;
 }
 
 .lowerNavigationButtonContainer {
@@ -529,10 +525,6 @@ a:link, a:visited, a:hover, a:active {
     font-family: Byom-Icons-Trial;
     font-size: 25px;
     padding-top: 8px;
-}
-
-.note {
-    font-size: 20px;
 }
 
 .addNew {
@@ -699,7 +691,7 @@ a:link, a:visited, a:hover, a:active {
     margin-bottom: 5px;
 }
 
-#studentPopTopContainerDiv {
+#studentPopContainerDiv {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -963,7 +955,7 @@ a:link, a:visited, a:hover, a:active {
 #currentMissionsLink {
     color: #ddd;
     font-size: 18px;
-    margin: 20px auto 20px auto;
+    margin: 0px auto 20px auto;
     text-decoration: underline;
 }
 
