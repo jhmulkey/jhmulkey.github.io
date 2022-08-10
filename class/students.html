@@ -16,11 +16,12 @@
     <input id="searchField" type="text" placeholder="enter last name or PIN" oninput="pinAutoEnter()" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
     <div id="submitButton" class="ptr" onclick="findStudent()">S</div>
   </div>
+  <p class="note">Your child's 3-digit PIN can be found under the Resources tab on their info page</p>
   <p class="note">Use the contact buttons below for help</p>
   <div class="navigationButtonContainer" style="margin-top:35px;">
-    <a href="tel:8645694879"><div class="contactButton2">x</div></a>
-    <a href="sms:8645694879"><div class="contactButton2">d</div></a>
-    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton2">v</div></a>
+    <a href="tel:8645694879"><div class="contactButton">x</div></a>
+    <a href="sms:8645694879"><div class="contactButton">d</div></a>
+    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton">v</div></a>
   </div>
 </div>
 
@@ -54,8 +55,8 @@
   </div>
     <p id="infoAlertTitle">!</p>
     <p id="infoAlertMessage"></p>
-    <div id="nameList" style="margin:30px auto"></div>
-    <p id="hint" style="font-size:15px;color:orange;">To avoid this step in the future, type your child's full name when searching or type their 3-digit PIN instead</p><br>
+    <div id="nameList"></div>
+    <p id="hint" style="font-size:15px;color:orange;">To avoid this step in the future, type your child's full name when searching or type their 3-digit PIN instead<br><br>Your child's 3-digit PIN can be found under the Resources tab on their info page</p><br>
 </div>
 
 <div id="studentStatsPop" class="pop">
@@ -63,21 +64,21 @@
   <p class="note">Click on any bar graph below for more info</p>
 
   <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
-    <p id="rankProgressTableP"></p>
+    <p id="rankProgressTableP" style="margin-top:20px"></p>
     <table id="rankProgressTable" class="progressBarTable"></table>
   </div>
 
-  <div id="totalProgressTableDiv" class="ptr" onclick="">
-    <p id="totalProgressTableP"></p>
-    <table id="totalProgressTable" class="progressBarTable"></table>
+  <div id="tpTableDiv" class="ptr" onclick="pop(['studentStatsPop'],['tpPop'])">
+    <p id="tpTableP"></p>
+    <table id="tpTable" class="progressBarTable"></table>
   </div>
 
-  <div id="asProgressTableDiv" class="ptr" onclick="">
+  <div id="asProgressTableDiv" class="ptr" onclick="pop(['studentStatsPop'],['asPointsPop'])">
     <p id="asProgressTableP"></p>
     <table id="asProgressTable" class="progressBarTable"></table>
   </div>
 
-  <div id="mvProgressTableDiv" class="ptr" onclick="">
+  <div id="mvProgressTableDiv" class="ptr" onclick="pop(['studentStatsPop'],['mvPointsPop'])">
     <p id="mvProgressTableP"></p>
     <table id="mvProgressTable" class="progressBarTable"> </table>
   </div>
@@ -87,13 +88,13 @@
     <table id="attProgressTable" class="progressBarTable"></table>
   </div>
 
-  <div id="totalParticipationTableDiv" class="ptr" onclick="infoAlert('Participation is a combination of all the student\'s activity sheet points, memory verse points, and attendance. Students with a perfect participation score will receive a special, extra prize on the last day of class (separate from the General of the Army prizes).<br><br>'+_sl[_ci].name[0].split(' ')[0]+' has earned '+_earnedASpts+' out of '+_totalASpts+' activity sheet points, '+_earnedMVpts+' out of '+_totalMVpts+' memory verse points, and has attended '+_weeksAttended+' out of '+_elapsedWeeks+' weeks.  That totals to '+_totalEarned+' out of '+_totalPossible+' possible ('+_totalPercentage+'%)',['studentStatsPop'],false,true,20,'left')">
-    <p id="totalParticipationTableP"></p>
-    <table id="totalParticipationTable" class="progressBarTable"></table>
+  <div id="participationTableDiv" class="ptr" onclick="pop(['studentStatsPop'],['participationPop'])">
+    <p id="participationTableP"></p>
+    <table id="participationTable" class="progressBarTable"></table>
   </div>
 
   <div id="lbDiv">
-    <p style="text-align:center;font-size:30px">Leader Boards</p>
+    <p id="leaderBoardsHeader">Leader Boards</p>
     <div class="lb" id="totalPtsLb">
       <p class="lbTitle">Total Points</p>
       <div id="totalPtsLbList"></div>
@@ -134,21 +135,7 @@
     <div id="asPop"></div>
     <div id="mvPop"></div>
   </div>
-  <table id="missionsKeyTable">
-    <tr>
-      <td id="complete"></td>
-      <td class="equalSign">=</td>
-      <td class="keyLabel">complete</td>
-      <td class="keySpacer"></td>
-      <td id="incomplete"></td>
-      <td class="equalSign">=</td>
-      <td class="keyLabel">partial credit</td>
-      <td class="keySpacer"></td>
-      <td id="missing"></td>
-      <td class="equalSign">=</td>
-      <td class="keyLabel">incomplete</td>
-    </tr>
-  </table>
+  <p style="font-size:18px;text-align:left;width:200px"><span class='colorCode' style='background-color:green'></span> = complete<br><span class='colorCode' style='background-color:darkorange;margin-top:10px'></span> = partially complete<br><span class='colorCode' style='background-color:black;margin-top:10px'></span> = incomplete</p>
 </div>
 
 <div id="asPtsPop" class="pop">
@@ -178,7 +165,7 @@
         <td id="asCompletionStatus"></td>
       </tr>
       <tr>
-        <td colspan="2" id="scannedImage" class="ptr" onclick="scanLinks()"><span id="scanIcon">C &nbsp;&nbsp;&nbsp;</span>VIEW SCAN</td>
+        <td colspan="2" id="scannedImage" class="ptr" onclick="scanLinks()"><span class="scanIcon">C &nbsp;&nbsp;&nbsp;</span>VIEW SCAN</td>
       </tr>
       <tr>
         <td colspan="2" class="downloadOrPrint ptr" onclick="asLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
@@ -227,8 +214,8 @@
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="pop(['rankChartPop'],['studentStatsPop'])"><span>f</span></div>
   </div>
-  <p id="rankChartPopText" class="note"></p>
-  <div id = "rankChartContainer">
+  <p id="rankChartPopText" class="popText"></p>
+  <div id="rankChartContainer">
   <table id="rankChartTable">
     <tr class="tableHeaderRow">
       <td>Insignia</td>
@@ -240,23 +227,32 @@
   </div>
 </div>
 
-<div id="totalPointsPop" class="pop">
-  <p id="totalPointsPopText"></p>
+<div id="tpPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['tpPop'],['studentStatsPop'])"><span>f</span></div>
+  </div>
+  <p id="tpPopText" class="popText"></p>
 </div>
 
 <div id="asPointsPop" class="pop">
-  <p id="asPointsPopText"></p>
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['asPointsPop'],['studentStatsPop'])"><span>f</span></div>
+  </div>
+  <p id="asPointsPopText" class="popText"></p>
 </div>
 
 <div id="mvPointsPop" class="pop">
-  <p id="mvPointsPopText"></p>
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['mvPointsPop'],['studentStatsPop'])"><span>f</span></div>
+  </div>
+  <p id="mvPointsPopText" class="popText"></p>
 </div>
 
 <div id="studentAttStatsPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="pop(['studentAttStatsPop'],['studentStatsPop'])"><span>f</span></div>
   </div>
-  <p id="studentAttStatsPopText"></p>
+  <p id="studentAttStatsPopText" class="popText"></p>
   <div id="studentAttTableDiv">
     <table id="studentAttTable">
       <tr class="tableHeaderRow">
@@ -269,12 +265,15 @@
 </div>
 
 <div id="participationPop" class="pop">
-  <p id="participationPopText"></p>
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['participationPop'],['studentStatsPop'])"><span>f</span></div>
+  </div>
+  <p id="participationPopText" class="popText"></p>
 </div>
 
 <div id="calendarPop" class="pop">
-  <p id="calendarPopText"></p>
-  <div id = "calendarContainer">
+  <p id="calendarPopText" class="note"></p>
+  <div id="calendarContainer">
   <table id="calendarTable">
     <tr class="tableHeaderRow">
     <td>Date</td>
@@ -285,7 +284,7 @@
   </div>
 </div>
 
-<div id="resourcesPop" class="pop">
+<div id="resourcesPop" class="pop" style="text-align:left;">
   <p id="studentPin"></p>
 </div>
 

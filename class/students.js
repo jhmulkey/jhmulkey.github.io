@@ -1,7 +1,8 @@
 var _sl = []; var _ci; var _ti; var _currentStudent;
 var _totalASpts; var _totalMVpts; var _totalPts; var _totalPossible;
 var _earnedASpts; var _earnedMVpts; var _totalEarnedPts; var _weeksAttended; var _totalEarned;
-var _asPercentage; var _mvPercentage; var _attPercentage; var _totalPtsPercentage; var _totalPercentage;
+var _rankPercentage; var _asPercentage; var _mvPercentage; var _attPercentage; var _totalPtsPercentage; var _totalPercentage;
+var _firstName; var _nomPron; var _possPron;
 var _asNum; var _mvNum;
 var _asPts;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
@@ -357,7 +358,7 @@ function assignStatsRanks(propertyName,index) {
         _sl[i].statsRanks[index] = corrected[i];
     }
     sortSL();
-    /* _sl is then sorted by rank.  An array of "corrected" ranks is created, and the first rank is pushed to it.  Now for every consecutive rank, if it's the same as the previous rank, a "repeat" is tallied, and the last value added to the "corrected" array is pushed to the array as a repeated rank.  If a consecutive rank is not the same as the previous rank, the rank is added to the "corrected" array after subtracting the current repeat tally from it.  This ensures no rank numbers are skipped, so instead of (for example) ranks [1,1,3,4,5,5,5,8,9,10], you get [1,1,2,3,4,4,4,5,6,7].  Finally, the current ranks are reassigned as the corrected ranks and _sl is sorted back into alphabetical order. */
+    /* _sl is then sorted by rank. An array of "corrected" ranks is created, and the first rank is pushed to it. Now for every consecutive rank, if it's the same as the previous rank, a "repeat" is tallied, and the last value added to the "corrected" array is pushed to the array as a repeated rank. If a consecutive rank is not the same as the previous rank, the rank is added to the "corrected" array after subtracting the current repeat tally from it. This ensures no rank numbers are skipped, so instead of (for example) ranks [1,1,3,4,5,5,5,8,9,10], you get [1,1,2,3,4,4,4,5,6,7]. Finally, the current ranks are reassigned as the corrected ranks and _sl is sorted back into alphabetical order. */
 }
 
 function sortByPts(lb) {
@@ -751,7 +752,8 @@ function refreshMissionsPop() {
 }
 
 function loadStudent(index) {
-    _ci = index; _currentStudent = _sl[_ci].name[0];
+    _ci = index; _currentStudent = _sl[_ci].name[0]; _firstName = _sl[_ci].name[0].split(" ")[0];
+    if (_sl[_ci].gender == "M") {_nomPron = "He";_possPron = "His"} else {_nomPron = "She";_possPron = "Her"}
     value("searchField",""); display("hint","none");
     refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu(); loadStudentStats(); loadLbs(); loadPopText();
     innerHTML("studentPin","Student PIN: "+_sl[_ci].pin);
@@ -759,19 +761,19 @@ function loadStudent(index) {
 }
 
 function loadPopText() {
-    innerHTML("rankChartPopText","");
+    innerHTML("rankChartPopText",_firstName+" has earned "+_sl[_ci].rank[0]+" out of 19 possible promotions ("+_rankPercentage+"%). "+_possPron+" current rank is highlighted in <span class='lg'>green</span> below. A few promotions (2LT, BG, and GOA) require more points than others.");
 
-    innerHTML("totalPointsPopText","");
+    innerHTML("tpPopText",_firstName+" has earned "+_totalEarnedPts+" out of "+_totalPts+" possible points for all missions ("+_totalPtsPercentage+"%). To see the completion status of all "+_firstName+"'s assigned missions, click the <span class='lg'>MISSIONS</span> tab above.<br><br>Completed missions are green <span class='colorCode' style='background-color:green'></span><br><br>Partially completed missions are orange <span class='colorCode' style='background-color:darkorange'></span><br><br>Incomplete missions are black <span class='colorCode' style='background-color:black'></span>");
     
-    innerHTML("asPointsPopText","");
+    innerHTML("asPointsPopText",_firstName+" has earned "+_earnedASpts+" out of "+_totalASpts+" possible activity sheet points ("+_asPercentage+"%). To see the completion status of all "+_firstName+"'s assigned activity sheets, click the <span class='lg'>MISSIONS</span> tab above.<br><br>Completed activity sheets are green <span class='colorCode' style='background-color:green'></span><br><br>Partially completed activity sheets are orange <span class='colorCode' style='background-color:darkorange'></span><br><br>Incomplete activity sheets are black <span class='colorCode' style='background-color:black'></span>");
     
-    innerHTML("mvPointsPopText","");
+    innerHTML("mvPointsPopText",_firstName+" has earned "+_earnedMVpts+" out of "+_totalMVpts+" possible memory verse points ("+_mvPercentage+"%). To see the completion status of all "+_firstName+"'s assigned memory verses, click the <span class='lg'>MISSIONS</span> tab above.<br><br>Completed memory verses are green <span class='colorCode' style='background-color:green'></span><br><br>Partially completed memory verses are orange <span class='colorCode' style='background-color:darkorange'></span><br><br>Incomplete memory verses are black <span class='colorCode' style='background-color:black'></span>");
     
-    innerHTML("studentAttStatsPopText","");
+    innerHTML("studentAttStatsPopText",_firstName+" has attended "+_weeksAttended+" out of "+_elapsedWeeks+" class sessions ("+_attPercentage+"%). Attendance does not count towards points/promotions, but students with perfect attendance will receive a special certificate at the end of the year.");
     
-    innerHTML("participationPopText","Participation is a combination of all the student's activity sheet points, memory verse points, and attendance. Students with a perfect participation score will receive a special, extra prize on the last day of class (separate from the General of the Army prizes).<br><br>"+_sl[_ci].name[0].split(" ")[0]+" has earned "+_earnedASpts+" out of "+_totalASpts+" activity sheet points, "+_earnedMVpts+" out of "+_totalMVpts+" memory verse points, and has attended "+_weeksAttended+" out of "+_elapsedWeeks+" weeks.  That totals to "+_totalEarned+" out of "+_totalPossible+" possible ("+_totalPercentage+"%)");
+    innerHTML("participationPopText","Participation is a combination of all the student's activity sheet points, memory verse points, and attendance. Students with a perfect participation score will receive a special, extra prize on the last day of class (separate from the General of the Army prizes).<br><br>"+_firstName+" has earned "+_earnedASpts+" out of "+_totalASpts+" activity sheet points, "+_earnedMVpts+" out of "+_totalMVpts+" memory verse points, and has attended "+_weeksAttended+" out of "+_elapsedWeeks+" weeks. That totals to "+_totalEarned+" out of "+_totalPossible+" possible ("+_totalPercentage+"%)");
     
-    innerHTML("calendarPopText","");
+    innerHTML("calendarPopText","Latest class date is highlighted in <span class='lg'>green</span> below");
 }
 
 function loadLbs() {
@@ -816,7 +818,7 @@ function asLinks() {
 }
 
 function scanLinks() {
-    window.open("docs/as-scans/"+_sl[_ci].name[0].split(" ")[0].toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+"-as"+_asNum+".pdf","_blank");
+    window.open("docs/as-scans/"+_firstName.toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+"-as"+_asNum+".pdf","_blank");
 }
 
 function mvLinks() {
@@ -942,8 +944,8 @@ function generateStudentAttTable() {
 }
 
 function generateStudentStatsTables() {
-    var tables = ["rankProgressTable","totalProgressTable","asProgressTable","mvProgressTable","attProgressTable","totalParticipationTable"];
-    var ids = ["rankProgressBar","totalProgressBar","asProgressBar","mvProgressBar","attProgressBar","totalParticipationBar"];
+    var tables = ["rankProgressTable","tpTable","asProgressTable","mvProgressTable","attProgressTable","participationTable"];
+    var ids = ["rankProgressBar","tpBar","asProgressBar","mvProgressBar","attProgressBar","participationBar"];
     for (let i = 0; i < tables.length; i++) {
         var tr = createElement("tr");
         for (let j = 1; j < 41; j++) {
@@ -1014,7 +1016,7 @@ function generateCalendarTable() {
 }
 
 function loadStudentStats() {
-    var rankPercentage = (((_sl[_ci].rank[0] + 1) / 20) * 100).toFixed(1);
+    var rankPercentage = (((_sl[_ci].rank[0]) / 19) * 100).toFixed(1); _rankPercentage = rankPercentage;
     var rankSquares = Math.round(rankPercentage / 2.50);
     var totalASpts = 0; var earnedASpts = 0;   
     var totalMVpts = 0; var earnedMVpts = 0;
@@ -1036,6 +1038,7 @@ function loadStudentStats() {
         asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
         mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
         totalPtsPercentage = ((totalEarnedPts / totalPts) * 100).toFixed(1);
+        _asPercentage = asPercentage; _mvPercentage = mvPercentage; _totalPtsPercentage = totalPtsPercentage;
     } else {
         asPercentage = 0; mvPercentage = 0; totalPtsPercentage = 0;
         _asPercentage = asPercentage; _mvPercentage = mvPercentage; _totalPtsPercentage = totalPtsPercentage;
@@ -1060,8 +1063,8 @@ function loadStudentStats() {
     var totalSquares = Math.round(totalPercentage / 2.50);
     var squaresArray = [rankSquares,totalPtsSquares,asSquares,mvSquares,attSquares,totalSquares];
     var variableArray = [rankPercentage,totalPtsPercentage,asPercentage,mvPercentage,attPercentage,totalPercentage];
-    var idArray1 = ["rankProgressTable","totalProgressTable","asProgressTable","mvProgressTable","attProgressTable","totalParticipationTable"];
-    var idArray2 = ["rankProgressBar","totalProgressBar","asProgressBar","mvProgressBar","attProgressBar","totalParticipationBar"];
+    var idArray1 = ["rankProgressTable","tpTable","asProgressTable","mvProgressTable","attProgressTable","participationTable"];
+    var idArray2 = ["rankProgressBar","tpBar","asProgressBar","mvProgressBar","attProgressBar","participationBar"];
     for (let i = 0; i < squaresArray.length; i++) {
         for (let j =1; j <= 40; j++) {
             if (j <= squaresArray[i]) {
@@ -1086,9 +1089,9 @@ function loadStudentStats() {
             bgColor(idArray1[i],"black");
         }
     }
-    innerHTML("rankProgressTableP","<span style='font-size:20px'>Promotions <span style='color:#bbb;font-size:16px'>" + (_sl[_ci].rank[0] + 1) + "/20" + " (" + rankPercentage + "%)</span>");
+    innerHTML("rankProgressTableP","<span style='font-size:20px'>Promotions <span style='color:#bbb;font-size:16px'>" + (_sl[_ci].rank[0]) + "/19" + " (" + rankPercentage + "%)</span>");
 
-    innerHTML("totalProgressTableP","<span style='font-size:20px'>Total Points <span style='color:#bbb;font-size:16px'>" + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[0]) + "/span";
+    innerHTML("tpTableP","<span style='font-size:20px'>Total Points <span style='color:#bbb;font-size:16px'>" + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[0]) + "/span";
 
     innerHTML("asProgressTableP","<span style='font-size:20px'>Activities <span style='color:#bbb;font-size:16px'>" + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[1]) + "/span";
 
@@ -1096,7 +1099,7 @@ function loadStudentStats() {
 
     innerHTML("attProgressTableP","<span style='font-size:20px'>Attendance <span style='color:#bbb;font-size:16px'>" + weeksAttended + "/" + _elapsedWeeks + " (" + attPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[3]) + "/span";
 
-    innerHTML("totalParticipationTableP","<span style='font-size:20px'>Participation <span style='color:#bbb;font-size:16px'>" + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[4]) + "/span";
+    innerHTML("participationTableP","<span style='font-size:20px'>Participation <span style='color:#bbb;font-size:16px'>" + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[4]) + "/span";
 }
 
 function populateMissions() {

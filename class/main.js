@@ -2860,7 +2860,7 @@ function loadStudentProperties() {
 }
 
 function loadStudentStats() {
-    var rankPercentage = (((_sl[_ci].rank[0] + 1) / 20) * 100).toFixed(1);
+    var rankPercentage = (((_sl[_ci].rank[0]) / 19) * 100).toFixed(1);
     var rankSquares = Math.round(rankPercentage / 2.50);
     var totalASpts = 0; var earnedASpts = 0;   
     var totalMVpts = 0; var earnedMVpts = 0;
@@ -2928,7 +2928,7 @@ function loadStudentStats() {
             bgColor(idArray1[i],"black");
         }
     }
-    innerHTML("rankProgressTableP","<span style='font-size:20px'>Promotions <span style='color:#bbb;font-size:16px'>" + (_sl[_ci].rank[0] + 1) + "/20" + " (" + rankPercentage + "%)</span>");
+    innerHTML("rankProgressTableP","<span style='font-size:20px'>Promotions <span style='color:#bbb;font-size:16px'>" + (_sl[_ci].rank[0]) + "/19" + " (" + rankPercentage + "%)</span>");
 
     innerHTML("totalProgressTableP","<span style='font-size:20px'>Total Points <span style='color:#bbb;font-size:16px'>" + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[0]) + "/span";
 
