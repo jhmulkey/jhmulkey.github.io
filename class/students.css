@@ -447,3 +447,7 @@ a:link, a:visited, a:hover, a:active {
     border: 1px solid white;
     border-radius: 16px;
 }
+
+#ptsNote {
+    font-size: 14px;
+}

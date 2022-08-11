@@ -699,7 +699,7 @@ function infoAlert(message,idArray,focus,noImage,fontSize,textAlign) {
 
 function refreshStudentPop() {
     assignStatsRanks("pts",0);
-    document.getElementById("studentPopInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank[0]+"-rank.jpg)";
+    document.getElementById("studentPopInsignia").style.backgroundImage = "url(class/img/insignia-darkgray/"+_sl[_ci].rank[0]+"-rank.jpg)";
     innerHTML("studentPopRankName",_rankNames[_sl[_ci].rank[0]]);
     innerHTML("studentPopName",_sl[_ci].name[0]);
     var ptsNeeded;
@@ -708,7 +708,8 @@ function refreshStudentPop() {
     } else {
         ptsNeeded = _rankPts[_sl[_ci].rank[0]+1] - _sl[_ci].pts;
     }
-    innerHTML("studentPopPts",_sl[_ci].pts + " | <span style='color: #999'>" + ptsNeeded +"</span>");
+    innerHTML("studentPopPts",_sl[_ci].pts + " <span style='color: #999'>| " + ptsNeeded +"</span>");
+    innerHTML("ptsNote",_firstName+" has "+_sl[_ci].pts+" points | needs "+ptsNeeded+" points for next promotion");
     if (_rankNames[_sl[_ci].rank[0]].length > 20) {
         document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
@@ -761,6 +762,7 @@ function loadStudent(index) {
 }
 
 function loadPopText() {
+
     innerHTML("rankChartPopText",_firstName+" has earned "+_sl[_ci].rank[0]+" out of 19 possible promotions ("+_rankPercentage+"%). "+_possPron+" current rank is highlighted in <span class='lg'>green</span> below. A few promotions (2LT, BG, and GOA) require more points than others.");
 
     innerHTML("tpPopText",_firstName+" has earned "+_totalEarnedPts+" out of "+_totalPts+" possible points for all missions ("+_totalPtsPercentage+"%). To see the completion status of all "+_firstName+"'s assigned missions, click the <span class='lg'>MISSIONS</span> tab above.<br><br>Completed missions are green <span class='colorCode' style='background-color:green'></span><br><br>Partially completed missions are orange <span class='colorCode' style='background-color:darkorange'></span><br><br>Incomplete missions are black <span class='colorCode' style='background-color:black'></span>");
@@ -1138,7 +1140,7 @@ function loadRankTable() {
     pop(["studentStatsPop"],["rankChartPop"]);
     for (let i = 0; i < _rankNames.length; i++) {
         let x; x = i;
-        document.getElementById("rankChartInsignia"+i).style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
+        document.getElementById("rankChartInsignia"+i).style.backgroundImage = "url(class/img/insignia-darkgray/"+i+"-rank.jpg)";
         innerHTML("rankChartRank"+i,_rankNames[i]);
         innerHTML("rankChartAbbreviation"+i,_rankNamesShort[i]);
         innerHTML("rankChartPts"+i,_rankPts[i]);
@@ -1152,7 +1154,7 @@ function loadRankTable() {
 }
 
 function openInsignia() {
-    document.getElementById("displayInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank[0]+"-rank.jpg)";
+    document.getElementById("displayInsignia").style.backgroundImage = "url(class/img/insignia-darkgray/"+_sl[_ci].rank[0]+"-rank.jpg)";
     pop(["studentStatsPop"],["openInsigniaPop"]);
 }
 

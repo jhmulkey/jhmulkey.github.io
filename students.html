@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="students.css"/>
-    <link rel=”shortcut icon” href =../“favicon.ico”>
+    <link rel="stylesheet" type="text/css" href="class/students.css"/>
+    <link rel=”shortcut icon” href =“favicon.ico”>
     <title>students</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
     <input id="searchField" type="text" placeholder="enter last name or PIN" oninput="pinAutoEnter()" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
     <div id="submitButton" class="ptr" onclick="findStudent()">S</div>
   </div>
-  <p class="note">Your child's 3-digit PIN can be found under the Resources tab on their info page</p>
+  <p class="note">Your child's 3-digit PIN can be found under the RESOURCES tab on their info page</p>
   <p class="note">Use the contact buttons below for help</p>
   <div class="navigationButtonContainer" style="margin-top:35px;">
     <a href="tel:8645694879"><div class="contactButton">x</div></a>
@@ -37,6 +37,7 @@
       <p id="studentPopPts"></p>
     </div>
   </div>
+  <div id="ptsNote"></div>
   <div>
     <table id="studentMenuTable">
       <tr>
@@ -56,7 +57,7 @@
     <p id="infoAlertTitle">!</p>
     <p id="infoAlertMessage"></p>
     <div id="nameList"></div>
-    <p id="hint" style="font-size:15px;color:orange;">To avoid this step in the future, type your child's full name when searching or type their 3-digit PIN instead<br><br>Your child's 3-digit PIN can be found under the Resources tab on their info page</p><br>
+    <p id="hint" style="font-size:15px;color:orange;">To avoid this step in the future, type your child's full name when searching or type their 3-digit PIN instead<br><br>Your child's 3-digit PIN can be found under the RESOURCES tab on their info page</p><br>
 </div>
 
 <div id="studentStatsPop" class="pop">
@@ -289,7 +290,7 @@
 </div>
 
 </div>
-<script src="backup.js"></script>
-<script src="students.js"></script>
+<script src="class/backup.js"></script>
+<script src="class/students.js"></script>
 </body>
 </html>
