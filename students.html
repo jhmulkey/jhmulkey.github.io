@@ -11,12 +11,12 @@
 <div id="master-wrapper">
 
 <div id="mainPop" class="pop">
-  <p>Enter your child's last name or PIN below and click the search button to view their class progress</p>
+  <p style="font-size:22px">Enter your child's last name or PIN below and click the search button to view their class progress</p>
   <div id="searchFieldContainerDiv">
     <input id="searchField" type="text" placeholder="enter last name or PIN" oninput="pinAutoEnter()" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
     <div id="submitButton" class="ptr" onclick="findStudent()">S</div>
   </div>
-  <p class="note">Your child's 3-digit PIN can be found under the RESOURCES tab on their info page</p>
+  <p style="color:#ddd;border-top:1px solid #555;padding-top:20px">Your child's 3-digit PIN can be found under the RESOURCES tab on their info page that loads after you search for them by name</p>
   <p class="note">Use the contact buttons below for help</p>
   <div class="navigationButtonContainer" style="margin-top:35px;">
     <a href="tel:8645694879"><div class="contactButton">x</div></a>
@@ -57,12 +57,12 @@
     <p id="infoAlertTitle">!</p>
     <p id="infoAlertMessage"></p>
     <div id="nameList"></div>
-    <p id="hint" style="font-size:15px;color:orange;">To avoid this step in the future, type your child's full name when searching or type their 3-digit PIN instead<br><br>Your child's 3-digit PIN can be found under the RESOURCES tab on their info page</p><br>
+    <p id="hint" style="color:#ddd;border-top:1px solid #555;padding-top:20px">To avoid this step in the future, type your child's full name when searching or type their 3-digit PIN instead</p><br>
 </div>
 
 <div id="studentStatsPop" class="pop">
 
-  <p class="note">Click on any bar graph below for more info</p>
+  <p class="note" style="margin-top:0px">Click on any bar graph below for more info</p>
 
   <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
     <p id="rankProgressTableP" style="margin-top:20px"></p>
@@ -221,8 +221,9 @@
     <tr class="tableHeaderRow">
       <td>Insignia</td>
       <td>Rank</td>
-      <td>Abbreviation</td>
+      <td>Abbr.</td>
       <td>Points</td>
+      <td>Promoted</td>
     </tr>
   </table>
   </div>
@@ -273,7 +274,7 @@
 </div>
 
 <div id="calendarPop" class="pop">
-  <p id="calendarPopText" class="note"></p>
+  <p id="calendarPopText" style="margin-top:0px"></p>
   <div id="calendarContainer">
   <table id="calendarTable">
     <tr class="tableHeaderRow">
