@@ -751,11 +751,12 @@ a:link, a:visited, a:hover, a:active {
 
 #rankChartTable td {
     height: 90px;
-    width: 90px;
+    width: 76.4px;
 }
 
 .tableHeaderRow td {
     background-color: #3478F6 !important;
+    height: 35px !important;
 }
 
 #rankChartTable th, #rankChartTable td {
@@ -870,6 +871,8 @@ a:link, a:visited, a:hover, a:active {
 
 #mvText {
     text-align: left;
+    padding: 10px;
+    color: #FFE599;
 }
 
 #studentPopInsignia {

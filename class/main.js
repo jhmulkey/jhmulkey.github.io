@@ -98,76 +98,11 @@ class Student {
         this.att = true;
         this.attArr = [];
         this.promo = [false,0]; // [promoted,promoNum]
+        this.promoDns = [];
         this.randDraw = [false,false];
         this.statsRanks = [];
-        this.as = { // [ptsEarned,dateCompleted]
-            0: [0,0], //class-intro
-            1: [0,0], //john-intro
-            2: [0,0], //john-1
-            3: [0,0], //john-2
-            4: [0,0], //john-3
-            5: [0,0], //john-4
-            6: [0,0], //john-5
-            7: [0,0], //john-6
-            8: [0,0], //john-7
-            9: [0,0], //john-8
-            10: [0,0], //john-9
-            11: [0,0], //john-1-9-review
-            12: [0,0], //john-10
-            13: [0,0], //john-11
-            14: [0,0], //john-12
-            15: [0,0], //john-13
-            16: [0,0], //john-14
-            17: [0,0], //john-15
-            18: [0,0], //john-16
-            19: [0,0], //john-17
-            20: [0,0], //john-18
-            21: [0,0], //john-19
-            22: [0,0], //john-20
-            23: [0,0], //john-21
-            24: [0,0], //john-10-21-review
-            25: [0,0], //armor-intro
-            26: [0,0], //belt
-            27: [0,0], //breastplate
-            28: [0,0], //shoes
-            29: [0,0], //shield
-            30: [0,0], //helmet
-            31: [0,0], //sword
-        }
-        this.mv = {
-            0: [0,0], //ps-139-17-18
-            1: [0,0], //jn-20-30-31
-            2: [0,0], //jn-1-1-2
-            3: [0,0], //jn-1-3
-            4: [0,0], //jn-1-4-5
-            5: [0,0], //jn-1-6-8
-            6: [0,0], //jn-1-9-11
-            7: [0,0], //jn-1-12-13
-            8: [0,0], //jn-1-14
-            9: [0,0], //jn-1-15
-            10: [0,0], //jn-1-16-17
-            11: [0,0], //jn-1-18
-            12: [0,0], //phil-2-5-6
-            13: [0,0], //phil-2-7
-            14: [0,0], //phil-2-8
-            15: [0,0], //phil-2-9
-            16: [0,0], //phil-2-10-11
-            17: [0,0], //rom-8-31
-            18: [0,0], //rom-8-32
-            19: [0,0], //rom-8-33
-            20: [0,0], //rom-8-34
-            21: [0,0], //rom-8-35
-            22: [0,0], //rom-8-36
-            23: [0,0], //rom-8-37
-            24: [0,0], //rom-8-38-39
-            25: [0,0], //eph-6-10-11
-            26: [0,0], //eph-6-12
-            27: [0,0], //eph-6-13
-            28: [0,0], //eph-6-14-15
-            29: [0,0], //eph-6-16
-            30: [0,0], //eph-6-17
-            31: [0,0], //eph-6-18
-        }
+        this.as = [] // [ptsEarned,dateCompleted]
+        this.mv = [] // [ptsEarned,dateRecited]
     }
 }
 
@@ -1459,10 +1394,15 @@ function sortByBd() {
             p.style.paddingTop = "10px";
         }
         if (_sl[i].bd[2]) {
-            p.style.color = "gray";
+            span1.style.textDecoration = "line-through";
+            span2.style.textDecoration = "line-through";
+            span2.style.color = "#bbb"
         };
-        if (_bdList.indexOf(_sl[i].name[0]) > -1 && !_sl[i].bd[2]) {
-            p.style.color = "fuchsia";
+        if (_sl[i].bd[1] && !_sl[i].bd[2]) {
+            span2.style.border = "1px solid fuchsia";
+        };
+        if (_sl[i].att && !_sl[i].bd[2]) {
+            span2.style.color = "lawngreen";
         };
         span1.innerHTML = cdn(bdnOrder[i].bd[0]);
         span2.innerHTML = " " + bdnOrder[i].name[0];
@@ -1850,6 +1790,15 @@ function newStudent() {
     for (let i = 0; i < _dns.length; i++) {
         newStudent.attArr[i] = [0,0];
     }
+    for (let i = 0; i < _asNames.length; i++) {
+        newStudent.as[i] = [0,0];
+    }
+    for (let i = 0; i < _mvNames.length; i++) {
+        newStudent.mv[i] = [0,0];
+    }
+    for (let i = 0; i < _rankNames.length-1; i++) {
+        newStudent.promoDns[i] = 0;
+    }
     if (_isClassDay) {
         if (dateAndTime("hour") < 16) {
             newStudent.attArr[_ti][0] = 1;
@@ -2046,7 +1995,9 @@ function rapidOff() {
 }
 
 function promo() {
-    _sl[_ci].rank[0]++; _sl[_ci].promo[0] = true; _sl[_ci].promo[1]++; _promoList.push(_sl[_ci].name[0]);
+    _sl[_ci].rank[0]++; _sl[_ci].promo[0] = true; _sl[_ci].promo[1]++;
+    _sl[_ci].promoDns[_sl[_ci].rank[0]-1] = _todaysDn;
+    _promoList.push(_sl[_ci].name[0]);
     setRankFactor();
     innerHTML("studentPopRankName",_rankNames[_sl[_ci].rank[0]]);
     innerHTML("dispRankNamePromo",_rankNames[_sl[_ci].rank[0]]);
@@ -2059,7 +2010,7 @@ function promo() {
 }
 
 function demo() {
-    _sl[_ci].rank[0]--;
+    _sl[_ci].promoDns[_sl[_ci].rank[0]-1] = 0; _sl[_ci].rank[0]--;
     if (_sl[_ci].promo[1] == 1) {
         _sl[_ci].promo[0] = false;
     }
@@ -2463,7 +2414,7 @@ function mvPop(mvNum,pts) {
     } else {
         innerHTML("mvDateRecited",cdn(_sl[_ci].mv[_mvNum][1]));
     }
-    innerHTML("mvText",_mvText[mvNum]);
+    innerHTML("mvText","\""+_mvText[mvNum]+"\"");
     for (let i =1; i <= 7; i++) {
         if (document.getElementById("mv"+i+"Pts").innerHTML == _sl[_ci].mv[_mvNum][0]) {
             bgColor("mv"+i+"Pts","#3478F6");
@@ -2532,12 +2483,14 @@ function generateRankTable() {
         var tr = createElement("tr");
         var td1 = createElement("td"); var td2 = createElement("td");
         var td3 = createElement("td"); var td4 = createElement("td");
+        var td5 = createElement("td");
         tr.setAttribute("id","rankChartRow"+i);
         td1.setAttribute("id","rankChartInsignia"+i);
         td2.setAttribute("id","rankChartRank"+i);
         td3.setAttribute("id","rankChartAbbreviation"+i);
         td4.setAttribute("id","rankChartPts"+i);
-        tr.append(td1,td2,td3,td4);
+        td5.setAttribute("id","rankChartDate"+i);
+        tr.append(td1,td2,td3,td4,td5);
         append("rankChartTable",tr);
     }
 }
@@ -2818,6 +2771,9 @@ function backupNewData() {
     innerHTML("slBackupArray","var _slBackup = "+localStorage.getItem("sl")+";");
     innerHTML("attBackupArray","var _attBackup = "+localStorage.getItem("att")+";");
     innerHTML("teacherNotesBackupArray","var _teacherNotesBackup = "+localStorage.getItem("teacherNotes")+";");
+    innerHTML("setItem1","localStorage.setItem('slBackup',JSON.stringify(_slBackup));");
+    innerHTML("setItem2","localStorage.setItem('attBackup',JSON.stringify(_attBackup));");
+    innerHTML("setItem3","localStorage.setItem('teacherNotesBackup',JSON.stringify(_teacherNotesBackup));");
 }
 
 function selectText(element) {
@@ -3019,15 +2975,14 @@ function loadRankTable() {
     for (let i = 0; i < _rankNames.length; i++) {
         let x; x = i;
         document.getElementById("rankChartInsignia"+i).style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
-        document.getElementById("rankChartInsignia"+i).style.cursor = "pointer";
         innerHTML("rankChartRank"+i,_rankNames[i]);
         innerHTML("rankChartAbbreviation"+i,_rankNamesShort[i]);
         innerHTML("rankChartPts"+i,_rankPts[i]);
-        (function(i){
-            document.getElementById("rankChartInsignia"+i).onclick = function () {
-                pop(["rankChartPop"],["openInsigniaPop"]);
-                document.getElementById("displayInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";            }
-        })(i);
+        if (i > 0) {
+            innerHTML("rankChartDate"+i,cdn(_sl[_ci].promoDns[i-1]))
+        } else {
+            innerHTML("rankChartDate"+i,"n/a")
+        }
         if (i == _sl[_ci].rank[0]) {
             document.getElementById("rankChartRow"+i).style.border = "3px solid lawngreen";
         } else {
@@ -3413,11 +3368,12 @@ function batchEditObjectSpecial2(objectName) {
     storeAndBackup();
 }
 
-function batchEditArray1() {
+function batchEditArray() {
     if (confirm("Confirm batch action") == true) {
-        for (let i = 0; i < _slOLD.length; i++) {
-            for (let j = 0; j < 34; j++) {
-                _sl[i].attArr[j] = [_slOLD[i].amAtt[j],_slOLD[i].pmAtt[j]];
+        for (let i = 0; i < _sl.length; i++) {
+            for (let j = 0; j < _asNames.length; j++) {
+                _sl[i].asTEMP[j][0] = _sl[i].as[j][0]
+                _sl[i].asTEMP[j][1] = _sl[i].as[j][1]
             }
         }
         storeAndBackup();
@@ -3427,9 +3383,9 @@ function batchEditArray1() {
 function batchEditArray2() {
     if (confirm("Confirm batch action") == true) {
         for (let i = 0; i < _sl.length; i++) {
-            for (let j = 30; j > 16; j--) {
-                _sl[i].asReas[j+1] = _sl[i].asReas[j];
-                if (j == 17) { _sl[i].asReas[j] = "" }
+            for (let j = 0; j < _mvNames.length; j++) {
+                _sl[i].mvTEMP[j][0] = _sl[i].mv[j][0]
+                _sl[i].mvTEMP[j][1] = _sl[i].mv[j][1]
             }
         }
         storeAndBackup();

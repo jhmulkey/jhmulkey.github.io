@@ -251,12 +251,6 @@
   </div>
 </div>
 
-<div id="openInsigniaPop" class="pop">
-  <div>
-    <div id="displayInsignia" onclick="pop(['openInsigniaPop'],['rankChartPop'])"></div>
-  </div>
-</div>
-
 <div id="studentStatsPop" class="pop">
 
     <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
@@ -680,18 +674,21 @@
     <div id="slBackupArray"></div>
     <div id="attBackupArray"></div>
     <div id="teacherNotesBackupArray"></div>
+    <div id="setItem1"></div>
+    <div id="setItem2"></div>
+    <div id="setItem3"></div>
   </div>
 </div>
 
 <div id="rankChartPop" class="pop">
-  <a href="../docs/ranks.pdf" target="_blank"><p>click here to download printable chart</p></a>
   <div id = "rankChartContainer">
   <table id="rankChartTable">
-    <tr>
-      <th>Insignia</th>
-      <th>Rank</th>
-      <th>Abbreviation</th>
-      <th>Points</th>
+    <tr class="tableHeaderRow">
+      <td>Insignia</td>
+      <td>Rank</td>
+      <td>Abbr.</td>
+      <td>Points</td>
+      <td>Promoted</td>
     </tr>
   </table>
   </div>

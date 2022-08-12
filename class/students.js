@@ -182,7 +182,7 @@ function generateAllTables() {
 }
 
 function pinEntry(x) {
-    var match = false; document.getElementById("nameList").innerHTML = "";
+    var match = false; innerHTML("nameList","");
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].pin == x) {
             match = true; loadStudent(i);
@@ -191,7 +191,7 @@ function pinEntry(x) {
     }
     if (!match) {
         display("hint","none");
-        infoAlert("The PIN <span style='color:red;font-weight:bold'>" + x + "</span> does not match any students. Please try again.",["mainPop"],"searchField");
+        infoAlert("The PIN <span style='color:red;font-weight:bold'>" + x + "</span> does not match any students. Use the back button above to try again or search by name instead.",["mainPop"],"searchField");
         document.getElementById("searchField").value = "";
     }
 }
@@ -202,8 +202,7 @@ function pinAutoEnter() {
 }
 
 function findStudent() {
-    document.activeElement.blur();
-    document.getElementById("nameList").innerHTML = "";
+    document.activeElement.blur(); innerHTML("nameList","");
     var x = (document.getElementById("searchField").value.trim().toLowerCase()).split(" ");
     if (x == false) { idFocus("searchField"); return; }
     for (i = 0; i < x.length; i++) {
@@ -238,7 +237,7 @@ function findStudent() {
             x[i] = x[i][0].toUpperCase() + x[i].substr(1);
         }
         var string = x.join(" "); display("hint","none");
-        infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + string + "</span>. Please check the spelling and try again.",["mainPop"],"searchField");
+        infoAlert("No matches found for <span style='color:red;font-weight:bold'>" + string + "</span>. Use the back button above to try again or search by PIN instead.",["mainPop"],"searchField");
         document.getElementById("searchField").value = "";
     }
     if (matches.length == 1) {
@@ -246,7 +245,7 @@ function findStudent() {
     }
     if (matches.length > 1) {
         display("hint","block"); document.getElementById("searchField").value = ""; populateMatches(matches);
-        infoAlert("More than one match found.<br>Please click the correct name below.",["mainPop"],"searchField",true);
+        infoAlert("More than one match found.<br>Click the correct name below.",["mainPop"],"searchField",true);
     }
 }
 
@@ -269,10 +268,10 @@ function populateMatches(indexArray) {
 
 function populateCalendar() {
     for (i = 0; i < _dns.length; i++) {
-        document.getElementById("calendarDate"+i).innerHTML = cdn(_dns[i]);
+        innerHTML("calendarDate"+i,cdn(_dns[i]));
         if (i < _dns.length-2) {
-            document.getElementById("calendarLesson"+i).innerHTML = _asFulls[i];
-            document.getElementById("calendarMemory"+i).innerHTML = _mvFulls[i];
+            innerHTML("calendarLesson"+i,_asFulls[i]);
+            innerHTML("calendarMemory"+i,_mvFulls[i]);
         }
     }
     document.getElementById("calendarRow"+(_ti)).style.border = "2px solid lawngreen";
@@ -708,8 +707,13 @@ function refreshStudentPop() {
     } else {
         ptsNeeded = _rankPts[_sl[_ci].rank[0]+1] - _sl[_ci].pts;
     }
-    innerHTML("studentPopPts",_sl[_ci].pts + " <span style='color: #999'>| " + ptsNeeded +"</span>");
-    innerHTML("ptsNote",_firstName+" has "+_sl[_ci].pts+" points | needs "+ptsNeeded+" points for next promotion");
+    if (_sl[_ci].rank[0] < 19) {
+        innerHTML("studentPopPts",_sl[_ci].pts + " <span style='color: #999'>| " + ptsNeeded +"</span>");
+        innerHTML("ptsNote",_sl[_ci].pts+" points earned | "+ptsNeeded+" needed for next promotion");
+    } else {
+        innerHTML("studentPopPts",_sl[_ci].pts);
+        innerHTML("ptsNote",_sl[_ci].pts+" points earned");
+    }
     if (_rankNames[_sl[_ci].rank[0]].length > 20) {
         document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
@@ -763,13 +767,13 @@ function loadStudent(index) {
 
 function loadPopText() {
 
-    innerHTML("rankChartPopText",_firstName+" has earned "+_sl[_ci].rank[0]+" out of 19 possible promotions ("+_rankPercentage+"%). "+_possPron+" current rank is highlighted in <span class='lg'>green</span> below. A few promotions (2LT, BG, and GOA) require more points than others.");
+    innerHTML("rankChartPopText",_firstName+" has earned "+_sl[_ci].rank[0]+" out of 19 possible promotions ("+_rankPercentage+"%). "+_possPron+" current rank is highlighted in <span class='lg'>green</span> below. Note that certain promotions (2LT, BG, and GOA) require more points than others.");
 
-    innerHTML("tpPopText",_firstName+" has earned "+_totalEarnedPts+" out of "+_totalPts+" possible points for all missions ("+_totalPtsPercentage+"%). To see the completion status of all "+_firstName+"'s assigned missions, click the <span class='lg'>MISSIONS</span> tab above.<br><br>Completed missions are green <span class='colorCode' style='background-color:green'></span><br><br>Partially completed missions are orange <span class='colorCode' style='background-color:darkorange'></span><br><br>Incomplete missions are black <span class='colorCode' style='background-color:black'></span>");
+    innerHTML("tpPopText",_firstName+" has earned "+_totalEarnedPts+" out of "+_totalPts+" possible points for all missions ("+_totalPtsPercentage+"%). To see the completion status of all "+_firstName+"'s assigned missions, click the <span class='do'>MISSIONS</span> tab above.<br><br>Completed missions are green <span class='colorCode' style='background-color:green'></span><br><br>Partially completed missions are orange <span class='colorCode' style='background-color:darkorange'></span><br><br>Incomplete missions are black <span class='colorCode' style='background-color:black'></span>");
     
-    innerHTML("asPointsPopText",_firstName+" has earned "+_earnedASpts+" out of "+_totalASpts+" possible activity sheet points ("+_asPercentage+"%). To see the completion status of all "+_firstName+"'s assigned activity sheets, click the <span class='lg'>MISSIONS</span> tab above.<br><br>Completed activity sheets are green <span class='colorCode' style='background-color:green'></span><br><br>Partially completed activity sheets are orange <span class='colorCode' style='background-color:darkorange'></span><br><br>Incomplete activity sheets are black <span class='colorCode' style='background-color:black'></span>");
+    innerHTML("asPointsPopText",_firstName+" has earned "+_earnedASpts+" out of "+_totalASpts+" possible activity sheet points ("+_asPercentage+"%). To see the completion status of all "+_firstName+"'s assigned activity sheets, click the <span class='do'>MISSIONS</span> tab above.<br><br>Completed activity sheets are green <span class='colorCode' style='background-color:green'></span><br><br>Partially completed activity sheets are orange <span class='colorCode' style='background-color:darkorange'></span><br><br>Incomplete activity sheets are black <span class='colorCode' style='background-color:black'></span>");
     
-    innerHTML("mvPointsPopText",_firstName+" has earned "+_earnedMVpts+" out of "+_totalMVpts+" possible memory verse points ("+_mvPercentage+"%). To see the completion status of all "+_firstName+"'s assigned memory verses, click the <span class='lg'>MISSIONS</span> tab above.<br><br>Completed memory verses are green <span class='colorCode' style='background-color:green'></span><br><br>Partially completed memory verses are orange <span class='colorCode' style='background-color:darkorange'></span><br><br>Incomplete memory verses are black <span class='colorCode' style='background-color:black'></span>");
+    innerHTML("mvPointsPopText",_firstName+" has earned "+_earnedMVpts+" out of "+_totalMVpts+" possible memory verse points ("+_mvPercentage+"%). To see the completion status of all "+_firstName+"'s assigned memory verses, click the <span class='do'>MISSIONS</span> tab above.<br><br>Completed memory verses are green <span class='colorCode' style='background-color:green'></span><br><br>Partially completed memory verses are orange <span class='colorCode' style='background-color:darkorange'></span><br><br>Incomplete memory verses are black <span class='colorCode' style='background-color:black'></span>");
     
     innerHTML("studentAttStatsPopText",_firstName+" has attended "+_weeksAttended+" out of "+_elapsedWeeks+" class sessions ("+_attPercentage+"%). Attendance does not count towards points/promotions, but students with perfect attendance will receive a special certificate at the end of the year.");
     
@@ -816,19 +820,19 @@ function studentMenuSwitch(x) {
 }
 
 function asLinks() {
-    window.open("docs/missions/as"+_asNum+".pdf","_blank");
+    window.open("class/docs/missions/as"+_asNum+".pdf","_blank");
 }
 
 function scanLinks() {
-    window.open("docs/as-scans/"+_firstName.toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+"-as"+_asNum+".pdf","_blank");
+    window.open("class/docs/as-scans/"+_firstName.toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+"-as"+_asNum+".pdf","_blank");
 }
 
 function mvLinks() {
-    window.open("docs/memory/mv"+_mvNum+".pdf","_blank");
+    window.open("class/docs/memory/mv"+_mvNum+".pdf","_blank");
 }
 
 function currentMissionsLink() {
-    window.open("../docs/missions/asmv"+_ti+".pdf","_blank");
+    window.open("docs/missions/asmv"+_ti+".pdf","_blank");
 }
 
 function pop(closeArray,openArray,title) {
@@ -921,12 +925,14 @@ function generateRankTable() {
         var tr = createElement("tr");
         var td1 = createElement("td"); var td2 = createElement("td");
         var td3 = createElement("td"); var td4 = createElement("td");
+        var td5 = createElement("td");
         tr.setAttribute("id","rankChartRow"+i);
         td1.setAttribute("id","rankChartInsignia"+i);
         td2.setAttribute("id","rankChartRank"+i);
         td3.setAttribute("id","rankChartAbbreviation"+i);
         td4.setAttribute("id","rankChartPts"+i);
-        tr.append(td1,td2,td3,td4);
+        td5.setAttribute("id","rankChartDate"+i);
+        tr.append(td1,td2,td3,td4,td5);
         append("rankChartTable",tr);
     }
 }
@@ -1144,6 +1150,11 @@ function loadRankTable() {
         innerHTML("rankChartRank"+i,_rankNames[i]);
         innerHTML("rankChartAbbreviation"+i,_rankNamesShort[i]);
         innerHTML("rankChartPts"+i,_rankPts[i]);
+        if (i > 0) {
+            innerHTML("rankChartDate"+i,cdn(_sl[_ci].promoDns[i-1]))
+        } else {
+            innerHTML("rankChartDate"+i,"n/a")
+        }
         if (i == _sl[_ci].rank[0]) {
             document.getElementById("rankChartRow"+i).style.border = "3px solid lawngreen";
         } else {
