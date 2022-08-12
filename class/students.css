@@ -446,3 +446,7 @@ a:link, a:visited, a:hover, a:active {
     color: #ddd;
     margin: 20px auto;
 }
+
+#resourcesPop p {
+    margin-top: 0px;
+}
