@@ -51,7 +51,12 @@ div {
     margin-right: auto;
 }
 
-a:link, a:visited, a:hover, a:active {
+a:link, a:visited {
+    color: #ddd;
+    text-decoration: underline; 
+}
+
+a:active, a:hover {
     color: white;
     text-decoration: none; 
 }
@@ -409,6 +414,10 @@ a:link, a:visited, a:hover, a:active {
     font-family: MobileIcons;
 }
 
+.navigationButtonContainer a {
+    text-decoration: none;
+}
+
 @media (hover: hover) {
     .contactButton:hover {
         transform: scale(1.2);
@@ -448,5 +457,32 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #resourcesPop p {
-    margin-top: 0px;
+    margin: 0px auto 25px auto;
+    color: #ddd;
+}
+
+#resourcesPop a {
+    text-decoration: underline;
+}
+
+#socialMediaFlexDiv {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+#fbLink, #ytLink {
+    height: 100px;
+    width: 100px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#fbLink {
+    background-image: url(../images/nav-facebook.png);
+}
+
+#ytLink {
+    background-image: url(../images/nav-youtube.png);
 }

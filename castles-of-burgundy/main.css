@@ -35,8 +35,7 @@ input, a, div, p, img {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 html {
-    background: #111;
-    /* background: url(images/background.jpg); */
+    background: url(images/background.jpg);
 }
 body {
     font-family: Tahoma, serif;
