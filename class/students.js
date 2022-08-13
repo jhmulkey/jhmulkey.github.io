@@ -204,7 +204,7 @@ function pinAutoEnter() {
 function findStudent() {
     document.activeElement.blur(); innerHTML("nameList","");
     var x = (document.getElementById("searchField").value.trim().toLowerCase()).split(" ");
-    if (x == false) { idFocus("searchField"); return; }
+    if (x == false) {idFocus("searchField");return;}
     for (i = 0; i < x.length; i++) {
         if (x[i] == false) {
             x.splice(i,1); i = 0; continue;
@@ -220,14 +220,14 @@ function findStudent() {
     }
     if (x.length == 2) {
         for (i = 0; i < _sl.length; i++) {
-            if (x[0] + " " + x[1] == _sl[i].name[0].toLowerCase()) {
+            if (x[0] + " " + x[1] == _sl[i].name[0].toLowerCase() || x[0] + "-" + x[1] == _sl[i].name[0].split(" ")[1].toLowerCase()) {
                 matches.push(i);
             }
         }
     }
     if (x.length == 3) {
         for (i = 0; i < _sl.length; i++) {
-            if (x[0] + " " + x[1] + " " + x[2] == _sl[i].name[0].toLowerCase()) {
+            if (x[0] + "-" + x[1] + " " + x[2] == _sl[i].name[0].toLowerCase() || x[0] + " " + x[1] + "-" + x[2] == _sl[i].name[0].toLowerCase()) {
                 matches.push(i);
             }
         }

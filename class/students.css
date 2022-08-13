@@ -58,7 +58,6 @@ a:link, a:visited {
 
 a:active, a:hover {
     color: white;
-    text-decoration: none; 
 }
 
 ::placeholder {
@@ -79,7 +78,8 @@ a:active, a:hover {
 }
 
 .lbTitle {
-    font-size: 25px;
+    font-size: 20px;
+    margin: 20px auto;
     color: #3478F6;
     text-align: center !important;
 }
@@ -415,12 +415,13 @@ a:active, a:hover {
 }
 
 .navigationButtonContainer a {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 @media (hover: hover) {
     .contactButton:hover {
-        transform: scale(1.2);
+        transform: scale(1.1);
+        transition: 0.5s;
     }
 }
 
@@ -472,8 +473,8 @@ a:active, a:hover {
 }
 
 #fbLink, #ytLink {
-    height: 100px;
-    width: 100px;
+    height: 75px;
+    width: 75px;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -485,4 +486,11 @@ a:active, a:hover {
 
 #ytLink {
     background-image: url(../images/nav-youtube.png);
+}
+
+@media (hover: hover) {
+    #fbLink:hover, #ytLink:hover{
+        transform: scale(1.1);
+        transition: 0.5s;
+    }
 }
