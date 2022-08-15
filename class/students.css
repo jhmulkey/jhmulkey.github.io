@@ -494,3 +494,13 @@ a:active, a:hover {
         transition: 0.5s;
     }
 }
+
+#contactQR {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 20px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../images/qr-contact.png);
+}
