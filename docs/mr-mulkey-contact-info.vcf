@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//macOS 12.5//EN
+N:Mulkey;Jonathan;;;
+FN:Jonathan Mulkey
+ORG:North Hills Church;
+EMAIL;type=INTERNET;type=HOME;type=pref:jonathan@ksgrade2.com
+TEL;type=CELL;type=VOICE;type=pref:864-569-4879
+ADR;type=HOME;type=pref:;;4952 EDWARDS RD;TAYLORS;SC;29687;
+item1.URL;type=pref:https://ksgrade2.com/
+item1.X-ABLabel:_$!<HomePage>!$_
+END:VCARD
