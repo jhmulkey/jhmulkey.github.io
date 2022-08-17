@@ -1,5 +1,5 @@
 var _archiveMove = false; // if true, permanently sets _elapsedWeeks to max value
-var _sl = []; var _ci; var _ti; var _currentStudent;
+var _handouts = []; var _handoutName;
 var _asNum; var _mvNum;
 var _asPts;
 var _asMaxPts = [3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3];
@@ -99,11 +99,12 @@ class Student {
         this.att = true;
         this.attArr = [];
         this.promo = [false,0]; // [promoted,promoNum]
-        this.promoDns = [];
+        this.promoDns = []; // promotion dates
         this.randDraw = [false,false];
-        this.statsRanks = [];
+        this.statsRanks = []; // [tot,AS,MV,att,part]
         this.as = [] // [ptsEarned,dateCompleted]
         this.mv = [] // [ptsEarned,dateRecited]
+        this.handouts = [];
     }
 }
 
@@ -201,6 +202,7 @@ function loadBackup() {
     _slOLD = JSON.parse(localStorage.getItem("slBackupOLD"));
     _att = JSON.parse(localStorage.getItem("attBackup"));
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
+    _handouts = JSON.parse(localStorage.getItem("handoutsBackup"));
     _promoList = []; _bdList = [];
     activityLog("backup loaded",dateAndTime("log"));
     for (let i = 0; i < _sl.length; i++) {
@@ -218,6 +220,7 @@ function loadLS() {
     _gameLog = localStorage.getItem("gameLog");
     innerHTML("log",_log); innerHTML("gameLog",_gameLog);
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotes"));
+    _handouts = JSON.parse(localStorage.getItem("handouts"));
     _teams = JSON.parse(localStorage.getItem("teams"));
     generateAllTables(); populateTeacherNotes(); assignTodaysDn(); attCount();
     activityLog("localstorage loaded",dateAndTime("log"));
@@ -306,8 +309,8 @@ function dateAndTime(x) {
 }
 
 function allAlerts() {
-    var alerts = [0,0,0,0,0];
-    var ids = ["promoButton","bdButton","photosNeededButton","emailsNeededButton","bdNeededButton"]
+    var alerts = [0,0,0,0,0,0]; populateMissingHandoutButtons();
+    var ids = ["promoButton","bdButton","photosNeededButton","emailsNeededButton","bdNeededButton","handoutsNeededButton"]
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].att) {
             if (_sl[i].promo[0]) {alerts[0]++}
@@ -315,6 +318,16 @@ function allAlerts() {
             if (!_sl[i].photo) {alerts[2]++}
             if (_sl[i].email == false) {alerts[3]++}
             if (_sl[i].bd[0] == 0) {alerts[4]++}
+            if (_sl[i].handouts.length < _handouts.length) {alerts[5]++}
+        }
+    }
+    for (let i = 0; i < _handouts.length; i++) {
+        for (let j = 0; j < _sl.length; j++) {
+            if (_sl[j].handouts.indexOf(_handouts[i]) < 0 && _sl[j].att) {
+                bgColor(_handouts[i]+"NeededButton","red"); break;
+            } else {
+                bgColor(_handouts[i]+"NeededButton","black")
+            }
         }
     }
     for (let i = 0; i < alerts.length; i++) {
@@ -370,6 +383,12 @@ function populateCustomList(log1,log2,type) {
                     populateStudentFields("editBdMonth",loadNeededBds);
                     value("editBdMonth","");
                     value("editBdDate",""); 
+                }
+            })(i);
+        } else if (type == "handoutNeeded") {
+            (function(i){
+                p1.onclick = function () {
+                    actionAlert("Add handout for <br>" + _sl[i].name[0] + "?",["customListPop"],assignHandout,false,i);
                 }
             })(i);
         }
@@ -450,6 +469,20 @@ function loadNeededBds() {
         if (_sl[i].bd[0] == 0 && _sl[i].att) {
             populateCustomList(_sl[i].name[0],false,"bdNeeded");
         } else if (_sl[i].bd[0] == 0 && !_sl[i].att) {
+            display("absentLabel","block");
+            populateCustomList(false,_sl[i].name[0]);
+        }
+    }
+}
+
+function loadNeededHandouts(name) {
+    _handoutName = name;
+    innerHTML("customList",""); innerHTML("customListAbsent","");
+    innerHTML("customListLabel","Missing "+name); display("absentLabel","none");
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].handouts.indexOf(name) < 0 && _sl[i].att) {
+            populateCustomList(_sl[i].name[0],false,"handoutNeeded",name);
+        } else if (_sl[i].handouts.indexOf(name) < 0 && !_sl[i].att) {
             display("absentLabel","block");
             populateCustomList(false,_sl[i].name[0]);
         }
@@ -1895,6 +1928,7 @@ function editStudent() {
         resetStudentMenu();
         pop(["editStudentPop"],_array);
     }
+    if (_array = ["customListPop"]) {_array = ["alertsPop"]}
 }
 
 function refreshStudentPop() {
@@ -2325,6 +2359,9 @@ function pop(closeArray,openArray,title) {
     if (openArray.includes("sortChoicePop")) {
         _populateNotesID = [];
     }
+    if (openArray.includes("alertsPop")) {
+        _array = ['alertsPop'];
+    }
     if (openArray.includes("pwdPop")) {
         setTimeout(function() {
             idFocus("pwd");
@@ -2333,7 +2370,77 @@ function pop(closeArray,openArray,title) {
     if (openArray.includes("customSortListPop")) {
         innerHTML("customSortListLabel",title);
     }
+    if (openArray.includes("editHandoutsPop")) {
+        var temp = [_handouts[0]];
+        for (let i = 1; i < _handouts.length; i++) {
+            temp.push(" "+_handouts[i]);
+        }
+        value("editHandoutsTF",temp.toString())
+        idFocus("editHandoutsTF");
+    }
     scrollTo(0,0);
+}
+
+function editHandouts() {
+    _handouts = document.getElementById("editHandoutsTF").value.split(",");
+    var trimmed = [];
+    for (let i = 0; i < _handouts.length; i++) {
+        trimmed.push(_handouts[i].trim());
+    } 
+    _handouts = trimmed; storeAndBackup();
+}
+
+function populateAssignHandoutButtons() {
+    innerHTML("assignHandoutsButtonContainer","");
+    for (let i = 0; i < _handouts.length; i++) {
+        var div = createElement("div");
+        div.classList.add("button");
+        div.classList.add("ptr");
+        (function(i){
+            div.onclick = function () {
+                batchAssignHandout(_handouts[i],true);
+            }
+        })(i);
+        div.innerHTML = _handouts[i];
+        append("assignHandoutsButtonContainer",div);
+    }
+}
+
+function populateMissingHandoutButtons() {
+    innerHTML("missingHandoutButtongArr","");
+    for (let i = 0; i < _handouts.length; i++) {
+        var div = createElement("div");
+        div.classList.add("button");
+        div.classList.add("ptr");
+        div.setAttribute("id",_handouts[i]+"NeededButton");
+        (function(i){
+            div.onclick = function () {
+                loadNeededHandouts(_handouts[i]);
+                pop(["handoutsAlertPop"],["customListPop"]); _array = ["handoutsAlertPop"];
+            }
+        })(i);
+        div.innerHTML = _handouts[i];
+        append("missingHandoutButtongArr",div);
+    }
+}
+
+function batchAssignHandout(name,firstCall) {
+    if (firstCall) {
+        actionAlert("Add the handout \""+name+"\" to all students in attendance?",["assignHandoutsPop"],batchAssignHandout,false,name);
+    } else {
+        var count = 0;
+        for (i = 0; i < _sl.length; i++) {
+            if (_sl[i].att && _sl[i].handouts.indexOf(name) < 0) {
+                _sl[i].handouts.push(name); count++
+            }
+        }
+        infoAlert("The handout \""+name+"\" has been added to "+count+" students.",["assignHandoutsPop"],false,true,25);
+    }
+}
+
+function assignHandout(index) {
+    _sl[index].handouts.push(_handoutName);
+    loadNeededHandouts(_handoutName); allAlerts(); storeAndBackup();
 }
 
 function populateBackup() {
@@ -2759,8 +2866,8 @@ function storeAndBackup() {
 }
 
 function storeNewData() {
-    var globalObjects = [_sl,_att,_teacherNotes,_promoList,_teams];
-    var objectLabels = ["sl","att","teacherNotes","promoList","teams"];
+    var globalObjects = [_sl,_att,_teacherNotes,_promoList,_teams,_handouts];
+    var objectLabels = ["sl","att","teacherNotes","promoList","teams","handouts"];
     var globalOther = [_log,_gameLog];
     var otherLabels = ["log","gameLog"];
     for (let i = 0; i < globalObjects.length; i++) {
@@ -2775,9 +2882,11 @@ function backupNewData() {
     innerHTML("slBackupArray","var _slBackup = "+localStorage.getItem("sl")+";");
     innerHTML("attBackupArray","var _attBackup = "+localStorage.getItem("att")+";");
     innerHTML("teacherNotesBackupArray","var _teacherNotesBackup = "+localStorage.getItem("teacherNotes")+";");
+    innerHTML("handoutsBackupArray","var _handouts = "+localStorage.getItem("handouts")+";");
     innerHTML("setItem1","localStorage.setItem('slBackup',JSON.stringify(_slBackup));");
     innerHTML("setItem2","localStorage.setItem('attBackup',JSON.stringify(_attBackup));");
     innerHTML("setItem3","localStorage.setItem('teacherNotesBackup',JSON.stringify(_teacherNotesBackup));");
+    innerHTML("setItem4","localStorage.setItem('handoutsBackup',JSON.stringify(_handouts));");
 }
 
 function selectText(element) {

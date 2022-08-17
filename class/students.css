@@ -67,7 +67,7 @@ a:active, a:hover {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#tpPop, #asPointsPop, #mvPointsPop, #participationPop, #resourcesPop, #calendarPop, #studentAttStatsPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #studentPop {
+#alertPop, #initialMissionsNote, #tpPop, #asPointsPop, #mvPointsPop, #participationPop, #resourcesPop, #calendarPop, #studentAttStatsPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #studentPop {
     display: none;
 }
 
@@ -98,6 +98,7 @@ a:active, a:hover {
 
 .popText {
     text-align: left;
+    color: #eee;
 }
 
 .lg {
@@ -161,6 +162,13 @@ a:active, a:hover {
     margin: 30px auto;
 }
 
+#alertTitle {
+    color: yellow;
+    font-family: Byom-Icons-Trial;
+    font-size: 75px;
+    margin: 30px auto;
+}
+
 #studentPop {
     padding-bottom: 0px;
     margin-bottom: 0px;
@@ -177,19 +185,22 @@ a:active, a:hover {
     margin-bottom: 15px;
 }
 
-.backButton, .homeButton {
+.okButton, .backButton, .homeButton {
     border-radius: 10px;
     height: 28px;
     width: 175px;
     border: 2px solid #999;
     color: #BBB;
-    font-family: Font-90-Icons;
     font-size: 20px;
     font-weight: bold;
     background-color: black;
 }
 
-.backButton:hover, .homeButton:hover {
+.backButton, .homeButton {
+    font-family: Font-90-Icons;
+}
+
+.okButton:hover, .backButton:hover, .homeButton:hover {
     color: white;
     border: 1px solid white;
 }

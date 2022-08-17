@@ -132,6 +132,7 @@
     <div class="asmvHeader">ACTIVITY SHEETS</div>
     <div class="asmvHeader">MEMORY VERSES</div>
   </div>
+  <p id="initialMissionsNote" class="popText"></p>
   <div id="asmvPopContainer">
     <div id="asPop"></div>
     <div id="mvPop"></div>
@@ -288,13 +289,13 @@
 
 <div id="resourcesPop" class="pop" style="text-align:left;">
   <p id="studentPin" style="margin-top:5px;text-align:center;color:white"></p>
-  <p>Text "JOIN" to <a href="sms:8445688420?&body=JOIN">844-568-8420</a> to receive weekly update links by text</p>
-  <p>Email "JOIN" to <a href="mailto:jonathan@ksgrade2.com?subject=JOIN&body=JOIN">jonathan@ksgrade2.com</a> to receive weekly updates by email</p>
-  <p><a target="_blank" href="https://www.facebook.com/groups/ksgrade2">Join our class's private Facebook page</a></p>
-  <p><a target="_blank" href="https://youtube.com/playlist?list=PL7iQZDmvw8GHXTnAoOT0UNS38yCKIqwRy">View lesson and memory verse videos</a></p>
+  <p><a href="sms:8445688420?&body=JOIN">Text "JOIN" to 844-568-8420</a> to receive weekly update links by text</p>
+  <p><a href="mailto:jonathan@ksgrade2.com?subject=JOIN&body=JOIN">Email "JOIN" to jonathan@ksgrade2.com</a> to receive weekly updates by email</p>
   <p><a target="_blank" href="docs/handbook.pdf">Download class handbook</a></p>
   <p><a target="_blank" href="docs/calendar.pdf">Download printable calendar</a></p>
   <p><a target="_blank" href="docs/ranks.pdf">Download printable rank chart</a></p>
+  <p><a target="_blank" href="https://www.facebook.com/groups/ksgrade2">Join our class's private Facebook page</a></p>
+  <p><a target="_blank" href="https://youtube.com/playlist?list=PL7iQZDmvw8GHXTnAoOT0UNS38yCKIqwRy">View lesson and memory verse videos</a></p>
   <div id="socialMediaFlexDiv" style="margin-top:20px">
     <a target="_blank" href="https://www.facebook.com/groups/ksgrade2"><div id="fbLink" class="ptr"></div></a>
     <a target="_blank" href="https://youtube.com/playlist?list=PL7iQZDmvw8GHXTnAoOT0UNS38yCKIqwRy"><div id="ytLink" class="ptr"></div></a>
@@ -305,6 +306,12 @@
     <a href="sms:8645694879"><div class="contactButton">d</div></a>
     <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton">v</div></a>
   </div>
+</div>
+
+<div id="alertPop" class="pop">
+  <p id="alertTitle">I</p>
+  <p id="alertMssg" style="font-size:25px"><span class="do">Reminder:</span><br>No Kidstuff next week (9/4). We'll see you back again on 9/11.</p>
+  <div class="okButton ptr" style="margin-top:50px" onclick="loadStudent(_ci);pop(['alertPop'],['studentPop','missionsPop'])">OK</div>
 </div>
 
 </div>

@@ -1,3 +1,4 @@
+var _alert = false; 
 var _sl = []; var _ci; var _ti; var _currentStudent;
 var _totalASpts; var _totalMVpts; var _totalPts; var _totalPossible;
 var _earnedASpts; var _earnedMVpts; var _totalEarnedPts; var _weeksAttended; var _totalEarned;
@@ -185,8 +186,12 @@ function pinEntry(x) {
     var match = false; innerHTML("nameList","");
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].pin == x) {
-            match = true; loadStudent(i);
-            pop(["mainPop"],["studentPop","studentStatsPop"]);
+            match = true; _ci = i; 
+            if (_alert) {
+                pop(["mainPop"],["alertPop"]);
+            } else {
+                loadStudent(i); pop(["mainPop"],["studentPop","studentStatsPop"]);
+            }
         }
     }
     if (!match) {
@@ -241,7 +246,12 @@ function findStudent() {
         document.getElementById("searchField").value = "";
     }
     if (matches.length == 1) {
-        _ci = matches[0]; loadStudent(_ci); pop(["mainPop"],["studentPop","studentStatsPop"]);
+        _ci = matches[0];
+        if (_alert) {
+            pop(["mainPop"],["alertPop"]);
+        } else {
+            loadStudent(_ci); pop(["mainPop"],["studentPop","studentStatsPop"]);
+        }
     }
     if (matches.length > 1) {
         display("hint","block"); document.getElementById("searchField").value = ""; populateMatches(matches);
@@ -257,8 +267,11 @@ function populateMatches(indexArray) {
         (function(i){
             p.onclick = function () {
                 let x = indexArray[i]; _ci = x;
-                loadStudent(_ci);
-                pop(["infoAlertPop"],["studentPop","studentStatsPop"]);
+                if (_alert) {
+                    pop(["infoAlertPop"],["alertPop"]);
+                } else {
+                    loadStudent(_ci); pop(["infoAlertPop"],["studentPop","studentStatsPop"]);
+                }
             }
         })(i);
         p.innerHTML = _sl[indexArray[i]].name[0];
@@ -1112,6 +1125,10 @@ function loadStudentStats() {
 
 function populateMissions() {
     innerHTML("asPop",""); innerHTML("mvPop","");
+    if (_elapsedWeeks == 1) {
+        display("initialMissionsNote","block");
+        innerHTML("initialMissionsNote","No missions are due yet. Missions that have come due will appear here starting next Sunday ("+cdn(_dns[1])+"), color-coded according to their completion status. To download the missions that were assigned for this week (and due next Sunday), click \"Download this week's missions\" above.");
+    }
     if (_elapsedWeeks > 1) {
         for (let i = _ti; i >= 0; i--) {
             if (i >= _asNames.length) { continue }
