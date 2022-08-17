@@ -163,7 +163,7 @@ a:active, a:hover {
 }
 
 #alertTitle {
-    color: yellow;
+    color: #ccc;
     font-family: Byom-Icons-Trial;
     font-size: 75px;
     margin: 30px auto;
