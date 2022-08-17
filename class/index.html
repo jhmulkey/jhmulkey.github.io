@@ -81,7 +81,7 @@
   </div>
   <div class="button ptr" onclick="pop(['mainMenuPop'],['sortChoicePop']); _currentPop='sortChoicePop'">Sort Students</div>
   <div class="button ptr" onclick="loadAttStats()">Attendance Stats</div>
-  <div id="drawButton" class="button ptr" onclick="pop(['mainMenuPop'],['drawPop'])">Drawing</div>
+  <div id="drawButton" class="button ptr" onclick="clearDrawingWinner(); pop(['mainMenuPop'],['drawPop'])">Drawing</div>
   <div id="randButton" class="button ptr" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
   <div id="teamsButton" class="button ptr" onclick="teams()">Teams</div>
   <div class="button ptr" id="teacherNotesButton" onclick="pop(['mainMenuPop'],['teacherNotesPop']); populateTeacherNotes()">Notes</div>
@@ -686,6 +686,7 @@
 <div id="studentPropertiesPop" class="pop">
   <div id="studentProperties">
     <p>name: <span id="name"></span></p>
+    <p>PIN: <span id="pin"></span></p>
     <p>gender: <span id="gender"></span></p>
     <p>dateAdded: <span id="dateAdded"></span><span id="dateAddedConverted"></span></p>
     <p>bd: <span id="bd"></span><span id="bdnConverted"></span></p>
@@ -698,8 +699,10 @@
     <p>att: <span id="att"></span></p>
     <p>attArr: <span id="attArr"></span></p>
     <p>promo: <span id="promo"></span></p>
+    <p>promoDns: <span id="promoDns"></span></p>
     <p>randDraw: <span id="randDraw"></span></p>
     <p>statsRanks: <span id="statsRanks"></span></p>
+    <p>handouts: <span id="handouts"></span></p>
     <p>as: <span id="as"></span></p>
     <p>mv: <span id="mv"></span></p>
   </div>
