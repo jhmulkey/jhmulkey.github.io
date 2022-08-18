@@ -13,9 +13,9 @@
 <div id="mainPop" class="pop">
     <div id="topMenuContainer">
         <div id="mainMenuButton" class="roundButton2 ptr" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
-        <div id="alertButton" class="roundButton2 ptr" onclick="pop(['mainPop'],['alertsPop'])">#</div>
+        <div id="alertButton" class="roundButton2 ptr" onclick="alertsPop()">#</div>
         <div id="attCountButton" class="roundButton2 ptr" onclick="loadAttendees()">0</div>
-        <div id="logButton" class="roundButton2 ptr" onclick="pop(['mainPop'],['logPop'])">F</div>
+        <div id="logButton" class="roundButton2 ptr" onclick="logPop()">F</div>
         <div id="backupButton" class="roundButton2 ptr" onclick="populateBackup()">B</div>
     </div>
     <input id="searchMain" class="searchField" type="text" placeholder="search names" oninput="searchNamesMain()"/>
@@ -32,9 +32,9 @@
 
 <div id="att3Pop" class="pop">
   <div class="navigationButtonContainer" style="margin-bottom:0px">
-    <div class="backButton ptr" onclick="pop(['att3Pop'],['teamsListPop'])">f</div>
+    <div class="backButton ptr" onclick="teamsListPop()">f</div>
   </div>
-  <input id="searchMain3" class="searchField2" type="text" placeholder="search names" oninput="searchNames('searchMain3','name')"/>
+  <input id="searchMain3" class="searchField2" type="text" placeholder="search names" oninput="searchNames('searchMain3','nameSmaller')"/>
   <div id="nameList3"></div>
 </div>
 
@@ -79,7 +79,7 @@
     <div class="backButton ptr" onclick="goHome()">f</div>
     <div id="advancedButton" class="otherButton ptr" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">Advanced</div>
   </div>
-  <div class="button ptr" onclick="pop(['mainMenuPop'],['sortChoicePop']); _currentPop='sortChoicePop'">Sort Students</div>
+  <div class="button ptr" onclick="sortChoicePop()">Sort Students</div>
   <div class="button ptr" onclick="loadAttStats()">Attendance Stats</div>
   <div id="drawButton" class="button ptr" onclick="clearDrawingWinner(); pop(['mainMenuPop'],['drawPop'])">Drawing</div>
   <div id="randButton" class="button ptr" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
@@ -104,7 +104,7 @@
     <div class="backButton ptr" onclick="pop(['handoutsPop'],['mainMenuPop'])">f</div>
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
-  <div id="editHandoutsButton" class="button ptr" onclick="pop(['handoutsPop'],['editHandoutsPop'])">Edit Handouts</div>
+  <div id="editHandoutsButton" class="button ptr" onclick="editHandoutsPop()">Edit Handouts</div>
   <div id="assignHandoutsButton" class="button ptr" onclick="pop(['handoutsPop'],['assignHandoutsPop']); populateAssignHandoutButtons()">Assign Handouts</div>
 </div>
 
@@ -204,7 +204,7 @@
     <div class="gamePointButton ptr" id="gamePoint9" onclick="gameScorePts(9)">9</div>
     <div id="gameUndoButton" class="ptr" onclick="undoGameScorePts()">b</div>
     <div class="gamePointButton ptr" id="gamePoint10" onclick="gameScorePts(10)">10</div>
-    <div id="gameLogButton" class="ptr" onclick="pop(['playGamePop'],['gameLogPop'])">F</div>
+    <div id="gameLogButton" class="ptr" onclick="gameLogPop()">F</div>
   </div>
 </div>
 
@@ -219,7 +219,7 @@
 
 <div id="dataInputAlertPop" class="pop">
   <p id="dataInputAlertMessage"></p>
-  <input id="dataInputTextField" type="text" onkeydown="pressKey(13,'dataInputAlertOK'); pressKey(27,'dataInputAlertCancel')"/>
+  <input id="dataInputTF" type="text" onkeydown="pressKey(13,'dataInputAlertOK'); pressKey(27,'dataInputAlertCancel')"/>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="dataInputAlertCancel" onclick="dataInputAlert(false,false,false,false,true)">X</div>
     <div class="roundButton1 okButton ptr" id="dataInputAlertOK" onclick="dataInputAlert()">V</div>
@@ -229,7 +229,7 @@
 <div id="wtlPop" class="pop buttonArr">
     <p>Choose data to load</p>
     <div class="button ptr" onclick="loadLS()">Local Storage</div>
-    <div class="button ptr" onclick="pop(['wtlPop'],['pwdPop'])">Backup</div>
+    <div class="button ptr" onclick="pwdPop()">Backup</div>
 </div>
 
 <div id="logPop" class="pop">
@@ -297,17 +297,17 @@
       <table id="rankProgressTable" class="progressBarTable"></table>
     </div>
 
-    <div id="totalProgressTableDiv" class="ptr" onclick="">
+    <div id="totalProgressTableDiv">
       <p id="totalProgressTableP"></p>
       <table id="totalProgressTable" class="progressBarTable"></table>
     </div>
 
-    <div id="asProgressTableDiv" class="ptr" onclick="">
+    <div id="asProgressTableDiv">
       <p id="asProgressTableP"></p>
       <table id="asProgressTable" class="progressBarTable"></table>
     </div>
 
-    <div id="mvProgressTableDiv" class="ptr" onclick="">
+    <div id="mvProgressTableDiv">
       <p id="mvProgressTableP"></p>
       <table id="mvProgressTable" class="progressBarTable"> </table>
     </div>
@@ -317,7 +317,7 @@
       <table id="attProgressTable" class="progressBarTable"></table>
     </div>
 
-    <div id="totalParticipationTableDiv" class="ptr" onclick="infoAlert('Participation is a combination of all the student\'s activity sheet points, memory verse points, and attendance.  A student who achieves a 100% total participation score will receive special recognition at the end of the year.',['studentStatsPop'],false,true,20,'left')">
+    <div id="totalParticipationTableDiv">
       <p id="totalParticipationTableP"></p>
       <table id="totalParticipationTable" class="progressBarTable"></table>
     </div>
@@ -442,7 +442,7 @@
       <input class="searchField" id="editNamePron" placeholder="name pronunciation" onkeydown="pressKey(13,'editStudentOkButton')"></textarea>
     </div>
     <div class="optionButtonContainer">
-      <div class="roundButton1 cancelButton ptr" id="editStudentCancelButton" onclick="pop(['editStudentPop'],[_array]); _array = ['alertsPop']; clearStudentFields(); resetStudentMenu(); rapidOff()">X</div>
+      <div class="roundButton1 cancelButton ptr" id="editStudentCancelButton" onclick="editStudentPop(); clearStudentFields(); resetStudentMenu(); rapidOff()">X</div>
       <div class="roundButton1 deleteButton ptr" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
       <div class="roundButton1 okButton ptr" id="editStudentOkButton" onclick="editStudent()">V</div>
     </div>
@@ -674,7 +674,7 @@
 
 <div id="customListPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['customListPop'],[_array])">f</div>
+    <div class="backButton ptr" onclick="customListPop()">f</div>
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
   <div id="customListLabel"></div>

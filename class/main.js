@@ -10,7 +10,6 @@ var _bdList = []; var _promoList = [];
 var _noteIndex; var _teacherNotes = []; var _teacherNoteIndex;
 var _log = ""; var _gameLog = ""; 
 var _currentPop; var _currentPops; var _currentPops2; var _array;
-var _populateNotesID = [];
 var _focus;
 var _currentFunction; var _currentParameter;
 var _eligibleRandom; var _picked;
@@ -202,8 +201,7 @@ function loadBackup() {
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].randDraw[0] = false;
     }
-    generateAllTables(); assignTodaysDn(); clearAttendees(); populateMissions(); populateTeacherNotes(); storeAndBackup();
-    pop(["wtlPop"],["mainPop"]);
+    generateAllTables(); assignTodaysDn(); clearAttendees(); populateMissions(); populateTeacherNotes(); storeAndBackup(); goHome();
 }
 
 function loadLS() {
@@ -218,8 +216,7 @@ function loadLS() {
     _teams = JSON.parse(localStorage.getItem("teams"));
     generateAllTables(); populateTeacherNotes(); assignTodaysDn(); attCount();
     activityLog("localstorage loaded",dateAndTime("log"));
-    backupNewData();
-    pop(["wtlPop"],["mainPop"]); 
+    backupNewData(); goHome();
 }
 
 function pwdEntry() {
@@ -366,14 +363,14 @@ function populateCustomList(log1,log2,type) {
         } else if (type == "email") {
             (function(i){
                 p1.onclick = function () {
-                    _ci = i; _array = ["customListPop"];
+                    _ci = i;
                     populateStudentFields("editEmail",loadNeededEmails);
                 }
             })(i);
         } else if (type == "bdNeeded") {
             (function(i){
                 p1.onclick = function () {
-                    _ci = i; _array = ["customListPop"];
+                    _ci = i;
                     populateStudentFields("editBdMonth",loadNeededBds);
                     value("editBdMonth","");
                     value("editBdDate",""); 
@@ -985,8 +982,7 @@ function resetAtt() {
     }
     activityLog("removed all attendees",dateAndTime("log"));
     if (_isClassDay) {ampmAttendance()}
-    pop(["attListPop"],["mainPop"]);
-    attCount(); storeAndBackup();
+    attCount(); storeAndBackup(); goHome();
 }
 
 function clearAttendees() {
@@ -1074,7 +1070,7 @@ function sortByRank() {
         append("nameListCustom",p);
         lastElementNode = _sl[i].rank[0];
     }
-    pop(["sortChoicePop"],["customSortListPop"],"Rank");
+    customSortListPop("sortChoicePop","Rank");
 }
 
 function sortByPts(lb) {
@@ -1121,7 +1117,7 @@ function sortByPts(lb) {
         }
         lastElementNode = _sl[i].pts;
     }
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Total Points")}
+    if (!lb) {customSortListPop("sortChoicePop","Total Points")}
 }
 
 function sortByGamePts() {
@@ -1142,7 +1138,7 @@ function sortByGamePts() {
         append("nameListCustom",p);
         lastElementNode = _sl[i].gamePts[0];
     }
-    pop(["teamsListPop"],["customSortListPop"],"Game Points");
+    customSortListPop("teamsListPop","Game Points");
 }
 
 function sortByASpts(lb) {
@@ -1201,7 +1197,7 @@ function sortByASpts(lb) {
             append("nameListCustom",p);
         }        lastElementNode = _sl[i].earnedASpts;
     }
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Activity Points")}
+    if (!lb) {customSortListPop("sortChoicePop","Activity Points")}
 }
 
 function sortByMVpts(lb) {
@@ -1260,7 +1256,7 @@ function sortByMVpts(lb) {
             append("nameListCustom",p);
         }        lastElementNode = _sl[i].earnedMVpts;
     }
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Memory Points")}
+    if (!lb) {customSortListPop("sortChoicePop","Memory Points")}
 }
 
 function sortByAtt(lb) {
@@ -1311,7 +1307,7 @@ function sortByAtt(lb) {
             append("nameListCustom",p);
         }        lastElementNode = _sl[i].totalWksAtt;
     }  
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Attendance")}
+    if (!lb) {customSortListPop("sortChoicePop","Attendance")}
 }
 
 function sortByTP(lb) {
@@ -1372,7 +1368,7 @@ function sortByTP(lb) {
         }
         lastElementNode = _sl[i].tpPts;
     }  
-    if (!lb) {pop(["sortChoicePop"],["customSortListPop"],"Participation")}
+    if (!lb) {customSortListPop("sortChoicePop","Participation")}
 }
 
 function sortByGender() {
@@ -1402,7 +1398,7 @@ function sortByGender() {
     }  
     innerHTML("boysListP","Boys (" + boys.length + ")");
     innerHTML("girlsListP","Girls (" + girls.length + ")");
-    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"],"Gender");
+    customSortListPop("sortChoicePop","Gender");
 }
 
 function sortByBd() {
@@ -1438,7 +1434,7 @@ function sortByBd() {
         p.append(span1,span2); append("nameListCustom",p);
         lastElementNode = cdn(_sl[i].bd[0],"M");
     }  
-    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"],"Birthdays");
+    customSortListPop("sortChoicePop","Birthdays");
 }
 
 function sortByDateAdded() {
@@ -1465,7 +1461,7 @@ function sortByDateAdded() {
         p.append(span1,span2); append("nameListCustom",p);
         lastElementNode = dateAddedMonth;
     }  
-    pop(["mainMenuPop","sortChoicePop"],["customSortListPop"],"Date Added");
+    customSortListPop("sortChoicePop","Date Added");
 }
 
 function sortByNotes(bypass) {
@@ -1500,7 +1496,7 @@ function sortByNotes(bypass) {
             lastElementNode = _sl[i];
         }
     }  
-    if (!bypass) { pop(["mainMenuPop","sortChoicePop"],["customSortListPop"],"Notes"); }
+    if (!bypass) { customSortListPop("sortChoicePop","Notes"); }
 }
 
 function sortSL() {
@@ -1537,8 +1533,7 @@ function sortSLbyGamePts() {
     });
 }
 
-function populateStudentNotes(id) {
-    _populateNotesID = id;
+function populateStudentNotes() {
     innerHTML("studentNotesList","");
     for (let i = 0; i < _sl[_ci].notes.length; i++) {
         if (_sl[_ci].notes[i] == false) { continue }
@@ -1573,7 +1568,7 @@ function addStudentNote() {
         _sl[_ci].notes.push(note);
         value("addStudentNote","");
         storeAndBackup();
-        populateStudentNotes(_populateNotesID);
+        populateStudentNotes();
         pop(["addStudentNotePop","addStudentNote"],["studentNotesPop","studentNotesList"]);
     }
 }
@@ -1594,7 +1589,7 @@ function addTeacherNote() {
 function deleteNote() {
     _sl[_ci].notes.splice(_noteIndex,1);
     storeAndBackup();
-    populateStudentNotes(_populateNotesID);
+    populateStudentNotes();
     pop(["editStudentNotePop"],["studentNotesPop"]);
 }
 
@@ -1608,7 +1603,7 @@ function editStudentNote() {
         _sl[_ci].notes[_noteIndex] = document.getElementById("editStudentNote").value;
     }
     storeAndBackup();
-    populateStudentNotes(_populateNotesID);
+    populateStudentNotes();
     pop(["editStudentNotePop"],["studentNotesPop"]);
 }
 
@@ -1701,18 +1696,18 @@ function dataInputAlert(message,popArray,func,parameter,bypass) {
         _currentPops2 = popArray;
         _currentFunction = func;
         display("dataInputAlertPop","block");
-        value("dataInputTextField","");
+        value("dataInputTF","");
         for (let i = 0; i < _currentPops2.length; i++) {
             document.getElementById(_currentPops2[i]).style.display = "none"
         }
         innerHTML("dataInputAlertMessage",message);
-        idFocus("dataInputTextField");
+        idFocus("dataInputTF");
     } else if (document.getElementById("dataInputAlertPop").style.display == "block") {
         if (!bypass) {
-            if (isNaN(parseInt(document.getElementById("dataInputTextField").value))) {
-                infoAlert("Please enter a number",["dataInputAlertPop"],"dataInputTextField");return
+            if (isNaN(parseInt(document.getElementById("dataInputTF").value))) {
+                infoAlert("Please enter a number",["dataInputAlertPop"],"dataInputTF");return
             }
-            var data = parseInt(document.getElementById("dataInputTextField").value);
+            var data = parseInt(document.getElementById("dataInputTF").value);
             _currentFunction(_dataInputParameter,data);
             for (let i = 0; i < _currentPops2.length; i++) {
                 display(_currentPops2[i],"block");
@@ -1840,7 +1835,7 @@ function newStudent() {
     if (document.getElementById("rapidEntryCheck").checked) {
         idFocus("newFirst");return
     } else {
-        pop(["newStudentPop"],["mainPop"]);
+        goHome();
     }
 }
 
@@ -1916,13 +1911,34 @@ function editStudent() {
         if (_ci < _sl.length-1) {
             _ci++; refreshStudentPop(); refreshMissionsPop(); populateStudentFields();
         } else if (_ci == _sl.length-1) {
-            pop(["editStudentPop","studentPop"],["mainPop"]); rapidOff();
+            goHome(); rapidOff();
         }
     } else {
-        resetStudentMenu();
-        pop(["editStudentPop"],_array);
+        resetStudentMenu(); editStudentPop();
     }
-    if (_array = ["customListPop"]) {_array = ["alertsPop"]}
+}
+
+function editStudentPop() {
+    if (_array == "loadStudent") {
+        pop(["editStudentPop"],["missionsPop"]);
+    }
+    if (_array == "alertsPop") {
+        pop(["editStudentPop"],["customListPop"]);
+    }
+}
+
+function alertsPop() {
+    pop(["mainPop"],["alertsPop"]); _array = ["alertsPop"];
+}
+
+function customListPop() {
+    if (_array == "alertsPop") {
+        pop(["customListPop"],["alertsPop"]);
+    }
+    if (_array == "handoutsAlertPop") {
+        pop(["customListPop"],["handoutsAlertPop"]);
+        _array = ["alertsPop"];
+    }
 }
 
 function refreshStudentPop() {
@@ -2007,7 +2023,9 @@ function populateStudentFields(id,func) {
     value("editGender",_sl[_ci].gender);
     value("editNamePron",_sl[_ci].name[1]);
     loadStudentPhoto();
-    pop(_array,["editStudentPop"]);
+    if (_array == "alertsPop") {
+        pop(["customListPop"],["editStudentPop"]);
+    }
     if (id) {idFocus(id)}
 }
 
@@ -2074,7 +2092,9 @@ function asPts(_asNum,x) {
             _sl[_ci].as[_asNum][0] = x;
         }
         if (asPts == x) {
-            _sl[_ci].as[_asNum][1] = 0;
+            if (_sl[_ci].as[_asNum][1] == _todaysDn) {
+                _sl[_ci].as[_asNum][1] = 0;
+            }
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
@@ -2097,7 +2117,9 @@ function asPts(_asNum,x) {
             _sl[_ci].as[_asNum][0] = x;
         }
         if (asPts == x) {
-            _sl[_ci].as[_asNum][1] = 0;
+            if (_sl[_ci].as[_asNum][1] == _todaysDn) {
+                _sl[_ci].as[_asNum][1] = 0;
+            }
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
@@ -2140,7 +2162,9 @@ function mvPts(_mvNum,x) {
             _sl[_ci].mv[_mvNum][0] = x;
         }
         if (mvPts == x) {
-            _sl[_ci].mv[_mvNum][1] = 0;
+            if (_sl[_ci].mv[_mvNum][1] == _todaysDn) {
+                _sl[_ci].mv[_mvNum][1] = 0;
+            }
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
@@ -2163,7 +2187,9 @@ function mvPts(_mvNum,x) {
             _sl[_ci].mv[_mvNum][0] = x;
         }
         if (mvPts == x) {
-            _sl[_ci].mv[_mvNum][1] = 0;
+            if (_sl[_ci].mv[_mvNum][1] == _todaysDn) {
+                _sl[_ci].mv[_mvNum][1] = 0;
+            }
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
@@ -2261,7 +2287,6 @@ function resetStudentMenu() {
 }
 
 function studentMenuSwitch(x) {
-    _array = ["missionsPop"];
     var allPops = document.getElementsByClassName("pop");
     var pops = ["missionsPop","studentStatsPop","editStudentPop","studentNotesPop","studentPropertiesPop"];
     var funcs = [false,loadStudentStats,populateStudentFields,populateStudentNotes];
@@ -2298,9 +2323,6 @@ function mvLinks() {
 }
 
 function pop(closeArray,openArray,title) {
-    if (openArray.includes("sortChoicePop") && _sl == false) {
-        infoAlert("You must add at least one student before sorting",["mainMenuPop"]);return
-    }
     for (let i = 0; i < closeArray.length; i++) {
         if (closeArray != []) {
             display(closeArray[i],"none");
@@ -2311,68 +2333,52 @@ function pop(closeArray,openArray,title) {
             display(openArray[i],"block");
         }    
     }
-    if (openArray.includes("mainPop")) {
-        value("searchMain","");
-        idFocus("searchMain");
-        sortSL(); populateNames(); allAlerts();
-    }
-    if (openArray.includes("logPop")) {
-        value("searchLog","");
-        idFocus("searchLog");
-        innerHTML("log",_log);
-    }
-    if (openArray.includes("gameLogPop")) {
-        value("searchGameLog","");
-        idFocus("searchGameLog");
-        innerHTML("gameLog",_gameLog);
-    }
-    if (openArray.includes("att2Pop")) {
-        value("searchMain2","");
-        idFocus("searchMain2");
-    }
-    if (openArray.includes("att3Pop")) {
-        value("searchMain3","");
-        idFocus("searchMain3");
-    }
-    if (openArray.includes("newStudentPop")) {
-        idFocus("newFirst");
-    }
-    if (openArray.includes("addStudentNotePop")) {
-        idFocus("addStudentNote");
-    }
-    if (openArray.includes("addTeacherNotePop")) {
-        idFocus("addTeacherNote");
-    }
-    if (openArray.includes("teamsListPop")) {
-        display("teamsListNav","flex");
-        display("teamsListButtons","block");
-    }
-    if (openArray.includes("customSortListPop") && _populateNotesID.includes("customSortListPop")) {
-        sortByNotes(true);
-    }
-    if (openArray.includes("sortChoicePop")) {
-        _populateNotesID = [];
-    }
-    if (openArray.includes("alertsPop")) {
-        _array = ['alertsPop'];
-    }
-    if (openArray.includes("pwdPop")) {
-        setTimeout(function() {
-            idFocus("pwd");
-        },10);
-    }
-    if (openArray.includes("customSortListPop")) {
-        innerHTML("customSortListLabel",title);
-    }
-    if (openArray.includes("editHandoutsPop")) {
-        var temp = [_handouts[0]];
-        for (let i = 1; i < _handouts.length; i++) {
-            temp.push(" "+_handouts[i]);
-        }
-        value("editHandoutsTF",temp.toString())
-        idFocus("editHandoutsTF");
-    }
     scrollTo(0,0);
+}
+
+function logPop() {
+    value("searchLog",""); innerHTML("log",_log);
+    pop(['mainPop'],['logPop'])
+}
+
+function gameLogPop() {
+    value("searchGameLog",""); innerHTML("gameLog",_gameLog);
+    pop(['playGamePop'],['gameLogPop'])
+}
+
+function teamsListPop() {
+    display("teamsListNav","flex");
+    display("teamsListButtons","block");
+    pop(['att3Pop'],['teamsListPop'])
+}
+
+function pwdPop() {
+    pop(['wtlPop'],['pwdPop']);
+    idFocus("pwd");
+}
+
+function customSortListPop(id,title) {
+    innerHTML("customSortListLabel",title);
+    pop([id],["customSortListPop"]);
+} 
+
+function editHandoutsPop() {
+    var temp = [_handouts[0]];
+    for (let i = 1; i < _handouts.length; i++) {
+        temp.push(" "+_handouts[i]);
+    }
+    value("editHandoutsTF",temp.toString())
+    pop(['handoutsPop'],['editHandoutsPop'])
+    idFocus("editHandoutsTF");
+}
+
+function sortChoicePop() {
+    if (_sl == false) {
+        infoAlert("You must add at least one student before sorting",["mainMenuPop"]);return
+    } else {
+        _currentPop = "sortChoicePop"
+        pop(['mainMenuPop'],['sortChoicePop'])
+    }
 }
 
 function editHandouts() {
@@ -2410,7 +2416,8 @@ function populateMissingHandoutButtons() {
         (function(i){
             div.onclick = function () {
                 loadNeededHandouts(_handouts[i]);
-                pop(["handoutsAlertPop"],["customListPop"]); _array = ["handoutsAlertPop"];
+                pop(["handoutsAlertPop"],["customListPop"]);
+                _array = ["handoutsAlertPop"];
             }
         })(i);
         div.innerHTML = _handouts[i];
@@ -2568,7 +2575,7 @@ function populateNames() {
         span2.classList.add("nameSpan");
         (function(i){
             span2.onclick = function () {
-                loadStudent(i);
+                loadStudent(i); _array = "loadStudent";
             }
         })(i);
         span2.innerHTML = " " + _sl[i].name[0];
@@ -2578,8 +2585,7 @@ function populateNames() {
     var p2 = createElement("p");
     p2.classList.add("addNew");
     p2.onclick = function () {
-        pop(["mainPop"],["newStudentPop"]);
-        idFocus("newFirst");
+        idFocus("newFirst"); pop(['mainPop'],['newStudentPop'])
     }
     p2.innerHTML = "Add New Student";
     append("nameList",p2);
@@ -2648,8 +2654,8 @@ function generateStudentStatsTables() {
 }
 
 function populateNames2() {
-    display("att2Pop","block");
-    innerHTML("nameList2","");
+    display("att2Pop","block"); innerHTML("nameList2","");
+    value("searchMain2",""); idFocus("searchMain2");
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].att) { continue };
         var p = createElement("p");
@@ -2672,15 +2678,14 @@ function populateNames3(x) {
     display("teamsListNav","none");
     display("teamsListButtons","none");
     innerHTML("nameList3","");
+    value("searchMain3",""); idFocus("searchMain3");
     for (let i = 0; i < _sl.length; i++) {
         if (!_sl[i].att || _teams[0].team1Reset.includes(_sl[i].name[0]) || _teams[0].team2Reset.includes(_sl[i].name[0])) { continue }
         var p = createElement("p");
         p.classList.add("nameSmaller");
         (function(i){
             p.onclick = function () {
-                addPlayer(x,i);
-                pop(["att3Pop"],["teamsListPop"]);
-                value("searchMain3","");
+                addPlayer(x,i); teamsListPop(); value("searchMain3","");
             }
         })(i);
         p.innerHTML = _sl[i].name[0];

@@ -21,7 +21,7 @@
 }
 
 html {
-    background-color: #17171E;
+    background-color: #111;
 }
 
 body {
@@ -35,16 +35,17 @@ a {
 }
 
 header {
+    background-color: black;
     font-family: Stencil;
     font-size: 100px;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     text-align: center;
     color: #fff;
-    background-image: url("images/camo-background.jpg");
     padding: 10px;
     padding-top: 25px;
-    border-radius: 5px;
+    border: 2px solid #555;
+    border-radius: 10px;
     margin: 25px auto;
     max-width: 1425px;
 }
@@ -66,34 +67,24 @@ a:hover .non-index-header {
 }
 
 .nav-icon-wrapper {
-    background-color: rgba(50,50,50,0.7);
     text-align: center;
     width: 300px;
-    border: 2px solid silver;
-    border-radius: 5px;
+    border: 2px solid #555;
+    border-radius: 10px;
     overflow: hidden;
     position: relative;
     margin: 20px;
+    background-image: url(images/camo-background.jpg);
 }
 
 .nav-icon-wrapper:hover {
 	transform: scale(1.025);
-	transition: 0.1s;
+	transition: 0.3s;
 }
 
 .nav-icon-img-wrapper {
     width: 300px;
     height: 300px;
-}
-
-.newest-icon {
-    background-image: url("images/nav-newest.png");
-    background-size: 300px 300px;
-}
-
-.archives-icon {
-    background-image: url("images/nav-archives.png");
-    background-size: 300px 300px;
 }
 
 .calendar-icon {
@@ -121,21 +112,16 @@ a:hover .non-index-header {
     background-size: 300px 300px;
 }
 
-.contact-icon {
-    background-image: url("images/nav-contact.png");
-    background-size: 300px 300px;
-}
-
 .nav-icon-text-wrapper {
-    background-color: rgba(0,0,0,0.9);
     color: white;
+    background-color: rgba(0,0,0,0.3);
     font-size: 30px;
+    font-weight: bolder;
     padding: 20px 0;
 }
 
 .nav-icon-wrapper:hover {
-    border: 2px solid green;
-    background-color: rgba(0,0,0,0.7);
+    border: 2px solid lawngreen;
 }
 
 .nav a:active div {
