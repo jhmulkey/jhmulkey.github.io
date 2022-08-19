@@ -455,13 +455,9 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 2px;
 }
 
-.name, .nameSmaller {
+.name {
     margin: 0px 0px 15px;
     cursor: pointer;
-}
-
-.nameSmaller {
-    font-size: 20px;
 }
 
 .name2 {
@@ -536,7 +532,7 @@ a:link, a:visited, a:hover, a:active {
     font-weight: bolder;
 }
 
-#dataInputTextField {
+#dataInputTF {
     height: 100px;
     width: 150px;
     outline: none;

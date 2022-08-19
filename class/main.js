@@ -2069,6 +2069,7 @@ function demo() {
 }
 
 function asPts(_asNum,x) {
+    if (document.getElementById("as"+x+"Pts").style.color == "rgb(51, 51, 51)") {return} 
     if (_sl[_ci].as[_asNum][1] == 0) {_sl[_ci].as[_asNum][1] = _todaysDn};
     var rankNum = _sl[_ci].rank[0];
     var rankFactor = _sl[_ci].rank[1];
@@ -2139,6 +2140,7 @@ function asPts(_asNum,x) {
 }
 
 function mvPts(_mvNum,x) {
+    if (document.getElementById("mv"+x+"Pts").style.color == "rgb(51, 51, 51)") {return} 
     if (_sl[_ci].mv[_mvNum][1] == 0) {_sl[_ci].mv[_mvNum][1] = _todaysDn};
     var rankNum = _sl[_ci].rank[0];
     var rankFactor = _sl[_ci].rank[1];
@@ -2506,7 +2508,32 @@ function asPop(asNum,pts) {
             display("as"+i+"Pts","none");
         }
     }
+    asLateCheck();
     scrollTo(0,0);
+}
+
+function asLateCheck() {
+    for (let i = 1; i <= 6; i++) {
+        color("as"+i+"Pts","white");
+        if (i == _sl[_ci].as[_asNum][0]) {
+            bgColor("as"+i+"Pts","#3478F6")
+        } else {
+            bgColor("as"+i+"Pts","black");
+        }
+    }
+    var offset = 0;
+    if (_dns[_asNum] < _sl[_ci].dateAdded) {
+        offset = _sl[_ci].dateAdded - _dns[_asNum];
+    }
+    if (_todaysDn > (_dns[_asNum] + 63 + offset) && _todaysDn <= (_dns[_asNum] + 126 + offset)) {
+        bgColor("as"+_asMaxPts[_asNum]+"Pts","#222");
+        color("as"+_asMaxPts[_asNum]+"Pts","#333");
+    } else if (_todaysDn > (_dns[_asNum] + 126 + offset)) {
+        bgColor("as"+_asMaxPts[_asNum]+"Pts","#222");
+        bgColor("as"+(_asMaxPts[_asNum]-1)+"Pts","#222");
+        color("as"+_asMaxPts[_asNum]+"Pts","#333");
+        color("as"+(_asMaxPts[_asNum]-1)+"Pts","#333");
+    }
 }
 
 function mvPop(mvNum,pts) {
@@ -2545,7 +2572,32 @@ function mvPop(mvNum,pts) {
             display("mv"+i+"Pts","none");
         }
     }
+    mvLateCheck();
     scrollTo(0,0);
+}
+
+function mvLateCheck() {
+    for (let i = 1; i <= 6; i++) {
+        color("as"+i+"Pts","white");
+        if (i == _sl[_ci].mv[_mvNum][0]) {
+            bgColor("mv"+i+"Pts","#3478F6")
+        } else {
+            bgColor("mv"+i+"Pts","black");
+        }
+    }
+    var offset = 0;
+    if (_dns[_mvNum] < _sl[_ci].dateAdded) {
+        offset = _sl[_ci].dateAdded - _dns[_mvNum];
+    }
+    if (_todaysDn > (_dns[_mvNum] + 63 + offset) && _todaysDn <= (_dns[_mvNum] + 126 + offset)) {
+        bgColor("mv"+_mvMaxPts[_mvNum]+"Pts","#222");
+        color("mv"+_mvMaxPts[_mvNum]+"Pts","#333");
+    } else if (_todaysDn > (_dns[_mvNum] + 126 + offset)) {
+        bgColor("mv"+_mvMaxPts[_mvNum]+"Pts","#222");
+        bgColor("mv"+(_mvMaxPts[_mvNum]-1)+"Pts","#222");
+        color("mv"+_mvMaxPts[_mvNum]+"Pts","#333");
+        color("mv"+(_mvMaxPts[_mvNum]-1)+"Pts","#333");
+    }
 }
 
 function populateNames() {
@@ -2682,7 +2734,7 @@ function populateNames3(x) {
     for (let i = 0; i < _sl.length; i++) {
         if (!_sl[i].att || _teams[0].team1Reset.includes(_sl[i].name[0]) || _teams[0].team2Reset.includes(_sl[i].name[0])) { continue }
         var p = createElement("p");
-        p.classList.add("nameSmaller");
+        p.classList.add("name");
         (function(i){
             p.onclick = function () {
                 addPlayer(x,i); teamsListPop(); value("searchMain3","");
