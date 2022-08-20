@@ -845,7 +845,11 @@ function mvLinks() {
 }
 
 function currentMissionsLink() {
-    window.open("docs/missions/asmv"+_ti+".pdf","_blank");
+    if (_ti < (_asNames.length-1)) {
+        window.open("class/docs/combined-missions/asmv"+_ti+".pdf","_blank");
+    } else {
+        window.open("class/docs/combined-missions/asmv"+(_asNames.length-1)+".pdf","_blank");
+    }
 }
 
 function pop(closeArray,openArray,title) {

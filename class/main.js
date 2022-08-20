@@ -2317,7 +2317,7 @@ function asLinks() {
 }
 
 function scanLinks() {
-    window.open("docs/as-scans/"+_sl[_ci].name[0].split(" ")[0].toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+"-as"+_asNum+".pdf","_blank");
+    window.open("docs/as-scans/"+_sl[_ci].name[0].split(" ")[0].toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+"-"+_asNum+".pdf","_blank");
 }
 
 function mvLinks() {
