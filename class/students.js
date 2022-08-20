@@ -837,7 +837,7 @@ function asLinks() {
 }
 
 function scanLinks() {
-    window.open("class/docs/as-scans/"+_firstName.toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+"-as"+_asNum+".pdf","_blank");
+    window.open("class/docs/as-scans/"+_firstName.toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+"-"+_asNum+".pdf","_blank");
 }
 
 function mvLinks() {
