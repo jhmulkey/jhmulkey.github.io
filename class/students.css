@@ -336,6 +336,12 @@ a:active, a:hover {
     font-family: Font-90-Icons;
 }
 
+@media (hover: hover) {
+    #scannedImage:hover, .downloadOrPrint:hover {
+        background-color: #094fd3 !important;
+    }
+}
+
 #mvText {
     text-align: left;
     padding: 10px;
