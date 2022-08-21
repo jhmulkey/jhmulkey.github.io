@@ -207,6 +207,10 @@ function pinAutoEnter() {
 }
 
 function findStudent() {
+    if (_sl == false) {
+        display("hint","none"); value("searchField","");
+        infoAlert("The new class database is currently being built and should be ready by 4pm on 8/21/2022. Please check back later.",["mainPop"]); return
+    }
     document.activeElement.blur(); innerHTML("nameList","");
     var x = (document.getElementById("searchField").value.trim().toLowerCase()).split(" ");
     if (x == false) {idFocus("searchField");return;}
