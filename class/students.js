@@ -1049,17 +1049,15 @@ function loadStudentStats() {
     var rankSquares = Math.round(rankPercentage / 2.50);
     var totalASpts = 0; var earnedASpts = 0;   
     var totalMVpts = 0; var earnedMVpts = 0;
-    if (_elapsedWeeks > 1) {
-        for (let i = 0; i < _ti; i++) {
-            if (i > 31) {break}
-            totalASpts += _asMaxPts[i];
-            totalMVpts += _mvMaxPts[i];
-            earnedASpts += _sl[_ci].as[i][0];
-            earnedMVpts += _sl[_ci].mv[i][0];
-        }
-        _totalASpts = totalASpts; _totalMVpts = totalMVpts;
-        _earnedASpts = earnedASpts; _earnedMVpts = earnedMVpts;
+    for (let i = 0; i < _ti; i++) {
+        if (i > 31) {break}
+        totalASpts += _asMaxPts[i];
+        totalMVpts += _mvMaxPts[i];
+        earnedASpts += _sl[_ci].as[i][0];
+        earnedMVpts += _sl[_ci].mv[i][0];
     }
+    _totalASpts = totalASpts; _totalMVpts = totalMVpts;
+    _earnedASpts = earnedASpts; _earnedMVpts = earnedMVpts;
     var totalPts = totalASpts + totalMVpts; _totalPts = totalPts;
     var totalEarnedPts = earnedASpts + earnedMVpts; _totalEarnedPts = totalEarnedPts;
     var asPercentage; var mvPercentage; var totalPtsPercentage;
