@@ -151,6 +151,10 @@ a:link, a:visited, a:hover, a:active {
     padding: 20px;
 }
 
+#rankChartPop, #studentAttStatsPop {
+    padding-top: 0px;
+}
+
 #advancedOptionsPop {
     text-align: left;
 }

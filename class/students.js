@@ -115,7 +115,7 @@ function loadBackup() {
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].randDraw[0] = false;
     }
-    assignTodaysDn(); generateAllTables(); populateMissions();
+    assignTodaysDn();
 }
 
 function assignTodaysDn() {
@@ -135,7 +135,7 @@ function assignTodaysDn() {
         }
     }
     _todaysDn = dn;
-    setWeeksOff(); isClassDay(); setElapsedWeeks(); populateMissions(); 
+    setWeeksOff(); isClassDay(); setElapsedWeeks(); populateMissions(); generateAllTables();
 }
 
 function isClassDay() {
@@ -750,7 +750,7 @@ function refreshStudentPop() {
 
 function refreshMissionsPop() {
     if (_elapsedWeeks > 1) {
-        for (let i = _ti; i >= 0; i--) {
+        for (let i = (_ti-1); i >= 0; i--) {
             if (i >= _asNames.length) {continue}
             if (_sl[_ci].as[i][0] == _asMaxPts[i]) {
                 bgColor("as"+i+"Pop","green");
@@ -760,7 +760,7 @@ function refreshMissionsPop() {
                 bgColor("as"+i+"Pop","black");
             }
         }
-        for (let i = _ti; i >= 0; i--) {
+        for (let i = (_ti-1); i >= 0; i--) {
             if (i >= _mvNames.length) {continue}
             if (_sl[_ci].mv[i][0] == _mvMaxPts[i]) {
                 bgColor("mv"+i+"Pop","green");
@@ -1050,7 +1050,7 @@ function loadStudentStats() {
     var totalASpts = 0; var earnedASpts = 0;   
     var totalMVpts = 0; var earnedMVpts = 0;
     for (let i = 0; i < _ti; i++) {
-        if (i > 31) {break}
+        if (i > (_asMaxPts.length-1)) {break}
         totalASpts += _asMaxPts[i];
         totalMVpts += _mvMaxPts[i];
         earnedASpts += _sl[_ci].as[i][0];
@@ -1060,16 +1060,10 @@ function loadStudentStats() {
     _earnedASpts = earnedASpts; _earnedMVpts = earnedMVpts;
     var totalPts = totalASpts + totalMVpts; _totalPts = totalPts;
     var totalEarnedPts = earnedASpts + earnedMVpts; _totalEarnedPts = totalEarnedPts;
-    var asPercentage; var mvPercentage; var totalPtsPercentage;
-    if (_elapsedWeeks > 1) {
-        asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
-        mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
-        totalPtsPercentage = ((totalEarnedPts / totalPts) * 100).toFixed(1);
-        _asPercentage = asPercentage; _mvPercentage = mvPercentage; _totalPtsPercentage = totalPtsPercentage;
-    } else {
-        asPercentage = 0; mvPercentage = 0; totalPtsPercentage = 0;
-        _asPercentage = asPercentage; _mvPercentage = mvPercentage; _totalPtsPercentage = totalPtsPercentage;
-    }
+    var asPercentage = _totalPts > 0 ? ((earnedASpts / totalASpts) * 100).toFixed(1) : 0;
+    var mvPercentage = _totalPts > 0 ? ((earnedMVpts / totalMVpts) * 100).toFixed(1) : 0;
+    var totalPtsPercentage = _totalPts > 0 ? ((totalEarnedPts / totalPts) * 100).toFixed(1) : 0;
+    _asPercentage = asPercentage; _mvPercentage = mvPercentage; _totalPtsPercentage = totalPtsPercentage;
     var asSquares = Math.round(asPercentage / 2.50);
     var mvSquares = Math.round(mvPercentage / 2.50);
     var totalPtsSquares = Math.round(totalPtsPercentage / 2.50);
@@ -1134,9 +1128,9 @@ function populateMissions() {
     if (_elapsedWeeks == 1) {
         display("initialMissionsNote","block");
         innerHTML("initialMissionsNote","No missions are due yet. Missions that have come due will appear here starting next Sunday ("+cdn(_dns[1])+"), color-coded according to their completion status. To download the missions that were assigned for this week (and due next Sunday), click \"Download this week's missions\" above.");
-    }
+    } else {display("initialMissionsNote","none");}
     if (_elapsedWeeks > 1) {
-        for (let i = _ti; i >= 0; i--) {
+        for (let i = (_ti-1); i >= 0; i--) {
             if (i >= _asNames.length) { continue }
             var div1 = createElement("div");
             div1.setAttribute("id","as"+i+"Pop");
@@ -1149,7 +1143,7 @@ function populateMissions() {
             div1.innerHTML = _asFulls[i];
             append("asPop",div1);
         }
-        for (let i = _ti; i >= 0; i--) {
+        for (let i = (_ti-1); i >= 0; i--) {
             if (i >= _mvNames.length) { continue }
             var div2 = createElement("div");
             div2.setAttribute("id","mv"+i+"Pop");
@@ -1339,6 +1333,20 @@ function assignDn(month,date) {
 
 function pressKey(key,id) {
     if(event.keyCode==key)document.getElementById(id).click()
+}
+
+function pointsExist() {
+    for (let i = 0; i < _sl.length; i++) {
+        if (_sl[i].pts > 0) {
+            return true
+        }
+    }
+    return false
+}
+
+function manualSetElapsedWeeks(x) {
+    _elapsedWeeks = x; _ti = x-1;
+    populateMissions();
 }
 
 loadBackup();

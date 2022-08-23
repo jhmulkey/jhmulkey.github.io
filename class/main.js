@@ -201,7 +201,7 @@ function loadBackup() {
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].randDraw[0] = false;
     }
-    generateAllTables(); assignTodaysDn(); clearAttendees(); populateMissions(); populateTeacherNotes(); storeAndBackup(); goHome();
+    assignTodaysDn(); clearAttendees(); populateTeacherNotes(); storeAndBackup(); goHome();
 }
 
 function loadLS() {
@@ -214,7 +214,7 @@ function loadLS() {
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotes"));
     _handouts = JSON.parse(localStorage.getItem("handouts"));
     _teams = JSON.parse(localStorage.getItem("teams"));
-    generateAllTables(); populateTeacherNotes(); assignTodaysDn(); attCount();
+    populateTeacherNotes(); assignTodaysDn(); attCount();
     activityLog("localstorage loaded",dateAndTime("log"));
     backupNewData(); goHome();
 }
@@ -252,7 +252,7 @@ function assignTodaysDn() {
         }
     }
     _todaysDn = dn;
-    setWeeksOff(); isClassDay(); setElapsedWeeks(); findAllBds(); populateMissions(); 
+    setWeeksOff(); isClassDay(); setElapsedWeeks(); findAllBds(); populateMissions(); generateAllTables();
 }
 
 function isClassDay() {
@@ -1469,7 +1469,7 @@ function sortByNotes(bypass) {
     display("nameListCustom","block");
     display("genderListContainer","none");
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].notes.length != 0) {
+        if (_sl[i].notes != false) {
             var lastElementNode;
             var p1 = createElement("p");
             var br = createElement("br");
@@ -1809,8 +1809,7 @@ function newStudent() {
     _sl[_ci].gender = newGender;
     _sl[_ci].bd = [assignDn(parseInt(newbdMonth),parseInt(newbdDate)),false,false];
     _sl[_ci].email = document.getElementById("newEmail").value.toLowerCase();
-    _sl[_ci].notes = [document.getElementById("initialNote").value];
-
+    document.getElementById("initialNote").value != false ? _sl[_ci].notes = [document.getElementById("initialNote").value] : _sl[_ci].notes = [];
     for (let i = 0; i < _dns.length; i++) {
         newStudent.attArr[i] = [0,0];
     }
@@ -1985,7 +1984,7 @@ function refreshStudentPop() {
 
 function refreshMissionsPop() {
     if (_elapsedWeeks > 1) {
-        for (let i = _ti; i >= 0; i--) {
+        for (let i = (_ti-1); i >= 0; i--) {
             if (i >= _asNames.length) {continue}
             if (_sl[_ci].as[i][0] == _asMaxPts[i]) {
                 bgColor("as"+i+"Pop","green");
@@ -1995,7 +1994,7 @@ function refreshMissionsPop() {
                 bgColor("as"+i+"Pop","black");
             }
         }
-        for (let i = _ti; i >= 0; i--) {
+        for (let i = (_ti-1); i >= 0; i--) {
             if (i >= _mvNames.length) {continue}
             if (_sl[_ci].mv[i][0] == _mvMaxPts[i]) {
                 bgColor("mv"+i+"Pop","green");
@@ -2637,7 +2636,7 @@ function populateNames() {
     var p2 = createElement("p");
     p2.classList.add("addNew");
     p2.onclick = function () {
-        idFocus("newFirst"); pop(['mainPop'],['newStudentPop'])
+        pop(['mainPop'],['newStudentPop']); idFocus("newFirst");
     }
     p2.innerHTML = "Add New Student";
     append("nameList",p2);
@@ -3001,25 +3000,18 @@ function loadStudentStats() {
     var rankSquares = Math.round(rankPercentage / 2.50);
     var totalASpts = 0; var earnedASpts = 0;   
     var totalMVpts = 0; var earnedMVpts = 0;
-    if (_elapsedWeeks > 1) {
-        for (let i = 0; i < _ti; i++) {
-            if (i > 31) {break}
-            totalASpts += _asMaxPts[i];
-            totalMVpts += _mvMaxPts[i];
-            earnedASpts += _sl[_ci].as[i][0];
-            earnedMVpts += _sl[_ci].mv[i][0];
-        }
+    for (let i = 0; i < _ti; i++) {
+        if (i > (_asMaxPts.length-1)) {break}
+        totalASpts += _asMaxPts[i];
+        totalMVpts += _mvMaxPts[i];
+        earnedASpts += _sl[_ci].as[i][0];
+        earnedMVpts += _sl[_ci].mv[i][0];
     }
     var totalPts = totalASpts + totalMVpts;
     var totalEarnedPts = earnedASpts + earnedMVpts;
-    var asPercentage; var mvPercentage; var totalPtsPercentage;
-    if (_elapsedWeeks > 1) {
-        asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
-        mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
-        totalPtsPercentage = ((totalEarnedPts / totalPts) * 100).toFixed(1);
-    } else {
-        asPercentage = 0; mvPercentage = 0; totalPtsPercentage = 0;
-    }
+    var asPercentage = totalPts > 0 ? ((earnedASpts / totalASpts) * 100).toFixed(1) : 0;
+    var mvPercentage = totalPts > 0 ? ((earnedMVpts / totalMVpts) * 100).toFixed(1) : 0;
+    var totalPtsPercentage = totalPts > 0 ? ((totalEarnedPts / totalPts) * 100).toFixed(1) : 0;
     var asSquares = Math.round(asPercentage / 2.50);
     var mvSquares = Math.round(mvPercentage / 2.50);
     var totalPtsSquares = Math.round(totalPtsPercentage / 2.50);
@@ -3081,7 +3073,7 @@ function loadStudentStats() {
 function populateMissions() {
     innerHTML("asPop",""); innerHTML("mvPop","");
     if (_elapsedWeeks > 1) {
-        for (let i = _ti; i >= 0; i--) {
+        for (let i = (_ti-1); i >= 0; i--) {
             if (i >= _asNames.length) { continue }
             var div1 = createElement("div");
             div1.setAttribute("id","as"+i+"Pop");
@@ -3094,7 +3086,7 @@ function populateMissions() {
             div1.innerHTML = _asFulls[i];
             append("asPop",div1);
         }
-        for (let i = _ti; i >= 0; i--) {
+        for (let i = (_ti-1); i >= 0; i--) {
             if (i >= _mvNames.length) { continue }
             var div2 = createElement("div");
             div2.setAttribute("id","mv"+i+"Pop");
@@ -3113,7 +3105,7 @@ function populateMissions() {
 function loadStudentPhoto() {
     document.getElementById("dispStudentPhoto").style.backgroundImage = "none";
     if (_sl[_ci].photo) {
-        document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/student-thumbnails/"+_sl[_ci].name[0].split(" ")[0].toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+".jpeg)";
+        document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/students-thumbnails/"+_sl[_ci].name[0].split(" ")[0].toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+".jpeg)";
         innerHTML("dispStudentPhoto","");
     } else {
         innerHTML("dispStudentPhoto","click here to add photo");
@@ -3682,6 +3674,11 @@ function allBdsFalse() {
 
 function pressKey(key,id) {
     if(event.keyCode==key)document.getElementById(id).click()
+}
+
+function manualSetElapsedWeeks(x) {
+    _elapsedWeeks = x; _ti = x-1;
+    populateMissions();
 }
 
 whatToLoad();
