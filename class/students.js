@@ -1118,15 +1118,22 @@ function loadStudentStats() {
     }
     innerHTML("rankProgressTableP","<span style='font-size:20px'>Promotions <span style='color:#bbb;font-size:16px'>" + (_sl[_ci].rank[0]) + "/19" + " (" + rankPercentage + "%)</span>");
 
-    innerHTML("tpTableP","<span style='font-size:20px'>Total Points <span style='color:#bbb;font-size:16px'>" + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%)")// | Class Rank: " + _sl[_ci].statsRanks[0]) + "/span";
+    innerHTML("tpTableP","<span style='font-size:20px'>Total Points <span style='color:#bbb;font-size:16px'>" + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%)<span class='classRankSpan'> | Class Rank: " + _sl[_ci].statsRanks[0] + "</span>");
 
-    innerHTML("asProgressTableP","<span style='font-size:20px'>Activities <span style='color:#bbb;font-size:16px'>" + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)")// | Class Rank: " + _sl[_ci].statsRanks[1]) + "/span";
+    innerHTML("asProgressTableP","<span style='font-size:20px'>Activities <span style='color:#bbb;font-size:16px'>" + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%)<span class='classRankSpan'> | Class Rank: " + _sl[_ci].statsRanks[1] + "</span>");
 
-    innerHTML("mvProgressTableP","<span style='font-size:20px'>Memory <span style='color:#bbb;font-size:16px'>" + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)")// | Class Rank: " + _sl[_ci].statsRanks[2]) + "/span";
+    innerHTML("mvProgressTableP","<span style='font-size:20px'>Memory <span style='color:#bbb;font-size:16px'>" + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)<span class='classRankSpan'> | Class Rank: " + _sl[_ci].statsRanks[2] + "</span>");
 
-    innerHTML("attProgressTableP","<span style='font-size:20px'>Attendance <span style='color:#bbb;font-size:16px'>" + weeksAttended + "/" + _ew + " (" + attPercentage + "%)")// | Class Rank: " + _sl[_ci].statsRanks[3]) + "/span";
+    innerHTML("attProgressTableP","<span style='font-size:20px'>Attendance <span style='color:#bbb;font-size:16px'>" + weeksAttended + "/" + _ew + " (" + attPercentage + "%)<span class='classRankSpan'> | Class Rank: " + _sl[_ci].statsRanks[3] + "</span>");
 
-    innerHTML("participationTableP","<span style='font-size:20px'>Participation <span style='color:#bbb;font-size:16px'>" + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)")// | Class Rank: " + _sl[_ci].statsRanks[4]) + "/span";
+    innerHTML("participationTableP","<span style='font-size:20px'>Participation <span style='color:#bbb;font-size:16px'>" + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)<span class='classRankSpan'> | Class Rank: " + _sl[_ci].statsRanks[4] + "</span>");
+
+    if (_ew == 1) { 
+        var spans = document.getElementsByClassName("classRankSpan");
+        for (let i = 0; i < spans.length; i++) {
+            spans[i].style.display = "none";
+        }
+    }
 }
 
 function populateMissions() {
