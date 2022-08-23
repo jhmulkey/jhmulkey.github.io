@@ -11,7 +11,7 @@ var _mvMaxPts = [4,6,3,3,3,5,5,5,4,4,3,3,4,3,3,3,4,3,4,3,4,3,3,3,6,4,4,3,4,3,3,3
 var _leapYear = false; // true if Jan-July falls within a leap year
 var _dns = [21,28,42,49,56,63,70,77,84,91,98,105,126,133,140,161,168,175,182,189,196,203,210,217,224,231,238,245,259,266,273,280,287,294];
 var _todaysDn
-var _elapsedWeeks;
+var _ew;
 var _isClassDay;
 var _weeksOff = 0;
 var _bdList = []; var _promoList = [];
@@ -157,16 +157,16 @@ function setWeeksOff() {
 function setElapsedWeeks() {
     for (let i = 0; i < _dns.length; i++) {
         if (_todaysDn == _dns[i]) {
-            _elapsedWeeks = i + 1; break;
+            _ew = i + 1; break;
         }
         if (_todaysDn > _dns[0] && _todaysDn < _dns[i]) {
-            _elapsedWeeks = i; break;
+            _ew = i; break;
         }
         if (_todaysDn < _dns[0] || _todaysDn > _dns[_dns.length-1]) {
-            _elapsedWeeks = 34;
+            _ew = 34;
         }
     }
-    _ti = _elapsedWeeks - 1;
+    _ti = _ew - 1;
 }
 
 function dateAndTime(x) {
@@ -386,7 +386,7 @@ function sortByPts(lb) {
         display("genderListContainer","none");
     }
     var totalASpts = 0; var totalMVpts = 0;
-    if (_elapsedWeeks > 1) {
+    if (_ew > 1) {
         for (let i = 0; i < _ti; i++) {
             if (i > 31) {break}
             totalASpts += _asMaxPts[i];
@@ -433,7 +433,7 @@ function sortByASpts(lb) {
         display("genderListContainer","none");
     }
     var totalASpts = 0;
-    if (_elapsedWeeks > 1) {
+    if (_ew > 1) {
         for (let j = 0; j < _ti; j++) {
             if (j > 31) {break}
             totalASpts += _asMaxPts[j];
@@ -441,13 +441,13 @@ function sortByASpts(lb) {
     }
     for (let i = 0; i < _sl.length; i++) {
         var earnedASpts = 0; var asPercentage;
-        if (_elapsedWeeks > 1) {
+        if (_ew > 1) {
             for (let j = 0; j < _ti; j++) {
                 if (j > 31) {break}
                 earnedASpts += _sl[i].as[j][0];
             }
         }
-        if (_elapsedWeeks > 1) {
+        if (_ew > 1) {
             asPercentage = ((earnedASpts / totalASpts) * 100).toFixed(1);
         } else {
             asPercentage = 0;
@@ -492,7 +492,7 @@ function sortByMVpts(lb) {
         display("genderListContainer","none");
     }
     var totalMVpts = 0;
-    if (_elapsedWeeks > 1) {
+    if (_ew > 1) {
         for (let j = 0; j < _ti; j++) {
             if (j > 31) {break}
             totalMVpts += _mvMaxPts[j];
@@ -500,13 +500,13 @@ function sortByMVpts(lb) {
     }
     for (let i = 0; i < _sl.length; i++) {
         var earnedMVpts = 0; var mvPercentage;
-        if (_elapsedWeeks > 1) {
+        if (_ew > 1) {
             for (let j = 0; j < _ti; j++) {
                 if (j > 31) {break}
                 earnedMVpts += _sl[i].mv[j][0];
             }
         }
-        if (_elapsedWeeks > 1) {
+        if (_ew > 1) {
             mvPercentage = ((earnedMVpts / totalMVpts) * 100).toFixed(1);
         } else {
             mvPercentage = 0;
@@ -552,12 +552,12 @@ function sortByAtt(lb) {
     }
     for (let i = 0; i < _sl.length; i++) {
         var amTotal = []; var pmTotal = []
-        for (let j = 0; j < _elapsedWeeks; j++) {
+        for (let j = 0; j < _ew; j++) {
             amTotal.push(_sl[i].attArr[j][0]);
             pmTotal.push(_sl[i].attArr[j][1]);
         }
         var total = sumArrays([amTotal,pmTotal]);
-        for (let j = 0; j < _elapsedWeeks; j++) {
+        for (let j = 0; j < _ew; j++) {
             if (_sl[i].attArr[j][0] == 1 && _sl[i].attArr[j][1] == 1) {
                 total--
             }
@@ -569,7 +569,7 @@ function sortByAtt(lb) {
     for (let i = 0; i < _sl.length; i++) {
         if (lb) {if ( _sl[i].statsRanks[3] > 10 ) {continue}}
         var lastElementNode;
-        var attPercentage = ((_sl[i].totalWksAtt / _elapsedWeeks) * 100).toFixed(1);
+        var attPercentage = ((_sl[i].totalWksAtt / _ew) * 100).toFixed(1);
         var p = createElement("p");
         var span1 = createElement("span");
         var span2 = createElement("span");
@@ -581,7 +581,7 @@ function sortByAtt(lb) {
             p.style.paddingTop = "10px";
         }
         span1.innerHTML = _sl[i].statsRanks[3] + ". " + _sl[i].name[0];
-        span2.innerHTML = " " + _sl[i].totalWksAtt + "/" + _elapsedWeeks + " (" + attPercentage + "%)";
+        span2.innerHTML = " " + _sl[i].totalWksAtt + "/" + _ew + " (" + attPercentage + "%)";
         if (lb) {if (_sl[i].name[0] == _currentStudent) {span1.style.color = "lawngreen"}}
         p.append(span1,span2);
         if (lb) {
@@ -602,22 +602,22 @@ function sortByTP(lb) {
         display("genderListContainer","none");
     }
     var totalASpts = 0; var totalMVpts = 0;
-    if (_elapsedWeeks > 1) {
+    if (_ew > 1) {
         for (let j = 0; j < _ti; j++) {
             if (j > 31) {break}
             totalASpts += _asMaxPts[j];
             totalMVpts += _mvMaxPts[j];
         }
     }
-    var totalTPpts = totalASpts + totalMVpts + _elapsedWeeks;
+    var totalTPpts = totalASpts + totalMVpts + _ew;
     for (let i = 0; i < _sl.length; i++) {
         var amTotal = []; var pmTotal = []
-        for (let j = 0; j < _elapsedWeeks; j++) {
+        for (let j = 0; j < _ew; j++) {
             amTotal.push(_sl[i].attArr[j][0]);
             pmTotal.push(_sl[i].attArr[j][1]);
         }
         var total = sumArrays([amTotal,pmTotal]);
-        for (let j = 0; j < _elapsedWeeks; j++) {
+        for (let j = 0; j < _ew; j++) {
             if (_sl[i].attArr[j][0] == 1 && _sl[i].attArr[j][1] == 1) {
                 total--
             }
@@ -749,7 +749,7 @@ function refreshStudentPop() {
 }
 
 function refreshMissionsPop() {
-    if (_elapsedWeeks > 1) {
+    if (_ew > 1) {
         for (let i = (_ti-1); i >= 0; i--) {
             if (i >= _asNames.length) {continue}
             if (_sl[_ci].as[i][0] == _asMaxPts[i]) {
@@ -792,15 +792,21 @@ function loadPopText() {
     
     innerHTML("mvPointsPopText",_firstName+" has earned "+_earnedMVpts+" out of "+_totalMVpts+" possible memory verse points ("+_mvPercentage+"%). To see the completion status of all "+_firstName+"'s assigned memory verses, click the <span class='do'>MISSIONS</span> tab above.<br><br><span class='colorCode' style='background-color:green'></span> Completed verses are green<br><br><span class='colorCode' style='background-color:darkorange'></span> Partially completed verses are orange<br><br><span class='colorCode' style='background-color:black'></span> Incomplete verses are black");
     
-    innerHTML("studentAttStatsPopText",_firstName+" has attended "+_weeksAttended+" out of "+_elapsedWeeks+" class sessions ("+_attPercentage+"%). Attendance does not count towards points/promotions, but students with perfect attendance will receive a special certificate at the end of the year.");
+    innerHTML("studentAttStatsPopText",_firstName+" has attended "+_weeksAttended+" out of "+_ew+" class sessions ("+_attPercentage+"%). Attendance does not count towards points/promotions, but students with perfect attendance will receive a special certificate at the end of the year.");
     
-    innerHTML("participationPopText","Participation is a combination of all the student's activity sheet points, memory verse points, and attendance. Students with a perfect participation score will receive a special, extra prize on the last day of class (separate from the General of the Army prizes).<br><br>"+_firstName+" has earned "+_earnedASpts+" out of "+_totalASpts+" activity sheet points, "+_earnedMVpts+" out of "+_totalMVpts+" memory verse points, and has attended "+_weeksAttended+" out of "+_elapsedWeeks+" weeks. That totals to "+_totalEarned+" out of "+_totalPossible+" possible ("+_totalPercentage+"%)");
+    innerHTML("participationPopText","Participation is a combination of all the student's activity sheet points, memory verse points, and attendance. Students with a perfect participation score will receive a special, extra prize on the last day of class (separate from the General of the Army prizes).<br><br>"+_firstName+" has earned "+_earnedASpts+" out of "+_totalASpts+" activity sheet points, "+_earnedMVpts+" out of "+_totalMVpts+" memory verse points, and has attended "+_weeksAttended+" out of "+_ew+" weeks. That totals to "+_totalEarned+" out of "+_totalPossible+" possible ("+_totalPercentage+"%)");
     
     innerHTML("calendarPopText","Latest class date is highlighted in <span class='lg'>green</span> below");
 }
 
 function loadLbs() {
-    sortByPts(true); sortByASpts(true); sortByMVpts(true); sortByAtt(true); sortByTP(true); sortSL();
+    if (_ew == 1) {
+        display("lbContainer","none"); display("lbMssg","block");
+        innerHTML("lbMssg","Leader rboards will appear here once students start earning points."); return
+    } else {
+        display("lbContainer","block"); display("lbMssg","none");
+        sortByPts(true); sortByASpts(true); sortByMVpts(true); sortByAtt(true); sortByTP(true); sortSL();
+    }
 }
 
 function resetStudentMenu() {
@@ -1068,7 +1074,7 @@ function loadStudentStats() {
     var mvSquares = Math.round(mvPercentage / 2.50);
     var totalPtsSquares = Math.round(totalPtsPercentage / 2.50);
     var weeksAttended = 0;
-    for (let i = 0; i < _elapsedWeeks; i++) {
+    for (let i = 0; i < _ew; i++) {
         weeksAttended += _sl[_ci].attArr[i][0];
         weeksAttended += _sl[_ci].attArr[i][1];
         if (_sl[_ci].attArr[i][0] == 1 && _sl[_ci].attArr[i][1] == 1) {
@@ -1076,10 +1082,10 @@ function loadStudentStats() {
         }
     }
     _weeksAttended = weeksAttended;
-    var attPercentage = ((weeksAttended / _elapsedWeeks) * 100).toFixed(1); _attPercentage = attPercentage;
+    var attPercentage = ((weeksAttended / _ew) * 100).toFixed(1); _attPercentage = attPercentage;
     var attSquares = Math.round(attPercentage / 2.50);
     var totalEarned = weeksAttended + earnedASpts + earnedMVpts; _totalEarned = totalEarned;
-    var totalPossible = _elapsedWeeks + totalASpts + totalMVpts; _totalPossible = totalPossible;
+    var totalPossible = _ew + totalASpts + totalMVpts; _totalPossible = totalPossible;
     var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(1); _totalPercentage = totalPercentage;
     var totalSquares = Math.round(totalPercentage / 2.50);
     var squaresArray = [rankSquares,totalPtsSquares,asSquares,mvSquares,attSquares,totalSquares];
@@ -1118,18 +1124,18 @@ function loadStudentStats() {
 
     innerHTML("mvProgressTableP","<span style='font-size:20px'>Memory <span style='color:#bbb;font-size:16px'>" + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%)")// | Class Rank: " + _sl[_ci].statsRanks[2]) + "/span";
 
-    innerHTML("attProgressTableP","<span style='font-size:20px'>Attendance <span style='color:#bbb;font-size:16px'>" + weeksAttended + "/" + _elapsedWeeks + " (" + attPercentage + "%)")// | Class Rank: " + _sl[_ci].statsRanks[3]) + "/span";
+    innerHTML("attProgressTableP","<span style='font-size:20px'>Attendance <span style='color:#bbb;font-size:16px'>" + weeksAttended + "/" + _ew + " (" + attPercentage + "%)")// | Class Rank: " + _sl[_ci].statsRanks[3]) + "/span";
 
     innerHTML("participationTableP","<span style='font-size:20px'>Participation <span style='color:#bbb;font-size:16px'>" + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%)")// | Class Rank: " + _sl[_ci].statsRanks[4]) + "/span";
 }
 
 function populateMissions() {
     innerHTML("asPop",""); innerHTML("mvPop","");
-    if (_elapsedWeeks == 1) {
+    if (_ew == 1) {
         display("initialMissionsNote","block");
         innerHTML("initialMissionsNote","No missions are due yet. Missions that have come due will appear here starting next Sunday ("+cdn(_dns[1])+"), color-coded according to their completion status. To download the missions that were assigned for this week (and due next Sunday), click \"Download this week's missions\" above.");
     } else {display("initialMissionsNote","none");}
-    if (_elapsedWeeks > 1) {
+    if (_ew > 1) {
         for (let i = (_ti-1); i >= 0; i--) {
             if (i >= _asNames.length) { continue }
             var div1 = createElement("div");
@@ -1187,15 +1193,15 @@ function openInsignia() {
 }
 
 function toggleIncomplete() {
-    if (_elapsedWeeks > 1) {
+    if (_ew > 1) {
         var noneHidden = true;
-        for (let i = 0; i < (_elapsedWeeks-2); i++) {
+        for (let i = 0; i < (_ew-2); i++) {
             if (document.getElementById("as"+i+"Pop").style.display == "none" || document.getElementById("mv"+i+"Pop").style.display == "none") {
                 noneHidden = false; break;
             }
         }
         if (noneHidden) {
-            for (let i = 0; i < (_elapsedWeeks-2); i++) {
+            for (let i = 0; i < (_ew-2); i++) {
                 if (_sl[_ci].as[i][0] < _asMaxPts[i]) {
                     display("as"+i+"Pop","block");
                 } else {
@@ -1208,7 +1214,7 @@ function toggleIncomplete() {
                 }
             }
         } else {
-            for (let i = 0; i < (_elapsedWeeks-2); i++) {
+            for (let i = 0; i < (_ew-2); i++) {
                 display("as"+i+"Pop","block");
                 display("mv"+i+"Pop","block");
             }
@@ -1217,8 +1223,8 @@ function toggleIncomplete() {
 }
 
 function resetMissions() {
-    if (_elapsedWeeks > 1) {
-        for (let i = 0; i < (_elapsedWeeks-2); i++) {
+    if (_ew > 1) {
+        for (let i = 0; i < (_ew-2); i++) {
             display("as"+i+"Pop","block");
             display("mv"+i+"Pop","block");
         }
@@ -1248,7 +1254,7 @@ function sumArrays(arrays) {
 }
 
 function loadStudentAttStats() {
-    for (let i = 0; i < _elapsedWeeks; i++) {
+    for (let i = 0; i < _ew; i++) {
         innerHTML("studentAttDate"+i,cdn(_dns[i]));
         if (_sl[_ci].attArr[i][0] == 1) {
             innerHTML("studentAttAM"+i,"X");
@@ -1267,7 +1273,7 @@ function loadStudentAttStats() {
         }
     }
     for (let i = 0; i < 34; i++) {
-        if (i < _elapsedWeeks) {
+        if (i < _ew) {
             display("studentAttRow"+i,"table-row");
         } else {
             display("studentAttRow"+i,"none");
@@ -1345,7 +1351,7 @@ function pointsExist() {
 }
 
 function manualSetElapsedWeeks(x) {
-    _elapsedWeeks = x; _ti = x-1;
+    _ew = x; _ti = x-1;
     populateMissions();
 }
 
