@@ -29,7 +29,7 @@ input[type="checkbox"], input[type="range"], .board-button, .board-button-skip, 
 /***ELEMENTS***/
 *, *:before, *:after {
     box-sizing: border-box;
-    //outline: 1px solid green;
+    /* outline: 1px solid green; */
 }
 input, a, div, p, img {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -41,7 +41,7 @@ body {
     font-family: Tahoma, serif;
     margin: 0;
     padding: 0;
-    color: white
+    color: black;
 }
 div {
     text-align: center;
@@ -62,7 +62,7 @@ li {
     text-align: left;
 }
 table, tr, th, td {
-    border: 1px solid white;
+    border: 1px solid black;
     border-collapse: collapse;
     font-size: 20px;
 }
@@ -94,20 +94,22 @@ input[type="range"] {
     font-size: 30px;
     font-weight: bold;
     padding-top: 7.5px;
-    border: 2px solid white;
+    background-color: darkred;
+    color: white;
+    border: 2px solid black;
     border-radius: 30px;
     display: inline-block;
 }
 .tile-button {
     height: 75px;
     width: 75px;
-    border: 2px solid white;
+    border: 2px solid black;
     border-radius: 37.5px;
 }
 .tile-button-main {
     height: 75px;
     width: 75px;
-    border: 2px solid white;
+    border: 2px solid black;
     border-radius: 37.5px;
     margin-bottom: 15px !important;
 }
@@ -181,19 +183,19 @@ input[type="range"] {
 #silver-count, #worker-count {       
     float: right;
     font-size: 30px;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    border-right: 1px solid white;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
     background: rgba(255,255,255,0.35);
 }
 #silver-img {
     background-image: url(images/silverling.png);
     background-color: #C6B4B1;
-    border: 1px solid white;
+    border: 1px solid black;
 }
 #worker-img {
     background-image: url(images/worker.jpg);
-    border: 1px solid white;
+    border: 1px solid black;
 }
 #rolled-dice-flex-div {
     margin: 10px 0;
@@ -202,7 +204,7 @@ input[type="range"] {
     height: 95px;
     width: 95px;
     margin: 10px;
-    outline: 1px dashed white;
+    outline: 1px dashed black;
 }
 .click-to-roll-div {
     margin: 10px;
