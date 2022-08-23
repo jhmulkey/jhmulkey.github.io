@@ -802,7 +802,7 @@ function loadPopText() {
 function loadLbs() {
     if (_ew == 1) {
         display("lbContainer","none"); display("lbMssg","block");
-        innerHTML("lbMssg","Leader rboards will appear here once students start earning points."); return
+        innerHTML("lbMssg","Leader boards will appear here once students start earning points."); return
     } else {
         display("lbContainer","block"); display("lbMssg","none");
         sortByPts(true); sortByASpts(true); sortByMVpts(true); sortByAtt(true); sortByTP(true); sortSL();
