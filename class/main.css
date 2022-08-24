@@ -57,7 +57,7 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#handoutsAlertPop, #assignHandoutsPop, #editHandoutsPop, #handoutsPop, #pwdPop, #archivedBackupsPop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #gameLogPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #addTeacherNotePop, #addStudentNotePop, #modifyTeacherNotesPop, #teacherNotesPop, #customSortListPop, #editStudentPop, #newStudentPop, #editStudentNotePop, #editTeacherNotePop, #studentNotesPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
+#shufflePhotosPop, #allergiesPop, #handoutsAlertPop, #assignHandoutsPop, #editHandoutsPop, #handoutsPop, #pwdPop, #archivedBackupsPop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #gameLogPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #addReminderPop, #addNotePop, #modifyRemindersPop, #remindersPop, #customSortListPop, #editStudentPop, #newStudentPop, #editNotePop, #editReminderPop, #notesPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
     display: none;
 }
 
@@ -81,7 +81,7 @@ a:link, a:visited, a:hover, a:active {
     cursor: pointer;
 }
 
-#log p, #studentNotesList p, #teacherNotesList p {
+#log p, #notesList p, #remindersList p {
     margin-top: 20px !important;
 }
 
@@ -104,7 +104,7 @@ a:link, a:visited, a:hover, a:active {
     text-align: left;
 }
 
-#studentNotesList, #teacherNotesList {
+#notesList, #remindersList {
     height: 600px;
     overflow-y: auto;
     text-align: left;
@@ -132,7 +132,7 @@ a:link, a:visited, a:hover, a:active {
     padding-bottom: 5px;
 }
 
-#customSortListLabel {
+#customSortListLabel, #allergiesLabel {
     font-size: 20px;
     color: #3478F6;
     margin: 0px auto 10px auto;
@@ -217,7 +217,7 @@ a:link, a:visited, a:hover, a:active {
     margin: 20px auto;
 }
 
-#mainMenuButton, #addTeacherNoteButton, #logButton, #backupButton {
+#mainMenuButton, #addReminderButton, #logButton, #backupButton {
     font-family: Byom-Icons-Trial;
     padding-top: 8px;
 }
@@ -237,7 +237,7 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 6px;
 }
 
-#confirmDeleteStudentButton, #confirmDeleteNoteButton, #confirmDeleteTeacherNoteButton, #confirmResetDrawingButton {
+#confirmDeleteStudentButton, #confirmDeleteNoteButton, #confirmDeleteReminderButton, #confirmResetDrawingButton {
     background-color: firebrick;
     display: none;
 }
@@ -414,9 +414,8 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #topMenuContainer {
-    width: 325px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .optionButtonContainer {
@@ -602,7 +601,7 @@ a:link, a:visited, a:hover, a:active {
     cursor: pointer;
 }
 
-#editHandoutsTF, #addStudentNote, #editStudentNote, #addTeacherNote, #editTeacherNote {
+#editHandoutsTF, #addNote, #editNote, #addReminder, #editReminder {
     width: 375px;
     height: 150px;
     font-size: 20px;
@@ -675,7 +674,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 
-.searchField:focus, .searchField2:focus, .textInputField2:focus, .textInputField3:focus, .textInputField4:focus, .textInputField5:focus, .textInputField6:focus, #initialNote:focus, #dataInputTextField:focus, #addStudentNote:focus, #editStudentNote:focus, #addTeacherNote:focus, #editTeacherNote:focus {
+.searchField:focus, .searchField2:focus, .textInputField2:focus, .textInputField3:focus, .textInputField4:focus, .textInputField5:focus, .textInputField6:focus, #initialNote:focus, #dataInputTextField:focus, #addNote:focus, #editNote:focus, #addReminder:focus, #editReminder:focus {
     outline: none;
     border: 2px solid dodgerblue;
 }
@@ -788,7 +787,7 @@ a:link, a:visited, a:hover, a:active {
     overflow-y: scroll;
 }
 
-#dispStudentPhoto {
+.dispStudentPhoto {
     width: 375px;
     height: 500px;
     padding-top: 25px;
