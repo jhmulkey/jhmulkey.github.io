@@ -17,6 +17,7 @@ var _teams = [];
 var _dataInputParameter;
 var _att = [];
 var _pwd = [];
+var _skipPhotos = [];
 var _rankNamesShort = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220]; // must be edited manually
@@ -3756,34 +3757,50 @@ function manualSetEw(x) {
 
 function shufflePhotos() {
     var indexes = [];
-    for (let i = 0; i < _sl.length; i++) {indexes.push(i)}
+    for (let i = 0; i < _sl.length; i++) {
+        if (_skipPhotos.indexOf(i) >= 0) {continue}
+        indexes.push(i)
+    }
     shuffleArray(indexes);
     for (let i = 0; i < indexes.length; i++) {
         var div = createElement("div");
-        var p = createElement("p");
         div.classList.add("dispStudentPhoto");
         div.classList.add("ptr");
-        div.style.backgroundImage = "url(img/students-thumbnails/"+_sl[indexes[i]].name[0].split(" ")[0].toLowerCase()+"-"+_sl[indexes[i]].name[0].split(" ")[1].toLowerCase()+".jpeg)"
-        p.classList.add("ptr");
-        p.innerHTML = _sl[indexes[i]].name[0];
-        p.style.marginTop = "5px"; p.style.color = "#111";
-        p.setAttribute("id","photo"+i);
+        div.style.backgroundImage = "url(img/students-thumbnails/"+_sl[indexes[i]].name[0].split(" ")[0].toLowerCase()+"-"+_sl[indexes[i]].name[0].split(" ")[1].toLowerCase()+".jpeg)";
+        div.setAttribute("id","photo"+i);
         (function(i){
             div.onclick = function () {
-                if (document.getElementById("photo"+i).style.color == "rgb(17, 17, 17)") {
-                    color("photo"+i,"white")
+                if (document.getElementById("photoTitle"+i).style.color == "rgb(17, 17, 17)") {
+                    color("photoTitle"+i,"white")
                 } else {
-                    color("photo"+i,"#111")
+                    color("photoTitle"+i,"#111")
                 }
             }
         })(i);
-        (function(){
+        var p = createElement("p");
+        p.classList.add("ptr");
+        p.innerHTML = _sl[indexes[i]].name[0];
+        p.style.marginTop = "5px"; p.style.color = "#111";
+        p.setAttribute("id","photoTitle"+i);
+        (function(i){
             p.onclick = function () {
-                pop(['shufflePhotosPop'],['mainMenuPop'])
+                _skipPhotos.push(indexes[i]);
+                display("photo"+i,"none");
+                display("photoTitle"+i,"none");
             }
-        })();
+        })(i);
         append("shuffledPhotos",div);
         append("shuffledPhotos",p);
+    }
+}
+
+function togglePhotoTitles() {
+    for (let i = 0; i < _sl.length; i++) {
+        if (document.getElementById("togglePhotoTilesCheck").checked) {
+            {color("photoTitle"+i,"white")}
+       } else {
+           color("photoTitle"+i,"#111")
+       }
     }
 }
 
