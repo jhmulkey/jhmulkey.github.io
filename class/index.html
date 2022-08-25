@@ -265,7 +265,7 @@
     <div id="att2Button" class="otherButton ptr" onclick="populateNames2()">Attendance</div>
   </div>
   <div id="studentPopTopContainerDiv">
-    <div id="studentPopInsignia" class="ptr" onclick="loadStudentProperties(); studentMenuSwitch(4)"></div>
+    <div id="studentPopInsignia" class="ptr" onclick="populateStudentProperties(); studentMenuSwitch(4)"></div>
     <div id="studentPopInfo">
       <p id="studentPopRankName"></p>
       <p id="studentPopName" class="ptr" onclick="toggleAtt()"></p>
@@ -301,66 +301,56 @@
 </div>
 
 <div id="studentStatsPop" class="pop" style="padding-top:0px">
-
-    <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
-      <p id="rankProgressTableP" style="margin-top:0px"></p>
-      <table id="rankProgressTable" class="progressBarTable"></table>
-    </div>
-
-    <div id="totalProgressTableDiv">
-      <p id="totalProgressTableP"></p>
-      <table id="totalProgressTable" class="progressBarTable"></table>
-    </div>
-
-    <div id="asProgressTableDiv">
-      <p id="asProgressTableP"></p>
-      <table id="asProgressTable" class="progressBarTable"></table>
-    </div>
-
-    <div id="mvProgressTableDiv">
-      <p id="mvProgressTableP"></p>
-      <table id="mvProgressTable" class="progressBarTable"> </table>
-    </div>
-
-    <div id="attProgressTableDiv" class="ptr" onclick="loadStudentAttStats()">
-      <p id="attProgressTableP"></p>
-      <table id="attProgressTable" class="progressBarTable"></table>
-    </div>
-
-    <div id="totalParticipationTableDiv">
-      <p id="totalParticipationTableP"></p>
-      <table id="totalParticipationTable" class="progressBarTable"></table>
-    </div>
-
-    <div id="lbDiv">
-      <p style="text-align:center;font-size:30px">Leader Boards</p>
+  <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
+    <p id="rankProgressTableP" style="margin-top:0px"></p>
+    <table id="rankProgressTable" class="progressBarTable"></table>
+  </div>
+  <div id="totalProgressTableDiv">
+    <p id="totalProgressTableP"></p>
+    <table id="totalProgressTable" class="progressBarTable"></table>
+  </div>
+  <div id="asProgressTableDiv">
+    <p id="asProgressTableP"></p>
+    <table id="asProgressTable" class="progressBarTable"></table>
+  </div>
+  <div id="mvProgressTableDiv">
+    <p id="mvProgressTableP"></p>
+    <table id="mvProgressTable" class="progressBarTable"> </table>
+  </div>
+  <div id="attProgressTableDiv" class="ptr" onclick="loadStudentAttStats()">
+    <p id="attProgressTableP"></p>
+    <table id="attProgressTable" class="progressBarTable"></table>
+  </div>
+  <div id="totalParticipationTableDiv">
+    <p id="totalParticipationTableP"></p>
+    <table id="totalParticipationTable" class="progressBarTable"></table>
+  </div>
+  <div id="lbDiv">
+    <p id="lbHeader">Leader Boards</p>
+    <p id="lbMssg" style="color:#ddd;text-align:center;"></p>
+    <div id="lbContainer">
       <div class="lb" id="totalPtsLb">
         <p class="lbTitle">Total Points</p>
         <div id="totalPtsLbList"></div>
       </div>
-
       <div class="lb" id="asPtsLb">
         <p class="lbTitle">Activity Sheet Points</p>
         <div id="asPtsLbList"></div>
       </div>
-
       <div class="lb" id="mvPtsLb">
         <p class="lbTitle">Memory Verse Points</p>
         <div id="mvPtsLbList"></div>
       </div>
-
       <div class="lb" id="attLb">
         <p class="lbTitle">Attendance</p>
         <div id="attLbList"></div>
       </div>
-
       <div class="lb" id="tpLb">
-        <p class="lbTitle">Total Participation</p>
+        <p class="lbTitle">Participation</p>
         <div id="tpLbList"></div>
       </div>
-
     </div>
-
+  </div>
 </div>
 
 <div id="newStudentPop" class="pop">
@@ -707,29 +697,7 @@
 </div>
 
 <div id="studentPropertiesPop" class="pop">
-  <div id="studentProperties">
-    <p>name: <span id="name"></span></p>
-    <p>PIN: <span id="pin"></span></p>
-    <p>gender: <span id="gender"></span></p>
-    <p>dateAdded: <span id="dateAdded"></span><span id="dateAddedConverted"></span></p>
-    <p>bd: <span id="bd"></span><span id="bdnConverted"></span></p>
-    <p>email: <span id="email"></span></p>
-    <p>photo: <span id="photo"></span></p>
-    <p>allergies: <span id="allergies"></span></p>
-    <p>notes: <span id="notes"></span></p>
-    <p>pts: <span id="pts"></span></p>
-    <p>gamePts: <span id="gamePts"></span></p>
-    <p>rank: <span id="rank"></span><span id="rankConverted"></span></p>
-    <p>att: <span id="att"></span></p>
-    <p>attArr: <span id="attArr"></span></p>
-    <p>promo: <span id="promo"></span></p>
-    <p>promoDns: <span id="promoDns"></span></p>
-    <p>randDraw: <span id="randDraw"></span></p>
-    <p>statsRanks: <span id="statsRanks"></span></p>
-    <p>handouts: <span id="handouts"></span></p>
-    <p>as: <span id="as"></span></p>
-    <p>mv: <span id="mv"></span></p>
-  </div>
+  <div id="studentProperties"></div>
 </div>
 
 <div id="backupPop" class="pop">
@@ -841,9 +809,21 @@
 <div id="shufflePhotosPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="pop(['shufflePhotosPop'],['mainMenuPop'])">f</div>
+    <div id="advancedButton" class="otherButton ptr" onclick="shufflePhotos()">Re-shuffle</div>
   </div>
-  <label class="checkboxLabel"><input type="checkbox" id="togglePhotoTilesCheck" style="margin-bottom:30px" class="checkbox" onclick="togglePhotoTitles()"> Show all photo titles</label><br>
+  <label class="checkboxLabel"><input type="checkbox" id="togglePhotoTitlesCheck" style="margin-bottom:30px" class="checkbox" onclick="togglePhotoTitles()"> Show all photo titles</label><br>
   <div id="shuffledPhotos"></div>
+</div>
+
+<div id="editPropertyPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['editPropertyPop'],['studentPropertiesPop'])">f</div>
+  </div>
+  <textarea id="editProperty" rows="10" cols="30" style="height:300px" onkeydown="pressKey(13,'editPropertyOK'); pressKey(27,'editPropertyCancel')"></textarea>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton ptr" id="editPropertyCancel" onclick="pop(['editPropertyPop'],['studentPropertiesPop'])">X</div>
+    <div class="roundButton1 okButton ptr" id="editPropertyOK" onclick="editProperty()">V</div>
+  </div>
 </div>
 
 <script src="backup.js"></script>

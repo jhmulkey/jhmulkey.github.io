@@ -800,7 +800,7 @@ function loadPopText() {
 }
 
 function loadLbs() {
-    if (_ew == 1) {
+    if (!pointsExist()) {
         display("lbContainer","none"); display("lbMssg","block");
         innerHTML("lbMssg","Leader boards will appear here once students start earning points."); return
     } else {
@@ -1357,7 +1357,7 @@ function pointsExist() {
     return false
 }
 
-function manualSetElapsedWeeks(x) {
+function manualSetEw(x) {
     _ew = x; _ti = x-1;
     populateMissions();
 }

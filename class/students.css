@@ -452,7 +452,7 @@ a:active, a:hover {
     color: white;
 }
 
-#leaderBoardsHeader {
+#lbHeader {
     border-top: 1px solid #555;
     margin: 30px auto 20px auto !important;
     padding-top: 15px;

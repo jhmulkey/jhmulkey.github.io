@@ -57,19 +57,28 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#shufflePhotosPop, #allergiesPop, #handoutsAlertPop, #assignHandoutsPop, #editHandoutsPop, #handoutsPop, #pwdPop, #archivedBackupsPop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #gameLogPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #addReminderPop, #addNotePop, #modifyRemindersPop, #remindersPop, #customSortListPop, #editStudentPop, #newStudentPop, #editNotePop, #editReminderPop, #notesPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
+#editPropertyPop, #shufflePhotosPop, #allergiesPop, #handoutsAlertPop, #assignHandoutsPop, #editHandoutsPop, #handoutsPop, #pwdPop, #archivedBackupsPop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #gameLogPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #addReminderPop, #addNotePop, #modifyRemindersPop, #remindersPop, #customSortListPop, #editStudentPop, #newStudentPop, #editNotePop, #editReminderPop, #notesPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
     display: none;
 }
 
 .lb {
-    border: 1px solid white;
-    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    margin-bottom: 25px;
     padding-left: 10px;
 }
 
 .lbTitle {
-    font-size: 25px;
+    font-size: 20px;
+    margin: 20px auto;
     color: #3478F6;
+    text-align: center !important;
+}
+
+#lbHeader {
+    border-top: 1px solid #555;
+    margin: 30px auto 20px auto !important;
+    padding-top: 15px;
+    font-size: 30px !important;
     text-align: center !important;
 }
 
@@ -601,7 +610,7 @@ a:link, a:visited, a:hover, a:active {
     cursor: pointer;
 }
 
-#editHandoutsTF, #addNote, #editNote, #addReminder, #editReminder {
+#editHandoutsTF, #addNote, #editNote, #addReminder, #editReminder, #editProperty {
     width: 375px;
     height: 150px;
     font-size: 20px;
@@ -950,4 +959,8 @@ a:link, a:visited, a:hover, a:active {
 
 #dateAddedConverted, #bdnConverted, #rankConverted {
     color: red !important;
+}
+
+#studentProperties p {
+    margin-bottom: 20px;
 }
