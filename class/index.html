@@ -384,12 +384,16 @@
     </div>
   </div>
   <div>
-    <p>Email Address</p>
-    <input class="searchField" id="newEmail" type="text" placeholder="email address" onkeydown="pressKey(13,'newStudentOkButton')"/>
-  </div>
-  <div>
     <p>Name Pronunciation</p>
     <input class="searchField" id="newNamePron" placeholder="name pronunciation" onkeydown="pressKey(13,'newStudentOkButton')"></textarea>
+  </div>
+  <div>
+    <p>Parents</p>
+    <input class="searchField" id="newParents" placeholder="parents" onkeydown="pressKey(13,'newStudentOkButton')"></textarea>
+  </div>
+  <div>
+    <p>Email Address</p>
+    <input class="searchField" id="newEmail" type="text" placeholder="email address" onkeydown="pressKey(13,'newStudentOkButton')"/>
   </div>
   <div>
     <p>Allergies</p>
@@ -438,13 +442,17 @@
       </div>
     </div>
     <div>
+      <p>Name Pronunciation</p>
+      <input class="searchField" id="editNamePron" placeholder="name pronunciation" onkeydown="pressKey(13,'editStudentOkButton')"></textarea>
+    </div>
+    <div>
+      <p>Parents</p>
+      <input class="searchField" id="editParents" placeholder="parents" onkeydown="pressKey(13,'newStudentOkButton')"></textarea>
+    </div>
+    <div>
       <p>Email Address</p>
       <input class="searchField" id="editEmail" type="text" placeholder="email address"
       onkeydown="pressKey(13,'editStudentOkButton')"/>
-    </div>
-    <div>
-      <p>Name Pronunciation</p>
-      <input class="searchField" id="editNamePron" placeholder="name pronunciation" onkeydown="pressKey(13,'editStudentOkButton')"></textarea>
     </div>
     <div>
       <p>Allergies</p>
@@ -455,6 +463,7 @@
       <div class="roundButton1 deleteButton ptr" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
       <div class="roundButton1 okButton ptr" id="editStudentOkButton" onclick="editStudent()">V</div>
     </div>
+    <div id="dispParentsPhoto" class="dispStudentPhoto ptr" style="margin-bottom:20px" onclick="parentsPhotoLinks()"></div>
   </div>
 </div>
 
@@ -819,7 +828,7 @@
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="pop(['editPropertyPop'],['studentPropertiesPop'])">f</div>
   </div>
-  <textarea id="editProperty" rows="10" cols="30" style="height:300px" onkeydown="pressKey(13,'editPropertyOK'); pressKey(27,'editPropertyCancel')"></textarea>
+  <textarea id="editProperty" rows="10" cols="30" style="height:250px" onkeydown="pressKey(13,'editPropertyOK'); pressKey(27,'editPropertyCancel')"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="editPropertyCancel" onclick="pop(['editPropertyPop'],['studentPropertiesPop'])">X</div>
     <div class="roundButton1 okButton ptr" id="editPropertyOK" onclick="editProperty()">V</div>

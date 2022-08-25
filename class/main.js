@@ -1846,9 +1846,10 @@ function newStudent() {
     _sl[_ci].name = [newFirst + " " + newLast,pron];
     _sl[_ci].gender = newGender;
     _sl[_ci].bd = [assignDn(parseInt(newbdMonth),parseInt(newbdDate)),false,false];
-    _sl[_ci].email = document.getElementById("newEmail").value.toLowerCase();
-    _sl[_ci].allergies = document.getElementById("newAllergies").value.toLowerCase();
-    document.getElementById("initialNote").value != false ? _sl[_ci].notes = [document.getElementById("initialNote").value] : _sl[_ci].notes = [];
+    _sl[_ci].parents = document.getElementById("newParents").value.trim();
+    _sl[_ci].email = document.getElementById("newEmail").value.toLowerCase().trim();
+    _sl[_ci].allergies = document.getElementById("newAllergies").value.toLowerCase().trim();
+    document.getElementById("initialNote").value != false ? _sl[_ci].notes = [document.getElementById("initialNote").value.trim()] : _sl[_ci].notes = [];
     for (let i = 0; i < _dns.length; i++) {
         newStudent.attArr[i] = [0,0];
     }
@@ -1883,7 +1884,7 @@ function deleteStudent() {
 }
 
 function editStudent() {
-    var original = [_sl[_ci].name[0].toString(),_sl[_ci].gender,cdn(_sl[_ci].bd[0]),_sl[_ci].email,_sl[_ci].name[1].toString(),_sl[_ci].allergies];
+    var original = [_sl[_ci].name[0].toString(),_sl[_ci].gender,cdn(_sl[_ci].bd[0]),_sl[_ci].parents,_sl[_ci].email,_sl[_ci].name[1].toString(),_sl[_ci].allergies];
     var EFNArray; var ELNArray;
     if (document.getElementById("editFirst").value.trim().indexOf(" ") > -1) {
         var EFNArray = (document.getElementById("editFirst").value.trim().toLowerCase()).split(" ");
@@ -1918,8 +1919,9 @@ function editStudent() {
     }
     _sl[_ci].bd = [assignDn(parseInt(editBdMonth),parseInt(editBdDate)),false,false];
     _sl[_ci].name[1] = document.getElementById("editNamePron").value.trim();
-    _sl[_ci].email = document.getElementById("editEmail").value.toLowerCase();
-    _sl[_ci].allergies = document.getElementById("editAllergies").value.toLowerCase();
+    _sl[_ci].parents = document.getElementById("editParents").value.trim();
+    _sl[_ci].email = document.getElementById("editEmail").value.toLowerCase().trim();
+    _sl[_ci].allergies = document.getElementById("editAllergies").value.toLowerCase().trim();
     if (EFNArray == false || ELNArray == false) {
         infoAlert("First and last name required",["editStudentPop"]);return
     } else {
@@ -1935,8 +1937,8 @@ function editStudent() {
     }
     innerHTML("studentPopName",_sl[_ci].name[0]);
     if (cdn(_sl[_ci].bd[0]) != original[2]) {findBd()}
-    var edit = [_sl[_ci].name[0].toString(),_sl[_ci].gender,cdn(_sl[_ci].bd[0]),_sl[_ci].email,_sl[_ci].name[1].toString(),_sl[_ci].allergies];
-    var labels = ["name","gender","birthday","email","name pronunciation","allergies"];
+    var edit = [_sl[_ci].name[0].toString(),_sl[_ci].gender,cdn(_sl[_ci].bd[0]),_sl[_ci].parents,_sl[_ci].email,_sl[_ci].name[1].toString(),_sl[_ci].allergies];
+    var labels = ["name","gender","birthday","parents","email","name pronunciation","allergies"];
     for (let i = 0; i < original.length; i++) {
         if (original[i] != edit[i]) {
             activityLog(original[0] + " " + labels[i] + " edited",original[i] + "-->" + edit[i],dateAndTime("log"));
@@ -2058,6 +2060,7 @@ function populateStudentFields(id,func) {
         value("editBdMonth","");
         value("editBdDate","");
     }
+    value("editParents",_sl[_ci].parents);
     value("editEmail",_sl[_ci].email);
     value("editGender",_sl[_ci].gender);
     value("editNamePron",_sl[_ci].name[1]);
@@ -3070,17 +3073,19 @@ function populateStudentProperties() {
 function editProperty() {
     var x = document.getElementById("editProperty").value.trim();
     if (typeof _sl[_ci][_currentProperty] === "object") {
-        if ((x.match(/\[/gi).length == 1 && x.match(/\]/gi).length == 1 && x[0] == "[" && x[x.length-1] == "]") || 
-        (x.match(/\[/gi).length > 1 && x.match(/\[/gi).length == x.match(/\]/gi).length && x[0]+x[1] == "[[" && x[x.length-2]+x[x.length-1] == "]]")
-        ) {
+        try {
             _sl[_ci][_currentProperty] = JSON.parse(x);
-        } else {
-            infoAlert("value cannot be parsed as object",["editPropertyPop"]); return;
+        } catch(err) {
+            infoAlert(err.message,["editPropertyPop"],false,false,25); return;
         }
     } else if (typeof _sl[_ci][_currentProperty] === "boolean") {
-        if (x == "true") {
+        if (x.toLowerCase().trim() == "true" || x.toLowerCase().trim() == "t") {
             _sl[_ci][_currentProperty] = true;
-        } else {_sl[_ci][_currentProperty] = false}
+        } else if (x.toLowerCase().trim() == "false" || x.toLowerCase().trim() == "f") {
+            _sl[_ci][_currentProperty] = false;
+        } else {
+            infoAlert("Value must be<br>\"True\", \"T\", \"False\", or \"F\"",["editPropertyPop"],false,false,25); return;
+        }
     } else if (typeof _sl[_ci][_currentProperty] === "number") {
         if (isNaN(x)) {
             infoAlert("value must be a number",["editPropertyPop"]); return;
@@ -3207,7 +3212,17 @@ function loadStudentPhoto() {
         document.getElementById("dispStudentPhoto").style.backgroundImage = "url(img/students-thumbnails/"+_sl[_ci].name[0].split(" ")[0].toLowerCase()+"-"+_sl[_ci].name[0].split(" ")[1].toLowerCase()+".jpeg)";
         innerHTML("dispStudentPhoto","");
     } else {
-        innerHTML("dispStudentPhoto","click here to add photo");
+        innerHTML("dispStudentPhoto","click here to add<br>student photo");
+    }
+}
+
+function loadParentsPhoto() {
+    document.getElementById("dispParentsPhoto").style.backgroundImage = "none";
+    if (_sl[_ci].parentsPhoto) {
+        document.getElementById("dispParentsPhoto").style.backgroundImage = "url(img/parents-thumbnails/"+_sl[_ci].parents.toLowerCase().replace(/ /g,'-')+".jpeg)";
+        innerHTML("dispParentsPhoto","");
+    } else {
+        innerHTML("dispStudentPhoto","click here to add<br>parents photo");
     }
 }
 
@@ -3222,6 +3237,19 @@ function photoLinks() {
 function loadPhoto() {
     if (!_sl[_ci].photo) {_sl[_ci].photo = true}
     loadStudentPhoto(); refreshStudentPop(); allAlerts(); storeAndBackup();         
+}
+
+function parentsPhotoLinks() {
+    if (!_sl[_ci].parentsPhoto) {
+        actionAlert("Load parents photo for<br>" + _sl[_ci].name[0] + "?",["editStudentPop"],loadPhoto2);
+    } else {
+        window.open("img/parents-large/"+_sl[_ci].parents.toLowerCase().replace(/ /g,'-')+".jpeg");
+    }
+}
+
+function loadPhoto2() {
+    if (!_sl[_ci].praentsPhoto) {_sl[_ci].parentsPhoto = true}
+    loadParentsPhoto(); refreshStudentPop(); allAlerts(); storeAndBackup();         
 }
 
 /* function doesFileExist(url) {
