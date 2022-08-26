@@ -57,7 +57,7 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#editPropertyPop, #shufflePhotosPop, #allergiesPop, #handoutsAlertPop, #assignHandoutsPop, #editHandoutsPop, #handoutsPop, #pwdPop, #archivedBackupsPop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #gameLogPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #addReminderPop, #addNotePop, #modifyRemindersPop, #remindersPop, #customSortListPop, #editStudentPop, #newStudentPop, #editNotePop, #editReminderPop, #notesPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
+#shuffleParentsPhotosPop, #editPropertyPop, #shufflePhotosPop, #allergiesPop, #handoutsAlertPop, #assignHandoutsPop, #editHandoutsPop, #handoutsPop, #pwdPop, #archivedBackupsPop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #gameLogPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #addReminderPop, #addNotePop, #modifyRemindersPop, #remindersPop, #customSortListPop, #editStudentPop, #newStudentPop, #editNotePop, #editReminderPop, #notesPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
     display: none;
 }
 
