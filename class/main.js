@@ -870,7 +870,6 @@ function attCount() {
     }
     innerHTML("attCountButton",attCount);
     innerHTML("attCount",attCount);
-    console.log(attCount);
     if (attCount > 0) {color("attCountButton","lawngreen")} else {color("attCountButton","#bbb")}
 }
 
@@ -1881,6 +1880,7 @@ function newStudent() {
 }
 
 function deleteStudent() {
+    activityLog("deleted student "+_sl[_ci].name[0],dateAndTime("log"));
     _sl.splice(_ci,1);
     attCount(); storeAndBackup(); sortSL(); goHome();
 }
