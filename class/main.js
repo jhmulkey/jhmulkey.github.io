@@ -193,7 +193,7 @@ function loadBackup() {
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].randDraw[0] = false;
     }
-    assignTodaysDn(); clearAttendees(); populateReminders(); storeAndBackup(); goHome();
+    clearAttendees(); populateReminders(); findAllBds(); storeAndBackup(); goHome();
 }
 
 function loadLS() {
@@ -206,7 +206,7 @@ function loadLS() {
     _reminders = JSON.parse(localStorage.getItem("reminders"));
     _handouts = JSON.parse(localStorage.getItem("handouts"));
     _teams = JSON.parse(localStorage.getItem("teams"));
-    populateReminders(); assignTodaysDn(); attCount();
+    populateReminders(); attCount(); findAllBds();
     activityLog("localstorage loaded",dateAndTime("log"));
     backupNewData(); goHome();
 }
@@ -244,7 +244,7 @@ function assignTodaysDn() {
         }
     }
     _todaysDn = dn;
-    setWeeksOff(); isClassDay(); setEw(); findAllBds(); populateMissions(); generateAllTables();
+    setWeeksOff(); isClassDay(); setEw(); populateMissions(); generateAllTables();
 }
 
 function isClassDay() {
@@ -323,7 +323,7 @@ function allAlerts() {
         {colorbgColor("alertButton","#bbb","black")
     }
     if (allergiesPresent()) {
-        colorbgColor("allergiesButton","white","blue")
+        colorbgColor("allergiesButton","black","darkorange")
     } else {
         colorbgColor("allergiesButton","#bbb","black")
     }
@@ -870,6 +870,8 @@ function attCount() {
     }
     innerHTML("attCountButton",attCount);
     innerHTML("attCount",attCount);
+    console.log(attCount);
+    if (attCount > 0) {color("attCountButton","lawngreen")} else {color("attCountButton","#bbb")}
 }
 
 function ampmAttendance() {
@@ -2316,10 +2318,6 @@ function loadStudent(index) {
         pop(["mainPop"],["studentPop","missionsPop"]);
     }
 }
-
-/* function loadLbs() {
-    sortByPts(true); sortByASpts(true); sortByMVpts(true); sortByAtt(true); sortByTP(true); sortSL();
-} */
 
 function loadLbs() {
     if (!pointsExist()) {
@@ -3933,6 +3931,6 @@ function pointsExist() {
     return false
 }
 
-whatToLoad();
+whatToLoad(); assignTodaysDn();
 
 idFocus("searchMain");
