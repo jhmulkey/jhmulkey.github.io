@@ -189,6 +189,7 @@ function pinEntry(x) {
             match = true; _ci = i; 
             if (_alert) {
                 pop(["mainPop"],["alertPop"]);
+                document.activeElement.blur();
             } else {
                 loadStudent(i); pop(["mainPop"],["studentPop","studentStatsPop"]);
             }
