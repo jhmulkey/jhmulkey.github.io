@@ -199,6 +199,7 @@ function pinEntry(x) {
         display("hint","none");
         infoAlert("The PIN <span style='color:red;font-weight:bold'>" + x + "</span> does not match any students. Use the back button above to try again or search by name instead.",["mainPop"],"searchField");
         document.getElementById("searchField").value = "";
+        document.activeElement.blur();
     }
 }
 
