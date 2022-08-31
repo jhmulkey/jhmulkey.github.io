@@ -370,7 +370,7 @@
   <div class="genderAndBdContainer">
     <div>
       <p>Gender</p>
-      <input class="textInputField2" id="newGender" type="text" placeholder="M or F" onkeydown="pressKey(13,'newStudentOkButton')"/>
+      <input class="textInputField2" id="newGender" type="text" placeholder="M or F"/>
     </div>
     <div style="width:42px; margin:0px"></div>
     <div>
@@ -380,30 +380,30 @@
           <input class="textInputField4" id="newbdMonth" type="text" placeholder="Month" style="margin-right:10px">
         </div>
         <div>
-          <input class="textInputField4" id="newbdDate" type="text" placeholder="Day" onkeydown="pressKey(13,'newStudentOkButton')"/>
+          <input class="textInputField4" id="newbdDate" type="text" placeholder="Day"/>
         </div>
       </div>
     </div>
   </div>
   <div>
     <p>Name Pronunciation</p>
-    <input class="searchField" id="newNamePron" placeholder="name pronunciation" onkeydown="pressKey(13,'newStudentOkButton')"></textarea>
+    <input class="searchField" id="newNamePron" placeholder="name pronunciation"></textarea>
   </div>
   <div>
     <p>Parents</p>
-    <input class="searchField" id="newParents" placeholder="parents" onkeydown="pressKey(13,'newStudentOkButton')"></textarea>
+    <input class="searchField" id="newParents" placeholder="parents"></textarea>
   </div>
   <div>
     <p>Email Address</p>
-    <input class="searchField" id="newEmail" type="text" placeholder="email address" onkeydown="pressKey(13,'newStudentOkButton')"/>
+    <input class="searchField" id="newEmail" type="text" placeholder="email address"/>
   </div>
   <div>
     <p>Allergies</p>
-    <input class="searchField" id="newAllergies" placeholder="allergies" onkeydown="pressKey(13,'newStudentOkButton')"></textarea>
+    <input class="searchField" id="newAllergies" placeholder="allergies"></textarea>
   </div>
   <div>
     <p>Note</p>
-    <textarea id="initialNote" rows="10" cols="30" placeholder="note" onkeydown="pressKey(13,'newStudentOkButton')"></textarea>
+    <textarea id="initialNote" rows="10" cols="30" placeholder="note"></textarea>
   </div>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" onclick="pop(['newStudentPop'],['mainPop']); clearStudentFields(); rapidOff();">X</div>
@@ -416,18 +416,18 @@
     <div class="genderAndBdContainer">
       <div>
         <p style="margin-top:0px">First Name</p>
-        <input class="textInputField3" id="editFirst" type="text" placeholder="First Name" onkeydown="pressKey(13,'editStudentOkButton')"/>
+        <input class="textInputField3" id="editFirst" type="text" placeholder="First Name"/>
       </div>
       <div style="width:24px; margin:0px"></div>
       <div>
         <p style="margin-top:0px">Last Name</p>
-        <input class="textInputField3" id="editLast" type="text" placeholder="Last Name" onkeydown="pressKey(13,'editStudentOkButton')"/>
+        <input class="textInputField3" id="editLast" type="text" placeholder="Last Name"/>
       </div>
     </div>
     <div class="genderAndBdContainer">
       <div>
         <p>Gender</p>
-        <input class="textInputField2" id="editGender" type="text" placeholder="M or F" onkeydown="pressKey(13,'editStudentOkButton')"/>
+        <input class="textInputField2" id="editGender" type="text" placeholder="M or F"/>
       </div>
       <div style="width:42px; margin:0px"></div>
       <div>
@@ -437,27 +437,27 @@
             <input class="textInputField4" id="editBdMonth" type="text" placeholder="Month" style="margin-right:10px" onkeydown="if(event.key === 'Enter')document.getElementById('editStudentOkButton').click()"/>
           </div>
           <div>
-            <input class="textInputField4" id="editBdDate" type="text" placeholder="Day" onkeydown="pressKey(13,'editStudentOkButton')"/>
+            <input class="textInputField4" id="editBdDate" type="text" placeholder="Day"/>
           </div>
         </div>
       </div>
     </div>
     <div>
       <p>Name Pronunciation</p>
-      <input class="searchField" id="editNamePron" placeholder="name pronunciation" onkeydown="pressKey(13,'editStudentOkButton')"></textarea>
+      <input class="searchField" id="editNamePron" placeholder="name pronunciation"></textarea>
     </div>
     <div>
       <p>Parents</p>
-      <input class="searchField" id="editParents" placeholder="parents" onkeydown="pressKey(13,'editStudentOkButton')"></textarea>
+      <input class="searchField" id="editParents" placeholder="parents"></textarea>
     </div>
     <div>
       <p>Email Address</p>
       <input class="searchField" id="editEmail" type="text" placeholder="email address"
-      onkeydown="pressKey(13,'editStudentOkButton')"/>
+     />
     </div>
     <div>
       <p>Allergies</p>
-      <input class="searchField" id="editAllergies" placeholder="allergies" onkeydown="pressKey(13,'editStudentOkButton')"></textarea>
+      <input class="searchField" id="editAllergies" placeholder="allergies"></textarea>
     </div>
     <div class="optionButtonContainer">
       <div class="roundButton1 cancelButton ptr" id="editStudentCancelButton" onclick="editStudentPop(); clearStudentFields(); resetStudentMenu(); rapidOff()">X</div>

@@ -2086,7 +2086,7 @@ function populateStudentFields(id,func) {
 }
 
 function clearStudentFields() {
-    var ids = ["newFirst","newLast","newGender","newbdMonth","newbdDate","newEmail","initialNote","newNamePron"];
+    var ids = ["newFirst","newLast","newGender","newbdMonth","newbdDate","newEmail","initialNote","newNamePron","newParents","newAllergies"];
     for (let i = 0; i < ids.length; i++) {
         value(ids[i],"");
     }
