@@ -26,7 +26,7 @@
 
 <div id="att2Pop" class="pop">
   <div class="navigationButtonContainer" style="margin-bottom:0px">
-    <div class="backButton ptr" onclick="pop(['att2Pop'],['studentPop'])">f</div>
+    <div class="backButton ptr" onclick="pop(['att2Pop'],['studentPop'])">T</div>
   </div>
   <input id="searchMain2" class="searchField2" type="text" placeholder="search names" oninput="searchNames('searchMain2','name')"/>
   <div id="nameList2"></div>
@@ -45,16 +45,17 @@
     <div class="backButton ptr" onclick="pop(['sortChoicePop'],['mainMenuPop'])">f</div>
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
-  <div class="button ptr" onclick="sortByRank()">Sort by Rank</div>
-  <div class="button ptr" onclick="sortByPts()">Sort by Total Points</div>
-  <div class="button ptr" onclick="sortByASpts()">Sort by AS Points</div>
-  <div class="button ptr" onclick="sortByMVpts()">Sort by MV Points</div>
-  <div class="button ptr" onclick="sortByAtt()">Sort by Attendance</div>
-  <div class="button ptr" onclick="sortByTP()">Sort by Participation</div>
-  <div class="button ptr" onclick="sortByGender()">Sort by Boy/Girl</div>
-  <div class="button ptr" onclick="sortByBd()">Sort by Birthday</div>
-  <div class="button ptr" onclick="sortByDateAdded()">Sort by Date Added</div>
-  <div class="button ptr" onclick="sortByNotes()">Sort by Notes</div>
+  <p class="menuLabel">Sort Students ></p>
+  <div class="button ptr" onclick="sortByBd()">by Birthday</div>
+  <div class="button ptr" onclick="sortByGender()">by Gender</div>
+  <div class="button ptr" onclick="sortByDateAdded()">by Date Added</div>
+  <div class="button ptr" onclick="sortByPts()">by Total Points</div>
+  <div class="button ptr" onclick="sortByASpts()">by AS Points</div>
+  <div class="button ptr" onclick="sortByMVpts()">by MV Points</div>
+  <div class="button ptr" onclick="sortByAtt()">by Attendance</div>
+  <div class="button ptr" onclick="sortByTP()">by Participation</div>
+  <div class="button ptr" onclick="sortByRank()">by Rank</div>
+  <div class="button ptr" onclick="sortByNotes()">by Notes</div>
 </div>
 
 <div id="customSortListPop" class="pop">
@@ -89,20 +90,20 @@
     <div class="backButton ptr" onclick="goHome()">f</div>
     <div id="advancedButton" class="otherButton ptr" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">Advanced</div>
   </div>
-  <div class="button ptr" onclick="sortChoicePop()">Sort Students</div>
   <div class="button ptr" onclick="loadAttStats()">Attendance Stats</div>
+  <div class="button ptr" onclick="sortChoicePop()">Sort Students <span class="buttonArrow"> ></span></div>
   <div id="drawButton" class="button ptr" onclick="clearDrawingWinner(); pop(['mainMenuPop'],['drawPop'])">Drawing</div>
   <div id="randButton" class="button ptr" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
   <div id="teamsButton" class="button ptr" onclick="teams()">Teams</div>
-  <div class="button ptr" id="handoutsButton" onclick="pop(['mainMenuPop'],['handoutsPop']);">Handouts</div>
-  <div class="button ptr" id="shufflePhotosButton" style="font-size:22px;padding-top:8px" onclick="shufflePhotosPop()">Shuffle Student Photos</div>
-  <div class="button ptr" id="shuffleParentsPhotosButton" style="font-size:22px;padding-top:8px" onclick="shuffleParentsPhotosPop()">Shuffle Parent Photos</div>
+  <div class="button ptr" id="handoutsButton" onclick="pop(['mainMenuPop'],['handoutsPop']);">Handouts <span class="buttonArrow"> ></span></div>
+  <div class="button ptr" id="shufflePhotosButton" onclick="shufflePhotosPop()">Shuffle Student Photos</div>
+  <div class="button ptr" id="shuffleParentsPhotosButton" onclick="shuffleParentsPhotosPop()">Shuffle Parent Photos</div>
 </div>
 
 <div id="pwdPop" class="pop">
   <p>Enter password to confirm overwriting local storage:</p>
   <div>
-    <input type="text" id="pwd" class="textInputField6" maxlength="4" oninput="pwdAutoEnter()" onkeydown="pressKey(13,'pwdOkButton'); pressKey(27,'pwdCancelButton')">
+    <input type="text" id="pwd" class="textInputField6" maxlength="4" oninput="pwdAutoEnter()">
   </div>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="pwdCancelButton" onclick="pop(['pwdPop'],['wtlPop'])">X</div>
@@ -115,6 +116,7 @@
     <div class="backButton ptr" onclick="pop(['handoutsPop'],['mainMenuPop'])">f</div>
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
+  <p class="menuLabel">Handouts ></p>
   <div id="editHandoutsButton" class="button ptr" onclick="editHandoutsPop()">Edit Handouts</div>
   <div id="assignHandoutsButton" class="button ptr" onclick="pop(['handoutsPop'],['assignHandoutsPop']); populateAssignHandoutButtons()">Assign Handouts</div>
 </div>
@@ -124,7 +126,8 @@
     <div class="backButton ptr" onclick="pop(['editHandoutsPop'],['handoutsPop'])">f</div>
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
-  <textarea id="editHandoutsTF" rows="10" cols="30" placeholder="No handouts added yet" onkeydown="pressKey(13,'editHandoutsOK')"></textarea>
+  <p class="menuLabel">Handouts > Edit Handouts</p>
+  <textarea id="editHandoutsTF" rows="10" cols="30" placeholder="No handouts added yet"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="editHandoutsCancel" onclick="pop(['editHandoutsPop'],['handoutsPop'])">X</div>
     <div class="roundButton1 okButton ptr" id="editHandoutsOK" onclick="editHandouts();pop(['editHandoutsPop'],['handoutsPop'])">V</div>
@@ -136,6 +139,7 @@
     <div class="backButton ptr" onclick="pop(['assignHandoutsPop'],['handoutsPop'])">f</div>
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
+  <p class="menuLabel">Handouts > Assign Handouts</p>
   <div id="assignHandoutsButtonContainer"></div>
 </div>
 
@@ -225,13 +229,11 @@
     <div class="backButton ptr" onclick="pop(['advancedOptionsPop'],['mainMenuPop'])">f</div>
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
-  <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> Quick new student entry</label><br>
-  <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> Quick student editing</label><br>
 </div>
 
 <div id="dataInputAlertPop" class="pop">
   <p id="dataInputAlertMessage"></p>
-  <input id="dataInputTF" type="text" onkeydown="pressKey(13,'dataInputAlertOK'); pressKey(27,'dataInputAlertCancel')"/>
+  <input id="dataInputTF" type="text"/>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="dataInputAlertCancel" onclick="dataInputAlert(false,false,false,false,true)">X</div>
     <div class="roundButton1 okButton ptr" id="dataInputAlertOK" onclick="dataInputAlert()">V</div>
@@ -405,8 +407,11 @@
     <p>Note</p>
     <textarea id="initialNote" rows="10" cols="30" placeholder="note"></textarea>
   </div>
+  <div class="checkboxContainer" style="margin-top:25px">
+    <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> create multiple students</label>
+  </div>
   <div class="optionButtonContainer">
-    <div class="roundButton1 cancelButton ptr" onclick="pop(['newStudentPop'],['mainPop']); clearStudentFields(); rapidOff();">X</div>
+    <div class="roundButton1 cancelButton ptr" onclick="goHome(); clearStudentFields(); rapidOff();">X</div>
     <div class="roundButton1 okButton ptr" id="newStudentOkButton" onclick="newStudent()">V</div>
   </div>
 </div>
@@ -434,7 +439,7 @@
         <p>Birthday</p>
         <div class="flexContainer">
           <div>
-            <input class="textInputField4" id="editBdMonth" type="text" placeholder="Month" style="margin-right:10px" onkeydown="if(event.key === 'Enter')document.getElementById('editStudentOkButton').click()"/>
+            <input class="textInputField4" id="editBdMonth" type="text" placeholder="Month" style="margin-right:10px"/>
           </div>
           <div>
             <input class="textInputField4" id="editBdDate" type="text" placeholder="Day"/>
@@ -458,6 +463,9 @@
     <div>
       <p>Allergies</p>
       <input class="searchField" id="editAllergies" placeholder="allergies"></textarea>
+    </div>
+    <div class="checkboxContainer">
+      <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> edit multiple students</label>
     </div>
     <div class="optionButtonContainer">
       <div class="roundButton1 cancelButton ptr" id="editStudentCancelButton" onclick="editStudentPop(); clearStudentFields(); resetStudentMenu(); rapidOff()">X</div>
@@ -483,7 +491,7 @@
 </div>
 
 <div id="addNotePop" class="pop">
-  <textarea id="addNote" rows="10" cols="30" onkeydown="pressKey(13,'addNoteOk'); pressKey(27,'addNoteCancel')" placeholder="Add New Note"></textarea>
+  <textarea id="addNote" rows="10" cols="30" placeholder="Add New Note"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="addNoteCancel" onclick="pop(['addNotePop'],['notesPop','notesList'])">X</div>
     <div class="roundButton1 okButton ptr" id="addNoteOk" onclick="addNote()">V</div>
@@ -495,7 +503,7 @@
     <div class="backButton ptr" onclick="pop(['addReminderPop','addReminder'],['remindersPop','remindersList'])">f</div>
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
-  <textarea id="addReminder" rows="10" cols="30" onkeydown="pressKey(13,'addReminderOk'); pressKey(27,'addReminderCancel')" placeholder="Add New Note"></textarea>
+  <textarea id="addReminder" rows="10" cols="30" placeholder="Add New Note"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="addReminderCancel" onclick="pop(['addReminderPop','addReminder'],['remindersPop','remindersList'])">X</div>
     <div class="roundButton1 okButton ptr" id="addReminderOk" onclick="addReminder()">V</div>
@@ -503,7 +511,7 @@
 </div>
 
 <div id="editNotePop" class="pop">
-  <textarea id="editNote" rows="10" cols="30" onkeydown="pressKey(13,'editNoteOk'); pressKey(27,'editNoteCancel')"></textarea>
+  <textarea id="editNote" rows="10" cols="30"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="editNoteCancel" onclick="pop(['editNotePop','editNote'],['notesPop','notesList'])">X</div>
     <div class="roundButton1 deleteButton ptr" id="deleteNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editNotePop'],deleteNote)">U</div>
@@ -516,7 +524,7 @@
     <div class="backButton ptr" onclick="pop(['editReminderPop','editReminder'],['remindersPop','remindersList'])">f</div>
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
-  <textarea id="editReminder" rows="10" cols="30" onkeydown="pressKey(13,'editReminderOk'); pressKey(27,'editReminderCancel')"></textarea>
+  <textarea id="editReminder" rows="10" cols="30"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="editReminderCancel" onclick="pop(['editReminderPop','editReminder'],['remindersPop','remindersList'])">X</div>
     <div class="roundButton1 deleteButton ptr" id="deleteReminderButton" onclick="actionAlert('Are you sure you want to delete this reminder?',['editReminderPop'],deleteReminder)">U</div>
@@ -822,7 +830,9 @@
     <div class="backButton ptr" onclick="pop(['shufflePhotosPop'],['mainMenuPop'])">f</div>
     <div id="advancedButton" class="otherButton ptr" onclick="shufflePhotos()">Re-shuffle</div>
   </div>
-  <label class="checkboxLabel"><input type="checkbox" id="togglePhotoTitlesCheck" style="margin-bottom:30px" class="checkbox" onclick="togglePhotoTitles()"> Show all photo titles</label><br>
+  <div style="margin-bottom:30px">
+    <label class="checkboxLabel"><input type="checkbox" id="togglePhotoTitlesCheck" class="checkbox" onclick="togglePhotoTitles()"> show all photo titles</label>
+  </div>
   <div id="shuffledPhotos"></div>
 </div>
 
@@ -831,7 +841,9 @@
     <div class="backButton ptr" onclick="pop(['shuffleParentsPhotosPop'],['mainMenuPop'])">f</div>
     <div id="advancedButton" class="otherButton ptr" onclick="shuffleParentsPhotos()">Re-shuffle</div>
   </div>
-  <label class="checkboxLabel"><input type="checkbox" id="toggleParentsPhotoTitlesCheck" style="margin-bottom:30px" class="checkbox" onclick="toggleParentsPhotoTitles()"> Show all photo titles</label><br>
+  <div style="margin-bottom:30px">
+    <label class="checkboxLabel"><input type="checkbox" id="toggleParentsPhotoTitlesCheck" class="checkbox" onclick="toggleParentsPhotoTitles()"> show all photo titles</label>
+  </div>
   <div id="shuffledParentsPhotos"></div>
 </div>
 
@@ -839,7 +851,7 @@
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="pop(['editPropertyPop'],['studentPropertiesPop'])">f</div>
   </div>
-  <textarea id="editProperty" rows="10" cols="30" style="height:250px" onkeydown="pressKey(13,'editPropertyOK'); pressKey(27,'editPropertyCancel')"></textarea>
+  <textarea id="editProperty" rows="10" cols="30" style="height:250px"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="editPropertyCancel" onclick="pop(['editPropertyPop'],['studentPropertiesPop'])">X</div>
     <div class="roundButton1 okButton ptr" id="editPropertyOK" onclick="editProperty()">V</div>

@@ -73,6 +73,7 @@ class Student {
     constructor() {
         this.dateAdded = _todaysDn;
         this.photo = false;
+        this.parentsPhoto = false;
         this.pts = 0;
         this.gamePts = [0,0]; // [gamePts,gameRank]
         this.rank = [0,0]; // [rankNumber,rankFactor]
@@ -2372,6 +2373,7 @@ function studentMenuSwitch(x) {
             allPops[i].style.display = "none";
         }
     }
+    scrollTo(0,0);
 }
 
 function asLinks() {
@@ -2787,6 +2789,9 @@ function generateStudentStatsTables() {
 }
 
 function populateNames2() {
+    if (document.getElementById("att2Pop").style.display == "block") {
+        pop(['att2Pop'],['studentPop']); return;
+    }
     display("att2Pop","block"); innerHTML("nameList2","");
     value("searchMain2",""); idFocus("searchMain2");
     for (let i = 0; i < _sl.length; i++) {
@@ -3611,6 +3616,7 @@ function batchDisplaySL(property) {
             occurrences[values.indexOf(_sl[i][property])]++
         }
     }
+    console.log("**********OCCURRENCES**********");
     for (let i = 0; i < values.length; i++) {
         console.log(values[i] + "(" + occurrences[i] + ")")
     }
@@ -3812,10 +3818,6 @@ function allBdsFalse() {
         }
         storeAndBackup();
     }
-}
-
-function pressKey(key,id) {
-    if(event.keyCode==key)document.getElementById(id).click()
 }
 
 function manualSetEw(x) {
