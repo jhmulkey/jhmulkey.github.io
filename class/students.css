@@ -163,6 +163,8 @@ a:active, a:hover {
 }
 
 #studentPop {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
     position: sticky;
     top: 0px;
     background-color: #111;
