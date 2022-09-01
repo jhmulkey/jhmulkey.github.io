@@ -88,7 +88,7 @@
 <div id="mainMenuPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="goHome()">f</div>
-    <div id="advancedButton" class="otherButton ptr" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">Advanced</div>
+    <div class="otherButton ptr" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">Advanced</div>
   </div>
   <div class="button ptr" onclick="loadAttStats()">Attendance Stats</div>
   <div class="button ptr" onclick="sortChoicePop()">Sort Students <span class="buttonArrow"> ></span></div>
@@ -147,15 +147,13 @@
     <div class="navigationButtonContainer">
       <div class="backButton ptr" onclick="goHome()">f</div>
     </div>
-    <div class="buttonArr">
-        <div class="button ptr" id="remindersButton" onclick="pop(['alertsPop'],['remindersPop']); populateReminders()">Reminders</div>
-        <div class="button ptr" id="promoButton" onclick="loadPromos(); pop(['alertsPop'],['customListPop'])">Promotions</div>
-        <div class="button ptr" id="bdButton" onclick="loadBds(); pop(['alertsPop'],['customListPop'])">Birthdays</div>
-        <div class="button ptr" id="photosNeededButton" onclick="loadNeededPhotos(); pop(['alertsPop'],['customListPop'])">Missing Photos</div>
-        <div class="button ptr" id="emailsNeededButton" onclick="loadNeededEmails(); pop(['alertsPop'],['customListPop'])">Missing Emails</div>
-        <div class="button ptr" id="bdNeededButton" onclick="loadNeededBds(); pop(['alertsPop'],['customListPop'])">Missing Birthdays</div>
-        <div class="button ptr" id="handoutsNeededButton" onclick="pop(['alertsPop'],['handoutsAlertPop'])">Missing Handouts</div>
-    </div>
+    <div class="button ptr" id="remindersButton" onclick="pop(['alertsPop'],['remindersPop']); populateReminders()">Reminders</div>
+    <div class="button ptr" id="promoButton" onclick="loadPromos(); pop(['alertsPop'],['customListPop'])">Promotions</div>
+    <div class="button ptr" id="bdButton" onclick="loadBds(); pop(['alertsPop'],['customListPop'])">Birthdays</div>
+    <div class="button ptr" id="photosNeededButton" onclick="loadNeededPhotos(); pop(['alertsPop'],['customListPop'])">Missing Photos</div>
+    <div class="button ptr" id="emailsNeededButton" onclick="loadNeededEmails(); pop(['alertsPop'],['customListPop'])">Missing Emails</div>
+    <div class="button ptr" id="bdNeededButton" onclick="loadNeededBds(); pop(['alertsPop'],['customListPop'])">Missing Birthdays</div>
+    <div class="button ptr" id="handoutsNeededButton" onclick="pop(['alertsPop'],['handoutsAlertPop'])">Missing Handouts</div>
 </div>
 
 <div id="handoutsAlertPop" class="pop">
@@ -827,8 +825,9 @@
 
 <div id="shufflePhotosPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['shufflePhotosPop'],['mainMenuPop'])">f</div>
-    <div id="advancedButton" class="otherButton ptr" onclick="shufflePhotos()">Re-shuffle</div>
+    <div class="backButton2 ptr" onclick="pop(['shufflePhotosPop'],['mainMenuPop'])">f</div>
+    <div class="otherButton2 ptr" onclick="resetShufflePhotos()">Reset</div>
+    <div class="otherButton2 ptr" onclick="shufflePhotos()">Re-shuffle</div>
   </div>
   <div style="margin-bottom:30px">
     <label class="checkboxLabel"><input type="checkbox" id="togglePhotoTitlesCheck" class="checkbox" onclick="togglePhotoTitles()"> show all photo titles</label>
@@ -838,8 +837,9 @@
 
 <div id="shuffleParentsPhotosPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['shuffleParentsPhotosPop'],['mainMenuPop'])">f</div>
-    <div id="advancedButton" class="otherButton ptr" onclick="shuffleParentsPhotos()">Re-shuffle</div>
+    <div class="backButton2 ptr" onclick="pop(['shuffleParentsPhotosPop'],['mainMenuPop'])">f</div>
+    <div class="otherButton2 ptr" onclick="resetShuffleParentsPhotos()">Reset</div>
+    <div class="otherButton2 ptr" onclick="shuffleParentsPhotos()">Re-shuffle</div>
   </div>
   <div style="margin-bottom:30px">
     <label class="checkboxLabel"><input type="checkbox" id="toggleParentsPhotoTitlesCheck" class="checkbox" onclick="toggleParentsPhotoTitles()"> show all photo titles</label>
