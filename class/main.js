@@ -315,22 +315,22 @@ function allAlerts() {
             if (_sl[j].handouts.indexOf(_handouts[i]) < 0 && _sl[j].att) {
                 bgColor(_handouts[i]+"NeededButton","red"); break;
             } else {
-                bgColor(_handouts[i]+"NeededButton","#111")
+                bgColor(_handouts[i]+"NeededButton","rgba(52,120,246,0.25)")
             }
         }
     }
     for (let i = 0; i < alerts.length; i++) {
-        if (alerts[i] > 0) {bgColor(ids[i],"red")} else {bgColor(ids[i],"#111")}
+        if (alerts[i] > 0) {bgColor(ids[i],"red")} else {bgColor(ids[i],"rgba(52,120,246,0.25)")}
     }
     if (sumArray(alerts) > 0) {
-        colorbgColor("alertButton","white","red")
-    } else 
-        {colorbgColor("alertButton","#bbb","black")
+        bgColor("alertButton","red")
+    } else {
+        bgColor("alertButton","#111")
     }
     if (allergiesPresent()) {
-        colorbgColor("allergiesButton","black","darkorange")
+        bgColor("allergiesButton","darkorange")
     } else {
-        colorbgColor("allergiesButton","#bbb","black")
+        bgColor("allergiesButton","#111")
     }
 }
 
@@ -2689,11 +2689,12 @@ function populateNames() {
         var p1 = createElement("p");
         var span1 = createElement("span");
         span1.classList.add("quickAttendance");
-        span1.innerHTML = "V"
+        span1.innerHTML = "?"
         if (_sl[i].att) {
-            span1.style.color = "white";
+            span1.style.color = "lawngreen";
+            span1.style.backgroundColor = "lawngreen";
         } else {
-            span1.style.color = "#555";
+            span1.style.color = "#222";
         }
         (function(i){
             span1.onclick = function () {
