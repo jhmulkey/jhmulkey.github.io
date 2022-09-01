@@ -842,6 +842,7 @@ function studentMenuSwitch(x) {
             allPops[i].style.display = "none";
         }
     }
+    scrollTo(0,0);
 }
 
 function asLinks() {
