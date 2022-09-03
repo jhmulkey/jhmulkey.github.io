@@ -90,6 +90,7 @@
     <div class="backButton ptr" onclick="goHome()">f</div>
     <div class="otherButton ptr" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">Advanced</div>
   </div>
+  <div class="button ptr" onclick="pop(['mainMenuPop'],['calendarPop'])">Calendar</div>
   <div class="button ptr" onclick="loadAttStats()">Attendance Stats</div>
   <div class="button ptr" onclick="sortChoicePop()">Sort Students <span class="buttonArrow"> ></span></div>
   <div id="drawButton" class="button ptr" onclick="clearDrawingWinner(); pop(['mainMenuPop'],['drawPop'])">Drawing</div>
@@ -127,7 +128,7 @@
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
   <p class="menuLabel">Handouts > Edit Handouts</p>
-  <textarea id="editHandoutsTF" rows="10" cols="30" placeholder="No handouts added yet"></textarea>
+  <textarea id="editHandoutsTF" rows="10" cols="30" placeholder="No handouts added yet" style="margin-top:30px"></textarea>
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="editHandoutsCancel" onclick="pop(['editHandoutsPop'],['handoutsPop'])">X</div>
     <div class="roundButton1 okButton ptr" id="editHandoutsOK" onclick="editHandouts();pop(['editHandoutsPop'],['handoutsPop'])">V</div>
@@ -798,7 +799,7 @@
 
   <div id="attListTableDiv">
     <table id="attListTable">
-      <tr class="tableHeaderRow">
+      <tr class="tableHeaderRow" style="position:sticky;top:73px">
         <td>Date</td>
         <td>AM</td>
         <td>PM</td>
@@ -855,6 +856,25 @@
   <div class="optionButtonContainer">
     <div class="roundButton1 cancelButton ptr" id="editPropertyCancel" onclick="pop(['editPropertyPop'],['studentPropertiesPop'])">X</div>
     <div class="roundButton1 okButton ptr" id="editPropertyOK" onclick="editProperty()">V</div>
+  </div>
+</div>
+
+<div id="calendarPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['calendarPop'],['mainMenuPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div id="calendarContainer">
+  <table id="calendarTable">
+    <tr class="tableHeaderRow" style="position:sticky;top:73px">
+    <td>ti</td>
+    <td>ew</td>
+    <td>dn</td>
+    <td>date</td>
+    <td>lesson</td>
+    <td>memory</td>
+    </tr>
+  </table>
   </div>
 </div>
 

@@ -315,12 +315,12 @@ function allAlerts() {
             if (_sl[j].handouts.indexOf(_handouts[i]) < 0 && _sl[j].att) {
                 bgColor(_handouts[i]+"NeededButton","red"); break;
             } else {
-                bgColor(_handouts[i]+"NeededButton","rgba(52,120,246,0.25)")
+                bgColor(_handouts[i]+"NeededButton","rgba(187,187,187,0.25)")
             }
         }
     }
     for (let i = 0; i < alerts.length; i++) {
-        if (alerts[i] > 0) {bgColor(ids[i],"red")} else {bgColor(ids[i],"rgba(52,120,246,0.25)")}
+        if (alerts[i] > 0) {bgColor(ids[i],"red")} else {bgColor(ids[i],"rgba(187,187,187,0.25)")}
     }
     if (sumArray(alerts) > 0) {
         bgColor("alertButton","red")
@@ -342,7 +342,7 @@ function allergiesPresent() {
 }
 
 function generateAllTables() {
-    generateRankTable(); generateAttListTable(); generateStudentAttTable(); generateStudentStatsTables();
+    generateRankTable(); generateAttListTable(); generateStudentAttTable(); generateStudentStatsTables(); generateCalendarTable();
 }
 
 function populateCustomList(log1,log2,type) {
@@ -2286,7 +2286,7 @@ function searchNamesMain() {
     var names = document.getElementsByClassName("name");
     var nameSpans = document.getElementsByClassName("nameSpan");
     for (let i = 0; i < nameSpans.length; i++) {
-        if (nameSpans[i].innerHTML.toLowerCase().search(inputVal) >= 0) {
+        if (nameSpans[i].innerHTML.toLowerCase().search(inputVal) >= 0 && inputVal != " ") {
             names[i].style.display = "block";
         } else {
             names[i].style.display = "none";
@@ -2702,20 +2702,22 @@ function populateNames() {
             }
         })(i);
         var span2 = createElement("span");
+        var span3 = createElement("span");
         if (_sl[i].att) {
-            span2.style.color = "lawnGreen";
+            span3.style.color = "lawnGreen";
         } else {
-            span2.style.color = "white";
+            span3.style.color = "white";
         }
         p1.classList.add("name");
-        span2.classList.add("nameSpan");
+        span2.innerHTML = "&nbsp;&nbsp;"
+        span3.classList.add("nameSpan");
         (function(i){
-            span2.onclick = function () {
+            span3.onclick = function () {
                 loadStudent(i); _array = "loadStudent";
             }
         })(i);
-        span2.innerHTML = " " + _sl[i].name[0];
-        p1.append(span1,span2);
+        span3.innerHTML = _sl[i].name[0];
+        p1.append(span1,span2,span3);
         append("nameList",p1);
     }
     var p2 = createElement("p");
@@ -2723,7 +2725,7 @@ function populateNames() {
     p2.onclick = function () {
         pop(['mainPop'],['newStudentPop']); idFocus("newFirst");
     }
-    p2.innerHTML = "Add New Student";
+    p2.innerHTML = "+ Add New Student";
     append("nameList",p2);
     value("searchMain","");
     idFocus("searchMain");
@@ -3963,6 +3965,47 @@ function pointsExist() {
         }
     }
     return false
+}
+
+function generateCalendarTable() {
+    for (let i = 0; i < _dns.length; i++) {
+        var tr1 = createElement("tr");
+        var td1 = createElement("td");
+        var td2 = createElement("td");
+        var td3 = createElement("td");
+        var td4 = createElement("td");
+        var td5 = createElement("td");
+        var td6 = createElement("td");
+        td1.classList.add("ti_ew_dn")
+        td2.classList.add("ti_ew_dn")
+        td3.classList.add("ti_ew_dn")
+        td1.innerHTML = i;
+        td2.innerHTML = i+1;
+        td3.innerHTML = _dns[i];
+        td4.innerHTML = cdn(_dns[i]);
+        if (i == _ti) {
+            tr1.style.border = "3px solid lawngreen";
+        }
+        if (i < _asNames.length) {
+            td5.innerHTML = _asNames[i];
+        } else {td5.innerHTML = "-"}
+        if (i < _mvNames.length) {
+            td6.innerHTML = _mvNames[i];
+        } else {td6.innerHTML = "-"}        
+        tr1.append(td1,td2,td3,td4,td5,td6);
+        append("calendarTable",tr1);
+    }
+}
+
+function populateCalendar() {
+    for (i = 0; i < _dns.length; i++) {
+        innerHTML("calendarDate"+i,cdn(_dns[i]));
+        if (i < _dns.length-2) {
+            innerHTML("calendarLesson"+i,_asFulls[i]);
+            innerHTML("calendarMemory"+i,_mvFulls[i]);
+        }
+    }
+    document.getElementById("calendarRow"+(_ti)).style.border = "2px solid lawngreen";
 }
 
 whatToLoad(); assignTodaysDn();
