@@ -858,11 +858,18 @@ function mvLinks() {
 }
 
 function currentMissionsLink() {
+    if (_isClassDay) {
+        passThruAlert(["missionsPop"],downloadCurrentMission,"The missions you are about to download are the ones assigned today ("+cdn(_dns[_ti])+") and due on "+cdn(_dns[_ti+1])+". If you want to download the missions that are due today instead, click the back button above and then click the topmost missions that are listed under the <span class='do'>ACITIVITY SHEETS</span> and <span class='do'>MEMORY VERSES</span> headings.  Otherwise, click the OK button to proceed with downloading the missions assigned today.");
+    } else {downloadCurrentMission()}
+}
+
+function downloadCurrentMission() {
     if (_ti < (_asNames.length-1)) {
         window.open("class/docs/combined-missions/asmv"+_ti+".pdf","_blank");
     } else {
         window.open("class/docs/combined-missions/asmv"+(_asNames.length-1)+".pdf","_blank");
     }
+    if (_isClassDay) {pop(["passThruAlertPop"],["missionsPop"])}
 }
 
 function pop(closeArray,openArray,title) {
@@ -1363,6 +1370,12 @@ function pointsExist() {
 function manualSetEw(x) {
     _ew = x; _ti = x-1;
     populateMissions();
+}
+
+function passThruAlert(currentPops,currentFunction,mssg) {
+    _currentPops = currentPops; _currentFunction = currentFunction;
+    innerHTML("passThruAlertMssg",mssg);
+    pop([currentPops],["passThruAlertPop"]);
 }
 
 loadBackup();

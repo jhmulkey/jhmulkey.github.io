@@ -67,6 +67,14 @@
     <p id="hint" style="color:#ddd;border-top:1px solid #555;padding-top:20px">To avoid this step in the future, type your child's full name when searching or type their 3-digit PIN instead</p><br>
 </div>
 
+<div id="passThruAlertPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['passThruAlertPop'],_currentPops)"><span>f</span></div>
+  </div>
+    <p id="passThruAlertMssg" style="text-align:justify;margin-top:40px;"></p>
+    <div class="okButton ptr" style="margin-top:50px" onclick="_currentFunction()">OK</div>
+</div>
+
 <div id="studentStatsPop" class="pop">
 
   <p class="note" style="margin-top:0px">Click on any bar graph below for more info</p>
@@ -299,8 +307,8 @@
 
 <div id="resourcesPop" class="pop" style="text-align:left;">
   <p id="studentPin" style="margin-top:5px;text-align:center;color:white"></p>
-  <p><a href="sms:18643023502?&body=JOIN">Text "JOIN" to 864-302-3502</a> to receive weekly update links by text</p>
-  <p><a href="mailto:jonathan@ksgrade2.com?subject=JOIN&body=JOIN">Email "JOIN" to jonathan@ksgrade2.com</a> to receive weekly updates by email</p>
+  <p><a href="sms:18643023502?&body=JOIN">Text "JOIN" to 864-302-3502</a><br>to receive weekly update links by text</p>
+  <p><a href="mailto:jonathan@ksgrade2.com?subject=JOIN&body=JOIN">Email "JOIN" to jonathan@ksgrade2.com</a><br>to receive weekly updates by email</p>
   <p><a target="_blank" href="docs/handbook.pdf">Download class handbook</a></p>
   <p><a target="_blank" href="docs/calendar.pdf">Download printable calendar</a></p>
   <p><a target="_blank" href="docs/ranks.pdf">Download printable rank chart</a></p>
@@ -320,7 +328,7 @@
 
 <div id="alertPop" class="pop">
   <p class="do" style="font-size:30px;font-weight:bold;margin-bottom:0px;">Reminder:</p>
-  <p id="alertMssg" style="font-size:25px;text-align:justify;margin-top:10px">Today (September 4) is a "Family Worship Sunday", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on September 11!</p>
+  <p id="alertMssg" style="font-size:25px;text-align:justify;margin-top:40px;line-height:1.5;">Today (September 4) is a "Family Worship Sunday", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on September 11!</p>
   <div class="okButton ptr" style="margin-top:50px" onclick="loadStudent(_ci);pop(['alertPop'],['studentPop','studentStatsPop'])">OK</div>
 </div>
 
