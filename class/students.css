@@ -245,6 +245,12 @@ a:active, a:hover {
     width: 100%
 }
 
+.tableHeaderRow {
+    border: 1px solid #ddd !important;
+    border-collapse: collapse !important;
+    background-color: black !important;
+}
+
 #calendarTable, #calendarTable td, #studentMenuTable, #studentMenuTable td, .asmvInfoTable, .asmvInfoTable td, #rankChartTable, #rankChartTable td, #studentAttTable, #studentAttTable td {
     border: 1px solid #ddd;
     border-collapse: collapse;
