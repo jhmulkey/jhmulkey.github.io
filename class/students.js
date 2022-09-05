@@ -1,4 +1,4 @@
-var _alert = true; 
+var _alert = false; 
 var _sl = []; var _ci; var _ti; var _currentStudent;
 var _totalASpts; var _totalMVpts; var _totalPts; var _totalPossible;
 var _earnedASpts; var _earnedMVpts; var _totalEarnedPts; var _weeksAttended; var _totalEarned;
@@ -356,12 +356,12 @@ function assignStatsRanks(propertyName,index) {
     var pts = [];
     for (let i = 0; i < _sl.length; i++) {
         pts.push(_sl[i][propertyName]);
-    } // creates an array of the points of each student in alphabetical order
-    var ptsSorted = pts.slice().sort(function(a,b){return b - a}); // sorts the resuting array in numerical order
-    var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1}); // maps the index(+1) of each unique point value in the resulting array back to original array that was in alphabetical order
+    }
+    var ptsSorted = pts.slice().sort(function(a,b){return b - a});
+    var ptsRanked = pts.map(function(v){return ptsSorted.indexOf(v)+1});
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].statsRanks[index] = ptsRanked[i];
-    } // assigns the values of the resulting array as the rank of each student
+    }
     sortSLbyProperty(propertyName); var repeats = 0;
     var corrected = []; corrected.push(_sl[0].statsRanks[index]);
     for (let i = 1; i < _sl.length; i++) {
@@ -376,7 +376,6 @@ function assignStatsRanks(propertyName,index) {
         _sl[i].statsRanks[index] = corrected[i];
     }
     sortSL();
-    /* _sl is then sorted by rank. An array of "corrected" ranks is created, and the first rank is pushed to it. Now for every consecutive rank, if it's the same as the previous rank, a "repeat" is tallied, and the last value added to the "corrected" array is pushed to the array as a repeated rank. If a consecutive rank is not the same as the previous rank, the rank is added to the "corrected" array after subtracting the current repeat tally from it. This ensures no rank numbers are skipped, so instead of (for example) ranks [1,1,3,4,5,5,5,8,9,10], you get [1,1,2,3,4,4,4,5,6,7]. Finally, the current ranks are reassigned as the corrected ranks and _sl is sorted back into alphabetical order. */
 }
 
 function sortByPts(lb) {
@@ -1376,6 +1375,22 @@ function passThruAlert(currentPops,currentFunction,mssg) {
     _currentPops = currentPops; _currentFunction = currentFunction;
     innerHTML("passThruAlertMssg",mssg);
     pop([currentPops],["passThruAlertPop"]);
+}
+
+function alertMssg() {
+    var laborDay = "Today (September 4) is a 'Family Worship Sunday', meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on September 11!";
+    var annivThanks = "";
+    var christmasNew = "";
+    var easter = "";
+    if (_todaysDn >= 0 && _todaysDn <= 0) {
+        innerHTML("alertMssg",laborDay);
+    } else if (_todaysDn >= 0 && _todaysDn <= 0) {
+        innerHTML("alertMssg",annivThanks);
+    } else if (_todaysDn >= 0 && _todaysDn <= 0) {
+        innerHTML("alertMssg",christmasNew);
+    } else if (_todaysDn >= 0 && _todaysDn <= 0) {
+        innerHTML("alertMssg",easter);
+    }
 }
 
 loadBackup();
