@@ -115,7 +115,7 @@ function loadBackup() {
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].randDraw[0] = false;
     }
-    assignTodaysDn();
+    assignTodaysDn(); alertMssg();
 }
 
 function assignTodaysDn() {
@@ -858,7 +858,7 @@ function mvLinks() {
 
 function currentMissionsLink() {
     if (_isClassDay) {
-        passThruAlert(["missionsPop"],downloadCurrentMission,"The missions you are about to download are the ones assigned today ("+cdn(_dns[_ti])+") and due on "+cdn(_dns[_ti+1])+". If you want to download the missions that are due today instead, click the back button above and then click the topmost missions that are listed under the <span class='do'>ACITIVITY SHEETS</span> and <span class='do'>MEMORY VERSES</span> headings.  Otherwise, click the OK button to proceed with downloading the missions assigned today.");
+        passThruAlert(["missionsPop"],downloadCurrentMission,"The missions you are about to download are the new missions assigned today ("+cdn(_dns[_ti])+") and not due until "+cdn(_dns[_ti+1])+". If you want to download the missions that are due today instead, click the back button above and then click the topmost missions under the <span class='do'>ACTIVITY SHEETS</span> and <span class='do'>MEMORY VERSES</span> headings.  Otherwise, click the OK button to proceed with downloading the new missions assigned today.");
     } else {downloadCurrentMission()}
 }
 
@@ -906,6 +906,7 @@ function asPop(asNum,pts) {
     _asNum = asNum;
     innerHTML("asSheetName",_asNames[_asNum].toUpperCase());
     innerHTML("asDateAssigned",cdn(_dns[asNum]));
+    innerHTML("asDateDue",cdn(_dns[asNum+1]));
     innerHTML("asPtsEarned",_sl[_ci].as[_asNum][0]+"/"+_asMaxPts[_asNum]);
     if (_sl[_ci].as[_asNum][0] == _asMaxPts[_asNum]) {
         innerHTML("asCompletionStatus","COMPLETED");
@@ -937,6 +938,7 @@ function mvPop(mvNum,pts) {
     _mvNum = mvNum;
     innerHTML("mvVerseName",_mvNames[_mvNum].toUpperCase());
     innerHTML("mvDateAssigned",cdn(_dns[mvNum]));
+    innerHTML("mvDateDue",cdn(_dns[mvNum+1]));
     innerHTML("mvPtsEarned",_sl[_ci].mv[_mvNum][0]+"/"+_mvMaxPts[_mvNum]);
     if (_sl[_ci].mv[_mvNum][0] == _mvMaxPts[_mvNum]) {
         innerHTML("mvCompletionStatus","COMPLETED");
@@ -1382,7 +1384,7 @@ function alertMssg() {
     var annivThanks = "";
     var christmasNew = "";
     var easter = "";
-    if (_todaysDn >= 0 && _todaysDn <= 0) {
+    if (_todaysDn >= 28 && _todaysDn <= 0) {
         innerHTML("alertMssg",laborDay);
     } else if (_todaysDn >= 0 && _todaysDn <= 0) {
         innerHTML("alertMssg",annivThanks);

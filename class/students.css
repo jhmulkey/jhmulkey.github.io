@@ -315,14 +315,14 @@ a:active, a:hover {
 }
 
 .asmvInfoTable {
-    font-size: 20px;
+    font-size: 18px;
     margin-top: 20px;
 }
 
 .asmvInfoTable td {
     padding: 5px;
     width: 50%;
-    height: 50px;
+    height: 40px;
 }
 
 .tableSider {
