@@ -1302,6 +1302,7 @@ function loadStudentAttStats() {
 
 function cdn(dn,type) {
     if (dn == 0) { return "-" }
+    var words = ["January","February","March","April","May","June","July","August","September","October","November","December"]
     var months = [8,9,10,11,12,1,2,3,4,5,6,7];
     var cumulative = [0,31,61,92,122,153,184,212,243,273,304,334];
     var cumulativeLeap = [0,31,61,92,122,153,184,213,244,274,305,335];
@@ -1329,12 +1330,10 @@ function cdn(dn,type) {
         return month
     } else if (type == "D") {
         return date
+    } else if (type = "word") {
+        return words[month-1] + " " + date;
     } else {
-        if (dn < 154) {
-            return month + "/" + date + "/21";
-        } else {
-            return month + "/" + date + "/22";
-        }
+        return month + "/" + date;
     }
 }
 
@@ -1380,18 +1379,32 @@ function passThruAlert(currentPops,currentFunction,mssg) {
 }
 
 function alertMssg() {
-    var laborDay = "Today (September 4) is a 'Family Worship Sunday', meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on September 11!";
-    var annivThanks = "";
-    var christmasNew = "";
-    var easter = "";
-    if (_todaysDn >= 28 && _todaysDn <= 0) {
-        innerHTML("alertMssg",laborDay);
-    } else if (_todaysDn >= 0 && _todaysDn <= 0) {
-        innerHTML("alertMssg",annivThanks);
-    } else if (_todaysDn >= 0 && _todaysDn <= 0) {
-        innerHTML("alertMssg",christmasNew);
-    } else if (_todaysDn >= 0 && _todaysDn <= 0) {
-        innerHTML("alertMssg",easter);
+    var timeWord = "Next Sunday"; var holidays = []; var dayOf = [];
+    for (let i = 0; i < _dns.length; i++) {
+        if (_dns[i] - _dns[i+1] < -7) {
+            holidays.push(_dns[i]); dayOf.push(_dns[i]+7);
+        }
+    }
+    dayOf.push(holidays[1]+14,holidays[2]+14);
+    if (_todaysDn == holidays[0]+7 || _todaysDn == holidays[1]+7 || _todaysDn == holidays[1]+14 || _todaysDn == holidays[2]+7 || _todaysDn == holidays[2]+14 || _todaysDn == holidays[3]+7 || _todaysDn == holidays[3]+14) {timeWord = "Today"}
+    var laborDay = timeWord+" ("+cdn(holidays[0]+7,"word")+") is a \"Family Worship Sunday\", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on "+cdn(holidays[0]+14,"word")+"!";
+    var annivThanks1 = timeWord+" ("+cdn(holidays[1]+7,"word")+") and the following Sunday ("+cdn(holidays[1]+14,"word")+") are \"Family Worship Sundays\", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on "+cdn(holidays[1]+21,"word")+"!";
+    var annivThanks2 = timeWord+" ("+cdn(holidays[1]+14,"word")+") is a \"Family Worship Sunday\", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on "+cdn(holidays[1]+21,"word")+"!";
+    var christmasNew1 = timeWord+" ("+cdn(holidays[2]+7,"word")+") and the following Sunday ("+cdn(holidays[2]+14,"word")+") are \"Family Worship Sundays\", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on "+cdn(holidays[2]+21,"word")+"!";
+    var christmasNew2 = timeWord+" ("+cdn(holidays[2]+14,"word")+") is a \"Family Worship Sunday\", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on "+cdn(holidays[2]+21,"word")+"!";
+    var easter = timeWord+" ("+cdn(holidays[3]+7,"word")+") is a \"Family Worship Sunday\", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on "+cdn(holidays[3]+14,"word")+"!";
+    if (_todaysDn >= holidays[0] && _todaysDn <= holidays[0]+7) {
+        _alert = true; innerHTML("alertMssg",laborDay);
+    } else if (_todaysDn >= holidays[1] && _todaysDn <= holidays[1]+7) {
+        _alert = true; innerHTML("alertMssg",annivThanks1);
+    } else if (_todaysDn >= holidays[1]+7 && _todaysDn <= holidays[1]+14) {
+        _alert = true; innerHTML("alertMssg",annivThanks2);
+    } else if (_todaysDn >= holidays[2] && _todaysDn <= holidays[2]+7) {
+        _alert = true; innerHTML("alertMssg",christmasNew1);
+    } else if (_todaysDn >= holidays[2]+7 && _todaysDn <= holidays[2]+14) {
+        _alert = true; innerHTML("alertMssg",christmasNew2);
+    } else if (_todaysDn >= holidays[3] && _todaysDn <= holidays[3]+7) {
+        _alert = true; innerHTML("alertMssg",easter);
     }
 }
 

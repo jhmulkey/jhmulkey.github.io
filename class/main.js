@@ -1010,7 +1010,7 @@ function resetAtt() {
     if (_isClassDay) {
         if (dateAndTime("hour") < 16) {
             _att[_ti][0] = 0;
-        } else {_att[_ti][1] = 0;}
+        } else {_att[_ti][1] = 0}
     }
     activityLog("removed all attendees",dateAndTime("log"));
     if (_isClassDay) {ampmAttendance()}
@@ -1959,7 +1959,7 @@ function editStudent() {
         }
     }
     sortSL(); 
-    for (let i = 0; i < _sl.length; i++) {if (_sl[i].name[0] == _sl[_ci].name[0]) {_ci = i; break;}}
+    for (let i = 0; i < _sl.length; i++) {if (_sl[i].name[0] == _sl[_ci].name[0]) {_ci = i; break}}
     refreshStudentPop(); allAlerts(); storeAndBackup();
     if (_currentFunction == loadNeededEmails || _currentFunction == loadNeededBds) {_currentFunction()};
     if (document.getElementById("rapidEditCheck").checked) {
@@ -2291,6 +2291,12 @@ function searchNamesMain() {
         } else {
             names[i].style.display = "none";
         }
+    }
+    for (let i = 0; i < nameSpans.length; i++) {
+        if (names[i].style.display == "block") {
+            display("newStudentButton","none"); break;
+        }
+        display("newStudentButton","block");
     }
 }
 
@@ -2721,11 +2727,12 @@ function populateNames() {
         append("nameList",p1);
     }
     var p2 = createElement("p");
+    p2.setAttribute("id","newStudentButton");
     p2.classList.add("addNew");
     p2.onclick = function () {
         pop(['mainPop'],['newStudentPop']); idFocus("newFirst");
     }
-    p2.innerHTML = "+ Add New Student";
+    p2.innerHTML = "Add New Student";
     append("nameList",p2);
     value("searchMain","");
     idFocus("searchMain");
@@ -3995,17 +4002,6 @@ function generateCalendarTable() {
         tr1.append(td1,td2,td3,td4,td5,td6);
         append("calendarTable",tr1);
     }
-}
-
-function populateCalendar() {
-    for (i = 0; i < _dns.length; i++) {
-        innerHTML("calendarDate"+i,cdn(_dns[i]));
-        if (i < _dns.length-2) {
-            innerHTML("calendarLesson"+i,_asFulls[i]);
-            innerHTML("calendarMemory"+i,_mvFulls[i]);
-        }
-    }
-    document.getElementById("calendarRow"+(_ti)).style.border = "2px solid lawngreen";
 }
 
 whatToLoad(); assignTodaysDn();
