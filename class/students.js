@@ -1397,11 +1397,11 @@ function alertMssg() {
         _alert = true; innerHTML("alertMssg",laborDay);
     } else if (_todaysDn >= holidays[1] && _todaysDn <= holidays[1]+7) {
         _alert = true; innerHTML("alertMssg",annivThanks1);
-    } else if (_todaysDn >= holidays[1]+7 && _todaysDn <= holidays[1]+14) {
+    } else if (_todaysDn > holidays[1]+7 && _todaysDn <= holidays[1]+14) {
         _alert = true; innerHTML("alertMssg",annivThanks2);
     } else if (_todaysDn >= holidays[2] && _todaysDn <= holidays[2]+7) {
         _alert = true; innerHTML("alertMssg",christmasNew1);
-    } else if (_todaysDn >= holidays[2]+7 && _todaysDn <= holidays[2]+14) {
+    } else if (_todaysDn > holidays[2]+7 && _todaysDn <= holidays[2]+14) {
         _alert = true; innerHTML("alertMssg",christmasNew2);
     } else if (_todaysDn >= holidays[3] && _todaysDn <= holidays[3]+7) {
         _alert = true; innerHTML("alertMssg",easter);
