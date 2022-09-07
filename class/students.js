@@ -287,7 +287,7 @@ function populateMatches(indexArray) {
 
 function populateCalendar() {
     for (i = 0; i < _dns.length; i++) {
-        innerHTML("calendarDate"+i,cdn(_dns[i]));
+        innerHTML("calendarDate"+i,cdn(_dns[i],"word"));
         if (i < _dns.length-2) {
             innerHTML("calendarLesson"+i,_asFulls[i]);
             innerHTML("calendarMemory"+i,_mvFulls[i]);
@@ -905,8 +905,8 @@ function goHome() {
 function asPop(asNum,pts) {
     _asNum = asNum;
     innerHTML("asSheetName",_asNames[_asNum].toUpperCase());
-    innerHTML("asDateAssigned",cdn(_dns[asNum]));
-    innerHTML("asDateDue",cdn(_dns[asNum+1]));
+    innerHTML("asDateAssigned",cdn(_dns[asNum],"word"));
+    innerHTML("asDateDue",cdn(_dns[asNum+1],"word"));
     innerHTML("asPtsEarned",_sl[_ci].as[_asNum][0]+"/"+_asMaxPts[_asNum]);
     if (_sl[_ci].as[_asNum][0] == _asMaxPts[_asNum]) {
         innerHTML("asCompletionStatus","COMPLETED");
@@ -926,7 +926,7 @@ function asPop(asNum,pts) {
     if (_sl[_ci].as[_asNum][1] == 0) {
         innerHTML("asDateTurnedIn","-");
     } else {
-        innerHTML("asDateTurnedIn",cdn(_sl[_ci].as[_asNum][1]));
+        innerHTML("asDateTurnedIn",cdn(_sl[_ci].as[_asNum][1],"word"));
     }
     display("missionsPop","none");
     display("asPtsPop","block");
@@ -937,8 +937,8 @@ function mvPop(mvNum,pts) {
     display("mvPtsPop","block");
     _mvNum = mvNum;
     innerHTML("mvVerseName",_mvNames[_mvNum].toUpperCase());
-    innerHTML("mvDateAssigned",cdn(_dns[mvNum]));
-    innerHTML("mvDateDue",cdn(_dns[mvNum+1]));
+    innerHTML("mvDateAssigned",cdn(_dns[mvNum],"word"));
+    innerHTML("mvDateDue",cdn(_dns[mvNum+1],"word"));
     innerHTML("mvPtsEarned",_sl[_ci].mv[_mvNum][0]+"/"+_mvMaxPts[_mvNum]);
     if (_sl[_ci].mv[_mvNum][0] == _mvMaxPts[_mvNum]) {
         innerHTML("mvCompletionStatus","COMPLETED");
@@ -953,7 +953,7 @@ function mvPop(mvNum,pts) {
     if (_sl[_ci].mv[_mvNum][1] == 0) {
         innerHTML("mvDateRecited","-");
     } else {
-        innerHTML("mvDateRecited",cdn(_sl[_ci].mv[_mvNum][1]));
+        innerHTML("mvDateRecited",cdn(_sl[_ci].mv[_mvNum][1],"word"));
     }
     innerHTML("mvText","\""+_mvText[mvNum]+"\"");
 }
@@ -1012,7 +1012,7 @@ function generateCalendarTable() {
             var td2 = createElement("td");
             tr1.style.color = "red";
             td2.setAttribute("colspan",2);
-            td1.innerHTML = cdn(_dns[i-1]+7);
+            td1.innerHTML = cdn(_dns[i-1]+7,"word");
             td2.innerHTML = titles.shift();
             tr1.append(td1,td2);
             append("calendarTable",tr1);
@@ -1022,7 +1022,7 @@ function generateCalendarTable() {
             tr1.style.color = "red";
             var td1 = createElement("td");
             var td2 = createElement("td");
-            td1.innerHTML = cdn(_dns[i-1]+7);
+            td1.innerHTML = cdn(_dns[i-1]+7,"word");
             td2.innerHTML = titles.shift();
             td2.setAttribute("colspan",2);
             tr1.append(td1,td2);
@@ -1031,7 +1031,7 @@ function generateCalendarTable() {
             tr2.style.color = "red";
             var td3 = createElement("td");
             var td4 = createElement("td");
-            td3.innerHTML = cdn(_dns[i-1]+14);
+            td3.innerHTML = cdn(_dns[i-1]+14,"word");
             td4.innerHTML = titles.shift();
             td4.setAttribute("colspan",2);
             tr2.append(td3,td4);
@@ -1151,7 +1151,7 @@ function populateMissions() {
     innerHTML("asPop",""); innerHTML("mvPop","");
     if (_ew == 1) {
         display("initialMissionsNote","block");
-        innerHTML("initialMissionsNote","No missions are due yet. Missions that have come due will appear here starting next Sunday ("+cdn(_dns[1])+"), color-coded according to their completion status. To download the missions that were assigned for this week (and due next Sunday), click \"Download this week's missions\" above.");
+        innerHTML("initialMissionsNote","No missions are due yet. Missions that have come due will appear here starting next Sunday ("+cdn(_dns[1],"word")+"), color-coded according to their completion status. To download the missions that were assigned for this week (and due next Sunday), click \"Download this week's missions\" above.");
     } else {display("initialMissionsNote","none");}
     if (_ew > 1) {
         for (let i = (_ti-1); i >= 0; i--) {
@@ -1194,7 +1194,7 @@ function loadRankTable() {
         if (i > 0) {
             innerHTML("rankChartDate"+i,cdn(_sl[_ci].promoDns[i-1]))
         } else {
-            innerHTML("rankChartDate"+i,"n/a")
+            innerHTML("rankChartDate"+i,cdn(_sl[_ci].dateAdded))
         }
         if (i == _sl[_ci].rank[0]) {
             document.getElementById("rankChartRow"+i).style.border = "3px solid lawngreen";
@@ -1273,7 +1273,7 @@ function sumArrays(arrays) {
 
 function loadStudentAttStats() {
     for (let i = 0; i < _ew; i++) {
-        innerHTML("studentAttDate"+i,cdn(_dns[i]));
+        innerHTML("studentAttDate"+i,cdn(_dns[i],"word"));
         if (_sl[_ci].attArr[i][0] == 1) {
             innerHTML("studentAttAM"+i,"X");
         } else {
@@ -1330,7 +1330,7 @@ function cdn(dn,type) {
         return month
     } else if (type == "D") {
         return date
-    } else if (type = "word") {
+    } else if (type == "word") {
         return words[month-1] + " " + date;
     } else {
         return month + "/" + date;
