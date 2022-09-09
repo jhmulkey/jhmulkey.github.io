@@ -231,7 +231,7 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 9px;
     padding-left: 10px;
     margin-top: 30px;
-    background-color: rgba(187,187,187,0.15);
+    background-color: rgba(187,187,187,0.25)
 }
 
 #mainMenuButton, #addReminderButton, #logButton, #backupButton {
