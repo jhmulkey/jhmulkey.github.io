@@ -198,7 +198,7 @@ function loadBackup() {
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].randDraw[0] = false;
     }
-    clearAttendees(); populateReminders(); findAllBds(); storeAndBackup(); goHome();
+    clearAttendees(); disableAtt(); populateReminders(); findAllBds(); storeAndBackup(); goHome();
 }
 
 function loadLS() {

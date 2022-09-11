@@ -784,6 +784,7 @@ a:link, a:visited, a:hover, a:active {
 
 #rankChartTable td {
     height: 90px;
+    width: 76.4px;
 }
 
 .tableHeaderRow td {
