@@ -255,7 +255,6 @@ function assignTodaysDn() {
 function isClassDay() {
     if (_dns.indexOf(_todaysDn) > -1) {
         _isClassDay = true; 
-        document.getElementById("nameList").style.borderColor = "lawngreen";
     }
 }
 
