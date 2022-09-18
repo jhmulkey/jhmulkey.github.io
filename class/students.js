@@ -858,7 +858,7 @@ function mvLinks() {
 
 function currentMissionsLink() {
     if (_isClassDay) {
-        passThruAlert(["missionsPop"],downloadCurrentMission,"The missions you are about to download are the new missions assigned today ("+cdn(_dns[_ti])+") and not due until "+cdn(_dns[_ti+1])+". If you want to download the missions that are due today instead, click the back button above and then click the topmost missions under the <span class='do'>ACTIVITY SHEETS</span> and <span class='do'>MEMORY VERSES</span> headings.  Otherwise, click the OK button to proceed with downloading the new missions assigned today.");
+        passThruAlert(["missionsPop"],downloadCurrentMission,"The missions you are about to download are the new missions assigned today ("+cdn(_dns[_ti])+") and not due until "+cdn(_dns[_ti+1])+". If you want to download the missions that are due today instead, click the back button above and then click the topmost missions under the <span class='do'>ACTIVITY SHEETS</span> and <span class='do'>MEMORY VERSES</span> headings.  Otherwise, click the OK button below to proceed with downloading the new missions assigned today.");
     } else {downloadCurrentMission()}
 }
 
