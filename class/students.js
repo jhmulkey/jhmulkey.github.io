@@ -869,7 +869,7 @@ function downloadCurrentMission() {
     } else {
         window.open("class/docs/combined-missions/asmv"+(_asNames.length-1)+".pdf","_blank");
     }
-    if (_isClassDay) {pop(["passThruAlertPop"],["missionsPop"])}
+    if (_isClassDay) {pop(["passThruAlertPop"],[_currentPop])}
 }
 
 function pop(closeArray,openArray,title) {
@@ -899,6 +899,7 @@ function goHome() {
         pops[i].style.display = "none";
         display("mainPop","block");
     }
+    _currentPop = "mainPop";
     value("searchField","");
     idFocus("searchField");
 }
@@ -1373,10 +1374,10 @@ function manualSetEw(x) {
     populateMissions();
 }
 
-function passThruAlert(currentPops,currentFunction,mssg) {
-    _currentPops = currentPops; _currentFunction = currentFunction;
+function passThruAlert(currentPop,currentFunction,mssg) {
+    _currentPops = currentPop; _currentFunction = currentFunction;
     innerHTML("passThruAlertMssg",mssg);
-    pop([currentPops],["passThruAlertPop"]);
+    pop([_currentPop],["passThruAlertPop"]);
 }
 
 function alertMssg() {
