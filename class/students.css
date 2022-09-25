@@ -448,7 +448,7 @@ a:active, a:hover {
     }
 }
 
-#currentMissionsLink {
+.currentMissionsLink {
     color: #ddd;
     margin: 0px auto 20px auto;
     text-decoration: underline;
