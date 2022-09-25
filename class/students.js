@@ -19,7 +19,7 @@ var _noteIndex;
 var _teacherNotes = [];
 var _teacherNoteIndex;
 var _log = ""; var _gameLog = ""; 
-var _currentPop; var _currentPops; var _currentPops2; var _array;
+var _currentPop = "mainPop"; var _currentPops; var _currentPops2; var _array;
 var _populateNotesID = [];
 var _focus;
 var _currentFunction; var _currentParameter;
@@ -824,6 +824,7 @@ function studentMenuSwitch(x) {
     _array = ["missionsPop"];
     var allPops = document.getElementsByClassName("pop");
     var pops = ["studentStatsPop","missionsPop","calendarPop","resourcesPop"];
+    _currentPop = pops[x];
     for (let i = 0; i < 4; i++) {
         if (i == x) {
             bgColor("studentMenu"+i,"#777");
@@ -858,7 +859,7 @@ function mvLinks() {
 
 function currentMissionsLink() {
     if (_isClassDay) {
-        passThruAlert(["missionsPop"],downloadCurrentMission,"The missions you are about to download are the new missions assigned today ("+cdn(_dns[_ti])+") and not due until "+cdn(_dns[_ti+1])+". If you want to download the missions that are due today instead, click the back button above and then click the topmost missions under the <span class='do'>ACTIVITY SHEETS</span> and <span class='do'>MEMORY VERSES</span> headings.  Otherwise, click the OK button below to proceed with downloading the new missions assigned today.");
+        passThruAlert([_currentPop],downloadCurrentMission,"The missions you are about to download are the new missions assigned today ("+cdn(_dns[_ti])+") and not due until "+cdn(_dns[_ti+1])+". If you want to download the missions that are due today instead, click the back button above and then click the topmost missions under the <span class='do'>ACTIVITY SHEETS</span> and <span class='do'>MEMORY VERSES</span> headings.  Otherwise, click the OK button below to proceed with downloading the new missions assigned today.");
     } else {downloadCurrentMission()}
 }
 
