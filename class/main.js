@@ -326,11 +326,11 @@ function allAlerts() {
     } else {
         bgColor("alertButton","#111")
     }
-    if (allergiesPresent()) {
+    /* if (allergiesPresent()) {
         bgColor("allergiesButton","darkorange")
     } else {
         bgColor("allergiesButton","#111")
-    }
+    } */
 }
 
 function allergiesPresent() {
@@ -898,11 +898,13 @@ function ampmAttendance() {
 function disableAtt() {
     if (!_disableAtt) {
         _disableAtt = true;
-        innerHTML("disableAttp","ATTENDANCE DISABLED");
+        innerHTML("lockButton","J");
+        bgColor("lockButton","red");
         border("nameList",2,"solid","red");
     } else {
         _disableAtt = false;
-        innerHTML("disableAttp","")
+        innerHTML("lockButton","K");
+        bgColor("lockButton","black");
         if (_isClassDay) {
             border("nameList",2,"solid","lawngreen");
         } else {
@@ -919,17 +921,17 @@ function loadAttendees() {
     }
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].gender == "M" && _sl[i].att) {
-            boys.push(_sl[i].name[0]);
+            boys.push(_sl[i]);
         } else if (_sl[i].gender == "F" && _sl[i].att) {
-            girls.push(_sl[i].name[0]);
+            girls.push(_sl[i]);
         }
     }
     for (let i = 0; i < boys.length; i++) {
         var p1 = createElement("p");
         p1.classList.add("name2");
-        p1.innerHTML = boys[i];
-        if (_promoList.indexOf(boys[i]) !== -1) {
-            p1.style.color = "yellow";
+        p1.innerHTML = boys[i].name[0];
+        if (boys[i].promo[1] > 0) {
+            p1.style.color = "yellow"
         }
         if (_bdList.indexOf(boys[i]) !== -1) {
             p1.style.border = "1px solid fuchsia";
@@ -939,9 +941,9 @@ function loadAttendees() {
     for (let i = 0; i < girls.length; i++) {
         var p2 = createElement("p");
         p2.classList.add("name2");
-        p2.innerHTML = girls[i];
-        if (_promoList.indexOf(girls[i]) !== -1) {
-            p2.style.color = "yellow";
+        p2.innerHTML = girls[i].name[0];
+        if (girls[i].promo[1] > 0) {
+            p2.style.color = "yellow"
         }
         if (_bdList.indexOf(girls[i]) !== -1) {
             p2.style.border = "1px solid fuchsia";
@@ -1473,14 +1475,14 @@ function sortByDateAdded() {
         var span2 = createElement("span");
         p.classList.add("name3");
         span1.classList.add("sortValues");
-        if (dateAddedMonth != lastElementNode) {
+        if (dateAddedDate != lastElementNode) {
             p.style.borderTop = "1px solid #333";
             p.style.paddingTop = "10px";
         }
         span1.innerHTML = dateAddedMonth + "/" + dateAddedDate;
         span2.innerHTML = " " + dateAddedOrder[i].name[0];
         p.append(span1,span2); append("nameListCustom",p);
-        lastElementNode = dateAddedMonth;
+        lastElementNode = dateAddedDate;
     }  
     customSortListPop("sortChoicePop","Date Added");
 }

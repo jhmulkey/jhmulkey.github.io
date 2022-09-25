@@ -234,7 +234,7 @@ a:link, a:visited, a:hover, a:active {
     background-color: rgba(187,187,187,0.25)
 }
 
-#mainMenuButton, #addReminderButton, #logButton, #backupButton {
+#mainMenuButton, #addReminderButton, #logButton, #backupButton, #lockButton {
     font-family: Byom-Icons-Trial;
     padding-top: 8px;
 }
