@@ -489,13 +489,13 @@ a:active, a:hover {
     text-decoration: underline;
 }
 
-#socialMediaFlexDiv {
+.socialMediaFlexDiv {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
 }
 
-#fbLink, #ytLink {
+.fbLink, .ytLink {
     height: 75px;
     width: 75px;
     background-size: contain;
@@ -503,16 +503,16 @@ a:active, a:hover {
     background-repeat: no-repeat;
 }
 
-#fbLink {
+.fbLink {
     background-image: url(../images/nav-facebook.png);
 }
 
-#ytLink {
+.ytLink {
     background-image: url(../images/nav-youtube.png);
 }
 
 @media (hover: hover) {
-    #fbLink:hover, #ytLink:hover{
+    .fbLink:hover, .ytLink:hover{
         transform: scale(1.1);
         transition: 0.5s;
     }
