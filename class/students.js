@@ -858,7 +858,7 @@ function mvLinks() {
 }
 
 function currentMissionsLink() {
-    if (_isClassDay) {
+    if (_isClassDay && dateAndTime("hour") < 18) {
         passThruAlert([_currentPop],downloadCurrentMission,"The missions you are about to download are the new missions assigned today ("+cdn(_dns[_ti])+") and not due until "+cdn(_dns[_ti+1])+". If you want to download the missions that are due today instead, click on the topmost activity sheet and memory verse shown under the MISSIONS tab on your child's info page.  Otherwise, click the OK button below to proceed with downloading the new missions assigned today.");
     } else {downloadCurrentMission()}
 }
