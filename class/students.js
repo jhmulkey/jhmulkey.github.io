@@ -106,6 +106,17 @@ function createElement(elementName) {
     return document.createElement(elementName);
 }
 
+function getLastUpdateTime() {
+    var x = new Date(document.lastModified); var hours; var ampm;
+    if (x.getHours() > 12) {hours = x.getHours() - 12} else {hours = x.getHours()}
+    if (hours > 12) {ampm = "PM"} else {ampm = "AM"}
+    if (hours == 0) {hours = 12}
+    var minutes = x.getMinutes().toString();
+    if (minutes.length == 1) {minutes = 0 + minutes}
+    var date = (x.getMonth() + 1) + "/" + x.getDate() + "/" + x.getFullYear() + " " + hours + ":" + minutes + " " + ampm;
+    innerHTML("lastUpdated","Last Updated: " + date);
+}
+
 function loadBackup() {
     _sl = JSON.parse(localStorage.getItem("slBackup"));
     _slOLD = JSON.parse(localStorage.getItem("slBackupOLD"));
@@ -115,7 +126,7 @@ function loadBackup() {
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].randDraw[0] = false;
     }
-    assignTodaysDn(); alertMssg();
+    assignTodaysDn(); alertMssg(); getLastUpdateTime();
 }
 
 function assignTodaysDn() {
