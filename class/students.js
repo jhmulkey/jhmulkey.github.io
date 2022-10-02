@@ -108,9 +108,13 @@ function createElement(elementName) {
 
 function getLastUpdateTime() {
     var x = new Date(document.lastModified); var hours; var ampm;
-    if (x.getHours() > 12) {hours = x.getHours() - 12} else {hours = x.getHours()}
-    if (hours > 12) {ampm = "PM"} else {ampm = "AM"}
-    if (hours == 0) {hours = 12}
+    if (x.getHours() > 12) {
+        ampm = "PM";
+        hours = x.getHours() - 12
+    } else {
+        ampm = "AM"
+        hours = x.getHours()
+    }
     var minutes = x.getMinutes().toString();
     if (minutes.length == 1) {minutes = 0 + minutes}
     var date = (x.getMonth() + 1) + "/" + x.getDate() + "/" + x.getFullYear() + " " + hours + ":" + minutes + " " + ampm;
