@@ -108,9 +108,9 @@ function createElement(elementName) {
 
 function getLastUpdateTime() {
     var x = new Date(document.lastModified); var hours; var ampm;
-    if (x.getHours() > 12) {
+    if (x.getHours() >= 12) {
         ampm = "PM";
-        hours = x.getHours() - 12
+        if (x.getHours() != 12) {hours = x.getHours() - 12}
     } else {
         ampm = "AM"
         hours = x.getHours()
