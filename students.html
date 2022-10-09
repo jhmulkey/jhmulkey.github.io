@@ -10,7 +10,7 @@
 <body>
 <div class="master-wrapper">
 
-<div id="mainPop" class="pop">
+<!-- <div id="mainPop" class="pop">
   <p style="font-size:22px">Enter your child's last name or PIN below and click the search button to view their class progress</p>
   <div id="searchFieldContainerDiv">
     <input id="searchField" type="text" placeholder="enter last name or PIN" oninput="pinAutoEnter()" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
@@ -18,6 +18,32 @@
   </div>
   <p id="lastUpdated" style="color:#FFE599"></p>
   <p style="color:#ddd;border-top:1px solid #555;padding-top:20px">Your child's 3-digit PIN can be found under the RESOURCES tab on their info page that loads after you search for them by name</p>
+  <p class="currentMissionsLinkButton ptr" onclick="currentMissionsLink()">Download this week's missions</p>
+  <div class="socialMediaFlexDiv" style="margin-top:20px">
+    <a target="_blank" href="https://www.facebook.com/groups/ksgrade2"><div class="fbLink ptr"></div></a>
+    <a target="_blank" href="https://youtube.com/playlist?list=PL7iQZDmvw8GHXTnAoOT0UNS38yCKIqwRy"><div class="ytLink ptr"></div></a>
+  </div>
+  <a target="_blank" href="https://youtu.be/gLHxIObwm0I"><div class="watchContainer" style="margin-top:40px">
+    <div class="fillerDiv"></div>
+    <div class="watchIcon"></div>
+    <div class="watchText">Watch Tutorial</div>
+    <div class="fillerDiv"></div>
+  </div></a>
+  <p class="note" style="margin-top:40px;">Use the contact buttons below for help</p>
+  <div class="navigationButtonContainer" style="margin-top:35px;">
+    <a href="tel:8645694879"><div class="contactButton">x</div></a>
+    <a href="sms:8645694879"><div class="contactButton">d</div></a>
+    <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton">v</div></a>
+  </div>
+</div> -->
+
+<div id="mainPop" class="pop">
+  <p style="font-size:20px">Enter your child's last name or PIN below</p>
+  <div id="searchFieldContainerDiv">
+    <input id="searchField" type="text" placeholder="enter last name or PIN" oninput="pinAutoEnter()" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
+    <div id="submitButton" class="ptr" onclick="findStudent()">S</div>
+  </div>
+  <p id="lastUpdated" style="color:#FFE599"></p>
   <p class="currentMissionsLink ptr" onclick="currentMissionsLink()" style="width:325px;color:white;font-size:20px;margin:40px auto 20px auto;border:1px solid #094fd3;padding:10px;background-color:#4676EE;text-decoration:none;border-radius:10px;">Download this week's missions</p>
   <div class="socialMediaFlexDiv" style="margin-top:20px">
     <a target="_blank" href="https://www.facebook.com/groups/ksgrade2"><div class="fbLink ptr"></div></a>
@@ -350,4 +376,4 @@
 </body>
 </html>
 
-<!-- - -->
+<!--  -->

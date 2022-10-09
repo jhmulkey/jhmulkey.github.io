@@ -398,7 +398,7 @@ a:active, a:hover {
     flex-wrap: nowrap;
     justify-content: center;
     gap: 0px;
-    margin: 40px auto;
+    margin: 20px auto;
     text-align: center;
 }
 
@@ -452,6 +452,18 @@ a:active, a:hover {
     color: #ddd;
     margin: 0px auto 20px auto;
     text-decoration: underline;
+}
+
+.currentMissionsLinkButton {
+    width:325px;
+    color:white;
+    font-size:20px;
+    margin:40px auto 20px auto;
+    border:1px solid #094fd3;
+    padding:10px;
+    background-color:#4676EE;
+    text-decoration:none;
+    border-radius:10px;
 }
 
 #currentMissionsLink:hover {
