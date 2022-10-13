@@ -106,6 +106,11 @@ function createElement(elementName) {
     return document.createElement(elementName);
 }
 
+function border(id,px,type,color,padding) {
+    document.getElementById(id).style.border = px + " " + type + " " + color;
+    document.getElementById(id).style.padding = padding;
+}
+
 function getLastUpdateTime() {
     var x = new Date(document.lastModified); var hours; var ampm;
     if (x.getHours() >= 12) {
@@ -739,6 +744,7 @@ function refreshStudentPop() {
     document.getElementById("studentPopInsignia").style.backgroundImage = "url(class/img/insignia-darkgray/"+_sl[_ci].rank[0]+"-rank.jpg)";
     innerHTML("studentPopRankName",_rankNames[_sl[_ci].rank[0]]);
     innerHTML("studentPopName",_sl[_ci].name[0]);
+    innerHTML("studentPopPIN","PIN: "+_sl[_ci].pin);
     var ptsNeeded;
     if (_sl[_ci].pts == 220) {
         ptsNeeded = 0
@@ -746,7 +752,8 @@ function refreshStudentPop() {
         ptsNeeded = _rankPts[_sl[_ci].rank[0]+1] - _sl[_ci].pts;
     }
     if (_sl[_ci].rank[0] < 19) {
-        innerHTML("studentPopPts",_sl[_ci].pts + " <span style='color: #999'>| " + ptsNeeded +"</span>");
+        // innerHTML("studentPopPts",_sl[_ci].pts + " <span style='color: #999'>| " + ptsNeeded +"</span>");
+        innerHTML("studentPopPts",_sl[_ci].pts);
         innerHTML("ptsNote",_sl[_ci].pts+" points earned | "+ptsNeeded+" needed for next promotion");
     } else {
         innerHTML("studentPopPts",_sl[_ci].pts);
@@ -799,7 +806,6 @@ function loadStudent(index) {
     if (_sl[_ci].gender == "M") {_nomPron = "He";_possPron = "His"} else {_nomPron = "She";_possPron = "Her"}
     value("searchField",""); display("hint","none");
     refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu(); loadStudentStats(); loadLbs(); loadPopText();
-    innerHTML("studentPin","Student PIN: "+_sl[_ci].pin);
     document.activeElement.blur();
 }
 

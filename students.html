@@ -43,24 +43,31 @@
     <input id="searchField" type="text" placeholder="enter last name or PIN" oninput="pinAutoEnter()" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
     <div id="submitButton" class="ptr" onclick="findStudent()">S</div>
   </div>
-  <p id="lastUpdated" style="color:#FFE599"></p>
-  <p class="currentMissionsLink ptr" onclick="currentMissionsLink()" style="width:325px;color:white;font-size:20px;margin:40px auto 20px auto;border:1px solid #094fd3;padding:10px;background-color:#4676EE;text-decoration:none;border-radius:10px;">Download this week's missions</p>
-  <div class="socialMediaFlexDiv" style="margin-top:20px">
+  <p id="lastUpdated" style="color:#ddd"></p>
+  <p class="currentMissionsLink ptr" onclick="currentMissionsLink()" style="width:325px;color:white;font-size:20px;margin:30px auto;border:1px solid #094fd3;padding:10px;background-color:#4676EE;text-decoration:none;border-radius:10px;">Download this week's missions</p>
+<!--   <div class="socialMediaFlexDiv" style="margin-top:20px">
     <a target="_blank" href="https://www.facebook.com/groups/ksgrade2"><div class="fbLink ptr"></div></a>
     <a target="_blank" href="https://youtube.com/playlist?list=PL7iQZDmvw8GHXTnAoOT0UNS38yCKIqwRy"><div class="ytLink ptr"></div></a>
   </div>
-  <a target="_blank" href="https://youtu.be/gLHxIObwm0I"><div class="watchContainer" style="margin-top:40px">
-    <div class="fillerDiv"></div>
-    <div class="watchIcon"></div>
-    <div class="watchText">Watch Tutorial</div>
-    <div class="fillerDiv"></div>
-  </div></a>
+  <div style="margin-top:40px"><a target="_blank" href="https://youtu.be/gLHxIObwm0I">Watch Tutorial</a></div>
   <p class="note" style="margin-top:40px;">Use the contact buttons below for help</p>
   <div class="navigationButtonContainer" style="margin-top:35px;">
     <a href="tel:8645694879"><div class="contactButton">x</div></a>
     <a href="sms:8645694879"><div class="contactButton">d</div></a>
     <a href="mailto:jonathan@ksgrade2.com"><div class="contactButton">v</div></a>
-  </div>
+  </div> -->
+
+<!--   <div>
+    <table id="mainTable">
+      <tr>
+        <td id="main0" onclick="studentMenuSwitch(0)"></td>
+        <td id="main1" onclick="studentMenuSwitch(1)">CALENDAR</td>
+        <td id="main2" onclick="studentMenuSwitch(2)">RESOURCES</td>
+        <td id="main3" onclick="studentMenuSwitch(3)">HELP</td>
+      </tr>
+    </table>
+  </div> -->
+
 </div>
 
 <div id="studentPop" class="pop">
@@ -72,6 +79,7 @@
     <div id="studentPopInfo">
       <p id="studentPopRankName"></p>
       <p id="studentPopName"></p>
+      <p id="studentPopPIN"></p>
       <p id="studentPopPts"></p>
     </div>
   </div>
@@ -345,7 +353,6 @@
 </div>
 
 <div id="resourcesPop" class="pop" style="text-align:left;">
-  <p id="studentPin" style="margin-top:5px;text-align:center;color:white"></p>
   <p><a target="_blank" href="docs/handbook.pdf">Download class handbook</a></p>
   <p><a target="_blank" href="docs/handouts/doctrinal-objectives/year-a-1-doctrinal-objectives-handout.pdf">1st Quarter Doctrinal Objectives</a></p>
   <p><a target="_blank" href="https://www.facebook.com/groups/ksgrade2">Join our class's private Facebook page</a></p>

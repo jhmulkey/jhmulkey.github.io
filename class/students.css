@@ -56,12 +56,12 @@ p {
 }
 
 a:link, a:visited {
-    color: #ddd;
+    color: white;
     text-decoration: underline; 
 }
 
 a:active, a:hover {
-    color: white;
+    color: #ddd;
 }
 
 ::placeholder {
@@ -175,7 +175,7 @@ a:active, a:hover {
 }
 
 .note {
-    color: orange !important;
+    /* color: orange !important; */
     text-align: center !important;
 }
 
@@ -245,7 +245,7 @@ a:active, a:hover {
     width: 9.5px;
 }
 
-#calendarTable, .asmvInfoTable, #rankChartTable, #studentAttTable, #studentMenuTable {
+#calendarTable, .asmvInfoTable, #rankChartTable, #studentAttTable, #studentMenuTable, #mainTable {
     width: 100%
 }
 
@@ -255,7 +255,7 @@ a:active, a:hover {
     background-color: black !important;
 }
 
-#calendarTable, #calendarTable td, #studentMenuTable, #studentMenuTable td, .asmvInfoTable, .asmvInfoTable td, #rankChartTable, #rankChartTable td, #studentAttTable, #studentAttTable td {
+#calendarTable, #calendarTable td, #studentMenuTable, #studentMenuTable td, #mainTable, #mainTable td, .asmvInfoTable, .asmvInfoTable td, #rankChartTable, #rankChartTable td, #studentAttTable, #studentAttTable td {
     border: 1px solid #ddd;
     border-collapse: collapse;
     background-color: black;
@@ -267,8 +267,8 @@ a:active, a:hover {
 }
 
 @media (hover: hover) {
-    #studentMenuTable tr td:hover {
-        color: lawngreen;
+    #studentMenuTable tr td:hover, #mainTable tr td:hover {
+        color: #ddd;
     }
 }
 
@@ -373,20 +373,27 @@ a:active, a:hover {
 }
 
 #studentPopRankName {
-    margin: 10px 0px 15px 0px;
+    margin: 10px 0px 0px 0px;
+    color: #ddd;
 }
 
 #studentPopName {
-    margin: 20px auto;
-    color: lawngreen;
+    margin: 7px auto;
+    /* color: lawngreen; */
+}
+
+#studentPopPIN {
+    margin: 0px auto;
+    color: #ddd;
 }
 
 #studentPopPts {
     font-size: 50px;
     margin: 0px auto 0px auto;
+    color: lawngreen;
 }
 
-#studentMenuTable td {
+#studentMenuTable td, #mainTable td {
     width: 25%;
     height: 35px;
     font-size: 15px;
@@ -449,7 +456,6 @@ a:active, a:hover {
 }
 
 .currentMissionsLink {
-    color: #ddd;
     margin: 0px auto 20px auto;
     text-decoration: underline;
 }
@@ -489,12 +495,11 @@ a:active, a:hover {
 #ptsNote {
     font-size: 16px;
     color: #ddd;
-    margin: 20px auto;
+    margin: 10px auto 20px auto;
 }
 
 #resourcesPop p {
     margin: 0px auto 25px auto;
-    color: #ddd;
 }
 
 #resourcesPop a {
@@ -528,26 +533,6 @@ a:active, a:hover {
         transform: scale(1.1);
         transition: 0.5s;
     }
-}
-
-.watchContainer {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-}
-
-.watchIcon {
-    width: 35px;
-    height: 35px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url(../images/nav-youtube.png);
-}
-
-.watchText {
-    height: 35px;
-    line-height: 35px;
 }
 
 .fillerDiv {
