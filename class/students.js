@@ -110,10 +110,15 @@ function getLastUpdateTime() {
     var x = new Date(document.lastModified); var hours; var ampm;
     if (x.getHours() >= 12) {
         ampm = "PM";
-        if (x.getHours() != 12) {hours = x.getHours() - 12}
+        if (x.getHours() != 12) {
+            hours = x.getHours() - 12
+        } else {
+            hours = 12;
+        }
     } else {
         ampm = "AM"
-        hours = x.getHours()
+        hours = x.getHours();
+        if (hours == 0) { hours = 12 }
     }
     var minutes = x.getMinutes().toString();
     if (minutes.length == 1) {minutes = 0 + minutes}
