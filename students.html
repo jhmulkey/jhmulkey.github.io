@@ -44,7 +44,7 @@
     <div id="submitButton" class="ptr" onclick="findStudent()">S</div>
   </div>
   <p id="lastUpdated" style="color:#ddd"></p>
-  <p class="currentMissionsLink ptr" onclick="currentMissionsLink()" style="width:325px;color:white;font-size:20px;margin:30px auto;border:1px solid #094fd3;padding:10px;background-color:#4676EE;text-decoration:none;border-radius:10px;">Download this week's missions</p>
+  <p class="currentMissionsButton ptr" onclick="currentMissionsButton()" style="margin:30px auto;">Download this week's missions</p>
 <!--   <div class="socialMediaFlexDiv" style="margin-top:20px">
     <a target="_blank" href="https://www.facebook.com/groups/ksgrade2"><div class="fbLink ptr"></div></a>
     <a target="_blank" href="https://youtube.com/playlist?list=PL7iQZDmvw8GHXTnAoOT0UNS38yCKIqwRy"><div class="ytLink ptr"></div></a>
@@ -106,12 +106,13 @@
     <p id="hint" style="color:#ddd;border-top:1px solid #555;padding-top:20px">To avoid this step in the future, type your child's full name when searching or type their 3-digit PIN instead</p><br>
 </div>
 
-<div id="passThruAlertPop" class="pop">
+<div id="currentMissionsPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['passThruAlertPop'],_currentPops)"><span>f</span></div>
+    <div class="backButton ptr" onclick="pop(['currentMissionsPop'],['mainPop'])"><span>f</span></div>
   </div>
-    <p id="passThruAlertMssg" style="text-align:left;margin-top:40px;"></p>
-    <div class="okButton ptr" style="margin-top:50px" onclick="_currentFunction()">OK</div>
+    <p id="passThruAlertMssg" style="text-align:center;margin-top:35px;">Since today is a new class day, please choose which missions you wish to download.</p>
+    <div class="currentMissionsButton ptr" style="margin-top:35px" onclick="downloadCurrentMissions(true)">LAST WEEK'S MISSIONS<br>(DUE TODAY)</div>
+    <div class="currentMissionsButton ptr" style="margin-top:35px" onclick="downloadCurrentMissions(false)">NEW MISSIONS<br>(ASSIGNED TODAY)</div>
 </div>
 
 <div id="studentStatsPop" class="pop">
@@ -183,8 +184,7 @@
 </div>
 
 <div id="missionsPop" class="pop">
-  <p class="currentMissionsLink ptr" onclick="currentMissionsLink()">Download this week's missions</p>
-  <p class="note">Click on any past mission below for details</p>
+  <p class="note" style="margin-top:0px">Link to this week's mission is on home page</p>
   <div id="asmvHeaderContainer" style="position:sticky;top:348px;background-color:#111;">
     <div class="asmvHeader">ACTIVITY SHEETS</div>
     <div class="asmvHeader">MEMORY VERSES</div>

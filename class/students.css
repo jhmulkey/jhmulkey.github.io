@@ -71,7 +71,7 @@ a:active, a:hover {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#passThruAlertPop, #alertPop, #initialMissionsNote, #tpPop, #asPointsPop, #mvPointsPop, #participationPop, #resourcesPop, #calendarPop, #studentAttStatsPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #studentPop {
+#currentMissionsPop, #alertPop, #initialMissionsNote, #tpPop, #asPointsPop, #mvPointsPop, #participationPop, #resourcesPop, #calendarPop, #studentAttStatsPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #studentPop {
     display: none;
 }
 
@@ -437,6 +437,9 @@ a:active, a:hover {
     #submitButton:hover {
         background-color: #094fd3;
     }
+    .currentMissionsButton:hover {
+        background-color: #094fd3;
+    }
 }
 
 .contactButton {
@@ -460,16 +463,15 @@ a:active, a:hover {
     text-decoration: underline;
 }
 
-.currentMissionsLinkButton {
-    width:325px;
-    color:white;
-    font-size:20px;
-    margin:40px auto 20px auto;
-    border:1px solid #094fd3;
-    padding:10px;
-    background-color:#4676EE;
-    text-decoration:none;
-    border-radius:10px;
+.currentMissionsButton {
+    width: 325px;
+    color: white;
+    font-size: 20px;
+    border: 1px solid #094fd3;
+    padding: 10px;
+    background-color: #4676EE;
+    text-decoration: none;
+    border-radius: 10px;
 }
 
 #currentMissionsLink:hover {

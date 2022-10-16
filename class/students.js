@@ -883,19 +883,21 @@ function mvLinks() {
     window.open("class/docs/memory/mv"+_mvNum+".pdf","_blank");
 }
 
-function currentMissionsLink() {
-    if (_isClassDay && dateAndTime("hour") < 18) {
-        passThruAlert([_currentPop],downloadCurrentMission,"The missions you are about to download are the new missions assigned today ("+cdn(_dns[_ti])+") and not due until "+cdn(_dns[_ti+1])+". If you want to download the missions that are due today instead, click on the topmost activity sheet and memory verse shown under the MISSIONS tab on your child's info page.  Otherwise, click the OK button below to proceed with downloading the new missions assigned today.");
-    } else {downloadCurrentMission()}
+function currentMissionsButton() {
+    if (_isClassDay && dateAndTime("hour") < 22) {
+        pop(['mainPop'],['currentMissionsPop'])
+    } else {
+        downloadCurrentMissions()
+    }
 }
 
-function downloadCurrentMission() {
-    if (_ti < (_asNames.length-1)) {
-        window.open("class/docs/combined-missions/asmv"+_ti+".pdf","_blank");
+function downloadCurrentMissions(old) {
+    var factor = 0; if (old) { factor = 1 }
+    if (_ti-factor < (_asNames.length-1)) {
+        window.open("class/docs/combined-missions/asmv"+(_ti-factor)+".pdf","_blank");
     } else {
         window.open("class/docs/combined-missions/asmv"+(_asNames.length-1)+".pdf","_blank");
     }
-    if (_isClassDay) {pop(["passThruAlertPop"],[_currentPop])}
 }
 
 function pop(closeArray,openArray,title) {
