@@ -1129,14 +1129,14 @@ function loadStudentStats() {
     var totalPossible = _ew + totalASpts + totalMVpts; _totalPossible = totalPossible;
     var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(1); _totalPercentage = totalPercentage;
     var totalSquares = Math.round(totalPercentage / 2.50);
-    var squaresArray = [rankSquares,totalPtsSquares,asSquares,mvSquares,attSquares,totalSquares];
-    var variableArray = [rankPercentage,totalPtsPercentage,asPercentage,mvPercentage,attPercentage,totalPercentage];
-    var idArray1 = ["rankProgressTable","tpTable","asProgressTable","mvProgressTable","attProgressTable","participationTable"];
-    var idArray2 = ["rankProgressBar","tpBar","asProgressBar","mvProgressBar","attProgressBar","participationBar"];
+    var squaresArray = [totalPtsSquares,asSquares,mvSquares,rankSquares,attSquares,totalSquares];
+    var variableArray = [totalPtsPercentage,asPercentage,mvPercentage,rankPercentage,attPercentage,totalPercentage];
+    var idArray1 = ["tpTable","asProgressTable","mvProgressTable","rankProgressTable","attProgressTable","participationTable"];
+    var idArray2 = ["tpBar","asProgressBar","mvProgressBar","rankProgressBar","attProgressBar","participationBar"];
     for (let i = 0; i < squaresArray.length; i++) {
         for (let j =1; j <= 40; j++) {
             if (j <= squaresArray[i]) {
-                if (i == 0) {
+                if (i > 2) {
                     bgColor(idArray2[i]+j,"#3478F6");
                 } else {
                     bgColor(idArray2[i]+j,"lawngreen");
@@ -1148,7 +1148,7 @@ function loadStudentStats() {
     }
     for (let i = 0; i < variableArray.length; i++) {
         if (variableArray[i] == 100.00) {
-            if (i == 0) {
+            if (i > 2) {
                 bgColor(idArray1[i],"#3478F6");
             } else {
                 bgColor(idArray1[i],"lawngreen");

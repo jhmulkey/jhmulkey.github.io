@@ -304,10 +304,6 @@
 </div>
 
 <div id="studentStatsPop" class="pop" style="padding-top:0px">
-  <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
-    <p id="rankProgressTableP" style="margin-top:0px"></p>
-    <table id="rankProgressTable" class="progressBarTable"></table>
-  </div>
   <div id="totalProgressTableDiv">
     <p id="totalProgressTableP"></p>
     <table id="totalProgressTable" class="progressBarTable"></table>
@@ -319,6 +315,10 @@
   <div id="mvProgressTableDiv">
     <p id="mvProgressTableP"></p>
     <table id="mvProgressTable" class="progressBarTable"> </table>
+  </div>
+  <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
+    <p id="rankProgressTableP"></p>
+    <table id="rankProgressTable" class="progressBarTable"></table>
   </div>
   <div id="attProgressTableDiv" class="ptr" onclick="loadStudentAttStats()">
     <p id="attProgressTableP"></p>
@@ -413,6 +413,7 @@
     <div class="roundButton1 cancelButton ptr" onclick="goHome(); clearStudentFields(); rapidOff();">X</div>
     <div class="roundButton1 okButton ptr" id="newStudentOkButton" onclick="newStudent()">V</div>
   </div>
+  <div style="width:200px;height:100px;"></div>
 </div>
 
 <div id="editStudentPop" class="pop" style="padding-top:0px">
