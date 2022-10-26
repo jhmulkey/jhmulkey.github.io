@@ -28,6 +28,7 @@ var _teams = [];
 var _dataInputParameter;
 var _att = [];
 var _pwd = []; var _backupIndex;
+var _currentMainMenuIndex;
 var _rankNamesShort = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
 var _rankPts = [0,10,20,30,40,50,60,70,80,100,110,120,130,140,150,170,180,190,200,220];
@@ -160,7 +161,7 @@ function assignTodaysDn() {
         }
     }
     _todaysDn = dn;
-    setWeeksOff(); isClassDay(); setElapsedWeeks(); populateMissions(); generateAllTables();
+    setWeeksOff(); isClassDay(); setElapsedWeeks(); populateMissions(); populateMissions2(); generateAllTables();
 }
 
 function isClassDay() {
@@ -801,11 +802,20 @@ function refreshMissionsPop() {
     }
 }
 
+function hideMainMenu() {
+    var pops = ["missionsPop2","calendarPop","resourcesPop","helpPop"]
+    for (i = 0; i < pops.length; i++) {
+        if (document.getElementById(pops[i]).style.display == "block") {
+            document.getElementById(pops[i]).style.display = "none"
+        }
+    }
+}
+
 function loadStudent(index) {
     _ci = index; _currentStudent = _sl[_ci].name[0]; _firstName = _sl[_ci].name[0].split(" ")[0];
     if (_sl[_ci].gender == "M") {_nomPron = "He";_possPron = "His"} else {_nomPron = "She";_possPron = "Her"}
     value("searchField",""); display("hint","none");
-    refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu(); loadStudentStats(); loadLbs(); loadPopText();
+    refreshStudentPop(); refreshMissionsPop(); resetMissions(); resetStudentMenu(); loadStudentStats(); loadLbs(); loadPopText(); hideMainMenu();
     document.activeElement.blur();
 }
 
@@ -846,6 +856,12 @@ function resetStudentMenu() {
     }
 }
 
+function resetMainMenu() {
+    for (let i = 0; i < 4; i++) {
+            bgColor("main"+i,"black");
+    }
+}
+
 function studentMenuSwitch(x) {
     _array = ["missionsPop"];
     var allPops = document.getElementsByClassName("pop");
@@ -871,6 +887,35 @@ function studentMenuSwitch(x) {
     scrollTo(0,0);
 }
 
+function mainMenuSwitch(x) {
+    if (x == _currentMainMenuIndex) {
+        hideMainMenu(); resetMainMenu(); _currentMainMenuIndex = -1; return;
+    }
+    _currentMainMenuIndex = x;
+    _array = ["missionsPop2"];
+    var allPops = document.getElementsByClassName("pop");
+    var pops = ["missionsPop2","calendarPop","resourcesPop","helpPop"];
+    _currentPop = pops[x];
+    for (let i = 0; i < 4; i++) {
+        if (i == x) {
+            bgColor("main"+i,"#777");
+        } else {
+            bgColor("main"+i,"black");
+        }
+    }
+    for (let i = 0; i < 5; i++) {
+        if (i == x) {
+            display(pops[i],"block");
+        }
+    }
+    for (let i = 0; i < allPops.length; i++) {
+        if (allPops[i].id != pops[x] && allPops[i].id != "mainPop") {
+            allPops[i].style.display = "none";
+        }
+    }
+    scrollTo(0,0);
+}
+
 function asLinks() {
     window.open("class/docs/missions/as"+_asNum+".pdf","_blank");
 }
@@ -886,6 +931,14 @@ function mvLinks() {
 function currentMissionsButton() {
     if (_isClassDay && dateAndTime("hour") < 22) {
         pop(['mainPop'],['currentMissionsPop'])
+    } else {
+        downloadCurrentMissions()
+    }
+}
+
+function currentMissionsButton2() {
+    if (_isClassDay && dateAndTime("hour") < 22) {
+        pop(['missionsPop'],['currentMissionsPop2'])
     } else {
         downloadCurrentMissions()
     }
@@ -927,6 +980,7 @@ function goHome() {
         pops[i].style.display = "none";
         display("mainPop","block");
     }
+    resetMainMenu();
     _currentPop = "mainPop";
     value("searchField","");
     idFocus("searchField");
@@ -1181,7 +1235,7 @@ function populateMissions() {
     innerHTML("asPop",""); innerHTML("mvPop","");
     if (_ew == 1) {
         display("initialMissionsNote","block");
-        innerHTML("initialMissionsNote","No missions are due yet. Missions that have come due will appear here starting next Sunday ("+cdn(_dns[1],"word")+"), color-coded according to their completion status. To download the missions that were assigned for this week (and due next Sunday), click \"Download this week's missions\" above.");
+        innerHTML("initialMissionsNote","No missions are due yet. Missions that have come due will appear here starting next Sunday ("+cdn(_dns[1],"word")+"). To download the missions that were assigned for this week (and due next Sunday), click the \"Download This Week's Missions\" button on the home page.");
     } else {display("initialMissionsNote","none");}
     if (_ew > 1) {
         for (let i = (_ti-1); i >= 0; i--) {
@@ -1209,6 +1263,44 @@ function populateMissions() {
             })(i);
             div2.innerHTML = _mvFulls[i] + "<br>" + _mvText[i].split(" ").slice(0,3).join(" ");
             append("mvPop",div2);
+        }
+    }
+}
+
+function populateMissions2() {
+    innerHTML("asPop2",""); innerHTML("mvPop2","");
+    if (_ew == 1) {
+        display("initialMissionsNote","block");
+        innerHTML("initialMissionsNote","No missions are due yet. Missions that have come due will appear here starting next Sunday ("+cdn(_dns[1],"word")+"). To download the missions that were assigned for this week (and due next Sunday), click the \"Download This Week's Missions\" button above.");
+    } else {display("initialMissionsNote","none");}
+    if (_ew > 1) {
+        for (let i = (_ti-1); i >= 0; i--) {
+            if (i >= _asNames.length) { continue }
+            var div1 = createElement("div");
+            div1.setAttribute("id","as2-"+i+"Pop");
+            div1.classList.add("asButton");
+            (function(i){
+                div1.onclick = function () {
+                    _asNum = i;
+                    asLinks();
+                }
+            })(i);
+            div1.innerHTML = _asFulls[i];
+            append("asPop2",div1);
+        }
+        for (let i = (_ti-1); i >= 0; i--) {
+            if (i >= _mvNames.length) { continue }
+            var div2 = createElement("div");
+            div2.setAttribute("id","mv2-"+i+"Pop");
+            div2.classList.add("mvButton");
+            (function(i){
+                div2.onclick = function () {
+                    _mvNum = i;
+                    mvLinks();
+                }
+            })(i);
+            div2.innerHTML = _mvFulls[i] + "<br>" + _mvText[i].split(" ").slice(0,3).join(" ");
+            append("mvPop2",div2);
         }
     }
 }

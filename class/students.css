@@ -71,7 +71,7 @@ a:active, a:hover {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#currentMissionsPop, #alertPop, #initialMissionsNote, #tpPop, #asPointsPop, #mvPointsPop, #participationPop, #resourcesPop, #calendarPop, #studentAttStatsPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #studentPop {
+#currentMissionsPop, #alertPop, #initialMissionsNote, #tpPop, #asPointsPop, #mvPointsPop, #participationPop, #resourcesPop, #calendarPop, #studentAttStatsPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #studentPop, #missionsPop2, #helpPop, #currentMissionsPop2 {
     display: none;
 }
 
@@ -139,23 +139,23 @@ a:active, a:hover {
     padding-top: 5px;
 }
 
-#asPop div, #mvPop div {
+#asPop div, #mvPop div, #asPop2 div, #mvPop2 div {
     margin: 14px auto;
 }
 
-#asmvPopContainer {
+#asmvPopContainer, #asmvPopContainer2 {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
 }
 
-#asmvHeaderContainer {
+#asmvHeaderContainer, #asmvHeaderContainer2 {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
 }
 
-#asPop, #mvPop {
+#asPop, #mvPop, #asPop2, #mvPop2 {
     width: 187px;
 }
 
