@@ -209,6 +209,7 @@ function generateAllTables() {
 }
 
 function pinEntry(x) {
+    hideMainMenu(); resetMainMenu();
     var match = false; innerHTML("nameList","");
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].pin == x) {
@@ -235,6 +236,7 @@ function pinAutoEnter() {
 }
 
 function findStudent() {
+    hideMainMenu(); resetMainMenu();
     if (_sl == false) {
         display("hint","none"); value("searchField","");
         infoAlert("The new class database is currently being built and should be ready by 4pm on 8/21/2022. Please check back later.",["mainPop"]); return
