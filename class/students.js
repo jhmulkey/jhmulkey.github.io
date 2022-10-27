@@ -1307,7 +1307,14 @@ function populateMissions2() {
 }
 
 function loadRankTable() {
-    pop(["studentStatsPop"],["rankChartPop"]);
+    var ids = ["studentStatsPop","missionsPop","calendarPop","resourcesPop"];
+    for (let i = 0; i < ids.length; i++) {
+        if (document.getElementById(ids[i]).style.display == "block") {
+            document.getElementById(ids[i]).style.display = "none"
+        }
+        display("rankChartPop","block")
+    }
+    // pop(["studentStatsPop"],["rankChartPop"]);
     for (let i = 0; i < _rankNames.length; i++) {
         let x; x = i;
         document.getElementById("rankChartInsignia"+i).style.backgroundImage = "url(class/img/insignia-darkgray/"+i+"-rank.jpg)";
