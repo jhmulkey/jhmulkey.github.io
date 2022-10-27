@@ -467,9 +467,9 @@ a:active, a:hover {
     width: 325px;
     color: white;
     font-size: 20px;
-    border: 1px solid #094fd3;
-    padding: 10px;
-    background-color: #4676EE;
+    /* border: 1px solid #ddd; */
+    padding: 5px;
+    background-color: #3478F6;
     text-decoration: none;
     border-radius: 10px;
 }
