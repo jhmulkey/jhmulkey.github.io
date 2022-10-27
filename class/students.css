@@ -100,6 +100,10 @@ a:active, a:hover {
     padding: 20px;
 }
 
+#studentStatsPop, #missionsPop, #calendarPop, #resourcesPop {
+    height: 100%;
+}
+
 .popText {
     text-align: left;
     color: #eee;
