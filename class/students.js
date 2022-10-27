@@ -886,7 +886,7 @@ function studentMenuSwitch(x) {
             allPops[i].style.display = "none";
         }
     }
-    scrollTo(0,0);
+    scrollTo(-10,0);
 }
 
 function mainMenuSwitch(x) {
