@@ -1074,8 +1074,8 @@ function generateStudentAttTable() {
 }
 
 function generateStudentStatsTables() {
-    var tables = ["rankProgressTable","tpTable","asProgressTable","mvProgressTable","attProgressTable","participationTable"];
-    var ids = ["rankProgressBar","tpBar","asProgressBar","mvProgressBar","attProgressBar","participationBar"];
+    var tables = ["tpTable","asProgressTable","mvProgressTable","attProgressTable","participationTable"];
+    var ids = ["tpBar","asProgressBar","mvProgressBar","attProgressBar","participationBar"];
     for (let i = 0; i < tables.length; i++) {
         var tr = createElement("tr");
         for (let j = 1; j < 41; j++) {
@@ -1183,10 +1183,10 @@ function loadStudentStats() {
     var totalPossible = _ew + totalASpts + totalMVpts; _totalPossible = totalPossible;
     var totalPercentage = ((totalEarned / totalPossible) * 100).toFixed(1); _totalPercentage = totalPercentage;
     var totalSquares = Math.round(totalPercentage / 2.50);
-    var squaresArray = [totalPtsSquares,asSquares,mvSquares,rankSquares,attSquares,totalSquares];
-    var variableArray = [totalPtsPercentage,asPercentage,mvPercentage,rankPercentage,attPercentage,totalPercentage];
-    var idArray1 = ["tpTable","asProgressTable","mvProgressTable","rankProgressTable","attProgressTable","participationTable"];
-    var idArray2 = ["tpBar","asProgressBar","mvProgressBar","rankProgressBar","attProgressBar","participationBar"];
+    var squaresArray = [totalPtsSquares,asSquares,mvSquares,attSquares,totalSquares];
+    var variableArray = [totalPtsPercentage,asPercentage,mvPercentage,attPercentage,totalPercentage];
+    var idArray1 = ["tpTable","asProgressTable","mvProgressTable","attProgressTable","participationTable"];
+    var idArray2 = ["tpBar","asProgressBar","mvProgressBar","attProgressBar","participationBar"];
     for (let i = 0; i < squaresArray.length; i++) {
         for (let j =1; j <= 40; j++) {
             if (j <= squaresArray[i]) {
@@ -1211,7 +1211,6 @@ function loadStudentStats() {
             bgColor(idArray1[i],"black");
         }
     }
-    innerHTML("rankProgressTableP","<span style='font-size:20px'>Promotions <span style='color:#bbb;font-size:16px'>" + (_sl[_ci].rank[0]) + "/19" + " (" + rankPercentage + "%)</span>");
 
     innerHTML("tpTableP","<span style='font-size:20px'>Total Points <span style='color:#bbb;font-size:16px'>" + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%)<span class='classRankSpan'> | Class Rank: " + _sl[_ci].statsRanks[0] + "</span>");
 

@@ -235,7 +235,7 @@ a:active, a:hover {
     text-align: center;
 }
 
-.progressBarTable{
+.progressBarTable {
     border: 1px solid #ddd;
     border-spacing: 1px;
 }
@@ -243,6 +243,16 @@ a:active, a:hover {
 .progressBarTable td {
     height: 19px;
     width: 9.5px;
+}
+
+#rankProgressTable {
+    border: 1px solid #ddd;
+    border-spacing: 1px;
+}
+
+#rankProgressTable td {
+    height: 50px;
+    width: 38px;
 }
 
 #calendarTable, .asmvInfoTable, #rankChartTable, #studentAttTable, #studentMenuTable, #mainTable {
@@ -467,7 +477,6 @@ a:active, a:hover {
     width: 325px;
     color: white;
     font-size: 20px;
-    /* border: 1px solid #ddd; */
     padding: 5px;
     background-color: #3478F6;
     text-decoration: none;
@@ -539,4 +548,10 @@ a:active, a:hover {
 
 .fillerDiv {
     width: 105px;
+}
+
+.rankProgress {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }

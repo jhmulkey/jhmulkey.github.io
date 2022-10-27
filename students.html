@@ -36,7 +36,7 @@
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
   <div id="studentPopContainerDiv">
-    <div id="studentPopInsignia"></div>
+    <div id="studentPopInsignia" class="ptr" onclick="loadRankTable()"></div>
     <div id="studentPopInfo">
       <p id="studentPopRankName"></p>
       <p id="studentPopName"></p>
@@ -87,7 +87,7 @@
 
 <div id="studentStatsPop" class="pop">
 
-  <p class="note" style="margin-top:0px">Click on any bar graph below for more info</p>
+  <p class="note" style="margin-top:0px">Click on insignia above to view rank progress.<br>Click on any bar graph below for more info.</p>
 
   <div id="tpTableDiv" class="ptr" onclick="pop(['studentStatsPop'],['tpPop'])">
     <p id="tpTableP"></p>
@@ -104,11 +104,6 @@
     <table id="mvProgressTable" class="progressBarTable"> </table>
   </div>
 
-  <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
-    <p id="rankProgressTableP" style="margin-top:20px"></p>
-    <table id="rankProgressTable" class="progressBarTable"></table>
-  </div>
-
   <div id="attProgressTableDiv" class="ptr" onclick="loadStudentAttStats()">
     <p id="attProgressTableP"></p>
     <table id="attProgressTable" class="progressBarTable"></table>
@@ -118,6 +113,11 @@
     <p id="participationTableP"></p>
     <table id="participationTable" class="progressBarTable"></table>
   </div>
+
+<!--   <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
+    <p id="rankProgressTableP" style="margin-top:20px"></p>
+    <table id="rankProgressTable"></table>
+  </div> -->
 
   <div id="lbDiv">
     <p id="lbHeader">Leader Boards</p>
@@ -334,7 +334,7 @@
 
 <div id="resourcesPop" class="pop" style="text-align:left;">
   <p><a target="_blank" href="docs/handbook.pdf">Download class handbook</a></p>
-  <p><a target="_blank" href="docs/handouts/doctrinal-objectives/year-a-1-doctrinal-objectives-handout.pdf">Doctrinal Objectives</a></p>
+  <p><a target="_blank" href="docs/handouts/doctrinal-objectives/year-a-doctrinal-objectives.pdf">Doctrinal Objectives</a></p>
   <p><a href="sms:18643023502?&body=JOIN">Text "JOIN" to 864-302-3502</a><br>to receive weekly update links by text</p>
   <p><a href="mailto:jonathan@ksgrade2.com?subject=JOIN&body=JOIN">Email "JOIN" to jonathan@ksgrade2.com</a><br>to receive weekly updates by email</p>
   <p><a target="_blank" href="docs/mr-mulkey-contact-info.vcf">Add Mr. Mulkey's contact info to your contacts</a></p>
