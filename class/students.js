@@ -886,7 +886,8 @@ function studentMenuSwitch(x) {
             allPops[i].style.display = "none";
         }
     }
-    setTimeout(function() {window.scrollTo(0,0);},100);
+    document.getElementById("studentStatsPop").scrollTop = 0;
+    //scrollTo(0,0);
 }
 
 function mainMenuSwitch(x) {
@@ -915,7 +916,7 @@ function mainMenuSwitch(x) {
             allPops[i].style.display = "none";
         }
     }
-    setTimeout(function() {window.scrollTo(0,0);},100);
+    scrollTo(0,0);
 }
 
 function asLinks() {
@@ -973,7 +974,7 @@ function pop(closeArray,openArray,title) {
     if (openArray.includes("customSortListPop")) {
         innerHTML("customSortListLabel",title);
     }
-    setTimeout(function() {window.scrollTo(0,0);},100);
+    scrollTo(0,0);
 }
 
 function goHome() {
@@ -1331,7 +1332,7 @@ function loadRankTable() {
             document.getElementById("rankChartRow"+i).style.border = "1px solid white";
         }
     }
-    setTimeout(function() {window.scrollTo(0,0);},100);
+    scrollTo(0,0)
 }
 
 function openInsignia() {
