@@ -210,7 +210,7 @@ function generateAllTables() {
 
 function pinEntry(x) {
     var match = false; innerHTML("nameList","");
-    for (i = 0; i < _sl.length; i++) {
+    for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].pin == x) {
             match = true; _ci = i; 
             if (_alert) {
