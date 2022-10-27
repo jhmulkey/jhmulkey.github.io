@@ -886,8 +886,7 @@ function studentMenuSwitch(x) {
             allPops[i].style.display = "none";
         }
     }
-    document.getElementById("studentStatsPop").scrollTop = 0;
-    //scrollTo(0,0);
+    window.scrollTo(0,0);
 }
 
 function mainMenuSwitch(x) {
@@ -916,7 +915,7 @@ function mainMenuSwitch(x) {
             allPops[i].style.display = "none";
         }
     }
-    scrollTo(0,0);
+    window.scrollTo(0,0);
 }
 
 function asLinks() {
@@ -974,7 +973,7 @@ function pop(closeArray,openArray,title) {
     if (openArray.includes("customSortListPop")) {
         innerHTML("customSortListLabel",title);
     }
-    scrollTo(0,0);
+    window.scrollTo(0,0);
 }
 
 function goHome() {
@@ -1332,7 +1331,7 @@ function loadRankTable() {
             document.getElementById("rankChartRow"+i).style.border = "1px solid white";
         }
     }
-    scrollTo(0,0)
+    window.scrollTo(0,0);
 }
 
 function openInsignia() {
