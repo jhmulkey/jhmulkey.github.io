@@ -96,7 +96,6 @@
   <div id="drawButton" class="button ptr" onclick="clearDrawingWinner(); pop(['mainMenuPop'],['drawPop'])">Drawing</div>
   <div id="randButton" class="button ptr" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
   <div id="teamsButton" class="button ptr" onclick="teams()">Teams</div>
-  <div class="button ptr" id="handoutsButton" onclick="pop(['mainMenuPop'],['handoutsPop']);">Handouts <span class="buttonArrow"> ></span></div>
   <div class="button ptr" id="shufflePhotosButton" onclick="shufflePhotosPop()">Shuffle Student Photos</div>
   <div class="button ptr" id="shuffleParentsPhotosButton" onclick="shuffleParentsPhotosPop()">Shuffle Parent Photos</div>
 </div>
@@ -112,38 +111,6 @@
   </div>
 </div>
 
-<div id="handoutsPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['handoutsPop'],['mainMenuPop'])">f</div>
-    <div class="homeButton ptr" onclick="goHome()">5</div>
-  </div>
-  <p class="menuLabel">Handouts ></p>
-  <div id="editHandoutsButton" class="button ptr" onclick="editHandoutsPop()">Edit Handouts</div>
-  <div id="assignHandoutsButton" class="button ptr" onclick="pop(['handoutsPop'],['assignHandoutsPop']); populateAssignHandoutButtons()">Assign Handouts</div>
-</div>
-
-<div id="editHandoutsPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['editHandoutsPop'],['handoutsPop'])">f</div>
-    <div class="homeButton ptr" onclick="goHome()">5</div>
-  </div>
-  <p class="menuLabel">Handouts > Edit Handouts</p>
-  <textarea id="editHandoutsTF" rows="10" cols="30" placeholder="No handouts added yet" style="margin-top:30px"></textarea>
-  <div class="optionButtonContainer">
-    <div class="roundButton1 cancelButton ptr" id="editHandoutsCancel" onclick="pop(['editHandoutsPop'],['handoutsPop'])">X</div>
-    <div class="roundButton1 okButton ptr" id="editHandoutsOK" onclick="editHandouts();pop(['editHandoutsPop'],['handoutsPop'])">V</div>
-  </div>
-</div>
-
-<div id="assignHandoutsPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['assignHandoutsPop'],['handoutsPop'])">f</div>
-    <div class="homeButton ptr" onclick="goHome()">5</div>
-  </div>
-  <p class="menuLabel">Handouts > Assign Handouts</p>
-  <div id="assignHandoutsButtonContainer"></div>
-</div>
-
 <div id="alertsPop" class="pop">
     <div class="navigationButtonContainer">
       <div class="backButton ptr" onclick="goHome()">f</div>
@@ -154,15 +121,6 @@
     <div class="button ptr" id="photosNeededButton" onclick="loadNeededPhotos(); pop(['alertsPop'],['customListPop'])">Missing Photos</div>
     <div class="button ptr" id="emailsNeededButton" onclick="loadNeededEmails(); pop(['alertsPop'],['customListPop'])">Missing Emails</div>
     <div class="button ptr" id="bdNeededButton" onclick="loadNeededBds(); pop(['alertsPop'],['customListPop'])">Missing Birthdays</div>
-    <div class="button ptr" id="handoutsNeededButton" onclick="pop(['alertsPop'],['handoutsAlertPop'])">Missing Handouts</div>
-</div>
-
-<div id="handoutsAlertPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['handoutsAlertPop'],['alertsPop'])">f</div>
-    <div class="homeButton ptr" onclick="goHome()">5</div>
-  </div>
-  <div class="buttonArr" id="missingHandoutButtongArr"></div>
 </div>
 
 <div id="teamsListPop" class="pop">
@@ -727,7 +685,6 @@
     <div id="slBackupArray"></div>
     <div id="attBackupArray"></div>
     <div id="remindersBackupArray"></div>
-    <div id="handoutsBackupArray"></div>
     <div id="setItem1"></div>
     <div id="setItem2"></div>
     <div id="setItem3"></div>
