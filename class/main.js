@@ -198,7 +198,7 @@ function loadBackup() {
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].randDraw[0] = false;
     }
-    clearAttendees(); disableAtt(); populateReminders(); findAllBds(); storeAndBackup(); goHome();
+    clearAttendees(); disableAtt(); populateReminders(); storeAndBackup(); goHome();
 }
 
 function loadLS() {
@@ -249,7 +249,7 @@ function assignTodaysDn() {
         }
     }
     _todaysDn = dn;
-    setWeeksOff(); isClassDay(); setEw(); populateMissions(); generateAllTables();
+    setWeeksOff(); isClassDay(); setEw(); populateMissions(); generateAllTables(); findAllBds();
 }
 
 function isClassDay() {
