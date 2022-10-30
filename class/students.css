@@ -170,6 +170,12 @@ a:active, a:hover {
     margin: 30px auto;
 }
 
+#mainPop {
+    position: sticky;
+    top: 0px;
+    background-color: #111;
+}
+
 #studentPop {
     padding-bottom: 0px;
     margin-bottom: 0px;
