@@ -97,7 +97,6 @@
   <div id="randButton" class="button ptr" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
   <div id="teamsButton" class="button ptr" onclick="teams()">Teams</div>
   <div class="button ptr" id="shufflePhotosButton" onclick="shufflePhotosPop()">Shuffle Student Photos</div>
-  <div class="button ptr" id="shuffleParentsPhotosButton" onclick="shuffleParentsPhotosPop()">Shuffle Parent Photos</div>
 </div>
 
 <div id="pwdPop" class="pop">
@@ -349,10 +348,6 @@
     <input class="searchField" id="newNamePron" placeholder="name pronunciation"></textarea>
   </div>
   <div>
-    <p>Parents</p>
-    <input class="searchField" id="newParents" placeholder="parents"></textarea>
-  </div>
-  <div>
     <p>Email Address</p>
     <input class="searchField" id="newEmail" type="text" placeholder="email address"/>
   </div>
@@ -410,10 +405,6 @@
       <input class="searchField" id="editNamePron" placeholder="name pronunciation"></textarea>
     </div>
     <div>
-      <p>Parents</p>
-      <input class="searchField" id="editParents" placeholder="parents"></textarea>
-    </div>
-    <div>
       <p>Email Address</p>
       <input class="searchField" id="editEmail" type="text" placeholder="email address"
      />
@@ -431,7 +422,6 @@
       <div class="roundButton1 okButton ptr" id="editStudentOkButton" onclick="editStudent()">V</div>
     </div>
     <div id="dispStudentPhoto" class="dispStudentPhoto ptr" style="margin-bottom:20px" onclick="photoLinks()"></div>
-    <div id="dispParentsPhoto" class="dispStudentPhoto ptr" style="margin-bottom:20px" onclick="parentsPhotoLinks()"></div>
   </div>
 </div>
 
@@ -792,18 +782,6 @@
     <label class="checkboxLabel"><input type="checkbox" id="togglePhotoTitlesCheck" class="checkbox" onclick="togglePhotoTitles()"> show all photo titles</label>
   </div>
   <div id="shuffledPhotos"></div>
-</div>
-
-<div id="shuffleParentsPhotosPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton2 ptr" onclick="pop(['shuffleParentsPhotosPop'],['mainMenuPop'])">f</div>
-    <div class="otherButton2 ptr" onclick="resetShuffleParentsPhotos()">Reset</div>
-    <div class="otherButton2 ptr" onclick="shuffleParentsPhotos()">Re-shuffle</div>
-  </div>
-  <div style="margin-bottom:30px">
-    <label class="checkboxLabel"><input type="checkbox" id="toggleParentsPhotoTitlesCheck" class="checkbox" onclick="toggleParentsPhotoTitles()"> show all photo titles</label>
-  </div>
-  <div id="shuffledParentsPhotos"></div>
 </div>
 
 <div id="editPropertyPop" class="pop">
