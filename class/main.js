@@ -312,11 +312,11 @@ function allAlerts() {
     } else {
         bgColor("alertButton","#111")
     }
-    /* if (allergiesPresent()) {
-        bgColor("allergiesButton","darkorange")
+    if (allergiesPresent()) {
+        border("attCountButton",2,"solid","red")
     } else {
-        bgColor("allergiesButton","#111")
-    } */
+        border("attCountButton",2,"solid","#333")
+    }
 }
 
 function allergiesPresent() {
@@ -877,6 +877,7 @@ function disableAtt() {
             border("nameList",2,"solid","#222");
         }
     }
+    idFocus("searchMain");
 }
 
 function loadAttendees() {
@@ -916,6 +917,25 @@ function loadAttendees() {
         }
         append("girlsListAtt",p2);
     }  
+    var allergies = false; document.getElementById("allergiesList").innerHTML = "";
+    for (let i = 0; i < _sl.length; i++) {
+        if (_sl[i].allergies && _sl[i].att) {
+            allergies = true;
+            var p3 = createElement("p");
+            var span1 = createElement("span");
+            var span2 = createElement("span");
+            span1.innerHTML = _sl[i].name[0] + "<br>";
+            span2.innerHTML = _sl[i].allergies;
+            span2.style.color = "#bbb";
+            p3.append(span1,span2);
+            append("allergiesList",p3);
+        }
+    }
+    if (allergies) {
+        display("allergiesContainer","block");
+    } else {
+        display("allergiesContainer","none");
+    }
     innerHTML("boysListAttP","Boys (" + boys.length + ")");
     innerHTML("girlsListAttP","Girls (" + girls.length + ")");
     pop(["mainPop"],["attListPop"]);
@@ -1050,7 +1070,7 @@ function sortByRank() {
         span1.classList.add("sortValues");
         p.classList.add("name3");
         if (_sl[i].rank[0] != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
+            p.style.borderTop = "2px solid #555";
             p.style.paddingTop = "10px";
         }
         span1.innerHTML = _rankNamesShort[_sl[i].rank[0]];
@@ -1092,7 +1112,7 @@ function sortByPts(lb) {
         p.classList.add("name3");
         span2.classList.add("sortValues");
         if (_sl[i].pts != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
+            p.style.borderTop = "2px solid #555";
             p.style.paddingTop = "10px";
         }
         span1.innerHTML = _sl[i].statsRanks[0] + ". " + _sl[i].name[0];
@@ -1120,7 +1140,7 @@ function sortByGamePts() {
         var p = createElement("p");
         p.classList.add("name3");
         if (_sl[i].gamePts[0] != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
+            p.style.borderTop = "2px solid #555";
             p.style.paddingTop = "10px";
         }
         p.innerHTML = _sl[i].gamePts[1] + ". " + _sl[i].name[0] + " (" + _sl[i].gamePts[0] + ")";
@@ -1174,7 +1194,7 @@ function sortByASpts(lb) {
         span2.classList.add("sortValues");
         p.classList.add("name3");
         if (_sl[i].earnedASpts != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
+            p.style.borderTop = "2px solid #555";
             p.style.paddingTop = "10px";
         }
         span1.innerHTML = _sl[i].statsRanks[1] + ". " + _sl[i].name[0];
@@ -1233,7 +1253,7 @@ function sortByMVpts(lb) {
         span2.classList.add("sortValues");
         p.classList.add("name3");
         if (_sl[i].earnedMVpts != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
+            p.style.borderTop = "2px solid #555";
             p.style.paddingTop = "10px";
         }
         span1.innerHTML = _sl[i].statsRanks[2] + ". " + _sl[i].name[0];
@@ -1283,7 +1303,7 @@ function sortByAtt(lb) {
         p.classList.add("name3");
         p.classList.add("name3");
         if (_sl[i].totalWksAtt != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
+            p.style.borderTop = "2px solid #555";
             p.style.paddingTop = "10px";
         }
         span1.innerHTML = _sl[i].statsRanks[3] + ". " + _sl[i].name[0];
@@ -1344,7 +1364,7 @@ function sortByTP(lb) {
         p.classList.add("name3");
         p.classList.add("name3");
         if (_sl[i].tpPts != lastElementNode) {
-            p.style.borderTop = "1px solid #555";
+            p.style.borderTop = "2px solid #555";
             p.style.paddingTop = "10px";
         }
         span1.innerHTML = _sl[i].statsRanks[4] + ". " + _sl[i].name[0];
@@ -1404,7 +1424,7 @@ function sortByBd() {
         p.classList.add("name3");
         span1.classList.add("sortValues");
         if (cdn(_sl[i].bd[0],"M") != lastElementNode) {
-            p.style.borderTop = "1px solid #333";
+            p.style.borderTop = "2px solid #333";
             p.style.paddingTop = "10px";
         }
         if (_sl[i].bd[2]) {
@@ -1442,7 +1462,7 @@ function sortByDateAdded() {
         p.classList.add("name3");
         span1.classList.add("sortValues");
         if (dateAddedDate != lastElementNode) {
-            p.style.borderTop = "1px solid #333";
+            p.style.borderTop = "2px solid #333";
             p.style.paddingTop = "10px";
         }
         span1.innerHTML = dateAddedMonth + "/" + dateAddedDate;
@@ -1466,7 +1486,7 @@ function sortByNotes() {
             p1.classList.add("name3");
             p2.classList.add("sortValues");
             if (_sl[i] != lastElementNode) {
-                p1.style.borderTop = "1px solid #333";
+                p1.style.borderTop = "2px solid #333";
                 p1.style.paddingTop = "10px";
             }
             p1.innerHTML = _sl[i].name[0];
@@ -1499,7 +1519,7 @@ function sortByAllergies() {
             p1.classList.add("name3");
             p2.classList.add("sortValues");
             if (_sl[i] != lastElementNode) {
-                p1.style.borderTop = "1px solid #333";
+                p1.style.borderTop = "2px solid #333";
                 p1.style.paddingTop = "10px";
             }
             p1.innerHTML = _sl[i].name[0];

@@ -26,7 +26,7 @@
 
 <div id="att2Pop" class="pop">
   <div class="navigationButtonContainer" style="margin-bottom:0px">
-    <div class="backButton ptr" onclick="pop(['att2Pop'],['studentPop'])">T</div>
+    <div class="backButton ptr" onclick="pop(['att2Pop'],['studentPop'])">f</div>
   </div>
   <input id="searchMain2" class="searchField2" type="text" placeholder="search names" oninput="searchNames('searchMain2','name')"/>
   <div id="nameList2"></div>
@@ -75,14 +75,6 @@
       <div id="girlsList"></div>
     </div>
   </div>
-</div>
-
-<div id="allergiesPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="goHome()"">f</div>
-  </div>
-  <p id="allergiesLabel">Allergies</p>
-  <div id="allergiesList"></div>
 </div>
 
 <div id="mainMenuPop" class="pop">
@@ -617,7 +609,7 @@
 
 <div id="attListPop" class="pop">
     <div class="navigationButtonContainer">
-      <div class="backButton ptr" onclick="pop(['attListPop'],['mainPop'])">f</div>
+      <div class="backButton ptr" onclick="goHome()">f</div>
       <div class="otherButton ptr" onclick="actionAlert('Reset attendance?',['attListPop'],resetAtt)">Reset</div>
     </div>
     <p id="attCount" class="ptr" onclick="dataInputAlert('Number of students for random attendance',['attListPop'],randAtt)"></p>
@@ -630,6 +622,10 @@
         <p id="girlsListAttP"></p>
         <div id="girlsListAtt"></div>
       </div>
+    </div>
+    <div id="allergiesContainer" style="font-size:15px;padding:20px;margin-top:40px;border-top: 2px solid #333">
+      <p style="color:red;text-align:center;margin-top:0px">Allergies:</p>
+      <div id="allergiesList" style="text-align:left"></div>
     </div>
 </div>
 
@@ -669,7 +665,7 @@
 
 <div id="backupPop" class="pop">
   <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['backupPop'],['mainPop'])">f</div>
+    <div class="backButton ptr" onclick="goHome()">f</div>
   </div>
   <div id="backupArrays" class="ptr" onclick="selectText('backupArrays')">
     <div id="slBackupArray"></div>

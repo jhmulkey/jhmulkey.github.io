@@ -57,7 +57,7 @@ a:link, a:visited, a:hover, a:active {
 
 *::-webkit-scrollbar { width: 0 !important }
 
-#newStudentButton, #calendarPop, #editPropertyPop, #shufflePhotosPop, #allergiesPop, #pwdPop, #archivedBackupsPop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #gameLogPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #addReminderPop, #addNotePop, #modifyRemindersPop, #remindersPop, #customSortListPop, #editStudentPop, #newStudentPop, #editNotePop, #editReminderPop, #notesPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop {
+#newStudentButton, #calendarPop, #editPropertyPop, #shufflePhotosPop, #allergiesPop, #pwdPop, #archivedBackupsPop, #customListPop, #studentPropertiesPop, #attArchiveListPop, #studentAttStatsPop, #attStatsPop, #openInsigniaPop, #rankChartPop, #alertsPop, #studentStatsPop, #teamListContainer, #sortChoicePop, #gameLogPop, #dataInputAlertPop, #teamsListPop, #playGamePop, #att2Pop, #att3Pop, #actionAlertPop, #advancedOptionsPop, #infoAlertPop, #addReminderPop, #addNotePop, #modifyRemindersPop, #remindersPop, #customSortListPop, #editStudentPop, #newStudentPop, #editNotePop, #editReminderPop, #notesPop, #logPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #backupPop, #promoListPop, #attListPop, #wtlPop, #mainMenuPop, #drawPop, #randPop, #studentPop, #allergiesContainer {
     display: none;
 }
 
@@ -75,7 +75,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #lbHeader {
-    border-top: 1px solid #555;
+    border-top: 2px solid #555;
     margin: 30px auto 20px auto !important;
     padding-top: 15px;
     font-size: 30px !important;
@@ -512,7 +512,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #genderListContainer {
-    border-top: 1px solid #333;
+    border-top: 2px solid #333;
 }
 
 #gamePointButtonsContainer {
