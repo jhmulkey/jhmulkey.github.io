@@ -78,7 +78,7 @@ class Student {
         this.rank = [0,0]; // [rankNumber,rankFactor]
         this.att = true;
         this.attArr = [];
-        this.promo = [false,0]; // [promoted,promoNum]
+        this.promo = [false,false,0]; // [promoted,promotionDone,promoNum]
         this.promoDns = []; // promotion dates
         this.randDraw = [false,false];
         this.statsRanks = []; // [tot,AS,MV,att,part]
@@ -391,18 +391,18 @@ function loadPromos() {
     innerHTML("customList",""); innerHTML("customListAbsent","");
     innerHTML("customListLabel","Promotions"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].promo[0] && _sl[i].att) {
-            if (_sl[i].promo[1] < 2) {
+        if (_sl[i].promo[0] && !_sl[i].promo[1] && _sl[i].att) {
+            if (_sl[i].promo[2] < 2) {
                 populateCustomList(_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0],false,"promo");
-            } else if (_sl[i].promo[1] > 1) {
-                populateCustomList(_rankNamesShort[_sl[i].rank[0]] + " " + "(" + _sl[i].promo[1] + ") " + _sl[i].name[0],false,"promo");
+            } else if (_sl[i].promo[2] > 1) {
+                populateCustomList(_rankNamesShort[_sl[i].rank[0]] + " " + "(" + _sl[i].promo[2] + ") " + _sl[i].name[0],false,"promo");
             }
-        } else if (_sl[i].promo[0] && !_sl[i].att) {
+        } else if (_sl[i].promo[0] && !_sl[i].promo[1] && !_sl[i].att) {
             display("absentLabel","block");
-            if (_sl[i].promo[1] < 2) {
+            if (_sl[i].promo[2] < 2) {
                 populateCustomList(false,_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0],"");
-            } else if (_sl[i].promo[1] > 1) {
-                populateCustomList(false,_rankNamesShort[_sl[i].rank[0]] + " " + "(" + _sl[i].promo[1] + ") " + _sl[i].name[0]);
+            } else if (_sl[i].promo[2] > 1) {
+                populateCustomList(false,_rankNamesShort[_sl[i].rank[0]] + " " + "(" + _sl[i].promo[2] + ") " + _sl[i].name[0]);
             }
         }
     }
@@ -461,8 +461,7 @@ function loadNeededBds() {
 }
 
 function completePromo(x) {
-    _sl[x].promo[0] = false;
-    _sl[x].promo[1] = 0;
+    _sl[x].promo[1] = true;
     activityLog(_sl[x].name[0] + " promotion complete",dateAndTime("log"));
     loadPromos(); allAlerts(); storeAndBackup();
 }
@@ -878,7 +877,6 @@ function disableAtt() {
             border("nameList",2,"solid","#222");
         }
     }
-    idFocus("searchMain");
 }
 
 function loadAttendees() {
@@ -898,7 +896,7 @@ function loadAttendees() {
         var p1 = createElement("p");
         p1.classList.add("name2");
         p1.innerHTML = boys[i].name[0];
-        if (boys[i].promo[1] > 0) {
+        if (boys[i].promo[2] > 0) {
             p1.style.color = "yellow"
         }
         if (_bdList.indexOf(boys[i]) !== -1) {
@@ -910,7 +908,7 @@ function loadAttendees() {
         var p2 = createElement("p");
         p2.classList.add("name2");
         p2.innerHTML = girls[i].name[0];
-        if (girls[i].promo[1] > 0) {
+        if (girls[i].promo[2] > 0) {
             p2.style.color = "yellow"
         }
         if (_bdList.indexOf(girls[i]) !== -1) {
@@ -2079,8 +2077,26 @@ function rapidOff() {
     document.getElementById("rapidEditCheck").checked = false;
 }
 
+function populatePromos() {
+    innerHTML("promoList",""); innerHTML("bdayList","");
+    for (let i = 0; i < _sl.length; i++) {
+        if (_sl[i].promo[0] && _sl[i].att) {
+            var p1 = createElement("p");
+            p1.style.fontSize = "25px";
+            p1.innerHTML = _rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0] + " (" + _sl[i].promo[2] + ")";
+            append("promoList",p1);
+        }
+        if (_sl[i].bd[1] && !_sl[i].bd[2] && _sl[i].att) {
+            var p2 = createElement("p");
+            p2.style.fontSize = "25px";
+            p2.innerHTML = _sl[i].name[0];
+            append("bdayList",p2);
+        }
+    }
+}
+
 function promo() {
-    _sl[_ci].rank[0]++; _sl[_ci].promo[0] = true; _sl[_ci].promo[1]++;
+    _sl[_ci].rank[0]++; _sl[_ci].promo[0] = true; _sl[_ci].promo[2]++;
     _sl[_ci].promoDns[_sl[_ci].rank[0]-1] = _todaysDn;
     _promoList.push(_sl[_ci].name[0]);
     setRankFactor();
@@ -2088,7 +2104,7 @@ function promo() {
     innerHTML("dispRankNamePromo",_rankNames[_sl[_ci].rank[0]]);
     storeAndBackup();
     document.getElementById("promoInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank[0]+"-rank.jpg)";
-    activityLog(_sl[_ci].name[0] + " promoted to " + _rankNamesShort[_sl[_ci].rank[0]],dateAndTime("log"));
+    activityLog(_sl[_ci].name[0] + " promoted (" + _sl[_ci].promo[2] + ") to " + _rankNamesShort[_sl[_ci].rank[0]],dateAndTime("log"));
     setTimeout(function() {
         pop(["studentPop","missionsPop"],["promoPop"])
     },10);
@@ -2096,10 +2112,10 @@ function promo() {
 
 function demo() {
     _sl[_ci].promoDns[_sl[_ci].rank[0]-1] = 0; _sl[_ci].rank[0]--;
-    if (_sl[_ci].promo[1] == 1) {
+    if (_sl[_ci].promo[2] == 1) {
         _sl[_ci].promo[0] = false;
     }
-    _sl[_ci].promo[1]--;
+    _sl[_ci].promo[2]--;
     setRankFactor();
     activityLog(_sl[_ci].name[0] + " demoted to " + _rankNamesShort[_sl[_ci].rank[0]],dateAndTime("log"));
     innerHTML("studentPopRankName",_rankNames[_sl[_ci].rank[0]]);
@@ -2294,6 +2310,13 @@ function searchLog() {
     }
 }
 
+function resetSearchLog() {
+    var logEntries = document.getElementsByClassName("logEntry");
+    for (let i = 0; i < logEntries.length; i++) {
+        logEntries[i].style.display = "block";
+    }
+}
+
 function searchGameLog() {
     var inputVal = document.getElementById("searchGameLog").value.toLowerCase();
     var logEntries = document.getElementsByClassName("gameLogEntry");
@@ -2390,8 +2413,13 @@ function pop(closeArray,openArray,title) {
 }
 
 function logPop() {
-    value("searchLog",""); innerHTML("log",_log);
-    pop(['mainPop'],['logPop'])
+    value("searchLog",""); innerHTML("log",_log); resetSearchLog();
+    pop(['mainPop'],['logPop']); idFocus("searchLog");
+}
+
+function promoListPop() {
+    populatePromos();
+    pop(['logPop'],['promoListPop']);
 }
 
 function gameLogPop() {
@@ -2682,7 +2710,6 @@ function populateNames() {
     p2.innerHTML = "Add New Student";
     append("nameList",p2);
     value("searchMain","");
-    idFocus("searchMain");
 }
 
 function generateRankTable() {
@@ -3856,5 +3883,3 @@ function generateCalendarTable() {
 }
 
 assignTodaysDn(); whatToLoad();
-
-idFocus("searchMain");

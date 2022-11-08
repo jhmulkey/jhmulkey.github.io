@@ -134,7 +134,6 @@ function getLastUpdateTime() {
 
 function loadBackup() {
     _sl = JSON.parse(localStorage.getItem("slBackup"));
-    _slOLD = JSON.parse(localStorage.getItem("slBackupOLD"));
     _att = JSON.parse(localStorage.getItem("attBackup"));
     _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
     _promoList = []; _bdList = [];
@@ -755,7 +754,6 @@ function refreshStudentPop() {
         ptsNeeded = _rankPts[_sl[_ci].rank[0]+1] - _sl[_ci].pts;
     }
     if (_sl[_ci].rank[0] < 19) {
-        // innerHTML("studentPopPts",_sl[_ci].pts + " <span style='color: #999'>| " + ptsNeeded +"</span>");
         innerHTML("studentPopPts",_sl[_ci].pts);
         innerHTML("ptsNote",_sl[_ci].pts+" points earned | "+ptsNeeded+" needed for next promotion");
     } else {

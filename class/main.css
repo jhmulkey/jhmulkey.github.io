@@ -134,7 +134,7 @@ a:link, a:visited, a:hover, a:active {
     margin-bottom: 13px;
 }
 
-#customListLabel {
+#customListLabel, .listLabel {
     font-size: 20px;
     margin: 20px auto 20px auto !important;
     color: #3478F6;

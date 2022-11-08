@@ -197,9 +197,21 @@
 <div id="logPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="goHome()">f</div>
+    <div class="otherButton ptr" onclick="promoListPop()">Promotions</div>
   </div>
   <input id="searchLog" class="searchField" type="text" placeholder="search log" oninput="searchLog()"/>
   <div id="log" class="ptr" onclick="selectText('log')"></div>
+</div>
+
+<div id="promoListPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['promoListPop'],['logPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div class="listLabel">Promotions</div>
+  <div id="promoList" style="text-align:left;"></div>
+  <div class="listLabel">Birthdays</div>
+  <div id="bdayList" style="text-align:left;"></div>
 </div>
 
 <div id="gameLogPop" class="pop">
@@ -602,7 +614,7 @@
   </div>
   <p style="font-size:50px"><span class="promoPopStar">3 </span> Promotion <span class="promoPopStar"> 3</span></p>
   <div>
-    <div id="promoInsignia"></div>
+    <div id="promoInsignia" class="ptr" onclick="pop(['promoPop'],['missionsPop','studentPop'])"></div>
   </div>
   <p id="dispRankNamePromo"></p>
 </div>
