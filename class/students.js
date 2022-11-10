@@ -1318,11 +1318,7 @@ function loadRankTable() {
         innerHTML("rankChartRank"+i,_rankNames[i]);
         innerHTML("rankChartAbbreviation"+i,_rankNamesShort[i]);
         innerHTML("rankChartPts"+i,_rankPts[i]);
-        if (i > 0) {
-            innerHTML("rankChartDate"+i,cdn(_sl[_ci].promoDns[i-1]))
-        } else {
-            innerHTML("rankChartDate"+i,cdn(_sl[_ci].dateAdded))
-        }
+        innerHTML("rankChartDate"+i,cdn(_sl[_ci].promoDns[i]))
         if (i == _sl[_ci].rank[0]) {
             document.getElementById("rankChartRow"+i).style.border = "3px solid lawngreen";
         } else {

@@ -78,7 +78,7 @@ class Student {
         this.rank = [0,0]; // [rankNumber,rankFactor]
         this.att = true;
         this.attArr = [];
-        this.promo = [false,false,0]; // [promoted,promotionDone,promoNum]
+        this.promo = [false,false,0,0]; // [promoted,promotionDone,promoNum,lastPromoCompletedDn]
         this.promoDns = []; // promotion dates
         this.randDraw = [false,false];
         this.statsRanks = []; // [tot,AS,MV,att,part]
@@ -86,6 +86,10 @@ class Student {
         this.mv = [] // [ptsEarned,dateRecited]
     }
 }
+
+/* other Student properties 
+    this.bd = [0,false,false,0] // [bdn,bdFound,bdComplete,bdCompleteDn]
+*/
 
 class Teams {
     constructor () {
@@ -461,13 +465,13 @@ function loadNeededBds() {
 }
 
 function completePromo(x) {
-    _sl[x].promo[1] = true;
+    _sl[x].promo[1] = true; _sl[x].promoDns[_sl[x].rank[0]] = _todaysDn; _sl[x].promo[3] = _todaysDn;
     activityLog(_sl[x].name[0] + " promotion complete",dateAndTime("log"));
     loadPromos(); allAlerts(); storeAndBackup();
 }
 
 function completeBd(x) {
-    _sl[x].bd[2] = true; 
+    _sl[x].bd[2] = true; _sl[x].bd[3] = _todaysDn; 
     activityLog(_sl[x].name[0] + " birthday complete",dateAndTime("log"));
     loadBds(); allAlerts(); storeAndBackup();
 }
@@ -1820,7 +1824,7 @@ function newStudent() {
     _sl.push(newStudent); _ci = _sl.length-1;
     _sl[_ci].name = [newFirst + " " + newLast,pron];
     _sl[_ci].gender = newGender;
-    _sl[_ci].bd = [assignDn(parseInt(newbdMonth),parseInt(newbdDate)),false,false];
+    _sl[_ci].bd = [assignDn(parseInt(newbdMonth),parseInt(newbdDate)),false,false,0];
     _sl[_ci].email = document.getElementById("newEmail").value.toLowerCase().trim();
     _sl[_ci].allergies = document.getElementById("newAllergies").value.toLowerCase().trim();
     document.getElementById("initialNote").value != false ? _sl[_ci].notes = [document.getElementById("initialNote").value.trim()] : _sl[_ci].notes = [];
@@ -1833,7 +1837,8 @@ function newStudent() {
     for (let i = 0; i < _mvNames.length; i++) {
         newStudent.mv[i] = [0,0];
     }
-    for (let i = 0; i < _rankNames.length-1; i++) {
+    newStudent.promoDns[0] = _todaysDn;
+    for (let i = 1; i < _rankNames.length-1; i++) {
         newStudent.promoDns[i] = 0;
     }
     if (_isClassDay) {
@@ -1893,7 +1898,7 @@ function editStudent() {
             infoAlert("Invalid birthday date",["editStudentPop"]);return
         }
     }
-    _sl[_ci].bd = [assignDn(parseInt(editBdMonth),parseInt(editBdDate)),false,false];
+    _sl[_ci].bd = [assignDn(parseInt(editBdMonth),parseInt(editBdDate)),false,false,0];
     _sl[_ci].name[1] = document.getElementById("editNamePron").value.trim();
     _sl[_ci].email = document.getElementById("editEmail").value.toLowerCase().trim();
     _sl[_ci].allergies = document.getElementById("editAllergies").value.toLowerCase().trim();
@@ -2063,7 +2068,7 @@ function populatePromos() {
             p1.innerHTML = _rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0] + " (" + _sl[i].promo[2] + ")";
             append("promoList",p1);
         }
-        if (_sl[i].bd[1] && !_sl[i].bd[2] && _sl[i].att) {
+        if (_sl[i].bd[1] && _sl[i].bd[3] == _todaysDn) {
             var p2 = createElement("p");
             p2.style.fontSize = "25px";
             p2.innerHTML = _sl[i].name[0];
@@ -2074,7 +2079,6 @@ function populatePromos() {
 
 function promo() {
     _sl[_ci].rank[0]++; _sl[_ci].promo[0] = true; _sl[_ci].promo[1] = false; _sl[_ci].promo[2]++;
-    _sl[_ci].promoDns[_sl[_ci].rank[0]-1] = _todaysDn;
     setRankFactor();
     innerHTML("studentPopRankName",_rankNames[_sl[_ci].rank[0]]);
     innerHTML("dispRankNamePromo",_rankNames[_sl[_ci].rank[0]]);
@@ -2686,6 +2690,7 @@ function populateNames() {
     p2.innerHTML = "Add New Student";
     append("nameList",p2);
     value("searchMain","");
+    idFocus("searchMain");
 }
 
 function generateRankTable() {
@@ -3233,11 +3238,7 @@ function loadRankTable() {
         innerHTML("rankChartRank"+i,_rankNames[i]);
         innerHTML("rankChartAbbreviation"+i,_rankNamesShort[i]);
         innerHTML("rankChartPts"+i,_rankPts[i]);
-        if (i > 0) {
-            innerHTML("rankChartDate"+i,cdn(_sl[_ci].promoDns[i-1]))
-        } else {
-            innerHTML("rankChartDate"+i,"n/a")
-        }
+        innerHTML("rankChartDate"+i,cdn(_sl[_ci].promoDns[i]))
         if (i == _sl[_ci].rank[0]) {
             document.getElementById("rankChartRow"+i).style.border = "3px solid lawngreen";
         } else {
