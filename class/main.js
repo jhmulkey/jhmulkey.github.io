@@ -78,7 +78,7 @@ class Student {
         this.rank = [0,0]; // [rankNumber,rankFactor]
         this.att = true;
         this.attArr = [];
-        this.promo = [0,0]; // [promoNum,lastPromoCompletedDn]
+        this.promo = 0; // number of current promotions earned
         this.promoDns = []; // promotion dates
         this.randDraw = [false,false];
         this.statsRanks = []; // [tot,AS,MV,att,part]
@@ -199,7 +199,15 @@ function loadBackup() {
         _sl[i].randDraw[0] = false;
     }
     if (_isClassDay) { disableAtt(); }
-    clearAttendees(); populateReminders(); findAllBds(); storeAndBackup(); goHome();
+    clearAttendees(); clearPromos(); populateReminders(); findAllBds(); storeAndBackup(); goHome();
+}
+
+function clearPromos() {
+    for (let i = 0; i < _sl.length; i++) {
+        if (_sl[i].promo > 0 && _sl[i].promoDns[_sl[i].rank[0]] > 0) {
+            _sl[i].promo = 0;
+        }
+    }
 }
 
 function loadLS() {
@@ -300,7 +308,7 @@ function allAlerts() {
     if (_reminders != false) {alerts[0]++}
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].att) {
-            if (_sl[i].promo[0] > 0 && _sl[i].promo[1] != _todaysDn) {alerts[1]++}
+            if (_sl[i].promo > 0 && _sl[i].promoDns[_sl[i].rank[0]] == 0) {alerts[1]++}
             if (_sl[i].bd[1] && !_sl[i].bd[2]) {alerts[2]++}
             if (!_sl[i].photo) {alerts[3]++}
             if (_sl[i].email == false) {alerts[4]++}
@@ -393,11 +401,11 @@ function loadPromos() {
     innerHTML("customList",""); innerHTML("customListAbsent","");
     innerHTML("customListLabel","Promotions"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
-        if (_sl[i].promo[1] != _todaysDn && _sl[i].att) {
-            populateCustomList(_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0] + " (" + _sl[i].promo[0] + ")",false,"promo");
-        } else if (_sl[i].promo[0] > 0 && _sl[i].promo[1] != _todaysDn && !_sl[i].att) {
+        if (_sl[i].promo > 0 && _sl[i].promoDns[_sl[i].rank[0]] == 0 && _sl[i].att) {
+            populateCustomList(_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0] + " (" + _sl[i].promo + ")",false,"promo");
+        } else if (_sl[i].promo > 0 && _sl[i].promoDns[_sl[i].rank[0]] == 0 && !_sl[i].att) {
             display("absentLabel","block");
-            populateCustomList(false,_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0] + " (" + _sl[i].promo[0] + ")");
+            populateCustomList(false,_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0] + " (" + _sl[i].promo + ")");
         }
     }
 }
@@ -455,7 +463,12 @@ function loadNeededBds() {
 }
 
 function completePromo(x) {
-    _sl[x].promoDns[_sl[x].rank[0]] = _todaysDn; _sl[x].promo[1] = _todaysDn;
+    _sl[x].promoDns[_sl[x].rank[0]] = _todaysDn;
+    if (_sl[x].promo > 1) {
+        for (let i = 1; i <= (_sl[x].promo-1); i++) {
+            _sl[x].promoDns[_sl[x].rank[0]-i] = _todaysDn;
+        }
+    }
     activityLog(_sl[x].name[0] + " promotion complete",dateAndTime("log"));
     loadPromos(); allAlerts(); storeAndBackup();
 }
@@ -2052,10 +2065,10 @@ function rapidOff() {
 function populatePromos() {
     innerHTML("promoList",""); innerHTML("bdayList","");
     for (let i = 0; i < _sl.length; i++) {
-        if (_sl[i].promo[1] == _todaysDn && _sl[i].att) {
+        if (_sl[i].promoDns[_sl[i].rank[0]] == _todaysDn && _sl[i].att) {
             var p1 = createElement("p");
             p1.style.fontSize = "25px";
-            p1.innerHTML = _rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0] + " (" + _sl[i].promo[0] + ")";
+            p1.innerHTML = _rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0] + " (" + _sl[i].promo + ")";
             append("promoList",p1);
         }
         if (_sl[i].bd[1] && _sl[i].bd[3] == _todaysDn && _sl[i].att) {
@@ -2068,21 +2081,21 @@ function populatePromos() {
 }
 
 function promo() {
-    _sl[_ci].rank[0]++; _sl[_ci].promo[0]++;
+    _sl[_ci].rank[0]++; _sl[_ci].promo++;
     setRankFactor();
     innerHTML("studentPopRankName",_rankNames[_sl[_ci].rank[0]]);
     innerHTML("dispRankNamePromo",_rankNames[_sl[_ci].rank[0]]);
     storeAndBackup();
     document.getElementById("promoInsignia").style.backgroundImage = "url(img/insignia-darkgray/"+_sl[_ci].rank[0]+"-rank.jpg)";
-    activityLog(_sl[_ci].name[0] + " promoted (" + _sl[_ci].promo[0] + ") to " + _rankNamesShort[_sl[_ci].rank[0]],dateAndTime("log"));
+    activityLog(_sl[_ci].name[0] + " promoted (" + _sl[_ci].promo + ") to " + _rankNamesShort[_sl[_ci].rank[0]],dateAndTime("log"));
     setTimeout(function() {
         pop(["studentPop","missionsPop"],["promoPop"])
     },10);
 }
 
 function demo() {
-    _sl[_ci].promoDns[_sl[_ci].rank[0]-1] = 0; _sl[_ci].rank[0]--;
-    _sl[_ci].promo[0]--;
+    _sl[_ci].promoDns[_sl[_ci].rank[0]] = 0; _sl[_ci].rank[0]--;
+    _sl[_ci].promo--;
     setRankFactor();
     activityLog(_sl[_ci].name[0] + " demoted to " + _rankNamesShort[_sl[_ci].rank[0]],dateAndTime("log"));
     innerHTML("studentPopRankName",_rankNames[_sl[_ci].rank[0]]);
