@@ -349,7 +349,7 @@ function populateCustomList(log1,log2,type) {
         if (type == "promo") {
             var message;
             if (_sl[i].name[1] != "") {
-                message = "Complete promotion for <br>" + _sl[i].name[0] + " (" + _rankNamesShort[_sl[i].rank[0]] + ")?" + "<br> (" + _sl[i].name[1] + ")"
+                message = 'Complete promotion for <br>' + _sl[i].name[0] + ' (' + _rankNamesShort[_sl[i].rank[0]] + ')?' + '<br>' + '("' + _sl[i].name[1] + '")'
             } else {
                 message = "Complete promotion for <br>" + _sl[i].name[0] + " (" + _rankNamesShort[_sl[i].rank[0]] + ")?"
             }
@@ -2068,12 +2068,14 @@ function populatePromos() {
         if (_sl[i].promoDns[_sl[i].rank[0]] == _todaysDn && _sl[i].att) {
             var p1 = createElement("p");
             p1.style.fontSize = "25px";
+            if (_sl[i].bd[3] == _todaysDn) { p1.style.color = "fuchsia" }
             p1.innerHTML = _sl[i].name[0] + " (" + _rankNamesShort[_sl[i].rank[0]] + ") (" + _sl[i].promo + ")";
             append("promoList",p1);
         }
         if (_sl[i].bd[1] && _sl[i].bd[3] == _todaysDn && _sl[i].att) {
             var p2 = createElement("p");
             p2.style.fontSize = "25px";
+            if (_sl[i].promo > 0) { p2.style.color = "yellow" }
             p2.innerHTML = _sl[i].name[0] + " (" + cdn(_sl[i].bd[0]) + ")";
             append("bdayList",p2);
         }
@@ -2521,14 +2523,15 @@ function asLateCheck() {
     if (_dns[_asNum] < _sl[_ci].dateAdded) {
         offset = _sl[_ci].dateAdded - _dns[_asNum];
     }
-    if (_sl[_ci].as[_asNum][0] != _asMaxPts[_asNum] || _sl[_ci].as[_asNum][0] != _asMaxPts[_asNum-1]) {
+    if (_sl[_ci].as[_asNum][0] != _asMaxPts[_asNum]) {
         if ((_todaysDn - _dns[_asNum+1]) > (63 + offset) && (_todaysDn - _dns[_asNum+1]) <= (126 + offset)) {
             bgColor("as"+_asMaxPts[_asNum]+"Pts","#222");
             color("as"+_asMaxPts[_asNum]+"Pts","#333");
-        } else if ((_todaysDn - _dns[_asNum+1]) > (126 + offset)) {
-            bgColor("as"+_asMaxPts[_asNum]+"Pts","#222");
+        } 
+    }
+    if (_sl[_ci].as[_asNum][0] != (_asMaxPts[_asNum]-1) && _sl[_ci].as[_asNum][0] != _asMaxPts[_asNum]) {
+        if ((_todaysDn - _dns[_asNum+1]) > (126 + offset)) {
             bgColor("as"+(_asMaxPts[_asNum]-1)+"Pts","#222");
-            color("as"+_asMaxPts[_asNum]+"Pts","#333");
             color("as"+(_asMaxPts[_asNum]-1)+"Pts","#333");
         }
     }
@@ -2587,14 +2590,17 @@ function mvLateCheck() {
     if (_dns[_mvNum] < _sl[_ci].dateAdded) {
         offset = _sl[_ci].dateAdded - _dns[_mvNum];
     }
-    if ((_todaysDn - _dns[_mvNum+1]) > (63 + offset) && (_todaysDn - _dns[_mvNum+1]) <= (126 + offset)) {
-        bgColor("mv"+_mvMaxPts[_mvNum]+"Pts","#222");
-        color("mv"+_mvMaxPts[_mvNum]+"Pts","#333");
-    } else if ((_todaysDn - _dns[_mvNum+1]) > (126 + offset)) {
-        bgColor("mv"+_mvMaxPts[_mvNum]+"Pts","#222");
-        bgColor("mv"+(_mvMaxPts[_mvNum]-1)+"Pts","#222");
-        color("mv"+_mvMaxPts[_mvNum]+"Pts","#333");
-        color("mv"+(_mvMaxPts[_mvNum]-1)+"Pts","#333");
+    if (_sl[_ci].mv[_mvNum][0] != _mvMaxPts[_mvNum]) {
+        if ((_todaysDn - _dns[_mvNum+1]) > (63 + offset) && (_todaysDn - _dns[_mvNum+1]) <= (126 + offset)) {
+            bgColor("mv"+_mvMaxPts[_mvNum]+"Pts","#222");
+            color("mv"+_mvMaxPts[_mvNum]+"Pts","#333");
+        } 
+    }
+    if (_sl[_ci].mv[_mvNum][0] != (_mvMaxPts[_mvNum]-1) && _sl[_ci].mv[_mvNum][0] != _mvMaxPts[_mvNum]) {
+        if ((_todaysDn - _dns[_mvNum+1]) > (126 + offset)) {
+            bgColor("mv"+(_mvMaxPts[_mvNum]-1)+"Pts","#222");
+            color("mv"+(_mvMaxPts[_mvNum]-1)+"Pts","#333");
+        }
     }
 }
 
