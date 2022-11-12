@@ -3811,11 +3811,48 @@ function generateCalendarTable() {
         if (i < _asNames.length) {
             td5.innerHTML = _asNames[i];
         } else {td5.innerHTML = "-"}
+        td5.setAttribute("id","td5-"+i);
+        td5.style.width = "118.59px";
+        (function(i){
+            td5.onclick = function () {
+                showMaxPts(i,"as");
+            }
+        })(i);
         if (i < _mvNames.length) {
             td6.innerHTML = _mvNames[i];
-        } else {td6.innerHTML = "-"}        
+        } else {td6.innerHTML = "-"}
+        td6.setAttribute("id","td6-"+i);
+        td6.style.width = "100.8px";
+        (function(i){
+            td6.onclick = function () {
+                showMaxPts(i,"mv");
+            }
+        })(i);    
         tr1.append(td1,td2,td3,td4,td5,td6);
         append("calendarTable",tr1);
+    }
+}
+
+function showMaxPts(x,type,reset) {
+    if (reset) {
+        for (let i = 0; i < _asMaxPts.length; i++) {
+            document.getElementById("td5-"+i).innerHTML = _asNames[i];
+            document.getElementById("td6-"+i).innerHTML = _mvNames[i];
+        }
+    } else {
+        if (type == "as" && x < _asMaxPts.length) {
+            if (document.getElementById("td5-"+x).innerHTML == _asNames[x]) {
+                document.getElementById("td5-"+x).innerHTML = _asMaxPts[x] + " points";
+            } else {
+                document.getElementById("td5-"+x).innerHTML = _asNames[x];
+            }
+        } else if (x < _asMaxPts.length) {
+            if (document.getElementById("td6-"+x).innerHTML == _mvNames[x]) {
+                document.getElementById("td6-"+x).innerHTML = _mvMaxPts[x] + " points";
+            } else {
+                document.getElementById("td6-"+x).innerHTML = _mvNames[x];
+            } 
+        }
     }
 }
 
