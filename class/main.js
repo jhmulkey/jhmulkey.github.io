@@ -3857,16 +3857,24 @@ function showMaxPts(x,type,reset) {
 }
 
 function listAsByDate(month,day) {
-    var totalCt = 0;
+    var totalCt = 0; var asNames = []; var asNamesCt = [];
     for (let i = 0; i < _sl.length; i++) {
         for (let j = 0; j < _asMaxPts.length; j++) {
             if (_sl[i].as[j][1] == assignDn(month,day)) {
+                if (asNames.includes(_asNames[j]) === false) {
+                    asNames.push(_asNames[j]); asNamesCt[asNamesCt.length] = 1;
+                } else {
+                    asNamesCt[asNames.indexOf(_asNames[j])]++
+                }
                 console.log(_sl[i].name[0] + ": " + _asNames[j]);
                 totalCt++;
             }
         }
     }
-    console.log("**********"+"\n\n"+"Total sheets turned in: " + totalCt);
+    console.log("**********"+"\n"+"Total sheets turned in: " + totalCt);
+    for (let i = 0; i < asNames.length; i++) {
+        console.log(asNames[i] + ": " + asNamesCt[i])
+    }
 }
 
 /*

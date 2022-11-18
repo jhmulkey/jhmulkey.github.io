@@ -983,13 +983,13 @@ function asPop(asNum,pts) {
     innerHTML("asDateDue",cdn(_dns[asNum+1],"word"));
     innerHTML("asPtsEarned",_sl[_ci].as[_asNum][0]+"/"+_asMaxPts[_asNum]);
     if (_sl[_ci].as[_asNum][0] == _asMaxPts[_asNum]) {
-        innerHTML("asCompletionStatus","COMPLETED");
+        innerHTML("asCompletionStatus","COMPLETE");
         color("asCompletionStatus","lawnGreen");
     } else if (_sl[_ci].as[_asNum][0] == 0) {
-        innerHTML("asCompletionStatus","NOT TURNED IN");
+        innerHTML("asCompletionStatus","INCOMPLETE");
         color("asCompletionStatus","red"); 
     } else {
-        innerHTML("asCompletionStatus","PARTIAL CREDIT");
+        innerHTML("asCompletionStatus","PARTIALLY COMPLETE");
         color("asCompletionStatus","orange");
     }
     if (_sl[_ci].as[_asNum][0] > 0) {
@@ -1015,13 +1015,13 @@ function mvPop(mvNum,pts) {
     innerHTML("mvDateDue",cdn(_dns[mvNum+1],"word"));
     innerHTML("mvPtsEarned",_sl[_ci].mv[_mvNum][0]+"/"+_mvMaxPts[_mvNum]);
     if (_sl[_ci].mv[_mvNum][0] == _mvMaxPts[_mvNum]) {
-        innerHTML("mvCompletionStatus","COMPLETED");
+        innerHTML("mvCompletionStatus","COMPLETE");
         color("mvCompletionStatus","lawnGreen");
     } else if (_sl[_ci].mv[_mvNum][0] == 0) {
-        innerHTML("mvCompletionStatus","NOT RECITED");
+        innerHTML("mvCompletionStatus","INCOMPLETE");
         color("mvCompletionStatus","red");
     } else {
-        innerHTML("mvCompletionStatus","PARTIAL CREDIT");
+        innerHTML("mvCompletionStatus","PARTIALLY COMPLETE");
         color("mvCompletionStatus","orange");
     }
     if (_sl[_ci].mv[_mvNum][1] == 0) {
