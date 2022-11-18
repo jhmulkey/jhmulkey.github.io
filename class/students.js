@@ -1,4 +1,4 @@
-var _alert = false; 
+var _alert = false;
 var _sl = []; var _ci; var _ti; var _currentStudent;
 var _totalASpts; var _totalMVpts; var _totalPts; var _totalPossible;
 var _earnedASpts; var _earnedMVpts; var _totalEarnedPts; var _weeksAttended; var _totalEarned;
@@ -14,20 +14,12 @@ var _todaysDn
 var _ew;
 var _isClassDay;
 var _weeksOff = 0;
-var _bdList = []; var _promoList = [];
-var _noteIndex;
-var _teacherNotes = [];
-var _teacherNoteIndex;
 var _log = ""; var _gameLog = ""; 
 var _currentPop = "mainPop"; var _currentPops; var _currentPops2; var _array;
 var _populateNotesID = [];
 var _focus;
 var _currentFunction; var _currentParameter;
-var _eligibleRandom;
-var _teams = [];
-var _dataInputParameter;
-var _att = [];
-var _pwd = []; var _backupIndex;
+var _backupIndex;
 var _currentMainMenuIndex;
 var _rankNamesShort = ["PVT","PFC","CPL","SGT","SSG","SFC","MSG","SGM","CSM","2LT","1LT","CPT","MAJ","LTC","COL","BG","MG","LTG","GEN","GOA"];
 var _rankNames = ["Private","Private First Class","Corporal","Sergeant","Staff Sergeant","Sergeant First Class","Master Sergeant","Sergeant Major","Command Sergeant Major","Second Lieutenant","First Lieutenant","Captain","Major","Lieutenant Colonel","Colonel","Brigadier General","Major General","Lieutenant General","General","General of the Army"];
@@ -134,8 +126,6 @@ function getLastUpdateTime() {
 
 function loadBackup() {
     _sl = JSON.parse(localStorage.getItem("slBackup"));
-    _att = JSON.parse(localStorage.getItem("attBackup"));
-    _teacherNotes = JSON.parse(localStorage.getItem("teacherNotesBackup"));
     _promoList = []; _bdList = [];
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].randDraw[0] = false;
@@ -1503,12 +1493,14 @@ function passThruAlert(currentPop,currentFunction,mssg) {
 
 function alertMssg() {
     var timeWord = "Next Sunday"; var holidays = []; var dayOf = [];
+    //holidays contains the dns of the weeks BEFORE the holiday
+    //dayOf contains the dns of the actual holidays
     for (let i = 0; i < _dns.length; i++) {
         if (_dns[i] - _dns[i+1] < -7) {
             holidays.push(_dns[i]); dayOf.push(_dns[i]+7);
         }
     }
-    dayOf.push(holidays[1]+14,holidays[2]+14);
+    dayOf.push(holidays[1]+14,holidays[2]+14); // adds the additional holiday dn for the 2-week holidays
     if (_todaysDn == holidays[0]+7 || _todaysDn == holidays[1]+7 || _todaysDn == holidays[1]+14 || _todaysDn == holidays[2]+7 || _todaysDn == holidays[2]+14 || _todaysDn == holidays[3]+7 || _todaysDn == holidays[3]+14) {timeWord = "Today"}
     var laborDay = timeWord+" ("+cdn(holidays[0]+7,"word")+") is a \"Family Worship Sunday\", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on "+cdn(holidays[0]+14,"word")+"!";
     var annivThanks1 = timeWord+" ("+cdn(holidays[1]+7,"word")+") and the following Sunday ("+cdn(holidays[1]+14,"word")+") are \"Family Worship Sundays\", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on "+cdn(holidays[1]+21,"word")+"!";

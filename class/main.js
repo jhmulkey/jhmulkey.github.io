@@ -3856,4 +3856,17 @@ function showMaxPts(x,type,reset) {
     }
 }
 
+function listAsByDate(month,day) {
+    var totalCt = 0;
+    for (let i = 0; i < _sl.length; i++) {
+        for (let j = 0; j < _asMaxPts.length; j++) {
+            if (_sl[i].as[j][1] == assignDn(month,day)) {
+                console.log(_sl[i].name[0] + ": " + _asNames[j]);
+                totalCt++;
+            }
+        }
+    }
+    console.log("**********"+"\n\n"+"Total sheets turned in: " + totalCt);
+}
+
 assignTodaysDn(); whatToLoad();
