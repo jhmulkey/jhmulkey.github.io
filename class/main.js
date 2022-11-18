@@ -3869,4 +3869,14 @@ function listAsByDate(month,day) {
     console.log("**********"+"\n\n"+"Total sheets turned in: " + totalCt);
 }
 
+/*
+
+localStorage.setItem("sl",JSON.stringify(_sl)); // converts the _sl object to a string and stores as "sl" in localStorage
+_sl = JSON.parse(localStorage.getItem("sl")) // parses the localStorage string "sl" into an object and assigns its value to _sl
+
+localStorage.setItem("log",_log); // stores the html <p> element _log as "log" in localStorage
+_log = localStorage.getItem("log"); // retrieves "log" from localStorage and assigns its value to _log
+
+*/
+
 assignTodaysDn(); whatToLoad();
