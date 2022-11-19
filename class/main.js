@@ -180,6 +180,7 @@ function createElement(elementName) {
 }
 
 function whatToLoad() {
+    disableAtt();
     if (!localStorage.getItem("sl") && !localStorage.getItem("slBackup")) {
         infoAlert("No data",["mainPop"]);
     } else if (!localStorage.getItem("sl") && localStorage.getItem("slBackup")) {
@@ -198,7 +199,6 @@ function loadBackup() {
     for (let i = 0; i < _sl.length; i++) {
         _sl[i].randDraw[0] = false;
     }
-    if (_isClassDay) { disableAtt(); }
     clearAttendees(); clearPromos(); populateReminders(); findAllBds(); storeAndBackup(); goHome();
 }
 
@@ -2129,9 +2129,7 @@ function asPts(_asNum,x) {
             _sl[_ci].as[_asNum][0] = x;
         }
         if (asPts == x) {
-            if (_sl[_ci].as[_asNum][1] == _todaysDn) {
-                _sl[_ci].as[_asNum][1] = 0;
-            }
+            _sl[_ci].as[_asNum][1] = 0;
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
@@ -2200,9 +2198,7 @@ function mvPts(_mvNum,x) {
             _sl[_ci].mv[_mvNum][0] = x;
         }
         if (mvPts == x) {
-            if (_sl[_ci].mv[_mvNum][1] == _todaysDn) {
-                _sl[_ci].mv[_mvNum][1] = 0;
-            }
+            _sl[_ci].mv[_mvNum][1] = 0;
             if ((totalPts - ((rankNum + rankFactor) * 10)) - x < 0) {
                 promoStatus = -1;
             }
@@ -3866,7 +3862,7 @@ function listAsByDate(month,day) {
                 } else {
                     asNamesCt[asNames.indexOf(_asNames[j])]++
                 }
-                console.log(_sl[i].name[0] + ": " + _asNames[j]);
+                console.log(_sl[i].name[0] + ": " + _asNames[j] + " (" + _sl[i].as[j][0] + "/" + _asMaxPts[j] + ")");
                 totalCt++;
             }
         }
@@ -3874,6 +3870,48 @@ function listAsByDate(month,day) {
     console.log("**********"+"\n"+"Total sheets turned in: " + totalCt);
     for (let i = 0; i < asNames.length; i++) {
         console.log(asNames[i] + ": " + asNamesCt[i])
+    }
+}
+
+function listMvByDate(month,day) {
+    var totalCt = 0; var mvNames = []; var mvNamesCt = [];
+    for (let i = 0; i < _sl.length; i++) {
+        for (let j = 0; j < _mvMaxPts.length; j++) {
+            if (_sl[i].mv[j][1] == assignDn(month,day)) {
+                if (mvNames.includes(_mvNames[j]) === false) {
+                    mvNames.push(_mvNames[j]); mvNamesCt[mvNamesCt.length] = 1;
+                } else {
+                    mvNamesCt[mvNames.indexOf(_mvNames[j])]++
+                }
+                console.log(_sl[i].name[0] + ": " + _mvNames[j] + " (" + _sl[i].mv[j][0] + "/" + _mvMaxPts[j] + ")");
+                totalCt++;
+            }
+        }
+    }
+    console.log("**********"+"\n"+"Total verses recited: " + totalCt);
+    for (let i = 0; i < mvNames.length; i++) {
+        console.log(mvNames[i] + ": " + mvNamesCt[i])
+    }
+}
+
+function listPromosByDate(month,day) {
+    var totalCt = 0; var promoNames = []; var promoNamesCt = [];
+    for (let i = 0; i < _sl.length; i++) {
+        for (let j = 0; j < _rankNames.length; j++) {
+            if (_sl[i].promoDns[j] == assignDn(month,day)) {
+                if (promoNames.includes(_rankNamesShort[j]) === false) {
+                    promoNames.push(_rankNamesShort[j]); promoNamesCt[promoNamesCt.length] = 1;
+                } else {
+                    promoNamesCt[promoNames.indexOf(_rankNamesShort[j])]++
+                }
+                console.log(_sl[i].name[0] + ": " + _rankNamesShort[j]);
+                totalCt++;
+            }
+        }
+    }
+    console.log("**********"+"\n"+"Total promotions: " + totalCt);
+    for (let i = 0; i < promoNames.length; i++) {
+        console.log(promoNames[i] + ": " + promoNamesCt[i])
     }
 }
 

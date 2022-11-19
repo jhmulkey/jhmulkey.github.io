@@ -1,4 +1,4 @@
-var _alert = false;
+var _alert = false; var _alertTitle;
 var _sl = []; var _ci; var _ti; var _currentStudent;
 var _totalASpts; var _totalMVpts; var _totalPts; var _totalPossible;
 var _earnedASpts; var _earnedMVpts; var _totalEarnedPts; var _weeksAttended; var _totalEarned;
@@ -970,7 +970,7 @@ function goHome() {
         pops[i].style.display = "none";
         display("mainPop","block");
     }
-    resetMainMenu();
+    resetMainMenu(); alertMssg();
     _currentPop = "mainPop";
     value("searchField","");
     idFocus("searchField");
@@ -1491,7 +1491,14 @@ function passThruAlert(currentPop,currentFunction,mssg) {
     pop([_currentPop],["passThruAlertPop"]);
 }
 
+function alertChoice() {
+    if (document.getElementById("dontShowCheck").checked) {
+        localStorage.setItem("alertChoice",_alertTitle);
+    }
+}
+
 function alertMssg() {
+    var choice = localStorage.getItem("alertChoice");
     var timeWord = "Next Sunday"; var holidays = []; var dayOf = [];
     //holidays contains the dns of the weeks BEFORE the holiday
     //dayOf contains the dns of the actual holidays
@@ -1509,18 +1516,20 @@ function alertMssg() {
     var christmasNew2 = timeWord+" ("+cdn(holidays[2]+14,"word")+") is a \"Family Worship Sunday\", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on "+cdn(holidays[2]+21,"word")+"!";
     var easter = timeWord+" ("+cdn(holidays[3]+7,"word")+") is a \"Family Worship Sunday\", meaning that K5-6th grade kids will remain with their families during the worship service; Kidstuff and Treehouse will not meet. We'll see you all back in the Kidstuff hallways on "+cdn(holidays[3]+14,"word")+"!";
     if (_todaysDn >= holidays[0] && _todaysDn <= holidays[0]+7) {
-        _alert = true; innerHTML("alertMssg",laborDay);
+        _alert = true; innerHTML("alertMssg",laborDay); _alertTitle = "laborDay";
     } else if (_todaysDn >= holidays[1] && _todaysDn <= holidays[1]+7) {
-        _alert = true; innerHTML("alertMssg",annivThanks1);
+        _alert = true; innerHTML("alertMssg",annivThanks1); _alertTitle = "annivThanks";
     } else if (_todaysDn > holidays[1]+7 && _todaysDn <= holidays[1]+14) {
-        _alert = true; innerHTML("alertMssg",annivThanks2);
+        _alert = true; innerHTML("alertMssg",annivThanks2); _alertTitle = "annivThanks";
     } else if (_todaysDn >= holidays[2] && _todaysDn <= holidays[2]+7) {
-        _alert = true; innerHTML("alertMssg",christmasNew1);
+        _alert = true; innerHTML("alertMssg",christmasNew1); _alertTitle = "christmasNew";
     } else if (_todaysDn > holidays[2]+7 && _todaysDn <= holidays[2]+14) {
-        _alert = true; innerHTML("alertMssg",christmasNew2);
+        _alert = true; innerHTML("alertMssg",christmasNew2); _alertTitle = "christmasNew";
     } else if (_todaysDn >= holidays[3] && _todaysDn <= holidays[3]+7) {
-        _alert = true; innerHTML("alertMssg",easter);
+        _alert = true; innerHTML("alertMssg",easter); _alertTitle = "easter";
     }
+    console.log(choice); console.log(_alertTitle);
+    if (choice == _alertTitle) { _alert = false }
 }
 
 loadBackup();
