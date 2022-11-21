@@ -2361,7 +2361,7 @@ function studentMenuSwitch(x) {
             allPops[i].style.display = "none";
         }
     }
-    scrollTo(0,0);
+    scrollToFix();
 }
 
 function asLinks() {
@@ -2387,7 +2387,7 @@ function pop(closeArray,openArray,title) {
             display(openArray[i],"block");
         }    
     }
-    scrollTo(0,0);
+    scrollToFix();
 }
 
 function logPop() {
@@ -2455,7 +2455,7 @@ function goHome() {
     var pops = document.getElementsByClassName("pop");
     for (let i = 0; i < pops.length; i++) {
         pops[i].style.display = "none";
-        display("mainPop","block");
+        display("mainPop","block"); scrollToFix();
     }
     value("searchMain","");
     idFocus("searchMain");
@@ -2503,7 +2503,7 @@ function asPop(asNum,pts) {
         }
     }
     asLateCheck();
-    scrollTo(0,0);
+    scrollToFix();
 }
 
 function asLateCheck() {
@@ -2570,7 +2570,7 @@ function mvPop(mvNum,pts) {
         }
     }
     mvLateCheck();
-    scrollTo(0,0);
+    scrollToFix();
 }
 
 function mvLateCheck() {
@@ -3185,6 +3185,10 @@ function loadPhoto() {
     }
     xhr.send(null);
 } */
+
+function scrollToFix() {
+    scrollTo(0,0); scrollTo(0,1); scrollTo(0,0);
+} 
 
 function loadRankTable() {
     pop(["studentStatsPop"],["rankChartPop"]);
