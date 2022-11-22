@@ -104,6 +104,10 @@ function border(id,px,type,color,padding) {
     document.getElementById(id).style.padding = padding;
 }
 
+function scrollToFix() {
+    scrollTo(0,0); scrollTo(0,1); scrollTo(0,0);
+}
+
 function getLastUpdateTime() {
     var x = new Date(document.lastModified); var hours; var ampm;
     if (x.getHours() >= 12) {
@@ -874,7 +878,7 @@ function studentMenuSwitch(x) {
             allPops[i].style.display = "none";
         }
     }
-    window.scrollTo(0,0);
+    scrollToFix();
 }
 
 function mainMenuSwitch(x) {
@@ -903,7 +907,7 @@ function mainMenuSwitch(x) {
             allPops[i].style.display = "none";
         }
     }
-    window.scrollTo(0,0);
+    scrollToFix();
 }
 
 function asLinks() {
@@ -961,7 +965,7 @@ function pop(closeArray,openArray,title) {
     if (openArray.includes("customSortListPop")) {
         innerHTML("customSortListLabel",title);
     }
-    window.scrollTo(0,0);
+    scrollToFix();
 }
 
 function goHome() {
@@ -1315,7 +1319,7 @@ function loadRankTable() {
             document.getElementById("rankChartRow"+i).style.border = "1px solid white";
         }
     }
-    window.scrollTo(0,0);
+    scrollToFix();
 }
 
 function openInsignia() {
