@@ -2458,7 +2458,7 @@ function goHome() {
         display("mainPop","block");
     }
     value("searchMain","");
-    idFocus("searchMain");
+    //idFocus("searchMain");
     sortSL(); populateNames(); allAlerts(); scrollToFix();
 }
 
