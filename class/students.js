@@ -977,7 +977,7 @@ function goHome() {
     resetMainMenu(); alertMssg();
     _currentPop = "mainPop";
     value("searchField","");
-    idFocus("searchField");
+    //idFocus("searchField");
 }
 
 function asPop(asNum,pts) {
