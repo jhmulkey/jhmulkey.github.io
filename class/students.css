@@ -69,7 +69,7 @@ a:active, a:hover {
     color: #aaa
 }
 
-/* *::-webkit-scrollbar { width: 0 !important } */
+*::-webkit-scrollbar { width: 0 !important }
 
 #currentMissionsPop, #alertPop, #initialMissionsNote, #tpPop, #asPointsPop, #mvPointsPop, #participationPop, #resourcesPop, #calendarPop, #studentAttStatsPop, #rankChartPop, #studentStatsPop, #infoAlertPop, #missionsPop, #mvPtsPop, #asPtsPop, #promoPop, #studentPop, #missionsPop2, #helpPop, #currentMissionsPop2 {
     display: none;
