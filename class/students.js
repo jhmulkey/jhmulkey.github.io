@@ -105,8 +105,8 @@ function border(id,px,type,color,padding) {
 }
 
 function scrollToFix() {
-    scrollTo(0,0); scrollTo(0,1); scrollTo(0,0);
-}
+    window.scrollTo(0,0); window.scrollTo(0,1); window.scrollTo(0,0);
+} 
 
 function getLastUpdateTime() {
     var x = new Date(document.lastModified); var hours; var ampm;
@@ -1532,7 +1532,6 @@ function alertMssg() {
     } else if (_todaysDn >= holidays[3] && _todaysDn <= holidays[3]+7) {
         _alert = true; innerHTML("alertMssg",easter); _alertTitle = "easter";
     }
-    console.log(choice); console.log(_alertTitle);
     if (choice == _alertTitle) { _alert = false }
 }
 

@@ -2455,11 +2455,11 @@ function goHome() {
     var pops = document.getElementsByClassName("pop");
     for (let i = 0; i < pops.length; i++) {
         pops[i].style.display = "none";
-        display("mainPop","block"); scrollToFix();
+        display("mainPop","block");
     }
     value("searchMain","");
     idFocus("searchMain");
-    sortSL(); populateNames(); allAlerts();
+    sortSL(); populateNames(); allAlerts(); scrollToFix();
 }
 
 function asPop(asNum,pts) {
@@ -3187,7 +3187,7 @@ function loadPhoto() {
 } */
 
 function scrollToFix() {
-    scrollTo(0,0); scrollTo(0,1); scrollTo(0,0);
+    window.scrollTo(0,0); window.scrollTo(0,1); window.scrollTo(0,0);
 } 
 
 function loadRankTable() {
