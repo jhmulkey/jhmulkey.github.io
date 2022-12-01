@@ -13,7 +13,7 @@
 <div id="mainPop" class="pop" style="padding-bottom:0px;">
   <p style="font-size:20px">Enter your child's last name or PIN below</p>
   <div id="searchFieldContainerDiv">
-    <input id="searchField" type="text" placeholder="enter last name or PIN" oninput="pinAutoEnter()" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
+    <input id="searchField" type="text" placeholder="enter last name or PIN" onclick="this.select();" oninput="pinAutoEnter()" onkeydown="if(event.keyCode==13)document.getElementById('submitButton').click()"/>
     <div id="submitButton" class="ptr" onclick="findStudent()">S</div>
   </div>
   <p id="lastUpdated" style="color:#ddd"></p>
