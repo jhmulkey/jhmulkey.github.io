@@ -2507,7 +2507,7 @@ function asPop(asNum,pts) {
 }
 
 function asLateCheck() {
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= _asMaxPts[_asNum]; i++) {
         color("as"+i+"Pts","white");
         if (i == _sl[_ci].as[_asNum][0]) {
             bgColor("as"+i+"Pts","#3478F6")
@@ -2574,8 +2574,8 @@ function mvPop(mvNum,pts) {
 }
 
 function mvLateCheck() {
-    for (let i = 1; i <= 6; i++) {
-        color("as"+i+"Pts","white");
+    for (let i = 1; i <= _mvMaxPts[_mvNum]; i++) {
+        color("mv"+i+"Pts","white");
         if (i == _sl[_ci].mv[_mvNum][0]) {
             bgColor("mv"+i+"Pts","#3478F6")
         } else {
@@ -2598,7 +2598,7 @@ function mvLateCheck() {
             color("mv"+(_mvMaxPts[_mvNum]-1)+"Pts","#333");
         }
     }
-}
+} // _dns[_mvNum+1] is the due date dn of the verse in question
 
 function populateNames() {
     innerHTML("nameList","");
