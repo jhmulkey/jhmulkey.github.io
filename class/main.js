@@ -2527,7 +2527,9 @@ function asLateCheck() {
     }
     if (_sl[_ci].as[_asNum][0] != (_asMaxPts[_asNum]-1) && _sl[_ci].as[_asNum][0] != _asMaxPts[_asNum]) {
         if ((_todaysDn - _dns[_asNum+1]) > (126 + offset)) {
+            bgColor("as"+_asMaxPts[_asNum]+"Pts","#222");
             bgColor("as"+(_asMaxPts[_asNum]-1)+"Pts","#222");
+            color("as"+_asMaxPts[_asNum]+"Pts","#333");
             color("as"+(_asMaxPts[_asNum]-1)+"Pts","#333");
         }
     }
@@ -2594,7 +2596,9 @@ function mvLateCheck() {
     }
     if (_sl[_ci].mv[_mvNum][0] != (_mvMaxPts[_mvNum]-1) && _sl[_ci].mv[_mvNum][0] != _mvMaxPts[_mvNum]) {
         if ((_todaysDn - _dns[_mvNum+1]) > (126 + offset)) {
+            bgColor("mv"+_mvMaxPts[_mvNum]+"Pts","#222");
             bgColor("mv"+(_mvMaxPts[_mvNum]-1)+"Pts","#222");
+            color("mv"+_mvMaxPts[_mvNum]+"Pts","#333");
             color("mv"+(_mvMaxPts[_mvNum]-1)+"Pts","#333");
         }
     }
