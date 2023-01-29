@@ -2624,6 +2624,7 @@ function populateNames() {
         })(i);
         var span2 = createElement("span");
         var span3 = createElement("span");
+        var span4 = createElement("span");
         if (_sl[i].att) {
             span3.style.color = "lawnGreen";
         } else {
@@ -2632,13 +2633,16 @@ function populateNames() {
         p1.classList.add("name");
         span2.innerHTML = "&nbsp;&nbsp;"
         span3.classList.add("nameSpan");
+        span4.style.color = "#BBB";
+        span4.style.fontSize = "15px";
         (function(i){
             span3.onclick = function () {
                 loadStudent(i); _array = "loadStudent";
             }
         })(i);
         span3.innerHTML = _sl[i].name[0];
-        p1.append(span1,span2,span3);
+        span4.innerHTML = " " + _sl[i].pts;
+        p1.append(span1,span2,span3,span4);
         append("nameList",p1);
     }
     var p2 = createElement("p");
