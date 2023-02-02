@@ -815,7 +815,7 @@ function loadStudent(index) {
 
 function loadPopText() {
 
-    innerHTML("rankChartPopText",_firstName+" has earned "+_sl[_ci].rank[0]+" out of 19 possible promotions ("+_rankPercentage+"%). "+_possPron+" current rank is highlighted in <span class='lg'>green</span> below. Note that certain promotions (2LT, BG, and GOA) require more points than others. If the date is blank, that means they have qualified for that rank but have not been officially promoted in class yet.");
+    innerHTML("rankChartPopText",_firstName+" has earned "+_sl[_ci].rank[0]+" out of 19 possible promotions ("+_rankPercentage+"%). "+_possPron+" current rank is highlighted in <span class='lg'>green</span> below. Note that certain promotions (2LT, BG, and GOA) require more points than others. The date is when they were offcially promoted in class");
 
     innerHTML("tpPopText",_firstName+" has earned "+_totalEarnedPts+" out of "+_totalPts+" possible points for all missions ("+_totalPtsPercentage+"%). To see the completion status of all "+_firstName+"'s assigned missions, click the <span class='do'>MISSIONS</span> tab above.<br><br><span class='colorCode' style='background-color:green'></span> Completed missions are green<br><br><span class='colorCode' style='background-color:darkorange'></span> Partially completed missions are orange<br><br><span class='colorCode' style='background-color:black'></span> Incomplete missions are black");
     
