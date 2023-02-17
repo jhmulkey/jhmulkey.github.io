@@ -3870,6 +3870,27 @@ function listAsByDate(month,day) {
     }
 }
 
+function listAllAs() {
+    var totalCt = 0; var asNames = []; var asNamesCt = [];
+    for (let i = 0; i < _sl.length; i++) {
+        for (let j = 0; j < _asMaxPts.length; j++) {
+            if (_sl[i].as[j][1] > 0 && _sl[i].as[j][1] <= _dns[_ti]) {
+                if (asNames.includes(_asNames[j]) === false) {
+                    asNames.push(_asNames[j]); asNamesCt[asNamesCt.length] = 1;
+                } else {
+                    asNamesCt[asNames.indexOf(_asNames[j])]++
+                }
+                console.log(_sl[i].name[0] + ": " + _asNames[j] + " (" + _sl[i].as[j][0] + "/" + _asMaxPts[j] + ")");
+                totalCt++;
+            }
+        }
+    }
+    console.log("**********"+"\n"+"Total sheets turned in: " + totalCt + " (Average: " + Math.round(totalCt/_ew) + "/week)");
+    for (let i = 0; i < asNames.length; i++) {
+        console.log(asNames[i] + ": " + asNamesCt[i])
+    }
+}
+
 function listMvByDate(month,day) {
     var totalCt = 0; var mvNames = []; var mvNamesCt = [];
     for (let i = 0; i < _sl.length; i++) {
@@ -3886,6 +3907,27 @@ function listMvByDate(month,day) {
         }
     }
     console.log("**********"+"\n"+"Total verses recited: " + totalCt);
+    for (let i = 0; i < mvNames.length; i++) {
+        console.log(mvNames[i] + ": " + mvNamesCt[i])
+    }
+}
+
+function listAllMv() {
+    var totalCt = 0; var mvNames = []; var mvNamesCt = [];
+    for (let i = 0; i < _sl.length; i++) {
+        for (let j = 0; j < _mvMaxPts.length; j++) {
+            if (_sl[i].mv[j][1] > 0 && _sl[i].mv[j][1] <= _dns[_ti]) {
+                if (mvNames.includes(_mvNames[j]) === false) {
+                    mvNames.push(_mvNames[j]); mvNamesCt[mvNamesCt.length] = 1;
+                } else {
+                    mvNamesCt[mvNames.indexOf(_mvNames[j])]++
+                }
+                console.log(_sl[i].name[0] + ": " + _mvNames[j] + " (" + _sl[i].mv[j][0] + "/" + _mvMaxPts[j] + ")");
+                totalCt++;
+            }
+        }
+    }
+    console.log("**********"+"\n"+"Total verses recited: " + totalCt + " (Average: " + Math.round(totalCt/_ew) + "/week)");
     for (let i = 0; i < mvNames.length; i++) {
         console.log(mvNames[i] + ": " + mvNamesCt[i])
     }
