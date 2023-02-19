@@ -2626,7 +2626,7 @@ function populateNames() {
             }
         })(i);
         span3.innerHTML = _sl[i].name[0];
-        span4.innerHTML = " " + _sl[i].pts;
+        span4.innerHTML = " " + _sl[i].pts + " " + _rankNamesShort[_sl[i].rank[0]];
         p1.append(span1,span2,span3,span4);
         append("nameList",p1);
     }
