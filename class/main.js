@@ -2458,7 +2458,7 @@ function goHome() {
         display("mainPop","block");
     }
     value("searchMain","");
-    //idFocus("searchMain");
+    idFocus("searchMain");
     sortSL(); populateNames(); allAlerts(); scrollToFix();
 }
 
@@ -2639,7 +2639,7 @@ function populateNames() {
     p2.innerHTML = "Add New Student";
     append("nameList",p2);
     value("searchMain","");
-    //idFocus("searchMain");
+    idFocus("searchMain");
 }
 
 function generateRankTable() {
