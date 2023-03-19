@@ -72,18 +72,9 @@
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="pop(['currentMissionsPop'],['mainPop'])"><span>f</span></div>
   </div>
-    <p id="passThruAlertMssg" style="text-align:center;margin-top:35px;">Please choose which missions<br>you wish to download:</p>
-    <div class="currentMissionsButton ptr" style="margin-top:35px" onclick="downloadCurrentMissions(true)">MISSIONS THAT ARE<br>DUE TODAY</div>
-    <div class="currentMissionsButton ptr" style="margin-top:35px" onclick="downloadCurrentMissions(false)">NEW MISSIONS<br>(not due yet)</div>
-</div>
-
-<div id="currentMissionsPop2" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['currentMissionsPop2'],['missionsPop'])"><span>f</span></div>
-  </div>
-    <p id="passThruAlertMssg" style="text-align:center;margin-top:35px;">Since today is a new class day, please choose which missions you wish to download:</p>
-    <div class="currentMissionsButton ptr" style="margin-top:35px" onclick="downloadCurrentMissions(true)">LAST WEEK'S MISSIONS<br>(DUE TODAY)</div>
-    <div class="currentMissionsButton ptr" style="margin-top:35px" onclick="downloadCurrentMissions(false)">NEW MISSIONS<br>(ASSIGNED TODAY)</div>
+    <!-- <p id="passThruAlertMssg" style="text-align:center;margin-top:35px;">Please choose which missions<br>you wish to download:</p> -->
+    <div class="currentMissionsButton ptr" style="margin-top:35px" onclick="downloadCurrentMissions(true)">DOWNLOAD MISSIONS<br>THAT ARE DUE TODAY</div>
+    <div class="ptr" style="margin-top:35px;text-decoration:underline;" onclick="downloadCurrentMissions(false)">If your child is going to miss class today, click here to download the new missions that were handed out.  These should not be turned in until next week.</div>
 </div>
 
 <div id="studentStatsPop" class="pop">
