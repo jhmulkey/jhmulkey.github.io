@@ -180,7 +180,6 @@ function createElement(elementName) {
 }
 
 function whatToLoad() {
-    disableAtt();
     if (!localStorage.getItem("sl") && !localStorage.getItem("slBackup")) {
         infoAlert("No data",["mainPop"]);
     } else if (!localStorage.getItem("sl") && localStorage.getItem("slBackup")) {
