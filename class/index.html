@@ -10,17 +10,20 @@
 <body>
 <div id="master-wrapper">
 
-<div id="mainPop" class="pop">
-    <div id="topMenuContainer">
-        <div id="mainMenuButton" class="roundButton2 ptr" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
-        <div id="alertButton" class="roundButton2 ptr" onclick="alertsPop()">#</div>
-        <div id="lockButton" class="roundButton2 ptr" onclick="disableAtt()">K</div>
-        <!-- <div id="allergiesButton" class="roundButton2 ptr" style="padding-top:6px" onclick="allergiesPop()">A</div> -->
-        <div id="attCountButton" class="roundButton2 ptr" onclick="loadAttendees()">0</div>
-        <div id="logButton" class="roundButton2 ptr" onclick="logPop()">F</div>
-        <div id="backupButton" class="roundButton2 ptr" onclick="populateBackup()">B</div>
+<div id="mainPop" class="pop" style="padding-top:0px">
+    <div style="padding:0px;height:20px;background-color:#111;position:sticky;top:0px"></div>
+    <div style="position:sticky;top:20px;background-color:#111;">
+      <div id="topMenuContainer">
+          <div id="mainMenuButton" class="roundButton2 ptr" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
+          <div id="alertButton" class="roundButton2 ptr" onclick="alertsPop()">#</div>
+          <div id="lockButton" class="roundButton2 ptr" onclick="disableAtt()">K</div>
+          <!-- <div id="allergiesButton" class="roundButton2 ptr" style="padding-top:6px" onclick="allergiesPop()">A</div> -->
+          <div id="attCountButton" class="roundButton2 ptr" onclick="loadAttendees()">0</div>
+          <div id="logButton" class="roundButton2 ptr" onclick="logPop()">F</div>
+          <div id="backupButton" class="roundButton2 ptr" onclick="populateBackup()">B</div>
+      </div>
+      <input id="searchMain" class="searchField" type="text" placeholder="search names" onclick="this.select();" oninput="searchNamesMain()"/>
     </div>
-    <input id="searchMain" class="searchField" type="text" placeholder="search names" onclick="this.select();" oninput="searchNamesMain()"/>
     <div id="nameList"></div>
 </div>
 
