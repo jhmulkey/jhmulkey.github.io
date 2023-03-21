@@ -104,7 +104,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #nameList {
-    height: 600px;
+    /* height: 600px; */
     overflow-y: auto;
     background-color: black;
     border: 2px solid #222;

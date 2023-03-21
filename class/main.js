@@ -3181,10 +3181,16 @@ function loadPhoto() {
 
 function scrollToFix() {
     window.scrollTo(0,0); window.scrollTo(0,1); window.scrollTo(0,0);
-} 
+}
 
 function loadRankTable() {
-    pop(["studentStatsPop"],["rankChartPop"]);
+    var ids = ["missionsPop","studentStatsPop","editStudentPop","notesPop"];
+    for (let i = 0; i < ids.length; i++) {
+        if (document.getElementById(ids[i]).style.display == "block") {
+            document.getElementById(ids[i]).style.display = "none"
+        }
+        display("rankChartPop","block")
+    }
     for (let i = 0; i < _rankNames.length; i++) {
         let x; x = i;
         document.getElementById("rankChartInsignia"+i).style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
@@ -3198,7 +3204,7 @@ function loadRankTable() {
             document.getElementById("rankChartRow"+i).style.border = "1px solid white";
         }
     }
-    document.getElementById("rankChartContainer").scrollTop = 0;
+    scrollToFix();
 }
 
 function openInsignia() {
