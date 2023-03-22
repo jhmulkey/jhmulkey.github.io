@@ -2638,9 +2638,7 @@ function populateNames() {
     p2.innerHTML = "Add New Student";
     append("nameList",p2);
     value("searchMain","");
-    setTimeout(() => {
-        document.getElementById("searchMain").focus();
-      }, 500);
+    idFocus("searchMain");
     }
 
 function generateRankTable() {
