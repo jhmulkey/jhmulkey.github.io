@@ -2638,8 +2638,10 @@ function populateNames() {
     p2.innerHTML = "Add New Student";
     append("nameList",p2);
     value("searchMain","");
-    idFocus("searchMain");
-}
+    setTimeout(() => {
+        document.getElementById("searchMain").focus();
+      }, 500);
+    }
 
 function generateRankTable() {
     for (let i = 0; i < 20; i++) {
