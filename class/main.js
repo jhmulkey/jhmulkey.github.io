@@ -2612,6 +2612,7 @@ function populateNames() {
                     document.getElementById(id).style.backgroundColor = "lawngreen";
                 } else {
                     document.getElementById(id).style.color = "#222";
+                    document.getElementById(id).style.backgroundColor = "black";
                 }
                 setTimeout(() => {
                     populateNames();
