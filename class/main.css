@@ -388,8 +388,13 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #attCount, #attArchiveCount {
-    font-size: 50px;
-    margin: 0px;
+    font-size: 75px;
+    color: lawngreen;
+    margin: 0px auto;
+    height: 100px;
+    width: 100px;
+    border: 2px solid lawngreen;
+    border-radius: 50px;
 }
 
 #popButtons div {
@@ -494,7 +499,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .name2 {
-    margin: 10px auto;
+    margin: 20px auto;
     font-size: 30px;
 }
 
@@ -528,7 +533,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #team1ListDiv, #team2ListDiv, #boysListAttDiv, #girlsListAttDiv, #boysArchiveListAttDiv, #girlsArchiveListAttDiv {
-    width: 190px;
+    width: 300px;
 }
 
 #team1ListDiv, #boysListDiv, #boysArchiveListDiv {
@@ -954,16 +959,17 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #studentPopRankName {
-    margin: 0px 0px 15px 0px;
+    margin: 10px 0px 25px 0px;
 }
 
 #studentPopName {
     margin: 15px auto;
+    font-size: 40px !important;
 }
 
 #studentPopPts {
-    font-size: 50px;
-    margin: 15px auto;
+    font-size: 60px;
+    margin: 30px auto;
 }
 
 #studentProperties span {

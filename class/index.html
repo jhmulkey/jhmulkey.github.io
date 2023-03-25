@@ -230,9 +230,11 @@
   </div>
   <div id="studentPopTopContainerDiv">
     <div id="studentPopInsignia" class="ptr" onclick="loadRankTable();resetStudentMenu();"></div>
-    <div id="studentPopInfo">
+    <div id="studentRankAndName" class="ptr" onclick="resetStudentMenu();">
       <p id="studentPopRankName"></p>
       <p id="studentPopName" class="ptr" onclick="toggleAtt()"></p>
+    </div>
+    <div id="studentPopInfo">
       <p id="studentPopPts" class="ptr" onclick="populateStudentProperties(); studentMenuSwitch(4)"></p>
     </div>
   </div>
@@ -637,7 +639,7 @@
         <div id="girlsListAtt"></div>
       </div>
     </div>
-    <div id="allergiesContainer" style="font-size:18px;padding:20px;margin-top:40px;border-top: 2px solid #333">
+    <div id="allergiesContainer" style="font-size:30px;padding:20px;margin-top:40px;border-top: 2px solid #333">
       <p style="color:red;text-align:center;margin-top:0px">Allergies:</p>
       <div id="allergiesList" style="text-align:left"></div>
     </div>
