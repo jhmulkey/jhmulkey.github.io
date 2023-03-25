@@ -53,7 +53,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 ::placeholder {
-    font-size: 20px;
+    font-size: 30px;
     color: #aaa
 }
 
@@ -436,7 +436,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .optionButtonContainer {
-    width: 300px;
+    width: 600px;
     margin: 25px auto;
     display: flex;
     justify-content: space-around;
@@ -489,12 +489,13 @@ a:link, a:visited, a:hover, a:active {
 
 .name {
     margin: 0px 0px 30px;
+    font-size: 50px;
     cursor: pointer;
 }
 
 .name2 {
     margin: 10px auto;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .name3 {
@@ -590,31 +591,31 @@ a:link, a:visited, a:hover, a:active {
 .cancelButton {
     background-color: firebrick;
     font-family: Byom-Icons-Trial;
-    font-size: 35px;
-    padding-top: 3.5px;
+    font-size: 70px;
+    padding-top: 7px;
 }
 
 .okButton {
     background-color: green;
     font-family: Byom-Icons-Trial;
-    padding-top: 3.5px;
-    font-size: 35px;
+    padding-top: 9px;
+    font-size: 70px;
 }
 
 .deleteButton {
     background-color: firebrick;
     font-family: Byom-Icons-Trial;
-    font-size: 25px;
-    padding-top: 8px;
+    font-size: 60px;
+    padding-top: 11px;
 }
 
 .logEntry, .gameLogEntry {
     margin-top: 20px !important;
-    font-size: 15px !important;
+    font-size: 20px !important;
 }
 
 .note {
-    font-size: 20px;
+    font-size: 30px;
     cursor: pointer;
 }
 
@@ -632,20 +633,21 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #addNote, #editNote, #addReminder, #editReminder, #editProperty {
-    width: 375px;
-    height: 150px;
-    font-size: 20px;
+    width: 884px;
+    height: 200px;
+    font-size: 30px;
     border: 1px solid transparent;
     resize: none;
     margin: 0px auto;
 }
 
 #initialNote {
-    width: 375px;
-    height: 150px;
+    width: 600px;
+    height: 200px;
     resize: none;
     border-radius: 20px;
     padding: 15px;
+    font-size: 30px;
 }
 
 #email {
@@ -657,7 +659,7 @@ a:link, a:visited, a:hover, a:active {
 #searchMain {
     margin: 20px auto;
     width: 884px;
-    height: 50px;
+    height: 60px;
     font-size: 30px;
 }
 
@@ -670,37 +672,47 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .searchField {
-    width: 375px;
+    height: 60px;
+    width: 600px;
+    font-size: 30px;
 }
 
 .searchField2 {
-    width: 350px;
-    font-size: 20px;
+    width: 600px;
+    font-size: 30px;
     border-radius: 10px;
     border: 1px solid transparent;
     text-align: center;
 }
 
 .textInputField2 {
-    width: 150px;
+    font-size: 30px;
+    height: 60px;
+    width: 225px;
 }
 
 .textInputField3 {
-    width: 175px;
+    font-size: 30px;
+    height: 60px;
+    width: 280px;
 }
 
 .textInputField4 {
-    width: 85px;
+    font-size: 30px;
+    height: 60px;
+    width: 150px;
 }
 
 .textInputField5 {
-    width: 125px;
+    font-size: 30px;
+    height: 60px;
+    width: 500px;
     margin: 0px 0px 0px 0px;
 }
 
 .textInputField6 {
-    width: 200px;
-    height: 50px;
+    width: 500px;
+    height: 60px;
     margin-top: 30px;
     margin-bottom: 35px;
     font-size: 30px;
@@ -719,8 +731,8 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #editStudentPop p, #newStudentPop p {
-    font-size: 16px;
-    margin: 20px auto 10px auto;
+    font-size: 20px;
+    margin: 30px auto 10px auto;
 }
 
 #randFilter {
@@ -939,11 +951,6 @@ a:link, a:visited, a:hover, a:active {
 
 #studentPopInfo p {
     text-align: center !important;
-}
-
-#studentPopClassRank {
-    margin: 15px auto;
-    font-size: 15px !important;
 }
 
 #studentPopRankName {

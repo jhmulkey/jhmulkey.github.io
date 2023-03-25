@@ -1983,14 +1983,14 @@ function refreshStudentPop() {
         color("studentPopName","white");
     }
     if (_rankNames[_sl[_ci].rank[0]].length > 20) {
-        document.getElementById("studentPopRankName").style.fontSize = "15px";
+        document.getElementById("studentPopRankName").style.fontSize = "30px";
     } else {
-        document.getElementById("studentPopRankName").style.fontSize = "18px";
+        document.getElementById("studentPopRankName").style.fontSize = "30px";
     }
     if (_sl[_ci].name[0].length > 15) {
-        document.getElementById("studentPopName").style.fontSize = "22px";
+        document.getElementById("studentPopName").style.fontSize = "30px";
     } else {
-        document.getElementById("studentPopName").style.fontSize = "25px";
+        document.getElementById("studentPopName").style.fontSize = "30px";
     }
     var properties = ["name","gender","bdMonth","bdDate","email","photo"];
     for (let i = 0; i < properties.length; i++) {
