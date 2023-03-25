@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="main-phone.css"/>
+    <link rel=”shortcut icon” href =../“favicon.ico”>
+    <title>class</title>
+</head>
+<body>
+<div id="master-wrapper">
+
+<div id="mainPop" class="pop">
+    <div id="topMenuContainer">
+        <div id="mainMenuButton" class="roundButton2 ptr" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
+        <div id="alertButton" class="roundButton2 ptr" onclick="alertsPop()">#</div>
+        <div id="lockButton" class="roundButton2 ptr" onclick="disableAtt()">J</div>
+        <!-- <div id="allergiesButton" class="roundButton2 ptr" style="padding-top:6px" onclick="allergiesPop()">A</div> -->
+        <div id="attCountButton" class="roundButton2 ptr" onclick="loadAttendees()">0</div>
+        <div id="logButton" class="roundButton2 ptr" onclick="logPop()">F</div>
+        <div id="backupButton" class="roundButton2 ptr" onclick="populateBackup()">B</div>
+    </div>
+    <input id="searchMain" class="searchField" type="text" placeholder="search names" onclick="this.select();" oninput="searchNamesMain()"/>
+    <div id="nameList"></div>
+</div>
+
+<div id="att2Pop" class="pop">
+  <div class="navigationButtonContainer" style="margin-bottom:0px">
+    <div class="backButton ptr" onclick="pop(['att2Pop'],['studentPop'])">f</div>
+  </div>
+  <input id="searchMain2" class="searchField2" type="text" placeholder="search names" oninput="searchNames('searchMain2','name')"/>
+  <div id="nameList2"></div>
+</div>
+
+<div id="att3Pop" class="pop">
+  <div class="navigationButtonContainer" style="margin-bottom:0px">
+    <div class="backButton ptr" onclick="teamsListPop()">f</div>
+  </div>
+  <input id="searchMain3" class="searchField2" type="text" placeholder="search names" oninput="searchNames('searchMain3','name')"/>
+  <div id="nameList3"></div>
+</div>
+
+<div id="sortChoicePop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['sortChoicePop'],['mainMenuPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <p class="menuLabel">Sort Students ></p>
+  <div class="button ptr" onclick="sortByBd()">by Birthday</div>
+  <div class="button ptr" onclick="sortByGender()">by Gender</div>
+  <div class="button ptr" onclick="sortByDateAdded()">by Date Added</div>
+  <div class="button ptr" onclick="sortByPts()">by Total Points</div>
+  <div class="button ptr" onclick="sortByASpts()">by AS Points</div>
+  <div class="button ptr" onclick="sortByMVpts()">by MV Points</div>
+  <div class="button ptr" onclick="sortByAtt()">by Attendance</div>
+  <div class="button ptr" onclick="sortByTP()">by Participation</div>
+  <div class="button ptr" onclick="sortByRank()">by Rank</div>
+  <div class="button ptr" onclick="sortByNotes()">by Notes</div>
+</div>
+
+<div id="customSortListPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['customSortListPop'],[_currentPop])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <p id="customSortListLabel"></p>
+  <div id="nameListCustom"></div>
+  <div id="genderListContainer">
+    <div id="boysListDiv">
+      <p id="boysListP"></p>
+      <div id="boysList"></div>
+    </div>
+    <div id="girlsListDiv">
+      <p id="girlsListP"></p>
+      <div id="girlsList"></div>
+    </div>
+  </div>
+</div>
+
+<div id="mainMenuPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="goHome()">f</div>
+    <div class="otherButton ptr" onclick="pop(['mainMenuPop'],['advancedOptionsPop'])">Advanced</div>
+  </div>
+  <div class="button ptr" onclick="pop(['mainMenuPop'],['calendarPop']);showMaxPts(false,false,true)">Calendar</div>
+  <div class="button ptr" onclick="loadAttStats()">Attendance Stats</div>
+  <div class="button ptr" onclick="sortChoicePop()">Sort Students <span class="buttonArrow"> ></span></div>
+  <div id="drawButton" class="button ptr" onclick="clearDrawingWinner(); pop(['mainMenuPop'],['drawPop'])">Drawing</div>
+  <div id="randButton" class="button ptr" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
+  <div id="teamsButton" class="button ptr" onclick="teams()">Teams</div>
+  <div class="button ptr" id="shufflePhotosButton" onclick="shufflePhotosPop()">Shuffle Student Photos</div>
+</div>
+
+<div id="pwdPop" class="pop">
+  <p>Enter password to confirm overwriting local storage:</p>
+  <div>
+    <input type="text" id="pwd" class="textInputField6" maxlength="4" oninput="pwdAutoEnter()">
+  </div>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton ptr" id="pwdCancelButton" onclick="pop(['pwdPop'],['wtlPop'])">X</div>
+    <div class="roundButton1 okButton ptr" id="pwdOkButton" onclick="pwdEntry()">V</div>
+  </div>
+</div>
+
+<div id="alertsPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton ptr" onclick="goHome()">f</div>
+    </div>
+    <div class="button ptr" id="promoButton" onclick="loadPromos(); pop(['alertsPop'],['customListPop'])">Promotions</div>
+    <div class="button ptr" id="bdButton" onclick="loadBds(); pop(['alertsPop'],['customListPop'])">Birthdays</div>
+    <div class="button ptr" id="remindersButton" onclick="pop(['alertsPop'],['remindersPop']); populateReminders()">Reminders</div>
+    <div class="button ptr" id="photosNeededButton" onclick="loadNeededPhotos(); pop(['alertsPop'],['customListPop'])">Missing Photos</div>
+    <div class="button ptr" id="emailsNeededButton" onclick="loadNeededEmails(); pop(['alertsPop'],['customListPop'])">Missing Emails</div>
+    <div class="button ptr" id="bdNeededButton" onclick="loadNeededBds(); pop(['alertsPop'],['customListPop'])">Missing Birthdays</div>
+</div>
+
+<div id="teamsListPop" class="pop">
+  <div class="navigationButtonContainer" id="teamsListNav">
+    <div class="backButton ptr" onclick="pop(['teamsListPop'],['mainMenuPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div id="teamListContainer">
+    <div id="team1ListDiv" class="ptr" onclick="populateNames3(1)">
+      <p id="team1ListP">Team1</p>
+      <div id="team1List"></div>
+    </div>
+    <div id="team2ListDiv" class="ptr" onclick="populateNames3(2)">
+      <p id="team1ListP">Team2</p>
+      <div id="team2List"></div>
+    </div>
+  </div>
+  <div id="teamsListButtons">
+    <div class="button ptr" onclick="loadGame()">Play Game</div>
+    <div class="button ptr" onclick="actionAlert('Generate new teams and start new game?',['teamsListPop'],createTeams)">Reset Game</div>
+    <div class="button ptr" onclick="sortByGamePts(); _currentPop = 'teamsListPop'">Top 3 Scorers</div>
+  </div>
+</div>
+
+<div id="playGamePop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['playGamePop'],['teamsListPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div id="teamPtsContainer">
+    <div>
+      <p>Team 1</p>
+      <div id="team1Score" onclick="dataInputAlert('Adjust team 1 score',['playGamePop'],adjustGameScore,1)">0</div>
+    </div>
+    <div>
+      <p>Team 2</p>
+      <div id="team2Score" onclick="dataInputAlert('Adjust team 2 score',['playGamePop'],adjustGameScore,2)">0</div>
+    </div>
+  </div>
+  <div id="currentPlayerContainer">
+    <div class="secretButton2 ptr" onclick="actionAlert('Delete this player?',['playGamePop'],deleteCurrentPlayer)"></div>
+    <p id="currentPlayer"></p>
+    <div class="secretButton2 ptr" onclick="actionAlert('Skip this player?',['playGamePop'],skipPlayer)"></div>
+  </div>
+  <div id="gamePointButtonsContainer">
+    <div class="gamePointButton ptr" id="gamePoint1" onclick="gameScorePts(1)">1</div>
+    <div class="gamePointButton ptr" id="gamePoint2" onclick="gameScorePts(2)">2</div>
+    <div class="gamePointButton ptr" id="gamePoint3" onclick="gameScorePts(3)">3</div>
+    <div class="gamePointButton ptr" id="gamePoint4" onclick="gameScorePts(4)">4</div>
+    <div class="gamePointButton ptr" id="gamePoint5" onclick="gameScorePts(5)">5</div>
+    <div class="gamePointButton ptr" id="gamePoint6" onclick="gameScorePts(6)">6</div>
+    <div class="gamePointButton ptr" id="gamePoint7" onclick="gameScorePts(7)">7</div>
+    <div class="gamePointButton ptr" id="gamePoint8" onclick="gameScorePts(8)">8</div>
+    <div class="gamePointButton ptr" id="gamePoint9" onclick="gameScorePts(9)">9</div>
+    <div id="gameUndoButton" class="ptr" onclick="undoGameScorePts()">b</div>
+    <div class="gamePointButton ptr" id="gamePoint10" onclick="gameScorePts(10)">10</div>
+    <div id="gameLogButton" class="ptr" onclick="gameLogPop()">F</div>
+  </div>
+</div>
+
+<div id="advancedOptionsPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['advancedOptionsPop'],['mainMenuPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+</div>
+
+<div id="dataInputAlertPop" class="pop">
+  <p id="dataInputAlertMessage"></p>
+  <input id="dataInputTF" type="text"/>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton ptr" id="dataInputAlertCancel" onclick="dataInputAlert(false,false,false,false,true)">X</div>
+    <div class="roundButton1 okButton ptr" id="dataInputAlertOK" onclick="dataInputAlert()">V</div>
+  </div>
+</div>
+
+<div id="wtlPop" class="pop buttonArr">
+    <p>Choose data to load</p>
+    <div class="button ptr" onclick="loadLS()">Local Storage</div>
+    <div class="button ptr" onclick="pwdPop()">Backup</div>
+</div>
+
+<div id="logPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="goHome()">f</div>
+    <div class="otherButton ptr" onclick="promoListPop()">Promotions</div>
+  </div>
+  <input id="searchLog" class="searchField" type="text" placeholder="search log" oninput="searchLog()"/>
+  <div id="log" class="ptr" onclick="selectText('log')"></div>
+</div>
+
+<div id="promoListPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['promoListPop'],['logPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div class="listLabel">Promotions</div>
+  <div id="promoList" style="text-align:left;"></div>
+  <div class="listLabel">Birthdays</div>
+  <div id="bdayList" style="text-align:left;"></div>
+</div>
+
+<div id="gameLogPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['gameLogPop'],['playGamePop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <input id="searchGameLog" class="searchField" type="text" placeholder="search log" oninput="searchGameLog()"/>
+  <div id="gameLog" onclick="selectText('gameLog')"></div>
+</div>
+
+<div id="studentPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="goHome()">f</div>
+    <div id="att2Button" class="otherButton ptr" onclick="populateNames2()">Attendance</div>
+  </div>
+  <div id="studentPopTopContainerDiv">
+    <div id="studentPopInsignia" class="ptr" onclick="populateStudentProperties(); studentMenuSwitch(4)"></div>
+    <div id="studentPopInfo">
+      <p id="studentPopRankName"></p>
+      <p id="studentPopName" class="ptr" onclick="toggleAtt()"></p>
+      <p id="studentPopPts"></p>
+    </div>
+  </div>
+  <div>
+    <table id="studentMenuTable">
+      <tr>
+        <td id="studentMenu0" onclick="studentMenuSwitch(0)" style="background-color: #777">MISSIONS</td>
+        <td id="studentMenu1" onclick="studentMenuSwitch(1)">STATS</td>
+        <td id="studentMenu2" onclick="studentMenuSwitch(2)">INFO</td>
+        <td id="studentMenu3" onclick="studentMenuSwitch(3)">NOTES</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div id="infoAlertPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="infoAlert()">f</div>
+  </div>
+    <p id="infoAlertTitle">!</p>
+    <p id="infoAlertMessage"></p>
+</div>
+
+<div id="actionAlertPop" class="pop">
+  <p id="actionAlertMessage"></p>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton ptr" onclick="actionAlert(false,false,false,true)">X</div>
+    <div class="roundButton1 okButton ptr" onclick="actionAlert()">V</div>
+  </div>
+</div>
+
+<div id="studentStatsPop" class="pop" style="padding-top:0px">
+  <div id="totalProgressTableDiv">
+    <p id="totalProgressTableP"></p>
+    <table id="totalProgressTable" class="progressBarTable"></table>
+  </div>
+  <div id="asProgressTableDiv">
+    <p id="asProgressTableP"></p>
+    <table id="asProgressTable" class="progressBarTable"></table>
+  </div>
+  <div id="mvProgressTableDiv">
+    <p id="mvProgressTableP"></p>
+    <table id="mvProgressTable" class="progressBarTable"> </table>
+  </div>
+  <div id="rankProgressTableDiv" class="ptr" onclick="loadRankTable()">
+    <p id="rankProgressTableP"></p>
+    <table id="rankProgressTable" class="progressBarTable"></table>
+  </div>
+  <div id="attProgressTableDiv" class="ptr" onclick="loadStudentAttStats()">
+    <p id="attProgressTableP"></p>
+    <table id="attProgressTable" class="progressBarTable"></table>
+  </div>
+  <div id="totalParticipationTableDiv">
+    <p id="totalParticipationTableP"></p>
+    <table id="totalParticipationTable" class="progressBarTable"></table>
+  </div>
+  <div id="lbDiv">
+    <p id="lbHeader">Leader Boards</p>
+    <p id="lbMssg" style="color:#ddd;text-align:center;"></p>
+    <div id="lbContainer">
+      <div class="lb" id="totalPtsLb">
+        <p class="lbTitle">Total Points</p>
+        <div id="totalPtsLbList"></div>
+      </div>
+      <div class="lb" id="asPtsLb">
+        <p class="lbTitle">Activity Sheet Points</p>
+        <div id="asPtsLbList"></div>
+      </div>
+      <div class="lb" id="mvPtsLb">
+        <p class="lbTitle">Memory Verse Points</p>
+        <div id="mvPtsLbList"></div>
+      </div>
+      <div class="lb" id="attLb">
+        <p class="lbTitle">Attendance</p>
+        <div id="attLbList"></div>
+      </div>
+      <div class="lb" id="tpLb">
+        <p class="lbTitle">Participation</p>
+        <div id="tpLbList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="newStudentPop" class="pop">
+  <div class="genderAndBdContainer">
+    <div>
+      <p>First Name</p>
+      <input class="textInputField3 focus" id="newFirst" type="text" placeholder="First Name"/>
+    </div>
+    <div style="width:24px; margin:0px"></div>
+    <div>
+      <p>Last Name</p>
+      <input class="textInputField3" id="newLast" type="text" placeholder="Last Name"/>
+    </div>
+  </div>
+  <div class="genderAndBdContainer">
+    <div>
+      <p>Gender</p>
+      <input class="textInputField2" id="newGender" type="text" placeholder="M or F"/>
+    </div>
+    <div style="width:42px; margin:0px"></div>
+    <div>
+      <p>Birthday</p>
+      <div class="flexContainer">
+        <div>
+          <input class="textInputField4" id="newbdMonth" type="text" placeholder="Month" style="margin-right:10px">
+        </div>
+        <div>
+          <input class="textInputField4" id="newbdDate" type="text" placeholder="Day"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p>Name Pronunciation</p>
+    <input class="searchField" id="newNamePron" placeholder="name pronunciation"></textarea>
+  </div>
+  <div>
+    <p>Email Address</p>
+    <input class="searchField" id="newEmail" type="text" placeholder="email address"/>
+  </div>
+  <div>
+    <p>Allergies</p>
+    <input class="searchField" id="newAllergies" placeholder="allergies"></textarea>
+  </div>
+  <div>
+    <p>Note</p>
+    <textarea id="initialNote" rows="10" cols="30" placeholder="note"></textarea>
+  </div>
+  <div class="checkboxContainer" style="margin-top:25px">
+    <label class="checkboxLabel"><input type="checkbox" id="rapidEntryCheck" class="checkbox"> create multiple students</label>
+  </div>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton ptr" onclick="goHome(); clearStudentFields(); rapidOff();">X</div>
+    <div class="roundButton1 okButton ptr" id="newStudentOkButton" onclick="newStudent()">V</div>
+  </div>
+  <div style="width:200px;height:100px;"></div>
+</div>
+
+<div id="editStudentPop" class="pop" style="padding-top:0px">
+  <div>
+    <div class="genderAndBdContainer">
+      <div>
+        <p style="margin-top:0px">First Name</p>
+        <input class="textInputField3" id="editFirst" type="text" placeholder="First Name"/>
+      </div>
+      <div style="width:24px; margin:0px"></div>
+      <div>
+        <p style="margin-top:0px">Last Name</p>
+        <input class="textInputField3" id="editLast" type="text" placeholder="Last Name"/>
+      </div>
+    </div>
+    <div class="genderAndBdContainer">
+      <div>
+        <p>Gender</p>
+        <input class="textInputField2" id="editGender" type="text" placeholder="M or F"/>
+      </div>
+      <div style="width:42px; margin:0px"></div>
+      <div>
+        <p>Birthday</p>
+        <div class="flexContainer">
+          <div>
+            <input class="textInputField4" id="editBdMonth" type="text" placeholder="Month" style="margin-right:10px"/>
+          </div>
+          <div>
+            <input class="textInputField4" id="editBdDate" type="text" placeholder="Day"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p>Name Pronunciation</p>
+      <input class="searchField" id="editNamePron" placeholder="name pronunciation"></textarea>
+    </div>
+    <div>
+      <p>Email Address</p>
+      <input class="searchField" id="editEmail" type="text" placeholder="email address"
+     />
+    </div>
+    <div>
+      <p>Allergies</p>
+      <input class="searchField" id="editAllergies" placeholder="allergies"></textarea>
+    </div>
+    <div class="checkboxContainer">
+      <label class="checkboxLabel"><input type="checkbox" id="rapidEditCheck" class="checkbox"> edit multiple students</label>
+    </div>
+    <div class="optionButtonContainer">
+      <div class="roundButton1 cancelButton ptr" id="editStudentCancelButton" onclick="editStudentPop(); clearStudentFields(); resetStudentMenu(); rapidOff()">X</div>
+      <div class="roundButton1 deleteButton ptr" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
+      <div class="roundButton1 okButton ptr" id="editStudentOkButton" onclick="editStudent()">V</div>
+    </div>
+    <div id="dispStudentPhoto" class="dispStudentPhoto ptr" style="margin-bottom:20px" onclick="photoLinks()"></div>
+  </div>
+</div>
+
+<div id="notesPop" class="pop" style="padding-top:0px">
+  <div id="notesList">
+  </div>
+</div>
+
+<div id="remindersPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['remindersPop','editReminderPop'],['alertsPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div id="remindersList"></div>
+</div>
+
+<div id="addNotePop" class="pop">
+  <textarea id="addNote" rows="10" cols="30" placeholder="Add New Note"></textarea>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton ptr" id="addNoteCancel" onclick="pop(['addNotePop'],['notesPop','notesList'])">X</div>
+    <div class="roundButton1 okButton ptr" id="addNoteOk" onclick="addNote()">V</div>
+  </div>
+</div>
+
+<div id="addReminderPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['addReminderPop','addReminder'],['remindersPop','remindersList'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <textarea id="addReminder" rows="10" cols="30" placeholder="Add New Note"></textarea>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton ptr" id="addReminderCancel" onclick="pop(['addReminderPop','addReminder'],['remindersPop','remindersList'])">X</div>
+    <div class="roundButton1 okButton ptr" id="addReminderOk" onclick="addReminder()">V</div>
+  </div>
+</div>
+
+<div id="editNotePop" class="pop">
+  <textarea id="editNote" rows="10" cols="30"></textarea>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton ptr" id="editNoteCancel" onclick="pop(['editNotePop','editNote'],['notesPop','notesList'])">X</div>
+    <div class="roundButton1 deleteButton ptr" id="deleteNoteButton" onclick="actionAlert('Are you sure you want to delete this note?',['editNotePop'],deleteNote)">U</div>
+    <div class="roundButton1 okButton ptr" id="editNoteOk" onclick="editNote()">V</div>
+  </div>
+</div>
+
+<div id="editReminderPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['editReminderPop','editReminder'],['remindersPop','remindersList'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <textarea id="editReminder" rows="10" cols="30"></textarea>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton ptr" id="editReminderCancel" onclick="pop(['editReminderPop','editReminder'],['remindersPop','remindersList'])">X</div>
+    <div class="roundButton1 deleteButton ptr" id="deleteReminderButton" onclick="actionAlert('Are you sure you want to delete this reminder?',['editReminderPop'],deleteReminder)">U</div>
+    <div class="roundButton1 okButton ptr" id="editReminderOk" onclick="editReminder()">V</div>
+  </div>
+</div>
+
+<div id="drawPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['drawPop'],['mainMenuPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div id="drawNameDiv" onclick="draw()">
+      <p id="drawName">tap here<br>to pick</p>
+  </div>
+</div>
+
+<div id="randPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['randPop'],['mainMenuPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div id="randNameDiv" onclick="rand()">
+      <p id="randName">tap here<br>to pick</p>
+  </div>
+  <div id="randFilter">
+    <form>
+      <input class="radioButton" type="radio" id="all" name="randFilter" value="All" checked>
+      <label for="all">All</label><br>
+      <input class="radioButton" type="radio" id="boys" name="randFilter" value="Boys">
+      <label for="boys">Boys</label><br>
+      <input class="radioButton" type="radio" id="girls" name="randFilter" value="Girls">
+      <label for="girls">Girls</label><br><br>
+    </form> 
+  </div>
+</div>
+
+<div id="missionsPop" class="pop">
+    <div id="asmvHeaderContainer">
+      <div class="asmvHeader">ACTIVITY SHEETS</div>
+      <div class="secretButton ptr" onclick="toggleIncomplete()"></div>
+      <div class="asmvHeader">MEMORY VERSES</div>
+    </div>
+    <div id="asmvPopContainer">
+      <div id="asPop"></div>
+      <div id="mvPop"></div>
+    </div>
+</div>
+
+<div id="asPtsPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['asPtsPop'],['missionsPop'])"><span>f</span></div>
+  </div>
+  <div class="pointButtonContainer">
+      <div id="as1Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,1)">1</div>
+      <div id="as2Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,2)">2</div>
+      <div id="as3Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,3)">3</div>
+      <div id="as4Pts" class="roundButton1 numberButton asPts ptr" style="padding-right:3px" onclick="asPts(_asNum,4)">4</div>
+      <div id="as5Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,5)">5</div>
+      <div id="as6Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,6)">6</div>
+  </div>
+  <div>
+    <table class="asmvInfoTable">
+      <tr>
+        <td class="tableSider">Sheet Name</td>
+        <td id="asSheetName"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Date Assigned</td>
+        <td id="asDateAssigned"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Date Turned In</td>
+        <td id="asDateTurnedIn"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Status</td>
+        <td id="asCompletionStatus"></td>
+      </tr>
+      <tr>
+        <td colspan="2" id="scannedImage" class="ptr" onclick="scanLinks()"><span id="scanIcon">C &nbsp;&nbsp;&nbsp;</span>VIEW SCAN</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="downloadOrPrint ptr" onclick="asLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div id="mvPtsPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['mvPtsPop'],['missionsPop'])"><span>f</span></div>
+  </div>
+  <div class="pointButtonContainer">
+      <div id="mv1Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,1)">1</div>
+      <div id="mv2Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,2)">2</div>
+      <div id="mv3Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,3)">3</div>
+      <div id="mv4Pts" class="roundButton1 numberButton mvPts ptr" style="padding-right:3px" onclick="mvPts(_mvNum,4)">4</div>
+      <div id="mv5Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,5)">5</div>
+      <div id="mv6Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,6)">6</div>
+      <div id="mv7Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,7)">7</div>
+  </div>
+  <div>
+    <table class="asmvInfoTable">
+      <tr>
+        <td class="tableSider">Verse Name</td>
+        <td id="mvVerseName"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Date Assigned</td>
+        <td id="mvDateAssigned"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Date Recited</td>
+        <td id="mvDateRecited"></td>
+      </tr>
+      <tr>
+        <td class="tableSider">Status</td>
+        <td id="mvCompletionStatus"></td>
+      </tr>
+      <tr>
+        <td colspan="2" id="mvText"></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="downloadOrPrint ptr" onclick="mvLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div id="promoPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['promoPop'],['missionsPop','studentPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <p style="font-size:50px"><span class="promoPopStar">3 </span> Promotion <span class="promoPopStar"> 3</span></p>
+  <div>
+    <div id="promoInsignia" class="ptr" onclick="pop(['promoPop'],['missionsPop','studentPop'])"></div>
+  </div>
+  <p id="dispRankNamePromo"></p>
+</div>
+
+<div id="attListPop" class="pop">
+    <div class="navigationButtonContainer">
+      <div class="backButton ptr" onclick="goHome()">f</div>
+      <div class="otherButton ptr" onclick="actionAlert('Reset attendance?',['attListPop'],resetAtt)">Reset</div>
+    </div>
+    <p id="attCount" class="ptr" onclick="dataInputAlert('Number of students for random attendance',['attListPop'],randAtt)"></p>
+    <div id="attListContainer">
+      <div id="boysListAttDiv">
+        <p id="boysListAttP"></p>
+        <div id="boysListAtt"></div>
+      </div>
+      <div id="girlsListAttDiv">
+        <p id="girlsListAttP"></p>
+        <div id="girlsListAtt"></div>
+      </div>
+    </div>
+    <div id="allergiesContainer" style="font-size:18px;padding:20px;margin-top:40px;border-top: 2px solid #333">
+      <p style="color:red;text-align:center;margin-top:0px">Allergies:</p>
+      <div id="allergiesList" style="text-align:left"></div>
+    </div>
+</div>
+
+<div id="attArchiveListPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['attArchiveListPop'],['attStatsPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <p id="attArchiveDate"></p>
+  <p id="attArchiveCount"></p>
+  <div id="attArchiveListContainer">
+    <div id="boysArchiveListAttDiv">
+      <p id="boysArchiveListAttP"></p>
+      <div id="boysArchiveListAtt"></div>
+    </div>
+    <div id="girlsArchiveListAttDiv">
+      <p id="girlsArchiveListAttP"></p>
+      <div id="girlsArchiveListAtt"></div>
+    </div>
+  </div>
+</div>
+
+<div id="customListPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="customListPop()">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div id="customListLabel"></div>
+  <div id="customList"></div>
+  <p id="absentLabel">Absent:</p>
+  <div id="customListAbsent"></div>
+</div>
+
+<div id="studentPropertiesPop" class="pop">
+  <div id="studentProperties"></div>
+</div>
+
+<div id="backupPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="goHome()">f</div>
+  </div>
+  <div id="backupArrays" class="ptr" onclick="selectText('backupArrays')">
+    <div id="slBackupArray"></div>
+    <div id="attBackupArray"></div>
+    <div id="remindersBackupArray"></div>
+    <div id="setItem1"></div>
+    <div id="setItem2"></div>
+    <div id="setItem3"></div>
+    <div id="setItem4"></div>
+  </div>
+</div>
+
+<div id="rankChartPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['rankChartPop'],['studentStatsPop'])"><span>f</span></div>
+  </div>
+  <div id = "rankChartContainer">
+  <table id="rankChartTable">
+    <tr class="tableHeaderRow">
+      <td>Insignia</td>
+      <td>Rank</td>
+      <td>Abbr.</td>
+      <td>Points</td>
+      <td>Date</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<div id="attStatsPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['attStatsPop'],['mainMenuPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div id="attStatsTableDiv">
+    <table id="attStatsTable">
+      <tr class="tableHeaderRow">
+        <td></td>
+        <td>AM</td>
+        <td>PM</td>
+        <td>Both</td>
+      </tr>
+      <tr>
+        <td>Average</td>
+        <td id="amAvg"></td>
+        <td id="pmAvg"></td>
+        <td id="bothAvg"></td>
+      </tr>
+      <tr>
+        <td>Max</td>
+        <td id="amMax"></td>
+        <td id="pmMax"></td>
+        <td id="bothMax"></td>
+      </tr>
+      <tr>
+        <td>Min</td>
+        <td id="amMin"></td>
+        <td id="pmMin"></td>
+        <td id="bothMin"></td>
+      </tr>
+      <tr>
+        <td>Boys Avg</td>
+        <td id="amBoysAvg"></td>
+        <td id="pmBoysAvg"></td>
+        <td id="bothBoysAvg"></td>
+      </tr>
+      <tr>
+        <td>Girls Avg</td>
+        <td id="amGirlsAvg"></td>
+        <td id="pmGirlsAvg"></td>
+        <td id="bothGirlsAvg"></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="attListTableDiv">
+    <table id="attListTable">
+      <tr class="tableHeaderRow" style="position:sticky;top:73px">
+        <td>Date</td>
+        <td>AM</td>
+        <td>PM</td>
+        <td>BOTH</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div id="studentAttStatsPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['studentAttStatsPop'],['studentStatsPop'])"><span>f</span></div>
+  </div>
+  <div id="studentAttTableDiv">
+    <table id="studentAttTable">
+      <tr class="tableHeaderRow">
+        <td>Date</td>
+        <td>AM</td>
+        <td>PM</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div id="shufflePhotosPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton2 ptr" onclick="pop(['shufflePhotosPop'],['mainMenuPop'])">f</div>
+    <div class="otherButton2 ptr" onclick="resetShufflePhotos()">Reset</div>
+    <div class="otherButton2 ptr" onclick="shufflePhotos()">Re-shuffle</div>
+  </div>
+  <div style="margin-bottom:30px">
+    <label class="checkboxLabel"><input type="checkbox" id="togglePhotoTitlesCheck" class="checkbox" onclick="togglePhotoTitles()"> show all photo titles</label>
+  </div>
+  <div id="shuffledPhotos"></div>
+</div>
+
+<div id="editPropertyPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['editPropertyPop'],['studentPropertiesPop'])">f</div>
+  </div>
+  <textarea id="editProperty" rows="10" cols="30" style="height:250px"></textarea>
+  <div class="optionButtonContainer">
+    <div class="roundButton1 cancelButton ptr" id="editPropertyCancel" onclick="pop(['editPropertyPop'],['studentPropertiesPop'])">X</div>
+    <div class="roundButton1 okButton ptr" id="editPropertyOK" onclick="editProperty()">V</div>
+  </div>
+</div>
+
+<div id="calendarPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton ptr" onclick="pop(['calendarPop'],['mainMenuPop'])">f</div>
+    <div class="homeButton ptr" onclick="goHome()">5</div>
+  </div>
+  <div id="calendarContainer">
+  <table id="calendarTable">
+    <tr class="tableHeaderRow" style="position:sticky;top:73px;">
+    <td>ti</td>
+    <td>ew</td>
+    <td>dn</td>
+    <td>date</td>
+    <td>lesson</td>
+    <td>memory</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<script src="backup.js"></script>
+<!-- <script src="archived-backup.js"></script> -->
+<script src="main-phone.js"></script>
+</body>
+</html>
