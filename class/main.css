@@ -104,12 +104,7 @@ a:link, a:visited, a:hover, a:active {
     text-align: left;
 }
 
-#nameList2, #nameList3 {
-    height: 160px;
-    overflow-y: auto;
-}
-
-#nameList {
+#nameList, #nameList2, #nameList3 {
     height: 725px;
     overflow-y: auto;
     background-color: black;
@@ -117,6 +112,7 @@ a:link, a:visited, a:hover, a:active {
     padding: 20px;
     border-radius: 25px;
     text-align: left;
+    margin: 0px auto;
 }
 
 #notesList, #remindersList {
@@ -132,12 +128,9 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #att2Pop, #att3Pop {
-    border-bottom: 2px solid #333;
     background-color: #111;
-    height: 286px;
-    width: 428px;
-    padding: 20px 0px 0px 0px;
-    margin-bottom: 13px;
+    height: 725px;
+    width: 884px;
 }
 
 #customListLabel, .listLabel {
@@ -265,10 +258,6 @@ a:link, a:visited, a:hover, a:active {
 #confirmDeleteStudentButton, #confirmDeleteNoteButton, #confirmDeleteReminderButton, #confirmResetDrawingButton {
     background-color: firebrick;
     display: none;
-}
-
-#nameList, #nameList2 {
-    margin: 0px auto;
 }
 
 .asmvHeader {
@@ -665,19 +654,16 @@ a:link, a:visited, a:hover, a:active {
     font-size: 30px;
 }
 
-#searchMain {
+#searchMain, #searchMain2, #searchMain3 {
     margin: 20px auto;
-    width: 884px;
+    width: 844px;
     height: 60px;
     font-size: 30px;
+    margin: 20px auto;
 }
 
 #searchLog, #searchGameLog {
     margin: 17px auto 20px auto;
-}
-
-#searchMain2, #searchMain3 {
-    margin: 15px 0px 20px 0px;
 }
 
 .searchField {
