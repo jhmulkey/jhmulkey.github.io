@@ -470,6 +470,10 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 3px;
 }
 
+.otherButton {
+    padding-top: 3px;
+}
+
 .backButton, .homeButton {
     padding-top: 3px;
 }
