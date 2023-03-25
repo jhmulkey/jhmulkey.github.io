@@ -1971,7 +1971,7 @@ function refreshStudentPop() {
     } else {
         ptsNeeded = _rankPts[_sl[_ci].rank[0]+1] - _sl[_ci].pts;
     }
-    innerHTML("studentPopPts",_sl[_ci].pts + "<span style='color:#555;font-size:30px'> " + ptsNeeded +"</span>");
+    innerHTML("studentPopPts",_sl[_ci].pts + "<span style='color:#888;font-size:30px'> " + ptsNeeded +"</span>");
     if (_rankNames[_sl[_ci].rank[0]].length > 20) {
         document.getElementById("studentPopRankName").style.fontSize = "30px";
     } else {
@@ -2391,7 +2391,7 @@ function pop(closeArray,openArray,title) {
 
 function logPop() {
     value("searchLog",""); innerHTML("log",_log); resetSearchLog();
-    pop(['mainPop'],['logPop']); idFocus("searchLog");
+    pop(['mainPop'],['logPop']);
 }
 
 function promoListPop() {
@@ -2630,7 +2630,7 @@ function populateNames() {
         p1.classList.add("name");
         span2.innerHTML = "&nbsp;&nbsp;"
         span3.classList.add("nameSpan");
-        span4.style.color = "#BBB";
+        span4.style.color = "#888";
         span4.style.fontSize = "30px";
         (function(i){
             span3.onclick = function () {
