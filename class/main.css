@@ -295,7 +295,7 @@ a:link, a:visited, a:hover, a:active {
     display: flex;
     flex-wrap: nowrap;
     height: 50px;
-    margin: 15px auto 15px auto;
+    margin: 50px auto 15px auto;
     justify-content: space-around;
 }
 
@@ -307,22 +307,22 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .gamePointButton {
-    border-radius: 25px;
-    height: 80px;
-    width: 80px;
+    border-radius: 75px;
+    height: 150px;
+    width: 150px;
     border: 1px solid #ddd;
     background-color: black;
-    padding-top: 7px;
-    font-size: 60px;
+    padding-top: 30px;
+    font-size: 80px;
     line-height: 1;
     margin: 10px;
 }
 
 #gameUndoButton {
-    border-radius: 25px;
-    height: 80px;
-    width: 80px;
-    padding-top: 13px;
+    border-radius: 75px;
+    height: 150px;
+    width: 150px;
+    padding-top: 28px;
     line-height: 1;
     margin: 10px;
     border: 2px solid #ddd;
@@ -330,22 +330,22 @@ a:link, a:visited, a:hover, a:active {
     font-family: Font-90-Icons;
     color: white;
     background-color: #333;
-    font-size: 45px;
+    font-size: 80px;
 }
 
 #gameLogButton {
     font-family: Byom-Icons-Trial;
-    border-radius: 25px;
-    height: 80px;
-    width: 80px;
-    padding-top: 22px;
+    border-radius: 75px;
+    height: 150px;
+    width: 150px;
+    padding-top: 33px;
     line-height: 1;
     margin: 10px;
     border: 2px solid #ddd;
     font-weight: bold;
     color: white;
     background-color: #333;
-    font-size: 28px;
+    font-size: 80px;
 }
 
 #asPop div, #mvPop div {
@@ -453,13 +453,21 @@ a:link, a:visited, a:hover, a:active {
     justify-content: center;
 }
 
-.backButton, .homeButton, .otherButton {
+.backButton, .homeButton, .otherButton, .otherButton2, .backButton2 {
     border-radius: 10px;
     height: 50px;
-    width: 350px;
     border: 2px solid #333;
     font-weight: bold;
     background-color: #111;
+}
+
+.backButton, .homeButton, .otherButton {
+    width: 350px;
+}
+
+.otherButton2, .backButton2 {
+    width: 250px;
+    padding-top: 3px;
 }
 
 .backButton, .homeButton {
@@ -469,20 +477,6 @@ a:link, a:visited, a:hover, a:active {
 .backButton, .homeButton, .backButton2, .homeButton2 {
     font-family: Font-90-Icons;
     font-size: 35px;
-}
-
-.backButton2, .homeButton2, .otherButton2 {
-    border-radius: 10px;
-    height: 28px;
-    width: 115px;
-    border: 2px solid #333;
-    font-weight: bold;
-    background-color: #111;
-}
-
-.otherButton, .otherButton2 {
-    font-size: 25px;
-    padding-top: 8px;
 }
 
 .name {
@@ -519,6 +513,8 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #gamePointButtonsContainer {
+    width: 600px;
+    margin-top: 75px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -654,12 +650,21 @@ a:link, a:visited, a:hover, a:active {
     font-size: 30px;
 }
 
-#searchMain, #searchMain2, #searchMain3 {
+#searchMain, #searchMain2, #searchMain3, #searchLog, #searchGameLog {
     margin: 20px auto;
     width: 844px;
     height: 60px;
     font-size: 30px;
     margin: 20px auto;
+}
+
+.playerActions {
+    height: 50px;
+    width: 200px;
+    font-size: 25px;
+    padding-top: 9px;
+    border: 1px solid red;
+    border-radius: 10px;
 }
 
 #searchLog, #searchGameLog {
