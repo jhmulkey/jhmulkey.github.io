@@ -348,9 +348,9 @@ function populateCustomList(log1,log2,type) {
         if (type == "promo") {
             var message;
             if (_sl[i].name[1] != "") {
-                message = 'Complete promotion for <br>' + _sl[i].name[0] + ' (' + _rankNamesShort[_sl[i].rank[0]] + ')?' + '<br>' + '("' + _sl[i].name[1] + '")'
+                message = 'Complete promotion for <br>' + _rankNames[_sl[i].rank[0]] + ' ' + _sl[i].name[0] + '?<br>' + '("' + _sl[i].name[1] + '")';
             } else {
-                message = "Complete promotion for <br>" + _sl[i].name[0] + " (" + _rankNamesShort[_sl[i].rank[0]] + ")?"
+                message = 'Complete promotion for <br>' + _rankNames[_sl[i].rank[0]] + ' ' + _sl[i].name[0] + '?';
             }
             (function(i){
                 p1.onclick = function () {
@@ -1971,11 +1971,11 @@ function refreshStudentPop() {
     } else {
         ptsNeeded = _rankPts[_sl[_ci].rank[0]+1] - _sl[_ci].pts;
     }
-    innerHTML("studentPopPts",_sl[_ci].pts + " | <span style='color: #333'>" + ptsNeeded +"</span>");
+    innerHTML("studentPopPts",_sl[_ci].pts + "<span style='color: #555'>/" + ptsNeeded +"</span>");
     if (_rankNames[_sl[_ci].rank[0]].length > 20) {
-        document.getElementById("studentPopRankName").style.fontSize = "15px";
+        document.getElementById("studentPopRankName").style.fontSize = "30px";
     } else {
-        document.getElementById("studentPopRankName").style.fontSize = "18px";
+        document.getElementById("studentPopRankName").style.fontSize = "30px";
     }
     if (_sl[_ci].att) {
         color("studentPopName","lawngreen");
@@ -3110,17 +3110,17 @@ function loadStudentStats() {
             bgColor(idArray1[i],"black");
         }
     }
-    innerHTML("rankProgressTableP","<span style='font-size:20px'>Promotions <span style='color:#bbb;font-size:16px'>" + (_sl[_ci].rank[0]) + "/19" + " (" + rankPercentage + "%)</span>");
+    innerHTML("rankProgressTableP","<span style='font-size:30px'>Promotions <span style='color:#bbb;font-size:25px'>" + (_sl[_ci].rank[0]) + "/19" + " (" + rankPercentage + "%)</span>");
 
-    innerHTML("totalProgressTableP","<span style='font-size:20px'>Total Points <span style='color:#bbb;font-size:16px'>" + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[0]) + "/span";
+    innerHTML("totalProgressTableP","<span style='font-size:30px'>Total Points <span style='color:#bbb;font-size:25px'>" + totalEarnedPts + "/" + totalPts + " (" + totalPtsPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[0]) + "/span";
 
-    innerHTML("asProgressTableP","<span style='font-size:20px'>Activities <span style='color:#bbb;font-size:16px'>" + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[1]) + "/span";
+    innerHTML("asProgressTableP","<span style='font-size:30px'>Activities <span style='color:#bbb;font-size:25px'>" + earnedASpts + "/" + totalASpts + " (" + asPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[1]) + "/span";
 
-    innerHTML("mvProgressTableP","<span style='font-size:20px'>Memory <span style='color:#bbb;font-size:16px'>" + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[2]) + "/span";
+    innerHTML("mvProgressTableP","<span style='font-size:30px'>Memory <span style='color:#bbb;font-size:25px'>" + earnedMVpts + "/" + totalMVpts + " (" + mvPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[2]) + "/span";
 
-    innerHTML("attProgressTableP","<span style='font-size:20px'>Attendance <span style='color:#bbb;font-size:16px'>" + weeksAttended + "/" + _ew + " (" + attPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[3]) + "/span";
+    innerHTML("attProgressTableP","<span style='font-size:30px'>Attendance <span style='color:#bbb;font-size:25px'>" + weeksAttended + "/" + _ew + " (" + attPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[3]) + "/span";
 
-    innerHTML("totalParticipationTableP","<span style='font-size:20px'>Participation <span style='color:#bbb;font-size:16px'>" + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[4]) + "/span";
+    innerHTML("totalParticipationTableP","<span style='font-size:30px'>Participation <span style='color:#bbb;font-size:25px'>" + totalEarned + "/" + totalPossible + " (" + totalPercentage + "%) | Class Rank: " + _sl[_ci].statsRanks[4]) + "/span";
 }
 
 function populateMissions() {
