@@ -146,8 +146,8 @@ a:link, a:visited, a:hover, a:active {
 
 .menuLabel {
     text-align: left;
-    font-size: 15px;
-    margin: 20px auto 0px auto !important;
+    font-size: 30px;
+    margin: 30px auto 0px auto !important;
     color: #bbb;
 }
 
@@ -193,21 +193,23 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .roundButton1 {
-    height: 50px;
-    width: 50px;
+    height: 100px;
+    width: 100px;
+    padding-top: 15px;
     border: 1px solid #ddd;
     background-color: #111;
-    border-radius: 25px;
-    font-size: 25px;
+    border-radius: 50px;
+    font-size: 60px;
 }
 
 .roundButton2 {
-    height: 50px;
-    width: 50px;
+    height: 75px;
+    width: 75px;
     border: 2px solid #333;
     background-color: #111;
-    border-radius: 25px;
-    font-size: 25px;
+    border-radius: 37.5px;
+    font-size: 35px;
+    padding-top: 10px;
 }
 
 .secretButton {
@@ -224,21 +226,22 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .button {
-    height: 50px;
+    height: 100px;
     width: 90%;
     border-left: 3px solid #bbb;
-    border-radius: 7px;
+    border-radius: 10px;
     font-size: 25px;
     text-align: left;
-    padding-top: 9px;
+    padding-top: 25px;
     padding-left: 10px;
-    margin-top: 30px;
-    background-color: rgba(187,187,187,0.25)
+    margin-top: 50px;
+    background-color: rgba(187,187,187,0.25);
+    font-size: 40px;
 }
 
-#mainMenuButton, #addReminderButton, #logButton, #backupButton, #lockButton {
+#mainMenuButton, #addReminderButton, #logButton, #backupButton, #lockButton, #alertButton {
     font-family: Byom-Icons-Trial;
-    padding-top: 8px;
+    padding-top: 15px;
 }
 
 #advancedOptionsButton {
@@ -247,13 +250,12 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #alertButton {
-    padding-top: 9px;
     padding-right: 1px;
     font-family: Font-90-Icons;
 }
 
 #attCountButton {
-    padding-top: 6px;
+    padding-top: 13px;
 }
 
 #confirmDeleteStudentButton, #confirmDeleteNoteButton, #confirmDeleteReminderButton, #confirmResetDrawingButton {
@@ -305,9 +307,8 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .numberButton {
-    font-size: 40px;
+    /* font-size: 40px; */
     margin: 0px 5px;
-    padding-top: 1px;
     line-height: 1;
     background-color: black;
 }
@@ -456,16 +457,20 @@ a:link, a:visited, a:hover, a:active {
 
 .backButton, .homeButton, .otherButton {
     border-radius: 10px;
-    height: 28px;
-    width: 175px;
+    height: 50px;
+    width: 350px;
     border: 2px solid #333;
     font-weight: bold;
     background-color: #111;
 }
 
+.backButton, .homeButton {
+    padding-top: 3px;
+}
+
 .backButton, .homeButton, .backButton2, .homeButton2 {
     font-family: Font-90-Icons;
-    font-size: 20px;
+    font-size: 35px;
 }
 
 .backButton2, .homeButton2, .otherButton2 {
@@ -478,12 +483,12 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .otherButton, .otherButton2 {
-    font-size: 15px;
-    padding-top: 2px;
+    font-size: 25px;
+    padding-top: 8px;
 }
 
 .name {
-    margin: 0px 0px 20px;
+    margin: 0px 0px 30px;
     cursor: pointer;
 }
 
@@ -614,13 +619,14 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .addNew {
-    font-size: 20px;
+    font-size: 30px;
     color: lawngreen;
     text-align: center;
     border: 1px solid green;
     border-radius: 10px;
     padding: 5px;
-    width: 200px;
+    width: 350px;
+    height: 50px;
     margin: 20px auto;
     cursor: pointer;
 }
@@ -650,6 +656,9 @@ a:link, a:visited, a:hover, a:active {
 
 #searchMain {
     margin: 20px auto;
+    width: 884px;
+    height: 50px;
+    font-size: 30px;
 }
 
 #searchLog, #searchGameLog {
@@ -792,7 +801,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #rankChartTable th, #rankChartTable td {
-    font-size: 15px;
+    font-size: 30px;
     text-align: center;
     background-size: contain;
     background-position: center;
@@ -879,9 +888,10 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .asmvInfoTable td {
+    font-size: 30px;
     padding: 5px;
     width: 50%;
-    height: 50px;
+    height: 75px;
 }
 
 .tableSider {
@@ -889,7 +899,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .downloadOrPrint, #scannedImage {
-    font-size: 25px;
+    font-size: 30px;
     background-color: #3478F6 !important;
 }
 
@@ -959,8 +969,8 @@ a:link, a:visited, a:hover, a:active {
 
 #studentMenuTable td {
     width: 25%;
-    height: 35px;
-    font-size: 15px;
+    height: 50px;
+    font-size: 25px;
     cursor: pointer;
 }
 

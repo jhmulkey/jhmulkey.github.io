@@ -46,7 +46,7 @@
     <div class="homeButton ptr" onclick="goHome()">5</div>
   </div>
   <p class="menuLabel">Sort Students ></p>
-  <div class="button ptr" onclick="sortByBd()">by Birthday</div>
+  <div class="button ptr" style="margin-top:30px" onclick="sortByBd()">by Birthday</div>
   <div class="button ptr" onclick="sortByGender()">by Gender</div>
   <div class="button ptr" onclick="sortByDateAdded()">by Date Added</div>
   <div class="button ptr" onclick="sortByPts()">by Total Points</div>
@@ -529,9 +529,6 @@
 </div>
 
 <div id="asPtsPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['asPtsPop'],['missionsPop'])"><span>f</span></div>
-  </div>
   <div class="pointButtonContainer">
       <div id="as1Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,1)">1</div>
       <div id="as2Pts" class="roundButton1 numberButton asPts ptr" onclick="asPts(_asNum,2)">2</div>
@@ -558,20 +555,21 @@
         <td class="tableSider">Status</td>
         <td id="asCompletionStatus"></td>
       </tr>
+      <table class="asmvInfoTable" style="margin-top:30px">
+        <tr>
+          <td colspan="2" class="downloadOrPrint ptr" onclick="asLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
+        </tr>
+        </table>
+      <table class="asmvInfoTable" style="margin-top:30px">
       <tr>
         <td colspan="2" id="scannedImage" class="ptr" onclick="scanLinks()"><span id="scanIcon">C &nbsp;&nbsp;&nbsp;</span>VIEW SCAN</td>
       </tr>
-      <tr>
-        <td colspan="2" class="downloadOrPrint ptr" onclick="asLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
-      </tr>
+      </table>
     </table>
   </div>
 </div>
 
 <div id="mvPtsPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['mvPtsPop'],['missionsPop'])"><span>f</span></div>
-  </div>
   <div class="pointButtonContainer">
       <div id="mv1Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,1)">1</div>
       <div id="mv2Pts" class="roundButton1 numberButton mvPts ptr" onclick="mvPts(_mvNum,2)">2</div>
@@ -602,9 +600,11 @@
         <td class="tableSider">Status</td>
         <td id="mvCompletionStatus"></td>
       </tr>
-      <tr>
-        <td colspan="2" class="downloadOrPrint ptr" onclick="mvLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
-      </tr>
+      <table class="asmvInfoTable" style="margin-top:30px">
+        <tr>
+          <td colspan="2" class="downloadOrPrint ptr" onclick="mvLinks()"><span class="downloadIcon">m &nbsp;&nbsp;</span>PRINT/DOWNLOAD</td>
+        </tr>
+        </table>
     </table>
   </div>
 </div>
@@ -701,7 +701,7 @@
     <tr class="tableHeaderRow">
       <td>Insignia</td>
       <td>Rank</td>
-      <td>Abbr.</td>
+      <td>Abbreviation</td>
       <td>Points</td>
       <td>Date</td>
     </tr>

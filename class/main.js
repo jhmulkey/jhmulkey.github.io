@@ -2631,7 +2631,7 @@ function populateNames() {
         span2.innerHTML = "&nbsp;&nbsp;"
         span3.classList.add("nameSpan");
         span4.style.color = "#BBB";
-        span4.style.fontSize = "15px";
+        span4.style.fontSize = "30px";
         (function(i){
             span3.onclick = function () {
                 loadStudent(i); _array = "loadStudent";
