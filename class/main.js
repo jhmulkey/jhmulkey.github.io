@@ -2651,10 +2651,8 @@ function populateNames() {
     p2.innerHTML = "Add New Student";
     append("nameList",p2);
     value("searchMain","");
-    setTimeout(() => {
-        document.getElementById("searchMain").focus();
-    }, 1000);
-    }
+    document.getElementById("searchMain").focus();
+}
 
 function generateRankTable() {
     for (let i = 0; i < 20; i++) {

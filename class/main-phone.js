@@ -2594,6 +2594,7 @@ function populateNames() {
         var p1 = createElement("p");
         var span1 = createElement("span");
         span1.classList.add("quickAttendance");
+        span1.setAttribute("id","quickAtt"+i);
         span1.innerHTML = "?"
         if (_sl[i].att) {
             span1.style.color = "lawngreen";
@@ -2603,7 +2604,19 @@ function populateNames() {
         }
         (function(i){
             span1.onclick = function () {
-                _ci = i; toggleAtt(i); populateNames();
+                _ci = i;  
+                toggleAtt(i);
+                var id = "quickAtt"+i;
+                if (_sl[i].att) {
+                    document.getElementById(id).style.color = "lawngreen";
+                    document.getElementById(id).style.backgroundColor = "lawngreen";
+                } else {
+                    document.getElementById(id).style.color = "#222";
+                    document.getElementById(id).style.backgroundColor = "black";
+                }
+                setTimeout(() => {
+                    populateNames();
+                }, 1000);
             }
         })(i);
         var span2 = createElement("span");
@@ -2638,7 +2651,7 @@ function populateNames() {
     p2.innerHTML = "Add New Student";
     append("nameList",p2);
     value("searchMain","");
-    //idFocus("searchMain");
+    document.getElementById("searchMain").focus();
 }
 
 function generateRankTable() {
@@ -2839,7 +2852,10 @@ function toggleAtt() {
         ampmAttendance();
     }
     if (document.getElementById("mainPop").style.display == "block") {allAlerts()}
-    refreshStudentPop(); attCount(); populateNames(); storeNewData();
+    attCount(); storeNewData();
+    if (document.getElementById("mainPop").style.display != "block") {
+        refreshStudentPop();
+    }
 }
 
 function draw(secondCall) {
