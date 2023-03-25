@@ -3826,7 +3826,6 @@ function generateCalendarTable() {
             td5.innerHTML = _asNames[i];
         } else {td5.innerHTML = "-"}
         td5.setAttribute("id","td5-"+i);
-        td5.style.width = "118.59px";
         (function(i){
             td5.onclick = function () {
                 showMaxPts(i,"as");
@@ -3836,7 +3835,6 @@ function generateCalendarTable() {
             td6.innerHTML = _mvNames[i];
         } else {td6.innerHTML = "-"}
         td6.setAttribute("id","td6-"+i);
-        td6.style.width = "100.8px";
         (function(i){
             td6.onclick = function () {
                 showMaxPts(i,"mv");

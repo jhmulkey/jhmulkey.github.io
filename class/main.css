@@ -793,17 +793,17 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #studentAttTable td, #attListTable td, #attStatsTable td {
-    height: 40px;
-    font-size: 30px;
+    height: 80px;
+    font-size: 40px;
 }
 
 #calendarTable td {
-    height: 40px;
-    font-size: 15px;
+    height: 80px;
+    font-size: 35px;
 }
 
 .ti_ew_dn {
-    width: 40px;
+    width: 70px;
 }
 
 #rankChartTable td {
