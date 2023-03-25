@@ -180,7 +180,6 @@ function createElement(elementName) {
 }
 
 function whatToLoad() {
-    disableAtt();
     if (!localStorage.getItem("sl") && !localStorage.getItem("slBackup")) {
         infoAlert("No data",["mainPop"]);
     } else if (!localStorage.getItem("sl") && localStorage.getItem("slBackup")) {
@@ -1972,7 +1971,7 @@ function refreshStudentPop() {
     } else {
         ptsNeeded = _rankPts[_sl[_ci].rank[0]+1] - _sl[_ci].pts;
     }
-    innerHTML("studentPopPts",_sl[_ci].pts + " | <span style='color: #999'>" + ptsNeeded +"</span>");
+    innerHTML("studentPopPts",_sl[_ci].pts + "<span style='color:#555;font-size:30px'> " + ptsNeeded +"</span>");
     if (_rankNames[_sl[_ci].rank[0]].length > 20) {
         document.getElementById("studentPopRankName").style.fontSize = "15px";
     } else {
@@ -2458,7 +2457,7 @@ function goHome() {
         display("mainPop","block");
     }
     value("searchMain","");
-    //idFocus("searchMain");
+    idFocus("searchMain");
     sortSL(); populateNames(); allAlerts(); scrollToFix();
 }
 
