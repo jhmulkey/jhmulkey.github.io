@@ -37,7 +37,8 @@ input, textarea {
 }
 
 #master-wrapper {
-    width: 428px;
+    /* width: 462px; */
+    width: 924px; 
     margin: 0px;
 }
 
@@ -265,26 +266,27 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .asmvHeader {
-    font-size: 18px;
+    font-size: 40px;
     margin-top: 0px;
     padding-top: 0px;
 }
 
 .asButton, .mvButton {
-    height: 50px;
-    width: 180px;
-    font-size: 15px;
+    height: 75px;
+    width: 350px;
     border: 1px solid #ddd;
     border-radius: 10px;
     cursor: pointer;
 }
 
 .asButton {
-    padding-top: 15px;
+    font-size: 30px;
+    padding-top: 17px;
 }
 
 .mvButton {
-    padding-top: 5px;
+    font-size: 22px;
+    padding-top: 8px;
 }
 
 .pointButtonContainer {
@@ -353,7 +355,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #asPop div, #mvPop div {
-    margin: 14px auto;
+    margin: 30px auto;
 }
 
 #asmvPopContainer {
@@ -366,10 +368,6 @@ a:link, a:visited, a:hover, a:active {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
-}
-
-#asPop, #mvPop {
-    width: 187px;
 }
 
 #infoAlertTitle {

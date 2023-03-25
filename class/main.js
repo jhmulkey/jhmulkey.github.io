@@ -3149,7 +3149,7 @@ function populateMissions() {
                     mvPop(i,_mvMaxPts[i]);
                 }
             })(i);
-            div2.innerHTML = _mvFulls[i] + "<br>" + _mvText[i].split(" ").slice(0,3).join(" ");
+            div2.innerHTML = _mvFulls[i] + "<br>" + "\"" + _mvText[i].split(" ").slice(0,3).join(" ") + " . . .\"";
             append("mvPop",div2);
         }
     }
