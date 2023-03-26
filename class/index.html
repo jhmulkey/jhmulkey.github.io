@@ -15,7 +15,6 @@
         <div id="mainMenuButton" class="roundButton2 ptr" onclick="pop(['mainPop'],['mainMenuPop'])">H</div>
         <div id="alertButton" class="roundButton2 ptr" onclick="alertsPop()">#</div>
         <div id="lockButton" class="roundButton2 ptr" onclick="disableAtt()">K</div>
-        <!-- <div id="allergiesButton" class="roundButton2 ptr" style="padding-top:6px" onclick="allergiesPop()">A</div> -->
         <div id="attCountButton" class="roundButton2 ptr" onclick="loadAttendees()">0</div>
         <div id="logButton" class="roundButton2 ptr" onclick="logPop()">F</div>
         <div id="backupButton" class="roundButton2 ptr" onclick="populateBackup()">R</div>
@@ -228,7 +227,7 @@
 <div id="studentPop" class="pop">
   <div class="navigationButtonContainer">
     <div class="backButton ptr" onclick="goHome()">f</div>
-    <div id="att2Button" class="otherButton ptr" onclick="populateNames2()">Attendance</div>
+    <div id="att2Button" class="otherButton ptr" onclick="populateNames2()">Add Attendee</div>
   </div>
   <div id="studentPopTopContainerDiv">
     <div id="studentPopInsignia" class="ptr" onclick="loadRankTable();resetStudentMenu();"></div>
@@ -697,9 +696,6 @@
 </div>
 
 <div id="rankChartPop" class="pop">
-  <div class="navigationButtonContainer">
-    <div class="backButton ptr" onclick="pop(['rankChartPop'],['missionsPop'])"><span>f</span></div>
-  </div>
   <div id = "rankChartContainer">
   <table id="rankChartTable">
     <tr class="tableHeaderRow">

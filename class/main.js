@@ -1842,7 +1842,7 @@ function newStudent() {
         newStudent.mv[i] = [0,0];
     }
     newStudent.promoDns[0] = _todaysDn;
-    for (let i = 1; i < _rankNames.length-1; i++) {
+    for (let i = 1; i < _rankNames.length; i++) {
         newStudent.promoDns[i] = 0;
     }
     if (_isClassDay) {

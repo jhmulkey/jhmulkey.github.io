@@ -302,16 +302,18 @@ function dateAndTime(x) {
 }
 
 function allAlerts() {
-    var alerts = [0,0,0,0,0,0];
-    var ids = ["remindersButton","promoButton","bdButton","photosNeededButton","emailsNeededButton","bdNeededButton"]
+    var alerts = [0,0,0];
+    var ids = ["remindersButton","promoButton","bdButton"];
+    //var alerts = [0,0,0,0,0,0];
+    // var ids = ["remindersButton","promoButton","bdButton","photosNeededButton","emailsNeededButton","bdNeededButton"];
     if (_reminders != false) {alerts[0]++}
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].att) {
             if (_sl[i].promo > 0 && _sl[i].promoDns[_sl[i].rank[0]] == 0) {alerts[1]++}
             if (_sl[i].bd[1] && !_sl[i].bd[2]) {alerts[2]++}
-            if (!_sl[i].photo) {alerts[3]++}
+            /* if (!_sl[i].photo) {alerts[3]++}
             if (_sl[i].email == false) {alerts[4]++}
-            if (_sl[i].bd[0] == 0) {alerts[5]++}
+            if (_sl[i].bd[0] == 0) {alerts[5]++} */
         }
     }
     for (let i = 0; i < alerts.length; i++) {
@@ -1840,7 +1842,7 @@ function newStudent() {
         newStudent.mv[i] = [0,0];
     }
     newStudent.promoDns[0] = _todaysDn;
-    for (let i = 1; i < _rankNames.length-1; i++) {
+    for (let i = 1; i < _rankNames.length; i++) {
         newStudent.promoDns[i] = 0;
     }
     if (_isClassDay) {
@@ -3199,7 +3201,13 @@ function scrollToFix() {
 } 
 
 function loadRankTable() {
-    pop(["studentStatsPop"],["rankChartPop"]);
+    var ids = ["missionsPop","studentStatsPop","editStudentPop","notesPop"];
+    for (let i = 0; i < ids.length; i++) {
+        if (document.getElementById(ids[i]).style.display == "block") {
+            document.getElementById(ids[i]).style.display = "none"
+        }
+        display("rankChartPop","block")
+    }
     for (let i = 0; i < _rankNames.length; i++) {
         let x; x = i;
         document.getElementById("rankChartInsignia"+i).style.backgroundImage = "url(img/insignia-darkgray/"+i+"-rank.jpg)";
@@ -3213,7 +3221,7 @@ function loadRankTable() {
             document.getElementById("rankChartRow"+i).style.border = "1px solid white";
         }
     }
-    document.getElementById("rankChartContainer").scrollTop = 0;
+    scrollToFix();
 }
 
 function openInsignia() {
