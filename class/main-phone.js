@@ -224,7 +224,7 @@ function loadLS() {
 
 function pwdEntry() {
     var pwd = parseInt(document.getElementById("pwd").value);
-    if (pwd == 3784) {
+    if (pwd == 2478) {
         loadBackup();
         display("pwdPop","none");
         value("pwd","");
