@@ -302,16 +302,18 @@ function dateAndTime(x) {
 }
 
 function allAlerts() {
-    var alerts = [0,0,0,0,0,0];
-    var ids = ["remindersButton","promoButton","bdButton","photosNeededButton","emailsNeededButton","bdNeededButton"]
+    var alerts = [0,0,0];
+    var ids = ["remindersButton","promoButton","bdButton"];
+    //var alerts = [0,0,0,0,0,0];
+    // var ids = ["remindersButton","promoButton","bdButton","photosNeededButton","emailsNeededButton","bdNeededButton"];
     if (_reminders != false) {alerts[0]++}
     for (let i = 0; i < _sl.length; i++) {
         if (_sl[i].att) {
             if (_sl[i].promo > 0 && _sl[i].promoDns[_sl[i].rank[0]] == 0) {alerts[1]++}
             if (_sl[i].bd[1] && !_sl[i].bd[2]) {alerts[2]++}
-            if (!_sl[i].photo) {alerts[3]++}
+            /* if (!_sl[i].photo) {alerts[3]++}
             if (_sl[i].email == false) {alerts[4]++}
-            if (_sl[i].bd[0] == 0) {alerts[5]++}
+            if (_sl[i].bd[0] == 0) {alerts[5]++} */
         }
     }
     for (let i = 0; i < alerts.length; i++) {
