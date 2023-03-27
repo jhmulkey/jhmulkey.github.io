@@ -815,7 +815,7 @@ function loadStudent(index) {
 
 function loadPopText() {
 
-    innerHTML("rankChartPopText",_firstName+" has earned "+_sl[_ci].rank[0]+" out of 19 possible promotions ("+_rankPercentage+"%). "+_possPron+" current rank is highlighted in <span class='lg'>green</span> below. Note that certain promotions (2LT, BG, and GOA) require more points than others. The date is when they were offcially promoted in class");
+    innerHTML("rankChartPopText",_firstName+" has earned "+_sl[_ci].rank[0]+" out of 19 possible promotions ("+_rankPercentage+"%). "+_possPron+" current rank is highlighted in <span class='lg'>green</span> below. Note that certain promotions (2LT, BG, and GOA) require more points than others. The date is when they were offcially promoted in class.");
 
     innerHTML("tpPopText",_firstName+" has earned "+_totalEarnedPts+" out of "+_totalPts+" possible points for all missions ("+_totalPtsPercentage+"%). To see the completion status of all "+_firstName+"'s assigned missions, click the <span class='do'>MISSIONS</span> tab above.<br><br><span class='colorCode' style='background-color:green'></span> Completed missions are green<br><br><span class='colorCode' style='background-color:darkorange'></span> Partially completed missions are orange<br><br><span class='colorCode' style='background-color:black'></span> Incomplete missions are black");
     
@@ -825,7 +825,7 @@ function loadPopText() {
     
     innerHTML("studentAttStatsPopText",_firstName+" has attended "+_weeksAttended+" out of "+_ew+" class sessions ("+_attPercentage+"%). Attendance does not count towards points/promotions, but students with perfect attendance will receive a special certificate at the end of the year.");
     
-    innerHTML("participationPopText","Participation is a combination of all the student's activity sheet points, memory verse points, and attendance. Students with a perfect participation score will receive a special, extra prize on the last day of class (separate from the General of the Army prizes).<br><br>"+_firstName+" has earned "+_earnedASpts+" out of "+_totalASpts+" activity sheet points, "+_earnedMVpts+" out of "+_totalMVpts+" memory verse points, and has attended "+_weeksAttended+" out of "+_ew+" weeks. That totals to "+_totalEarned+" out of "+_totalPossible+" possible ("+_totalPercentage+"%)");
+    innerHTML("participationPopText","Participation is a combination of all the student's activity sheet points, memory verse points, and attendance. Students with a perfect participation score will receive a special, extra prize on the last day of class (separate from the General of the Army prizes).<br><br>"+_firstName+" has earned "+_earnedASpts+" out of "+_totalASpts+" activity sheet points, "+_earnedMVpts+" out of "+_totalMVpts+" memory verse points, and has attended "+_weeksAttended+" out of "+_ew+" weeks. That totals to "+_totalEarned+" out of "+_totalPossible+" possible ("+_totalPercentage+"%).");
     
     innerHTML("calendarPopText","Latest class date is highlighted in <span class='lg'>green</span> below");
 }
