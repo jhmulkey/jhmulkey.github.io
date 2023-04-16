@@ -5,6 +5,11 @@ var _todaysDn
 var _ew;
 var _isClassDay;
 
+function currentHour() {
+    var today = new Date();
+    return today.getHours()
+}
+
 function assignTodaysDn() {
     var todaysMonth = dateAndTime("month"); 
     var todaysDate = dateAndTime("date")
@@ -63,7 +68,7 @@ function isClassDay() {
 } */
 
 function downloadCurrentMissionsDirect() {
-    if (_isClassDay) {
+    if (_isClassDay && currentHour() < 17) {
         if (_ti < (32-1)) {
             window.open("class/docs/combined-missions/asmv"+(_ti-1)+".pdf","_self");
         } else {
