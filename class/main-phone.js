@@ -345,7 +345,7 @@ function generateAllTables() {
 function populateCustomList(log1,log2,type) {
     if (log1) {
         var p1 = createElement("p");
-        p1.classList.add("name");
+        p1.classList.add("name4");
         p1.innerHTML = log1;
         if (type == "promo") {
             var message;
@@ -398,12 +398,25 @@ function populateCustomList(log1,log2,type) {
     }
 }
 
-function loadPromos() {
+/* function loadPromos() {
     innerHTML("customList",""); innerHTML("customListAbsent","");
     innerHTML("customListLabel","Promotions"); display("absentLabel","none");
     for (i = 0; i < _sl.length; i++) {
         if (_sl[i].promo > 0 && _sl[i].promoDns[_sl[i].rank[0]] == 0 && _sl[i].att) {
             populateCustomList(_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0] + " (" + _sl[i].promo + ")",false,"promo");
+        } else if (_sl[i].promo > 0 && _sl[i].promoDns[_sl[i].rank[0]] == 0 && !_sl[i].att) {
+            display("absentLabel","block");
+            populateCustomList(false,_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0] + " (" + _sl[i].promo + ")");
+        }
+    }
+} */
+
+function loadPromos() {
+    innerHTML("customList",""); innerHTML("customListAbsent","");
+    innerHTML("customListLabel","Promotions"); display("absentLabel","none");
+    for (i = 0; i < _sl.length; i++) {
+        if (_sl[i].promo > 0 && _sl[i].promoDns[_sl[i].rank[0]] == 0 && _sl[i].att) {
+            populateCustomList(_rankNames[_sl[i].rank[0]] + " (" + _rankNamesShort[_sl[i].rank[0]] + ") " + " (" + _sl[i].promo + ")<br>" + _sl[i].name[0],false,"promo");
         } else if (_sl[i].promo > 0 && _sl[i].promoDns[_sl[i].rank[0]] == 0 && !_sl[i].att) {
             display("absentLabel","block");
             populateCustomList(false,_rankNamesShort[_sl[i].rank[0]] + " " + _sl[i].name[0] + " (" + _sl[i].promo + ")");

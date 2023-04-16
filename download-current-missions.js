@@ -3,6 +3,7 @@ var _ti;
 var _dns = [21,28,42,49,56,63,70,77,84,91,98,105,126,133,140,161,168,175,182,189,196,203,210,217,224,231,238,245,259,266,273,280,287,294];
 var _todaysDn
 var _ew;
+var _isClassDay;
 
 function assignTodaysDn() {
     var todaysMonth = dateAndTime("month"); 
@@ -37,6 +38,7 @@ function setElapsedWeeks() {
         }
     }
     _ti = _ew - 1;
+    isClassDay();
     downloadCurrentMissionsDirect();
 }
 
@@ -46,12 +48,34 @@ function dateAndTime(x) {
     if (x == "date") { return today.getDate() }
 }
 
-function downloadCurrentMissionsDirect() {
+function isClassDay() {
+    if (_dns.indexOf(_todaysDn) > -1) {
+        _isClassDay = true; 
+    }
+}
+
+/* function downloadCurrentMissionsDirect() {
   if (_ti < (32-1)) {
       window.open("class/docs/combined-missions/asmv"+(_ti)+".pdf","_self");
   } else {
       window.open("class/docs/combined-missions/asmv"+(32-1)+".pdf","_self");
   }
+} */
+
+function downloadCurrentMissionsDirect() {
+    if (_isClassDay) {
+        if (_ti < (32-1)) {
+            window.open("class/docs/combined-missions/asmv"+(_ti-1)+".pdf","_self");
+        } else {
+            window.open("class/docs/combined-missions/asmv"+(32-2)+".pdf","_self");
+        }
+    } else {
+        if (_ti < (32-1)) {
+            window.open("class/docs/combined-missions/asmv"+(_ti)+".pdf","_self");
+        } else {
+            window.open("class/docs/combined-missions/asmv"+(32-1)+".pdf","_self");
+        }
+    }
 }
 
 assignTodaysDn();

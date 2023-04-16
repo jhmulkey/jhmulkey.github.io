@@ -499,6 +499,12 @@ a:link, a:visited, a:hover, a:active {
     text-align: left;
 }
 
+.name4 {
+    margin: 0px 0px 30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
 .sortValues {
     margin: 0px 0px 20px 0px;
     color: #bbb;
