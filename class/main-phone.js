@@ -3913,6 +3913,29 @@ function recentPointEarners() {
     }
 }
 
+function listStudentIndices() {
+    for (i = 0; i < _sl.length; i++) {
+        console.log(_sl[i].name[0] + ": " + i)
+    }
+}
+
+function markPresent(array,week,ampm) {
+    var indices = JSON.parse(array)
+    var week = week;
+    if (ampm == "am") {
+        var time = 0;
+    } else if (ampm == "pm") {
+        var time = 1;
+    } else { console.log("ERROR"); return; }
+    var count = 0; var modified = [];
+    for (i = 0; i < _sl.length; i++) {
+        if(indices.includes(i)) {
+            _sl[i].attArr[week][time] = 1; count++; modified.push(_sl[i].name[0]);
+        }
+    }
+    console.log("attendance successfully modified for " + count + " students:" + modified);
+}
+
 /*
 
 localStorage.setItem("sl",JSON.stringify(_sl)); // converts the _sl object to a string and stores as "sl" in localStorage
