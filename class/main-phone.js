@@ -3919,7 +3919,7 @@ function listStudentIndices() {
     }
 }
 
-function markPresent(array,week,ampm) {
+function markPresentByIndex(array,week,ampm) {
     var indices = JSON.parse(array)
     var week = week;
     if (ampm == "am") {
@@ -3930,6 +3930,23 @@ function markPresent(array,week,ampm) {
     var count = 0; var modified = [];
     for (i = 0; i < _sl.length; i++) {
         if(indices.includes(i)) {
+            _sl[i].attArr[week][time] = 1; count++; modified.push(_sl[i].name[0]);
+        }
+    }
+    console.log("attendance successfully modified for " + count + " students:" + modified);
+}
+
+function markPresentByName(array,week,ampm) {
+    var names = JSON.parse(array)
+    var week = week;
+    if (ampm == "am") {
+        var time = 0;
+    } else if (ampm == "pm") {
+        var time = 1;
+    } else { console.log("ERROR"); return; }
+    var count = 0; var modified = [];
+    for (i = 0; i < _sl.length; i++) {
+        if(names.includes(_sl[i].name[0])) {
             _sl[i].attArr[week][time] = 1; count++; modified.push(_sl[i].name[0]);
         }
     }
