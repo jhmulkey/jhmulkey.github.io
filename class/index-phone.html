@@ -87,6 +87,7 @@
   <div id="drawButton" class="button ptr" onclick="clearDrawingWinner(); pop(['mainMenuPop'],['drawPop'])">Drawing</div>
   <div id="randButton" class="button ptr" onclick="pop(['mainMenuPop'],['randPop'])">Random</div>
   <div id="teamsButton" class="button ptr" onclick="teams()">Teams</div>
+  <div class="button ptr" id="shufflePhotosButton" onclick="shufflePhotosPop()">Shuffle Student Photos</div>
 </div>
 
 <div id="pwdPop" class="pop">
@@ -425,6 +426,7 @@
       <div class="roundButton1 deleteButton ptr" id="deleteStudentButton" onclick="actionAlert('Are you sure you want to delete this student?',['editStudentPop'],deleteStudent)">U</div>
       <div class="roundButton1 okButton ptr" id="editStudentOkButton" onclick="editStudent()">V</div>
     </div>
+    <div id="dispStudentPhoto" class="dispStudentPhoto ptr" style="margin-bottom:20px" onclick="photoLinks()"></div>
   </div>
 </div>
 
@@ -771,6 +773,18 @@
       </tr>
     </table>
   </div>
+</div>
+
+<div id="shufflePhotosPop" class="pop">
+  <div class="navigationButtonContainer">
+    <div class="backButton2 ptr" onclick="pop(['shufflePhotosPop'],['mainMenuPop'])">f</div>
+    <div class="otherButton2 ptr" onclick="resetShufflePhotos()">Reset</div>
+    <div class="otherButton2 ptr" onclick="shufflePhotos()">Re-shuffle</div>
+  </div>
+  <div style="margin-bottom:30px">
+    <label class="checkboxLabel"><input type="checkbox" id="togglePhotoTitlesCheck" class="checkbox" onclick="togglePhotoTitles()"> show all photo titles</label>
+  </div>
+  <div id="shuffledPhotos"></div>
 </div>
 
 <div id="editPropertyPop" class="pop">
